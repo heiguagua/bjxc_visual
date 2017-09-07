@@ -19,8 +19,13 @@ import java.util.Map;
  */
 @Service
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity} , ${entity}Vo> implements ${table.serviceName} {
+
+    @Autowired
+    private ${table.mapperName} mapper;
+
+
     @Override
-    public boolean insertVO(${entity}Vo vo) throws Exception {
+    public int insertVO(${entity}Vo vo) throws Exception {
 		//todo
 		return false;
     }

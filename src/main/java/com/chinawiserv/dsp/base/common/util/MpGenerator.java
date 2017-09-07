@@ -37,11 +37,11 @@ public class MpGenerator {
         gc.setOutputDir("E:/testMybatisPlus/code");
         gc.setFileOverride(true);
         gc.setActiveRecord(false);
-        gc.setEnableCache(false);// XML 二级缓存
+        gc.setEnableCache(true);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
         gc.setBaseColumnList(true);// XML columList
         //todo 修改作者
-        gc.setAuthor("zhanf");
+        gc.setAuthor("wuty");
 
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
         // gc.setMapperName("%sDao");
@@ -66,14 +66,14 @@ public class MpGenerator {
         //todo 修改数据库用户名、密码和url
         dsc.setUsername("root");
         dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/dcm?characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/directory_management?characterEncoding=utf8");
         mpg.setDataSource(dsc);
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
         //todo 如果有，设置表前缀
-        strategy.setTablePrefix(new String[] { "dcm_"});// 此处可以修改为您的表前缀
+//        strategy.setTablePrefix(new String[] { "dir_"});// 此处可以修改为您的表前缀
         //****
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
 
@@ -96,11 +96,11 @@ public class MpGenerator {
         // 自定义 mapper 父类
         // strategy.setSuperMapperClass("com.baomidou.demo.TestMapper");
         // 自定义 service 父类
-         strategy.setSuperServiceClass("com.chinawiserv.dsp.dcs.dcm.service.common.ICommonService");
+         strategy.setSuperServiceClass("com.chinawiserv.dsp.base.service.common.ICommonService");
         // 自定义 service 实现类父类
-         strategy.setSuperServiceImplClass("com.chinawiserv.dsp.dcs.dcm.service.common.impl.CommonServiceImpl");
+         strategy.setSuperServiceImplClass("com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl");
         // 自定义 controller 父类
-         strategy.setSuperControllerClass("com.chinawiserv.dsp.dcs.dcm.controller.BaseController");
+         strategy.setSuperControllerClass("com.chinawiserv.dsp.base.controller.common.BaseController");
         // 【实体】是否生成字段常量（默认 false）
         // public static final String ID = "test_id";
         // strategy.setEntityColumnConstant(true);
@@ -112,9 +112,9 @@ public class MpGenerator {
         // 包配置
         PackageConfig packageConfig = new PackageConfig();
         //todo 项目包名
-        packageConfig.setParent("com.chinawiserv.dsp.dcs.dcm");
+        packageConfig.setParent("com.chinawiserv.dsp.dir");
         packageConfig.setController("controller");
-//        packageConfig.setModuleName("");
+//        packageConfig.setModuleName("dataset");
         mpg.setPackageInfo(packageConfig);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.xxx 设置的值
@@ -123,7 +123,7 @@ public class MpGenerator {
             public void initMap() {
                 Map<String, Object> map = new HashMap<String, Object>();
                 //todo 设置子模块名称
-                map.put("subModuleName", "task");
+                map.put("subModuleName", "dataset");
                 this.setMap(map);
             }
         };

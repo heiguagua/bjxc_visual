@@ -1,7 +1,12 @@
 package ${package.Mapper}.${cfg.subModuleName};
 
 import ${superMapperClassPackage};
+import com.baomidou.mybatisplus.plugins.Page;
 import ${package.Entity}.po.${cfg.subModuleName}.${entity};
+import ${package.Entity}.vo.${cfg.subModuleName}.${entity}Vo;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * <p>
@@ -13,4 +18,15 @@ import ${package.Entity}.po.${cfg.subModuleName}.${entity};
  */
 public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
 
+    List<SysDeptVo> selectVoPage(Page<${entity}Vo> page, Map<String, Object> paramMap);
+
+    SysDeptVo selectVoById(String id);
+
+    int selectVoCount(Map<String, Object> paramMap);
+
+    int baseInsert(${entity} entity);
+
+    int baseUpdate(${entity} entity);
+
+    int baseDelete(String id);
 }

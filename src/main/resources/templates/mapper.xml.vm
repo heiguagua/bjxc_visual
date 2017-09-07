@@ -5,29 +5,89 @@
 #if(${enableCache})
 	<!-- 开启二级缓存 -->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
-
 #end
+
 #if(${baseResultMap})
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="${package.Entity}.po.${cfg.subModuleName}.${entity}">
-#foreach($field in ${table.fields})
-#if(${field.keyFlag})##生成主键排在第一位
-		<id column="${field.name}" property="${field.propertyName}" />
-#end
-#end
-#foreach($field in ${table.fields})
-#if(!${field.keyFlag})##生成普通字段
-		<result column="${field.name}" property="${field.propertyName}" />
-#end
-#end
+    #foreach($field in ${table.fields})
+        #if(${field.keyFlag})##生成主键排在第一位
+        <id column="${field.name}" property="${field.propertyName}" />
+        #end
+    #end
+    #foreach($field in ${table.fields})
+        #if(!${field.keyFlag})##生成普通字段
+        <result column="${field.name}" property="${field.propertyName}" />
+        #end
+    #end
 	</resultMap>
 
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="${package.Entity}.vo.${cfg.subModuleName}.${entity}">
+
+    </resultMap>
 #end
+
 #if(${baseColumnList})
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        ${table.fieldNames}
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+        #foreach($field in ${table.fields})
+            #if(${field.keyFlag})##默认生成主键列的过滤条件
+            <if test="${field.propertyName} != null">
+                t.${field.name} = #{${field.propertyName},jdbcType=VARCHAR}
+            </if>
+            #end
+        #end
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM ${table.name} t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM ${table.name} t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM ${table.name} t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="${package.Entity}.po.${cfg.subModuleName}.${entity}">
+        insert into ${table.name}(#foreach($field in ${table.fields})${field.name},#end) values(
+            #foreach($field in ${table.fields})#{${field.propertyName}},#end
+        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="${package.Entity}.po.${cfg.subModuleName}.${entity}">
+        update ${table.name}
+        <set>
+        #foreach($field in ${table.fields})
+            <if test="${field.propertyName} != null">
+                ${field.name} = #{${field.propertyName}},
+            </if>
+        #end
+        </set>
+        where #foreach($field in ${table.fields}) #if(${field.keyFlag})${field.name} = #{${field.propertyName}} #end #end
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from ${table.name} <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+        #foreach($field in ${table.fields})
+            #if(${field.keyFlag})##默认生成主键列的过滤条件
+            <if test="${field.propertyName} != null">
+                ${field.name} = #{${field.propertyName}}
+            </if>
+            #end
+        #end
+        </where>
     </sql>
 
 #end
+
+
 </mapper>
