@@ -1,0 +1,22 @@
+package com.chinawiserv.dsp.base.controller.common;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * 首页控制器
+* @ClassName: IndexController
+* @author Gaojun.Zhou
+* @date 2016年12月8日 下午8:42:40
+*
+ */
+@Controller
+public class IndexController {
+	
+    @RequestMapping(value = {"","/","/index"})
+    public  String index(Model model){
+    	
+		return "index";
+    }  
+}

@@ -1,0 +1,56 @@
+/* 覆盖app中 login-box ,register-box */
+.login-box,
+.register-box {
+    width: 460px;
+    margin: 7% auto;
+}
+
+html,
+body {
+    min-height: 100%;
+    font-family: '微软雅黑' !important;
+}
+
+/*处理表单输入框提示信息位置不对的问题*/
+form .form-group label {
+    display: block;
+}
+
+/*一键去除所有圆角效果*/
+/** {*/
+    /*-webkit-border-radius: 0 !important;*/
+    /*-moz-border-radius: 0 !important;*/
+    /*border-radius: 0 !important;*/
+/*}*/
+
+/*输入框组label项向右对齐*/
+.control-label {
+    text-align: right;
+    padding-top: 5px;
+}
+
+.pt40{
+    padding-top: 40px;
+}
+.w360{
+    width: 360px;
+}
+table{
+	font-size:14px;
+}
+    .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
+.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
+  background-color: rgba(3,169,244,.5);
+  background-color: rgba(3,169,244,.5);
+}
+.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
+  background-color: rgba(3,169,244,.8);
+  background-color: rgba(3,169,244,.8);
+}
+table{
+    table-layout: fixed;
+
+}
+table td{
+    word-break:break-all;
+}

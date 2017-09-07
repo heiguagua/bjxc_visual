@@ -1,0 +1,18 @@
+package ${package.Service}.${cfg.subModuleName};
+
+import ${package.Entity}.po.${cfg.subModuleName}.${entity};
+import ${package.Entity}.vo.${cfg.subModuleName}.${entity}Vo;
+import ${superServiceClassPackage};
+import com.chinawiserv.dsp.dcs.dcm.service.common.ICommonService;
+
+/**
+ * <p>
+ * ${table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}, ${entity}Vo> {
+	
+}
