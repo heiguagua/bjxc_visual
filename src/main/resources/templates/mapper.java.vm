@@ -18,9 +18,9 @@ import java.util.Map;
  */
 public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
 
-    List<SysDeptVo> selectVoPage(Page<${entity}Vo> page, Map<String, Object> paramMap);
+    List<${entity}Vo> selectVoPage(Page<${entity}Vo> page, Map<String, Object> paramMap);
 
-    SysDeptVo selectVoById(String id);
+    ${entity}Vo selectVoById(String id);
 
     int selectVoCount(Map<String, Object> paramMap);
 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DirDataitemSourceInfoMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataitemSourceInfo">
+                    <id column="id" property="id" />
+                                                                                            <result column="item_id" property="itemId" />
+                            <result column="source_obj_type" property="sourceObjType" />
+                            <result column="source_obj_id" property="sourceObjId" />
+                            <result column="source__item_id" property="sourceItemId" />
+            	</resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemSourceInfo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+                                <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+                                                                                                            </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM dir_dataitem_source_info t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM dir_dataitem_source_info t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM dir_dataitem_source_info t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataitemSourceInfo">
+        insert into dir_dataitem_source_info(id,item_id,source_obj_type,source_obj_id,source__item_id,) values(
+            #{id},#{itemId},#{sourceObjType},#{sourceObjId},#{sourceItemId},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataitemSourceInfo">
+        update dir_dataitem_source_info
+        <set>
+                    <if test="id != null">
+                id = #{id},
+            </if>
+                    <if test="itemId != null">
+                item_id = #{itemId},
+            </if>
+                    <if test="sourceObjType != null">
+                source_obj_type = #{sourceObjType},
+            </if>
+                    <if test="sourceObjId != null">
+                source_obj_id = #{sourceObjId},
+            </if>
+                    <if test="sourceItemId != null">
+                source__item_id = #{sourceItemId},
+            </if>
+                </set>
+        where  id = #{id}              </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from dir_dataitem_source_info <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+                                <if test="id != null">
+                id = #{id}
+            </if>
+                                                                                                            </where>
+    </sql>
+
+
+
+</mapper>

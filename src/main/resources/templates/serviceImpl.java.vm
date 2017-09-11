@@ -25,7 +25,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
 
     @Override
-    public int insertVO(${entity}Vo vo) throws Exception {
+    public boolean insertVO(${entity}Vo vo) throws Exception {
 		//todo
 		return false;
     }

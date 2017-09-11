@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DirDataPublishMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataPublish">
+                    <id column="id" property="id" />
+                                                                                                        <result column="dcm_id" property="dcmId" />
+                            <result column="publish_to_net" property="publishToNet" />
+                            <result column="publish_to_dzzw" property="publishToDzzw" />
+                            <result column="publisher_id" property="publisherId" />
+                            <result column="publish_date" property="publishDate" />
+            	</resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataPublish">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+                                <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+                                                                                                                                </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM dir_data_publish t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM dir_data_publish t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM dir_data_publish t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataPublish">
+        insert into dir_data_publish(id,dcm_id,publish_to_net,publish_to_dzzw,publisher_id,publish_date,) values(
+            #{id},#{dcmId},#{publishToNet},#{publishToDzzw},#{publisherId},#{publishDate},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataPublish">
+        update dir_data_publish
+        <set>
+                    <if test="id != null">
+                id = #{id},
+            </if>
+                    <if test="dcmId != null">
+                dcm_id = #{dcmId},
+            </if>
+                    <if test="publishToNet != null">
+                publish_to_net = #{publishToNet},
+            </if>
+                    <if test="publishToDzzw != null">
+                publish_to_dzzw = #{publishToDzzw},
+            </if>
+                    <if test="publisherId != null">
+                publisher_id = #{publisherId},
+            </if>
+                    <if test="publishDate != null">
+                publish_date = #{publishDate},
+            </if>
+                </set>
+        where  id = #{id}                </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from dir_data_publish <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+                                <if test="id != null">
+                id = #{id}
+            </if>
+                                                                                                                                </where>
+    </sql>
+
+
+
+</mapper>

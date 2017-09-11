@@ -123,7 +123,7 @@ public class MpGenerator {
             public void initMap() {
                 Map<String, Object> map = new HashMap<String, Object>();
                 //todo 设置子模块名称
-                map.put("subModuleName", "dataset");
+                map.put("subModuleName", "configure");
                 this.setMap(map);
             }
         };

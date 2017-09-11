@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.apply.DirDataitemApplyMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.apply.DirDataitemApply">
+                    <id column="id" property="id" />
+                                                                                                                                                        <result column="dcm_id" property="dcmId" />
+                            <result column="item_id" property="itemId" />
+                            <result column="applicant_id" property="applicantId" />
+                            <result column="apply_info" property="applyInfo" />
+                            <result column="apply_date" property="applyDate" />
+                            <result column="auditor_id" property="auditorId" />
+                            <result column="status" property="status" />
+                            <result column="audit_opinion" property="auditOpinion" />
+                            <result column="audit_date" property="auditDate" />
+            	</resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.apply.DirDataitemApply">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+                                <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+                                                                                                                                                                                                                </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM dir_dataitem_apply t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM dir_dataitem_apply t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM dir_dataitem_apply t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.apply.DirDataitemApply">
+        insert into dir_dataitem_apply(id,dcm_id,item_id,applicant_id,apply_info,apply_date,auditor_id,status,audit_opinion,audit_date,) values(
+            #{id},#{dcmId},#{itemId},#{applicantId},#{applyInfo},#{applyDate},#{auditorId},#{status},#{auditOpinion},#{auditDate},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.apply.DirDataitemApply">
+        update dir_dataitem_apply
+        <set>
+                    <if test="id != null">
+                id = #{id},
+            </if>
+                    <if test="dcmId != null">
+                dcm_id = #{dcmId},
+            </if>
+                    <if test="itemId != null">
+                item_id = #{itemId},
+            </if>
+                    <if test="applicantId != null">
+                applicant_id = #{applicantId},
+            </if>
+                    <if test="applyInfo != null">
+                apply_info = #{applyInfo},
+            </if>
+                    <if test="applyDate != null">
+                apply_date = #{applyDate},
+            </if>
+                    <if test="auditorId != null">
+                auditor_id = #{auditorId},
+            </if>
+                    <if test="status != null">
+                status = #{status},
+            </if>
+                    <if test="auditOpinion != null">
+                audit_opinion = #{auditOpinion},
+            </if>
+                    <if test="auditDate != null">
+                audit_date = #{auditDate},
+            </if>
+                </set>
+        where  id = #{id}                        </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from dir_dataitem_apply <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+                                <if test="id != null">
+                id = #{id}
+            </if>
+                                                                                                                                                                                                                </where>
+    </sql>
+
+
+
+</mapper>

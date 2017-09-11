@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+                    <id column="id" property="id" />
+                                                                                                                                                                                                                                <result column="classify_code" property="classifyCode" />
+                            <result column="classify_name" property="classifyName" />
+                            <result column="classify_desc" property="classifyDesc" />
+                            <result column="fcode" property="fcode" />
+                            <result column="fname" property="fname" />
+                            <result column="classify_level" property="classifyLevel" />
+                            <result column="classify_index" property="classifyIndex" />
+                            <result column="dcm_index" property="dcmIndex" />
+                            <result column="order_number" property="orderNumber" />
+                            <result column="status" property="status" />
+                            <result column="create_user_id" property="createUserId" />
+                            <result column="create_time" property="createTime" />
+                            <result column="update_user_id" property="updateUserId" />
+                            <result column="update_time" property="updateTime" />
+                            <result column="delete_flag" property="deleteFlag" />
+            	</resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassify">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+                                <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+                                                                                                                                                                                                                                                                                                                                        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM dir_classify t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM dir_classify t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM dir_classify t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+        insert into dir_classify(id,classify_code,classify_name,classify_desc,fcode,fname,classify_level,classify_index,dcm_index,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag,) values(
+            #{id},#{classifyCode},#{classifyName},#{classifyDesc},#{fcode},#{fname},#{classifyLevel},#{classifyIndex},#{dcmIndex},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+        update dir_classify
+        <set>
+                    <if test="id != null">
+                id = #{id},
+            </if>
+                    <if test="classifyCode != null">
+                classify_code = #{classifyCode},
+            </if>
+                    <if test="classifyName != null">
+                classify_name = #{classifyName},
+            </if>
+                    <if test="classifyDesc != null">
+                classify_desc = #{classifyDesc},
+            </if>
+                    <if test="fcode != null">
+                fcode = #{fcode},
+            </if>
+                    <if test="fname != null">
+                fname = #{fname},
+            </if>
+                    <if test="classifyLevel != null">
+                classify_level = #{classifyLevel},
+            </if>
+                    <if test="classifyIndex != null">
+                classify_index = #{classifyIndex},
+            </if>
+                    <if test="dcmIndex != null">
+                dcm_index = #{dcmIndex},
+            </if>
+                    <if test="orderNumber != null">
+                order_number = #{orderNumber},
+            </if>
+                    <if test="status != null">
+                status = #{status},
+            </if>
+                    <if test="createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+                    <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+                    <if test="updateUserId != null">
+                update_user_id = #{updateUserId},
+            </if>
+                    <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+                    <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+                </set>
+        where  id = #{id}                                    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from dir_classify <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+                                <if test="id != null">
+                id = #{id}
+            </if>
+                                                                                                                                                                                                                                                                                                                                        </where>
+    </sql>
+
+
+
+</mapper>
