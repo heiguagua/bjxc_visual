@@ -190,7 +190,7 @@
 	<!-- 切面 -->
 	<aop:config>
 		<aop:advisor advice-ref="txAdvice"
-					 pointcut="execution(* com.chinawiserv.dsp.dcs..dcm.service..*.*(..))" />
+					 pointcut="execution(* com.chinawiserv.dsp.*.service..*.*(..))" />
 	</aop:config>
 
 </beans>
