@@ -31,7 +31,7 @@
                             <result column="delete_flag" property="deleteFlag" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitem">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo">
 
     </resultMap>
 

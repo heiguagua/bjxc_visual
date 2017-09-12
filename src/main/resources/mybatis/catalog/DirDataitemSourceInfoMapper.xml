@@ -14,14 +14,14 @@
                             <result column="source__item_id" property="sourceItemId" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemSourceInfo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemSourceInfoVo">
 
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-                                <if test="id != null">
+            <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
                                                                                                             </where>

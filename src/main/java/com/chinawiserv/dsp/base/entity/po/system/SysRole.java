@@ -38,9 +38,16 @@ public class SysRole implements Serializable {
      */
 	@TableField("role_desc")
 	private String roleDesc;
+
+	/**
+	 * 角色级别
+     */
+	@TableField("role_level")
+	private Integer roleLevel;
     /**
      * 状态
      */
+	@TableField("status")
 	private Integer status;
     /**
      * 创建人
@@ -99,6 +106,14 @@ public class SysRole implements Serializable {
 
 	public void setRoleDesc(String roleDesc) {
 		this.roleDesc = roleDesc;
+	}
+
+	public Integer getRoleLevel() {
+		return roleLevel;
+	}
+
+	public void setRoleLevel(Integer roleLevel) {
+		this.roleLevel = roleLevel;
 	}
 
 	public Integer getStatus() {

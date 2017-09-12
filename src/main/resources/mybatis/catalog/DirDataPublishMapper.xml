@@ -15,7 +15,7 @@
                             <result column="publish_date" property="publishDate" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataPublish">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataPublishVo">
 
     </resultMap>
 

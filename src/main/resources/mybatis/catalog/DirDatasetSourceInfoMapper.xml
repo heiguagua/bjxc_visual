@@ -8,13 +8,13 @@
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceInfo">
                     <id column="id" property="id" />
-                                                                                            <result column="dataset_id" property="datasetId" />
+                            <result column="dataset_id" property="datasetId" />
                             <result column="source_mode" property="sourceMode" />
                             <result column="source_obj_type" property="sourceObjType" />
                             <result column="source_obj_id" property="sourceObjId" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetSourceInfo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetSourceInfoVo">
 
     </resultMap>
 

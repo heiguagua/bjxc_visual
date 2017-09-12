@@ -6,7 +6,7 @@
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataRate">
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataRate">
         <id column="id" property="id"/>
         <result column="dcm_id" property="dcmId"/>
         <result column="rater_id" property="raterId"/>
@@ -15,7 +15,7 @@
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
-               type="com.chinawiserv.dsp.feedback.entity.vo.feedback.DirDataRate">
+               type="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataRateVo">
 
     </resultMap>
 
@@ -42,12 +42,12 @@
         <include refid="queryConditions"></include>
     </select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataRate">
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataRate">
         insert into dir_data_rate(id,dcm_id,rater_id,rate_score,rate_date,) values(
         #{id},#{dcmId},#{raterId},#{rateScore},#{rateDate}, )
     </insert>
 
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataRate">
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataRate">
         update dir_data_rate
         <set>
             <if test="id != null">

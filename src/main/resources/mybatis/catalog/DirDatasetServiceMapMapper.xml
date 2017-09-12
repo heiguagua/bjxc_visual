@@ -8,14 +8,14 @@
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetServiceMap">
                     <id column="id" property="id" />
-                                                                                                        <result column="service_id" property="serviceId" />
+                            <result column="service_id" property="serviceId" />
                             <result column="dcm_id" property="dcmId" />
                             <result column="valid_from" property="validFrom" />
                             <result column="valid_to" property="validTo" />
                             <result column="status" property="status" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetServiceMap">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetServiceMapVo">
 
     </resultMap>
 

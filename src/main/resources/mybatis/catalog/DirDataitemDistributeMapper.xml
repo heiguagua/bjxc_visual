@@ -17,7 +17,7 @@
                             <result column="distribute_date" property="distributeDate" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemDistribute">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemDistributeVo">
 
     </resultMap>
 

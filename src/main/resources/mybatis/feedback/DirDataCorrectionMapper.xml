@@ -6,7 +6,7 @@
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataCorrection">
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCorrection">
         <id column="id" property="id"/>
         <result column="dcm_id" property="dcmId"/>
         <result column="corrector_id" property="correctorId"/>
@@ -19,7 +19,7 @@
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
-               type="com.chinawiserv.dsp.feedback.entity.vo.feedback.DirDataCorrection">
+               type="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCorrectionVo">
 
     </resultMap>
 
@@ -46,7 +46,7 @@
         <include refid="queryConditions"></include>
     </select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataCorrection">
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCorrection">
         insert into
         dir_data_correction(id,dcm_id,corrector_id,correct_content,correct_date,auditor_id,audit_date,audit_status,audit_opinion,)
         values(
@@ -54,7 +54,7 @@
         )
     </insert>
 
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataCorrection">
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCorrection">
         update dir_data_correction
         <set>
             <if test="id != null">

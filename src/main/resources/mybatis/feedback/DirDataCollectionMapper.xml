@@ -6,7 +6,7 @@
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataCollection">
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCollection">
         <id column="id" property="id"/>
         <result column="dcm_id" property="dcmId"/>
         <result column="collector_id" property="collectorId"/>
@@ -14,7 +14,7 @@
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
-               type="com.chinawiserv.dsp.feedback.entity.vo.feedback.DirDataCollection">
+               type="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCollectionVo">
 
     </resultMap>
 
@@ -41,12 +41,12 @@
         <include refid="queryConditions"></include>
     </select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataCollection">
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCollection">
         insert into dir_data_collection(id,dcm_id,collector_id,collect_date,) values(
         #{id},#{dcmId},#{collectorId},#{collectDate}, )
     </insert>
 
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataCollection">
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCollection">
         update dir_data_collection
         <set>
             <if test="id != null">

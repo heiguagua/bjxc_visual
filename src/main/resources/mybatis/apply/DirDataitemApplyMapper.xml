@@ -19,7 +19,7 @@
                             <result column="audit_date" property="auditDate" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.apply.DirDataitemApply">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.apply.DirDataitemApplyVo">
 
     </resultMap>
 

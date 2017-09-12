@@ -8,14 +8,14 @@
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataAudit">
                     <id column="id" property="id" />
-                                                                                                        <result column="dcm_id" property="dcmId" />
+                            <result column="dcm_id" property="dcmId" />
                             <result column="auditor_id" property="auditorId" />
                             <result column="audit_date" property="auditDate" />
                             <result column="audit_status" property="auditStatus" />
                             <result column="audit_opinion" property="auditOpinion" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataAudit">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataAuditVo">
 
     </resultMap>
 

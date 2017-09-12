@@ -20,7 +20,7 @@
                             <result column="responser" property="responser" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.feedback.DirSuggestion">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.feedback.DirSuggestionVo">
 
     </resultMap>
 

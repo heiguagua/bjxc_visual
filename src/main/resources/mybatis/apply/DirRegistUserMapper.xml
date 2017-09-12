@@ -18,7 +18,7 @@
                             <result column="create_time" property="createTime" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.apply.DirRegistUser">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.apply.DirRegistUserVo">
 
     </resultMap>
 

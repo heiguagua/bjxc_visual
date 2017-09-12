@@ -23,7 +23,7 @@
                             <result column="delete_flag" property="deleteFlag" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.configure.DirPolicy">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.configure.DirPolicyVo">
 
     </resultMap>
 

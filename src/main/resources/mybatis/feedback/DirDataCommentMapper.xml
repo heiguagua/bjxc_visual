@@ -6,7 +6,7 @@
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataComment">
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataComment">
         <id column="id" property="id"/>
         <result column="dcm_id" property="dcmId"/>
         <result column="commentator_id" property="commentatorId"/>
@@ -16,7 +16,7 @@
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
-               type="com.chinawiserv.dsp.feedback.entity.vo.feedback.DirDataComment">
+               type="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCommentVo">
 
     </resultMap>
 
@@ -43,12 +43,12 @@
         <include refid="queryConditions"></include>
     </select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataComment">
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataComment">
         insert into dir_data_comment(id,dcm_id,commentator_id,comment_date,comment_content,satus,) values(
         #{id},#{dcmId},#{commentatorId},#{commentDate},#{commentContent},#{satus}, )
     </insert>
 
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.feedback.entity.po.feedback.DirDataComment">
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataComment">
         update dir_data_comment
         <set>
             <if test="id != null">

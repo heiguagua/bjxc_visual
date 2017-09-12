@@ -25,7 +25,7 @@
                             <result column="delete_flag" property="deleteFlag" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassify">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo">
 
     </resultMap>
 

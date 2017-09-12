@@ -18,7 +18,7 @@
                             <result column="update_time" property="updateTime" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMap">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo">
 
     </resultMap>
 

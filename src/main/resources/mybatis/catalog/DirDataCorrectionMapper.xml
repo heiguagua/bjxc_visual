@@ -6,9 +6,9 @@
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataCorrection">
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCorrection">
                     <id column="id" property="id" />
-                                                                                                                                            <result column="dcm_id" property="dcmId" />
+                            <result column="dcm_id" property="dcmId" />
                             <result column="corrector_id" property="correctorId" />
                             <result column="correct_content" property="correctContent" />
                             <result column="correct_date" property="correctDate" />
@@ -18,14 +18,14 @@
                             <result column="audit_opinion" property="auditOpinion" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataCorrection">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCorrectionVo">
 
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-                                <if test="id != null">
+            <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
                                                                                                                                                                                             </where>
@@ -43,12 +43,12 @@
     	SELECT count(1) FROM dir_data_correction t <include refid="queryConditions"></include>
     </select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataCorrection">
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCorrection">
         insert into dir_data_correction(id,dcm_id,corrector_id,correct_content,correct_date,auditor_id,audit_date,audit_status,audit_opinion,) values(
             #{id},#{dcmId},#{correctorId},#{correctContent},#{correctDate},#{auditorId},#{auditDate},#{auditStatus},#{auditOpinion},        )
     </insert>
 
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataCorrection">
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCorrection">
         update dir_data_correction
         <set>
                     <if test="id != null">

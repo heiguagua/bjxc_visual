@@ -18,7 +18,7 @@
                             <result column="relation_ext_info" property="relationExtInfo" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetSourceRelation">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetSourceRelationVo">
 
     </resultMap>
 

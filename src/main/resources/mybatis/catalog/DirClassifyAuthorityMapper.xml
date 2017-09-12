@@ -14,7 +14,7 @@
                             <result column="auth_detail" property="authDetail" />
             	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthority">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo">
 
     </resultMap>
 
