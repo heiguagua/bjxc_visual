@@ -1,273 +1,1103 @@
-SET FOREIGN_KEY_CHECKS=0;
+/*==============================================================*/
+/* DBMS name:      MySQL 5.0                                    */
+/* Created on:     2017/9/12 10:55:56                           */
+/*==============================================================*/
 
 
--- ----------------------------
--- Table structure for sys_dept
--- ----------------------------
-DROP TABLE IF EXISTS `sys_dept`;
-CREATE TABLE `sys_dept` (
-  `id` varchar(36) NOT NULL COMMENT 'id',
-  `dept_type` int(3) DEFAULT NULL COMMENT '组织机构类型',
-  `dept_name` varchar(128) NOT NULL COMMENT '组织机构名称',
-  `dept_alias` varchar(64) DEFAULT NULL COMMENT '组织机构简称',
-  `dept_code` varchar(64) NOT NULL COMMENT '组织机构编码',
-  `dept_contact_man` varchar(32) DEFAULT NULL COMMENT '联系人',
-  `dept_contact_num` varchar(32) DEFAULT NULL COMMENT '联系电话',
-  `dept_address` varchar(256) DEFAULT NULL COMMENT '地址',
-  `dept_desc` varchar(512) DEFAULT NULL COMMENT '组织机构描述',
-  `icon` varchar(256) DEFAULT NULL COMMENT '图标',
-  `sort` int(4) DEFAULT NULL COMMENT '排序',
-  `pid` varchar(36) DEFAULT NULL COMMENT '父组织机构ID',
-  `status` int(3) DEFAULT NULL COMMENT '状态',
-  `create_user_id` varchar(36) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_user_id` varchar(36) DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `delete_flag` int(3) DEFAULT '0' COMMENT '逻辑删除标识',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统组织机构表';
+drop table if exists common_extend_config_info;
 
--- ----------------------------
--- Records of sys_dept
--- ----------------------------
+drop table if exists common_extend_data_info;
 
--- ----------------------------
--- Table structure for sys_log
--- ----------------------------
-DROP TABLE IF EXISTS `sys_log`;
-CREATE TABLE `sys_log` (
-  `id` varchar(36) NOT NULL COMMENT 'ID',
-  `operator` varchar(36) DEFAULT NULL COMMENT '操作人Id',
-  `operate_time` timestamp NULL DEFAULT NULL COMMENT '操作时间',
-  `operate_type` varchar(36) DEFAULT NULL COMMENT '操作类型',
-  `operate_desc` varchar(256) DEFAULT NULL COMMENT '操作描述',
-  `operate_detail` longtext COMMENT '操作详情',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='访问日志表';
+drop table if exists common_message_info;
 
--- ----------------------------
--- Records of sys_log
--- ----------------------------
+drop table if exists common_message_response;
 
--- ----------------------------
--- Table structure for sys_menu
--- ----------------------------
-DROP TABLE IF EXISTS `sys_menu`;
-CREATE TABLE `sys_menu` (
-  `id` varchar(36) NOT NULL COMMENT 'id',
-  `menu_name` varchar(64) NOT NULL COMMENT '菜单名称',
-  `pid` varchar(36) DEFAULT NULL COMMENT '父级菜单ID',
-  `url` varchar(256) DEFAULT NULL COMMENT '连接地址',
-  `icon` varchar(256) DEFAULT NULL COMMENT '图标',
-  `sort` int(4) DEFAULT NULL COMMENT '排序',
-  `menu_type` int(3) DEFAULT NULL COMMENT '类型   1：目录   2：菜单   3：功能',
-  `code` varchar(36) DEFAULT NULL COMMENT '编码',
-  `resource_name` varchar(256) DEFAULT NULL COMMENT '资源标识',
-  `status` int(3) DEFAULT NULL COMMENT '状态',
-  `create_user_id` varchar(36) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_user_id` varchar(36) DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `delete_flag` int(3) DEFAULT '0' COMMENT '逻辑删除标识',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
+drop table if exists common_obj_label;
 
--- ----------------------------
--- Records of sys_menu
--- ----------------------------
-INSERT INTO `sys_menu` VALUES ('0818e1c76bbd44eba3a698547ec4e637', '查询系统设置', '10', null, null, '0', '3', '010600', 'system:setting:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('0c9b5fc8b44b41d1871a8fc8300247ec', '删除菜单', '4', null, null, '4', '3', '010303', 'system:menu:delete', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', null, 'fa fa-cogs', '10', '1', '01', 'system', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('10', '系统配置', '1', '/system/setting', ' fa-cog', '6', '2', '0106', 'system:setting', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('1db9105008404a3485b6fac30dba3c0e', '查看角色列表', '3', null, null, '0', '3', '010200', 'system:role:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:33:50', '0');
-INSERT INTO `sys_menu` VALUES ('2', '用户管理', '1', '/system/user', 'fa-user-circle-o', '1', '2', '0101', 'system:user', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('22e38e885f9b40b9aae6a36deb78e89c', '组织机构管理', '1', '/system/dept', 'fa-graduation-cap', '4', '2', '0104', 'system:dept', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('3', '角色管理', '1', '/system/role', 'fa-users', '2', '2', '0102', 'system:role', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('363a778e78a346a68210b2590163a943', '编辑组织机构', '22e38e885f9b40b9aae6a36deb78e89c', null, null, '2', '3', '010402', 'system:dept:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('3f26102ef0e04c3c9328cb97067cc5fa', '创建菜单', '4', null, null, '1', '3', '010301', 'system:menu:add', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('3fb6a7a5935b4efabf3de82e7e1baeb6', '新增组织机构', '22e38e885f9b40b9aae6a36deb78e89c', null, null, '1', '3', '010401', 'system:dept:add', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('4', '菜单管理', '1', '/system/menu', 'fa-list', '3', '2', '0103', 'system:menu', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('4253190001c1480fb0d631d64d150535', '编辑用户', '2', null, null, '2', '3', '010102', 'system:user:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:31:01', '0');
-INSERT INTO `sys_menu` VALUES ('42dd5ae31e3a43b3a197440e8ec19a94', '监控列表', 'f5a20c82110b4a3ea9e30ca01a038680', null, null, '1', '3', '010701', 'system:monitor:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('488ef1eff57b4827acade7c0744278ce', '查看菜单列表', '4', null, null, '0', '3', '010300', 'system:menu:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('4e816a9854714d24b0413d929d637a2b', '查看组织机构列表', '22e38e885f9b40b9aae6a36deb78e89c', null, null, '0', '3', '010400', 'system:dept:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('5', '业务日志', '1', '/system/log', 'fa-info-circle', '5', '2', '0105', 'system:log', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('5d3dd56c16ff4e32aecae1b3228159c7', '查看日志列表', '5', null, null, '0', '3', '010500', 'system:log:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('60dda993d87647f5989c15f14f866df9', '新增角色', '3', null, null, '1', '3', '010201', 'system:role:add', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:34:01', '0');
-INSERT INTO `sys_menu` VALUES ('649b484b58414d91aefa5a26143e6557', '删除用户', '2', null, null, '3', '3', '010103', 'system:user:delete', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:31:20', '0');
-INSERT INTO `sys_menu` VALUES ('686630c7cb624cc786dcdc9958971a6b', '编辑角色', '3', null, null, '2', '3', '010202', 'system:role:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:34:10', '0');
-INSERT INTO `sys_menu` VALUES ('79d78b8357174cac8f44abd275dec597', '删除组织机构', '22e38e885f9b40b9aae6a36deb78e89c', null, null, '3', '3', '010403', 'system:dept:delete', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('915c309ebe5047b68645b3eb777dd8c9', '操作系统设置', '10', null, null, '1', '3', '010601', 'system:setting:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('a5ebf29168234406939856bc6890c86b', '角色授权', '3', null, null, '4', '3', '010204', 'system:role:auth', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:34:45', '0');
-INSERT INTO `sys_menu` VALUES ('a73802e513cc4465883530ec8074abbb', '新增用户', '2', null, null, '1', '3', '010101', 'system:user:add', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:30:22', '0');
-INSERT INTO `sys_menu` VALUES ('b4e7232189b14cf3ba160cf7b0d3bf37', '删除角色', '3', null, null, '3', '3', '010203', 'system:role:delete', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:34:27', '0');
-INSERT INTO `sys_menu` VALUES ('d2bc30feb5474a1bb7e02d48d39a3f8a', '查看用户列表', '2', null, null, '0', '3', '010100', 'system:user:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:28:01', '0');
-INSERT INTO `sys_menu` VALUES ('dc5f478d98ed4297a8ae638fe90df050', '编辑菜单', '4', null, null, '3', '3', '010302', 'system:menu:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('f5a20c82110b4a3ea9e30ca01a038680', '系统监控', '1', '/system/monitor', 'fa-eye', '7', '2', '0107', 'system:monitor', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-INSERT INTO `sys_menu` VALUES ('f899f3d3baec4571b1c786717f9906fd', '批量删除角色', '3', null, null, '5', '3', '010205', 'system:role:deleteBatch', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:35:08', '0');
+drop table if exists dir_classify;
 
--- ----------------------------
--- Table structure for sys_role
--- ----------------------------
-DROP TABLE IF EXISTS `sys_role`;
-CREATE TABLE `sys_role` (
-  `id` varchar(36) NOT NULL COMMENT 'id',
-  `role_type` int(3) NOT NULL COMMENT '角色类型',
-  `role_name` varchar(128) NOT NULL COMMENT '角色名称',
-  `role_desc` varchar(512) DEFAULT NULL COMMENT '角色描述',
-  `status` int(3) DEFAULT NULL COMMENT '状态',
-  `create_user_id` varchar(36) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_user_id` varchar(36) DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `delete_flag` int(3) DEFAULT '0' COMMENT '逻辑删除标识',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统角色表';
+drop table if exists dir_classify_authority;
 
--- ----------------------------
--- Records of sys_role
--- ----------------------------
-INSERT INTO `sys_role` VALUES ('737933bffef640329a4f864c4e2746ba', '1', '超级管理员', '超级管理员', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-08 17:18:19', null, null, 0);
+drop table if exists dir_data_audit;
 
--- ----------------------------
--- Table structure for sys_role_menu
--- ----------------------------
-DROP TABLE IF EXISTS `sys_role_menu`;
-CREATE TABLE `sys_role_menu` (
-  `id` varchar(36) NOT NULL COMMENT 'id',
-  `role_id` varchar(36) NOT NULL COMMENT '角色ID',
-  `menu_id` varchar(36) NOT NULL COMMENT '菜单ID',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色权限表';
+drop table if exists dir_data_collection;
 
--- ----------------------------
--- Records of sys_role_menu
--- ----------------------------
-INSERT INTO `sys_role_menu` VALUES ('0685b1490a3a4e62a2b69199f964de2a', 'ab7e4b34e5d141fa8566fdbb5d3e66f7', 'd2bc30feb5474a1bb7e02d48d39a3f8a');
-INSERT INTO `sys_role_menu` VALUES ('08c54b744ccf415facf7b6d56fc85021', '737933bffef640329a4f864c4e2746ba', '686630c7cb624cc786dcdc9958971a6b');
-INSERT INTO `sys_role_menu` VALUES ('09f4fef9249c457ca67b4a7a45823730', '737933bffef640329a4f864c4e2746ba', '649b484b58414d91aefa5a26143e6557');
-INSERT INTO `sys_role_menu` VALUES ('0f74bd67f00b4a4b9508231bd472d605', '737933bffef640329a4f864c4e2746ba', 'ca840bc59c4e4ba38d43fe77fd4e3423');
-INSERT INTO `sys_role_menu` VALUES ('121b1db2c51d4d3ba7b8c0ebc3e1e32e', 'a21876314a764438b6af6bfa422ec09a', '2');
-INSERT INTO `sys_role_menu` VALUES ('19250006006a4439a32e1c6aea79b229', '737933bffef640329a4f864c4e2746ba', '3f26102ef0e04c3c9328cb97067cc5fa');
-INSERT INTO `sys_role_menu` VALUES ('1c6642cb915442359d9fc2543b5a8c79', 'a21876314a764438b6af6bfa422ec09a', '488ef1eff57b4827acade7c0744278ce');
-INSERT INTO `sys_role_menu` VALUES ('1d24c2bd05214ff8b0712471d280d9f4', '737933bffef640329a4f864c4e2746ba', '5d3dd56c16ff4e32aecae1b3228159c7');
-INSERT INTO `sys_role_menu` VALUES ('1e0e01a71b8842e7ac203036f7384685', 'ab7e4b34e5d141fa8566fdbb5d3e66f7', '4253190001c1480fb0d631d64d150535');
-INSERT INTO `sys_role_menu` VALUES ('21629df3640f4ccdb74c597142840ddd', 'a21876314a764438b6af6bfa422ec09a', '3f26102ef0e04c3c9328cb97067cc5fa');
-INSERT INTO `sys_role_menu` VALUES ('2206b8a75e484ccabfce6a086e14bb43', 'ab7e4b34e5d141fa8566fdbb5d3e66f7', '2');
-INSERT INTO `sys_role_menu` VALUES ('278b16b942a94902befe6cd8e416626d', '737933bffef640329a4f864c4e2746ba', 'f899f3d3baec4571b1c786717f9906fd');
-INSERT INTO `sys_role_menu` VALUES ('34d1ba7b031543d0a4e01222347f4091', '737933bffef640329a4f864c4e2746ba', 'f5a20c82110b4a3ea9e30ca01a038680');
-INSERT INTO `sys_role_menu` VALUES ('35c27b37c89c4e6ca7160ef320329961', '1d0d43b9fbbe4c078beb4a732309fe64', '1');
-INSERT INTO `sys_role_menu` VALUES ('39fcbb569b544bc48c9ff0a1808d66a4', '737933bffef640329a4f864c4e2746ba', 'd2bc30feb5474a1bb7e02d48d39a3f8a');
-INSERT INTO `sys_role_menu` VALUES ('3aceb6111772490e9887904fb54949e3', 'eb2e1fa3caa448658da909cf141788f8', '9');
-INSERT INTO `sys_role_menu` VALUES ('3f545309df364e47b471082af287011b', '737933bffef640329a4f864c4e2746ba', '1');
-INSERT INTO `sys_role_menu` VALUES ('47df737d83cf4d37b59914b95d23c3ee', '737933bffef640329a4f864c4e2746ba', '0c9b5fc8b44b41d1871a8fc8300247ec');
-INSERT INTO `sys_role_menu` VALUES ('48dd8350fb7a4c3cb4406cbfa78aa524', 'a21876314a764438b6af6bfa422ec09a', '1');
-INSERT INTO `sys_role_menu` VALUES ('4967e350a51e42cc9f613f90b6f7fe89', '737933bffef640329a4f864c4e2746ba', '10');
-INSERT INTO `sys_role_menu` VALUES ('537af500a6b9442eb71e0d77a1ea4841', '1d0d43b9fbbe4c078beb4a732309fe64', '9');
-INSERT INTO `sys_role_menu` VALUES ('54aa249b5ff345bebd5a494777e58be7', '737933bffef640329a4f864c4e2746ba', '1db9105008404a3485b6fac30dba3c0e');
-INSERT INTO `sys_role_menu` VALUES ('55198bca649b476a96247409e591f770', '737933bffef640329a4f864c4e2746ba', '3fb6a7a5935b4efabf3de82e7e1baeb6');
-INSERT INTO `sys_role_menu` VALUES ('57ab8e5a8c3f4412b5dd7f6ca884e531', '737933bffef640329a4f864c4e2746ba', '37a1abf4b9fb4c43a9ca4688a051008d');
-INSERT INTO `sys_role_menu` VALUES ('603b1709c5ee4cacad596a0fb27123d5', '737933bffef640329a4f864c4e2746ba', '60dda993d87647f5989c15f14f866df9');
-INSERT INTO `sys_role_menu` VALUES ('613112d120d642bbb83810d07a96e477', '2a9b728a431246b08f853c2529e6ba84', '2');
-INSERT INTO `sys_role_menu` VALUES ('6a173b8355a9438291ecfdfd2ec8279d', '737933bffef640329a4f864c4e2746ba', '79d78b8357174cac8f44abd275dec597');
-INSERT INTO `sys_role_menu` VALUES ('6aad723536484826a8ff4909a63b9db0', '737933bffef640329a4f864c4e2746ba', '488ef1eff57b4827acade7c0744278ce');
-INSERT INTO `sys_role_menu` VALUES ('6b3f30ec097a4d259c18e9ef121d8ca5', '737933bffef640329a4f864c4e2746ba', '4');
-INSERT INTO `sys_role_menu` VALUES ('6d802565d55b4c0798e32fb09902aff6', '737933bffef640329a4f864c4e2746ba', '42dd5ae31e3a43b3a197440e8ec19a94');
-INSERT INTO `sys_role_menu` VALUES ('6f41c85dd5174f78ad2db183db359b55', 'a21876314a764438b6af6bfa422ec09a', '4');
-INSERT INTO `sys_role_menu` VALUES ('712118e6fe374f92b3beaffc1019952a', 'f08487637b0d4bfc9accc14cbca6f1cd', '3');
-INSERT INTO `sys_role_menu` VALUES ('750868dfc79a4a32841da56d1601a8d1', 'f08487637b0d4bfc9accc14cbca6f1cd', '1');
-INSERT INTO `sys_role_menu` VALUES ('75de737633cc405facca79d71d9926ed', '737933bffef640329a4f864c4e2746ba', '363a778e78a346a68210b2590163a943');
-INSERT INTO `sys_role_menu` VALUES ('75e2d8fc86b7405496137ff953e51db9', '737933bffef640329a4f864c4e2746ba', '22e38e885f9b40b9aae6a36deb78e89c');
-INSERT INTO `sys_role_menu` VALUES ('77fd54d3ab0d4eaa8605346d93095eb9', 'eb2e1fa3caa448658da909cf141788f8', '8');
-INSERT INTO `sys_role_menu` VALUES ('83c8154646fb49bd91e9a7f3435f537e', '737933bffef640329a4f864c4e2746ba', 'b4e7232189b14cf3ba160cf7b0d3bf37');
-INSERT INTO `sys_role_menu` VALUES ('851ea372461240ce964fd3f757db9413', '737933bffef640329a4f864c4e2746ba', '915c309ebe5047b68645b3eb777dd8c9');
-INSERT INTO `sys_role_menu` VALUES ('883470c5cb43422687d290e6f6abbca2', '737933bffef640329a4f864c4e2746ba', '4e816a9854714d24b0413d929d637a2b');
-INSERT INTO `sys_role_menu` VALUES ('8898f16fd0d840808e20ed7f4643a821', '737933bffef640329a4f864c4e2746ba', 'a5ebf29168234406939856bc6890c86b');
-INSERT INTO `sys_role_menu` VALUES ('8989351fbb3b42709ea3a18f07b7c4a5', '737933bffef640329a4f864c4e2746ba', 'dc5f478d98ed4297a8ae638fe90df050');
-INSERT INTO `sys_role_menu` VALUES ('96ea5bf432c642a59264e85d3b884136', '737933bffef640329a4f864c4e2746ba', 'a73802e513cc4465883530ec8074abbb');
-INSERT INTO `sys_role_menu` VALUES ('977c24618d0e48beaa57d648b5d08d8c', '737933bffef640329a4f864c4e2746ba', '2');
-INSERT INTO `sys_role_menu` VALUES ('a7f8c4a91b82480eaa28a281984a064b', '737933bffef640329a4f864c4e2746ba', '5');
-INSERT INTO `sys_role_menu` VALUES ('a9559c9ab4cc4ba8b1d5554d9f95df9d', '737933bffef640329a4f864c4e2746ba', '0b71762ebc0346239efd5f2069ff2124');
-INSERT INTO `sys_role_menu` VALUES ('b71cea3a72d545ad9d1fb5f302c0d035', 'a21876314a764438b6af6bfa422ec09a', '60dda993d87647f5989c15f14f866df9');
-INSERT INTO `sys_role_menu` VALUES ('c015003b62a84e44aa678bdd9d9ce99b', 'a21876314a764438b6af6bfa422ec09a', 'a73802e513cc4465883530ec8074abbb');
-INSERT INTO `sys_role_menu` VALUES ('c4ed1e58395643b1ada4782c7f204b0c', '737933bffef640329a4f864c4e2746ba', '4eaf9b0cc3f14c96b8ccec03344b5c17');
-INSERT INTO `sys_role_menu` VALUES ('cd3bbdbd59aa44eab3e263aac341af79', '737933bffef640329a4f864c4e2746ba', '0818e1c76bbd44eba3a698547ec4e637');
-INSERT INTO `sys_role_menu` VALUES ('ea5febe36eee451bb95c0b443f90245a', '737933bffef640329a4f864c4e2746ba', '4253190001c1480fb0d631d64d150535');
-INSERT INTO `sys_role_menu` VALUES ('f6e982dfc59a4233b999ca40dbe8b356', '737933bffef640329a4f864c4e2746ba', '3');
+drop table if exists dir_data_comment;
 
--- ----------------------------
--- Table structure for sys_setting
--- ----------------------------
-DROP TABLE IF EXISTS `sys_setting`;
-CREATE TABLE `sys_setting` (
-  `id` varchar(36) NOT NULL COMMENT 'id',
-  `setting_type` int(3) NOT NULL COMMENT '配置类型',
-  `setting_code` varchar(128) NOT NULL COMMENT '配置编码',
-  `setting_name` varchar(128) NOT NULL COMMENT '配置名称',
-  `setting_value` varchar(512) NOT NULL COMMENT '配置值',
-  `setting_desc` varchar(512) DEFAULT NULL COMMENT '配置描述',
-  `status` int(3) DEFAULT NULL COMMENT '状态',
-  `create_user_id` varchar(36) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_user_id` varchar(36) DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `delete_flag` int(3) DEFAULT '0' COMMENT '逻辑删除标识',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+drop table if exists dir_data_correction;
 
--- ----------------------------
--- Records of sys_setting
--- ----------------------------
-INSERT INTO `sys_setting` VALUES ('1', '1', 'systemName', '系统名称', '数据采集系统', null, '1', null, null, null, null, 0);
-INSERT INTO `sys_setting` VALUES ('2', '1', 'systemSubName', '系统简称', 'DCM', null, '1', null, null, null, null, 0);
-INSERT INTO `sys_setting` VALUES ('3', '1', 'bottomCopyright', '许可说明', 'Copyright © 2017 勤智数码. All rights reserved.', null, '1', null, null, null, null, 0);
-INSERT INTO `sys_setting` VALUES ('4', '1', 'crawlerInterface', '爬虫接口地址', 'http://127.0.0.1:8080/crawler/wbsiteStore', '', '1', '549d321508db446e9bcaa477835fe5f1', '2017-06-27 10:46:53', null, null, '0');
+drop table if exists dir_data_offline;
 
--- ----------------------------
--- Table structure for sys_user
--- ----------------------------
-DROP TABLE IF EXISTS `sys_user`;
-CREATE TABLE `sys_user` (
-  `id` varchar(36) NOT NULL COMMENT 'id',
-  `user_name` varchar(64) NOT NULL COMMENT '用户名',
-  `real_name` varchar(36) DEFAULT NULL COMMENT '用户真实姓名',
-  `password` varchar(36) NOT NULL COMMENT '密码',
-  `user_type` int(3) NOT NULL COMMENT '用户类型',
-  `telephone_number` varchar(16) DEFAULT NULL COMMENT '电话号码',
-  `cell_phone_number` varchar(16) DEFAULT NULL COMMENT '手机号码',
-  `email` varchar(64) DEFAULT NULL COMMENT '邮箱',
-  `user_img` varchar(125) DEFAULT NULL COMMENT '用户头像',
-  `user_desc` varchar(512) DEFAULT NULL COMMENT '用户描述',
-  `dept_id` varchar(36) NOT NULL COMMENT '所属组织机构',
-  `status` int(3) DEFAULT NULL COMMENT '状态',
-  `create_user_id` varchar(36) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_user_id` varchar(36) DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `delete_flag` int(3) DEFAULT '0' COMMENT '逻辑删除标识',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统用户表';
+drop table if exists dir_data_publish;
 
--- ----------------------------
--- Records of sys_user
--- ----------------------------
-INSERT INTO `sys_user` VALUES ('549d321508db446e9bcaa477835fe5f1', 'admin', '系统管理员', 'e10adc3949ba59abbe56e057f20f883e', '1', null, null, null, '/images/userImg/avatar5.png', null, '1', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-08 15:24:57', null, null, 0);
+drop table if exists dir_data_rate;
 
--- ----------------------------
--- Table structure for sys_user_role
--- ----------------------------
-DROP TABLE IF EXISTS `sys_user_role`;
-CREATE TABLE `sys_user_role` (
-  `id` varchar(36) NOT NULL COMMENT 'id',
-  `user_id` varchar(36) NOT NULL COMMENT '用户ID',
-  `role_id` varchar(36) NOT NULL COMMENT '角色ID',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+drop table if exists dir_data_visit;
 
--- ----------------------------
--- Records of sys_user_role
--- ----------------------------
-INSERT INTO `sys_user_role` VALUES ('5d5b40c094cd4a67bc85173811b25214', '549d321508db446e9bcaa477835fe5f1', '737933bffef640329a4f864c4e2746ba');
+drop table if exists dir_dataitem;
 
+drop table if exists dir_dataitem_apply;
 
+drop table if exists dir_dataitem_distribute;
+
+drop table if exists dir_dataitem_source_info;
+
+drop table if exists dir_dataset;
+
+drop table if exists dir_dataset_classify_map;
+
+drop table if exists dir_dataset_ext_carrier;
+
+drop table if exists dir_dataset_ext_format;
+
+drop table if exists dir_dataset_ext_service_target;
+
+drop table if exists dir_dataset_ext_sevice_field;
+
+drop table if exists dir_dataset_ext_share_consult;
+
+drop table if exists dir_dataset_ext_source;
+
+drop table if exists dir_dataset_service_map;
+
+drop table if exists dir_dataset_source_info;
+
+drop table if exists dir_dataset_source_relation;
+
+drop table if exists dir_develop_apis;
+
+drop table if exists dir_news;
+
+drop table if exists dir_policy;
+
+drop table if exists dir_regist_user;
+
+drop table if exists dir_service_info;
+
+drop table if exists dir_special_apps;
+
+drop table if exists dir_suggestion;
+
+drop table if exists sys_dept;
+
+drop table if exists sys_dept_category_template;
+
+drop table if exists sys_dict;
+
+drop table if exists sys_dict_category;
+
+drop table if exists sys_guid_dept;
+
+drop table if exists sys_log;
+
+drop table if exists sys_menu;
+
+drop table if exists sys_region;
+
+drop table if exists sys_region_level;
+
+drop table if exists sys_region_version;
+
+drop table if exists sys_role;
+
+drop table if exists sys_role_menu;
+
+drop table if exists sys_setting;
+
+drop table if exists sys_user;
+
+drop table if exists sys_user_role;
+
+/*==============================================================*/
+/* Table: common_extend_config_info                             */
+/*==============================================================*/
+create table common_extend_config_info
+(
+   id                   varchar(36) not null comment 'id',
+   category             varchar(36) comment '所属对象类型',
+   name                 varchar(64) comment '属性名称',
+   description          varchar(256) comment '属性描述',
+   type                 varchar(36) comment '属性类型',
+   primary key (id)
+);
+
+alter table common_extend_config_info comment '扩展属性配置表';
+
+/*==============================================================*/
+/* Table: common_extend_data_info                               */
+/*==============================================================*/
+create table common_extend_data_info
+(
+   id                   varchar(32) not null comment 'ID',
+   extend_type          varchar(32) comment '扩展信息类别',
+   obj_id               varchar(32) comment '扩展对象ID',
+   extend_id            varchar(32) comment '扩展配置表ID',
+   extend_value         varchar(64) comment '扩展值',
+   primary key (id)
+);
+
+alter table common_extend_data_info comment '扩展信息数据表';
+
+/*==============================================================*/
+/* Table: common_message_info                                   */
+/*==============================================================*/
+create table common_message_info
+(
+   id                   varchar(36) not null comment 'id',
+   message_type         varchar(36) comment '消息类型',
+   obj_type             varchar(36) comment '接收对象类型',
+   obj_id               varchar(36) comment '接收对象ID',
+   title                varchar(128) comment '消息标题',
+   content              varchar(1000) comment '消息内容',
+   sender               varchar(64) comment '发送人',
+   send_time            datetime comment '发送时间',
+   primary key (id)
+);
+
+alter table common_message_info comment '系统消息表';
+
+/*==============================================================*/
+/* Table: common_message_response                               */
+/*==============================================================*/
+create table common_message_response
+(
+   id                   varchar(36) not null comment 'id',
+   message_id           varchar(36) comment '消息ID',
+   responder            varchar(36) comment '响应人ID',
+   response_time        datetime comment '响应时间',
+   response_status      varchar(36) comment '响应状态',
+   primary key (id)
+);
+
+alter table common_message_response comment '系统消息响应表';
+
+/*==============================================================*/
+/* Table: common_obj_label                                      */
+/*==============================================================*/
+create table common_obj_label
+(
+   id                   varchar(36) not null comment 'id',
+   obj_type             varchar(36) comment '对象类型',
+   obj_id               varchar(36) comment '对象ID',
+   lable_name           varchar(64) comment '标签名称',
+   primary key (id)
+);
+
+alter table common_obj_label comment '对象标签映射表';
+
+/*==============================================================*/
+/* Table: dir_classify                                          */
+/*==============================================================*/
+create table dir_classify
+(
+   id                   varchar(36) not null comment 'id',
+   region_code          varchar(6) comment '所属行政区划',
+   classify_code        varchar(64) comment '【国】分类编号',
+   classify_name        varchar(128) comment '【国】分类名称',
+   classify_desc        varchar(1000) comment '分类描述',
+   fcode                varchar(36) comment '上级分类编号',
+   fname                varchar(128) comment '上级分类名称',
+   classify_level       int comment '级别',
+   classify_index       int comment '目录类别索引',
+   dcm_index            int comment '信息资源索引',
+   order_number         int(4) comment '显示顺序',
+   status               varchar(36) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   tree_index           int,
+   tree_code            varchar(128),
+   primary key (id)
+);
+
+alter table dir_classify comment '目录分类表';
+
+/*==============================================================*/
+/* Table: dir_classify_authority                                */
+/*==============================================================*/
+create table dir_classify_authority
+(
+   id                   varchar(36) not null comment 'ID',
+   auth_obj_type        varchar(36) comment '权限对象类型',
+   auth_obj_id          varchar(36) comment '权限对象ID',
+   classify_id          varchar(36) comment '目录类别ID',
+   auth_detail          varchar(256) comment '权限说明',
+   primary key (id)
+);
+
+alter table dir_classify_authority comment '目录类别控制权限表';
+
+/*==============================================================*/
+/* Table: dir_data_audit                                        */
+/*==============================================================*/
+create table dir_data_audit
+(
+   id                   varchar(36) not null comment 'ID',
+   dcm_id               varchar(36) comment '信息资源ID',
+   auditor_id           varchar(36) comment '审核人ID',
+   audit_date           date comment '审核时间',
+   audit_status         varchar(36) comment '审核状态',
+   audit_opinion        varchar(500) comment '审核意见',
+   primary key (id)
+);
+
+alter table dir_data_audit comment '数据审核情况表';
+
+/*==============================================================*/
+/* Table: dir_data_collection                                   */
+/*==============================================================*/
+create table dir_data_collection
+(
+   id                   varchar(36) not null comment 'ID',
+   dcm_id               varchar(36) comment '信息资源ID',
+   collector_id         varchar(36) comment '收藏人ID',
+   collect_date         date comment '收藏时间',
+   primary key (id)
+);
+
+alter table dir_data_collection comment '数据集收藏记录';
+
+/*==============================================================*/
+/* Table: dir_data_comment                                      */
+/*==============================================================*/
+create table dir_data_comment
+(
+   id                   varchar(36) not null comment 'ID',
+   dcm_id               varchar(36) comment '信息资源ID',
+   commentator_id       varchar(36) comment '评论人ID',
+   comment_date         date comment '评论时间',
+   comment_content      varchar(500) comment '评论内容',
+   satus                varchar(36) comment '状态',
+   primary key (id)
+);
+
+alter table dir_data_comment comment '数据集评论记录';
+
+/*==============================================================*/
+/* Table: dir_data_correction                                   */
+/*==============================================================*/
+create table dir_data_correction
+(
+   id                   varchar(36) not null comment 'ID',
+   dcm_id               varchar(36) comment '信息资源ID',
+   corrector_id         varchar(36) comment '纠错人ID',
+   correct_content      varchar(500) comment '纠错内容',
+   correct_date         date comment '纠错时间',
+   auditor_id           varchar(36) comment '审核人ID',
+   audit_date           date comment '审核时间',
+   audit_status         varchar(36) comment '审核状态',
+   audit_opinion        varchar(500) comment '审核意见',
+   primary key (id)
+);
+
+alter table dir_data_correction comment '数据纠错记录';
+
+/*==============================================================*/
+/* Table: dir_data_offline                                      */
+/*==============================================================*/
+create table dir_data_offline
+(
+   id                   varchar(36) not null comment 'ID',
+   dcm_id               varchar(36) comment '信息资源ID',
+   offline_user_id      varchar(36) comment '下架人',
+   offline_time         date comment '下架时间',
+   primary key (id)
+);
+
+alter table dir_data_offline comment '数据下架情况';
+
+/*==============================================================*/
+/* Table: dir_data_publish                                      */
+/*==============================================================*/
+create table dir_data_publish
+(
+   id                   varchar(36) not null comment 'ID',
+   dcm_id               varchar(36) comment '信息资源ID',
+   publish_to_net       int comment '是否发布到互联网',
+   publish_to_dzzw      int comment '是否发布到电子政务外网',
+   publisher_id         varchar(36) comment '发布人',
+   publish_date         date comment '发布时间',
+   primary key (id)
+);
+
+alter table dir_data_publish comment '数据发布情况';
+
+/*==============================================================*/
+/* Table: dir_data_rate                                         */
+/*==============================================================*/
+create table dir_data_rate
+(
+   id                   varchar(36) not null comment 'ID',
+   dcm_id               varchar(36) comment '信息资源ID',
+   rater_id             varchar(36) comment '评分人ID',
+   rate_score           numeric(6) comment '评分人分数',
+   rate_date            date comment '评分时间',
+   primary key (id)
+);
+
+alter table dir_data_rate comment '数据集评分记录';
+
+/*==============================================================*/
+/* Table: dir_data_visit                                        */
+/*==============================================================*/
+create table dir_data_visit
+(
+   id                   varchar(36) not null comment 'ID',
+   dcm_id               varchar(36) comment '信息资源ID',
+   obj_type             varchar(36) comment '浏览对象类型',
+   obj_id               varchar(36) comment '浏览对象ID',
+   visitor_id           varchar(36) comment '浏览人ID',
+   visit_ip             varchar(36) comment '浏览人IP',
+   visit_date           date comment '浏览时间',
+   primary key (id)
+);
+
+alter table dir_data_visit comment '数据集浏览记录';
+
+/*==============================================================*/
+/* Table: dir_dataitem                                          */
+/*==============================================================*/
+create table dir_dataitem
+(
+   id                   varchar(36) not null comment 'id',
+   dataset_id           varchar(36) comment '数据集ID',
+   item_code            varchar(128) comment '数据项编号',
+   item_name            varchar(128) comment '【国】数据项名称',
+   item_desc            varchar(500) comment '数据项描述',
+   item_type            varchar(36) comment '【国】数据项类型',
+   belong_dept_id       varchar(36) comment '责任部门',
+   share_type           varchar(36) comment '共享类型',
+   share_method         varchar(36) comment '共享方式',
+   share_condition      varchar(500) comment '共享条件',
+   no_share_explain     varchar(500) comment '不予共享说明',
+   is_open              varchar(36) comment '是否开放',
+   open_condition       varchar(500) comment '开放条件',
+   update_frequency     varchar(36) comment '更新周期',
+   storage_medium       varchar(36) comment '存储介质',
+   storage_location     varchar(500) comment '存储位置',
+   status               varchar(36) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+);
+
+alter table dir_dataitem comment '数据集对应数据项表【国】';
+
+/*==============================================================*/
+/* Table: dir_dataitem_apply                                    */
+/*==============================================================*/
+create table dir_dataitem_apply
+(
+   id                   varchar(36) not null comment 'id',
+   dcm_id               varchar(36) comment '申请信息资源ID',
+   item_id              varchar(36) comment '申请数据项ID',
+   applicant_id         varchar(36) comment '申请人ID',
+   apply_info           varchar(512) comment '申请详情',
+   apply_date           date comment '申请时间',
+   auditor_id           varchar(36) comment '审核人',
+   status               varchar(36) comment '审核状态',
+   audit_opinion        varchar(512) comment '审核意见',
+   audit_date           date comment '审核时间',
+   primary key (id)
+);
+
+alter table dir_dataitem_apply comment '数据项权限申请表';
+
+/*==============================================================*/
+/* Table: dir_dataitem_distribute                               */
+/*==============================================================*/
+create table dir_dataitem_distribute
+(
+   id                   varchar(36) not null comment 'id',
+   dcm_id               varchar(36) comment '分配信息资源ID',
+   item_id              varchar(36) comment '分配数据项ID',
+   obj_type             varchar(36) comment '分配对象类型',
+   obj_id               varchar(36) comment '分配对象ID',
+   distributor_id       varchar(36) comment '分配操作人',
+   distribute_opinion   varchar(512) comment '分配意见',
+   distribute_date      date comment '分配操作时间',
+   primary key (id)
+);
+
+alter table dir_dataitem_distribute comment '数据项权限分配表';
+
+/*==============================================================*/
+/* Table: dir_dataitem_source_info                              */
+/*==============================================================*/
+create table dir_dataitem_source_info
+(
+   id                   varchar(36) not null comment 'id',
+   item_id              varchar(36) comment '数据项ID',
+   source_obj_type      varchar(36) comment '来源对象类型',
+   source_obj_id        varchar(36) comment '来源对象ID',
+   source__item_id      varchar(36) comment '来源数据项ID',
+   primary key (id)
+);
+
+alter table dir_dataitem_source_info comment '数据项来源信息表';
+
+/*==============================================================*/
+/* Table: dir_dataset                                           */
+/*==============================================================*/
+create table dir_dataset
+(
+   id                   varchar(36) not null comment 'ID',
+   region_code          varchar(6) comment '所属行政区划',
+   dataset_code         varchar(64) comment '数据集编码',
+   dataset_name         varchar(128) comment '【国】信息资源名称',
+   alias                varchar(128) comment '别名',
+   belong_dept_id       varchar(36) comment '【国】信息资源提供方ID',
+   dataset_desc         varchar(1000) comment '【国】信息资源摘要',
+   share_type           varchar(36) comment '【国】信息资源共享类型',
+   share_condition      varchar(500) comment '【国】信息资源共享条件',
+   share_method         varchar(36) comment '【国】信息资源共享方式',
+   is_open              varchar(36) comment '【国】信息资源是否社会开放',
+   open_condition       varchar(500) comment '【国】信息资源开放条件',
+   update_frequency     varchar(36) comment '【国】信息资源更新周期',
+   rel_dataset_code     varchar(36) comment '【国】信息资源关联资源代码',
+   storage_medium       varchar(36) comment '存储介质',
+   storage_location     varchar(500) comment '物理存储位置',
+   data_level           varchar(36) comment '【川】信息资源最小分级单元',
+   data_index_system    varchar(36) comment '【川】信息资源指标体系',
+   is_secret            varchar(36) comment '【川】信息资源涉密性',
+   source_type          varchar(36) comment '添加来源',
+   status               varchar(36) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime default CURRENT_TIMESTAMP comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+);
+
+alter table dir_dataset comment '数据集（信息资源）';
+
+/*==============================================================*/
+/* Table: dir_dataset_classify_map                              */
+/*==============================================================*/
+create table dir_dataset_classify_map
+(
+   id                   varchar(36) not null comment 'id',
+   dataset_id           varchar(36) comment '数据集ID',
+   classify_id          varchar(36) comment '目录类别ID',
+   info_resource_code   varchar(64) comment '【国】信息资源代码',
+   register_id          varchar(36) comment '注册人',
+   registe_date         date comment '注册时间',
+   status               varchar(36) comment '状态',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   primary key (id)
+);
+
+alter table dir_dataset_classify_map comment '数据集目录类别关系表';
+
+/*==============================================================*/
+/* Table: dir_dataset_ext_carrier                               */
+/*==============================================================*/
+create table dir_dataset_ext_carrier
+(
+   id                   varchar(36) not null comment 'ID',
+   dataset_id           varchar(36) comment '数据集ID',
+   carrier_type         varchar(36) comment '存储载体',
+   primary key (id)
+);
+
+alter table dir_dataset_ext_carrier comment '数据集扩展信息（【川】基本载体）';
+
+/*==============================================================*/
+/* Table: dir_dataset_ext_format                                */
+/*==============================================================*/
+create table dir_dataset_ext_format
+(
+   id                   varchar(36) not null comment 'ID',
+   dataset_id           varchar(36) comment '数据集ID',
+   format_type          varchar(36) comment '资源格式类型',
+   format_info          varchar(256) comment '资源格式说明',
+   primary key (id)
+);
+
+alter table dir_dataset_ext_format comment '数据集扩展信息（【国】资源格式）';
+
+/*==============================================================*/
+/* Table: dir_dataset_ext_service_target                        */
+/*==============================================================*/
+create table dir_dataset_ext_service_target
+(
+   id                   varchar(36) not null comment 'ID',
+   dataset_id           varchar(36) comment '数据集ID',
+   service_target       varchar(36) comment '服务对象',
+   primary key (id)
+);
+
+alter table dir_dataset_ext_service_target comment '数据集扩展信息（【川】服务对象）';
+
+/*==============================================================*/
+/* Table: dir_dataset_ext_sevice_field                          */
+/*==============================================================*/
+create table dir_dataset_ext_sevice_field
+(
+   id                   varchar(36) not null comment 'ID',
+   dataset_id           varchar(36) comment '数据集ID',
+   sevice_field_type    varchar(36) comment '服务领域类型',
+   service_field_property varchar(36) comment '服务领域',
+   primary key (id)
+);
+
+alter table dir_dataset_ext_sevice_field comment '数据集扩展信息（【川】服务领域）';
+
+/*==============================================================*/
+/* Table: dir_dataset_ext_share_consult                         */
+/*==============================================================*/
+create table dir_dataset_ext_share_consult
+(
+   id                   varchar(36) not null comment 'ID',
+   dataset_id           varchar(36) comment '数据集ID',
+   contact              varchar(64) comment '主管部门联系人',
+   contact_phone        varchar(36) comment '主管部门联系电话',
+   primary key (id)
+);
+
+alter table dir_dataset_ext_share_consult comment '数据集扩展信息（【川】共享咨询）';
+
+/*==============================================================*/
+/* Table: dir_dataset_ext_source                                */
+/*==============================================================*/
+create table dir_dataset_ext_source
+(
+   id                   varchar(36) not null comment 'ID',
+   dataset_id           varchar(36) comment '数据集ID',
+   source_type          varchar(36) comment '主要来源',
+   primary key (id)
+);
+
+alter table dir_dataset_ext_source comment '数据集扩展信息（【川】主要来源）';
+
+/*==============================================================*/
+/* Table: dir_dataset_service_map                               */
+/*==============================================================*/
+create table dir_dataset_service_map
+(
+   id                   varchar(36) not null comment 'id',
+   service_id           varchar(36) comment '服务ID',
+   dcm_id               varchar(36) comment '信息资源ID',
+   valid_from           date comment '有效期开始',
+   valid_to             date comment '有效期结束',
+   status               varchar(36) comment '状态',
+   primary key (id)
+);
+
+alter table dir_dataset_service_map comment '数据集对应接口服务表';
+
+/*==============================================================*/
+/* Table: dir_dataset_source_info                               */
+/*==============================================================*/
+create table dir_dataset_source_info
+(
+   id                   varchar(36) not null comment 'id',
+   dataset_id           varchar(36) comment '数据集ID',
+   source_mode          varchar(36) comment '来源模块',
+   source_obj_type      varchar(36) comment '来源对象类型',
+   source_obj_id        varchar(36) comment '来源对象ID',
+   primary key (id)
+);
+
+alter table dir_dataset_source_info comment '信息资源来源信息';
+
+/*==============================================================*/
+/* Table: dir_dataset_source_relation                           */
+/*==============================================================*/
+create table dir_dataset_source_relation
+(
+   id                   varchar(36) not null comment 'id',
+   dataset_id           varchar(36) comment '数据集ID',
+   source_mode          varchar(36) comment '来源模块',
+   source_table_id      varchar(36) comment '关联源表ID',
+   source_column_id     varchar(36) comment '关联源表字段ID',
+   target_table_id      varchar(36) comment '关联目标表ID',
+   target_column_id     varchar(36) comment '关联目标表字段ID',
+   relation_type        varchar(36) comment '关联类型',
+   relation_ext_info    varchar(512) comment '关联其他信息',
+   primary key (id)
+);
+
+alter table dir_dataset_source_relation comment '信息资源来源关系表';
+
+/*==============================================================*/
+/* Table: dir_develop_apis                                      */
+/*==============================================================*/
+create table dir_develop_apis
+(
+   id                   varchar(36) not null comment 'ID',
+   region_code          varchar(6) comment '所属行政区划',
+   api_name             varchar(128) comment 'API名称',
+   api_category         varchar(36) comment 'API种类',
+   api_url              varchar(128) comment 'URL地址',
+   api_desc             varchar(512) comment '描述',
+   parent_id            varchar(36) comment '父节点ID',
+   parent_name          varchar(128) comment '父节点名称',
+   order_number         int(4) comment '排序',
+   status               varchar(36) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+);
+
+alter table dir_develop_apis comment '开发者工具';
+
+/*==============================================================*/
+/* Table: dir_news                                              */
+/*==============================================================*/
+create table dir_news
+(
+   id                   varchar(36) not null comment 'ID',
+   region_code          varchar(6) comment '所属行政区划',
+   title                varchar(256) comment '新闻标题',
+   news_pic             varchar(128) comment '新闻图片',
+   news_content         text comment '新闻内容',
+   publisher            varchar(36) comment '发布人',
+   publish_date         date comment '发布时间',
+   status               varchar(36) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+);
+
+alter table dir_news comment '新闻表';
+
+/*==============================================================*/
+/* Table: dir_policy                                            */
+/*==============================================================*/
+create table dir_policy
+(
+   id                   varchar(36) not null comment 'ID',
+   region_code          varchar(6) comment '所属行政区划',
+   source_type          varchar(36) comment '政策来源',
+   policy_level         varchar(36) comment '政策级别',
+   title                varchar(36) comment '政策标题',
+   content              text comment '发布内容',
+   publisher            varchar(36) comment '政策发布人',
+   publish_date         date comment '发布时间',
+   status               varchar(36) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+);
+
+alter table dir_policy comment '政策表';
+
+/*==============================================================*/
+/* Table: dir_regist_user                                       */
+/*==============================================================*/
+create table dir_regist_user
+(
+   id                   varchar(36) not null comment 'ID',
+   region_code          varchar(6) comment '所属行政区划',
+   login_name           varchar(64) comment '登录用户名',
+   real_name            varchar(64) comment '真实姓名',
+   email                varchar(64) comment '注册邮箱',
+   phone                varchar(64) comment '联系电话',
+   belong_dept          varchar(36) comment '所属部门',
+   status               varchar(36) comment '状态',
+   create_time          datetime comment '创建时间',
+   primary key (id)
+);
+
+alter table dir_regist_user comment '用户注册表';
+
+/*==============================================================*/
+/* Table: dir_service_info                                      */
+/*==============================================================*/
+create table dir_service_info
+(
+   id                   varchar(36) not null comment 'ID',
+   service_name         varchar(36) comment '服务名称',
+   service_type         varchar(36) comment '服务类型',
+   service_url          varchar(500) comment '服务URL',
+   request_method       varchar(36) comment '服务请求方式',
+   request_format       varchar(36) comment '服务请求格式',
+   request_info         mediumtext comment '请求信息',
+   operate_date         datetime comment '操作时间',
+   primary key (id)
+);
+
+alter table dir_service_info comment '发布服务信息表';
+
+/*==============================================================*/
+/* Table: dir_special_apps                                      */
+/*==============================================================*/
+create table dir_special_apps
+(
+   id                   varchar(36) not null comment 'ID',
+   region_code          varchar(6) comment '所属行政区划',
+   app_category         varchar(36) comment '所属类别',
+   app_name             varchar(64) comment '应用名称',
+   app_url              varchar(512) comment '应用URL',
+   order_number         int(4) comment '排序',
+   status               varchar(36) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+);
+
+alter table dir_special_apps comment '专题应用表';
+
+/*==============================================================*/
+/* Table: dir_suggestion                                        */
+/*==============================================================*/
+create table dir_suggestion
+(
+   id                   varchar(36) not null comment 'ID',
+   region_code          varchar(6) comment '所属行政区划',
+   title                varchar(256) comment '标题',
+   content              varchar(1024) comment '问题详情',
+   contact_name         varchar(64) comment '联系人称呼',
+   contact_email        varchar(64) comment '联系人邮箱',
+   contact_phone        varchar(64) comment '联系人电话',
+   submit_date          date comment '提交时间',
+   response_content     varchar(1024) comment '回复信息',
+   response_date        date comment '回复时间',
+   responser            varchar(36) comment '回复人',
+   primary key (id)
+);
+
+alter table dir_suggestion comment '咨询建议表';
+
+/*==============================================================*/
+/* Table: sys_dept                                              */
+/*==============================================================*/
+create table sys_dept
+(
+   id                   varchar(36) not null comment 'id',
+   region_code          varchar(6) comment '所属行政区域',
+   dept_type            varchar(36) comment '组织机构类型',
+   dept_code            varchar(64) not null comment '组织机构编码',
+   dept_name            varchar(256) not null comment '组织机构名称',
+   dept_short_name      varchar(256) comment '组织机构简称',
+   dept_alias           varchar(64) comment '组织机构别名',
+   listing_name         varchar(64) comment '组织机构挂牌名',
+   dept_desc            varchar(512) comment '组织机构描述',
+   function_keyword     varchar(256) comment '职能关键字',
+   dept_function        varchar(4000) comment '组织机构职能',
+   fcode                varchar(64) comment '父组织机构编码',
+   fname                varchar(64) comment '父组织机构名称',
+   dept_response_man    varchar(36) comment '部门负责人',
+   dept_response_phone  varchar(36) comment '部门负责人电话',
+   dept_response_email  varchar(64) comment '部门负责人邮箱',
+   dept_contact_man     varchar(32) comment '联系人',
+   dept_contact_dept    varchar(32) comment '联系人所属部门',
+   dept_contact_post    varchar(32) comment '联系人职务',
+   dept_contact_phone   varchar(32) comment '联系人手机',
+   dept_contact_fixed_phone varchar(32) comment '联系人座机',
+   dept_contact_email   varchar(64) comment '联系人邮箱',
+   dept_address         varchar(256) comment '组织机构地址',
+   org_longitude        varchar(36) comment '组织位置经度',
+   org_latitude         varchar(36) comment '组织位置纬度',
+   icon                 varchar(256) comment '图标',
+   order_number         int(4) comment '排序',
+   validate_from        date comment '组织启用时间',
+   validate_to          date comment '组织停用时间',
+   status               int(3) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   tree_index           int,
+   tree_code            varchar(128),
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_dept comment '系统组织机构表';
+
+/*==============================================================*/
+/* Table: sys_dept_category_template                            */
+/*==============================================================*/
+create table sys_dept_category_template
+(
+   ID                   varchar(36) not null comment 'ID',
+   category_code        varchar(36) comment '组织机构类别代码',
+   category_name        varchar(36) comment '组织机构类别名称',
+   fullname_template    varchar(64) comment '组织机构类别全称模板',
+   shortname_template   varchar(64) comment '组织机构类别简称模板',
+   apply_min_level      int comment '适用最小行政级别',
+   apply_max_level      int comment '适用最大行政级别',
+   primary key (ID)
+);
+
+alter table sys_dept_category_template comment '组织机构类别模板表';
+
+/*==============================================================*/
+/* Table: sys_dict                                              */
+/*==============================================================*/
+create table sys_dict
+(
+   id                   varchar(36) not null comment 'ID',
+   region_code          varchar(6) not null comment '行政区划编号',
+   category             varchar(36) comment '类型',
+   dict_code            varchar(36) comment '字典编码',
+   dict_name            varchar(64) comment '字典名称',
+   dict_desc            varchar(512) comment '字典描述',
+   parent_code          varchar(36) comment '上级字典编码',
+   order_number         int(4) comment '显示顺序',
+   status               int(3) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+);
+
+alter table sys_dict comment '系统字典表';
+
+/*==============================================================*/
+/* Table: sys_dict_category                                     */
+/*==============================================================*/
+create table sys_dict_category
+(
+   category_code        varchar(36) not null comment '类别编号',
+   category_name        varchar(64) comment '类别名称',
+   category_desc        varchar(256) comment '类别描述',
+   primary key (category_code)
+);
+
+alter table sys_dict_category comment '字典类型表';
+
+/*==============================================================*/
+/* Table: sys_guid_dept                                         */
+/*==============================================================*/
+create table sys_guid_dept
+(
+   id                   varchar(36) not null comment 'id',
+   cur_dept_id          varchar(36) comment '当前部门ID',
+   guid_dept_id         varchar(36) comment '业务指导部门ID',
+   primary key (id)
+);
+
+alter table sys_guid_dept comment '业务指导部门记录表';
+
+/*==============================================================*/
+/* Table: sys_log                                               */
+/*==============================================================*/
+create table sys_log
+(
+   id                   varchar(36) not null comment 'ID',
+   region_code          varchar(6) comment '所属行政区划',
+   operator_id          varchar(36) comment '操作人ID',
+   operate_time         timestamp comment '操作时间',
+   operate_type         varchar(36) comment '操作类型',
+   operate_desc         varchar(256) comment '操作描述',
+   operate_detail       longtext comment '操作详情',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_log comment '系统操作日志表';
+
+/*==============================================================*/
+/* Table: sys_menu                                              */
+/*==============================================================*/
+create table sys_menu
+(
+   id                   varchar(36) not null comment 'id',
+   menu_name            varchar(64) not null comment '菜单名称',
+   pid                  varchar(36) comment '父级菜单ID',
+   url                  varchar(256) comment '连接地址',
+   icon                 varchar(256) comment '图标',
+   sort                 int(4) comment '排序',
+   menu_type            int(3) comment '类型',
+   code                 varchar(36) comment '编码',
+   resource_name        varchar(256) comment '资源标识',
+   status               int(3) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_menu comment '系统菜单表';
+
+/*==============================================================*/
+/* Table: sys_region                                            */
+/*==============================================================*/
+create table sys_region
+(
+   id                   varchar(36) not null comment '主键ID',
+   region_code          varchar(6) not null comment '行政区划编号',
+   region_name          varchar(64) comment '行政区划名称',
+   fcode                varchar(36) comment '上级行政区划编号',
+   fname                varchar(64) comment '上级行政区划名称',
+   first_charact        varchar(32) comment '首字母',
+   region_level_code    varchar(32) comment '行政区划级别代码',
+   status               varchar(32) comment '状态',
+   version_id           varchar(32) comment '版本信息表ID',
+   tree_index           int,
+   tree_code            varchar(128),
+   primary key (id)
+);
+
+alter table sys_region comment '行政区域表';
+
+/*==============================================================*/
+/* Table: sys_region_level                                      */
+/*==============================================================*/
+create table sys_region_level
+(
+   region_level_code    varchar(6) not null comment '行政级别代码',
+   region_level_name    varchar(64) comment '行政级别名称',
+   region_level_value   int comment '行政级别',
+   primary key (region_level_code)
+);
+
+alter table sys_region_level comment '行政级别表';
+
+/*==============================================================*/
+/* Table: sys_region_version                                    */
+/*==============================================================*/
+create table sys_region_version
+(
+   ID                   varchar(36) not null comment 'ID',
+   version_code         varchar(6) not null comment '版本号',
+   source               varchar(64) comment '版本来源',
+   publish_date         varchar(6) comment '版本发布时间',
+   apply_desc           varchar(512) comment '版本来源适应说明',
+   version_info         varchar(512) comment '版本记录描述',
+   validate_from        date comment '版本有效期开始',
+   validate_to          date comment '版本有效期结束',
+   primary key (ID)
+);
+
+alter table sys_region_version comment '行政区划版本记录表';
+
+/*==============================================================*/
+/* Table: sys_role                                              */
+/*==============================================================*/
+create table sys_role
+(
+   id                   varchar(36) not null comment 'id',
+   role_type            int(3) not null comment '角色类型',
+   role_name            varchar(128) not null comment '角色名称',
+   role_desc            varchar(512) comment '角色描述',
+   role_level           int(3),
+   status               int(3) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_role comment '系统角色表';
+
+/*==============================================================*/
+/* Table: sys_role_menu                                         */
+/*==============================================================*/
+create table sys_role_menu
+(
+   id                   varchar(36) not null comment 'id',
+   role_id              varchar(36) not null comment '角色ID',
+   menu_id              varchar(36) not null comment '菜单ID',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_role_menu comment '角色权限表';
+
+/*==============================================================*/
+/* Table: sys_setting                                           */
+/*==============================================================*/
+create table sys_setting
+(
+   id                   varchar(36) not null comment 'id',
+   region_code          varchar(6) comment '所属行政区划',
+   setting_type         varchar(36) not null comment '配置类型',
+   setting_code         varchar(128) not null comment '配置编码',
+   setting_name         varchar(128) not null comment '配置名称',
+   setting_value        varchar(512) not null comment '配置值',
+   setting_desc         varchar(512) comment '配置描述',
+   status               int(3) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_setting comment '系统配置表';
+
+/*==============================================================*/
+/* Table: sys_user                                              */
+/*==============================================================*/
+create table sys_user
+(
+   id                   varchar(36) not null comment 'id',
+   region_code          varchar(6) comment '所属行政区划',
+   dept_id              varchar(36) not null comment '所属组织机构',
+   user_type            int(3) not null comment '用户类型',
+   user_name            varchar(64) not null comment '用户名',
+   real_name            varchar(36) comment '用户真实姓名',
+   password             varchar(36) not null comment '密码',
+   telephone_number     varchar(16) comment '电话号码',
+   cell_phone_number    varchar(16) comment '手机号码',
+   email                varchar(64) comment '邮箱',
+   user_img             varchar(125) comment '用户头像',
+   user_desc            varchar(512) comment '用户描述',
+   status               int(3) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_user comment '系统用户表';
+
+/*==============================================================*/
+/* Table: sys_user_role                                         */
+/*==============================================================*/
+create table sys_user_role
+(
+   id                   varchar(36) not null comment 'id',
+   user_id              varchar(36) not null comment '用户ID',
+   role_id              varchar(36) not null comment '角色ID',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_user_role comment '用户角色表';
 
