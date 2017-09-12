@@ -53,7 +53,7 @@ public class LogAdvice {
 		SysUser loginUser = ShiroUtils.getLoginUser();
 		if(log != null){
 			SysLog sysLog  =new SysLog();
-			sysLog.setOperator((loginUser != null )? loginUser.getId() : "systemUserId");
+			sysLog.setOperatorId((loginUser != null )? loginUser.getId() : "systemUserId");
 			sysLog.setOperateTime(new Date());
 			//todo
 			sysLog.setOperateType("1");

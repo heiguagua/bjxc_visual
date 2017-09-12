@@ -40,7 +40,7 @@ public class SysLogServiceImpl extends CommonServiceImpl<SysLogMapper, SysLog , 
 		}
 
 		SysLog sysLog  =new SysLog();
-		sysLog.setOperator(sysUser.getId());
+		sysLog.setOperatorId(sysUser.getId());
 		sysLog.setOperateTime(new Date());
 		//todo
 		sysLog.setOperateType("1");
@@ -66,7 +66,7 @@ public class SysLogServiceImpl extends CommonServiceImpl<SysLogMapper, SysLog , 
 			paramMap.put("create_time_begin" , dateRangeArr[0].trim());
 			paramMap.put("create_time_end" , dateRangeArr[1].trim());
 		}
-		page.setRecords(sysLogMapper.selectVoList(page, paramMap));
+		page.setRecords(sysLogMapper.selectVoPage(page, paramMap));
 
 		return page;
 	}

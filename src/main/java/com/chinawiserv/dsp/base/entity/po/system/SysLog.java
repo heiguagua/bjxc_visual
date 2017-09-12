@@ -1,18 +1,17 @@
 package com.chinawiserv.dsp.base.entity.po.system;
 
+import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>
- * 访问日志表
+ * 系统操作日志表 Po对象
  * </p>
  *
- * @author zhanf
- * @since 2017-05-17
+ * @author wuty
+ * @since 2017-09-12
  */
 @TableName("sys_log")
 public class SysLog implements Serializable {
@@ -24,9 +23,15 @@ public class SysLog implements Serializable {
      */
 	private String id;
     /**
-     * 操作人Id
+     * 所属行政区划
      */
-	private String operator;
+	@TableField("region_code")
+	private String regionCode;
+    /**
+     * 操作人ID
+     */
+	@TableField("operator_id")
+	private String operatorId;
     /**
      * 操作时间
      */
@@ -57,12 +62,20 @@ public class SysLog implements Serializable {
 		this.id = id;
 	}
 
-	public String getOperator() {
-		return operator;
+	public String getRegionCode() {
+		return regionCode;
 	}
 
-	public void setOperator(String operator) {
-		this.operator = operator;
+	public void setRegionCode(String regionCode) {
+		this.regionCode = regionCode;
+	}
+
+	public String getOperatorId() {
+		return operatorId;
+	}
+
+	public void setOperatorId(String operatorId) {
+		this.operatorId = operatorId;
 	}
 
 	public Date getOperateTime() {
