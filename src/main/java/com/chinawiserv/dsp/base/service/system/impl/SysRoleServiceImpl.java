@@ -11,6 +11,7 @@ import com.chinawiserv.dsp.base.entity.po.system.SysRole;
 import com.chinawiserv.dsp.base.entity.po.system.SysRoleMenu;
 import com.chinawiserv.dsp.base.entity.po.system.SysUserRole;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRoleVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.mapper.system.SysRoleMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRoleMenuMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserRoleMapper;
@@ -22,10 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -52,6 +50,13 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
 
     @Override
     public Page<SysRoleVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
+        SysUserVo currentLoginUser = ShiroUtils.getLoginUser();
+        List<SysRole> roles = currentLoginUser.getSysRoleList();
+        int roleLevel = -1;
+        if(roles != null){
+            roleLevel = roles.stream().min((o1, o2) -> o1.getRoleLevel().compareTo(o2.getRoleLevel())).get().getRoleLevel();
+        }
+        paramMap.put("roleLevel", roleLevel);
         Page<SysRoleVo> page = getPage(paramMap);
         page.setOrderByField("create_time");
         page.setAsc(false);

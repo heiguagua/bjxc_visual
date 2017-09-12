@@ -5,6 +5,7 @@ import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.entity.vo.system.TreeMenu;
 import com.chinawiserv.dsp.base.service.system.ISysLogService;
 import com.chinawiserv.dsp.base.service.system.ISysMenuService;
@@ -137,7 +138,7 @@ public class LoginController extends BaseController {
      * @param paramMap
      */
     private void loginSuccess(Map<String, Object> paramMap) {
-        SysUser currentLoginUser = ShiroUtils.getLoginUser();
+        SysUserVo currentLoginUser = ShiroUtils.getLoginUser();
         try {
             /**
              * 加载全局非登录访问常量

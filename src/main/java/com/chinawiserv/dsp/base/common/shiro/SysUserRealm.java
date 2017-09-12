@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.base.common.shiro;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chinawiserv.dsp.base.entity.po.system.SysMenu;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.system.ISysMenuService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang.StringUtils;
@@ -29,7 +30,7 @@ public class SysUserRealm extends AuthorizingRealm {
      */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals){
-		SysUser user = (SysUser)principals.getPrimaryPrincipal();
+        SysUserVo user = (SysUserVo)principals.getPrimaryPrincipal();
 		String userId = user.getId();
 
 		List<String> permsList;
@@ -72,8 +73,8 @@ public class SysUserRealm extends AuthorizingRealm {
         String password = new String((char[]) token.getCredentials());
         
         //查询用户信息
-		SysUser user =  sysUserService.selectOne(new EntityWrapper<SysUser>().eq("user_name", userName));
-
+        SysUserVo user =  sysUserService.selectVoByUserName(userName);
+//		SysUser user =  sysUserService.selectOne(new EntityWrapper<SysUser>().eq("user_name", userName));
 //		SysUser user = sysUserService.queryByUserName(username);
         
         //账号不存在
