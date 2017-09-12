@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.service.feedback;
 
 import com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCorrection;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
+import com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCorrectionVo;
 
 /**
  * <p>
