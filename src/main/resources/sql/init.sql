@@ -88,7 +88,7 @@
 
 
   insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status)
-    values ('09f4fef9249c457ca67b4a7a45823730','510000','','1','admin','超级管理员','549d321508db446e9bcaa477835fe5f1','1');
+    values ('09f4fef9249c457ca67b4a7a45823730','510000','','1','admin','超级管理员','96e79218965eb72c92a549dd5a330112','1');
 
   insert into sys_user_role(id,user_id,role_id)
     values (REPLACE(uuid(),'-',''),'09f4fef9249c457ca67b4a7a45823730','737933bffef640329a4f864c4e2746ba');
