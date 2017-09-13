@@ -28,7 +28,7 @@ import java.util.Map;
  * @since 2017-09-11
  */
 @Controller
-@RequestMapping("/dirDataCollection")
+@RequestMapping("/feedback/dirdatacollection")
 //todo 将所有的XXX修改为真实值
 public class DirDataCollectionController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -36,17 +36,17 @@ public class DirDataCollectionController extends BaseController {
     @Autowired
     private com.chinawiserv.dsp.dir.service.feedback.IDirDataCollectionService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("system")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+        return "feedback/datacollection/datacollectionList";
     }
 
     /**
      * 分页查询数据集收藏记录
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
