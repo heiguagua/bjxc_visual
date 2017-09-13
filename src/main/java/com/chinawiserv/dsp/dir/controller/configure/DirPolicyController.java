@@ -37,17 +37,17 @@ public class DirPolicyController extends BaseController {
     @Autowired
     private IDirPolicyService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+    //@RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "dir/configure/policy/policyList";
     }
 
     /**
      * 分页查询政策表
      */
-    @RequiresPermissions("XXX:XXX:list")
+    //@RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
