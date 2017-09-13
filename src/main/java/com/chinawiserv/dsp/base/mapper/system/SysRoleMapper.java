@@ -25,4 +25,6 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
     int selectVoCount(Map<String, Object> paramMap);
 
     Integer deleteBatchRoleByIds(List<String> ids);
+
+    List<SysRole> selectRolesByUserId(String userId);
 }
