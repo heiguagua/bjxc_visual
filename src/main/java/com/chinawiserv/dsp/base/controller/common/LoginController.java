@@ -79,12 +79,12 @@ public class LoginController extends BaseController {
         String captcha = MapUtils.getString(paramMap, "captcha");
         String return_url = MapUtils.getString(paramMap, "return_url");
 
-		if(StringUtils.isBlank(userName) || StringUtils.isBlank(password) ||  StringUtils.isBlank(captcha)){
+		if(StringUtils.isBlank(userName) || StringUtils.isBlank(password) /*||  StringUtils.isBlank(captcha)*/){
 			model.addAttribute("error", "用户名/密码/验证码不能为空.");
 			return "login";
 		}
 
-		String sessionCaptcha = new KaptchaExtend().getGeneratedKey(request);
+		/*String sessionCaptcha = new KaptchaExtend().getGeneratedKey(request);
 		if(StringUtils.isBlank(sessionCaptcha)){
 			model.addAttribute("error", "验证码已过期,请重新输入.");
 			return "login";
@@ -92,7 +92,7 @@ public class LoginController extends BaseController {
 		if(!captcha.toLowerCase().equals(sessionCaptcha.toLowerCase())){
 			model.addAttribute("error", "验证码错误.");
 			return "login";
-		}
+		}*/
 
         try {
             Subject subject = ShiroUtils.getSubject();
