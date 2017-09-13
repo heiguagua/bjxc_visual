@@ -18,6 +18,12 @@ public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
      * 根据id查找vo用户
      */
     SysUserVo selectVoById(String id) throws Exception;
+
+    /**
+     * 根据username找vo用户
+     */
+    SysUserVo selectVoByUserName(String userName);
+
     /**
      * 登录
      */

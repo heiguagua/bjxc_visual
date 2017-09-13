@@ -22,4 +22,5 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 //	List<SysUserVo> selectVoList(Page<SysUserVo> page, @Param("ew") Wrapper<SysUserVo> wrapper);
     List<SysUserVo>	selectVoList(Page<SysUserVo> page, Map<String, Object> paramMap);
     SysUserVo selectVoById(String id);
+    SysUserVo selectVoByUserName(String userName);
 }

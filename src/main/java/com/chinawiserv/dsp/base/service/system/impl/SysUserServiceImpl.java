@@ -50,7 +50,7 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
 
     @Override
     public SysUserVo selectVoById(String id) throws Exception {
-        SysUserVo sysUserVo = userMapper.selectVoById(id) ;
+        SysUserVo sysUserVo = userMapper.selectVoById(id);
         List<JSONObject> roleNameList =  sysRoleService.getRoleNameList(id);
 
         String roleIdArr[] = null ;
@@ -67,6 +67,11 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
         sysUserVo.setRoleIds(roleIdArr);
 
         return sysUserVo;
+    }
+
+    @Override
+    public SysUserVo selectVoByUserName(String userName) {
+        return userMapper.selectVoByUserName(userName);
     }
 
     //commonservice中的方法
