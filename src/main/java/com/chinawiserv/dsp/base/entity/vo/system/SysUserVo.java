@@ -4,7 +4,9 @@ package com.chinawiserv.dsp.base.entity.vo.system;
 import com.chinawiserv.dsp.base.entity.po.system.SysRole;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by jacky on 2017/5/11.
@@ -25,7 +27,7 @@ public class SysUserVo extends SysUser {
 
     public String[] getRoleIds() {
         if(roleIds == null && sysRoleList != null && !sysRoleList.isEmpty()){
-            roleIds = (String[])sysRoleList.stream().map(sysRole -> sysRole.getId()).toArray();
+            roleIds = sysRoleList.stream().map(SysRole::getId).collect(Collectors.toList()).toArray(new String[]{});
         }
         return roleIds;
     }

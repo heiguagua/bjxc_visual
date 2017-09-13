@@ -88,6 +88,12 @@
 		LEFT JOIN sys_user u1 ON u1.id = u.create_user_id
 		WHERE u.user_name = #{userName}
 	</select>
+	<select id="selectUsersCountByRoleId" parameterType="java.lang.String" resultType="int">
+		SELECT count(1) from sys_user u
+		LEFT JOIN sys_user_role ur ON u.id = ur.user_id
+		LEFT JOIN sys_role r ON r.id = ur.role_id
+		WHERE u.delete_flag = '0' AND r.delete_flag = '0' AND r.id = #{roleId}
+	</select>
 <!--	<resultMap id="BaseResultMapVo" type="com.chinawiserv.dsp.dcs.dcm.entity.vo.base.SysUserVo" extends="BaseResultMap">
 
 	</resultMap>
