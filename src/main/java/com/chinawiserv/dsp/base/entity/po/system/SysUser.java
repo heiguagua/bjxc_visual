@@ -23,6 +23,12 @@ public class SysUser implements Serializable {
      * id
      */
 	private String id;
+
+	/**
+	 * 区域编码
+     */
+	private String regionCode;
+
     /**
      * 用户名
      */
@@ -108,6 +114,14 @@ public class SysUser implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getRegionCode() {
+		return regionCode;
+	}
+
+	public void setRegionCode(String regionCode) {
+		this.regionCode = regionCode;
 	}
 
 	public String getUserName() {
