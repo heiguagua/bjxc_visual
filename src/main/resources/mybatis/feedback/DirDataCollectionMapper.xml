@@ -26,7 +26,7 @@
             </if>
         </where>
     </sql>
-
+    <!-- 查询收藏列表 -->
     <select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCollectionVo">
         SELECT
         t.*,
@@ -38,6 +38,11 @@
         ON ddt.`id` = t.`dcm_id`
         LEFT JOIN sys_user su
         ON su.`id` = t.`collector_id`
+        WHERE TRUE
+        <!-- 搜索关键字 -->
+        <if test="null != searchKey and '' != searchKey">
+            AND ddt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
+        </if>
         <include refid="queryConditions"></include>
     </select>
 
