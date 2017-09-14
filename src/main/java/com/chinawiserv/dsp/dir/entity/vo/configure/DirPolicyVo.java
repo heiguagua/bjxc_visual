@@ -11,4 +11,5 @@ import com.chinawiserv.dsp.dir.entity.po.configure.DirPolicy;
  * @since 2017-09-11
  */
 public class DirPolicyVo extends DirPolicy{
+    private String user_name;
 }

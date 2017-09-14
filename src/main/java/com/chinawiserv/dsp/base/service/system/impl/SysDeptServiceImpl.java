@@ -8,6 +8,7 @@ import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
@@ -36,9 +37,20 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 
     @Override
     public Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
+        SysUserVo loginUser = ShiroUtils.getLoginUser();
+        String deptTreeCode = loginUser.getDeptTreeCode();
+        if(StringUtils.isNotBlank(deptTreeCode)){
+            List<String> permissionDeptTreeCodes = loginUser.getPermissionDeptTreeCodes();
+            if(!permissionDeptTreeCodes.contains(deptTreeCode)){
+                permissionDeptTreeCodes.add(deptTreeCode);
+            }
+            paramMap.put("permissionDeptTreeCodes", permissionDeptTreeCodes);
+        }else{
+
+        }
         Page<SysDeptVo> page = getPage(paramMap);
-        page.setOrderByField("create_time");
-        page.setAsc(false);
+        page.setOrderByField("tree_code");
+        page.setAsc(true);
         List<SysDeptVo> sysDeptVos = sysDeptMapper.selectVoPage(page, paramMap);
         page.setRecords(sysDeptVos);
         return page;
@@ -110,4 +122,6 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
         return sysDeptMapper.selectVoCount(paramMap);
     }
+
+
 }
