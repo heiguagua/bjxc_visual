@@ -65,16 +65,16 @@ public class DirPolicyController extends BaseController {
     /**
      * 新增政策表
      */
-    @RequiresPermissions("XXX:XXX:add")
+    //@RequiresPermissions("XXX:XXX:add")
     @RequestMapping("/add")
     public  String add(){
-		return "XXX/XXX/XXXAdd";
+		return "dir/configure/policy/policyAdd";
     }
 
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
+    //@RequiresPermissions("XXX:XXX:add")
     @Log("创建政策表")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -93,27 +93,27 @@ public class DirPolicyController extends BaseController {
     /**
      * 删除政策表
      */
-    @RequiresPermissions("XXX:XXX:delete")
+    //@RequiresPermissions("XXX:XXX:delete")
     @Log("删除政策表")
     @RequestMapping("/delete")
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
 		//todo 逻辑删除
-    	//service.deleteById(id);
+    	service.deleteById(id);
 		return new HandleResult().success("删除政策表成功");
     }
 
     /**
      * 编辑政策表
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    //@RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "XXX/XXX/XXXEdit";
+		return "dir/configure/policy/policyEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+    //@RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -131,7 +131,7 @@ public class DirPolicyController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    //@RequiresPermissions("XXX:XXX:edit")
     @Log("编辑政策表")
     @RequestMapping("/doEdit")
     @ResponseBody

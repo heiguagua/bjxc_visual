@@ -65,6 +65,7 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
         page.setOrderByField("create_time");
         page.setAsc(false);
         List<SysRoleVo> sysRoleVos = sysRoleMapper.selectVoPage(page, paramMap);
+        page.setTotal(sysRoleMapper.selectVoCount(paramMap));
         page.setRecords(sysRoleVos);//同时得到条数
         return page;
     }

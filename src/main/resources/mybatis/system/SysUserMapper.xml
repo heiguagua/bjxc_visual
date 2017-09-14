@@ -8,6 +8,7 @@
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysUser">
 		<id column="id" property="id" />
+		<result column="region_code" property="regionCode" />
 		<result column="user_name" property="userName" />
 		<result column="real_name" property="realName" />
 		<result column="password" property="password" />
@@ -30,13 +31,14 @@
 	<resultMap id="SysUserVoMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysUserVo" extends="BaseResultMap">
 		<result column="dept_name" property="deptName" />
 		<result column="create_name" property="createName" />
+		<result column="tree_code" property="deptTreeCode" />
 		<collection property="sysRoleList" javaType="list" column="id" ofType="com.chinawiserv.dsp.base.entity.po.system.SysRole"
 					 select="com.chinawiserv.dsp.base.mapper.system.SysRoleMapper.selectRolesByUserId" />
 	</resultMap>
 
 	<!--定义页面vo查询字段-->
 	<sql id="BaseVoSelectColumn">
-		u1.id,u1.user_name,u1.real_name,u1.user_type,u1.user_desc,u1.status,u1.create_time,u2.user_name as 'create_name',d.dept_name
+		u1.*,u2.user_name as 'create_name',d.dept_name,d.tree_code
 	</sql>
 
 	<!--定义vo查询语句-->
@@ -68,7 +70,7 @@
 	</select>
 
 	<select id="selectUserList" resultType="HashMap">
-		SELECT u.id,u.user_name AS userName,u.`password`,u.user_state AS userState,u.create_time AS createTime,
+		SELECT u.id,u.region_code AS regionCode, u.user_name AS userName,u.`password`,u.user_state AS userState,u.create_time AS createTime,
 		u.user_desc AS userDesc,u.user_img AS userImg,u.dept_id AS deptId,d.`dept_name` AS deptName FROM `sys_user` u
 		LEFT JOIN `sys_dept` d ON d.`id` = u.`dept_id` WHERE 1=1
 		<if test="search != null">
@@ -77,22 +79,26 @@
 		ORDER BY u.`create_time` DESC
 	</select>
 	<select id="selectVoList1" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysUserVo">
-		select u1.id,u1.user_name,u1.real_name,u1.user_type,u1.user_desc,u1.status,u1.create_time,u2.user_name as 'create_name',d.dept_name from sys_user u1
-		left join sys_user u2 on u2.id = u1.create_user_id
-		left join sys_dept d on u1.dept_id = d.id
+		SELECT <include refid="BaseVoSelectColumn"/>
+		<include refid="VoSelectSql"/>
+		<include refid="VoWhereCase"/>
 		${ew.sqlSegment}
 	</select>
 	<select id="selectVoByUserName" parameterType="java.lang.String" resultMap="SysUserVoMap">
-		SELECT u.*,u1.user_name as 'create_name',d.`dept_name` FROM `sys_user` u
-		LEFT JOIN sys_dept d ON u.dept_id = d.id
-		LEFT JOIN sys_user u1 ON u1.id = u.create_user_id
-		WHERE u.user_name = #{userName}
+		SELECT
+			<include refid="BaseVoSelectColumn"/>
+			<include refid="VoSelectSql"/>
+		WHERE u1.user_name = #{userName}
 	</select>
 	<select id="selectUsersCountByRoleId" parameterType="java.lang.String" resultType="int">
 		SELECT count(1) from sys_user u
 		LEFT JOIN sys_user_role ur ON u.id = ur.user_id
 		LEFT JOIN sys_role r ON r.id = ur.role_id
 		WHERE u.delete_flag = '0' AND r.delete_flag = '0' AND r.id = #{roleId}
+	</select>
+	<select id="selectUsersCountByDeptId" parameterType="java.lang.String" resultType="int">
+		SELECT count(1) from sys_user u
+		WHERE u.delete_flag = '0'  AND u.id = #{deptId}
 	</select>
 <!--	<resultMap id="BaseResultMapVo" type="com.chinawiserv.dsp.dcs.dcm.entity.vo.base.SysUserVo" extends="BaseResultMap">
 

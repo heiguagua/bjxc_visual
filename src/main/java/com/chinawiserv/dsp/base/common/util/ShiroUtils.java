@@ -1,6 +1,5 @@
 package com.chinawiserv.dsp.base.common.util;
 
-import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;

@@ -38,4 +38,9 @@ public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
      * 查询指定角色的用户数
      */
     int selectUsersCountByRoleId(String roleId);
+
+    /**
+     * 查询指定部门用户数
+     */
+    int selectUsersCountByDeptId(String deptId);
 }

@@ -91,6 +91,14 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     }
 
     @Override
+    public int selectUsersCountByDeptId(String deptId) {
+        if(StringUtils.isBlank(deptId)){
+            return 0;
+        }
+        return userMapper.selectUsersCountByDeptId(deptId);
+    }
+
+    @Override
     public boolean insertVO(SysUserVo sysUserVo) throws Exception {
         sysUserVo.setId(CommonUtil.get32UUID());
         sysUserVo.setCreateTime(new Date());

@@ -24,4 +24,5 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     SysUserVo selectVoById(String id);
     SysUserVo selectVoByUserName(String userName);
     int selectUsersCountByRoleId(String roleId);
+    int selectUsersCountByDeptId(String deptId);
 }

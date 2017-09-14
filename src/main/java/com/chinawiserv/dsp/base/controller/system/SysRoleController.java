@@ -128,8 +128,11 @@ public class SysRoleController extends BaseController {
     public HandleResult delete(@RequestParam String id) {
         HandleResult handleResult = new HandleResult();
         try {
-            sysRoleService.deleteRoleById(id);
-            handleResult.success("删除角色成功");
+            if(sysRoleService.deleteRoleById(id)){
+                handleResult.success("删除角色成功");
+            }else {
+                handleResult.error("删除角色失败");
+            }
         } catch (Exception e) {
             handleResult.error("删除角色失败");
             logger.error("删除角色失败+" + id, e);

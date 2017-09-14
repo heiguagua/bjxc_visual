@@ -1,4 +1,4 @@
-var tableSelector = '#systemUserTableId';
+var tableSelector = '#policyListId';
 
 jQuery(document).ready(function () {
     "use strict";
@@ -10,69 +10,20 @@ jQuery(document).ready(function () {
             return $.extend(params, paramsObj);
         },
         columns: [{
-            field: 'userName',
-            title: '用户名',
+            field: 'title',
+            title: '标题',
             align: 'center',
             valign: 'middle',
             sortable: false
         }, {
-            field: 'realName',
-            title: '真实姓名',
+            field: 'user_name',
+            title: '创建人',
             align: 'center',
             valign: 'middle',
             sortable: false
         }, {
-            field: 'userType',
-            title: '用户类型',
-            align: 'center',
-            valign: 'middle',
-            sortable: false,
-            formatter : function (value) {
-                var ret = '';
-                if (value === 1 ) {
-                    ret = '管理员';
-                } else if (value === 2 ) {
-                    ret = '普通用户';
-                }
-                return ret ;
-            }
-        }, {
-            field: 'userDesc',
-            title: '描述',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        }, {
-            field: 'deptName',
-            title: '组织机构名称',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        }, {
-            field: 'status',
-            title: '用户状态',
-            align: 'center',
-            valign: 'middle',
-            sortable: false,
-            formatter : function (value) {
-                var res;
-                if(value === 1){
-                    res = "启用";
-                }
-                else {
-                    res = "禁用";
-                }
-                return res;
-            }
-        },{
-            field: 'createName',
-            title: '创建者',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        },{
             field: 'createTime',
-            title: '创建用户时间',
+            title: '创建时间',
             align: 'center',
             valign: 'middle',
             sortable: false

@@ -4,11 +4,16 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chinawiserv.dsp.base.common.SystemConst;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 import com.google.common.base.CaseFormat;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,4 +43,27 @@ public abstract class CommonServiceImpl<M extends BaseMapper<P> , P , V> extends
 
 		return page;
 	}
+
+	@Override
+	public String getRegionCodeCondition(String regionCode, Integer regionLevel){
+		String regionCodeCondition;
+		switch (regionLevel){
+			case 1:
+				regionCodeCondition = "";
+				break;
+			case 2:
+				regionCodeCondition = regionCode.substring(0, 2);
+				break;
+			case 3: case 4:
+				regionCodeCondition = regionCode.substring(0, 4);
+				break;
+			case 5:
+				regionCodeCondition = regionCode.substring(0, 6);
+				break;
+			default:
+				regionCodeCondition = regionCode;
+		}
+		return regionCodeCondition;
+	}
+
 }
