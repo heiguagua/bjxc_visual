@@ -47,11 +47,18 @@ public class DirDataCollectionServiceImpl extends CommonServiceImpl<DirDataColle
     public DirDataCollectionVo selectVoById(String id) throws Exception {
 		return null;
 	}
-
+    /**
+     * 分页查询收藏列表
+     * */
     @Override
     public Page<DirDataCollectionVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return null;
+        Page<DirDataCollectionVo> page = getPage(paramMap);
+        if (!paramMap.containsKey("sortName")) {
+            page.setOrderByField("collect_date");
+            page.setAsc(false);
+        }
+        page.setRecords(mapper.selectVoPage(page, paramMap));
+		return page;
 	}
 
     @Override

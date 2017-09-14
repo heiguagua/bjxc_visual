@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chinawiserv.dsp.feedback.mapper.feedback.DirDataCollectionMapper">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.feedback.DirDataCollectionMapper">
 
     <!-- 开启二级缓存 -->
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
@@ -27,8 +27,17 @@
         </where>
     </sql>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM dir_data_collection t
+    <select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCollectionVo">
+        SELECT
+        t.*,
+        ddt.`dataset_name` AS dcm_name,
+        su.`user_name` AS collector_name
+        FROM
+        dir_data_collection t
+        LEFT JOIN dir_dataset ddt
+        ON ddt.`id` = t.`dcm_id`
+        LEFT JOIN sys_user su
+        ON su.`id` = t.`collector_id`
         <include refid="queryConditions"></include>
     </select>
 
