@@ -29,4 +29,7 @@ public interface DirDataitemApplyMapper extends BaseMapper<DirDataitemApply> {
     int baseUpdate(DirDataitemApply entity);
 
     int baseDelete(String id);
+
+    String selectDeptNameById(String applicationId);
+
 }

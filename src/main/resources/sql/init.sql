@@ -46,6 +46,10 @@
   INSERT INTO `sys_menu` VALUES ('f5a20c82110b4a3ea9e30ca01a038680', '系统监控', '1', '/system/monitor', 'fa-eye', '7', '2', '0107', 'system:monitor', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('f899f3d3baec4571b1c786717f9906fd', '批量删除角色', '3', null, null, '5', '3', '010205', 'system:role:deleteBatch', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:35:08', '0');
 
+  INSERT INTO `sys_menu` VALUES ('201', '用户注册管理', '0', '/dirRegistUser', 'fa fa-cogs', '1', '1', '02', 'catalog', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010101', '用户注册列表', '1', null, null, '1', '3', '020101', 'apply:registUser:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010103', '审核用户注册信息', '2', null, null, '3', '3', '020103', 'apply:registUser:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010104', '删除用户注册记录', '3', null, null, '4', '3', '020104', 'apply:registUser:delete', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
 
   INSERT INTO `sys_role` VALUES ('737933bffef640329a4f864c4e2746ba', '1', '超级管理员', '超级管理员', -1,1, '549d321508db446e9bcaa477835fe5f1', '2017-05-08 17:18:19', null, null, 0);
 
@@ -85,6 +89,7 @@
   INSERT INTO `sys_role_menu` VALUES ('ea5febe36eee451bb95c0b443f90245a', '737933bffef640329a4f864c4e2746ba', '4253190001c1480fb0d631d64d150535');
   INSERT INTO `sys_role_menu` VALUES ('f6e982dfc59a4233b999ca40dbe8b356', '737933bffef640329a4f864c4e2746ba', '3');
 
+  INSERT INTO `sys_role_menu` SELECT UUID() AS id,(SELECT id FROM sys_role WHERE role_name='超级管理员') AS role_id, id AS menu_id FROM sys_menu;
 
 
   insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status)
