@@ -29,7 +29,7 @@ import java.util.Map;
  * @since 2017-09-11
  */
 @Controller
-@RequestMapping("/dirSuggestion")
+@RequestMapping("/feedback/dirsuggestion")
 //todo 将所有的XXX修改为真实值
 public class DirSuggestionController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -37,17 +37,17 @@ public class DirSuggestionController extends BaseController {
     @Autowired
     private IDirSuggestionService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "feedback/suggestion/suggestionList";
     }
 
     /**
      * 分页查询咨询建议表
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){

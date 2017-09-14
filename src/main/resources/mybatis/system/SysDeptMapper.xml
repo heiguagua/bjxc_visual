@@ -36,6 +36,12 @@
 			<if test="searchKey != null">
 				t.dept_name LIKE concat(concat('%', #{searchKey}), '%')
 			</if>
+			<if test="permissionDeptTreeCodes != null">
+				AND
+				<foreach item="item" collection="permissionDeptTreeCodes" separator=" OR " open="(" close=")" index="">
+					t.tree_code like '${item}%'
+				</foreach>
+			</if>
 		</where>
 	</sql>
 
