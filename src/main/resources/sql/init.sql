@@ -351,6 +351,7 @@
   insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('71','村','7');
   insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('72','社区','7');
   -- 行政区划表
+  INSERT INTO `sys_region` VALUES ('9c0f822c-50cb-11e7-889e-00ffffff0000', '510000', '四川省', '', '四川省', null, '21', '1', '1', null, null);
   INSERT INTO `sys_region` VALUES ('9c1f864c-50cb-11e7-889e-00ffffff0000', '510100', '成都市', '510000', '四川省', null, '30', '1', '1', null, null);
   INSERT INTO `sys_region` VALUES ('9c36639f-50cb-11e7-889e-00ffffff0000', '510104', '锦江区', '510100', '成都市', null, '51', '1', '1', null, null);
   INSERT INTO `sys_region` VALUES ('9c477021-50cb-11e7-889e-00ffffff0000', '510105', '青羊区', '510100', '成都市', null, '51', '1', '1', null, null);

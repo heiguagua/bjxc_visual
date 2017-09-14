@@ -11,4 +11,14 @@ import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
  * @since 2017-09-13
  */
 public class SysRegionVo extends SysRegion{
+
+    private Integer regionLevel;
+
+    public Integer getRegionLevel() {
+        return regionLevel;
+    }
+
+    public void setRegionLevel(Integer regionLevel) {
+        this.regionLevel = regionLevel;
+    }
 }

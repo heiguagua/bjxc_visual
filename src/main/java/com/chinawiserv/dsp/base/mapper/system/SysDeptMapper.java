@@ -25,4 +25,6 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     int selectVoCount(Map<String, Object> paramMap);
 
+    List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
+
 }

@@ -22,6 +22,8 @@ public interface SysRegionMapper extends BaseMapper<SysRegion> {
 
     SysRegionVo selectVoById(String id);
 
+    SysRegionVo selectVoByRegionCode(String regionCode);
+
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(SysRegion entity);
@@ -29,4 +31,6 @@ public interface SysRegionMapper extends BaseMapper<SysRegion> {
     int baseUpdate(SysRegion entity);
 
     int baseDelete(String id);
+
+    List<SysRegionVo> selectAllRegionByRegionCode(String regionCode);
 }

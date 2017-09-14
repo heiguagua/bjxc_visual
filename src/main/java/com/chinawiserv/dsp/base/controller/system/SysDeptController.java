@@ -98,8 +98,18 @@ public class SysDeptController extends BaseController {
     @RequestMapping("/delete")
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
-        sysDeptService.deleteById(id);
-        return new HandleResult().success("删除成功");
+        HandleResult handleResult = new HandleResult();
+        try {
+            if(sysDeptService.deleteDeptById(id)){
+                handleResult.success("删除成功");
+            }else{
+                handleResult.error("删除组织机构失败");
+            }
+        }catch (Exception e){
+            handleResult.error("删除组织机构失败");
+            logger.error("删除组织机构失败", e);
+        }
+        return handleResult;
     }
 
     /**
@@ -121,8 +131,8 @@ public class SysDeptController extends BaseController {
     public  HandleResult editLoad(@RequestParam String id){
         HandleResult handleResult = new HandleResult();
         try {
-            SysDeptVo sysDeptVos = sysDeptService.selectVoById(id);
-            handleResult.put("vo", sysDeptVos);
+            SysDeptVo sysDeptVo = sysDeptService.selectVoById(id);
+            handleResult.put("vo", sysDeptVo);
         } catch (Exception e) {
             handleResult.error("获取组织机构信息失败");
             logger.error("获取组织机构信息失败", e);
@@ -164,15 +174,15 @@ public class SysDeptController extends BaseController {
 
     /**
      * 组织机构的下拉数据
-     * @param userId
+     * @param regionCode 区域代码，如果未空则使用登录用户regionCode
      * @return
      */
     @RequestMapping("/getDeptSelectDataList")
     @ResponseBody
-    public HandleResult getDeptSelectDataList(String userId) {
+    public HandleResult getDeptSelectDataList(String regionCode) {
         HandleResult handleResult = new HandleResult();
         try {
-            JSONArray result = sysDeptService.getDeptSelectDataList();
+            JSONArray result = sysDeptService.getDeptSelectDataList(regionCode);
             handleResult.put("selectData", result);
         } catch (Exception e) {
             handleResult.error("获取组织机构列表失败");

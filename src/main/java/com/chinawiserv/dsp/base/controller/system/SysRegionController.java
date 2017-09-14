@@ -1,7 +1,9 @@
 package com.chinawiserv.dsp.base.controller.system;
 
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
@@ -30,24 +32,23 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/sysRegion")
-//todo 将所有的XXX修改为真实值
 public class SysRegionController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private ISysRegionService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("system:region:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "system/region/regionList";
     }
 
     /**
      * 分页查询行政区域表
      */
-    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("system:region:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -65,16 +66,16 @@ public class SysRegionController extends BaseController {
     /**
      * 新增行政区域表
      */
-    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("system:region:add")
     @RequestMapping("/add")
     public  String add(){
-		return "XXX/XXX/XXXAdd";
+		return "system/region/regionAdd";
     }
 
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("system:region:add")
     @Log("创建行政区域表")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -93,7 +94,7 @@ public class SysRegionController extends BaseController {
     /**
      * 删除行政区域表
      */
-    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("system:region:delete")
     @Log("删除行政区域表")
     @RequestMapping("/delete")
     @ResponseBody
@@ -106,14 +107,14 @@ public class SysRegionController extends BaseController {
     /**
      * 编辑行政区域表
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("system:region:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "XXX/XXX/XXXEdit";
+		return "system/region/regionEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("system:region:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -131,7 +132,7 @@ public class SysRegionController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("system:region:edit")
     @Log("编辑行政区域表")
     @RequestMapping("/doEdit")
     @ResponseBody
@@ -146,4 +147,19 @@ public class SysRegionController extends BaseController {
 		}
 		return handleResult;
     }
+
+    @RequestMapping("/getRegionSelectDataList")
+    @ResponseBody
+    public  HandleResult getRegionSelectDataList(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            JSONArray result = service.getRegionSelectDataList();
+            handleResult.put("selectData", result);
+        } catch (Exception e) {
+            handleResult.error("获取区域列表失败");
+            logger.error("获取区域列表失败", e);
+        }
+        return handleResult;
+    }
+
 }
