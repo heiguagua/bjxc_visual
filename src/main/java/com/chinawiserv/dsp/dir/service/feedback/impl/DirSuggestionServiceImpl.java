@@ -51,10 +51,6 @@ public class DirSuggestionServiceImpl extends CommonServiceImpl<DirSuggestionMap
     @Override
     public Page<DirSuggestionVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
         Page<DirSuggestionVo> page = getPage(paramMap);
-        if (!paramMap.containsKey("sortName")) {
-            page.setOrderByField("submit_date");
-            page.setAsc(false);
-        }
         page.setRecords(mapper.selectVoPage(page, paramMap));
         return page;
 	}

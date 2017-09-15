@@ -53,13 +53,18 @@ public class DirDataCollectionServiceImpl extends CommonServiceImpl<DirDataColle
     @Override
     public Page<DirDataCollectionVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
         Page<DirDataCollectionVo> page = getPage(paramMap);
-        if (!paramMap.containsKey("sortName")) {
-            page.setOrderByField("collect_date");
-            page.setAsc(false);
-        }
         page.setRecords(mapper.selectVoPage(page, paramMap));
 		return page;
 	}
+    /**
+     * 根据dcmId分页查询详情
+     * */
+    @Override
+    public Page<DirDataCollectionVo> selectDetailByDcmId(Map<String, Object> paramMap) {
+        Page<DirDataCollectionVo> page = getPage(paramMap);
+        page.setRecords(mapper.selectDetailByDcmId(page, paramMap));
+        return page;
+    }
 
     @Override
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {

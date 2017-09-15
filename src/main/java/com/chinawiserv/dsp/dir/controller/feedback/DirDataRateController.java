@@ -61,6 +61,22 @@ public class DirDataRateController extends BaseController {
 		}
 		return pageResult;
     }
+    /**
+     * 查询数据集评分详情
+     * */
+    @RequestMapping("/detail")
+    @ResponseBody
+    public PageResult detail(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            Page<DirDataRateVo> page = service.selectDetailByDcmId(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询数据集评分记录出错");
+            logger.error("分页查询数据集评分记录出错", e);
+        }
+        return pageResult;
+    }
 
     /**
      * 新增数据集评分记录

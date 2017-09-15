@@ -30,4 +30,9 @@ public interface DirDataCorrectionMapper extends BaseMapper<DirDataCorrection> {
     int baseUpdate(DirDataCorrection entity);
 
     int baseDelete(String id);
+
+    /**
+     * 查询详情
+     * */
+    List<DirDataCorrectionVo> selectDetailByDcmId(Page<DirDataCorrectionVo> page, Map<String, Object> paramMap);
 }

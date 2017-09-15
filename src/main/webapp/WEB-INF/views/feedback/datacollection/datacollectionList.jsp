@@ -20,46 +20,130 @@
 
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                <small>反馈管理 > 收藏管理</small>
-            </h1>
-        </section>
-        <!-- Main content -->
-        <section class="content">
-            <!-- Your Page Content Here -->
+        <section class="content" id="dcMg">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <div class="form-inline">
+                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
                             <div class="box-header">
-                                <%--<#if permissions?seq_contains('addDept')>--%>
-                                <%--</#if>--%>
                                 <div class="input-group">
-                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="资源名称">
-                                    <div class="input-group-btn">
-                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
-                                    </div>
+                                    收藏管理
                                 </div>
-
-                            </div><!-- /.box-header -->
-                        </div>
-
+                                <div class="input-group pull-right">
+                                    <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称" type="text">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary btn-flat" id="queryBtnEdit" type="button">
+                                            <i class="fa fa-search">
+                                            </i>  搜索
+                                        </button>
+                                    </div>
+                                    </input>
+                                </div>
+                            </div>
+                        </form>
                         <div class="box-body table-responsive no-padding">
-                            <table id="feedbackDataCollectionTableId" class="table table-hover">
-
+                            <!-- 表格 -->
+                            <table class="layui-table" id="datacollectionTable" lay-even="" lay-skin="row">
                             </table>
-                        </div><!-- /.box-body -->
-
-                    </div><!-- /.box -->
+                            <!-- 表格 end-->
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section><!-- /.content -->
+        </section>
+        <section class="content" id="dcMg-dd" class="hidden">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                            <div class="box-header">
+                                <div class="input-group">
+                                    <a class="btn btn-primary  btn-flat" onclick="javascript:retdcView()"> <i class="fa fa-reply">&#160;</i>返回收藏管理列表</a>
+                                </div>
+                                <div class="input-group pull-right">
+                                    <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称" type="text">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary btn-flat" id="queryBtnEdit" type="button">
+                                            <i class="fa fa-search">
+                                            </i>  搜索
+                                        </button>
+                                    </div>
+                                    </input>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="box-body table-responsive no-padding">
+                            <!-- 表格 -->
+                            <table class="layui-table" id="datacollectionInfoTable" lay-even="" lay-skin="row">
+                            </table>
+                            <!-- 表格 end-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div><!-- /.content-wrapper -->
 
     <%@include file="/WEB-INF/views/common/footer.jsp" %>
     <div class="control-sidebar-bg"></div>
 </div>
+<script type="text/javascript">
+    $('#datacollectionTable').bootstrapTable({
+        pagination: true, //分页
+        columns: [
+            { field: 'a', title: '序号', width: '5%' },
+            { field: 'b', title: '收藏目录' },
+            { field: 'c', title: '目录下数据集' },
+            { field: 'd', title: '最后收藏时间' },
+            { field: 'e', title: '收藏详情',
+                align: 'center',
+                valign: 'middle',
+                sortable: false,
+                width: '10%',
+                formatter: function(value) {
+                    var editBtn = [
+                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dcView(\"" + value + "\",1)'><i class='fa fa-edit'>&#160;</i>点击查看</a>&#160;"
+                    ].join('');
+                    return editBtn;
+                }
+            }
+        ],
+        data:Mock.mock({'list|32':[{'a|+1': 1,'b|1': '@CPARAGRAPH','c|1':'@CTITLE','e|1': '@BOOLEAN','d|+1':'@DATE @TIME'}]}).list
+    });
+</script>
+<script type="text/javascript">
+    $('#dcMg-dd').addClass('hidden');
+    /**
+     * [dcView 点击查看]
+     * @param  {[type]} v [description]
+     * @return {[type]}   [description]
+     */
+    function dcView(v) {
+        dcViewTable(v);
+        $('#dcMg').addClass('hidden');
+        $('#dcMg-dd').removeClass('hidden');
+    }
+    /**
+     * [retdcView 返回]
+     * @return {[type]} [description]
+     */
+    function retdcView(){
+        $('#dcMg-dd').addClass('hidden');
+        $('#dcMg-dd .box-body').html('<table class="layui-table" id="datacollectionInfoTable" lay-even="" lay-skin="row"></table>');
+        $('#dcMg').removeClass('hidden');
+    }
 
+    function dcViewTable(v) {
+        $('#datacollectionInfoTable').bootstrapTable({
+            pagination: true, //分页
+            columns: [
+                { field: 'a', title: '序号', width: '5%' },
+                { field: 'b', title: '收藏用户' },
+                { field: 'c', title: '最后收藏时间',width:'15%'}
+            ],
+            data:Mock.mock({'list|32':[{'a|+1': 1,'b|1':['普通用户','超级管理员'],'e|1': '@BOOLEAN','c|+1':'@DATE @TIME'}]}).list
+        });
+    }
+</script>
 </body>
 </html>
