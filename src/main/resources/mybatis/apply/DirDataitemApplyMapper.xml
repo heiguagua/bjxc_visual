@@ -28,23 +28,54 @@
     <sql id="queryConditions">
         <where>
             <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
+              t.id = #{id,jdbcType=VARCHAR}
             </if>
 
         </where>
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM dir_dataitem_apply t
-        <include refid="queryConditions"></include>
+        SELECT t1.id,t1.apply_date,
+        t2.real_name,
+        t6.dept_name,
+        t4.id,t4.dataset_name,
+        t5.classify_name,t5.classify_structure_name
+        FROM dir_dataitem_apply t1,
+        sys_user t2,
+        dir_dataset_classify_map t3,
+        dir_dataset t4,
+        dir_classify t5,
+        sys_dept t6
+        where
+        t1.applicant_id = t2.id and
+        t2.dept_id = t6.id and
+        t1.dcm_id=t3.id AND
+        t3.dataset_id = t4.id AND
+        t3.classify_id = t5.id  GROUP BY t4.id
     </select>
 
-    <select id="selectDeptNameById" parameterType="java.util.Map" resultType="java.lang.String">
-        SELECT t.dept_name FROM sys_dept t  WHERE t.id =  #{id,jdbcType=VARCHAR}
+    <select id="selectVoPageDetails" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t1.id, t1.apply_info, t1.`status`, t1.audit_opinion, t1.audit_date,t1.auditor_id,
+        t2.real_name,t4.source_type
+
+        FROM dir_dataitem_apply t1,
+        sys_user t2,
+        dir_dataset_classify_map t3,
+        dir_dataset t4,
+        dir_classify t5,
+        sys_dept t6
+        where
+        t1.applicant_id = t2.id and
+        t2.dept_id = t6.id and
+        t1.dcm_id=t3.id AND
+        t3.dataset_id = t4.id AND
+        t3.classify_id = t5.id AND t4.id = #{id,jdbcType=VARCHAR}
     </select>
+
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-    	SELECT t.* FROM dir_dataitem_apply t WHERE t.id = #{id}
+    	SELECT  t1.id,t2.real_name,t3.dept_name FROM dir_dataitem_apply t1,sys_user t2,sys_dept t3
+        WHERE  t1.applicant_id = t2.id and t2.dept_id = t3.id and t1.id = #{id}
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">

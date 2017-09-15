@@ -7,6 +7,7 @@ import com.chinawiserv.dsp.dir.entity.po.apply.DirDataitemApply;
 import com.chinawiserv.dsp.dir.entity.vo.apply.DirDataitemApplyVo;
 import com.chinawiserv.dsp.dir.enums.EnumTools;
 import com.chinawiserv.dsp.dir.enums.apply.DataItemStatus;
+import com.chinawiserv.dsp.dir.enums.apply.SourceTypeEnum;
 import com.chinawiserv.dsp.dir.mapper.apply.DirDataitemApplyMapper;
 import com.chinawiserv.dsp.dir.service.apply.IDirDataitemApplyService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -40,8 +42,12 @@ public class DirDataitemApplyServiceImpl extends CommonServiceImpl<DirDataitemAp
 
     @Override
     public boolean updateVO(DirDataitemApplyVo vo) throws Exception {
-		//todo
-		return false;
+        String  currentLoginUser = ShiroUtils.getLoginUserName();
+//        String currentLoginUserId = ShiroUtils.getLoginUserId();
+//        vo.setAuditorId(currentLoginUserId);
+        vo.setAuditorName(currentLoginUser);
+		vo.setAuditDate(new Date());
+		return  updateById(vo);
 	}
 
     @Override
@@ -52,7 +58,7 @@ public class DirDataitemApplyServiceImpl extends CommonServiceImpl<DirDataitemAp
 
     @Override
     public DirDataitemApplyVo selectVoById(String id) throws Exception {
-		return null;
+		return dirDataitemApplyMapper.selectVoById(id);
 	}
 
     @Override
@@ -63,22 +69,55 @@ public class DirDataitemApplyServiceImpl extends CommonServiceImpl<DirDataitemAp
         page.setAsc(false);
         List<DirDataitemApplyVo> dirRegistUserVos = dirDataitemApplyMapper.selectVoPage(page,paramMap);
         if (dirRegistUserVos != null && !dirRegistUserVos.isEmpty()){
+//            boolean dataStatus = true;
             rows = new ArrayList(dirRegistUserVos.size());
-            for (DirDataitemApplyVo vo : dirRegistUserVos){
-                String status = vo.getStatus();
-                String applicationId = vo.getApplicantId();
-                String appilicatinDept = dirDataitemApplyMapper.selectDeptNameById(applicationId);
-                vo.setAppilicatinDept(appilicatinDept);
-//                vo.setStateName("待审核");
+            for ( DirDataitemApplyVo vo : dirRegistUserVos){
+                /* if (status != null && !status.equalsIgnoreCase("1")){
+                    dataStatus = false;
+                }
+                vo.setStateName(String.valueOf(dataStatus));*/
                 rows.add(vo);
             }
+
         }else {
             rows = new ArrayList(0);
         }
+
         page.setRecords(rows);
         return page;
 
 	}
+
+    @Override
+    public Page<DirDataitemApplyVo> selectVoPageDetails(Map<String, Object> paramMap) throws Exception {
+        List<DirDataitemApplyVo> rows;
+        Page<DirDataitemApplyVo> page = getPage(paramMap);
+        page.setOrderByField("audit_date");
+        page.setAsc(false);
+        List<DirDataitemApplyVo> dirRegistUserVos = dirDataitemApplyMapper.selectVoPageDetails(page,paramMap);
+        if (dirRegistUserVos != null && !dirRegistUserVos.isEmpty()){
+            boolean dataStatus = true;
+            rows = new ArrayList(dirRegistUserVos.size());
+            for ( DirDataitemApplyVo vo : dirRegistUserVos){
+                String sourceType = vo.getSourceType();
+                String status = vo.getStatus();
+                vo.setSourceTypeName(SourceTypeEnum.valueOf(EnumTools.getName(sourceType)).getChValue());
+                vo.setDataItemStateName(DataItemStatus.valueOf(EnumTools.getName(status)).getChValue());
+                  if (status != null && !status.equalsIgnoreCase("1") || !status.equalsIgnoreCase("2")){
+                    dataStatus = false;
+                }
+                vo.setStateName(dataStatus);
+                rows.add(vo);
+            }
+
+        }else {
+            rows = new ArrayList(0);
+        }
+
+        page.setRecords(rows);
+        return page;
+
+    }
 
 
     @Override

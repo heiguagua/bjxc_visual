@@ -9,9 +9,11 @@ package com.chinawiserv.dsp.dir.enums.apply;
  */
 public enum DataItemStatus {
 
-	DATA_0("0", "同意"),
+	DATA_0("0", "待审核"),
 
-	DATA_1("1", "拒绝");
+	DATA_1("1", "同意"),
+
+	DATA_2("2", "拒绝");
 
 
 	private String dbValue;
