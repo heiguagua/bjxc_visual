@@ -33,8 +33,19 @@
                                                                                                                                                                                                                                     </where>
     </sql>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-    		SELECT t.* FROM dir_suggestion t <include refid="queryConditions"></include>
+    <select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirSuggestionVo">
+        SELECT
+        ds.*,
+        su.`user_name` AS responser_name
+        FROM
+        dir_suggestion ds
+        LEFT JOIN sys_user su
+        ON su.`id` = ds.`responser`
+        WHERE TRUE
+        <if test="null != searchKey and '' != searchKey">
+            AND ds.`title` LIKE CONCAT('%',#{searchKey},'%')
+        </if>
+        <include refid="queryConditions"></include>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">

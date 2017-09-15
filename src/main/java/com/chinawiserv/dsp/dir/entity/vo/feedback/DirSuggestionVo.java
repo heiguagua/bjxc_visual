@@ -11,4 +11,16 @@ import com.chinawiserv.dsp.dir.entity.po.feedback.DirSuggestion;
  * @since 2017-09-11
  */
 public class DirSuggestionVo extends DirSuggestion{
+    /**
+     * 回复人
+     * */
+    private String responserName;
+
+    public String getResponserName() {
+        return responserName;
+    }
+
+    public void setResponserName(String responserName) {
+        this.responserName = responserName;
+    }
 }

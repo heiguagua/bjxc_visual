@@ -13,22 +13,33 @@ import com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCollection;
  */
 public class DirDataCollectionVo extends DirDataCollection {
     /**
-     * 收藏目录Code
+     * 目录名称
      * */
-    private String dirCode;
+    private String classifyName;
     /**
-     * 收藏目录
+     * 信息资源名称
      * */
-    private String dirName;
+    private String datasetName;
     /**
-     * 数据集名称
-     * */
-    private String dcmName;
-
-    /**
-     * 收藏人姓名
+     * 收藏者
      * */
     private String collectorName;
+
+    public String getClassifyName() {
+        return classifyName;
+    }
+
+    public void setClassifyName(String classifyName) {
+        this.classifyName = classifyName;
+    }
+
+    public String getDatasetName() {
+        return datasetName;
+    }
+
+    public void setDatasetName(String datasetName) {
+        this.datasetName = datasetName;
+    }
 
     public String getCollectorName() {
         return collectorName;
@@ -36,28 +47,5 @@ public class DirDataCollectionVo extends DirDataCollection {
 
     public void setCollectorName(String collectorName) {
         this.collectorName = collectorName;
-    }
-    public String getDirCode() {
-        return dirCode;
-    }
-
-    public void setDirCode(String dirCode) {
-        this.dirCode = dirCode;
-    }
-
-    public String getDirName() {
-        return dirName;
-    }
-
-    public void setDirName(String dirName) {
-        this.dirName = dirName;
-    }
-
-    public String getDcmName() {
-        return dcmName;
-    }
-
-    public void setDcmName(String dcmName) {
-        this.dcmName = dcmName;
     }
 }

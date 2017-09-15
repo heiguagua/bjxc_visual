@@ -50,8 +50,13 @@ public class DirDataRateServiceImpl extends CommonServiceImpl<DirDataRateMapper,
 
     @Override
     public Page<DirDataRateVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return null;
+        Page<DirDataRateVo> page = getPage(paramMap);
+        if (!paramMap.containsKey("sortName")) {
+            page.setOrderByField("rate_date");
+            page.setAsc(false);
+        }
+        page.setRecords(mapper.selectVoPage(page, paramMap));
+        return page;
 	}
 
     @Override

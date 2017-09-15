@@ -13,48 +13,36 @@ import com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCorrection;
  */
 public class DirDataCorrectionVo extends DirDataCorrection {
     /**
-     * 收藏目录Code
+     * 目录名称
      * */
-    private String dirCode;
+    private String classifyName;
     /**
-     * 收藏目录
-     * */
-    private String dirName;
+     * 信息资源名称
+     */
+    private String datasetName;
     /**
-     * 数据集名称
-     * */
-    private String dcmName;
-    /**
-     * 修改者
-     * */
+     * 纠错者
+     */
     private String correctorName;
     /**
      * 审核者
      * */
     private String auditorName;
 
-    public String getDirCode() {
-        return dirCode;
+    public String getClassifyName() {
+        return classifyName;
     }
 
-    public void setDirCode(String dirCode) {
-        this.dirCode = dirCode;
+    public void setClassifyName(String classifyName) {
+        this.classifyName = classifyName;
     }
 
-    public String getDirName() {
-        return dirName;
+    public String getDatasetName() {
+        return datasetName;
     }
 
-    public void setDirName(String dirName) {
-        this.dirName = dirName;
-    }
-
-    public String getDcmName() {
-        return dcmName;
-    }
-
-    public void setDcmName(String dcmName) {
-        this.dcmName = dcmName;
+    public void setDatasetName(String datasetName) {
+        this.datasetName = datasetName;
     }
 
     public String getCorrectorName() {

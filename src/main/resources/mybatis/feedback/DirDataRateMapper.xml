@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chinawiserv.dsp.feedback.mapper.feedback.DirDataRateMapper">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.feedback.DirDataRateMapper">
 
     <!-- 开启二级缓存 -->
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
@@ -28,8 +28,27 @@
         </where>
     </sql>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM dir_data_rate t
+    <select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataRateVo">
+        SELECT
+        ddr.*,
+        dc.`classify_name`,
+        dt.`dataset_name`,
+        su.`user_name` AS rater_name
+        FROM
+        dir_data_rate ddr
+        LEFT JOIN dir_dataset_classify_map dcm
+        ON dcm.`id` = ddr.`dcm_id`
+        LEFT JOIN dir_classify dc
+        ON dc.`id` = dcm.`classify_id`
+        LEFT JOIN dir_dataset dt
+        ON dt.`id` = dcm.`dataset_id`
+        LEFT JOIN sys_user su
+        ON su.`id` = ddr.`rater_id`
+        WHERE TRUE
+        <!-- 搜索关键字 -->
+        <if test="null != searchKey and '' != searchKey">
+            AND dt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
+        </if>
         <include refid="queryConditions"></include>
     </select>
 

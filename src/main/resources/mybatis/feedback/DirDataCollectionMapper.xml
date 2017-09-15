@@ -29,19 +29,24 @@
     <!-- 查询收藏列表 -->
     <select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCollectionVo">
         SELECT
-        t.*,
-        ddt.`dataset_name` AS dcm_name,
+        ddc.*,
+        dc.`classify_name`,
+        dt.`dataset_name`,
         su.`user_name` AS collector_name
         FROM
-        dir_data_collection t
-        LEFT JOIN dir_dataset ddt
-        ON ddt.`id` = t.`dcm_id`
+        dir_data_collection ddc
+        LEFT JOIN dir_dataset_classify_map dcm
+        ON dcm.`id` = ddc.`dcm_id`
+        LEFT JOIN dir_classify dc
+        ON dc.`id` = dcm.`classify_id`
+        LEFT JOIN dir_dataset dt
+        ON dt.`id` = dcm.`dataset_id`
         LEFT JOIN sys_user su
-        ON su.`id` = t.`collector_id`
+        ON su.`id` = ddc.`collector_id`
         WHERE TRUE
         <!-- 搜索关键字 -->
         <if test="null != searchKey and '' != searchKey">
-            AND ddt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
+            AND dt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
         </if>
         <include refid="queryConditions"></include>
     </select>
