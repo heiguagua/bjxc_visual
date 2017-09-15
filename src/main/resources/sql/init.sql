@@ -46,51 +46,41 @@
   INSERT INTO `sys_menu` VALUES ('f5a20c82110b4a3ea9e30ca01a038680', '系统监控', '1', '/system/monitor', 'fa-eye', '7', '2', '0107', 'system:monitor', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('f899f3d3baec4571b1c786717f9906fd', '批量删除角色', '3', null, null, '5', '3', '010205', 'system:role:deleteBatch', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:35:08', '0');
 
-  INSERT INTO `sys_menu` VALUES ('201', '用户注册管理', '0', '/dirRegistUser', 'fa fa-cogs', '1', '1', '02', 'catalog', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
-  INSERT INTO `sys_menu` VALUES ('2010101', '用户注册列表', '1', null, null, '1', '3', '020101', 'apply:registUser:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
-  INSERT INTO `sys_menu` VALUES ('2010103', '审核用户注册信息', '2', null, null, '3', '3', '020103', 'apply:registUser:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
-  INSERT INTO `sys_menu` VALUES ('2010104', '删除用户注册记录', '3', null, null, '4', '3', '020104', 'apply:registUser:delete', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('201', '目录管理', '0', null, 'fa fa-cogs', '1', '1', '02', 'catalog', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('20101', '目录类别', '201', '/catalog/classify', 'fa-cog', '1', '2', '0201', 'catalog:classify', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010101', '查看目录类别列表', '20101', null, null, '1', '3', '020101', 'catalog:classify:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010102', '新增目录类别', '20101', null, null, '2', '3', '020102', 'catalog:classify:add', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010103', '修改目录类别', '20101', null, null, '3', '3', '020103', 'catalog:classify:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010104', '删除目录类别', '20101', null, null, '4', '3', '020104', 'catalog:classify:delete', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+
+  INSERT INTO `sys_menu` VALUES ('20102', '目录编目', '201', '/catalog/catalogue', 'fa-cog', '2', '2', '0202', 'catalog:catalogue', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010201', '查看目录列表', '20102', null, null, '1', '3', '020201', 'catalog:catalogue:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010202', '自定义新增目录', '20102', null, null, '2', '3', '020202', 'catalog:catalogue:add', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010203', '快速新增目录', '20102', null, null, '3', '3', '020202', 'catalog:catalogue:fastAdd', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010204', '修改目录', '20102', null, null, '4', '3', '020203', 'catalog:catalogue:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010205', '删除目录', '20102', null, null, '5', '3', '020204', 'catalog:catalogue:delete', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+
+  INSERT INTO `sys_menu` VALUES ('20103', '目录注册', '201', '/catalog/register', 'fa-cog', '3', '2', '0203', 'catalog:register', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010301', '查看目录列表', '20103', null, null, '1', '3', '020301', 'catalog:register:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010302', '注册', '20103', null, null, '2', '3', '020302', 'catalog:register:save', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+
+  INSERT INTO `sys_menu` VALUES ('20104', '目录审核', '201', '/catalog/audit', 'fa-cog', '4', '2', '0204', 'catalog:audit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010401', '查看目录列表', '20104', null, null, '1', '3', '020401', 'catalog:audit:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010402', '审核', '20104', null, null, '2', '3', '020402', 'catalog:audit:save', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+
+  INSERT INTO `sys_menu` VALUES ('20105', '目录发布', '201', '/catalog/release', 'fa-cog', '5', '2', '0205', 'catalog:release', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010501', '查看待发布目录列表', '20105', null, null, '1', '3', '020501', 'catalog:release:unReleaseList', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010502', '审核驳回', '20105', null, null, '2', '3', '020502', 'catalog:release:audit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010503', '发布', '20105', null, null, '3', '3', '020503', 'catalog:release:save', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010504', '查看已发布目录列表', '20105', null, null, '4', '3', '020504', 'catalog:release:releasedList', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010505', '下架', '20105', null, null, '5', '3', '020505', 'catalog:release:off', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+
+  INSERT INTO `sys_menu` VALUES ('20106', '目录查询', '201', '/catalog/query', 'fa-cog', '6', '2', '0206', 'catalog:query', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010601', '查看目录列表', '20106', null, null, '1', '3', '020601', 'catalog:query:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
 
   INSERT INTO `sys_role` VALUES ('737933bffef640329a4f864c4e2746ba', '1', '超级管理员', '超级管理员', -1,1, '549d321508db446e9bcaa477835fe5f1', '2017-05-08 17:18:19', null, null, 0);
 
-
-  INSERT INTO `sys_role_menu` VALUES ('08c54b744ccf415facf7b6d56fc85021', '737933bffef640329a4f864c4e2746ba', '686630c7cb624cc786dcdc9958971a6b');
-  INSERT INTO `sys_role_menu` VALUES ('09f4fef9249c457ca67b4a7a45823730', '737933bffef640329a4f864c4e2746ba', '649b484b58414d91aefa5a26143e6557');
-  INSERT INTO `sys_role_menu` VALUES ('0f74bd67f00b4a4b9508231bd472d605', '737933bffef640329a4f864c4e2746ba', 'ca840bc59c4e4ba38d43fe77fd4e3423');
-  INSERT INTO `sys_role_menu` VALUES ('19250006006a4439a32e1c6aea79b229', '737933bffef640329a4f864c4e2746ba', '3f26102ef0e04c3c9328cb97067cc5fa');
-  INSERT INTO `sys_role_menu` VALUES ('1d24c2bd05214ff8b0712471d280d9f4', '737933bffef640329a4f864c4e2746ba', '5d3dd56c16ff4e32aecae1b3228159c7');
-  INSERT INTO `sys_role_menu` VALUES ('278b16b942a94902befe6cd8e416626d', '737933bffef640329a4f864c4e2746ba', 'f899f3d3baec4571b1c786717f9906fd');
-  INSERT INTO `sys_role_menu` VALUES ('34d1ba7b031543d0a4e01222347f4091', '737933bffef640329a4f864c4e2746ba', 'f5a20c82110b4a3ea9e30ca01a038680');
-  INSERT INTO `sys_role_menu` VALUES ('39fcbb569b544bc48c9ff0a1808d66a4', '737933bffef640329a4f864c4e2746ba', 'd2bc30feb5474a1bb7e02d48d39a3f8a');
-  INSERT INTO `sys_role_menu` VALUES ('3f545309df364e47b471082af287011b', '737933bffef640329a4f864c4e2746ba', '1');
-  INSERT INTO `sys_role_menu` VALUES ('47df737d83cf4d37b59914b95d23c3ee', '737933bffef640329a4f864c4e2746ba', '0c9b5fc8b44b41d1871a8fc8300247ec');
-  INSERT INTO `sys_role_menu` VALUES ('4967e350a51e42cc9f613f90b6f7fe89', '737933bffef640329a4f864c4e2746ba', '10');
-  INSERT INTO `sys_role_menu` VALUES ('54aa249b5ff345bebd5a494777e58be7', '737933bffef640329a4f864c4e2746ba', '1db9105008404a3485b6fac30dba3c0e');
-  INSERT INTO `sys_role_menu` VALUES ('55198bca649b476a96247409e591f770', '737933bffef640329a4f864c4e2746ba', '3fb6a7a5935b4efabf3de82e7e1baeb6');
-  INSERT INTO `sys_role_menu` VALUES ('57ab8e5a8c3f4412b5dd7f6ca884e531', '737933bffef640329a4f864c4e2746ba', '37a1abf4b9fb4c43a9ca4688a051008d');
-  INSERT INTO `sys_role_menu` VALUES ('603b1709c5ee4cacad596a0fb27123d5', '737933bffef640329a4f864c4e2746ba', '60dda993d87647f5989c15f14f866df9');
-  INSERT INTO `sys_role_menu` VALUES ('6a173b8355a9438291ecfdfd2ec8279d', '737933bffef640329a4f864c4e2746ba', '79d78b8357174cac8f44abd275dec597');
-  INSERT INTO `sys_role_menu` VALUES ('6aad723536484826a8ff4909a63b9db0', '737933bffef640329a4f864c4e2746ba', '488ef1eff57b4827acade7c0744278ce');
-  INSERT INTO `sys_role_menu` VALUES ('6b3f30ec097a4d259c18e9ef121d8ca5', '737933bffef640329a4f864c4e2746ba', '4');
-  INSERT INTO `sys_role_menu` VALUES ('6d802565d55b4c0798e32fb09902aff6', '737933bffef640329a4f864c4e2746ba', '42dd5ae31e3a43b3a197440e8ec19a94');
-  INSERT INTO `sys_role_menu` VALUES ('75de737633cc405facca79d71d9926ed', '737933bffef640329a4f864c4e2746ba', '363a778e78a346a68210b2590163a943');
-  INSERT INTO `sys_role_menu` VALUES ('75e2d8fc86b7405496137ff953e51db9', '737933bffef640329a4f864c4e2746ba', '22e38e885f9b40b9aae6a36deb78e89c');
-  INSERT INTO `sys_role_menu` VALUES ('83c8154646fb49bd91e9a7f3435f537e', '737933bffef640329a4f864c4e2746ba', 'b4e7232189b14cf3ba160cf7b0d3bf37');
-  INSERT INTO `sys_role_menu` VALUES ('851ea372461240ce964fd3f757db9413', '737933bffef640329a4f864c4e2746ba', '915c309ebe5047b68645b3eb777dd8c9');
-  INSERT INTO `sys_role_menu` VALUES ('883470c5cb43422687d290e6f6abbca2', '737933bffef640329a4f864c4e2746ba', '4e816a9854714d24b0413d929d637a2b');
-  INSERT INTO `sys_role_menu` VALUES ('8898f16fd0d840808e20ed7f4643a821', '737933bffef640329a4f864c4e2746ba', 'a5ebf29168234406939856bc6890c86b');
-  INSERT INTO `sys_role_menu` VALUES ('8989351fbb3b42709ea3a18f07b7c4a5', '737933bffef640329a4f864c4e2746ba', 'dc5f478d98ed4297a8ae638fe90df050');
-  INSERT INTO `sys_role_menu` VALUES ('96ea5bf432c642a59264e85d3b884136', '737933bffef640329a4f864c4e2746ba', 'a73802e513cc4465883530ec8074abbb');
-  INSERT INTO `sys_role_menu` VALUES ('977c24618d0e48beaa57d648b5d08d8c', '737933bffef640329a4f864c4e2746ba', '2');
-  INSERT INTO `sys_role_menu` VALUES ('a7f8c4a91b82480eaa28a281984a064b', '737933bffef640329a4f864c4e2746ba', '5');
-  INSERT INTO `sys_role_menu` VALUES ('a9559c9ab4cc4ba8b1d5554d9f95df9d', '737933bffef640329a4f864c4e2746ba', '0b71762ebc0346239efd5f2069ff2124');
-  INSERT INTO `sys_role_menu` VALUES ('c4ed1e58395643b1ada4782c7f204b0c', '737933bffef640329a4f864c4e2746ba', '4eaf9b0cc3f14c96b8ccec03344b5c17');
-  INSERT INTO `sys_role_menu` VALUES ('cd3bbdbd59aa44eab3e263aac341af79', '737933bffef640329a4f864c4e2746ba', '0818e1c76bbd44eba3a698547ec4e637');
-  INSERT INTO `sys_role_menu` VALUES ('ea5febe36eee451bb95c0b443f90245a', '737933bffef640329a4f864c4e2746ba', '4253190001c1480fb0d631d64d150535');
-  INSERT INTO `sys_role_menu` VALUES ('f6e982dfc59a4233b999ca40dbe8b356', '737933bffef640329a4f864c4e2746ba', '3');
-
   INSERT INTO `sys_role_menu` SELECT UUID() AS id,(SELECT id FROM sys_role WHERE role_name='超级管理员') AS role_id, id AS menu_id FROM sys_menu;
-
 
   insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status)
     values ('09f4fef9249c457ca67b4a7a45823730','510000','','1','admin','超级管理员','96e79218965eb72c92a549dd5a330112','1');
