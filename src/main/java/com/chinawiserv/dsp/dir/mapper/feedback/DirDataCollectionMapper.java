@@ -30,4 +30,8 @@ public interface DirDataCollectionMapper extends BaseMapper<DirDataCollection> {
     int baseUpdate(DirDataCollection entity);
 
     int baseDelete(String id);
+    /**
+     * 查询详情
+     * */
+    List<DirDataCollectionVo> selectDetailByDcmId(Page<DirDataCollectionVo> page, Map<String, Object> paramMap);
 }

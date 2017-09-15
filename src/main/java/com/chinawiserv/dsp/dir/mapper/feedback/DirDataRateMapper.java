@@ -30,4 +30,8 @@ public interface DirDataRateMapper extends BaseMapper<DirDataRate> {
     int baseUpdate(DirDataRate entity);
 
     int baseDelete(String id);
+    /**
+     * 查询详情
+     * */
+    List<DirDataRateVo> selectDetailByDcmId(Page<DirDataRateVo> page, Map<String, Object> paramMap);
 }

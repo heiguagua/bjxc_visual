@@ -47,17 +47,24 @@ public class DirDataRateServiceImpl extends CommonServiceImpl<DirDataRateMapper,
     public DirDataRateVo selectVoById(String id) throws Exception {
 		return null;
 	}
-
+    /**
+     * 分页查询列表
+     * */
     @Override
     public Page<DirDataRateVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
         Page<DirDataRateVo> page = getPage(paramMap);
-        if (!paramMap.containsKey("sortName")) {
-            page.setOrderByField("rate_date");
-            page.setAsc(false);
-        }
         page.setRecords(mapper.selectVoPage(page, paramMap));
         return page;
 	}
+    /**
+     * 根据dcmId分页查询详情
+     * */
+    @Override
+    public Page<DirDataRateVo> selectDetailByDcmId(Map<String, Object> paramMap) {
+        Page<DirDataRateVo> page = getPage(paramMap);
+        page.setRecords(mapper.selectDetailByDcmId(page, paramMap));
+        return page;
+    }
 
     @Override
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
