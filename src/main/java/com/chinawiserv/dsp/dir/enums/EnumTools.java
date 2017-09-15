@@ -1,4 +1,4 @@
-package com.chinawiserv.dsp.dir.enums.apply;
+package com.chinawiserv.dsp.dir.enums;
 
 import org.apache.commons.lang3.StringUtils;
 

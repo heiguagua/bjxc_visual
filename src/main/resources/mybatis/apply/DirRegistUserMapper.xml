@@ -13,22 +13,33 @@
         <result column="real_name" property="realName"/>
         <result column="email" property="email"/>
         <result column="phone" property="phone"/>
-        <result column="belong_dep" property="belongDep"/>
+        <result column="belong_dept" property="belongDep"/>
         <result column="status" property="status"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
-               type="com.chinawiserv.dsp.dir.entity.vo.apply.DirRegistUser">
+               type="com.chinawiserv.dsp.dir.entity.vo.apply.DirRegistUserVo">
 
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
+            1 = 1
             <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
+              AND  t.id = #{id,jdbcType=VARCHAR}
             </if>
+            <if test="status != null">
+              AND  t.status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="login_name != null">
+              AND  t.login_name = #{login_name,jdbcType=VARCHAR}
+            </if>
+            <if test="real_name != null">
+             AND   t.real_name = #{real_name,jdbcType=VARCHAR}
+            </if>
+
         </where>
     </sql>
 
