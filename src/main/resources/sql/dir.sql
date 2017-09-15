@@ -1101,3 +1101,11 @@ DEFAULT CHARSET = utf8;
 
 alter table sys_user_role comment '用户角色表';
 
+/*==============================================================*/
+/* 给收藏、纠错、评分表添加目录编号的字段 GONGJ 2017.9.15               */
+/*==============================================================*/
+
+ALTER TABLE dir_data_collection ADD COLUMN dir_code VARCHAR(36) NULL COMMENT'收藏目录编号' AFTER dcm_id;
+ALTER TABLE dir_data_correction ADD COLUMN dir_code VARCHAR(36) NULL COMMENT'纠错目录编号' AFTER dcm_id;
+ALTER TABLE dir_data_rate ADD COLUMN dir_code VARCHAR(36) NULL COMMENT'评分目录编号' AFTER dcm_id;
+
