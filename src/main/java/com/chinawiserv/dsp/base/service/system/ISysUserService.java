@@ -33,4 +33,14 @@ public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
      * 删除用户
      */
     void delete(String id);
+
+    /**
+     * 查询指定角色的用户数
+     */
+    int selectUsersCountByRoleId(String roleId);
+
+    /**
+     * 查询指定部门用户数
+     */
+    int selectUsersCountByDeptId(String deptId);
 }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysRegionMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysRegion">
+        <id column="id" property="id"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="region_name" property="regionName"/>
+        <result column="fcode" property="fcode"/>
+        <result column="fname" property="fname"/>
+        <result column="first_charact" property="firstCharact"/>
+        <result column="region_level_code" property="regionLevelCode"/>
+        <result column="status" property="status"/>
+        <result column="version_id" property="versionId"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo">
+        <result column="region_level_value" property="regionLevel"/>
+    </resultMap>
+
+    <sql id="baseVoColumn">
+        t.*, l.region_level_value
+    </sql>
+
+    <sql id="baseVoTable">
+        sys_region t
+        LEFT JOIN sys_region_level l ON t.region_level_code = l.region_level_code
+    </sql>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="regionCode != null">
+                t.region_code = #{regionCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT <include refid="baseVoColumn"></include>
+        FROM <include refid="baseVoTable"></include>
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT <include refid="baseVoColumn"></include>
+        FROM <include refid="baseVoTable"></include>
+        WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoByRegionCode" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT <include refid="baseVoColumn"></include>
+        FROM <include refid="baseVoTable"></include>
+        WHERE t.status = '1' AND t.region_code = #{regionCode}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM sys_region t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectAllRegionByRegionCode" parameterType="java.util.Map" resultType="">
+        SELECT <include refid="baseVoColumn"></include>
+        FROM <include refid="baseVoTable"></include>
+        WHERE t.status = '1' AND t.region_code like '${regionCodeCondition}%'
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysRegion">
+        insert into sys_region(id,region_code,region_name,fcode,fname,first_charact,region_level_code,status,version_id,) values(
+            #{id},#{regionCode},#{regionName},#{fcode},#{fname},#{firstCharact},#{regionLevelCode},#{status},#{versionId},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysRegion">
+        update sys_region
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="regionCode != null">
+                region_code = #{regionCode},
+            </if>
+            <if test="regionName != null">
+                region_name = #{regionName},
+            </if>
+            <if test="fcode != null">
+                fcode = #{fcode},
+            </if>
+            <if test="fname != null">
+                fname = #{fname},
+            </if>
+            <if test="firstCharact != null">
+                first_charact = #{firstCharact},
+            </if>
+            <if test="regionLevelCode != null">
+                region_level_code = #{regionLevelCode},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="versionId != null">
+                version_id = #{versionId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from sys_region
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

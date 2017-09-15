@@ -29,7 +29,7 @@ import java.util.Map;
  * @since 2017-09-11
  */
 @Controller
-@RequestMapping("/dirDataComment")
+@RequestMapping("/feedback/dirdatacomment")
 //todo 将所有的XXX修改为真实值
 public class DirDataCommentController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -37,17 +37,17 @@ public class DirDataCommentController extends BaseController {
     @Autowired
     private IDirDataCommentService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "feedback/datacomment/datacommentList";
     }
 
     /**
      * 分页查询数据集评论记录
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){

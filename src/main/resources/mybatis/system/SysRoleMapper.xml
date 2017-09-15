@@ -3,7 +3,7 @@
 <mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysRoleMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysRole">
+	<!--<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysRole">
 		<id column="id" property="id" />
 		<result column="role_type" property="roleType" />
 		<result column="role_name" property="roleName" />
@@ -19,7 +19,7 @@
 
 	<resultMap id="SysRoleVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysRoleVo">
 
-	</resultMap>
+	</resultMap>-->
 
 	<sql id="queryConditions" >
 		<where>
@@ -30,11 +30,11 @@
 		</where>
 	</sql>
 
-	<select id="selectVoPage" parameterType="java.util.Map" resultMap="SysRoleVoMap">
+	<select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysRoleVo">
 		SELECT t.* from sys_role t <include refid="queryConditions"></include>
 	</select>
 
-	<select id="selectVoById" parameterType="java.lang.String" resultMap="SysRoleVoMap">
+	<select id="selectVoById" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysRoleVo">
 		SELECT t.* from sys_role t WHERE t.id = #{id}
 	</select>
 
@@ -42,7 +42,7 @@
 		SELECT count(1) from sys_role t <include refid="queryConditions"></include>
 	</select>
 
-	<select id="selectRolesByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+	<select id="selectRolesByUserId" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.po.system.SysRole">
 		SELECT t.* from sys_role t
 		LEFT JOIN sys_user_role ur ON t.id = ur.role_id
 		WHERE ur.user_id = #{userId}

@@ -14,6 +14,7 @@ import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysRoleService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,6 +80,22 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     public void delete(String id) {
         this.deleteById(id);
         userRoleMapper.delete(new EntityWrapper<SysUserRole>().addFilter("user_id = {0}", id));
+    }
+
+    @Override
+    public int selectUsersCountByRoleId(String roleId) {
+        if(StringUtils.isBlank(roleId)){
+            return 0;
+        }
+        return userMapper.selectUsersCountByRoleId(roleId);
+    }
+
+    @Override
+    public int selectUsersCountByDeptId(String deptId) {
+        if(StringUtils.isBlank(deptId)){
+            return 0;
+        }
+        return userMapper.selectUsersCountByDeptId(deptId);
     }
 
     @Override

@@ -8,6 +8,8 @@ import com.chinawiserv.dsp.dir.service.configure.IDirPolicyService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,16 +28,26 @@ public class DirPolicyServiceImpl extends CommonServiceImpl<DirPolicyMapper, Dir
 
 
     @Override
-    public boolean insertVO(DirPolicyVo vo) throws Exception {
-		//todo
-		return false;
+    public boolean updateVO(DirPolicyVo vo) throws Exception {
+        //todo
+        boolean b=true;
+        int i = mapper.baseUpdate(vo);
+        if(i<1){
+            b=false;
+        }
+        return b;
     }
 
     @Override
-    public boolean updateVO(DirPolicyVo vo) throws Exception {
+    public boolean insertVO(DirPolicyVo vo) throws Exception {
 		//todo
-		return false;
-	}
+        boolean b=true;
+        int i = mapper.baseInsert(vo);
+        if(i<1){
+            b=false;
+        }
+        return b;
+    }
 
     @Override
     public boolean deleteByQuery(Map<String, Object> paramMap) throws Exception {
@@ -45,13 +57,17 @@ public class DirPolicyServiceImpl extends CommonServiceImpl<DirPolicyMapper, Dir
 
     @Override
     public DirPolicyVo selectVoById(String id) throws Exception {
-		return null;
+		return mapper.selectVoById(id);
 	}
 
     @Override
     public Page<DirPolicyVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return null;
+        Page<DirPolicyVo> page = getPage(paramMap);
+        page.setOrderByField("create_time");
+        page.setAsc(false);
+        List<DirPolicyVo> voPage = mapper.selectVoPage(page, paramMap);
+        page.setRecords(voPage);
+        return page;
 	}
 
     @Override

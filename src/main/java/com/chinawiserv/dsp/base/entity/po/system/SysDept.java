@@ -19,92 +19,79 @@ public class SysDept implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * id
-     */
 	private String id;
-    /**
-     * 组织机构类型
-     */
-	@TableField("dept_type")
-	private Integer deptType;
-    /**
-     * 组织机构名称
-     */
-	@TableField("dept_name")
-	private String deptName;
-    /**
-     * 组织机构简称
-     */
-	@TableField("dept_alias")
-	private String deptAlias;
-    /**
-     * 组织机构编码
-     */
-	@TableField("dept_code")
+
+	private String regionCode;
+
+	private String deptType;
+
 	private String deptCode;
-    /**
-     * 联系人
-     */
-	@TableField("dept_contact_man")
-	private String deptContactMan;
-    /**
-     * 联系电话
-     */
-	@TableField("dept_contact_num")
-	private String deptContactNum;
-    /**
-     * 地址
-     */
-	@TableField("dept_address")
-	private String deptAddress;
-    /**
-     * 组织机构描述
-     */
-	@TableField("dept_desc")
+
+	private String deptName;
+
+	private String deptShortName;
+
+	private String deptAlias;
+
+	private String listingName;
+
 	private String deptDesc;
-    /**
-     * 图标
-     */
+
+	private String functionKeyword;
+
+	private String deptFunction;
+
+	private String fcode;
+
+	private String fname;
+
+	private String deptResponseMan;
+
+	private String deptResponsePhone;
+
+	private String deptResponseEmail;
+
+	private String deptContactMan;
+
+	private String deptContactDept;
+
+	private String deptContactPost;
+
+	private String deptContactPhone;
+
+	private String deptContactFixedPhone;
+
+	private String deptContactEmail;
+
+	private String deptAddress;
+
+	private String orgLongitude;
+
+	private String orgLatitude;
+
 	private String icon;
-    /**
-     * 排序
-     */
-	private Integer sort;
-    /**
-     * 父组织机构ID
-     */
-	private String pid;
-    /**
-     * 状态
-     */
+
+	private Integer orderNumber;
+
+	private Date validateFrom;
+
+	private Date validateTo;
+
 	private Integer status;
-    /**
-     * 创建人
-     */
-	@TableField("create_user_id")
+
 	private String createUserId;
-    /**
-     * 创建时间
-     */
-	@TableField("create_time")
+
 	private Date createTime;
-    /**
-     * 更新人
-     */
-	@TableField("update_user_id")
+
 	private String updateUserId;
-    /**
-     * 更新时间
-     */
-	@TableField("update_time")
+
 	private Date updateTime;
-    /**
-     * 逻辑删除标识
-     */
-	@TableField("delete_flag")
+
 	private Integer deleteFlag;
 
+	private Integer treeIndex;
+
+	private String treeCode;
 
 	public String getId() {
 		return id;
@@ -114,28 +101,20 @@ public class SysDept implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getDeptType() {
+	public String getRegionCode() {
+		return regionCode;
+	}
+
+	public void setRegionCode(String regionCode) {
+		this.regionCode = regionCode;
+	}
+
+	public String getDeptType() {
 		return deptType;
 	}
 
-	public void setDeptType(Integer deptType) {
+	public void setDeptType(String deptType) {
 		this.deptType = deptType;
-	}
-
-	public String getDeptName() {
-		return deptName;
-	}
-
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
-	}
-
-	public String getDeptAlias() {
-		return deptAlias;
-	}
-
-	public void setDeptAlias(String deptAlias) {
-		this.deptAlias = deptAlias;
 	}
 
 	public String getDeptCode() {
@@ -146,28 +125,36 @@ public class SysDept implements Serializable {
 		this.deptCode = deptCode;
 	}
 
-	public String getDeptContactMan() {
-		return deptContactMan;
+	public String getDeptName() {
+		return deptName;
 	}
 
-	public void setDeptContactMan(String deptContactMan) {
-		this.deptContactMan = deptContactMan;
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
 	}
 
-	public String getDeptContactNum() {
-		return deptContactNum;
+	public String getDeptShortName() {
+		return deptShortName;
 	}
 
-	public void setDeptContactNum(String deptContactNum) {
-		this.deptContactNum = deptContactNum;
+	public void setDeptShortName(String deptShortName) {
+		this.deptShortName = deptShortName;
 	}
 
-	public String getDeptAddress() {
-		return deptAddress;
+	public String getDeptAlias() {
+		return deptAlias;
 	}
 
-	public void setDeptAddress(String deptAddress) {
-		this.deptAddress = deptAddress;
+	public void setDeptAlias(String deptAlias) {
+		this.deptAlias = deptAlias;
+	}
+
+	public String getListingName() {
+		return listingName;
+	}
+
+	public void setListingName(String listingName) {
+		this.listingName = listingName;
 	}
 
 	public String getDeptDesc() {
@@ -178,6 +165,134 @@ public class SysDept implements Serializable {
 		this.deptDesc = deptDesc;
 	}
 
+	public String getFunctionKeyword() {
+		return functionKeyword;
+	}
+
+	public void setFunctionKeyword(String functionKeyword) {
+		this.functionKeyword = functionKeyword;
+	}
+
+	public String getDeptFunction() {
+		return deptFunction;
+	}
+
+	public void setDeptFunction(String deptFunction) {
+		this.deptFunction = deptFunction;
+	}
+
+	public String getFcode() {
+		return fcode;
+	}
+
+	public void setFcode(String fcode) {
+		this.fcode = fcode;
+	}
+
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
+	public String getDeptResponseMan() {
+		return deptResponseMan;
+	}
+
+	public void setDeptResponseMan(String deptResponseMan) {
+		this.deptResponseMan = deptResponseMan;
+	}
+
+	public String getDeptResponsePhone() {
+		return deptResponsePhone;
+	}
+
+	public void setDeptResponsePhone(String deptResponsePhone) {
+		this.deptResponsePhone = deptResponsePhone;
+	}
+
+	public String getDeptResponseEmail() {
+		return deptResponseEmail;
+	}
+
+	public void setDeptResponseEmail(String deptResponseEmail) {
+		this.deptResponseEmail = deptResponseEmail;
+	}
+
+	public String getDeptContactMan() {
+		return deptContactMan;
+	}
+
+	public void setDeptContactMan(String deptContactMan) {
+		this.deptContactMan = deptContactMan;
+	}
+
+	public String getDeptContactDept() {
+		return deptContactDept;
+	}
+
+	public void setDeptContactDept(String deptContactDept) {
+		this.deptContactDept = deptContactDept;
+	}
+
+	public String getDeptContactPost() {
+		return deptContactPost;
+	}
+
+	public void setDeptContactPost(String deptContactPost) {
+		this.deptContactPost = deptContactPost;
+	}
+
+	public String getDeptContactPhone() {
+		return deptContactPhone;
+	}
+
+	public void setDeptContactPhone(String deptContactPhone) {
+		this.deptContactPhone = deptContactPhone;
+	}
+
+	public String getDeptContactFixedPhone() {
+		return deptContactFixedPhone;
+	}
+
+	public void setDeptContactFixedPhone(String deptContactFixedPhone) {
+		this.deptContactFixedPhone = deptContactFixedPhone;
+	}
+
+	public String getDeptContactEmail() {
+		return deptContactEmail;
+	}
+
+	public void setDeptContactEmail(String deptContactEmail) {
+		this.deptContactEmail = deptContactEmail;
+	}
+
+	public String getDeptAddress() {
+		return deptAddress;
+	}
+
+	public void setDeptAddress(String deptAddress) {
+		this.deptAddress = deptAddress;
+	}
+
+	public String getOrgLongitude() {
+		return orgLongitude;
+	}
+
+	public void setOrgLongitude(String orgLongitude) {
+		this.orgLongitude = orgLongitude;
+	}
+
+	public String getOrgLatitude() {
+		return orgLatitude;
+	}
+
+	public void setOrgLatitude(String orgLatitude) {
+		this.orgLatitude = orgLatitude;
+	}
+
 	public String getIcon() {
 		return icon;
 	}
@@ -186,20 +301,28 @@ public class SysDept implements Serializable {
 		this.icon = icon;
 	}
 
-	public Integer getSort() {
-		return sort;
+	public Integer getOrderNumber() {
+		return orderNumber;
 	}
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
+	public void setOrderNumber(Integer orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 
-	public String getPid() {
-		return pid;
+	public Date getValidateFrom() {
+		return validateFrom;
 	}
 
-	public void setPid(String pid) {
-		this.pid = pid;
+	public void setValidateFrom(Date validateFrom) {
+		this.validateFrom = validateFrom;
+	}
+
+	public Date getValidateTo() {
+		return validateTo;
+	}
+
+	public void setValidateTo(Date validateTo) {
+		this.validateTo = validateTo;
 	}
 
 	public Integer getStatus() {
@@ -250,4 +373,19 @@ public class SysDept implements Serializable {
 		this.deleteFlag = deleteFlag;
 	}
 
+	public Integer getTreeIndex() {
+		return treeIndex;
+	}
+
+	public void setTreeIndex(Integer treeIndex) {
+		this.treeIndex = treeIndex;
+	}
+
+	public String getTreeCode() {
+		return treeCode;
+	}
+
+	public void setTreeCode(String treeCode) {
+		this.treeCode = treeCode;
+	}
 }

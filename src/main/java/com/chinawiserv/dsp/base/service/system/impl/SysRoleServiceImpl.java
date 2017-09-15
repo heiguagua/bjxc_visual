@@ -14,6 +14,7 @@ import com.chinawiserv.dsp.base.entity.vo.system.SysRoleVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.mapper.system.SysRoleMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRoleMenuMapper;
+import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserRoleMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysMenuService;
@@ -43,6 +44,9 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
     private SysUserRoleMapper sysUserRoleMapper;
 
     @Autowired
+    private SysUserMapper sysUserMapper;
+
+    @Autowired
     private SysRoleMenuMapper sysRoleMenuMapper;
 
     @Autowired
@@ -61,6 +65,7 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
         page.setOrderByField("create_time");
         page.setAsc(false);
         List<SysRoleVo> sysRoleVos = sysRoleMapper.selectVoPage(page, paramMap);
+        page.setTotal(sysRoleMapper.selectVoCount(paramMap));
         page.setRecords(sysRoleVos);//同时得到条数
         return page;
     }
@@ -123,10 +128,13 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
 
     @Override
     public boolean deleteRoleById(String id) throws Exception {
-        SysRole sysRole = new SysRole();
-        sysRole.setId(id);
-        sysRole.setDeleteFlag(1);
-        return updateById(sysRole);
+        int count = sysUserMapper.selectUsersCountByRoleId(id);
+        if(count == 0){
+            SysRole sysRole = new SysRole();
+            sysRole.setId(id);
+            sysRole.setDeleteFlag(1);
+            return updateById(sysRole);
+        }else throw new RuntimeException("Delete role failed, because some users are belong to it!");
     }
 
     @Override

@@ -37,29 +37,29 @@ public class DirDataitemApplyController extends BaseController {
     @Autowired
     private IDirDataitemApplyService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "apply/dataItem/dirDataitemList";
     }
 
     /**
-     * 分页查询数据项权限申请表
+     * 分页查询共享审核消息申请表
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
-    public PageResult list(@RequestParam Map<String , Object> paramMap){
-		PageResult pageResult = new PageResult();
-		try {
-		    Page<DirDataitemApplyVo> page = service.selectVoPage(paramMap);
-		    pageResult.setPage(page);
-		} catch (Exception e) {
-		    pageResult.error("分页查询数据项权限申请表出错");
-		    logger.error("分页查询数据项权限申请表出错", e);
-		}
-		return pageResult;
+    public PageResult List(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            Page<DirDataitemApplyVo> page = service.selectVoPage(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询共享审核消息申请表出错");
+            logger.error("分页查询共享审核消息申请表出错", e);
+        }
+        return pageResult;
     }
 
     /**

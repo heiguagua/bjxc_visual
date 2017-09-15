@@ -69,4 +69,6 @@ public interface ICommonService<P , V> extends IService<P> {
      */
     <V> Page<V> getPage(Map<String, Object> paramMap) ;
 
+    String getRegionCodeCondition(String regionCode, Integer regionLevel);
+
 }

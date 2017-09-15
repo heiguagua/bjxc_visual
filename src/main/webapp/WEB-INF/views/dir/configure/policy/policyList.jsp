@@ -28,13 +28,13 @@
                             <div class="box-header">
                                 <%--<#if permissions?seq_contains('addDept')>--%>
                                 <div class="input-group">
-                                    <a class="btn btn-primary  btn-flat" onclick="javascript:addUser()" > <i class="fa fa-plus"></i> 创建用户</a>
+                                    <a class="btn btn-primary  btn-flat" onclick="javascript:addUser()" > <i class="fa fa-plus"></i>新增</a>
                                 </div>
                                 <%--</#if>--%>
                                 <div class="input-group">
-                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="用户名称">
+                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="标题">
                                     <div class="input-group-btn">
-                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
+                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i>查询</button>
                                     </div>
                                 </div>
 
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="box-body table-responsive no-padding">
-                            <table id="systemUserTableId" class="table table-hover">
+                            <table id="policyListId" class="table table-hover">
 
                             </table>
                         </div><!-- /.box-body -->
