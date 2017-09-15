@@ -23,7 +23,7 @@ public class DirDataCorrection implements Serializable {
      */
 	private String id;
     /**
-     * 信息资源ID
+     * 数据集目录类别关系ID
      */
 	@TableField("dcm_id")
 	private String dcmId;
