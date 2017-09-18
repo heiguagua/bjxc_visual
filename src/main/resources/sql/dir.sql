@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/18 9:48:10                            */
+/* Created on:     2017/9/18 13:49:32                           */
 /*==============================================================*/
 
 
@@ -1858,7 +1858,4 @@ ENGINE = InnoDB
 DEFAULT CHARSET = utf8;
 
 alter table sys_user_role comment '用户角色表';
-
-alter table drap_data_authority_audit add constraint FK_Reference_1 foreign key (apply_id)
-      references drap_data_authority_apply (id) on delete restrict on update restrict;
 
