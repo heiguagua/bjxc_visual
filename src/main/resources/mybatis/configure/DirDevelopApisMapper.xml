@@ -36,6 +36,10 @@
             </if>
                                                                                                                                                                                                                                                                                                                     </where>
     </sql>
+    
+    <select id="getDirApiZtree" resultType="com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis">
+	        select * from dir_develop_apis where delete_flag = 0 
+	</select>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
     		SELECT t.* FROM dir_develop_apis t <include refid="queryConditions"></include>
@@ -50,9 +54,17 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis">
-        insert into dir_develop_apis(id,region_code,api_name,api_category,api_url,api_desc,parent_id,parent_name,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag,) values(
-            #{id},#{regionCode},#{apiName},#{apiCategory},#{apiUrl},#{apiDesc},#{parentId},#{parentName},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},        )
+        insert into dir_develop_apis(id,region_code,api_name,api_category,api_url,api_desc,parent_id,parent_name,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(
+            #{id},#{regionCode},#{apiName},#{apiCategory},#{apiUrl},#{apiDesc},#{parentId},#{parentName},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag} )
     </insert>
+    
+    <update id="updateDeleteFlag" parameterType="string">
+    	update dir_develop_apis 
+    	
+    		set delete_flag = 1
+     
+     	where  id = #{id}                              
+    </update>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis">
         update dir_develop_apis

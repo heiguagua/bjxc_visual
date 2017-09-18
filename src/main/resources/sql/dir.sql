@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/18 9:48:10                            */
+/* Created on:     2017/9/18 13:49:32                           */
 /*==============================================================*/
 
 
@@ -151,10 +151,6 @@ drop table if exists sys_guid_dept;
 drop table if exists sys_log;
 
 drop table if exists sys_menu;
-
-drop index region_fcode_index on sys_region;
-
-drop index region_code_index on sys_region;
 
 drop table if exists sys_region;
 
@@ -1707,6 +1703,10 @@ alter table sys_region comment '行政区域表';
 /*==============================================================*/
 /* Index: region_code_index                                     */
 /*==============================================================*/
+drop index region_fcode_index on sys_region;
+
+drop index region_code_index on sys_region;
+
 create index region_code_index on sys_region
 (
    region_code
@@ -1858,7 +1858,4 @@ ENGINE = InnoDB
 DEFAULT CHARSET = utf8;
 
 alter table sys_user_role comment '用户角色表';
-
-alter table drap_data_authority_audit add constraint FK_Reference_1 foreign key (apply_id)
-      references drap_data_authority_apply (id) on delete restrict on update restrict;
 

@@ -21,7 +21,11 @@ public interface DirDevelopApisMapper extends BaseMapper<DirDevelopApis> {
     List<DirDevelopApisVo> selectVoPage(Page<DirDevelopApisVo> page, Map<String, Object> paramMap);
 
     DirDevelopApisVo selectVoById(String id);
-
+    
+    List<DirDevelopApis> getDirApiZtree();
+    //逻辑删除
+    void updateDeleteFlag(String id);
+    
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(DirDevelopApis entity);

@@ -25,11 +25,22 @@
 
     </resultMap>
 
+
+	<update id="updateDeleteFlag" parameterType="string">
+    	update dir_develop_apis 
+    	
+    		set delete_flag = 1
+     
+     	where  id = #{id}                              
+    </update>
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
                                 <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
+            </if>
+                   <if test="deleteFlag != null">
+                t.delete_flag = #{deleteFlag,jdbcType=INTEGER}
             </if>
                                                                                                                                                                                                                                                         </where>
     </sql>
