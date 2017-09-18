@@ -31,13 +31,13 @@
               AND  t.id = #{id,jdbcType=VARCHAR}
             </if>
             <if test="status != null">
-              AND  t.status = #{status,jdbcType=VARCHAR}
+              AND  t.status  = #{status,jdbcType=VARCHAR}
             </if>
             <if test="login_name != null">
-              AND  t.login_name = #{login_name,jdbcType=VARCHAR}
+              AND  t.login_name  LIKE CONCAT('%',#{login_name,jdbcType=VARCHAR},'%')
             </if>
             <if test="real_name != null">
-             AND   t.real_name = #{real_name,jdbcType=VARCHAR}
+             AND   t.real_name LIKE CONCAT('%',#{real_name,jdbcType=VARCHAR},'%')
             </if>
 
         </where>

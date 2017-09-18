@@ -11,7 +11,7 @@ import com.chinawiserv.dsp.dir.entity.po.apply.DirDataitemApply;
  * @since 2017-09-11
  */
 public class DirDataitemApplyVo extends DirDataitemApply{
-    private Boolean stateName;
+    private String stateName;
 
     private String dataItemStateName;
 
@@ -123,11 +123,11 @@ public class DirDataitemApplyVo extends DirDataitemApply{
         this.datasetId = datasetId;
     }
 
-    public Boolean getStateName() {
+    public String getStateName() {
         return stateName;
     }
 
-    public void setStateName(Boolean stateName) {
+    public void setStateName(String stateName) {
         this.stateName = stateName;
     }
 }

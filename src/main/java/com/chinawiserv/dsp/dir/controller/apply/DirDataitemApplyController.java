@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,7 +41,7 @@ public class DirDataitemApplyController extends BaseController {
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "apply/dataItem/dirDataitemList";
+    	return "apply/dataitem/dirDataitemList";
     }
 
     /**
@@ -128,7 +129,7 @@ public class DirDataitemApplyController extends BaseController {
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "apply/dataItem/dirDataitemList";
+		return "apply/dataitem/dirDataitemList";
     }
 
 //    @RequiresPermissions("XXX:XXX:edit")
@@ -163,7 +164,15 @@ public class DirDataitemApplyController extends BaseController {
                 dirDataitemApplyVo.setStatus("2");
             }
             dirDataitemApplyVo.setDataItemStateName(DataItemStatus.valueOf(EnumTools.getName(dirDataitemApplyVo.getStatus())).getChValue());
-		    service.updateVO(dirDataitemApplyVo);
+            String  ids = dirDataitemApplyVo.getId();
+            if (ids != null && !ids.isEmpty()){
+                String[] arr = ids.split(",");
+                List<String> idList = java.util.Arrays.asList(arr);
+                for (String id : idList){
+                    dirDataitemApplyVo.setId(id);
+                    service.updateVO(dirDataitemApplyVo);
+                }
+            }
 		    handleResult.success("编辑数据项权限申请表成功");
 		} catch (Exception e) {
 		    handleResult.error("编辑数据项权限申请表失败");
