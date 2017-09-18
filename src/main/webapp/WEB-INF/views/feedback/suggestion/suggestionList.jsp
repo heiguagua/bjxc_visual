@@ -29,7 +29,7 @@
                                 <div class="input-group">
                                     用户咨询
                                 </div>
-                                <!--  <div class="input-group pull-right">
+                                <div class="input-group pull-right">
                                     <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称" type="text">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary btn-flat" id="queryBtnEdit" type="button">
@@ -38,7 +38,7 @@
                                         </button>
                                     </div>
                                     </input>
-                                </div> -->
+                                </div>
                             </div>
                         </form>
                         <div class="box-body table-responsive no-padding">
@@ -57,6 +57,18 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <script type="text/javascript">
+    /**
+     * 纠错搜索框
+     * */
+    $('#queryBtnEdit').click(function () {
+        var searchKey = $('#editSearch').val();
+        var params = {
+            query:{
+                searchKey:searchKey
+            }
+        }
+        $('#usersuggestTable').bootstrapTable('refresh', params);
+    });
     $('#usersuggestTable').bootstrapTable({
         url: "/feedback/dirsuggestion/list",
         method: 'get',
@@ -75,6 +87,7 @@
             },
             { field: 'title', title: '标题' },
             { field: 'content', title: '内容' },
+            { field: 'contactName', title: '姓名', width: '15%' },
             { field: 'contactEmail', title: '邮箱', width: '15%' },
             { field: 'contactPhone', title: '联系电话', width: '10%' },
             { field: 'submitDate', title: '提交时间', width: '10%' },
@@ -110,9 +123,21 @@
         layer.confirm('您确认要' + tit + '吗？', {
             btn: ['是', '否'] //按钮
         }, function() {
-            layer.msg(tit + v, { icon: 1 });
+//            layer.msg(tit + v, { icon: 1 });
+            $.ajax({
+                url:"/feedback/dirsuggestion/delete",
+                type:"delete",
+                data:{
+                    id:id
+                },
+                success:function (message) {
+                    layer.msg(message);
+                    //刷新列表
+                    $('#usersuggestTable').bootstrapTable('refresh', null);
+                }
+            });
         }, function() {
-            layer.msg('取消' + v, { icon: 1 });
+//            layer.msg('取消' + v, { icon: 1 });
         });
     }
 </script>

@@ -13,5 +13,5 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  * @since 2017-09-11
  */
 public interface IDirSuggestionService extends ICommonService<DirSuggestion, DirSuggestionVo> {
-	
+	int baseDeleteById(String id);
 }

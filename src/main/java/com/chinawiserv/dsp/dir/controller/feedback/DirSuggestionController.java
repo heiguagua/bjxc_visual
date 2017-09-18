@@ -93,14 +93,18 @@ public class DirSuggestionController extends BaseController {
     /**
      * 删除咨询建议表
      */
-    @RequiresPermissions("XXX:XXX:delete")
+//    @RequiresPermissions("XXX:XXX:delete")
     @Log("删除咨询建议表")
     @RequestMapping("/delete")
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
 		//todo 逻辑删除
     	//service.deleteById(id);
-		return new HandleResult().success("删除咨询建议表成功");
+        int result = service.baseDeleteById(id);
+        if(result > 0){
+            return new HandleResult().success("删除成功");
+        }
+        return new HandleResult().success("删除失败");
     }
 
     /**
