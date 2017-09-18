@@ -13,5 +13,6 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  * @since 2017-09-11
  */
 public interface IDirSpecialAppsService extends ICommonService<DirSpecialApps, DirSpecialAppsVo> {
+	void DeleteByFlag(String id);
 	
 }

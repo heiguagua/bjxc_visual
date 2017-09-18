@@ -60,4 +60,9 @@ public class DirSuggestionServiceImpl extends CommonServiceImpl<DirSuggestionMap
 		//todo
 		return 0;
 	}
+
+    @Override
+    public int baseDeleteById(String id) {
+        return mapper.deletePoById(id);
+    }
 }

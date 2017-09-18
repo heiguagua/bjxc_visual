@@ -5,9 +5,14 @@ import com.chinawiserv.dsp.dir.entity.po.configure.DirSpecialApps;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirSpecialAppsVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirSpecialAppsMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirSpecialAppsService;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -27,15 +32,28 @@ public class DirSpecialAppsServiceImpl extends CommonServiceImpl<DirSpecialAppsM
 
     @Override
     public boolean insertVO(DirSpecialAppsVo vo) throws Exception {
-		//todo
-		return false;
+    	vo.setId(CommonUtil.get32UUID());
+    	vo.setCreateTime(new Date());
+    	String loginUserId = ShiroUtils.getLoginUserId();
+    	vo.setCreateUserId(loginUserId);
+    	vo.setDeleteFlag(0);
+    	mapper.baseInsert(vo);
+		return true;
     }
 
     @Override
     public boolean updateVO(DirSpecialAppsVo vo) throws Exception {
-		//todo
+    	vo.setUpdateTime(new Date());
+		String loginUserId = ShiroUtils.getLoginUserId();
+		vo.setUpdateUserId(loginUserId);
+    	mapper.baseUpdate(vo);
 		return false;
 	}
+    
+    @Override
+   	public void DeleteByFlag(String id) {		
+   		mapper.updateDeleteFlag(id);
+   	}
 
     @Override
     public boolean deleteByQuery(Map<String, Object> paramMap) throws Exception {
@@ -45,13 +63,18 @@ public class DirSpecialAppsServiceImpl extends CommonServiceImpl<DirSpecialAppsM
 
     @Override
     public DirSpecialAppsVo selectVoById(String id) throws Exception {
-		return null;
+		return mapper.selectVoById(id);
 	}
 
     @Override
     public Page<DirSpecialAppsVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return null;
+    	Page<DirSpecialAppsVo> page = getPage(paramMap);
+        //按照创建时间排序
+        page.setOrderByField("create_time");
+        page.setAsc(false);
+        page.setRecords(mapper.selectVoPage(page, paramMap));
+        return page;
+		
 	}
 
     @Override

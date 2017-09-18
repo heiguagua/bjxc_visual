@@ -37,17 +37,17 @@ public class DirSpecialAppsController extends BaseController {
     @Autowired
     private IDirSpecialAppsService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "dir/configure/specialapp/specialappList";
     }
 
     /**
      * 分页查询专题应用表
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -65,16 +65,16 @@ public class DirSpecialAppsController extends BaseController {
     /**
      * 新增专题应用表
      */
-    @RequiresPermissions("XXX:XXX:add")
+//    @RequiresPermissions("XXX:XXX:add")
     @RequestMapping("/add")
     public  String add(){
-		return "XXX/XXX/XXXAdd";
+		return "dir/configure/specialapp/specialappAdd";
     }
 
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
+//    @RequiresPermissions("XXX:XXX:add")
     @Log("创建专题应用表")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -93,27 +93,28 @@ public class DirSpecialAppsController extends BaseController {
     /**
      * 删除专题应用表
      */
-    @RequiresPermissions("XXX:XXX:delete")
+//    @RequiresPermissions("XXX:XXX:delete")
     @Log("删除专题应用表")
     @RequestMapping("/delete")
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
 		//todo 逻辑删除
     	//service.deleteById(id);
+    	service.DeleteByFlag(id);
 		return new HandleResult().success("删除专题应用表成功");
     }
 
     /**
      * 编辑专题应用表
      */
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "XXX/XXX/XXXEdit";
+		return "dir/configure/specialapp/specialappEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -131,7 +132,7 @@ public class DirSpecialAppsController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @Log("编辑专题应用表")
     @RequestMapping("/doEdit")
     @ResponseBody
