@@ -6,6 +6,7 @@
 
 <%
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+    String context_path=request.getContextPath();
 %>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,6 +33,7 @@
 <link rel="stylesheet" href="<%=basePath%>/app/css/skins/skin-blue.css">
 
 <!-- 自定义 css -->
+<link rel="stylesheet"  href="<%=basePath%>/plugins/layui/css/layui.css">
 <link rel="stylesheet" href="<%=basePath%>/css/custom.css">
 
 <!-- REQUIRED JS SCRIPTS -->
@@ -82,6 +84,8 @@
 
 <script src="<%=basePath%>/plugins/smartWizard/js/jquery.smartWizard.js"></script>
 <!-- 自定义系统初始化话JS -->
+<script src="<%=basePath%>/plugins/layui/layui.all.js"></script>
+<script src="<%=basePath%>/js/custom/mock.min.js"></script>
 <script src="<%=basePath%>/js/custom/global_custom.js"></script>
 <script src="<%=basePath%>/js/custom/curdtools.js"></script>
 

@@ -19,62 +19,27 @@ public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * id
-     */
 	private String id;
-    /**
-     * 角色类型
-     */
-	@TableField("role_type")
+
 	private Integer roleType;
-    /**
-     * 角色名称
-     */
-	@TableField("role_name")
+
 	private String roleName;
-    /**
-     * 角色描述
-     */
-	@TableField("role_desc")
+
 	private String roleDesc;
 
-	/**
-	 * 角色级别
-     */
-	@TableField("role_level")
 	private Integer roleLevel;
-    /**
-     * 状态
-     */
-	@TableField("status")
-	private Integer status;
-    /**
-     * 创建人
-     */
-	@TableField("create_user_id")
-	private String createUserId;
-    /**
-     * 创建时间
-     */
-	@TableField("create_time")
-	private Date createTime;
-    /**
-     * 更新人
-     */
-	@TableField("update_user_id")
-	private String updateUserId;
-    /**
-     * 更新时间
-     */
-	@TableField("update_time")
-	private Date updateTime;
-    /**
-     * 逻辑删除标识
-     */
-	@TableField("delete_flag")
-	private Integer deleteFlag;
 
+	private Integer status;
+
+	private String createUserId;
+
+	private Date createTime;
+
+	private String updateUserId;
+
+	private Date updateTime;
+
+	private Integer deleteFlag;
 
 	public String getId() {
 		return id;

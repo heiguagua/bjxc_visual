@@ -6,6 +6,8 @@ import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.dir.entity.vo.apply.DirRegistUserVo;
+import com.chinawiserv.dsp.dir.enums.EnumTools;
+import com.chinawiserv.dsp.dir.enums.apply.RegistUserStatus;
 import com.chinawiserv.dsp.dir.service.apply.IDirRegistUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -13,10 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -30,25 +29,24 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/dirRegistUser")
-//todo 将所有的XXX修改为真实值
 public class DirRegistUserController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private IDirRegistUserService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("apply:registUser:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "apply/registUser/dirRegistUserList";
     }
 
     /**
      * 分页查询用户注册表
      */
-    @RequiresPermissions("XXX:XXX:list")
-    @RequestMapping("/list")
+    @RequiresPermissions("apply:registUser:list")
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
@@ -65,17 +63,17 @@ public class DirRegistUserController extends BaseController {
     /**
      * 新增用户注册表
      */
-    @RequiresPermissions("XXX:XXX:add")
-    @RequestMapping("/add")
+//    @RequiresPermissions("xx:xx:add")
+   /* @RequestMapping("/add")
     public  String add(){
-		return "XXX/XXX/XXXAdd";
-    }
+		return "apply/registUser/dirRegistUserAdd";
+    }*/
 
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
-    @Log("创建用户注册表")
+//    @RequiresPermissions("xx:xx:add")
+   /* @Log("创建用户注册表")
     @RequestMapping("/doAdd")
     @ResponseBody
     public HandleResult doAdd(DirRegistUserVo entity){
@@ -88,32 +86,31 @@ public class DirRegistUserController extends BaseController {
 		    logger.error("创建用户注册表失败", e);
 		}
 		return handleResult;
-    }
+    }*/
 
     /**
      * 删除用户注册表
      */
-    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("apply:registUser:delete")
     @Log("删除用户注册表")
-    @RequestMapping("/delete")
+    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
-		//todo 逻辑删除
-    	//service.deleteById(id);
+    	service.deleteById(id);
 		return new HandleResult().success("删除用户注册表成功");
     }
 
     /**
      * 编辑用户注册表
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("apply:registUser:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "XXX/XXX/XXXEdit";
+		return "/apply/registUser/dirRegistUserList";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("apply:registUser:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -131,18 +128,25 @@ public class DirRegistUserController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
-    @Log("编辑用户注册表")
-    @RequestMapping("/doEdit")
+    @RequiresPermissions("apply:registUser:edit")
+    @Log("审核用户注册表")
+    @RequestMapping(value = "/doEdit",method = RequestMethod.PUT)
     @ResponseBody
-    public  HandleResult doEdit(DirRegistUserVo entity,Model model){
+    public  HandleResult doEdit(@RequestBody DirRegistUserVo dirRegistUserVo){
 		HandleResult handleResult = new HandleResult();
 		try {
-		    service.updateVO(entity);
-		    handleResult.success("编辑用户注册表成功");
+			if (dirRegistUserVo.getOpration()){
+				dirRegistUserVo.setStatus("1");
+			}
+		    else {
+		        dirRegistUserVo.setStatus("2");
+            }
+            dirRegistUserVo.setStateName(RegistUserStatus.valueOf(EnumTools.getName(dirRegistUserVo.getStatus())).getChValue());
+		    service.updateVO(dirRegistUserVo);
+		    handleResult.success("审核用户注册表成功");
 		} catch (Exception e) {
-		    handleResult.error("编辑用户注册表失败");
-		    logger.error("编辑用户注册表失败", e);
+		    handleResult.error("审核用户注册表失败");
+		    logger.error("审核用户注册表失败", e);
 		}
 		return handleResult;
     }

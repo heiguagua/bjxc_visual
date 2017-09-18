@@ -706,3 +706,63 @@ function setCookie(c_name, value, expiredays){
 	exdate.setDate(exdate.getDate() + expiredays);
 	document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
 }
+
+
+
+// 2017-09-14 10:44:34
+/**
+ * [相关参考]
+ * @layer               [http://layer.layui.com/]
+ * @bootstrao-table     [http://bootstrap-table.wenzhixin.net.cn/documentation/]
+ */
+
+/**
+ * [openLayer description]
+ * @param  {[type]} id [description]
+ * @param  {[type]} w  [description]
+ * @param  {[type]} h  [description]
+ * @return {[type]}    [description]
+ */
+function openLayer(id,title,w, h,fn) {
+    var domHtml=$(id).html();
+    //页面层
+    layer.open({
+        title: title||'信息',
+        anim: 5,
+        type: 1,
+        top: 100,
+        offset: '110px',
+        area: [(w || 420) + 'px', (h || 240) + 'px'], //宽高
+        // content: $(id).html(),
+        content: $(id),
+        btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
+        btnAlign: 'c',
+        yes: function(index, layero) {
+            fn(index,layero)
+        },
+        btn2: function(index, layero){
+            $(id).attr('style','').html(domHtml)
+        },
+        cancel: function(index, layero){
+            $(id).attr('style','').html(domHtml)
+        }
+    });
+}
+//无按钮
+function openLayerNoBtn(id,title,w, h,fn) {
+    // var domHtml=$(id).prop('outerHTML');
+    var domHtml=$(id).html();
+    //页面层
+    layer.open({
+        title: title||'信息',
+        anim: 5,
+        type: 1,
+        top: 100,
+        offset: '110px',
+        area: [(w || 420) + 'px', (h || 240) + 'px'], //宽高
+        content: $(id),
+        cancel: function(index, layero){
+            $(id).attr('style','').html(domHtml)
+        }
+    });
+}

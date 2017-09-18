@@ -11,4 +11,22 @@ import com.chinawiserv.dsp.dir.entity.po.apply.DirRegistUser;
  * @since 2017-09-11
  */
 public class DirRegistUserVo extends DirRegistUser{
+    private String stateName;
+    private Boolean opration;
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    public Boolean getOpration() {
+        return opration;
+    }
+
+    public void setOpration(Boolean opration) {
+        this.opration = opration;
+    }
 }

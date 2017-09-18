@@ -6,6 +6,8 @@ import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.dir.entity.vo.apply.DirDataitemApplyVo;
+import com.chinawiserv.dsp.dir.enums.EnumTools;
+import com.chinawiserv.dsp.dir.enums.apply.DataItemStatus;
 import com.chinawiserv.dsp.dir.service.apply.IDirDataitemApplyService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -13,10 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -37,29 +36,48 @@ public class DirDataitemApplyController extends BaseController {
     @Autowired
     private IDirDataitemApplyService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "apply/dataItem/dirDataitemList";
     }
 
     /**
-     * 分页查询数据项权限申请表
+     * 分页查询共享审核消息申请表
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
-    public PageResult list(@RequestParam Map<String , Object> paramMap){
-		PageResult pageResult = new PageResult();
-		try {
-		    Page<DirDataitemApplyVo> page = service.selectVoPage(paramMap);
-		    pageResult.setPage(page);
-		} catch (Exception e) {
-		    pageResult.error("分页查询数据项权限申请表出错");
-		    logger.error("分页查询数据项权限申请表出错", e);
-		}
-		return pageResult;
+    public PageResult List(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            Page<DirDataitemApplyVo> page = service.selectVoPage(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询共享审核消息申请表出错");
+            logger.error("分页查询共享审核消息申请表出错", e);
+        }
+        return pageResult;
+    }
+
+    /**
+     * 分页查询共享审核消息申请表
+     */
+//    @RequiresPermissions("XXX:XXX:list")
+    @RequestMapping("/list/details")
+    @ResponseBody
+    public PageResult ListDetails(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            Page<DirDataitemApplyVo> page = service.selectVoPageDetails(paramMap);
+            pageResult.setPage(page);
+
+        } catch (Exception e) {
+            pageResult.error("分页查询共享审核消息详情出错");
+            logger.error("分页查询共享审核消息详情出错", e);
+        }
+        return pageResult;
     }
 
     /**
@@ -110,10 +128,10 @@ public class DirDataitemApplyController extends BaseController {
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "XXX/XXX/XXXEdit";
+		return "apply/dataItem/dirDataitemList";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -131,14 +149,21 @@ public class DirDataitemApplyController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @Log("编辑数据项权限申请表")
-    @RequestMapping("/doEdit")
+    @RequestMapping(value = "/doEdit",method = RequestMethod.PUT)
     @ResponseBody
-    public  HandleResult doEdit(DirDataitemApplyVo entity,Model model){
+    public  HandleResult doEdit(@RequestBody DirDataitemApplyVo dirDataitemApplyVo){
 		HandleResult handleResult = new HandleResult();
 		try {
-		    service.updateVO(entity);
+            if (dirDataitemApplyVo.getOpration()){
+                dirDataitemApplyVo.setStatus("1");
+            }
+            else {
+                dirDataitemApplyVo.setStatus("2");
+            }
+            dirDataitemApplyVo.setDataItemStateName(DataItemStatus.valueOf(EnumTools.getName(dirDataitemApplyVo.getStatus())).getChValue());
+		    service.updateVO(dirDataitemApplyVo);
 		    handleResult.success("编辑数据项权限申请表成功");
 		} catch (Exception e) {
 		    handleResult.error("编辑数据项权限申请表失败");

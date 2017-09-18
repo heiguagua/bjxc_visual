@@ -27,14 +27,26 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-                                <if test="id != null">
+            <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
                                                                                                                                                                                                                                     </where>
     </sql>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-    		SELECT t.* FROM dir_suggestion t <include refid="queryConditions"></include>
+    <select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirSuggestionVo">
+        SELECT
+        ds.*,
+        su.`real_name` AS responser_name
+        FROM
+        dir_suggestion ds
+        LEFT JOIN sys_user su
+        ON su.`id` = ds.`responser`
+        WHERE TRUE
+        <if test="null != searchKey and '' != searchKey">
+            AND ds.`title` LIKE CONCAT('%',#{searchKey},'%')
+        </if>
+        <include refid="queryConditions"></include>
+        ORDER BY ds.`submit_date` DESC
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
@@ -53,41 +65,42 @@
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.feedback.DirSuggestion">
         update dir_suggestion
         <set>
-                    <if test="id != null">
+            <if test="id != null">
                 id = #{id},
             </if>
-                    <if test="regionCode != null">
+            <if test="regionCode != null">
                 region_code = #{regionCode},
             </if>
-                    <if test="title != null">
+            <if test="title != null">
                 title = #{title},
             </if>
-                    <if test="content != null">
+            <if test="content != null">
                 content = #{content},
             </if>
-                    <if test="contactName != null">
+            <if test="contactName != null">
                 contact_name = #{contactName},
             </if>
-                    <if test="contactEmail != null">
+            <if test="contactEmail != null">
                 contact_email = #{contactEmail},
             </if>
-                    <if test="contactPhone != null">
+            <if test="contactPhone != null">
                 contact_phone = #{contactPhone},
             </if>
-                    <if test="submitDate != null">
+            <if test="submitDate != null">
                 submit_date = #{submitDate},
             </if>
-                    <if test="responseContent != null">
+            <if test="responseContent != null">
                 response_content = #{responseContent},
             </if>
-                    <if test="responseDate != null">
+            <if test="responseDate != null">
                 response_date = #{responseDate},
             </if>
-                    <if test="responser != null">
+            <if test="responser != null">
                 responser = #{responser},
             </if>
                 </set>
-        where  id = #{id}                          </update>
+        where  id = #{id}
+    </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">
         delete from dir_suggestion <include refid="deleteWhereCause"/>
@@ -95,10 +108,10 @@
 
     <sql id="deleteWhereCause">
         <where>
-                                <if test="id != null">
+            <if test="id != null">
                 id = #{id}
             </if>
-                                                                                                                                                                                                                                    </where>
+        </where>
     </sql>
 
 

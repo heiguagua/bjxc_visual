@@ -48,9 +48,9 @@ public class DirRegistUser implements Serializable {
     /**
      * 所属部门
      */
-	@TableField("belong_dep")
+	@TableField("belong_dept")
 	private String belongDep;
-    /**
+    /**t
      * 状态
      */
 	private String status;

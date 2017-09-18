@@ -95,6 +95,12 @@ public class DirClassify implements Serializable {
 	@TableField("delete_flag")
 	private Integer deleteFlag;
 
+	@TableField("classify_structure_code")
+	private String classifyStructureCode;
+
+	@TableField("classify_structure_name")
+	private String classifyStructureName;
+
 
 	public String getId() {
 		return id;
@@ -224,4 +230,19 @@ public class DirClassify implements Serializable {
 		this.deleteFlag = deleteFlag;
 	}
 
+	public String getClassifyStructureCode() {
+		return classifyStructureCode;
+	}
+
+	public void setClassifyStructureCode(String classifyStructureCode) {
+		this.classifyStructureCode = classifyStructureCode;
+	}
+
+	public String getClassifyStructureName() {
+		return classifyStructureName;
+	}
+
+	public void setClassifyStructureName(String classifyStructureName) {
+		this.classifyStructureName = classifyStructureName;
+	}
 }

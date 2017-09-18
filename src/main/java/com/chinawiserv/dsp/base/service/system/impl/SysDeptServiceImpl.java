@@ -8,17 +8,18 @@ import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
+import com.chinawiserv.dsp.base.mapper.system.SysRegionMapper;
+import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -34,12 +35,20 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Autowired
     private SysDeptMapper sysDeptMapper;
 
+    @Autowired
+    private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private SysRegionMapper sysRegionMapper;
+
     @Override
     public Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
+        paramMap.putAll(this.getDeptCondition(ShiroUtils.getLoginUser().getRegionCode()));
         Page<SysDeptVo> page = getPage(paramMap);
-        page.setOrderByField("create_time");
-        page.setAsc(false);
+        page.setOrderByField("tree_code");
+        page.setAsc(true);
         List<SysDeptVo> sysDeptVos = sysDeptMapper.selectVoPage(page, paramMap);
+        page.setTotal(sysDeptMapper.selectVoCount(paramMap));
         page.setRecords(sysDeptVos);
         return page;
     }
@@ -53,36 +62,54 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public JSONObject checkDeptName(String deptName, String deptId) {
         List<SysDept> list;
         JSONObject result = new JSONObject();
-        if(StringUtils.isNotBlank(deptId)){
-            list = selectList(new EntityWrapper<SysDept>().where("dept_name = {0}", deptName).and("id != {0}", deptId));
+        if (StringUtils.isNotBlank(deptId)) {
+            list = selectList(new EntityWrapper<SysDept>().where("dept_name = {0}", deptName).and("id != {0}", deptId).and("delete_flag = {0}", "0"));
         } else {
-            list = selectList(new EntityWrapper<SysDept>().addFilter("dept_name = {0}", deptName));
+            list = selectList(new EntityWrapper<SysDept>().addFilter("dept_name = {0}", deptName).and("delete_flag = {0}", "0"));
         }
-        if(list != null && !list.isEmpty()){
+        if (list != null && !list.isEmpty()) {
             result.put("error", "该组织机构名称已存在");
         }
         return result;
     }
 
     @Override
-    public JSONArray getDeptSelectDataList() throws Exception {
+    public JSONArray getDeptSelectDataList(String regionCode) throws Exception {
         JSONArray jsonArray = new JSONArray();
-        List<SysDept> list = new ArrayList<SysDept>();
-        EntityWrapper<SysDept> ew = new EntityWrapper<SysDept>();
-        //todo 角色判断
-        if(false){//不为超级管理员
-            ew.addFilter("dept_id={0}", ShiroUtils.getLoginUserDeptId());
+        if(StringUtils.isBlank(regionCode)){
+            regionCode = ShiroUtils.getLoginUser().getRegionCode();
         }
-        list = sysDeptMapper.selectList(ew);
-
-        for(SysDept sysDept : list){
+        List<SysDeptVo> list = this.selectVoList(this.getDeptCondition(regionCode));
+        for (SysDept sysDept : list) {
             JSONObject obj = new JSONObject();
-            obj.put("id",sysDept.getId());
-            obj.put("text",sysDept.getDeptName());
-
+            obj.put("id", sysDept.getId());
+            obj.put("text", sysDept.getDeptName());
             jsonArray.add(obj);
         }
         return jsonArray;
+    }
+
+    @Override
+    public boolean deleteDeptById(String id) throws Exception {
+        SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(id);
+        if(sysDeptVo != null){
+            int treeIndex = sysDeptVo.getTreeIndex();
+            if(treeIndex == 0){
+                int count = sysUserMapper.selectUsersCountByDeptId(id);
+                if(count == 0){
+                    SysDept sysDept = new SysDept();
+                    sysDept.setId(id);
+                    sysDept.setDeleteFlag(1);
+                    return this.updateById(sysDept);
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public List<SysDeptVo> selectVoList(Map<String, Object> paramMap) {
+        return sysDeptMapper.selectVoList(paramMap);
     }
 
     @Override
@@ -110,4 +137,28 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
         return sysDeptMapper.selectVoCount(paramMap);
     }
+
+    @Override
+    public Map<String, Object> getDeptCondition(String regionCode){
+        Map<String, Object> paramMap = new HashMap();
+        SysUserVo loginUser = ShiroUtils.getLoginUser();
+        List<String> permissionDeptTreeCodes = loginUser.getPermissionDeptTreeCodes();
+        String deptTreeCode = loginUser.getDeptTreeCode();
+        if (StringUtils.isNotBlank(deptTreeCode)) {
+            if (!permissionDeptTreeCodes.contains(deptTreeCode)) {
+                permissionDeptTreeCodes.add(deptTreeCode);
+            }
+        }
+        if(!permissionDeptTreeCodes.isEmpty()){
+            paramMap.put("permissionDeptTreeCodes", permissionDeptTreeCodes);
+        }
+        if (StringUtils.isNotBlank(regionCode)) {
+            SysRegionVo sysRegionVo = sysRegionMapper.selectVoByRegionCode(regionCode);
+            if(sysRegionVo != null){
+                paramMap.put("regionCodeCondition", this.getRegionCodeCondition(regionCode, sysRegionVo.getRegionLevel()));
+            }
+        }
+        return paramMap;
+    }
+
 }

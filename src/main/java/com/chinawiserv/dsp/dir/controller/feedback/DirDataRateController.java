@@ -29,7 +29,7 @@ import java.util.Map;
  * @since 2017-09-11
  */
 @Controller
-@RequestMapping("/dirDataRate")
+@RequestMapping("/feedback/dirdatarate")
 //todo 将所有的XXX修改为真实值
 public class DirDataRateController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -37,17 +37,17 @@ public class DirDataRateController extends BaseController {
     @Autowired
     private IDirDataRateService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "feedback/datarate/datarateList";
     }
 
     /**
      * 分页查询数据集评分记录
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -60,6 +60,22 @@ public class DirDataRateController extends BaseController {
 		    logger.error("分页查询数据集评分记录出错", e);
 		}
 		return pageResult;
+    }
+    /**
+     * 查询数据集评分详情
+     * */
+    @RequestMapping("/detail")
+    @ResponseBody
+    public PageResult detail(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            Page<DirDataRateVo> page = service.selectDetailByDcmId(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询数据集评分记录出错");
+            logger.error("分页查询数据集评分记录出错", e);
+        }
+        return pageResult;
     }
 
     /**

@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.service.feedback.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCorrection;
+import com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCollectionVo;
 import com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCorrectionVo;
 import com.chinawiserv.dsp.dir.mapper.feedback.DirDataCorrectionMapper;
 import com.chinawiserv.dsp.dir.service.feedback.IDirDataCorrectionService;
@@ -47,12 +48,25 @@ public class DirDataCorrectionServiceImpl extends CommonServiceImpl<DirDataCorre
     public DirDataCorrectionVo selectVoById(String id) throws Exception {
 		return null;
 	}
-
+    /**
+     * 纠错列表查询
+     * */
     @Override
     public Page<DirDataCorrectionVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
 		//todo
-		return null;
+        Page<DirDataCorrectionVo> page = getPage(paramMap);
+        page.setRecords(mapper.selectVoPage(page, paramMap));
+        return page;
 	}
+    /**
+     * 根据dcmId分页查询详情
+     * */
+    @Override
+    public Page<DirDataCorrectionVo> selectDetailByDcmId(Map<String, Object> paramMap) {
+        Page<DirDataCorrectionVo> page = getPage(paramMap);
+        page.setRecords(mapper.selectDetailByDcmId(page, paramMap));
+        return page;
+    }
 
     @Override
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
