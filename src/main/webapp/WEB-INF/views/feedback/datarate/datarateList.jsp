@@ -104,7 +104,7 @@
      * 初始化纠错列表
      * */
     $('#datarateListTable').bootstrapTable({
-        url: "/feedback/dirdatacorrection/list",
+        url: "/feedback/dirdatarate/list",
         method: 'get',
         responseHandler: function (res) {
             return res.rows;
@@ -121,7 +121,7 @@
             },
             {field: 'classifyName', title: '评分目录'},
             {field: 'datasetName', title: '目录下数据集'},
-            {field: 'collectDate', title: '最后评分时间'},
+            {field: 'rateDate', title: '最后评分时间'},
             {
                 field: 'dcmId', title: '操作',
                 align: 'center',
@@ -179,7 +179,7 @@
      * */
     function dcViewTable(v) {
         $('#datarateDetailTable').bootstrapTable({
-            url: "/feedback/dirdatacorrection/detail?dcmId="+v,
+            url: "/feedback/dirdatarate/detail?dcmId="+v,
             method: 'get',
             responseHandler: function (res) {
                 return res.rows;
@@ -194,8 +194,9 @@
                         return index + 1;
                     }
                 },
-                {field: 'collectorName', title: '评分用户'},
-                {field: 'collectDate', title: '最后评分时间', width: '15%'}
+                {field: 'raterName', title: '评分用户'},
+                {field: 'rateScore', title: '评分值', width: '15%'},
+                {field: 'rateDate', title: '最后评分时间', width: '15%'}
             ]
 
         });

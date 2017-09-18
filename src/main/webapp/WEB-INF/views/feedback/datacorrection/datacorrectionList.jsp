@@ -121,7 +121,7 @@
             },
             {field: 'classifyName', title: '纠错目录'},
             {field: 'datasetName', title: '目录下数据集'},
-            {field: 'collectDate', title: '最后纠错时间'},
+            {field: 'correctDate', title: '最后纠错时间'},
             {
                 field: 'dcmId', title: '操作',
                 align: 'center',
@@ -194,8 +194,9 @@
                         return index + 1;
                     }
                 },
-                {field: 'collectorName', title: '纠错用户'},
-                {field: 'collectDate', title: '最后纠错时间', width: '15%'}
+                {field: 'correctorName', title: '纠错用户'},
+                {field: 'correctContent', title: '纠错内容'},
+                {field: 'correctDate', title: '最后纠错时间', width: '15%'}
             ]
 
         });
