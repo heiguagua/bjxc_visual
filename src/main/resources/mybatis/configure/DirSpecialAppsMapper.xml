@@ -27,7 +27,7 @@
 
 
 	<update id="updateDeleteFlag" parameterType="string">
-    	update dir_develop_apis 
+    	update dir_special_apps 
     	
     		set delete_flag = 1
      
@@ -58,8 +58,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirSpecialApps">
-        insert into dir_special_apps(id,region_code,app_category,app_name,app_url,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag,) values(
-            #{id},#{regionCode},#{appCategory},#{appName},#{appUrl},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},        )
+        insert into dir_special_apps(id,region_code,app_category,app_name,app_url,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(
+            #{id},#{regionCode},#{appCategory},#{appName},#{appUrl},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag})
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirSpecialApps">
@@ -99,7 +99,7 @@
                 update_time = #{updateTime},
             </if>
                     <if test="deleteFlag != null">
-                delete_flag = #{deleteFlag},
+                delete_flag = #{deleteFlag}
             </if>
                 </set>
         where  id = #{id}                            </update>

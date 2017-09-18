@@ -44,7 +44,7 @@ public class DirDevelopApisController extends BaseController {
     @Autowired
     private IDirDevelopApisService service;
 
-    @RequiresPermissions("dirDevelopApis:list")
+//    @RequiresPermissions("dirDevelopApis:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -54,7 +54,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 分页查询开发者工具
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public JSONObject loadZtree(@RequestParam Map<String , Object> paramMap){
@@ -77,7 +77,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 新增开发者工具
      */
-    @RequiresPermissions("XXX:XXX:add")
+//    @RequiresPermissions("XXX:XXX:add")
     @RequestMapping("/add")
     public  String add(){
 		return "dir/configure/api/apiAdd";
@@ -86,7 +86,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
+//    @RequiresPermissions("XXX:XXX:add")
     @Log("创建开发者工具")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -105,7 +105,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 删除开发者工具
      */
-    @RequiresPermissions("XXX:XXX:delete")
+//    @RequiresPermissions("XXX:XXX:delete")
     @Log("删除开发者工具")
     @RequestMapping("/delete")
     @ResponseBody
@@ -119,14 +119,14 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 编辑开发者工具
      */
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "dir/configure/api/apiEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -144,7 +144,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @Log("编辑开发者工具")
     @RequestMapping("/doEdit")
     @ResponseBody
