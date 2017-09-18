@@ -123,16 +123,16 @@
         layer.confirm('您确认要' + tit + '吗？', {
             btn: ['是', '否'] //按钮
         }, function() {
-//            layer.msg(tit + v, { icon: 1 });
+            layer.msg(tit + v, { icon: 1 });
             $.ajax({
                 url:"/feedback/dirsuggestion/delete",
-                type:"delete",
+                type:"get",
                 data:{
-                    id:id
+                    id:v
                 },
                 success:function (message) {
-                    layer.msg(message);
                     //刷新列表
+                    layer.msg(message.msg,{icon:1,time: 1200});
                     $('#usersuggestTable').bootstrapTable('refresh', null);
                 }
             });
