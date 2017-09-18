@@ -41,7 +41,7 @@ public class DirSpecialAppsController extends BaseController {
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "dir/configure/specialapp/specialappList";
     }
 
     /**
@@ -68,7 +68,7 @@ public class DirSpecialAppsController extends BaseController {
     @RequiresPermissions("XXX:XXX:add")
     @RequestMapping("/add")
     public  String add(){
-		return "XXX/XXX/XXXAdd";
+		return "dir/configure/specialapp/specialappAdd";
     }
 
     /**
@@ -100,6 +100,7 @@ public class DirSpecialAppsController extends BaseController {
     public HandleResult delete(@RequestParam String id){
 		//todo 逻辑删除
     	//service.deleteById(id);
+    	service.DeleteByFlag(id);
 		return new HandleResult().success("删除专题应用表成功");
     }
 
@@ -110,7 +111,7 @@ public class DirSpecialAppsController extends BaseController {
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "XXX/XXX/XXXEdit";
+		return "dir/configure/specialapp/specialappEdit";
     }
 
     @RequiresPermissions("XXX:XXX:edit")
