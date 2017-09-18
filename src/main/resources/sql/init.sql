@@ -80,7 +80,12 @@
 
   INSERT INTO `sys_menu` VALUES ('ac760cad5be946af907e456b28b85059', '配置管理', '0', NULL, 'fa-list', '7', '1', '08', 'system', '1', '09f4fef9249c457ca67b4a7a45823730', '2017-09-13 11:16:57', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 11:20:17', '0');
   INSERT INTO `sys_menu` VALUES ('533293eab1d2486895a30543c841c12d', '政策发布', 'ac760cad5be946af907e456b28b85059', '/dirPolicy', 'fa-cog', '1', '2', '0801', NULL, NULL, '09f4fef9249c457ca67b4a7a45823730', '2017-09-13 15:10:54', NULL, NULL, '0');
+  INSERT INTO `sys_menu` VALUES ('111111a', '开发者工具管理', 'ac760cad5be946af907e456b28b85059', '/dirDevelopApis', 'fa-cog', '2', '2', '0802', NULL, NULL, '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', NULL, NULL, '0');
+  INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946af907e456b28b85059', '/dirSpecialApps', 'fa-cog', '3', '2', '0803', NULL, NULL, '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', NULL, NULL, '0');
 
+  
+  
+  
 -- 角色表
   INSERT INTO `sys_role` VALUES ('737933bffef640329a4f864c4e2746ba', '1', '超级管理员', '超级管理员', -1,1, '549d321508db446e9bcaa477835fe5f1', '2017-05-08 17:18:19', null, null, 0);
 -- 用户表
@@ -707,6 +712,11 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('98a0f6f1983b11
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('98a22387983b11e7afe8d4bed95e96d1', '737933bffef640329a4f864c4e2746ba', '228789199c1642749a9f530e6c6a1278');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('98d05387983b11e7afe8d4bed95e96d1', '737933bffef640329a4f864c4e2746ba', '228789199c1642748aaf530e6c6a1278');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('98033387983b11e7afe8d4bed95e96d1', '737933bffef640329a4f864c4e2746ba', '228789199c1642747ccf530e6c6a1278');
+
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('222222b', '737933bffef640329a4f864c4e2746ba', '222222a');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('111111b', '737933bffef640329a4f864c4e2746ba', '111111a');
+
+
 
   INSERT INTO sys_dept (id, region_code, dept_type, dept_code, dept_name, dept_short_name, dept_function, fcode, fname, icon, order_number, status, create_user_id, create_time, tree_index, tree_code)
     VALUES ('96891c92-50d4-11e7-889e-00ffffff0000', '100000', 'A', '100000_A', '中国共产党中央委员会', '中共中央', '', 'root','root', '', 1, 1, null, null, 0, '');
