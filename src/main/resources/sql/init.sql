@@ -705,8 +705,8 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('989cfc76983b11
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('989fbdea983b11e7afe8d4bed95e96d1', '737933bffef640329a4f864c4e2746ba', 'a0dff3fab9124dc5877577a4aa65dae3');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('98a0f6f1983b11e7afe8d4bed95e96d1', '737933bffef640329a4f864c4e2746ba', '421546178fda40f79601e2d3d77866d7');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('98a22387983b11e7afe8d4bed95e96d1', '737933bffef640329a4f864c4e2746ba', '228789199c1642749a9f530e6c6a1278');
-INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('98a22387983b11e7afe8d4bed95e96d1', '737933bffef640329a4f864c4e2746ba', '228789199c1642748aaf530e6c6a1278');
-INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('98a22387983b11e7afe8d4bed95e96d1', '737933bffef640329a4f864c4e2746ba', '228789199c1642747ccf530e6c6a1278');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('98d05387983b11e7afe8d4bed95e96d1', '737933bffef640329a4f864c4e2746ba', '228789199c1642748aaf530e6c6a1278');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES ('98033387983b11e7afe8d4bed95e96d1', '737933bffef640329a4f864c4e2746ba', '228789199c1642747ccf530e6c6a1278');
 
   INSERT INTO sys_dept (id, region_code, dept_type, dept_code, dept_name, dept_short_name, dept_function, fcode, fname, icon, order_number, status, create_user_id, create_time, tree_index, tree_code)
     VALUES ('96891c92-50d4-11e7-889e-00ffffff0000', '100000', 'A', '100000_A', '中国共产党中央委员会', '中共中央', '', 'root','root', '', 1, 1, null, null, 0, '');
