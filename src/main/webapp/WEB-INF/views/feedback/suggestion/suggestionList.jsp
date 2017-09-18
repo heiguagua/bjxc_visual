@@ -58,16 +58,28 @@
 </div>
 <script type="text/javascript">
     $('#usersuggestTable').bootstrapTable({
+        url: "/feedback/dirsuggestion/list",
+        method: 'get',
+        responseHandler: function (res) {
+            return res.rows;
+        },
         pagination: true, //分页
+        pageNum: 1,
+        pageSize: 15,
         columns: [
-            { field: 'a', title: '序号', width: '5%' },
-            { field: 'b', title: '标题' },
-            { field: 'c', title: '内容' },
-            { field: 'd', title: '邮箱', width: '15%' },
-            { field: 'e', title: '联系电话', width: '10%' },
-            { field: 'f', title: '提交时间', width: '10%' },
             {
-                field: 'g',
+                field: 'a', title: '序号', width: '5%',
+                formatter: function (value, row, index) {
+                    return index + 1;
+                }
+            },
+            { field: 'title', title: '标题' },
+            { field: 'content', title: '内容' },
+            { field: 'contactEmail', title: '邮箱', width: '15%' },
+            { field: 'contactPhone', title: '联系电话', width: '10%' },
+            { field: 'submitDate', title: '提交时间', width: '10%' },
+            {
+                field: 'id',
                 title: '操作',
                 width: '10%',
                 align: 'center',
@@ -80,8 +92,8 @@
                     return editBtn;
                 }
             }
-        ],
-        data: Mock.mock({ 'list|22': [{ 'a|+1': 1, 'b|1': '@CTITLE', 'c|1': '@CSENTENCE','d|1':'@EMAIL',  'e|1': /(13|14|15|17|18)\d{9}/, 'f|1': ['申请中', '等待申请'], 'g|+1': 1 }] }).list
+        ]
+//        data: Mock.mock({ 'list|22': [{ 'a|+1': 1, 'b|1': '@CTITLE', 'c|1': '@CSENTENCE','d|1':'@EMAIL',  'e|1': /(13|14|15|17|18)\d{9}/, 'f|1': ['申请中', '等待申请'], 'g|+1': 1 }] }).list
     });
     /**
      * [userReg 同意/拒绝操作]

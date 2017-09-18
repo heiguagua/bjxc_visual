@@ -30,9 +30,9 @@
                                     评分管理
                                 </div>
                                 <div class="input-group pull-right">
-                                    <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称" type="text">
+                                    <input class="form-control" id="editListSearch" name="searchEdit" placeholder="资源名称" type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat" id="queryBtnEdit" type="button">
+                                        <button class="btn btn-primary btn-flat" id="queryListBtnEdit" type="button">
                                             <i class="fa fa-search">
                                             </i>  搜索
                                         </button>
@@ -43,7 +43,7 @@
                         </form>
                         <div class="box-body table-responsive no-padding">
                             <!-- 表格 -->
-                            <table class="layui-table" id="datauserratingTable" lay-even="" lay-skin="row">
+                            <table class="layui-table" id="datarateListTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -61,9 +61,9 @@
                                     <a class="btn btn-primary  btn-flat" onclick="javascript:retdcView()"> <i class="fa fa-reply">&#160;</i>返回评分管理列表</a>
                                 </div>
                                 <div class="input-group pull-right">
-                                    <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称" type="text">
+                                    <input class="form-control" id="editDetailSearch" name="searchEdit" placeholder="用户名称" type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat" id="queryBtnEdit" type="button">
+                                        <button class="btn btn-primary btn-flat" id="queryDetailBtnEdit" type="button">
                                             <i class="fa fa-search">
                                             </i>  搜索
                                         </button>
@@ -74,7 +74,7 @@
                         </form>
                         <div class="box-body table-responsive no-padding">
                             <!-- 表格 -->
-                            <table class="layui-table" id="datauserratingInfoTable" lay-even="" lay-skin="row">
+                            <table class="layui-table" id="datarateDetailTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -88,28 +88,58 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <script type="text/javascript">
-    $('#datauserratingTable').bootstrapTable({
+    /**
+     * 纠错搜索框
+     * */
+    $('#queryListBtnEdit').click(function () {
+        var searchKey = $('#editListSearch').val();
+        var params = {
+            query:{
+                searchKey:searchKey
+            }
+        }
+        $('#datacollectionListTable').bootstrapTable('refresh', params);
+    });
+    /**
+     * 初始化纠错列表
+     * */
+    $('#datarateListTable').bootstrapTable({
+        url: "/feedback/dirdatacorrection/list",
+        method: 'get',
+        responseHandler: function (res) {
+            return res.rows;
+        },
         pagination: true, //分页
+        pageNum: 1,
+        pageSize: 15,
         columns: [
-            { field: 'a', title: '序号', width: '5%' },
-            { field: 'b', title: '评分目录' },
-            { field: 'c', title: '目录下数据集' },
-            { field: 'd', title: '最后评分时间' },
-            { field: 'e', title: '收藏详情',
+            {
+                field: 'a', title: '序号', width: '5%',
+                formatter: function (value, row, index) {
+                    return index + 1;
+                }
+            },
+            {field: 'classifyName', title: '评分目录'},
+            {field: 'datasetName', title: '目录下数据集'},
+            {field: 'collectDate', title: '最后评分时间'},
+            {
+                field: 'dcmId', title: '操作',
                 align: 'center',
                 valign: 'middle',
                 sortable: false,
                 width: '10%',
-                formatter: function(value) {
+                formatter: function (value) {
                     var editBtn = [
-                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dcView(\"" + value + "\",1)'><i class='fa fa-edit'>&#160;</i>点击查看</a>&#160;"
+                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dcView(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>点击查看</a>&#160;"
                     ].join('');
                     return editBtn;
                 }
             }
-        ],
-        data:Mock.mock({'list|32':[{'a|+1': 1,'b|1': '@CPARAGRAPH','c|1':'@CTITLE','e|1': '@BOOLEAN','d|+1':'@DATE @TIME'}]}).list
+        ]
+
+//        data:Mock.mock({'list|32':[{'a|+1': 1,'b|1': '@CPARAGRAPH','c|1':'@CTITLE','e|1': '@BOOLEAN','d|+1':'@DATE @TIME'}]}).list
     });
+
 </script>
 <script type="text/javascript">
     $('#duMg-dd').addClass('hidden');
@@ -127,21 +157,47 @@
      * [retdcView 返回]
      * @return {[type]} [description]
      */
-    function retdcView(){
+    function retdcView() {
         $('#duMg-dd').addClass('hidden');
-        $('#duMg-dd .box-body').html('<table class="layui-table" id="datauserratingInfoTable" lay-even="" lay-skin="row"></table>');
+        $('#duMg-dd .box-body').html('<table class="layui-table" id="datarateDetailTable" lay-even="" lay-skin="row"></table>');
         $('#duMg').removeClass('hidden');
     }
-
+    /**
+     * 详情搜索框
+     * */
+    $('#queryDetailBtnEdit').click(function () {
+        var searchKey = $('#editDetailSearch').val();
+        var params = {
+            query:{
+                searchKey:searchKey
+            }
+        }
+        $('#datarateDetailTable').bootstrapTable('refresh', params);
+    });
+    /**
+     * 详情列表
+     * */
     function dcViewTable(v) {
-        $('#datauserratingInfoTable').bootstrapTable({
+        $('#datarateDetailTable').bootstrapTable({
+            url: "/feedback/dirdatacorrection/detail?dcmId="+v,
+            method: 'get',
+            responseHandler: function (res) {
+                return res.rows;
+            },
             pagination: true, //分页
+            pageNum: 1,
+            pageSize: 15,
             columns: [
-                { field: 'a', title: '序号', width: '5%' },
-                { field: 'b', title: '评分用户' },
-                { field: 'c', title: '最后评分时间',width:'15%'}
-            ],
-            data:Mock.mock({'list|32':[{'a|+1': 1,'b|1':['普通用户','超级管理员'],'e|1': '@BOOLEAN','c|+1':'@DATE @TIME'}]}).list
+                {
+                    field: 'a', title: '序号', width: '5%',
+                    formatter: function (value, row, index) {
+                        return index + 1;
+                    }
+                },
+                {field: 'collectorName', title: '评分用户'},
+                {field: 'collectDate', title: '最后评分时间', width: '15%'}
+            ]
+
         });
     }
 </script>

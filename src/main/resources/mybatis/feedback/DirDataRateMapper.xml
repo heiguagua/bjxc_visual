@@ -54,6 +54,7 @@
         </if>
         <include refid="queryConditions"></include>
         GROUP BY ddr.`dcm_id`
+        ORDER BY ddr.`rate_date` DESC
     </select>
     <!-- 根据dcmId查询收藏详情,多个用户可以评分同个数据集 -->
     <select id="selectDetailByDcmId" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataRateVo">

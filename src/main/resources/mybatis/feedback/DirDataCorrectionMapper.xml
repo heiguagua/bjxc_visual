@@ -58,6 +58,7 @@
         </if>
         <include refid="queryConditions"></include>
         GROUP BY ddc.`dcm_id`
+        ORDER BY ddc.`correct_date` DESC
     </select>
     <!-- 根据dcmId查询收藏详情,多个用户可以纠错同个数据集 -->
     <select id="selectDetailByDcmId" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCorrectionVo">
