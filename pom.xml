@@ -317,7 +317,7 @@
 
                 <configuration>
                     <httpConnector>
-                        <port>8082</port>
+                        <port>8081</port>
                     </httpConnector>
                     <webApp>
                         <contextPath>/dir</contextPath>
