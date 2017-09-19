@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysDictMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysDict">
+        <id column="id" property="id"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="category" property="category"/>
+        <result column="dict_code" property="dictCode"/>
+        <result column="dict_name" property="dictName"/>
+        <result column="dict_desc" property="dictDesc"/>
+        <result column="parent_code" property="parentCode"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="status" property="status"/>
+        <result column="create_user_id" property="createUserId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user_id" property="updateUserId"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysDictVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_dict t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectDictList" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_dict t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_dict t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM sys_dict t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDict">
+        insert into
+        sys_dict(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag,)
+        values(
+        #{id},#{regionCode},#{category},#{dictCode},#{dictName},#{dictDesc},#{parentCode},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},
+        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDict">
+        update sys_dict
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="regionCode != null">
+                region_code = #{regionCode},
+            </if>
+            <if test="category != null">
+                category = #{category},
+            </if>
+            <if test="dictCode != null">
+                dict_code = #{dictCode},
+            </if>
+            <if test="dictName != null">
+                dict_name = #{dictName},
+            </if>
+            <if test="dictDesc != null">
+                dict_desc = #{dictDesc},
+            </if>
+            <if test="parentCode != null">
+                parent_code = #{parentCode},
+            </if>
+            <if test="orderNumber != null">
+                order_number = #{orderNumber},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from sys_dict
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

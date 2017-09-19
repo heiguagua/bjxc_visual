@@ -81,12 +81,12 @@
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="int">
         select count(1)
-        <include refid="voSelectSql"/>
-        <include refid="whereCause"/>
+        <include refid="VoSelectSql"/>
+        <include refid="VoWhereCase"/>
     </select>
 
     <!--根据id查找用户-->
-    <select id="selectVoById" resultType="SysUserVoMap">
+    <select id="selectVoById" resultMap="SysUserVoMap">
         SELECT
         <include refid="BaseVoSelectColumn"/>
         <include refid="VoSelectSql"/>
