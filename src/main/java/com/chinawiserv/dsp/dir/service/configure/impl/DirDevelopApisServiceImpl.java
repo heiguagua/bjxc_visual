@@ -5,9 +5,14 @@ import com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirDevelopApisVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirDevelopApisMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirDevelopApisService;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,14 +32,27 @@ public class DirDevelopApisServiceImpl extends CommonServiceImpl<DirDevelopApisM
 
     @Override
     public boolean insertVO(DirDevelopApisVo vo) throws Exception {
-		//todo
-		return false;
+    	vo.setId(CommonUtil.get32UUID());
+    	vo.setCreateTime(new Date());
+    	String loginUserId = ShiroUtils.getLoginUserId();
+    	vo.setCreateUserId(loginUserId);
+    	vo.setDeleteFlag(0);
+    	mapper.baseInsert(vo);
+		return true;
     }
 
     @Override
     public boolean updateVO(DirDevelopApisVo vo) throws Exception {
-		//todo
-		return false;
+		vo.setUpdateTime(new Date());
+		String loginUserId = ShiroUtils.getLoginUserId();
+		vo.setUpdateUserId(loginUserId);
+    	mapper.baseUpdate(vo);
+		return true;
+	}
+    
+    @Override
+	public void DeleteByFlag(String id) {		
+		mapper.updateDeleteFlag(id);
 	}
 
     @Override
@@ -44,8 +62,8 @@ public class DirDevelopApisServiceImpl extends CommonServiceImpl<DirDevelopApisM
 	}
 
     @Override
-    public DirDevelopApisVo selectVoById(String id) throws Exception {
-		return null;
+    public DirDevelopApisVo selectVoById(String id) throws Exception {    	
+		return mapper.selectVoById(id);
 	}
 
     @Override
@@ -59,4 +77,11 @@ public class DirDevelopApisServiceImpl extends CommonServiceImpl<DirDevelopApisM
 		//todo
 		return 0;
 	}
+
+	@Override
+	public List<DirDevelopApis> getDirApiZtree() {
+		return mapper.getDirApiZtree();
+	}
+
+	
 }

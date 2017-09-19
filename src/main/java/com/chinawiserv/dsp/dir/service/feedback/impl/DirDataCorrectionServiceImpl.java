@@ -55,13 +55,18 @@ public class DirDataCorrectionServiceImpl extends CommonServiceImpl<DirDataCorre
     public Page<DirDataCorrectionVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
 		//todo
         Page<DirDataCorrectionVo> page = getPage(paramMap);
-        if (!paramMap.containsKey("sortName")) {
-            page.setOrderByField("correct_date");
-            page.setAsc(false);
-        }
         page.setRecords(mapper.selectVoPage(page, paramMap));
         return page;
 	}
+    /**
+     * 根据dcmId分页查询详情
+     * */
+    @Override
+    public Page<DirDataCorrectionVo> selectDetailByDcmId(Map<String, Object> paramMap) {
+        Page<DirDataCorrectionVo> page = getPage(paramMap);
+        page.setRecords(mapper.selectDetailByDcmId(page, paramMap));
+        return page;
+    }
 
     @Override
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {

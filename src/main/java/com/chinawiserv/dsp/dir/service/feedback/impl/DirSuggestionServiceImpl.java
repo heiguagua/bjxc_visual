@@ -50,8 +50,9 @@ public class DirSuggestionServiceImpl extends CommonServiceImpl<DirSuggestionMap
 
     @Override
     public Page<DirSuggestionVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return null;
+        Page<DirSuggestionVo> page = getPage(paramMap);
+        page.setRecords(mapper.selectVoPage(page, paramMap));
+        return page;
 	}
 
     @Override
@@ -59,4 +60,9 @@ public class DirSuggestionServiceImpl extends CommonServiceImpl<DirSuggestionMap
 		//todo
 		return 0;
 	}
+
+    @Override
+    public int baseDeleteById(String id) {
+        return mapper.deletePoById(id);
+    }
 }

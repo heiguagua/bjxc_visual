@@ -67,7 +67,7 @@
         <include refid="queryConditions"></include>
     </select>
 
-    <select id="selectAllRegionByRegionCode" parameterType="java.util.Map" resultType="">
+    <select id="selectAllRegionByRegionCode" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT <include refid="baseVoColumn"></include>
         FROM <include refid="baseVoTable"></include>
         WHERE t.status = '1' AND t.region_code like '${regionCodeCondition}%'

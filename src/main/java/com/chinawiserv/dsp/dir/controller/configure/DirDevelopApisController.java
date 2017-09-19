@@ -1,12 +1,16 @@
 package com.chinawiserv.dsp.dir.controller.configure;
 
-import com.baomidou.mybatisplus.plugins.Page;
+
+
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirDevelopApisVo;
 import com.chinawiserv.dsp.dir.service.configure.IDirDevelopApisService;
+
+import net.sf.json.JSONObject;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,44 +44,49 @@ public class DirDevelopApisController extends BaseController {
     @Autowired
     private IDirDevelopApisService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("dirDevelopApis:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "dir/configure/api/apiList";
     }
 
     /**
      * 分页查询开发者工具
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
-    public PageResult list(@RequestParam Map<String , Object> paramMap){
-		PageResult pageResult = new PageResult();
-		try {
-		    Page<DirDevelopApisVo> page = service.selectVoPage(paramMap);
-		    pageResult.setPage(page);
+    public JSONObject loadZtree(@RequestParam Map<String , Object> paramMap){
+    	Map<String, Object> params = new HashMap<>();
+    	List<DirDevelopApis> listTree = new ArrayList<DirDevelopApis>();
+    	JSONObject jsonObject = new JSONObject();
+		try {			
+			listTree = service.getDirApiZtree();			
+//			actionResponse.setCode(ActionResponseCode.OK);
+            jsonObject.put("data", listTree);
+//		    Page<DirDevelopApisVo> page = service.selectVoPage(paramMap);
+//		    pageResult.setPage(page);
 		} catch (Exception e) {
-		    pageResult.error("分页查询开发者工具出错");
+//		    pageResult.error("分页查询开发者工具出错");
 		    logger.error("分页查询开发者工具出错", e);
 		}
-		return pageResult;
+		return jsonObject;
     }
 
     /**
      * 新增开发者工具
      */
-    @RequiresPermissions("XXX:XXX:add")
+//    @RequiresPermissions("XXX:XXX:add")
     @RequestMapping("/add")
     public  String add(){
-		return "XXX/XXX/XXXAdd";
+		return "dir/configure/api/apiAdd";
     }
 
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
+//    @RequiresPermissions("XXX:XXX:add")
     @Log("创建开发者工具")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -93,27 +105,28 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 删除开发者工具
      */
-    @RequiresPermissions("XXX:XXX:delete")
+//    @RequiresPermissions("XXX:XXX:delete")
     @Log("删除开发者工具")
     @RequestMapping("/delete")
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
 		//todo 逻辑删除
     	//service.deleteById(id);
+    	service.DeleteByFlag(id);
 		return new HandleResult().success("删除开发者工具成功");
     }
 
     /**
      * 编辑开发者工具
      */
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "XXX/XXX/XXXEdit";
+		return "dir/configure/api/apiEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -131,7 +144,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @Log("编辑开发者工具")
     @RequestMapping("/doEdit")
     @ResponseBody

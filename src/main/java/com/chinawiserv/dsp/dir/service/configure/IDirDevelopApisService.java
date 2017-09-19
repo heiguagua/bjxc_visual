@@ -2,6 +2,10 @@ package com.chinawiserv.dsp.dir.service.configure;
 
 import com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirDevelopApisVo;
+
+import java.util.List;
+
+
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
 /**
@@ -13,5 +17,8 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  * @since 2017-09-11
  */
 public interface IDirDevelopApisService extends ICommonService<DirDevelopApis, DirDevelopApisVo> {
+	
+	List<DirDevelopApis> getDirApiZtree();
+	void DeleteByFlag(String id);
 	
 }

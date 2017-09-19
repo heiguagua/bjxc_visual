@@ -21,7 +21,10 @@ public interface DirSpecialAppsMapper extends BaseMapper<DirSpecialApps> {
     List<DirSpecialAppsVo> selectVoPage(Page<DirSpecialAppsVo> page, Map<String, Object> paramMap);
 
     DirSpecialAppsVo selectVoById(String id);
-
+    
+    //逻辑删除
+    void updateDeleteFlag(String id);
+    
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(DirSpecialApps entity);

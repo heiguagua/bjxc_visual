@@ -20,6 +20,8 @@ public interface DirDataitemApplyMapper extends BaseMapper<DirDataitemApply> {
 
     List<DirDataitemApplyVo> selectVoPage(Page<DirDataitemApplyVo> page, Map<String, Object> paramMap);
 
+    List<DirDataitemApplyVo> selectVoPageDetails(Page<DirDataitemApplyVo> page, Map<String, Object> paramMap);
+
     DirDataitemApplyVo selectVoById(String id);
 
     int selectVoCount(Map<String, Object> paramMap);
@@ -29,4 +31,8 @@ public interface DirDataitemApplyMapper extends BaseMapper<DirDataitemApply> {
     int baseUpdate(DirDataitemApply entity);
 
     int baseDelete(String id);
+
+    int selectDataItemStatusCount(Page<DirDataitemApplyVo> page,Map<String, Object> paramMap);
+
+
 }

@@ -2,45 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.apply.DirRegistUserMapper">
 
-	<!-- 开启二级缓存 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
-	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.apply.DirRegistUser">
-                    <id column="id" property="id" />
-                                                                                                                                            <result column="region_code" property="regionCode" />
-                            <result column="login_name" property="loginName" />
-                            <result column="real_name" property="realName" />
-                            <result column="email" property="email" />
-                            <result column="phone" property="phone" />
-                            <result column="belong_dep" property="belongDep" />
-                            <result column="status" property="status" />
-                            <result column="create_time" property="createTime" />
-            	</resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.apply.DirRegistUser">
+        <id column="id" property="id"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="login_name" property="loginName"/>
+        <result column="real_name" property="realName"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="belong_dept" property="belongDep"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.apply.DirRegistUserVo">
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.apply.DirRegistUserVo">
 
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-                                <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
+            1 = 1
+            <if test="id != null">
+              AND  t.id = #{id,jdbcType=VARCHAR}
             </if>
-                                                                                                                                                                                            </where>
+            <if test="status != null">
+              AND  t.status  = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="login_name != null">
+              AND  t.login_name  LIKE CONCAT('%',#{login_name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="real_name != null">
+             AND   t.real_name LIKE CONCAT('%',#{real_name,jdbcType=VARCHAR},'%')
+            </if>
+
+        </where>
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-    		SELECT t.* FROM dir_regist_user t <include refid="queryConditions"></include>
+        SELECT t.* FROM dir_regist_user t
+        <include refid="queryConditions"></include>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
     	SELECT t.* FROM dir_regist_user t WHERE t.id = #{id}
     </select>
 
-    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
-    	SELECT count(1) FROM dir_regist_user t <include refid="queryConditions"></include>
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM dir_regist_user t
+        <include refid="queryConditions"></include>
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.apply.DirRegistUser">
@@ -51,48 +65,49 @@
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.apply.DirRegistUser">
         update dir_regist_user
         <set>
-                    <if test="id != null">
+            <if test="id != null">
                 id = #{id},
             </if>
-                    <if test="regionCode != null">
+            <if test="regionCode != null">
                 region_code = #{regionCode},
             </if>
-                    <if test="loginName != null">
+            <if test="loginName != null">
                 login_name = #{loginName},
             </if>
-                    <if test="realName != null">
+            <if test="realName != null">
                 real_name = #{realName},
             </if>
-                    <if test="email != null">
+            <if test="email != null">
                 email = #{email},
             </if>
-                    <if test="phone != null">
+            <if test="phone != null">
                 phone = #{phone},
             </if>
-                    <if test="belongDep != null">
+            <if test="belongDep != null">
                 belong_dep = #{belongDep},
             </if>
-                    <if test="status != null">
+            <if test="status != null">
                 status = #{status},
             </if>
-                    <if test="createTime != null">
+            <if test="createTime != null">
                 create_time = #{createTime},
             </if>
-                </set>
-        where  id = #{id}                      </update>
+        </set>
+        where id = #{id}
+    </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">
-        delete from dir_regist_user <include refid="deleteWhereCause"/>
+        delete from dir_regist_user
+        <include refid="deleteWhereCause"/>
     </delete>
 
     <sql id="deleteWhereCause">
         <where>
-                                <if test="id != null">
+            <if test="id != null">
                 id = #{id}
             </if>
-                                                                                                                                                                                            </where>
+        </where>
     </sql>
-
 
 
 </mapper>
