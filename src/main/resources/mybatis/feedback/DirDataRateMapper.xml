@@ -33,7 +33,7 @@
         ddr.`id`,
         ddr.`dcm_id`,
         ddr.`rate_date`,
-        dc.`classify_name`,
+        dc.`classify_structure_name` AS classify_name,
         dt.`dataset_name`
         FROM
         (SELECT
@@ -60,7 +60,7 @@
     <select id="selectDetailByDcmId" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataRateVo">
         SELECT
         ddr.*,
-        dc.`classify_name`,
+        dc.`classify_structure_name` AS classify_name,
         dt.`dataset_name`,
         su.`real_name` AS rater_name
         FROM
