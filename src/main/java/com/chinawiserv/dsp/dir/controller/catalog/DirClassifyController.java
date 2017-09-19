@@ -13,11 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -113,7 +115,7 @@ public class DirClassifyController extends BaseController {
 		return "XXX/XXX/XXXEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -145,5 +147,29 @@ public class DirClassifyController extends BaseController {
 		    logger.error("编辑目录分类表失败", e);
 		}
 		return handleResult;
+    }
+
+
+
+    /**
+     * 根据登录用户的权限获取目录类别树结构的数据
+     */
+    @RequiresPermissions("catalog:classify:list")
+    @RequestMapping("/authorityList")
+    @ResponseBody
+    public HandleResult getClassifyListForLoginUser(@RequestParam Map<String , Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        try {
+            String fcode = (String)paramMap.get("fcode");
+            if(StringUtils.isEmpty(fcode)){
+                paramMap.put("fcode","root");
+            }
+            List<DirClassifyVo> dirClassifyVoList = service.selectVoList(paramMap);
+            handleResult.put("vo", dirClassifyVoList);
+        } catch (Exception e) {
+            handleResult.error("根据登录用户的权限获取目录分类表信息失败");
+            logger.error("根据登录用户的权限获取目录分类表信息失败", e);
+        }
+        return handleResult;
     }
 }
