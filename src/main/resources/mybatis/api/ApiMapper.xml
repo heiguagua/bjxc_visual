@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 接口 -->
+
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.api.ApiMapper">
+    <select id="test" parameterType="map" resultType="map">
+        SELECT REPLACE(UUID(),'-','') AS uuid;
+    </select>
+    <!-- 根据上级目录的ID查询子目录的数据 -->
+    <select id="getSubDirectoryByID" parameterType="map" resultType="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo">
+        SELECT * FROM dir_classify t
+        WHERE TRUE
+        <if test="null != id and ''!= id">
+            AND t.fcode IN (SELECT DISTINCT classify_code FROM dir_classify WHERE id = #{id})
+        </if>
+    </select>
+
+    <!-- 根据数据集的ID查询数据项 -->
+    <select id="getSubDataItemById" parameterType="map" resultType="map">
+       SELECT * FROM dir_dataitem t
+       WHERE TRUE
+        <if test="null != datasetId and '' != datasetId">
+            AND t.dataset_id = #{datasetId}
+        </if>
+    </select>
+</mapper>

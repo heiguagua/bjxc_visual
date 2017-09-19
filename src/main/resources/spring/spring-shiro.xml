@@ -48,6 +48,7 @@
 	        	/css/**=anon
 	        	/images/**=anon
 	        	/plugins/**=anon
+				/api/**=anon
 				<!--/WEB-INF/views/login.jsp=anon-->
 	        	<!--/sys/login=anon-->
 	        	<!--/captcha.jpg=anon-->
