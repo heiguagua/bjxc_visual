@@ -81,7 +81,7 @@
   INSERT INTO `sys_menu` VALUES ('ac760cad5be946af907e456b28b85059', '配置管理', '0', NULL, 'fa-list', '7', '1', '08', 'system', '1', '09f4fef9249c457ca67b4a7a45823730', '2017-09-13 11:16:57', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 11:20:17', '0');
   INSERT INTO `sys_menu` VALUES ('533293eab1d2486895a30543c841c12d', '政策发布', 'ac760cad5be946af907e456b28b85059', '/dirPolicy', 'fa-cog', '1', '2', '0801', NULL, NULL, '09f4fef9249c457ca67b4a7a45823730', '2017-09-13 15:10:54', NULL, NULL, '0');
 
---龚均
+-- 龚均
 INSERT INTO `sys_menu` (`id`, `menu_name`, `pid`, `url`, `icon`, `sort`, `menu_type`, `code`, `resource_name`, `status`, `create_user_id`, `create_time`, `update_user_id`, `update_time`, `delete_flag`)
   VALUES ('228789199c1642747ccf530e6c6a1278', '用户注册管理', '95488536f1004e738f1796a923902d4f', '', 'fa-cog', 5, 2, '0406', 'system', 1, '09f4fef9249c457ca67b4a7a45823730', '2017-9-13 12:22:47', '549d321508db446e9bcaa477835fe5f1', '2017-9-13 12:32:36', 0);
 INSERT INTO `sys_menu` (`id`, `menu_name`, `pid`, `url`, `icon`, `sort`, `menu_type`, `code`, `resource_name`, `status`, `create_user_id`, `create_time`, `update_user_id`, `update_time`, `delete_flag`)
@@ -96,7 +96,7 @@ INSERT INTO `sys_menu` (`id`, `menu_name`, `pid`, `url`, `icon`, `sort`, `menu_t
   VALUES ('a0dff3fab9124dc5877577a4aa65dae3', '纠错管理', '95488536f1004e738f1796a923902d4f', '/feedback/dirdatacorrection', 'fa-cog', 1, 2, '0402', 'system', 1, '09f4fef9249c457ca67b4a7a45823730', '2017-9-13 12:21:01', '549d321508db446e9bcaa477835fe5f1', '2017-9-13 12:32:43', 0);
 INSERT INTO `sys_menu` (`id`, `menu_name`, `pid`, `url`, `icon`, `sort`, `menu_type`, `code`, `resource_name`, `status`, `create_user_id`, `create_time`, `update_user_id`, `update_time`, `delete_flag`)
   VALUES ('da07a894c55944acb1862804410dc352', '收藏管理', '95488536f1004e738f1796a923902d4f', '/feedback/dirdatacollection', 'fa-cog', 0, 2, '0401', 'system', 1, '09f4fef9249c457ca67b4a7a45823730', '2017-9-13 12:19:26', '549d321508db446e9bcaa477835fe5f1', '2017-9-13 12:32:46', 0);
---熊章亮
+-- 熊章亮
 INSERT INTO `sys_menu` VALUES ('111111a', '开发者工具管理', 'ac760cad5be946af907e456b28b85059', '/dirDevelopApis', 'fa-cog', '2', '2', '0802', NULL, NULL, '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', NULL, NULL, '0');
 INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946af907e456b28b85059', '/dirSpecialApps', 'fa-cog', '3', '2', '0803', NULL, NULL, '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', NULL, NULL, '0');
 
