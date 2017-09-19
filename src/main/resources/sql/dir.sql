@@ -1703,7 +1703,7 @@ alter table sys_region comment '行政区域表';
 /*==============================================================*/
 /* Index: region_code_index                                     */
 /*==============================================================*/
-drop index region_fcode_index on sys_region;
+/*drop index region_fcode_index on sys_region;
 
 drop index region_code_index on sys_region;
 
@@ -1712,13 +1712,13 @@ create index region_code_index on sys_region
    region_code
 );
 
-/*==============================================================*/
-/* Index: region_fcode_index                                    */
-/*==============================================================*/
+*//*==============================================================*//*
+*//* Index: region_fcode_index                                    *//*
+*//*==============================================================*//*
 create index region_fcode_index on sys_region
 (
    fcode
-);
+);*/
 
 /*==============================================================*/
 /* Table: sys_region_level                                      */
