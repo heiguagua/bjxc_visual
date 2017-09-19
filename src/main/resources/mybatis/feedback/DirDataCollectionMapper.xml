@@ -32,7 +32,7 @@
         ddc.`id`,
         ddc.`dcm_id`,
         ddc.`collect_date`,
-        dc.`classify_name`,
+        dc.`classify_structure_name` AS classify_name,
         dt.`dataset_name`
         FROM
         (SELECT
@@ -59,7 +59,7 @@
     <select id="selectDetailByDcmId" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCollectionVo">
         SELECT
         ddc.*,
-        dc.`classify_name`,
+        dc.`classify_structure_name` AS classify_name,
         dt.`dataset_name`,
         su.`real_name` AS collector_name
         FROM

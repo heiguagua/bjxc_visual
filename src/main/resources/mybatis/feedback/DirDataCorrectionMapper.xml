@@ -37,7 +37,7 @@
         ddc.`id`,
         ddc.`dcm_id`,
         ddc.`correct_date`,
-        dc.`classify_name`,
+        dc.`classify_structure_name` AS classify_name,
         dt.`dataset_name`
         FROM
         (SELECT
@@ -64,7 +64,7 @@
     <select id="selectDetailByDcmId" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCorrectionVo">
         SELECT
         ddc.*,
-        dc.`classify_name`,
+        dc.`classify_structure_name` AS classify_name,
         dt.`dataset_name`,
         su.`real_name` AS corrector_name,
         sur.`real_name` AS auditor_name
