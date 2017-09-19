@@ -42,12 +42,8 @@ public class DirDataitemApplyServiceImpl extends CommonServiceImpl<DirDataitemAp
 
     @Override
     public boolean updateVO(DirDataitemApplyVo vo) throws Exception {
-//        String  currentLoginUser = ShiroUtils.getLoginUserName();
-//        String currentLoginUserId = ShiroUtils.getLoginUserId();
-//        vo.setAuditorId(currentLoginUserId);
-//        vo.setAuditorName(currentLoginUser);
-        vo.setAuditorName("超级管理员");
-
+        String currentLoginUserId = ShiroUtils.getLoginUserId();
+        vo.setAuditorId(currentLoginUserId);
 		vo.setAuditDate(new Date());
 		return  updateById(vo);
 	}
@@ -73,6 +69,11 @@ public class DirDataitemApplyServiceImpl extends CommonServiceImpl<DirDataitemAp
         if (dirRegistUserVos != null && !dirRegistUserVos.isEmpty()){
             rows = new ArrayList(dirRegistUserVos.size());
             for ( DirDataitemApplyVo vo : dirRegistUserVos){
+                //获取申请人和所属集群Id
+                String datesetId = vo.getDatasetId();
+                String realName = vo.getRealName();
+                paramMap.put("id",datesetId);
+                paramMap.put("realName",realName);
                int i =  dirDataitemApplyMapper.selectDataItemStatusCount(page,paramMap);
                 if ( i > 0){
                     vo.setStateName("未审核");
@@ -105,10 +106,6 @@ public class DirDataitemApplyServiceImpl extends CommonServiceImpl<DirDataitemAp
                 String status = vo.getStatus();
                 vo.setSourceTypeName(SourceTypeEnum.valueOf(EnumTools.getName(sourceType)).getChValue());
                 vo.setDataItemStateName(DataItemStatus.valueOf(EnumTools.getName(status)).getChValue());
-                 /* if (status != null && !status.equalsIgnoreCase("1") || !status.equalsIgnoreCase("2")){
-                    dataStatus = false;
-                }
-                vo.setStateName(dataStatus);*/
                 rows.add(vo);
             }
 

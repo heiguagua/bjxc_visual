@@ -26,21 +26,33 @@
                             <div class="form-group">
                                 <label for="roleName">角色名称</label>
                                 <input type="text" id="roleName" name="roleName" class="form-control"
-                                       placeholder="请输入角色名称" data-rule="角色名称:required;simpleName;remote(<%=basePath%>/system/role/checkRoleName);">
+                                       placeholder="请输入角色名称"
+                                       data-rule="角色名称:required;simpleName;remote(<%=basePath%>/system/role/checkRoleName);">
                             </div>
                             <div class="form-group">
                                 <label>角色描述</label>
                                 <textarea class="form-control" name="roleDesc" rows="3"
                                           placeholder="请输入描述，最多300个字符 ..." data-rule="角色描述:length(~300);"></textarea>
                             </div>
+                          <div class="form-group">
+                                <label for="roleLevel">角色级别</label>
+                                <select id="roleLevel" name="roleLevel">
+                                    <option value="">请选择角色级别</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
                             <div class="form-group">
-                                <label >状态</label>
+                                <label>状态</label>
                                 <div class="col-sm-10">
                                 <span>
                                     <input name="status" type="radio" class="minimal" checked value="1"> 启用
                                 </span>
                                     <span>
-                                    <input name="status" type="radio" class="minimal"  value="-1"> 禁用
+                                    <input name="status" type="radio" class="minimal" value="-1"> 禁用
                                 </span>
                                 </div>
                             </div>
