@@ -20,6 +20,8 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
 
     List<DirClassifyVo> selectVoPage(Page<DirClassifyVo> page, Map<String, Object> paramMap);
 
+    List<DirClassifyVo> selectVoListForTreeData(Map<String, Object> paramMap);
+
     DirClassifyVo selectVoById(String id);
 
     int selectVoCount(Map<String, Object> paramMap);

@@ -8,6 +8,8 @@ import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,7 +47,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 
     @Override
     public DirClassifyVo selectVoById(String id) throws Exception {
-		return null;
+		return mapper.selectVoById(id);
 	}
 
     @Override
@@ -59,4 +61,9 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 		//todo
 		return 0;
 	}
+
+    @Override
+    public List<DirClassifyVo> selectVoList(Map<String, Object> paramMap) throws Exception {
+        return mapper.selectVoListForTreeData(paramMap);
+    }
 }
