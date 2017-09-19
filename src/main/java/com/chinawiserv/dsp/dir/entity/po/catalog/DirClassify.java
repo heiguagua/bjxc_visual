@@ -22,6 +22,9 @@ public class DirClassify implements Serializable {
      * id
      */
 	private String id;
+
+    @TableField("region_code")
+    private String regionCode;
     /**
      * 【国】分类编号
      */
@@ -110,7 +113,15 @@ public class DirClassify implements Serializable {
 		this.id = id;
 	}
 
-	public String getClassifyCode() {
+    public String getRegionCode() {
+        return regionCode;
+    }
+
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
+    }
+
+    public String getClassifyCode() {
 		return classifyCode;
 	}
 

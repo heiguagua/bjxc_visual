@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.base.service.system;
 
 
+import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
@@ -32,7 +33,7 @@ public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
     /**
      * 删除用户
      */
-    void delete(String id);
+    void delete(String id) throws ErrorInfoException;
 
     /**
      * 查询指定角色的用户数

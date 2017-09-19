@@ -93,8 +93,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public boolean deleteDeptById(String id) throws Exception {
         SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(id);
         if(sysDeptVo != null){
-            int treeIndex = sysDeptVo.getTreeIndex();
-            if(treeIndex == 0){
+            if(sysDeptMapper.isLeafDept(sysDeptVo.getDeptCode())){
                 int count = sysUserMapper.selectUsersCountByDeptId(id);
                 if(count == 0){
                     SysDept sysDept = new SysDept();
@@ -159,6 +158,15 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             }
         }
         return paramMap;
+    }
+
+    @Override
+    public boolean isLeafDept(String deptCode) {
+        if(StringUtils.isBlank(deptCode)){
+            return true;
+        }else{
+            return sysDeptMapper.isLeafDept(deptCode);
+        }
     }
 
 }
