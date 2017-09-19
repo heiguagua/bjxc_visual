@@ -534,6 +534,7 @@ create table dir_dataset
    share_type           varchar(36) comment '【国】信息资源共享类型',
    share_condition      varchar(500) comment '【国】信息资源共享条件',
    share_method         varchar(36) comment '【国】信息资源共享方式',
+   share_method_desc	  varchar(500) comment '【国】信息资源共享方式说明',
    is_open              varchar(36) comment '【国】信息资源是否社会开放',
    open_condition       varchar(500) comment '【国】信息资源开放条件',
    update_frequency     varchar(36) comment '【国】信息资源更新周期',
