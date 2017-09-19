@@ -31,7 +31,7 @@ public class SysLogServiceImpl extends CommonServiceImpl<SysLogMapper, SysLog , 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private SysLogMapper sysLogMapper ;
+	private SysLogMapper sysLogMapper;
 	
 	@Override
 	public void insertLog(String title, SysUser sysUser, String url, String parms) {
