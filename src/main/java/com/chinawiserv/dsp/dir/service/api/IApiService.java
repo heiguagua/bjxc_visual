@@ -26,4 +26,6 @@ public interface IApiService {
 
     List<Map<String, Object>> getItemAndTableInfoByDatasetId(Map<String, Object> paramMap);
 
+    boolean releaseService(Map<String, Object> paramMap);
+
 }

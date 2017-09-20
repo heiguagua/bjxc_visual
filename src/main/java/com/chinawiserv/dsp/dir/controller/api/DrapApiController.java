@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("api/sourcemanage")
-public class SourceManageApiController extends BaseController{
+public class DrapApiController extends BaseController{
 }
