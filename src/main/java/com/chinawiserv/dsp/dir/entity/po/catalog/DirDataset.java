@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wuty
- * @since 2017-09-08
+ * @since 2017-09-19
  */
 @TableName("dir_dataset")
 public class DirDataset implements Serializable {
@@ -44,8 +44,8 @@ public class DirDataset implements Serializable {
     /**
      * 【国】信息资源提供方ID
      */
-	@TableField("belong_dep_id")
-	private String belongDepId;
+	@TableField("belong_dept_id")
+	private String belongDeptId;
     /**
      * 【国】信息资源摘要
      */
@@ -66,6 +66,11 @@ public class DirDataset implements Serializable {
      */
 	@TableField("share_method")
 	private String shareMethod;
+    /**
+     * 【国】信息资源共享方式说明
+     */
+	@TableField("share_method_desc")
+	private String shareMethodDesc;
     /**
      * 【国】信息资源是否社会开放
      */
@@ -187,12 +192,12 @@ public class DirDataset implements Serializable {
 		this.alias = alias;
 	}
 
-	public String getBelongDepId() {
-		return belongDepId;
+	public String getBelongDeptId() {
+		return belongDeptId;
 	}
 
-	public void setBelongDepId(String belongDepId) {
-		this.belongDepId = belongDepId;
+	public void setBelongDeptId(String belongDeptId) {
+		this.belongDeptId = belongDeptId;
 	}
 
 	public String getDatasetDesc() {
@@ -225,6 +230,14 @@ public class DirDataset implements Serializable {
 
 	public void setShareMethod(String shareMethod) {
 		this.shareMethod = shareMethod;
+	}
+
+	public String getShareMethodDesc() {
+		return shareMethodDesc;
+	}
+
+	public void setShareMethodDesc(String shareMethodDesc) {
+		this.shareMethodDesc = shareMethodDesc;
 	}
 
 	public String getIsOpen() {
