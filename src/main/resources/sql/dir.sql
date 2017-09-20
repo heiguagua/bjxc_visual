@@ -443,6 +443,7 @@ create table dir_dataitem
    item_name            varchar(128) comment '【国】数据项名称',
    item_desc            varchar(500) comment '数据项描述',
    item_type            varchar(36) comment '【国】数据项类型',
+   item_length          int(6) comment '【国】数据长度',
    belong_dept_id       varchar(36) comment '责任部门',
    share_type           varchar(36) comment '共享类型',
    share_method         varchar(36) comment '共享方式',
