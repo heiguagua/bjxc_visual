@@ -38,11 +38,8 @@
 			<if test="searchKey != null">
 				AND t.dept_name LIKE concat(concat('%', #{searchKey}), '%')
 			</if>
-			<if test="permissionDeptTreeCodes != null and permissionDeptTreeCodes.size > 0">
-				AND
-				<foreach item="item" collection="permissionDeptTreeCodes" separator=" OR " open="(" close=")" index="">
-					t.tree_code like '${item}%'
-				</foreach>
+			<if test="deptTreeCodeCondition != null">
+				AND t.tree_code like '${deptTreeCodeCondition}%'
 			</if>
 			<if test="regionCodeCondition != null">
 				AND t.region_code like '${regionCodeCondition}%'

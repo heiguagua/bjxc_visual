@@ -141,15 +141,9 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public Map<String, Object> getDeptCondition(String regionCode){
         Map<String, Object> paramMap = new HashMap();
         SysUserVo loginUser = ShiroUtils.getLoginUser();
-        List<String> permissionDeptTreeCodes = loginUser.getPermissionDeptTreeCodes();
         String deptTreeCode = loginUser.getDeptTreeCode();
         if (StringUtils.isNotBlank(deptTreeCode)) {
-            if (!permissionDeptTreeCodes.contains(deptTreeCode)) {
-                permissionDeptTreeCodes.add(deptTreeCode);
-            }
-        }
-        if(!permissionDeptTreeCodes.isEmpty()){
-            paramMap.put("permissionDeptTreeCodes", permissionDeptTreeCodes);
+            paramMap.put("deptTreeCodeCondition", deptTreeCode);
         }
         if (StringUtils.isNotBlank(regionCode)) {
             SysRegionVo sysRegionVo = sysRegionMapper.selectVoByRegionCode(regionCode);
