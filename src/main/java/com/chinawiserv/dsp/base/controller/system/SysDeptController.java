@@ -55,6 +55,7 @@ public class SysDeptController extends BaseController {
     public PageResult list(@RequestParam Map<String , Object> paramMap){
         PageResult pageResult = new PageResult();
         try {
+            paramMap.put("excludeRoot", false);
             Page<SysDeptVo> page = sysDeptService.selectVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {

@@ -57,7 +57,7 @@ function initEditPage(){
                 $("#orgLongitude").text(vo.orgLongitude);
                 $("#orgLatitude").text(vo.orgLatitude);
                 // $("#icon").text(vo.icon);
-                $("#inlineRadio"+$("#status").text(vo.status)).attr("checked", true);
+                $("#inlineRadio"+vo.status).attr("checked", true);
             }
         }
     );

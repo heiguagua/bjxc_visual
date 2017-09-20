@@ -151,7 +151,7 @@ public class ServiceApiController extends BaseController {
     /**
      * 发布服务
      * */
-    @RequestMapping("getItemAndTableInfoByDatasetId")
+    @RequestMapping("releaseService")
     @ResponseBody
     public HandleResult releaseService(Map<String, Object> paramMap){
         HandleResult handleResult = new HandleResult();

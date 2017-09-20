@@ -41,7 +41,7 @@
                             <label for="deptName"  style='float:left;' class="col-sm-3 control-label">组织机构名称 *</label>
                             <div class="col-sm-7">
                                 <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="组织机构名称" disabled> -->
-                                <input type="text" class="form-control" id="deptName" placeholder="组织机构名称">
+                                <input type="text" class="form-control" name="deptName" id="deptName" placeholder="组织机构名称">
                             </div>
                         </div>
                         <div class="form-group">
