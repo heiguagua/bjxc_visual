@@ -21,20 +21,20 @@
                          <div class="form-group">
                             <label for="regionCode" style='float:left;' class="col-sm-3 control-label">所属行政区域 *</label>
                             <div  class="col-sm-7">
-                                <input type="text" class="form-control"  name="regionCode" id="regionCode"  readonly>
+                                <input type="text" class="form-control"  id="regionCode"  readonly>
 
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="fcode" style='float:left;' class="col-sm-3 control-label">父组织机构编码</label>
                             <div  class="col-sm-7">
-                                <input type="text" class="form-control" name="fcode"  id="fcode"  readonly>
+                                <input type="text" class="form-control"  id="fcode"  readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="fname" style='float:left;' class="col-sm-3 control-label">父组织机构名称</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control"  name="fname"  id="fname"  readonly>
+                                <input type="text" class="form-control"  id="fname"  readonly>
                             </div>
                         </div>
                         <div class="form-group">
@@ -57,9 +57,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="listingName" style='float:left;'  class="col-sm-3 control-label">组织机构挂牌名</label>
-                            <div name = "listingName" class="col-sm-7">
-                                <input type="text" class="form-control" name="listingName" id="listingName" placeholder="组织机构挂牌名">
+                            <label for="deptListingName" style='float:left;'  class="col-sm-3 control-label">组织机构挂牌名</label>
+                            <div name = "deptListingName" class="col-sm-7">
+                                <input type="text" class="form-control" name="deptListingName" id="deptListingName" placeholder="组织机构挂牌名">
                             </div>
                         </div>
                         <div class="form-group">
@@ -162,13 +162,13 @@
                         <div class="form-group">
                             <label for="validateFrom" style='float:left;'  class="col-sm-3 control-label">组织启用时间</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="validateFrom" id="validateFrom"  readonly>
+                                <input type="text" class="form-control" id="validateFrom"  readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="validateTo" style='float:left;'  class="col-sm-3 control-label">组织停用时间</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="validateTo" id="validateTo"  readonly>
+                                <input type="text" class="form-control" id="validateTo"  readonly>
                             </div>
                         </div>
                         <div class="form-group">

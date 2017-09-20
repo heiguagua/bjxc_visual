@@ -33,6 +33,7 @@ function initEditPage(){
         function(data){
             if(data && data.content && data.content.vo){
                 var vo = data.content.vo;
+                alert(JSON.stringify(vo))
                 $("#regionCode").val(vo.regionCode);
                 $("#fcode").val(vo.fcode);
                 $("#deptCode").val(vo.deptCode);
@@ -40,22 +41,24 @@ function initEditPage(){
                 $("#deptName").val(vo.deptName);
                 $("#deptShortName").val(vo.deptShortName)
                 $("#deptAlias").val(vo.deptAlias)
-                $("#listingName").val(vo.listingName);
+                $("#deptListingName").val(vo.deptListingName);
                 $("#deptDesc").val(vo.deptDesc);
                 $("#functionKeyword").val(vo.functionKeyword);
-                $("#deptFunction").text(vo.deptFunction);
+                $("#deptFunction").val(vo.deptFunction);
                 // $("#pid").val(vo.pid).trigger("change");
-                $("#deptResponseMan").text(vo.deptResponseMan);
+                $("#deptResponseMan").val(vo.deptResponseMan);
+                $("#deptResponsePhone").val(vo.deptResponsePhone);
                 $("#deptResponseEmail").val(vo.deptResponseEmail);
                 $("#deptContactMan").val(vo.deptContactMan);
-                $("#deptContactDept").text(vo.deptContactDept);
-                $("#deptContactPost").text(vo.deptContactPost);
-                $("#deptContactPhone").text(vo.deptContactPhone);
+                $("#deptContactDept").val(vo.deptContactDept);
+                $("#deptContactPost").val(vo.deptContactPost);
+                $("#deptContactPhone").val(vo.deptContactPhone);
                 $("#deptContactFixedPhone").val(vo.deptContactFixedPhone);
                 $("#deptContactEmail").val(vo.deptContactEmail);
-                $("#deptAddress").text(vo.deptAddress);
-                $("#orgLongitude").text(vo.orgLongitude);
-                $("#orgLatitude").text(vo.orgLatitude);
+                $("#deptAddress").val(vo.deptAddress);
+                $("#orgLongitude").val(vo.orgLongitude);
+                $("#orgLatitude").val(vo.orgLatitude);
+                $("#orderNumber").val(vo.orderNumber);
                 // $("#icon").text(vo.icon);
                 $("#inlineRadio"+vo.status).attr("checked", true);
             }

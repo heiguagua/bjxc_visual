@@ -41,7 +41,7 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
-            field: 'deptContactNum',
+            field: 'deptContactPhone',
             title: '联系电话',
             align: 'center',
             valign: 'middle',
