@@ -7,6 +7,7 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
 import com.chinawiserv.dsp.base.entity.po.system.SysUserRole;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
+import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,6 +42,7 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
             for(String authObjId : authObjIdArray){
                 if(StringUtils.isNotBlank(authObjId)){
                     vo.setId(CommonUtil.get32UUID());
+                    vo.setAuthObjType(AuthObjTypeEnum.DEPT.getKey());
                     vo.setAuthObjId(authObjId);
                     vo.setDistributorId(ShiroUtils.getLoginUserId());
                     vo.setDistributeDate(new Date());
@@ -79,4 +82,10 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
 		return 0;
 	}
+
+    @Override
+    public List<SysDeptAuthorityVo> selectVoList(Map<String, Object> paramMap) {
+        paramMap.put("authObjType", AuthObjTypeEnum.DEPT);
+        return mapper.selectVoList(paramMap);
+    }
 }

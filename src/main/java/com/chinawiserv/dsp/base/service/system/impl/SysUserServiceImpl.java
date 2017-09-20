@@ -129,21 +129,23 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
 
     @Override
     public Page<SysUserVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-        SysUserVo currentLoginUser = ShiroUtils.getLoginUser();
-        List<SysRole> roles = currentLoginUser.getSysRoleList();
-        int roleLevel = -1;
-        if(roles != null){
-            roleLevel = roles.stream().min((o1, o2) -> o1.getRoleLevel().compareTo(o2.getRoleLevel())).get().getRoleLevel();
+        Map<String, Object> param = sysDeptService.getDeptCondition(null);
+        if(!param.isEmpty()){
+            List<SysRole> roles = ShiroUtils.getLoginUser().getSysRoleList();
+            int roleLevel = -1;
+            if(roles != null){
+                roleLevel = roles.stream().min((o1, o2) -> o1.getRoleLevel().compareTo(o2.getRoleLevel())).get().getRoleLevel();
+            }
+            paramMap.put("roleLevel", roleLevel);
+            paramMap.putAll(param);
+            Page<SysUserVo> page = getPage(paramMap);
+            //按照创建时间排序
+            page.setOrderByField("create_time");
+            page.setAsc(false);
+            page.setTotal(userMapper.selectVoCount(paramMap));
+            page.setRecords(userMapper.selectVoList(page,paramMap));
         }
-        paramMap.put("roleLevel", roleLevel);
-        paramMap.putAll(sysDeptService.getDeptCondition(currentLoginUser.getRegionCode()));
-        Page<SysUserVo> page = getPage(paramMap);
-        //按照创建时间排序
-        page.setOrderByField("create_time");
-        page.setAsc(false);
-        page.setTotal(userMapper.selectVoCount(paramMap));
-        page.setRecords(userMapper.selectVoList(page,paramMap));
-        return page;
+        return getPage(paramMap);
     }
 
     @Override

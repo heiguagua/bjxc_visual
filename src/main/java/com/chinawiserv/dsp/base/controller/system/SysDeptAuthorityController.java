@@ -1,16 +1,12 @@
 package com.chinawiserv.dsp.base.controller.system;
 
-import com.alibaba.fastjson.JSONArray;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
-import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
-import com.chinawiserv.dsp.base.enums.system.AuthTypeEnum;
+import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
-import com.chinawiserv.dsp.base.service.system.ISysDeptService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,9 +38,6 @@ public class SysDeptAuthorityController extends BaseController {
     @Autowired
     private ISysDeptAuthorityService service;
 
-    @Autowired
-    private ISysDeptService sysDeptService;
-
     @RequiresPermissions("system:deptAuthority:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
@@ -51,52 +46,40 @@ public class SysDeptAuthorityController extends BaseController {
     }
 
     /**
-     * 分页查询部门数据权限分配表
-     */
-    @RequiresPermissions("system:deptAuthority:list")
-    @RequestMapping("/list")
-    @ResponseBody
-    public PageResult list(@RequestParam Map<String , Object> paramMap){
-        PageResult pageResult = new PageResult();
-        try {
-            Page<SysDeptVo> page = sysDeptService.selectVoPage(paramMap);
-            pageResult.setPage(page);
-        } catch (Exception e) {
-            pageResult.error("分页查询组织机构出错");
-            logger.error("分页查询组织机构出错", e);
-        }
-        return pageResult;
-    }
-
-    /**
      * 编辑部门数据权限分配表
      */
     @RequiresPermissions("system:deptAuthority:edit")
     @RequestMapping("/edit")
-    public  String edit(@RequestParam String id, @RequestParam String authType, Model model) throws Exception {
+    public String edit(@RequestParam String id, @RequestParam String authType, Model model) throws Exception {
 		model.addAttribute("id", id);
 		model.addAttribute("authType", authType);
         return "system/deptAuthority/deptAuthorityEdit";
     }
 
-    @RequiresPermissions("system:deptAuthority:edit")
+    /**
+     * 编辑组织机构权限
+     */
+    @RequiresPermissions("system:dept:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
-    public  HandleResult editLoad(@RequestParam String authType){
-		HandleResult handleResult = new HandleResult();
-		try {
-            JSONArray result = null;
-		    if(AuthTypeEnum.DEPT.getKey().equals(authType)){
-                result = sysDeptService.getDeptSelectDataList(null);
-            }else if(AuthTypeEnum.USER.getKey().equals(authType)){
-
-            }else throw new Exception("未能识别要分配的权限类型");
-            handleResult.put("selectData", result);
-		} catch (Exception e) {
-		    handleResult.error("获取部门数据权限分配表信息失败");
-		    logger.error("获取部门数据权限分配表信息失败", e);
-		}
-		return handleResult;
+    public  HandleResult editLoad(@RequestParam String deptId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String, Object> paramMap = new HashMap();
+            if(StringUtils.isBlank(deptId)){
+                throw new Exception("被分配的部门不能为空！");
+            }
+            if(ShiroUtils.getLoginUserDeptId().equals(deptId)){
+                throw new Exception("被分配的部门不能为用户所属部门！");
+            }
+            paramMap.put("deptId", deptId);
+            List<SysDeptAuthorityVo> result = service.selectVoList(paramMap);
+            handleResult.put("selected", result);
+        } catch (Exception e) {
+            handleResult.error("获取组织机构信息失败");
+            logger.error("获取组织机构信息失败", e);
+        }
+        return handleResult;
     }
 
     /**

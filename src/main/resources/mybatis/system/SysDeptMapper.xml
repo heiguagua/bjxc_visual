@@ -34,7 +34,12 @@
 	<sql id="queryConditions">
 		<where>
 			t.delete_flag = '0'
-			AND t.fcode != 'root'
+			<if test="onlyRoot != null and onlyRoot == true">
+				AND t.fcode == 'root'
+			</if>
+			<if test="excludeRoot != null and excludeRoot == true">
+				AND t.fcode != 'root'
+			</if>
 			<if test="searchKey != null">
 				AND t.dept_name LIKE concat(concat('%', #{searchKey}), '%')
 			</if>

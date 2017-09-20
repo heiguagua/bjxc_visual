@@ -8,10 +8,10 @@ import java.util.Map;
 /**
  * Created by zengpzh on 2017/9/20.
  */
-public enum AuthTypeEnum {
+public enum AuthObjTypeEnum {
 
-    DEPT("1","组织机构权限"),
-    USER("2","用户权限");
+    DEPT("1","部门数据权限"),
+    USER("2","用户数据权限");
 
     /** 主键 */
     private final String key;
@@ -19,7 +19,7 @@ public enum AuthTypeEnum {
     /** 描述 */
     private final String desc;
 
-    AuthTypeEnum(final String key, final String desc) {
+    AuthObjTypeEnum(final String key, final String desc) {
         this.key = key;
         this.desc = desc;
     }
