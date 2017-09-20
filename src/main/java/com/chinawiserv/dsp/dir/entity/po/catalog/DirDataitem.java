@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wuty
- * @since 2017-09-08
+ * @since 2017-09-20
  */
 @TableName("dir_dataitem")
 public class DirDataitem implements Serializable {
@@ -48,10 +48,15 @@ public class DirDataitem implements Serializable {
 	@TableField("item_type")
 	private String itemType;
     /**
+     * 【国】数据长度
+     */
+	@TableField("item_length")
+	private Integer itemLength;
+    /**
      * 责任部门
      */
-	@TableField("belong_dep")
-	private String belongDep;
+	@TableField("belong_dept_id")
+	private String belongDeptId;
     /**
      * 共享类型
      */
@@ -176,12 +181,20 @@ public class DirDataitem implements Serializable {
 		this.itemType = itemType;
 	}
 
-	public String getBelongDep() {
-		return belongDep;
+	public Integer getItemLength() {
+		return itemLength;
 	}
 
-	public void setBelongDep(String belongDep) {
-		this.belongDep = belongDep;
+	public void setItemLength(Integer itemLength) {
+		this.itemLength = itemLength;
+	}
+
+	public String getBelongDeptId() {
+		return belongDeptId;
+	}
+
+	public void setBelongDeptId(String belongDeptId) {
+		this.belongDeptId = belongDeptId;
 	}
 
 	public String getShareType() {
