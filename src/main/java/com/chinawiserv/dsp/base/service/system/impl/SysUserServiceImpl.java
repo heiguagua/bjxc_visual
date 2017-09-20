@@ -1,6 +1,5 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
@@ -14,7 +13,6 @@ import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserRoleMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
-import com.chinawiserv.dsp.base.service.system.ISysRoleService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -39,17 +37,12 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     @Autowired
     private SysUserMapper userMapper;
 
-    @Autowired private SysUserRoleMapper userRoleMapper;
-
     @Autowired
-    private ISysRoleService sysRoleService;
+    private SysUserRoleMapper userRoleMapper;
 
     @Autowired
     private ISysDeptService sysDeptService;
 
-    public void updateUser(SysUser sysUser) {
-        userMapper.updateById(sysUser);
-    }
     @Override
     public SysUser login(String userName, String password) {
         return this.selectOne(new EntityWrapper<SysUser>().eq("user_name", userName).eq("password", CommonUtil.string2MD5(password)));
@@ -68,8 +61,10 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     @Override
     public void delete(String id) throws ErrorInfoException {
         if (userMapper.checkCanBeDeletedById(id)) {
-            this.deleteById(id);
-            userRoleMapper.delete(new EntityWrapper<SysUserRole>().addFilter("user_id = {0}", id));
+            SysUser sysUser = new SysUser();
+            sysUser.setId(id);
+            sysUser.setDeleteFlag(1);
+            this.updateById(sysUser);
         }else{
             throw new ErrorInfoException("admin为系统内置的管理员用户，不能删除");
         }
@@ -156,12 +151,14 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
         return 0;
     }
 
-    private void insertUserRoles(String userId, String[] roleIds){
+    private void insertUserRoles(String userId, String[] roleIds) throws Exception {
         for(String rid : roleIds){
             SysUserRole sysUserRole = new SysUserRole();
             sysUserRole.setUserId(userId);
             sysUserRole.setRoleId(rid);
-            userRoleMapper.insert(sysUserRole);
+            if(userRoleMapper.insert(sysUserRole) <= 0){
+                throw new Exception("添加用户角色失败！");
+            }
         }
     }
 

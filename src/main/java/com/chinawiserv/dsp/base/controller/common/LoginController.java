@@ -176,7 +176,7 @@ public class LoginController extends BaseController {
             /**
              * 获取当前用户的权限列表,用于控制页面功能按钮是否显示
              */
-            List<String> list2 = null;
+            List<String> list2;
             list2 = sysMenuService.selectMenuIdsByuserId(currentLoginUser.getId());
             String[] permissions = list2.toArray(new String[list2.size()]);
             ShiroUtils.setSessionAttribute(SystemConst.PERMISSIONS, permissions);

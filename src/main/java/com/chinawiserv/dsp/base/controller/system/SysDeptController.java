@@ -58,7 +58,7 @@ public class SysDeptController extends BaseController {
             pageResult.setPage(page);
         } catch (Exception e) {
             pageResult.error("分页查询组织机构出错");
-            logger.error("分页查询角色出错", e);
+            logger.error("分页查询组织机构出错", e);
         }
         return pageResult;
     }

@@ -11,4 +11,14 @@ import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
  * @since 2017-09-19
  */
 public class SysDeptAuthorityVo extends SysDeptAuthority{
+
+    private String authObjIds;
+
+    public String getAuthObjIds() {
+        return authObjIds;
+    }
+
+    public void setAuthObjIds(String authObjIds) {
+        this.authObjIds = authObjIds;
+    }
 }
