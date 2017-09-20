@@ -3,24 +3,216 @@
 <!-- 接口 -->
 
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.api.ApiMapper">
+
     <select id="test" parameterType="map" resultType="map">
         SELECT REPLACE(UUID(),'-','') AS uuid;
     </select>
+
     <!-- 根据上级目录的ID查询子目录的数据 -->
-    <select id="getSubDirectoryByID" parameterType="map" resultType="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo">
+    <select id="getSubDirectoryById" parameterType="map" resultType="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo">
         SELECT * FROM dir_classify t
         WHERE TRUE
-        <if test="null != id and ''!= id">
-            AND t.fcode IN (SELECT DISTINCT classify_code FROM dir_classify WHERE id = #{id})
-        </if>
+        <choose>
+            <when test="null != id and ''!= id">
+                AND t.`fcode` IN (SELECT DISTINCT classify_code FROM dir_classify WHERE id = #{id})
+            </when>
+            <otherwise>
+                AND t.`fcode` = 'root'
+            </otherwise>
+        </choose>
     </select>
 
     <!-- 根据数据集的ID查询数据项 -->
     <select id="getSubDataItemById" parameterType="map" resultType="map">
        SELECT * FROM dir_dataitem t
        WHERE TRUE
-        <if test="null != datasetId and '' != datasetId">
-            AND t.dataset_id = #{datasetId}
-        </if>
+        <choose>
+            <when test="null != datasetId and '' != datasetId">
+                AND t.`dataset_id` = #{datasetId}
+            </when>
+            <otherwise>
+                t.`dataset_id` IS NULL
+            </otherwise>
+        </choose>
     </select>
+
+    <!-- 查询指定目录下面的的数据集 -->
+    <select id="getDatasetByClassifyId" parameterType="map" resultType="map">
+        SELECT
+        t.*
+        FROM
+        dir_dataset t
+        LEFT JOIN dir_dataset_classify_map dcm
+          ON dcm.`dataset_id` = t.`id`
+        LEFT JOIN dir_classify dc
+          ON dc.`id` = dcm.`classify_id`
+        WHERE TRUE
+        <choose>
+            <when test="null != classifyId and '' != classifyId">
+                AND dc.`id` = #{classifyId}
+            </when>
+            <otherwise>
+                AND dc.`id` IS NULL
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 查询指定数据集下面的数据库信息 -->
+    <select id="getDbInfoByDatasetId" parameterType="map" resultType="map">
+        SELECT
+        ddi.*
+        FROM
+        drap_db_info ddi
+        LEFT JOIN drap_db_system_map dsm
+          ON dsm.`db_id` = ddi.`id`
+        LEFT JOIN drap_info_system dis
+          ON dis.`id` = dsm.`info_system_id`
+        LEFT JOIN drap_dataset_system_map dst
+          ON dst.`system_id` = dis.`id`
+        LEFT JOIN dir_dataset dd
+          ON dd.`id` = dst.`dataset_id`
+        WHERE TRUE
+        <choose>
+            <when test="null != datasetId and '' != datasetId">
+                AND dd.`id` = #{datasetId}
+            </when>
+            <otherwise>
+                AND dd.`id` IS NULL
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 查询指定数据集下面的数据项、字段、表信息 -->
+    <select id="getItemAndTableInfoByDatasetId" parameterType="map" resultType="map">
+        SELECT
+          *
+        FROM
+          drap_db_table_column tc
+          LEFT JOIN dir_dataitem_source_info ddsi
+            ON ddsi.`source_obj_id` = tc.`id`
+          LEFT JOIN dir_dataitem ditemc
+            ON ditemc.`id` = ddsi.`item_id`
+          LEFT JOIN drap_db_table_info ddti
+            ON ddti.`id` = tc.`table_id`
+        GROUP BY tc.`id`
+       <!--
+       SELECT
+				dset.set_name,
+				ditem.item_name,
+			CASE
+			WHEN ditem.column_id IS NOT NULL THEN
+				(
+					SELECT
+					tc.COLUMN_EN_NAME
+					FROM
+						table_column tc
+					LEFT JOIN dir_dataitem ditemc ON tc.ID = ditemc.column_id
+					LEFT JOIN table_info ti ON tc.TABLE_ID = ti.ID
+					WHERE
+						tc.ID = ditem.column_id
+					GROUP BY tc.ID
+				)
+			ELSE
+				(
+					SELECT
+					tcs.COLUMN_EN_NAME
+					FROM
+						dir_dataitem ditems
+					LEFT JOIN data_column_map dcm ON dcm.BUSINESS_ITEM_ID = ditems.dataitem_id
+					LEFT JOIN table_column tcs ON dcm.SYSTEM_COLUMN_ID = tcs.ID
+					LEFT JOIN table_info tic ON tic.ID = tcs.TABLE_ID
+					WHERE
+						ditems.dataitem_id = ditem.dataitem_id
+					GROUP BY tic.ID
+				)
+			END AS column_name,
+				CASE
+			WHEN ditem.column_id IS NOT NULL THEN
+				(
+					SELECT
+					 tc.ID
+					FROM
+						table_column tc
+					LEFT JOIN dir_dataitem ditemc ON tc.ID = ditemc.column_id
+					LEFT JOIN table_info ti ON tc.TABLE_ID = ti.ID
+					WHERE
+						tc.ID = ditem.column_id
+					GROUP BY tc.ID
+				)
+			ELSE
+				(
+					SELECT
+					 tcs.ID
+					FROM
+						dir_dataitem ditems
+					LEFT JOIN data_column_map dcm ON dcm.BUSINESS_ITEM_ID = ditems.dataitem_id
+					LEFT JOIN table_column tcs ON dcm.SYSTEM_COLUMN_ID = tcs.ID
+					LEFT JOIN table_info tic ON tic.ID = tcs.TABLE_ID
+					WHERE
+						ditems.dataitem_id = ditem.dataitem_id
+					GROUP BY tic.ID
+				)
+			END AS column_id ,
+			 CASE
+			WHEN ditem.column_id IS NOT NULL THEN
+				(
+					SELECT
+						 ti.TABLE_NAME
+					FROM
+						table_column tc
+					LEFT JOIN dir_dataitem ditemc ON tc.ID = ditemc.column_id
+					LEFT JOIN table_info ti ON tc.TABLE_ID = ti.ID
+					WHERE
+						tc.ID = ditem.column_id
+					GROUP BY tc.ID
+				)
+			ELSE
+				(
+					SELECT
+						 tic.TABLE_NAME
+					FROM
+						dir_dataitem ditems
+					LEFT JOIN data_column_map dcm ON dcm.BUSINESS_ITEM_ID = ditems.dataitem_id
+					LEFT JOIN table_column tcs ON dcm.SYSTEM_COLUMN_ID = tcs.ID
+					LEFT JOIN table_info tic ON tic.ID = tcs.TABLE_ID
+					WHERE
+						ditems.dataitem_id = ditem.dataitem_id
+					GROUP BY tic.ID
+				)
+			END  AS table_name,
+			 CASE
+			WHEN ditem.column_id IS NOT NULL THEN
+				(
+					SELECT
+					 ti.ID
+					FROM
+						table_column tc
+					LEFT JOIN dir_dataitem ditemc ON tc.ID = ditemc.column_id
+					LEFT JOIN table_info ti ON tc.TABLE_ID = ti.ID
+					WHERE
+						tc.ID = ditem.column_id
+					GROUP BY tc.ID
+				)
+			ELSE
+				(
+					SELECT
+						 tic.ID
+					FROM
+						dir_dataitem ditems
+					LEFT JOIN data_column_map dcm ON dcm.BUSINESS_ITEM_ID = ditems.dataitem_id
+					LEFT JOIN table_column tcs ON dcm.SYSTEM_COLUMN_ID = tcs.ID
+					LEFT JOIN table_info tic ON tic.ID = tcs.TABLE_ID
+					WHERE
+						ditems.dataitem_id = ditem.dataitem_id
+					GROUP BY tic.ID
+				)
+			END  AS table_id
+			FROM
+				dir_dataset dset
+			LEFT JOIN dir_dataitem ditem ON ditem.set_code = dset.set_code
+			WHERE
+			dset.set_code = #{setCode}
+			-->
+    </select>
+
 </mapper>

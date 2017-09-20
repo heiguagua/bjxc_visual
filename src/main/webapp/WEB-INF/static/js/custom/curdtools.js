@@ -20,7 +20,7 @@ function getzIndex(parentWin) {
  * @param title 编辑框标题
  * @param addurl//目标页面地址
  */
-function add(title, addurl, gname, width, height) {
+function add(title, addurl, width, height) {
     var options = _getDefaultWinOptions(title , addurl , width, height) ;
     createWindow(options);
 }

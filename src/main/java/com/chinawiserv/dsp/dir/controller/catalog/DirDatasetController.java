@@ -29,26 +29,24 @@ import java.util.Map;
  * @since 2017-09-08
  */
 @Controller
-@RequestMapping("/dirDataset")
-//todo 将所有的XXX修改为真实值
+@RequestMapping("/catalog")
 public class DirDatasetController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private IDirDatasetService service;
 
-    @RequiresPermissions("XXX:XXX:list")
-    @RequestMapping("")
+    @RequestMapping("/catalogue")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "catalog/catalogue/catalogueList";
     }
 
     /**
      * 分页查询数据集（信息资源）
      */
-    @RequiresPermissions("XXX:XXX:list")
-    @RequestMapping("/list")
+    @RequiresPermissions("catalog:catalogue:list")
+    @RequestMapping("/catalogue/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
@@ -65,10 +63,10 @@ public class DirDatasetController extends BaseController {
     /**
      * 新增数据集（信息资源）
      */
-    @RequiresPermissions("XXX:XXX:add")
-    @RequestMapping("/add")
+    @RequiresPermissions("catalog:catalogue:add")
+    @RequestMapping("/catalogue/add")
     public  String add(){
-		return "XXX/XXX/XXXAdd";
+		return "catalog/catalogue/catalogueAdd";
     }
 
     /**

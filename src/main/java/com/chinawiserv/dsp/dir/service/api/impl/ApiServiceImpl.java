@@ -39,4 +39,19 @@ public class ApiServiceImpl implements IApiService {
     public List<Map<String, Object>> getSubDataItemById(Map<String, Object> paramMap) {
         return mapper.getSubDataItemById(paramMap);
     }
+
+    @Override
+    public List<Map<String, Object>> getDatasetByClassifyId(Map<String, Object> paramMap) {
+        return mapper.getDatasetByClassifyId(paramMap);
+    }
+
+    @Override
+    public List<Map<String, Object>> getDbInfoByDatasetId(Map<String, Object> paramMap) {
+        return mapper.getDbInfoByDatasetId(paramMap);
+    }
+
+    @Override
+    public List<Map<String, Object>> getItemAndTableInfoByDatasetId(Map<String, Object> paramMap) {
+        return mapper.getItemAndTableInfoByDatasetId(paramMap);
+    }
 }
