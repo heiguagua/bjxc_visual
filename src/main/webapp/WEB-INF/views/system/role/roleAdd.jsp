@@ -30,11 +30,6 @@
                                        data-rule="角色名称:required;simpleName;remote(<%=basePath%>/system/role/checkRoleName);">
                             </div>
                             <div class="form-group">
-                                <label>角色描述</label>
-                                <textarea class="form-control" name="roleDesc" rows="3"
-                                          placeholder="请输入描述，最多300个字符 ..." data-rule="角色描述:length(~300);"></textarea>
-                            </div>
-                          <div class="form-group">
                                 <label for="roleLevel">角色级别</label>
                                 <select id="roleLevel" name="roleLevel">
                                     <option value="">请选择角色级别</option>
@@ -45,6 +40,12 @@
                                     <option value="5">5</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label>角色描述</label>
+                                <textarea class="form-control" name="roleDesc" rows="3"
+                                          placeholder="请输入描述，最多300个字符 ..." data-rule="角色描述:length(~300);"></textarea>
+                            </div>
+
                             <div class="form-group">
                                 <label>状态</label>
                                 <div class="col-sm-10">

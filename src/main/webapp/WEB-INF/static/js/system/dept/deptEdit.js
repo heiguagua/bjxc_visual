@@ -2,7 +2,7 @@
  * Created by zhanf on 2017/4/28.
  */
 $(document).ready(function(){
-    initSelectData();
+    // initSelectData();
     initEditPage();
 });
 
@@ -33,14 +33,31 @@ function initEditPage(){
         function(data){
             if(data && data.content && data.content.vo){
                 var vo = data.content.vo;
-                $("#deptName").val(vo.deptName);
-                $("#deptAlias").val(vo.deptAlias);
+                $("#regionCode").val(vo.regionCode);
+                $("#fcode").val(vo.fcode);
                 $("#deptCode").val(vo.deptCode);
+                $("#fname").val(vo.fname);
+                $("#deptName").val(vo.deptName);
+                $("#deptShortName").val(vo.deptShortName)
+                $("#deptAlias").val(vo.deptAlias)
+                $("#listingName").val(vo.listingName);
+                $("#deptDesc").val(vo.deptDesc);
+                $("#functionKeyword").val(vo.functionKeyword);
+                $("#deptFunction").text(vo.deptFunction);
+                // $("#pid").val(vo.pid).trigger("change");
+                $("#deptResponseMan").text(vo.deptResponseMan);
+                $("#deptResponseEmail").val(vo.deptResponseEmail);
                 $("#deptContactMan").val(vo.deptContactMan);
-                $("#deptContactNum").val(vo.deptContactNum);
-                $("#deptAddress").val(vo.deptAddress);
-                $("#deptDesc").text(vo.deptDesc);
-                $("#pid").val(vo.pid).trigger("change");
+                $("#deptContactDept").text(vo.deptContactDept);
+                $("#deptContactPost").text(vo.deptContactPost);
+                $("#deptContactPhone").text(vo.deptContactPhone);
+                $("#deptContactFixedPhone").val(vo.deptContactFixedPhone);
+                $("#deptContactEmail").val(vo.deptContactEmail);
+                $("#deptAddress").text(vo.deptAddress);
+                $("#orgLongitude").text(vo.orgLongitude);
+                $("#orgLatitude").text(vo.orgLatitude);
+                // $("#icon").text(vo.icon);
+                $("#inlineRadio"+$("#status").text(vo.status)).attr("checked", true);
             }
         }
     );
