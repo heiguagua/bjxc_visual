@@ -1,7 +1,10 @@
 package com.chinawiserv.dsp.dir.controller.api;
 
 import com.chinawiserv.dsp.base.controller.common.BaseController;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("api/service")
 public class ServiceApiController extends BaseController {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private IApiService service;
     /**
@@ -29,8 +33,23 @@ public class ServiceApiController extends BaseController {
      * */
     @RequestMapping("getSubDirectoryById")
     @ResponseBody
-    public List<Map<String,Object>> getSubDirectoryById(@RequestParam Map<String,Object> paramMap){
-        return service.getSubDirectoryById(paramMap);
+    public HandleResult getSubDirectoryById(@RequestParam Map<String,Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        if(null == paramMap || paramMap.size() == 0){
+            handleResult.setMsg("未传入参数");
+            handleResult.setState(false);
+            return handleResult;
+        }
+        try{
+            List<Map<String,Object>> result = service.getSubDirectoryById(paramMap);
+            handleResult.put("rows",result);
+            handleResult.setState(true);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
     }
 
     /**
@@ -38,8 +57,23 @@ public class ServiceApiController extends BaseController {
      * */
     @RequestMapping("getSubDataItemById")
     @ResponseBody
-    public List<Map<String,Object>> getSubDataItemById(@RequestParam Map<String,Object> paramMap){
-        return service.getSubDataItemById(paramMap);
+    public HandleResult getSubDataItemById(@RequestParam Map<String,Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        if(null == paramMap || paramMap.size() == 0){
+            handleResult.setMsg("未传入参数");
+            handleResult.setState(false);
+            return handleResult;
+        }
+        try{
+            List<Map<String,Object>> result = service.getSubDataItemById(paramMap);
+            handleResult.put("rows",result);
+            handleResult.setState(true);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
     }
 
     /**
@@ -47,8 +81,23 @@ public class ServiceApiController extends BaseController {
      * */
     @RequestMapping("getDatasetByClassifyId")
     @ResponseBody
-    public List<Map<String,Object>> getDatasetByClassifyId(@RequestParam Map<String,Object> paramMap){
-        return service.getDatasetByClassifyId(paramMap);
+    public HandleResult getDatasetByClassifyId(@RequestParam Map<String,Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        if(null == paramMap || paramMap.size() == 0){
+            handleResult.setMsg("未传入参数");
+            handleResult.setState(false);
+            return handleResult;
+        }
+        try{
+            List<Map<String,Object>> result = service.getDatasetByClassifyId(paramMap);
+            handleResult.put("rows",result);
+            handleResult.setState(true);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
     }
 
     /**
@@ -56,8 +105,23 @@ public class ServiceApiController extends BaseController {
      * */
     @RequestMapping("getDbInfoByDatasetId")
     @ResponseBody
-    public List<Map<String, Object>> getDbInfoByDatasetId(Map<String, Object> paramMap){
-        return service.getDbInfoByDatasetId(paramMap);
+    public HandleResult getDbInfoByDatasetId(Map<String, Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        if(null == paramMap || paramMap.size() == 0){
+            handleResult.setMsg("未传入参数");
+            handleResult.setState(false);
+            return handleResult;
+        }
+        try{
+            List<Map<String,Object>> result = service.getDbInfoByDatasetId(paramMap);
+            handleResult.put("rows",result);
+            handleResult.setState(true);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
     }
 
     /**
@@ -65,7 +129,45 @@ public class ServiceApiController extends BaseController {
      * */
     @RequestMapping("getItemAndTableInfoByDatasetId")
     @ResponseBody
-    public List<Map<String, Object>> getItemAndTableInfoByDatasetId(Map<String, Object> paramMap){
-        return service.getItemAndTableInfoByDatasetId(paramMap);
+    public HandleResult getItemAndTableInfoByDatasetId(Map<String, Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        if(null == paramMap || paramMap.size() == 0){
+            handleResult.setMsg("未传入参数");
+            handleResult.setState(false);
+            return handleResult;
+        }
+        try{
+            List<Map<String,Object>> result = service.getItemAndTableInfoByDatasetId(paramMap);
+            handleResult.put("rows",result);
+            handleResult.setState(true);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 发布服务
+     * */
+    @RequestMapping("getItemAndTableInfoByDatasetId")
+    @ResponseBody
+    public HandleResult releaseService(Map<String, Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        if(null == paramMap || paramMap.size() == 0){
+            handleResult.setMsg("未传入参数");
+            handleResult.setState(false);
+            return handleResult;
+        }
+        try{
+            boolean result = service.releaseService(paramMap);
+            handleResult.setState(result);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
     }
 }

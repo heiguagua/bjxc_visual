@@ -9,15 +9,18 @@
     </select>
 
     <!-- 根据上级目录的ID查询子目录的数据 -->
-    <select id="getSubDirectoryById" parameterType="map" resultType="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo">
+    <select id="getSubDirectoryById" parameterType="map" resultType="map">
         SELECT * FROM dir_classify t
         WHERE TRUE
         <choose>
-            <when test="null != id and ''!= id">
+            <when test="null != id and ''!= id and 'root' != id">
                 AND t.`fcode` IN (SELECT DISTINCT classify_code FROM dir_classify WHERE id = #{id})
             </when>
-            <otherwise>
+            <when test="'root' == id">
                 AND t.`fcode` = 'root'
+            </when>
+            <otherwise>
+                AND t.`fcode` IS NULL
             </otherwise>
         </choose>
     </select>
