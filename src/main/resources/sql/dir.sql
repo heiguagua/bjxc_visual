@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/18 13:49:32                           */
+/* Created on:     2017/9/20 9:45:31                            */
 /*==============================================================*/
 
 
@@ -94,10 +94,6 @@ drop table if exists drap_business_doc;
 
 drop table if exists drap_business_requirement;
 
-drop table if exists drap_data_authority_apply;
-
-drop table if exists drap_data_authority_audit;
-
 drop table if exists drap_data_column_map;
 
 drop table if exists drap_dataset;
@@ -137,6 +133,8 @@ drop table if exists drap_system_use_info;
 drop table if exists sys_dept;
 
 drop table if exists sys_dept_authority;
+
+drop table if exists sys_dept_authority_apply;
 
 drop table if exists sys_dept_category_template;
 
@@ -476,11 +474,11 @@ create table dir_dataitem_apply
    item_id              varchar(36) comment '申请数据项ID',
    applicant_id         varchar(36) comment '申请人ID',
    apply_info           varchar(512) comment '申请详情',
-   apply_date           date comment '申请时间',
+   apply_date           datetime comment '申请时间',
    auditor_id           varchar(36) comment '审核人',
    status               varchar(36) comment '审核状态',
    audit_opinion        varchar(512) comment '审核意见',
-   audit_date           date comment '审核时间',
+   audit_date           datetime comment '审核时间',
    primary key (id)
 );
 
@@ -534,7 +532,7 @@ create table dir_dataset
    share_type           varchar(36) comment '【国】信息资源共享类型',
    share_condition      varchar(500) comment '【国】信息资源共享条件',
    share_method         varchar(36) comment '【国】信息资源共享方式',
-   share_method_desc	  varchar(500) comment '【国】信息资源共享方式说明',
+   share_method_desc    varchar(500) comment '信息资源共享方式说明',
    is_open              varchar(36) comment '【国】信息资源是否社会开放',
    open_condition       varchar(500) comment '【国】信息资源开放条件',
    update_frequency     varchar(36) comment '【国】信息资源更新周期',
@@ -762,7 +760,6 @@ create table dir_policy
 (
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
-   source_type          varchar(36) comment '政策来源',
    policy_level         varchar(36) comment '政策级别',
    title                varchar(36) comment '政策标题',
    content              text comment '发布内容',
@@ -1016,38 +1013,6 @@ create table drap_business_requirement
 alter table drap_business_requirement comment '业务资源需求表';
 
 /*==============================================================*/
-/* Table: drap_data_authority_apply                             */
-/*==============================================================*/
-create table drap_data_authority_apply
-(
-   id                   varchar(36) not null comment 'ID',
-   applicant            varchar(36) comment '申请人ID',
-   apply_reason         varchar(512) comment '申请理由',
-   apply_time           datetime comment '申请时间',
-   primary key (id)
-);
-
-alter table drap_data_authority_apply comment '数据权限申请表';
-
-/*==============================================================*/
-/* Table: drap_data_authority_audit                             */
-/*==============================================================*/
-create table drap_data_authority_audit
-(
-   id                   varchar(36) not null comment 'ID',
-   apply_id             varchar(36) comment '申请表ID',
-   to_dept_id           varchar(36) comment '数据权限对应部门',
-   authority_type       varchar(36) comment '数据权限类型',
-   auditor              varchar(36) comment '审核人',
-   audit_time           datetime comment '审核时间',
-   audit_opinion        varchar(512) comment '审核意见',
-   audit_status         varchar(36) comment '审核状态',
-   primary key (id)
-);
-
-alter table drap_data_authority_audit comment '数据权限审核表';
-
-/*==============================================================*/
 /* Table: drap_data_column_map                                  */
 /*==============================================================*/
 create table drap_data_column_map
@@ -1274,6 +1239,7 @@ create table drap_db_table_info
 (
    id                   varchar(36) not null comment 'ID',
    db_id                varchar(36) comment '数据库ID',
+   table_source_type    varchar(36) comment '数据表添加类型',
    table_type           varchar(64) comment '数据表类型',
    table_code           varchar(36) comment '数据表编号',
    table_name           varchar(64) comment '数据表英文名称',
@@ -1537,6 +1503,7 @@ alter table sys_dept comment '系统组织机构表';
 create table sys_dept_authority
 (
    id                   varchar(36) not null comment 'id',
+   is_from_audit        varchar(2) comment '是否来自于审核',
    auth_obj_type        varchar(36) comment '权限对象类型',
    auth_obj_id          varchar(36) comment '权限对象ID',
    dept_id              varchar(36) comment '被分配权限部门ID',
@@ -1545,10 +1512,31 @@ create table sys_dept_authority
    distributor_id       varchar(36) comment '分配操作人',
    distribute_opinion   varchar(512) comment '分配意见',
    distribute_date      date comment '分配操作时间',
+   is_from_audit        varchar(2) comment '是否来自于审核',
    primary key (id)
 );
 
 alter table sys_dept_authority comment '部门数据权限分配表';
+
+/*==============================================================*/
+/* Table: sys_dept_authority_apply                              */
+/*==============================================================*/
+create table sys_dept_authority_apply
+(
+   id                   varchar(36) not null comment 'ID',
+   applicant            varchar(36) comment '申请人ID',
+   apply_reason         varchar(512) comment '申请理由',
+   apply_time           datetime comment '申请时间',
+   to_dept_id           varchar(36) comment '申请权限对应部门',
+   authority_type       varchar(36) comment '申请权限类型',
+   auditor              varchar(36) comment '审核人',
+   audit_time           datetime comment '审核时间',
+   audit_opinion        varchar(512) comment '审核意见',
+   audit_status         varchar(36) comment '审核状态',
+   primary key (id)
+);
+
+alter table sys_dept_authority_apply comment '数据权限申请表';
 
 /*==============================================================*/
 /* Table: sys_dept_category_template                            */
@@ -1646,6 +1634,7 @@ create table sys_log
    operator_id          varchar(36) comment '操作人ID',
    operate_time         timestamp comment '操作时间',
    operate_type         varchar(36) comment '操作类型',
+   operate_ip           varchar(36) comment '操作人IP',
    operate_desc         varchar(256) comment '操作描述',
    operate_detail       longtext comment '操作详情',
    primary key (id)
@@ -1702,26 +1691,6 @@ create table sys_region
 alter table sys_region comment '行政区域表';
 
 /*==============================================================*/
-/* Index: region_code_index                                     */
-/*==============================================================*/
-/*drop index region_fcode_index on sys_region;
-
-drop index region_code_index on sys_region;
-
-create index region_code_index on sys_region
-(
-   region_code
-);
-
-*//*==============================================================*//*
-*//* Index: region_fcode_index                                    *//*
-*//*==============================================================*//*
-create index region_fcode_index on sys_region
-(
-   fcode
-);*/
-
-/*==============================================================*/
 /* Table: sys_region_level                                      */
 /*==============================================================*/
 create table sys_region_level
@@ -1758,7 +1727,6 @@ alter table sys_region_version comment '行政区划版本记录表';
 create table sys_role
 (
    id                   varchar(36) not null comment 'id',
-   role_type            int(3) not null comment '角色类型',
    role_name            varchar(128) not null comment '角色名称',
    role_desc            varchar(512) comment '角色描述',
    role_level           int(3) comment '角色级别',

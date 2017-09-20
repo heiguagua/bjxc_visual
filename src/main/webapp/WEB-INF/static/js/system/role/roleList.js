@@ -60,7 +60,14 @@ jQuery(document).ready(function () {
                 var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteRole(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
                 return authBtn + OPERATION_SEPARATOR +  editBtn + OPERATION_SEPARATOR +  deleteBtn ;
             }
-        }]
+        }, {
+            field: 'roleLevel',
+            title: '角色级别',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        }
+        ]
     });
 
     jQuery('#queryBtnId').click(function () {

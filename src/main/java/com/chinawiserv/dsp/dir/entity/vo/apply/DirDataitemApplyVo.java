@@ -31,8 +31,6 @@ public class DirDataitemApplyVo extends DirDataitemApply{
 
     private String sourceTypeName;
 
-    private String auditorName;
-
     private Boolean opration;
 
     public String getDataItemStateName() {
@@ -89,14 +87,6 @@ public class DirDataitemApplyVo extends DirDataitemApply{
 
     public void setSourceType(String sourceType) {
         this.sourceType = sourceType;
-    }
-
-    public String getAuditorName() {
-        return auditorName;
-    }
-
-    public void setAuditorName(String auditorName) {
-        this.auditorName = auditorName;
     }
 
     public Boolean getOpration() {

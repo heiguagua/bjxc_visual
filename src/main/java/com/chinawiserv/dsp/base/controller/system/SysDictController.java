@@ -1,12 +1,12 @@
-package com.chinawiserv.dsp.dir.controller.catalog;
+package com.chinawiserv.dsp.base.controller.system;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
-import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
+import com.chinawiserv.dsp.base.service.system.ISysDictService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,91 +18,110 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  * <p>
- * 数据集（信息资源） 前端控制器
+ * 系统字典表 前端控制器
  * </p>
  *
  * @author wuty
- * @since 2017-09-08
+ * @since 2017-09-19
  */
 @Controller
-@RequestMapping("/catalog")
-public class DirDatasetController extends BaseController {
+@RequestMapping("/sysDict")
+//todo 将所有的XXX修改为真实值
+public class SysDictController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private IDirDatasetService service;
+    private ISysDictService service;
 
-    @RequestMapping("/catalogue")
+    @RequiresPermissions("XXX:XXX:list")
+    @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "catalog/catalogue/catalogueList";
+    	return "XXX/XXX/XXXList";
     }
 
     /**
-     * 分页查询数据集（信息资源）
+     * 分页查询系统字典表
      */
-    @RequiresPermissions("catalog:catalogue:list")
-    @RequestMapping("/catalogue/list")
+    @RequiresPermissions("XXX:XXX:list")
+    @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
 		try {
-		    Page<DirDatasetVo> page = service.selectVoPage(paramMap);
+		    Page<SysDictVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);
 		} catch (Exception e) {
-		    pageResult.error("分页查询数据集（信息资源）出错");
-		    logger.error("分页查询数据集（信息资源）出错", e);
+		    pageResult.error("分页查询系统字典表出错");
+		    logger.error("分页查询系统字典表出错", e);
 		}
 		return pageResult;
     }
 
     /**
-     * 新增数据集（信息资源）
+     * 查询所有字典的数据，并转换成下拉框接受的数据格式
      */
-    @RequiresPermissions("catalog:catalogue:add")
-    @RequestMapping("/catalogue/add")
+    @RequestMapping("/dictDataForSelect")
+    @ResponseBody
+    public HandleResult getDictDataForSelect(@RequestParam Map<String , Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String, Map<String, SysDictVo>> dictData = service.getDictDataForSelect(paramMap);
+            handleResult.put("vo",dictData);
+        } catch (Exception e) {
+            handleResult.error("查询系统字典表出错");
+            logger.error("查询系统字典表出错", e);
+        }
+        return handleResult;
+    }
+    /**
+     * 新增系统字典表
+     */
+    @RequiresPermissions("XXX:XXX:add")
+    @RequestMapping("/add")
     public  String add(){
-		return "catalog/catalogue/catalogueAdd";
+		return "XXX/XXX/XXXAdd";
     }
 
     /**
      * 执行新增
      */
     @RequiresPermissions("XXX:XXX:add")
-    @Log("创建数据集（信息资源）")
+    @Log("创建系统字典表")
     @RequestMapping("/doAdd")
     @ResponseBody
-    public HandleResult doAdd(DirDatasetVo entity){
+    public HandleResult doAdd(SysDictVo entity){
 		HandleResult handleResult = new HandleResult();
 		try {
 		    service.insertVO(entity);
-		    handleResult.success("创建数据集（信息资源）成功");
+		    handleResult.success("创建系统字典表成功");
 		} catch (Exception e) {
-		    handleResult.error("创建数据集（信息资源）失败");
-		    logger.error("创建数据集（信息资源）失败", e);
+		    handleResult.error("创建系统字典表失败");
+		    logger.error("创建系统字典表失败", e);
 		}
 		return handleResult;
     }
 
     /**
-     * 删除数据集（信息资源）
+     * 删除系统字典表
      */
     @RequiresPermissions("XXX:XXX:delete")
-    @Log("删除数据集（信息资源）")
+    @Log("删除系统字典表")
     @RequestMapping("/delete")
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
 		//todo 逻辑删除
     	//service.deleteById(id);
-		return new HandleResult().success("删除数据集（信息资源）成功");
+		return new HandleResult().success("删除系统字典表成功");
     }
 
     /**
-     * 编辑数据集（信息资源）
+     * 编辑系统字典表
      */
     @RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/edit")
@@ -117,11 +136,11 @@ public class DirDatasetController extends BaseController {
     public  HandleResult editLoad(@RequestParam String id){
 		HandleResult handleResult = new HandleResult();
 		try {
-            DirDatasetVo vo = service.selectVoById(id);
+            SysDictVo vo = service.selectVoById(id);
 		    handleResult.put("vo", vo);
 		} catch (Exception e) {
-		    handleResult.error("获取数据集（信息资源）信息失败");
-		    logger.error("获取数据集（信息资源）信息失败", e);
+		    handleResult.error("获取系统字典表信息失败");
+		    logger.error("获取系统字典表信息失败", e);
 		}
 		return handleResult;
 		}
@@ -130,17 +149,17 @@ public class DirDatasetController extends BaseController {
      * 执行编辑
      */
     @RequiresPermissions("XXX:XXX:edit")
-    @Log("编辑数据集（信息资源）")
+    @Log("编辑系统字典表")
     @RequestMapping("/doEdit")
     @ResponseBody
-    public  HandleResult doEdit(DirDatasetVo entity,Model model){
+    public  HandleResult doEdit(SysDictVo entity,Model model){
 		HandleResult handleResult = new HandleResult();
 		try {
 		    service.updateVO(entity);
-		    handleResult.success("编辑数据集（信息资源）成功");
+		    handleResult.success("编辑系统字典表成功");
 		} catch (Exception e) {
-		    handleResult.error("编辑数据集（信息资源）失败");
-		    logger.error("编辑数据集（信息资源）失败", e);
+		    handleResult.error("编辑系统字典表失败");
+		    logger.error("编辑系统字典表失败", e);
 		}
 		return handleResult;
     }

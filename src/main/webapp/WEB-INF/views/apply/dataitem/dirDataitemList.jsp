@@ -179,16 +179,19 @@
     </div>
 </div>
 <script type="text/javascript">
-    $.get('/dir/dirDataitemApply/list', function (dd) {
+    function loadDataItem() {
+   var timestamp = Date.parse(new Date());
+//   alert('/dir/dirDataitemApply/list?timestamp='+timestamp);
+    $.get('/dir/dirDataitemApply/list?timestamp='+timestamp, function (dd) {
         $('#homeauditTable').bootstrapTable({
             pagination: true, //分页
             columns: [{
-                field: 'id',
+                field: 'stateName',
                 title: '状态',
                 width: '10%',
-                formatter: function () {
+               /* formatter: function () {
                     return '待审核'
-                }
+                }*/
             },
                 {field: 'classifyName', title: '所属目录类别',alt:'classifyStructureName',  formatter: function (v,r) {
                     return '<a title="'+r.classifyStructureName+'">'+v+'</a>'
@@ -216,6 +219,9 @@
 //          data: Mock.mock({ 'list|22': [{ 'a|1': [0, 1, 2, 3], 'b|1': '@CTITLE', 'c|1': '@CNAME', 'd|1': '@CSENTENCE', 'e|1': '@DATE @TIME', 'f|1': ['申请中', '等待申请'], 'g|+1': 1 }] }).list
         });
     })
+
+    }
+    loadDataItem();
     $('#hdtMg-dd').addClass('hidden');
     /**
      * [startAudit 点击查看]
@@ -227,6 +233,7 @@
         sessionStorage.setItem("sanm",d)
         dcViewTable(v,d);
         $('#hdtMg').addClass('hidden');
+        $('#hdtMg .box-body').html('<table class="layui-table" id="homeauditTable" lay-even="" lay-skin="row"></table>');
         $('#hdtMg-dd').removeClass('hidden');
     }
     /**
@@ -234,9 +241,11 @@
      * @return {[type]} [description]
      */
     function retdcView() {
+        loadDataItem();
         $('#hdtMg-dd').addClass('hidden');
         $('#hdtMg-dd .box-body').html('<table class="layui-table" id="homeauditInfoTable" lay-even="" lay-skin="row"></table>');
         $('#hdtMg').removeClass('hidden');
+//        window.location.reload()
     }
 
     function dcViewTable(v,d) {
@@ -248,7 +257,7 @@
         })
     }
     function getLlistDetails(dd){
-        $('#homeauditInfoTable').bootstrapTable({
+         $('#homeauditInfoTable').bootstrapTable({
             pagination: true, //分页
             columns: [{
                 field : 'checked',
@@ -286,36 +295,42 @@
             data:dd.rows,
         });
         $("#applyTo").on('click',function(event){
-             event.preventDefault();
+//             event.preventDefault();
            var ckAll= $('#homeauditInfoTable') .bootstrapTable('getSelections'),arr=[];
-            $.each(ckAll,function(i,d){
-                if(d&& d.status==="0")
-                 arr.push(d.id)
-            })
-            //页面层
-            var domHtml = $('#homeauditApplyLayer').html();
-            layer.open({
-                title: '提交审核',
-                anim: 5,
-                type: 1,
-                top: 60,
-                offset: '30px',
-                area: ['600px','350px'], //宽高
-                content: $('#homeauditApplyLayer'),
-                btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
-                btnAlign: 'r',
-                yes: function(index, layero) {
-                   var ro=$("input[name='halRO']:checked").val();var halTA=$("#halTA").val();
+            var total =$('#homeauditInfoTable').bootstrapTable('getOptions').totalRows;
+//           console.log(ckAll,total)
+            if(ckAll.length==0){
+                layer.alert('请至少选择一条记录');
+            }else{
+                $.each(ckAll,function(i,d){
+                    if(d&& d.status==="0")
+                        arr.push(d.id)
+                })
+                //页面层
+                var domHtml = $('#homeauditApplyLayer').html();
+                layer.open({
+                    title: '提交审核',
+                    anim: 5,
+                    type: 1,
+                    top: 60,
+                    offset: '30px',
+                    area: ['600px','350px'], //宽高
+                    content: $('#homeauditApplyLayer'),
+                    btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
+                    btnAlign: 'r',
+                    yes: function(index, layero) {
+                        var ro=$("input[name='halRO']:checked").val();var halTA=$("#halTA").val();
 //                    console.log(arr,ro,halTA)
-                    doEditTo({"id":arr.join(","),"opration":ro,"auditOpinion":halTA},index)
-                },
-                btn2: function(index, layero) {
-                    $('#homeauditApplyLayer').attr('style', '').html(domHtml)
-                },
-                cancel: function(index, layero) {
-                    $("#homeauditApplyLayer").attr('style', '').html(domHtml)
-                }
-            });
+                        doEditTo({"id":arr.join(","),"opration":ro,"auditOpinion":halTA},index)
+                    },
+                    btn2: function(index, layero) {
+                        $('#homeauditApplyLayer').attr('style', '').html(domHtml)
+                    },
+                    cancel: function(index, layero) {
+                        $("#homeauditApplyLayer").attr('style', '').html(domHtml)
+                    }
+                });
+            }
         })
     }
     /**
@@ -338,6 +353,7 @@
             .done(function(dd) {
                 layer.msg(dd.msg || '未知信息');
                 layer.close(index)
+                selApply('3')
             });
     }
 

@@ -2,169 +2,202 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysUserMapper">
 
-	<!-- 开启二级缓存 -->
-	<!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
-	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysUser">
-		<id column="id" property="id" />
-		<result column="region_code" property="regionCode" />
-		<result column="user_name" property="userName" />
-		<result column="real_name" property="realName" />
-		<result column="password" property="password" />
-		<result column="user_type" property="userType" />
-		<result column="telephone_number" property="telephoneNumber" />
-		<result column="cell_phone_number" property="cellPhoneNumber" />
-		<result column="email" property="email" />
-		<result column="user_img" property="userImg" />
-		<result column="user_desc" property="userDesc" />
-		<result column="dept_id" property="deptId" />
-		<result column="status" property="status" />
-		<result column="create_user_id" property="createUserId" />
-		<result column="create_time" property="createTime" />
-		<result column="update_user_id" property="updateUserId" />
-		<result column="update_time" property="updateTime" />
-		<result column="delete_flag" property="deleteFlag" />
-	</resultMap>
-	
-	<!--定义vo映射-->
-	<resultMap id="SysUserVoMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysUserVo" extends="BaseResultMap">
-		<result column="dept_name" property="deptName" />
-		<result column="create_name" property="createName" />
-		<result column="tree_code" property="deptTreeCode" />
-		<collection property="sysRoleList" javaType="list" column="id" ofType="com.chinawiserv.dsp.base.entity.po.system.SysRole"
-					 select="com.chinawiserv.dsp.base.mapper.system.SysRoleMapper.selectRolesByUserId" />
-	</resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysUser">
+        <id column="id" property="id"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="user_name" property="userName"/>
+        <result column="real_name" property="realName"/>
+        <result column="password" property="password"/>
+        <result column="user_type" property="userType"/>
+        <result column="telephone_number" property="telephoneNumber"/>
+        <result column="cell_phone_number" property="cellPhoneNumber"/>
+        <result column="email" property="email"/>
+        <result column="user_img" property="userImg"/>
+        <result column="user_desc" property="userDesc"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="status" property="status"/>
+        <result column="create_user_id" property="createUserId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user_id" property="updateUserId"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
 
-	<!--定义页面vo查询字段-->
-	<sql id="BaseVoSelectColumn">
+    <!--定义vo映射-->
+    <resultMap id="SysUserVoMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysUserVo" extends="BaseResultMap">
+        <result column="dept_name" property="deptName"/>
+        <result column="create_name" property="createName"/>
+        <result column="tree_code" property="deptTreeCode"/>
+        <collection property="sysRoleList" javaType="list" column="id"
+                    ofType="com.chinawiserv.dsp.base.entity.po.system.SysRole"
+                    select="com.chinawiserv.dsp.base.mapper.system.SysRoleMapper.selectRolesByUserId"/>
+    </resultMap>
+
+    <!--定义页面vo查询字段-->
+    <sql id="BaseVoSelectColumn">
 		u1.*,u2.user_name as 'create_name',d.dept_name,d.tree_code
 	</sql>
 
-	<!--定义vo查询语句-->
-	<sql id="VoSelectSql">
+    <!--定义vo查询语句-->
+    <sql id="VoSelectSql">
         FROM sys_user u1
 		LEFT JOIN sys_user u2 on u2.id = u1.create_user_id
 		LEFT JOIN sys_dept d on u1.dept_id = d.id
 	</sql>
 
-	<!--定义vo查询条件-->
-	<sql id="VoWhereCase">
-		<trim prefix="where" prefixOverrides="and">
-			<if test="searchKey != null">
-				AND u1.user_name like CONCAT('%',#{searchKey,jdbcType=VARCHAR},'%')
-			</if>
-		</trim>
-	</sql>
+    <!--定义vo查询条件-->
+    <sql id="VoWhereCase">
+        <trim prefix="where" prefixOverrides="and">
+            u1.delete_flag = '0'
+            <if test="searchKey != null">
+                AND u1.user_name like CONCAT('%',#{searchKey,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="permissionDeptTreeCodes != null and permissionDeptTreeCodes.size > 0">
+                AND
+                <foreach item="item" collection="permissionDeptTreeCodes" separator=" OR " open="(" close=")" index="">
+                    d.tree_code like '${item}%'
+                </foreach>
+            </if>
+            <if test="regionCodeCondition != null">
+                AND u1.region_code like '${regionCodeCondition}%'
+            </if>
+        </trim>
+    </sql>
 
-	<!--页面用户列表查询-->
-	<select id="selectVoList" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysUserVo">
-		SELECT <include refid="BaseVoSelectColumn"/>
-		       <include refid="VoSelectSql"/>
-		       <include refid="VoWhereCase"/>
-	</select>
+    <!--页面用户列表查询-->
+    <select id="selectVoList" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysUserVo">
+        SELECT DISTINCT
+        <include refid="BaseVoSelectColumn"/>
+        <include refid="VoSelectSql"/>
+        LEFT JOIN sys_user_role ur ON u1.id = ur.user_id
+        LEFT JOIN sys_role r ON r.id = ur.role_id
+        <include refid="VoWhereCase"/>
+        AND r.delete_flag = '0' AND r.role_level &gt; ${roleLevel}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="int">
+        select count(DISTINCT 1)
+        <include refid="VoSelectSql"/>
+        LEFT JOIN sys_user_role ur ON u1.id = ur.user_id
+        LEFT JOIN sys_role r ON r.id = ur.role_id
+        <include refid="VoWhereCase"/>
+        AND r.delete_flag = '0' AND r.role_level &gt; ${roleLevel}
+    </select>
 
     <!--根据id查找用户-->
-	<select id="selectVoById" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysUserVo">
-	    SELECT * FROM sys_user WHERE id = #{id}
+    <select id="selectVoById" resultMap="SysUserVoMap">
+        SELECT
+        <include refid="BaseVoSelectColumn"/>
+        <include refid="VoSelectSql"/>
+        WHERE u1.id = #{id}
 	</select>
 
-	<select id="selectUserList" resultType="HashMap">
-		SELECT u.id,u.region_code AS regionCode, u.user_name AS userName,u.`password`,u.user_state AS userState,u.create_time AS createTime,
-		u.user_desc AS userDesc,u.user_img AS userImg,u.dept_id AS deptId,d.`dept_name` AS deptName FROM `sys_user` u
-		LEFT JOIN `sys_dept` d ON d.`id` = u.`dept_id` WHERE 1=1
-		<if test="search != null">
-			AND u.user_name LIKE CONCAT('%',#{search,jdbcType=VARCHAR},'%')
-		</if>
-		ORDER BY u.`create_time` DESC
-	</select>
-	<select id="selectVoList1" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysUserVo">
-		SELECT <include refid="BaseVoSelectColumn"/>
-		<include refid="VoSelectSql"/>
-		<include refid="VoWhereCase"/>
-		${ew.sqlSegment}
-	</select>
-	<select id="selectVoByUserName" parameterType="java.lang.String" resultMap="SysUserVoMap">
-		SELECT
-			<include refid="BaseVoSelectColumn"/>
-			<include refid="VoSelectSql"/>
-		WHERE u1.user_name = #{userName}
-	</select>
-	<select id="selectUsersCountByRoleId" parameterType="java.lang.String" resultType="int">
+    <select id="selectUserList" resultType="HashMap">
+        SELECT u.id,u.region_code AS regionCode, u.user_name AS userName,u.`password`,u.user_state AS
+        userState,u.create_time AS createTime,
+        u.user_desc AS userDesc,u.user_img AS userImg,u.dept_id AS deptId,d.`dept_name` AS deptName FROM `sys_user` u
+        LEFT JOIN `sys_dept` d ON d.`id` = u.`dept_id` WHERE 1=1
+        <if test="search != null">
+            AND u.user_name LIKE CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+        </if>
+        ORDER BY u.`create_time` DESC
+    </select>
+    <select id="selectVoByUserName" parameterType="java.lang.String" resultMap="SysUserVoMap">
+        SELECT
+        <include refid="BaseVoSelectColumn"/>
+        <include refid="VoSelectSql"/>
+        WHERE u1.user_name = #{userName}
+    </select>
+    <select id="selectUsersCountByRoleId" parameterType="java.lang.String" resultType="int">
 		SELECT count(1) from sys_user u
 		LEFT JOIN sys_user_role ur ON u.id = ur.user_id
 		LEFT JOIN sys_role r ON r.id = ur.role_id
 		WHERE u.delete_flag = '0' AND r.delete_flag = '0' AND r.id = #{roleId}
 	</select>
-	<select id="selectUsersCountByDeptId" parameterType="java.lang.String" resultType="int">
+    <select id="selectUsersCountByDeptId" parameterType="java.lang.String" resultType="int">
 		SELECT count(1) from sys_user u
-		WHERE u.delete_flag = '0'  AND u.id = #{deptId}
+		WHERE u.delete_flag = '0'  AND u.dept_id = #{deptId}
 	</select>
-<!--	<resultMap id="BaseResultMapVo" type="com.chinawiserv.dsp.dcs.dcm.entity.vo.base.SysUserVo" extends="BaseResultMap">
-
-	</resultMap>
-	<sql id="baseColumnVoSql">
-		t.id,t.name,t.password,t.coumn3
-	</sql>
-	<sql id="whereCause">
-		<trim prefix="where" prefixOverrides="and">
-			<if test="id != null" >
-				and t.ID = #{id,jdbcType=VARCHAR}
-			</if>
-			<if test="ids != null">
-				and t.ID in
-				<foreach collection="ids" open="(" close=")" item="item" separator=",">
-					#{item, jdbcType=VARCHAR}
-				</foreach>
-			</if>
-
-			<if test="sysType != null" >
-				and t.SYS_TYPE = #{sysType,jdbcType=VARCHAR}
-			</if>
-			<if test="sysTypes != null">
-				and t.SYS_TYPE in
-				<foreach collection="ids" open="(" close=")" item="item" separator=",">
-					#{item, jdbcType=VARCHAR}
-				</foreach>
-			</if>
-			<if test="moduleName != null" >
-				and t.MODULE_NAME = #{moduleName,jdbcType=VARCHAR}
-			</if>
-			<if test="moduleNameDesc != null" >
-				and t.MODULE_NAME_DESC = #{moduleNameDesc,jdbcType=VARCHAR}
-			</if>
-			<if test="moduleSign != null" >
-				and t.MODULE_SIGN = #{moduleSign,jdbcType=VARCHAR}
-			</if>
-			<if test="moduleUrl != null" >
-				and t.MODULE_URL = #{moduleUrl,jdbcType=VARCHAR}
-			</if>
-			<if test="moduleOrder != null" >
-				and t.MODULE_ORDER = #{moduleOrder,jdbcType=DECIMAL}
-			</if>
-		</trim>
-	</sql>
-	<sql id="voSelectSql" >
-		from sys_user t
-		left join sys_role_user sru
-	</sql>
-	<sql id="selfOrderBy">
-
-	</sql>
-
-	<select id="selectVoList" parameterType="java.util.Map" resultMap="BaseResultMapVo">
-		select <include refid="baseColumnVoSql"/>
-		<include refid="voSelectSql"/>
-		<include refid="whereCause"/>
-		<include refid="selfOrderBy"/>
-		<include refid="com.chinawiserv.dsp.dcs.dcm.mapper.common.ICommonMapper.pagination"/>
+    <select id="checkCanBeDeletedById" parameterType="java.lang.String" resultType="java.lang.Boolean">
+		SELECT NOT EXISTS (
+		SELECT 1 from sys_user u
+		LEFT JOIN sys_user_role ur ON u.id = ur.user_id
+		LEFT JOIN sys_role r ON r.id = ur.role_id
+		WHERE u.delete_flag = '0'
+		AND r.delete_flag = '0'
+		AND r.role_level &gt; 0
+		AND u.id = #{userId}
+		)
 	</select>
+    <!--	<resultMap id="BaseResultMapVo" type="com.chinawiserv.dsp.dcs.dcm.entity.vo.base.SysUserVo" extends="BaseResultMap">
 
-	<select id="selectVoCount" parameterType="java.util.Map" resultType="int">
-		select count(1)
-		<include refid="voSelectSql"/>
-		<include refid="whereCause"/>
-	</select>-->
+        </resultMap>
+        <sql id="baseColumnVoSql">
+            t.id,t.name,t.password,t.coumn3
+        </sql>
+        <sql id="whereCause">
+            <trim prefix="where" prefixOverrides="and">
+                <if test="id != null" >
+                    and t.ID = #{id,jdbcType=VARCHAR}
+                </if>
+                <if test="ids != null">
+                    and t.ID in
+                    <foreach collection="ids" open="(" close=")" item="item" separator=",">
+                        #{item, jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+
+                <if test="sysType != null" >
+                    and t.SYS_TYPE = #{sysType,jdbcType=VARCHAR}
+                </if>
+                <if test="sysTypes != null">
+                    and t.SYS_TYPE in
+                    <foreach collection="ids" open="(" close=")" item="item" separator=",">
+                        #{item, jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+                <if test="moduleName != null" >
+                    and t.MODULE_NAME = #{moduleName,jdbcType=VARCHAR}
+                </if>
+                <if test="moduleNameDesc != null" >
+                    and t.MODULE_NAME_DESC = #{moduleNameDesc,jdbcType=VARCHAR}
+                </if>
+                <if test="moduleSign != null" >
+                    and t.MODULE_SIGN = #{moduleSign,jdbcType=VARCHAR}
+                </if>
+                <if test="moduleUrl != null" >
+                    and t.MODULE_URL = #{moduleUrl,jdbcType=VARCHAR}
+                </if>
+                <if test="moduleOrder != null" >
+                    and t.MODULE_ORDER = #{moduleOrder,jdbcType=DECIMAL}
+                </if>
+            </trim>
+        </sql>
+        <sql id="voSelectSql" >
+            from sys_user t
+            left join sys_role_user sru
+        </sql>
+        <sql id="selfOrderBy">
+
+        </sql>
+
+        <select id="selectVoList" parameterType="java.util.Map" resultMap="BaseResultMapVo">
+            select <include refid="baseColumnVoSql"/>
+            <include refid="voSelectSql"/>
+            <include refid="whereCause"/>
+            <include refid="selfOrderBy"/>
+            <include refid="com.chinawiserv.dsp.dcs.dcm.mapper.common.ICommonMapper.pagination"/>
+        </select>
+
+        <select id="selectVoCount" parameterType="java.util.Map" resultType="int">
+            select count(1)
+            <include refid="voSelectSql"/>
+            <include refid="whereCause"/>
+        </select>-->
 
 
 </mapper>

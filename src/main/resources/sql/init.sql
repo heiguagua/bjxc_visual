@@ -103,21 +103,24 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
 
 
 -- 角色表
-  INSERT INTO `sys_role` VALUES ('737933bffef640329a4f864c4e2746ba', '1', '超级管理员', '超级管理员', -1,1, '549d321508db446e9bcaa477835fe5f1', '2017-05-08 17:18:19', null, null, 0);
+  INSERT INTO `sys_role`(id,role_name,role_desc,role_level,status) VALUES ('737933bffef640329a4f864c4e2746ba', '超级管理员', '超级管理员', -1,1);
+  INSERT INTO `sys_role`(id,role_name,role_desc,role_level,status) VALUES ('dab7f9219c4611e78cf200ffe04ac734', '区域管理员', '区域管理员', 0,1);
+
 -- 用户表
   insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status)
     values ('09f4fef9249c457ca67b4a7a45823730','510000','','1','admin','超级管理员','96e79218965eb72c92a549dd5a330112','1');
 
 -- 角色菜单表
   INSERT INTO `sys_role_menu` SELECT UUID() AS id,(SELECT id FROM sys_role WHERE role_name='超级管理员') AS role_id, id AS menu_id FROM sys_menu;
+  INSERT INTO `sys_role_menu` SELECT UUID() AS id,(SELECT id FROM sys_role WHERE role_name='区域管理员') AS role_id, id AS menu_id FROM sys_menu;
 
 -- 用户角色表
   insert into sys_user_role(id,user_id,role_id)
     values (REPLACE(uuid(),'-',''),'09f4fef9249c457ca67b4a7a45823730','737933bffef640329a4f864c4e2746ba');
 
 -- 系统配置表
-  INSERT INTO `sys_setting` VALUES ('1', '', '1', 'systemName', '系统名称', '数据采集系统', null, '1', null, null, null, null, 0);
-  INSERT INTO `sys_setting` VALUES ('2', '', '1', 'systemSubName', '系统简称', 'DCM', null, '1', null, null, null, null, 0);
+  INSERT INTO `sys_setting` VALUES ('1', '', '1', 'systemName', '系统名称', '目录管理系统', null, '1', null, null, null, null, 0);
+  INSERT INTO `sys_setting` VALUES ('2', '', '1', 'systemSubName', '系统简称', 'DIR', null, '1', null, null, null, null, 0);
   INSERT INTO `sys_setting` VALUES ('3', '', '1', 'bottomCopyright', '许可说明', 'Copyright © 2017 勤智数码. All rights reserved.', null, '1', null, null, null, null, 0);
   INSERT INTO `sys_setting` VALUES ('4', '', '1', 'crawlerInterface', '爬虫接口地址', 'http://127.0.0.1:8080/crawler/wbsiteStore', '', '1', '549d321508db446e9bcaa477835fe5f1', '2017-06-27 10:46:53', null, null, '0');
 

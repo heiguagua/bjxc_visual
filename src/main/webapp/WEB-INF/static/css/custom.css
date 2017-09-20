@@ -212,4 +212,7 @@ table td {
 
 .f-dn{display: none;}
 
-.line{height: 1px;width: 100%;background: #eee;}
+.line{
+    /*height: 1px;*/
+    width: 100%;
+    background: #eee;}
