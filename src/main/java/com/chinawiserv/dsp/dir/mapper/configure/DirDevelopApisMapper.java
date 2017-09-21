@@ -23,6 +23,8 @@ public interface DirDevelopApisMapper extends BaseMapper<DirDevelopApis> {
     DirDevelopApisVo selectVoById(String id);
     
     List<DirDevelopApis> getDirApiZtree();
+    
+    List<DirDevelopApis> getApiByParentId(String id);
     //逻辑删除
     void updateDeleteFlag(String id);
     
