@@ -105,7 +105,7 @@ public class ServiceApiController extends BaseController {
      * */
     @RequestMapping("getDbInfoByDatasetId")
     @ResponseBody
-    public HandleResult getDbInfoByDatasetId(Map<String, Object> paramMap){
+    public HandleResult getDbInfoByDatasetId(@RequestParam Map<String, Object> paramMap){
         HandleResult handleResult = new HandleResult();
         if(null == paramMap || paramMap.size() == 0){
             handleResult.setMsg("未传入参数");
@@ -127,9 +127,9 @@ public class ServiceApiController extends BaseController {
     /**
      * 查询指定数据集下面的表信息、字段信息
      * */
-    @RequestMapping("getItemAndTableInfoByDatasetId")
+    @RequestMapping("getServiceInfoByDatasetId")
     @ResponseBody
-    public HandleResult getItemAndTableInfoByDatasetId(Map<String, Object> paramMap){
+    public HandleResult getServiceInfoByDatasetId(@RequestParam Map<String, Object> paramMap){
         HandleResult handleResult = new HandleResult();
         if(null == paramMap || paramMap.size() == 0){
             handleResult.setMsg("未传入参数");
@@ -137,7 +137,7 @@ public class ServiceApiController extends BaseController {
             return handleResult;
         }
         try{
-            List<Map<String,Object>> result = service.getItemAndTableInfoByDatasetId(paramMap);
+            Map<String,Object> result = service.getServiceInfoByDatasetId(paramMap);
             handleResult.put("rows",result);
             handleResult.setState(true);
         }catch (Exception e){
@@ -153,7 +153,7 @@ public class ServiceApiController extends BaseController {
      * */
     @RequestMapping("releaseService")
     @ResponseBody
-    public HandleResult releaseService(Map<String, Object> paramMap){
+    public HandleResult releaseService(@RequestParam Map<String, Object> paramMap){
         HandleResult handleResult = new HandleResult();
         if(null == paramMap || paramMap.size() == 0){
             handleResult.setMsg("未传入参数");
