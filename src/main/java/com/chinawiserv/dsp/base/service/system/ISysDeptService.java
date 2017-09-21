@@ -26,11 +26,13 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 
     JSONObject checkDeptName(String deptName, String deptId) throws Exception;
 
-    JSONArray getDeptSelectDataList(String regionCode) throws Exception;
+    List<SysDeptVo> getDeptSelectDataList(Map<String, Object> paramMap) throws Exception;
 
     boolean deleteDeptById(String id) throws Exception;
 
     List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
 
     Map<String, Object> getDeptCondition(String regionCode);
+
+    boolean isLeafDept(String deptCode);
 }

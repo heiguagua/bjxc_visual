@@ -63,6 +63,6 @@ public class DirSuggestionServiceImpl extends CommonServiceImpl<DirSuggestionMap
 
     @Override
     public int baseDeleteById(String id) {
-        return mapper.baseDelete(id);
+        return mapper.deletePoById(id);
     }
 }

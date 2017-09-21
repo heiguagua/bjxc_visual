@@ -114,6 +114,8 @@
         </where>
     </sql>
 
-
-
+    <!-- 根据ID删除数据 -->
+    <delete id="deletePoById" parameterType="java.lang.String">
+         delete from dir_suggestion WHERE id = #{id}
+    </delete>
 </mapper>

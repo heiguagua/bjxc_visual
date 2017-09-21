@@ -1,17 +1,18 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.system.SysRole;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.po.system.SysUserRole;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserRoleMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
-import com.chinawiserv.dsp.base.service.system.ISysRoleService;
+import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -36,14 +37,12 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     @Autowired
     private SysUserMapper userMapper;
 
-    @Autowired private SysUserRoleMapper userRoleMapper;
+    @Autowired
+    private SysUserRoleMapper userRoleMapper;
 
     @Autowired
-    private ISysRoleService sysRoleService ;
+    private ISysDeptService sysDeptService;
 
-    public void updateUser(SysUser sysUser) {
-        userMapper.updateById(sysUser);
-    }
     @Override
     public SysUser login(String userName, String password) {
         return this.selectOne(new EntityWrapper<SysUser>().eq("user_name", userName).eq("password", CommonUtil.string2MD5(password)));
@@ -51,23 +50,7 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
 
     @Override
     public SysUserVo selectVoById(String id) throws Exception {
-        SysUserVo sysUserVo = userMapper.selectVoById(id);
-        List<JSONObject> roleNameList =  sysRoleService.getRoleNameList(id);
-
-        String roleIdArr[] = null ;
-        if (roleNameList != null && !roleNameList.isEmpty()) {
-            roleIdArr = new String[roleNameList.size()] ;
-
-            for (int i = 0; i < roleNameList.size(); i++) {
-                JSONObject jsonObject = roleNameList.get(i) ;
-                String roleId = jsonObject.getString("id") ;
-                roleIdArr[i] = roleId ;
-             }
-        }
-
-        sysUserVo.setRoleIds(roleIdArr);
-
-        return sysUserVo;
+        return userMapper.selectVoById(id);
     }
 
     @Override
@@ -75,11 +58,16 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
         return userMapper.selectVoByUserName(userName);
     }
 
-    //commonservice中的方法
     @Override
-    public void delete(String id) {
-        this.deleteById(id);
-        userRoleMapper.delete(new EntityWrapper<SysUserRole>().addFilter("user_id = {0}", id));
+    public void delete(String id) throws ErrorInfoException {
+        if (userMapper.checkCanBeDeletedById(id)) {
+            SysUser sysUser = new SysUser();
+            sysUser.setId(id);
+            sysUser.setDeleteFlag(1);
+            this.updateById(sysUser);
+        }else{
+            throw new ErrorInfoException("admin为系统内置的管理员用户，不能删除");
+        }
     }
 
     @Override
@@ -113,12 +101,7 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
         //绑定角色
         String[] roleIds = sysUserVo.getRoleIds();
         if(ArrayUtils.isNotEmpty(roleIds)){
-            for(String rid : roleIds){
-                SysUserRole sysUserRole = new SysUserRole();
-                sysUserRole.setUserId(sysUserVo.getId());
-                sysUserRole.setRoleId(rid);
-                userRoleMapper.insert(sysUserRole);
-            }
+            this.insertUserRoles(sysUserVo.getId(), roleIds);
         }
         return true;
     }
@@ -127,19 +110,14 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     public boolean updateVO(SysUserVo sysUserVo) throws Exception {
         //更新用户
         userMapper.updateById(sysUserVo);
-
+        String userId = sysUserVo.getId();
         String[] roleIds = sysUserVo.getRoleIds();
         //重新绑定角色
         if(ArrayUtils.isNotEmpty(roleIds)){
             //删除已有权限
-            userRoleMapper.delete(new EntityWrapper<SysUserRole>().eq("user_id",sysUserVo.getId()));
+            userRoleMapper.delete(new EntityWrapper<SysUserRole>().eq("user_id", userId));
 
-            for(String rid : roleIds){
-                SysUserRole sysUserRole = new SysUserRole();
-                sysUserRole.setUserId(sysUserVo.getId());
-                sysUserRole.setRoleId(rid);
-                userRoleMapper.insert(sysUserRole);
-            }
+            this.insertUserRoles(userId, roleIds);
         }
         return true;
     }
@@ -151,17 +129,39 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
 
     @Override
     public Page<SysUserVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-        Page<SysUserVo> page = getPage(paramMap);
-        //按照创建时间排序
-        page.setOrderByField("create_time");
-        page.setAsc(false);
-        page.setRecords(userMapper.selectVoList(page,paramMap));
-        return page;
+        Map<String, Object> param = sysDeptService.getDeptCondition(null);
+        if(!param.isEmpty()){
+            List<SysRole> roles = ShiroUtils.getLoginUser().getSysRoleList();
+            int roleLevel = -1;
+            if(roles != null){
+                roleLevel = roles.stream().min((o1, o2) -> o1.getRoleLevel().compareTo(o2.getRoleLevel())).get().getRoleLevel();
+            }
+            paramMap.put("roleLevel", roleLevel);
+            paramMap.putAll(param);
+            Page<SysUserVo> page = getPage(paramMap);
+            //按照创建时间排序
+            page.setOrderByField("create_time");
+            page.setAsc(false);
+            page.setTotal(userMapper.selectVoCount(paramMap));
+            page.setRecords(userMapper.selectVoList(page,paramMap));
+        }
+        return getPage(paramMap);
     }
 
     @Override
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
         return 0;
+    }
+
+    private void insertUserRoles(String userId, String[] roleIds) throws Exception {
+        for(String rid : roleIds){
+            SysUserRole sysUserRole = new SysUserRole();
+            sysUserRole.setUserId(userId);
+            sysUserRole.setRoleId(rid);
+            if(userRoleMapper.insert(sysUserRole) <= 0){
+                throw new Exception("添加用户角色失败！");
+            }
+        }
     }
 
 }

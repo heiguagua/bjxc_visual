@@ -10,9 +10,6 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
-import com.chinawiserv.dsp.base.service.system.ISysDeptService;
-import com.chinawiserv.dsp.base.service.system.ISysRoleService;
-import com.chinawiserv.dsp.base.service.system.ISysUserRoleService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -45,9 +42,6 @@ public class SysUserController extends BaseController {
 
     @Autowired
     private ISysUserService sysUserService;
-    @Autowired private ISysRoleService sysRoleService;
-    @Autowired private ISysUserRoleService sysUserRoleService;
-    @Autowired private ISysDeptService sysDeptService;
 
     /**
      * 初始化用户列表
@@ -111,17 +105,7 @@ public class SysUserController extends BaseController {
     public HandleResult delete(String id){
         HandleResult result = new HandleResult();
         try {
-            SysUser sysUser = sysUserService.selectById(id);
-            if (sysUser != null) {
-                String userName = sysUser.getUserName();
-                if ("admin".equals(userName)) {
-                    throw new ErrorInfoException("admin为系统内置的管理员用户，不能删除");
-                }
-            }
-
             sysUserService.delete(id);
-        } catch (ErrorInfoException e) {
-            return result.error("删除用户失败:" + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             return result.error("删除用户失败");
@@ -144,12 +128,12 @@ public class SysUserController extends BaseController {
     @RequiresPermissions("system:user:edit")
     @RequestMapping("/loadEditData")
     @ResponseBody
-    public HandleResult loadEditData(@RequestParam String id,Model model){
+    public HandleResult loadEditData(@RequestParam String id){
         HandleResult result = new HandleResult();
-        SysUserVo userVo = null;
+        SysUserVo userVo;
         try {
             userVo = sysUserService.selectVoById(id);
-            result.put("user",userVo);
+            result.put("user", userVo);
         } catch (Exception e) {
             result.error("加载用户信息出错");
             e.printStackTrace();

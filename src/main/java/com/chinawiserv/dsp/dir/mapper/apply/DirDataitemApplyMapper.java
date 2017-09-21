@@ -32,5 +32,7 @@ public interface DirDataitemApplyMapper extends BaseMapper<DirDataitemApply> {
 
     int baseDelete(String id);
 
+    int selectDataItemStatusCount(Page<DirDataitemApplyVo> page,Map<String, Object> paramMap);
+
 
 }

@@ -11,7 +11,7 @@ import com.chinawiserv.dsp.dir.entity.po.apply.DirDataitemApply;
  * @since 2017-09-11
  */
 public class DirDataitemApplyVo extends DirDataitemApply{
-    private Boolean stateName;
+    private String stateName;
 
     private String dataItemStateName;
 
@@ -30,8 +30,6 @@ public class DirDataitemApplyVo extends DirDataitemApply{
     private String sourceType;
 
     private String sourceTypeName;
-
-    private String auditorName;
 
     private Boolean opration;
 
@@ -91,14 +89,6 @@ public class DirDataitemApplyVo extends DirDataitemApply{
         this.sourceType = sourceType;
     }
 
-    public String getAuditorName() {
-        return auditorName;
-    }
-
-    public void setAuditorName(String auditorName) {
-        this.auditorName = auditorName;
-    }
-
     public Boolean getOpration() {
         return opration;
     }
@@ -123,11 +113,11 @@ public class DirDataitemApplyVo extends DirDataitemApply{
         this.datasetId = datasetId;
     }
 
-    public Boolean getStateName() {
+    public String getStateName() {
         return stateName;
     }
 
-    public void setStateName(Boolean stateName) {
+    public void setStateName(String stateName) {
         this.stateName = stateName;
     }
 }

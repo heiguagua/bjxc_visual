@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority">
+        <id column="id" property="id"/>
+        <result column="auth_obj_type" property="authObjType"/>
+        <result column="auth_obj_id" property="authObjId"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="read_auth" property="readAuth"/>
+        <result column="write_auth" property="writeAuth"/>
+        <result column="distributor_id" property="distributorId"/>
+        <result column="distribute_opinion" property="distributeOpinion"/>
+        <result column="distribute_date" property="distributeDate"/>
+        <result column="is_from_audit" property="isFromAudit"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                AND t.id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="authObjType != null">
+                AND t.auth_obj_type = #{authObjType,jdbcType=VARCHAR}
+            </if>
+            <if test="deptId != null">
+                AND t.dept_id = #{deptId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_dept_authority t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_dept_authority t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM sys_dept_authority t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoList" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_dept_authority t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority">
+        insert into
+        sys_dept_authority(id,auth_obj_type,auth_obj_id,dept_id,read_auth,write_auth,distributor_id,distribute_opinion,distribute_date,is_from_audit,)
+        values(
+        #{id},#{authObjType},#{authObjId},#{deptId},#{readAuth},#{writeAuth},#{distributorId},#{distributeOpinion},#{distributeDate},#{isFromAudit},
+        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority">
+        update sys_dept_authority
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="authObjType != null">
+                auth_obj_type = #{authObjType},
+            </if>
+            <if test="authObjId != null">
+                auth_obj_id = #{authObjId},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId},
+            </if>
+            <if test="readAuth != null">
+                read_auth = #{readAuth},
+            </if>
+            <if test="writeAuth != null">
+                write_auth = #{writeAuth},
+            </if>
+            <if test="distributorId != null">
+                distributor_id = #{distributorId},
+            </if>
+            <if test="distributeOpinion != null">
+                distribute_opinion = #{distributeOpinion},
+            </if>
+            <if test="distributeDate != null">
+                distribute_date = #{distributeDate},
+            </if>
+            <if test="isFromAudit != null">
+                is_from_audit = #{isFromAudit},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from sys_dept_authority
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

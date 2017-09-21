@@ -1,6 +1,5 @@
 package com.chinawiserv.dsp.base.entity.po.system;
 
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
@@ -33,7 +32,7 @@ public class SysDept implements Serializable {
 
 	private String deptAlias;
 
-	private String listingName;
+	private String deptListingName;
 
 	private String deptDesc;
 
@@ -149,12 +148,12 @@ public class SysDept implements Serializable {
 		this.deptAlias = deptAlias;
 	}
 
-	public String getListingName() {
-		return listingName;
+	public String getDeptListingName() {
+		return deptListingName;
 	}
 
-	public void setListingName(String listingName) {
-		this.listingName = listingName;
+	public void setDeptListingName(String deptListingName) {
+		this.deptListingName = deptListingName;
 	}
 
 	public String getDeptDesc() {

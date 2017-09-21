@@ -33,12 +33,23 @@
 
         </where>
     </sql>
+    <!-- 查询共享审核数据条件 -->
+    <sql id="queryApplyConditions">
+        <where>
+            t1.applicant_id = t2.id and
+            t2.dept_id = t6.id and
+            t1.dcm_id=t3.id AND
+            t3.dataset_id = t4.id AND
+            t3.classify_id = t5.id
+        </where>
+    </sql>
+
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t1.id,t1.apply_date,
         t2.real_name,
         t6.dept_name,
-        t4.id,t4.dataset_name,
+        t4.id as datasetId,t4.dataset_name,
         t5.classify_name,t5.classify_structure_name
         FROM dir_dataitem_apply t1,
         sys_user t2,
@@ -46,14 +57,21 @@
         dir_dataset t4,
         dir_classify t5,
         sys_dept t6
-        where
-        t1.applicant_id = t2.id and
-        t2.dept_id = t6.id and
-        t1.dcm_id=t3.id AND
-        t3.dataset_id = t4.id AND
-        t3.classify_id = t5.id  GROUP BY t4.id
+        <include refid="queryApplyConditions"></include>
+
+        <!--<if test="search != null">
+            AND t5.classify_name LIKE CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="searchKey != null">
+            AND t4.dataset_name LIKE CONCAT('%',#{searchKey,jdbcType=VARCHAR},'%')
+        </if>-->
+        <!--<if test="real_name != null">
+            AND t2.real_name LIKE CONCAT('%',#{real_name,jdbcType=VARCHAR},'%')
+        </if>-->
+        GROUP BY t2.real_name,datasetId
     </select>
 
+<!--查询共享审核详情页-即具体的数据项 -->
     <select id="selectVoPageDetails" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t1.id, t1.apply_info, t1.`status`, t1.audit_opinion, t1.audit_date,t1.auditor_id,
         t2.real_name,t4.source_type
@@ -64,12 +82,33 @@
         dir_dataset t4,
         dir_classify t5,
         sys_dept t6
-        where
-        t1.applicant_id = t2.id and
-        t2.dept_id = t6.id and
-        t1.dcm_id=t3.id AND
-        t3.dataset_id = t4.id AND
-        t3.classify_id = t5.id AND t4.id = #{id,jdbcType=VARCHAR}
+        <include refid="queryApplyConditions"></include>
+        AND t4.id = #{id,jdbcType=VARCHAR}
+        AND t2.real_name =  #{realName,jdbcType=VARCHAR}
+        <if test="status != null">
+            AND t1.status = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="source_type != null">
+            AND t4.source_type = #{source_type,jdbcType=VARCHAR}
+        </if>
+        <if test="real_name != null">
+            AND t2.real_name LIKE CONCAT('%',#{real_name,jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+
+<!--计算未审核数据项个数 -->
+    <select id="selectDataItemStatusCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT  COUNT(t1.`status`)
+        FROM dir_dataitem_apply t1,
+        sys_user t2,
+        dir_dataset_classify_map t3,
+        dir_dataset t4,
+        dir_classify t5,
+        sys_dept t6
+        <include refid="queryApplyConditions"></include>
+        AND t4.id = #{id,jdbcType=VARCHAR}
+        AND t2.real_name = #{realName,jdbcType=VARCHAR}
+        AND t1.`status`='0'
     </select>
 
 

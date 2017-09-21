@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,17 +37,17 @@ public class DirDataitemApplyController extends BaseController {
     @Autowired
     private IDirDataitemApplyService service;
 
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("apply:dirDataitemApply:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "apply/dataItem/dirDataitemList";
+    	return "apply/dataitem/dirDataitemList";
     }
 
     /**
      * 分页查询共享审核消息申请表
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("apply:dirDataitemApply:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult List(@RequestParam Map<String , Object> paramMap){
@@ -64,7 +65,7 @@ public class DirDataitemApplyController extends BaseController {
     /**
      * 分页查询共享审核消息申请表
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("apply:dirDataitemApply:list")
     @RequestMapping("/list/details")
     @ResponseBody
     public PageResult ListDetails(@RequestParam Map<String , Object> paramMap){
@@ -124,14 +125,14 @@ public class DirDataitemApplyController extends BaseController {
     /**
      * 编辑数据项权限申请表
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("apply:dirDataitemApply:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "apply/dataItem/dirDataitemList";
+		return "apply/dataitem/dirDataitemList";
     }
 
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("apply:dirDataitemApply:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -149,7 +150,7 @@ public class DirDataitemApplyController extends BaseController {
     /**
      * 执行编辑
      */
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("apply:dirDataitemApply:edit")
     @Log("编辑数据项权限申请表")
     @RequestMapping(value = "/doEdit",method = RequestMethod.PUT)
     @ResponseBody
@@ -163,8 +164,19 @@ public class DirDataitemApplyController extends BaseController {
                 dirDataitemApplyVo.setStatus("2");
             }
             dirDataitemApplyVo.setDataItemStateName(DataItemStatus.valueOf(EnumTools.getName(dirDataitemApplyVo.getStatus())).getChValue());
-		    service.updateVO(dirDataitemApplyVo);
-		    handleResult.success("编辑数据项权限申请表成功");
+            String  ids = dirDataitemApplyVo.getId();
+            if (ids != null && !ids.isEmpty()){
+                String[] arr = ids.split(",");
+                List<String> idList = java.util.Arrays.asList(arr);
+                for (String id : idList){
+                    dirDataitemApplyVo.setId(id);
+                    service.updateVO(dirDataitemApplyVo);
+                }
+                handleResult.success("编辑数据项权限申请表成功");
+            }else {
+                handleResult.error("提交的数据有误，请重试!");
+            }
+
 		} catch (Exception e) {
 		    handleResult.error("编辑数据项权限申请表失败");
 		    logger.error("编辑数据项权限申请表失败", e);

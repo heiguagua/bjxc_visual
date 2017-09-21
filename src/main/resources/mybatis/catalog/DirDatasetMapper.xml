@@ -8,15 +8,16 @@
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
                     <id column="id" property="id" />
-                                                                                                                                                                                                                                                                                                                                                        <result column="region_code" property="regionCode" />
+                                                                                                                                                                                                                                                                                                                                                                    <result column="region_code" property="regionCode" />
                             <result column="dataset_code" property="datasetCode" />
                             <result column="dataset_name" property="datasetName" />
                             <result column="alias" property="alias" />
-                            <result column="belong_dep_id" property="belongDepId" />
+                            <result column="belong_dept_id" property="belongDeptId" />
                             <result column="dataset_desc" property="datasetDesc" />
                             <result column="share_type" property="shareType" />
                             <result column="share_condition" property="shareCondition" />
                             <result column="share_method" property="shareMethod" />
+                            <result column="share_method_desc" property="shareMethodDesc" />
                             <result column="is_open" property="isOpen" />
                             <result column="open_condition" property="openCondition" />
                             <result column="update_frequency" property="updateFrequency" />
@@ -45,7 +46,7 @@
                                 <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </where>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </where>
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
@@ -61,8 +62,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
-        insert into dir_dataset(id,region_code,dataset_code,dataset_name,alias,belong_dep_id,dataset_desc,share_type,share_condition,share_method,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,is_secret,source_type,status,create_user_id,create_time,update_user_id,update_time,delete_flag,) values(
-            #{id},#{regionCode},#{datasetCode},#{datasetName},#{alias},#{belongDepId},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethod},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{isSecret},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},        )
+        insert into dir_dataset(id,region_code,dataset_code,dataset_name,alias,belong_dept_id,dataset_desc,share_type,share_condition,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,is_secret,source_type,status,create_user_id,create_time,update_user_id,update_time,delete_flag,) values(
+            #{id},#{regionCode},#{datasetCode},#{datasetName},#{alias},#{belongDeptId},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{isSecret},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},        )
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
@@ -83,8 +84,8 @@
                     <if test="alias != null">
                 alias = #{alias},
             </if>
-                    <if test="belongDepId != null">
-                belong_dep_id = #{belongDepId},
+                    <if test="belongDeptId != null">
+                belong_dept_id = #{belongDeptId},
             </if>
                     <if test="datasetDesc != null">
                 dataset_desc = #{datasetDesc},
@@ -97,6 +98,9 @@
             </if>
                     <if test="shareMethod != null">
                 share_method = #{shareMethod},
+            </if>
+                    <if test="shareMethodDesc != null">
+                share_method_desc = #{shareMethodDesc},
             </if>
                     <if test="isOpen != null">
                 is_open = #{isOpen},
@@ -147,7 +151,7 @@
                 delete_flag = #{deleteFlag},
             </if>
                 </set>
-        where  id = #{id}                                                        </update>
+        where  id = #{id}                                                          </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">
         delete from dir_dataset <include refid="deleteWhereCause"/>
@@ -158,7 +162,7 @@
                                 <if test="id != null">
                 id = #{id}
             </if>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </where>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </where>
     </sql>
 
 

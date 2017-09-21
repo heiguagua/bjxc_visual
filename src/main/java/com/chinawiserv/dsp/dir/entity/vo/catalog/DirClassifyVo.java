@@ -11,4 +11,13 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
  * @since 2017-09-08
  */
 public class DirClassifyVo extends DirClassify{
+    private String hasLeaf;
+
+    public String getHasLeaf() {
+        return hasLeaf;
+    }
+
+    public void setHasLeaf(String hasLeaf) {
+        this.hasLeaf = hasLeaf;
+    }
 }

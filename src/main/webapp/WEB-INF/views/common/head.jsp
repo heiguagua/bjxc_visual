@@ -31,6 +31,8 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="<%=basePath%>/app/css/AdminLTE.css">
 <link rel="stylesheet" href="<%=basePath%>/app/css/skins/skin-blue.css">
+<!-- zTree style -->
+<link rel="stylesheet" href="<%=basePath%>/plugins/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 
 <!-- 自定义 css -->
 <link rel="stylesheet"  href="<%=basePath%>/plugins/layui/css/layui.css">
@@ -69,6 +71,8 @@
 <script src="<%=basePath%>/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <!-- layer -->
 <script src="<%=basePath%>/plugins/layer/layer.js"></script>
+<!-- ztree -->
+<script src="<%=basePath%>/plugins/zTree/js/jquery.ztree.all.min.js"></script>
 
 <!-- AdminLTE App -->
 <script src="<%=basePath%>/app/js/app.js"></script>
@@ -88,6 +92,7 @@
 <script src="<%=basePath%>/js/custom/mock.min.js"></script>
 <script src="<%=basePath%>/js/custom/global_custom.js"></script>
 <script src="<%=basePath%>/js/custom/curdtools.js"></script>
+<script src="<%=basePath%>/js/system/dict/dictSelect.js"></script>
 
 <script type="text/javascript">
     var basePathJS = "<%=basePath%>";

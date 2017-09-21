@@ -29,4 +29,6 @@ public interface DirSuggestionMapper extends BaseMapper<DirSuggestion> {
     int baseUpdate(DirSuggestion entity);
 
     int baseDelete(String id);
+
+    int deletePoById(String id);
 }

@@ -22,7 +22,7 @@
     #end
 	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="${package.Entity}.vo.${cfg.subModuleName}.${entity}">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="${package.Entity}.vo.${cfg.subModuleName}.${entity}Vo">
 
     </resultMap>
 #end

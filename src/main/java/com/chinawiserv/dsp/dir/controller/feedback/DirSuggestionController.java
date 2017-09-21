@@ -104,7 +104,7 @@ public class DirSuggestionController extends BaseController {
         if(result > 0){
             return new HandleResult().success("删除成功");
         }
-        return new HandleResult().success("删除失败");
+        return new HandleResult().error("删除失败");
     }
 
     /**

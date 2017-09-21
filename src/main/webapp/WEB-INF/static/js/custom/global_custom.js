@@ -538,7 +538,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     // }
                 },
                 success: function (json) {
-                    $.checkSessionInvalid(json);
+                    //$.checkSessionInvalid(json);
                 },
                 error: $.ajaxError,
                 complete: function () {
@@ -686,7 +686,7 @@ function initGlobalCustom(tempUrlPrefix) {
             }
 
             return json['session_invalid'] == true;
-        }
+        },
         // download: function (data) {
         //     $.commonAjax({
         //         url: urlPrefix + '/downloadCheck.action',
@@ -1262,6 +1262,82 @@ function initGlobalCustom(tempUrlPrefix) {
         //         head.appendChild(script);
         //     }
         // }
+
+        /**
+         * 获取目录类别的下拉树对象
+         * @param treeDomId         ztree对象的id
+         * @param nameInputDomId    显示选中目录类别的名称的input框的id
+         * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
+         * @param treeDivDomId      树形展开区域的DIV的id
+         */
+        initClassifyTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId) {
+            var selectIds="";
+            var setting = {
+                async: {
+                    enable: true,
+                    url: basePathJS + "/dirClassify/authorityList",
+                    autoParam:["fcode"],
+                    dataFilter: function(treeId, parentNode, childNodes){//过滤数据库查询出来的数据为ztree接受的格式
+                        var params=[];
+                        var nodeObjs = childNodes.content.vo;
+                        if (!nodeObjs){
+                            return null;
+                        }
+                        for ( var i in nodeObjs) {
+                            params[i]={'id':nodeObjs[i].id,'name':nodeObjs[i].classifyName,'fcode':nodeObjs[i].classifyCode,'isParent':(nodeObjs[i].hasLeaf=="1"?true:false)}
+                        }
+                        return params;
+                    }
+                },
+                callback: {
+                    beforeClick: function(treeId, treeNode){ //如果点击的节点还有下级节点，则展开该节点
+                        var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
+                        if (treeNode.isParent) {
+                            if(treeNode.open){
+                                zTreeObj.expandNode(treeNode,false);
+                            }else{
+                                zTreeObj.expandNode(treeNode,true);
+                            }
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
+                    onClick: function(e, treeId, treeNode){ //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+                        $.commonAjax({
+                            url:basePathJS + "/dirClassify/editLoad",
+                            data:{id: treeNode.id},
+                            success: function (result) {
+                                if (result.state) {
+                                    var classifyObj = result.content.vo;
+                                    $('#'+nameInputDomId).val(classifyObj.classifyStructureName);
+                                    if(selectIds==""){
+                                        selectIds = treeNode.id;
+                                    }else{
+                                        selectIds += "," + treeNode.id;
+                                    }
+                                    $('#'+codeInputDomId).val(selectIds);
+                                }
+                            }
+                        });
+                    }
+                }
+            };
+
+            $('#'+nameInputDomId).click(function(){
+                $.fn.zTree.init($("#"+treeDomId), setting);
+                var cityOffset = $("#"+nameInputDomId).offset();
+                $("#"+treeDivDomId).css({left:cityOffset.left + "px", top:cityOffset.top + $("#"+nameInputDomId).outerHeight() + "px"}).slideDown("fast");
+                $("body").bind("mousedown", function(event) {
+                    if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#"+treeDivDomId).length>0)) {
+                        $("#"+treeDivDomId).fadeOut("fast");
+                        $("body").unbind("mousedown");
+                    }
+                });
+            })
+
+        }
+
     });
 
     $.fn.extend({

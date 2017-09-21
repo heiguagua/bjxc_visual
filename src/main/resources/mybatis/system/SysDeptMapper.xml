@@ -34,15 +34,17 @@
 	<sql id="queryConditions">
 		<where>
 			t.delete_flag = '0'
-			AND t.fcode != 'root'
+			<if test="onlyRoot != null and onlyRoot == true">
+				AND t.fcode == 'root'
+			</if>
+			<if test="excludeRoot != null and excludeRoot == true">
+				AND t.fcode != 'root'
+			</if>
 			<if test="searchKey != null">
 				AND t.dept_name LIKE concat(concat('%', #{searchKey}), '%')
 			</if>
-			<if test="permissionDeptTreeCodes != null and permissionDeptTreeCodes.size > 0">
-				AND
-				<foreach item="item" collection="permissionDeptTreeCodes" separator=" OR " open="(" close=")" index="">
-					t.tree_code like '${item}%'
-				</foreach>
+			<if test="deptTreeCodeCondition != null">
+				AND t.tree_code like '${deptTreeCodeCondition}%'
 			</if>
 			<if test="regionCodeCondition != null">
 				AND t.region_code like '${regionCodeCondition}%'
@@ -64,6 +66,10 @@
 
 	<select id="selectVoList" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
 		SELECT t.* FROM sys_dept t <include refid="queryConditions"></include>
+	</select>
+
+	<select id="isLeafDept" parameterType="java.lang.String" resultType="java.lang.Boolean">
+		SELECT count(1) from sys_dept t WHERE t.delete_flag = '0' AND t.fcode = #{deptCode}
 	</select>
 
 </mapper>
