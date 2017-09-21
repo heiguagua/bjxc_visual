@@ -88,8 +88,8 @@
 
 <script src="<%=basePath%>/plugins/smartWizard/js/jquery.smartWizard.js"></script>
 <!-- 自定义系统初始化话JS -->
-<script src="<%=basePath%>/plugins/layui/layui.all.js"></script>
-<script src="<%=basePath%>/js/custom/mock.min.js"></script>
+<%--<script src="<%=basePath%>/plugins/layui/layui.all.js"></script>
+<script src="<%=basePath%>/js/custom/mock.min.js"></script>--%>
 <script src="<%=basePath%>/js/custom/global_custom.js"></script>
 <script src="<%=basePath%>/js/custom/curdtools.js"></script>
 <script src="<%=basePath%>/js/system/dict/dictSelect.js"></script>

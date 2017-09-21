@@ -4,8 +4,9 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/js/dir/configure/api/apiList.js"></script>
-    <script src="<%=basePath%>/plugins/jquery.ztree.exedit.js"></script>
-    <script src="<%=basePath%>/plugins/jquery.ztree.core.js"></script>
+    <%-- <script src="<%=basePath%>/plugins/jquery.ztree.exedit.js"></script> --%>
+    <script src="<%=basePath%>/plugins/jquery.ztree.all.js"></script>
+    <%-- <script src="<%=basePath%>/plugins/jquery.ztree.core.js"></script> --%>
 	<link rel="stylesheet" href="<%=basePath%>/css/zTreeStyle/zTreeStyle.css" type="text/css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -26,13 +27,13 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <div class="form-inline">
+                        <%-- <div class="form-inline">
                             <div class="box-header">
-                                <%--<#if permissions?seq_contains('addDept')>--%>
+                                <#if permissions?seq_contains('addDept')>
                                 <div class="input-group">
                                     <a class="btn btn-primary  btn-flat" onclick="javascript:addUser()" > <i class="fa fa-plus"></i> 创建用户</a>
                                 </div>
-                                <%--</#if>--%>
+                                </#if>
                                 <div class="input-group">
                                     <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="用户名称">
                                     <div class="input-group-btn">
@@ -41,7 +42,7 @@
                                 </div>
 
                             </div><!-- /.box-header -->
-                        </div>
+                        </div> --%>
 						<div>		                    
 					          <div class="navi-wrap">
 					                 <div class="" style="min-height: 300px;">				
@@ -51,11 +52,11 @@
 					                 </div>
 					           </div>
 					     </div>
-                        <div class="box-body table-responsive no-padding">
+                        <!-- <div class="box-body table-responsive no-padding">
                             <table id="systemUserTableId" class="table table-hover">
 
                             </table>
-                        </div><!-- /.box-body -->
+                        </div>/.box-body -->
 
                     </div><!-- /.box -->
                 </div>

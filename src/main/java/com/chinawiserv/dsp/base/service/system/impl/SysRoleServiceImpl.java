@@ -147,7 +147,6 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
         sysRoleVo.setId(CommonUtil.get32UUID());
         sysRoleVo.setCreateTime(new Date());
         sysRoleVo.setCreateUserId(ShiroUtils.getLoginUserId());
-        sysRoleVo.setRoleType(1);
         return insert(sysRoleVo);
     }
 

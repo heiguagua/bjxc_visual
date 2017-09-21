@@ -7,7 +7,7 @@ jQuery(document).ready(function () {
     initUserTypeList();
     initDeptSelectDataList();
     initRoleNameList();
-    initFormerDate(userId);
+    initFormerDate(apiId);
 });
 
 function initUserTypeList(){
@@ -69,6 +69,12 @@ function initRoleNameList(){
         }
     });
 }
+function deleteUser(id) {
+    var url = basePathJS + "/dirDevelopApis/delete";
+    var parameter = {id: id};
+    delObj(url , parameter) ;
+}
+
 
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
@@ -78,7 +84,7 @@ function runBeforeSubmit(form) {
 function runAfterSubmitSuccess(response) {
     console.log("runAfterSubmitSuccess");
     //刷新主页面
-    parent.reloadTable();
+//    parent.reloadTable();
 }
 
 function runAfterSubmit(response) {

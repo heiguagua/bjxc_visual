@@ -3,15 +3,18 @@
  */
 
 jQuery(document).ready(function () {
-    initSelectData();
+	 var parentId = $("#parentId").val();	
+     initSelectData();
 });
 
 function initSelectData() {
     initUserTypeList();
     initDeptSelectDataList();
     initRoleNameList();
-
+  
 }
+
+
 
 function initUserTypeList(){
     $.commonAjax({
@@ -59,7 +62,7 @@ function runBeforeSubmit(form) {
 function runAfterSubmitSuccess(response) {
     console.log("runAfterSubmitSuccess");
     //刷新主页面
-    parent.reloadTable();
+//    parent.reloadTable();
 }
 
 function runAfterSubmit(response) {

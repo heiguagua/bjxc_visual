@@ -24,10 +24,19 @@
                         <div class="box">
                             <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
                                 <div class="box-header">
-                                    <div class="input-group">
-                                        <a class="btn btn-primary btn-flat" onclick="javascript:addQuick()">
-                                            <i class="fa fa-plus"></i>快速添加
-                                        </a>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <i class="fa fa-plus"></i>快速添加<span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <button type="button" style="width: 100%;" class="btn btn-primary btn-flat">从系统梳理添加</button>
+                                            </li>
+                                            <li>
+                                                <button type="button" style="width: 100%;" onclick="quickAddDatasetUI()" class="btn btn-primary btn-flat">从资源梳理添加</button>
+                                            </li>
+                                        </ul>
                                     </div>
                                     <div class="input-group">
                                         <a class="btn btn-default btn-flat" onclick="javascript:addCustom()">

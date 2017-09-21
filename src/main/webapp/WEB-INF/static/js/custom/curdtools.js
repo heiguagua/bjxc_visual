@@ -75,6 +75,47 @@ function update(title, url, id, width, height, isRestful) {
     createWindow(options);
 }
 
+function addApi(title, url, parentId, width, height, isRestful) {
+
+    if (parentId) {
+        if(isRestful!='undefined'&&isRestful){
+            url += '/'+parentId;
+        }else{
+            if (url.indexOf("?") == -1 ) {
+                url += '?parentId='+parentId;
+            } else {
+                url += '&parentId='+parentId;
+            }
+        }
+    }
+
+    var options = _getDefaultWinOptionsForUpdateapiList(title , url , width, height) ;
+
+    createWindow(options);
+}
+
+
+
+//updateapi customization
+function updateApi(title, url, id, width, height, isRestful) {
+
+    if (id) {
+        if(isRestful!='undefined'&&isRestful){
+            url += '/'+id;
+        }else{
+            if (url.indexOf("?") == -1 ) {
+                url += '?id='+id;
+            } else {
+                url += '&id='+id;
+            }
+        }
+    }
+
+    var options = _getDefaultWinOptionsForUpdateapiList( title , url , width, height) ;
+
+    createWindow(options);
+}
+
 /**
  * 如果页面是详细查看页面，无效化所有表单元素，只能进行查看
  */
@@ -222,6 +263,10 @@ function delObj(url,parameter, func, parentWin) {
     createDialog('删除确认', '您『确定』删除当前选中的记录吗？', url, parameter, func, parentWin);
 }
 
+function delObjApi(url,parameter, func, parentWin) {
+	createDialogForApi('删除确认', '您『确定』删除当前选中的Api记录吗？', url, parameter, func, parentWin);    
+}
+
 // 普通询问操作调用函数
 function confirm(url, content,name) {
 	createDialog('提示信息 ', content, url,name);
@@ -337,6 +382,24 @@ function _getDefaultWinOptions(title , url , width, height) {
         success: _successLoad ,
         yes :function(index, layero){
             _submitForm(index , layero) ;
+         
+        }
+    };
+
+    return options ;
+}
+
+function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
+    var options = {
+        title:title,
+        width : width ,
+        height : height ,
+        content: url ,
+        btn: [ '<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
+        success: _successLoad ,
+        yes :function(index, layero){
+        	_submitFormForApi(index , layero) ;
+//            location.reload();
         }
     };
 
@@ -439,6 +502,109 @@ function _yesCallbackFunc(index, layero , options) {
         _customYesCallback(index , layero , options)
     }
 }
+
+
+/**
+*
+* @param index
+* @param layero
+* @param options for api
+* @private
+*/
+function _submitFormForApi(index, layero , options){
+   options = options || {};
+   var body ;
+   var parentWin = options.parentWin ;
+   if (parentWin) {
+       body = parentWin.layer.getChildFrame('body', index);
+   } else {
+       body = layer.getChildFrame('body', index);
+   }
+
+   var form = body.find( "form:first" );
+
+   if (!form) {
+       return ;
+   }
+
+   var parentIframeName = options.parentIframeName;
+   var parentIframeWin ;
+
+   if (parentIframeName) {
+       if (parentWin) {
+           parentIframeWin = parentWin.window[parentIframeName];
+       } else {
+           parentIframeWin = window[parentIframeName];
+       }
+   }
+
+   form.isValid(function (ret) {
+       // 检查表单
+       if (ret) {
+           //todo
+           //验证通过后，才能提交
+           var iframeWin ;
+           if (parentWin) {
+               iframeWin = parentWin.window[layero.find('iframe')[0]['name']];//得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+           } else {
+               iframeWin = window[layero.find('iframe')[0]['name']];
+           }
+
+           //runBeforeSubmit: 提交之前，可重写此方法以获取额外参数设置与数据校验
+           if ($.isFunction(iframeWin.runBeforeSubmit)) {
+               if (!iframeWin.runBeforeSubmit(form)) {
+                   return ;
+               }
+           }
+
+           // var me = this;
+           // // 提交表单之前，hold住表单，防止重复提交
+           // me.holdSubmit(true);
+
+           var action = form.attr("action");
+           var method = form.attr("method") || 'post';
+
+           $.ajax({
+               url: action,
+               data: $(form).serialize(),
+               type: method,
+               success: function(response) {
+                   /**
+                    *  response : ajax请求的后台响应数据
+                    *  options ：弹窗的配置信息
+                    * @type {{response: *, options: *}}
+                    */
+                   var data = {response : response , options : options , parentIframeWin : parentIframeWin};
+
+                   if (response.state) {
+                       if ($.isFunction(iframeWin.runAfterSubmitSuccess)) {
+                           iframeWin.runAfterSubmitSuccess(data);
+                       }
+                       //todo
+                       parent.layer.close(index);
+                       successMsgTip(response.msg , parentWin) ;
+                       location.reload();
+                   } else {
+                       errorMsgTip(response.msg , parentWin);
+                   }
+
+                   //todo
+                   if ($.isFunction(iframeWin.runAfterSubmit)) {
+                       iframeWin.runAfterSubmit(data);
+                   }
+
+                   // 提交表单成功后，释放hold
+                   // me.holdSubmit(false);
+               }
+           });
+
+       } else {
+           tip("表单校验未通过，请检查输入。" , parentWin);
+       }
+   }) ;
+
+};
+
 
 /**
  *
@@ -635,6 +801,101 @@ function createDialog(title, content, url, parameter, func, parentWin) {
     });
 }
 
+function createDialogForApi(title, content, url, parameter, func, parentWin) {
+	//todo zIndex = getzIndex();
+    var realLayer;
+    if(parentWin){
+        realLayer = parentWin.layer;
+    } else{
+        realLayer = layer;
+    }
+    realLayer.confirm(content, {icon: 3, title:title, zIndex: realLayer.zIndex}, function(index){
+        if($.isFunction(func)){
+            func();
+        } else{
+            doSubmitForApi(url,parameter);
+            
+        }
+        realLayer.close(index);
+    });
+}
+
+/**
+ * 执行操作
+ * @param url
+ * @param index
+ */
+function doSubmitForApi(url, parameter) {
+	var paramsData = parameter;
+	//把URL转换成POST参数防止URL参数超出范围的问题
+	if(!paramsData){
+		paramsData = new Object();
+		if (url.indexOf("&") != -1) {
+			var str = url.substr(url.indexOf("&")+1);
+			url = url.substr(0,url.indexOf("&"));
+			var strs = str.split("&");
+			for(var i = 0; i < strs.length; i ++) {
+				paramsData[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+			}
+		}      
+	}
+
+	$.ajax({
+		async : false,
+		cache : false,
+		type : 'POST',
+		data : paramsData,
+		url : url,// 请求的action路径
+		error : function() {// 请求失败处理函数
+		},
+		success : function(result) {
+			if (result.state) {
+				location.reload();
+                reloadTable();
+                var msg = result.msg;
+                tip(msg);
+                
+			} else {
+				tip(result.msg);
+			}
+		}
+	});
+
+}
+
+
+
+/**
+ * 检验是否可删除api
+ * @param url
+ * @param index
+ */
+function isdelete(id){
+	
+$.ajax(		
+		{						
+		async : false,
+		cache : false,
+		type : 'POST',
+		data : id,
+		url : basePathJS + "/dirDevelopApis/Isdelete",// 请求的action路径
+		error : function() {// 请求失败处理函数
+			return false;
+		},
+		success : function(result) {
+			if (result.state) {
+                reloadTable();
+                var msg = result.msg;
+                
+			} else {
+				tip(result.msg);
+				return false;
+			}
+		
+		}
+	});
+
+}
 /**
  * 执行操作
  * @param url

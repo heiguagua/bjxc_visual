@@ -2,7 +2,7 @@ var tableSelector = '#dirSpecialAppsTableId';
 
 jQuery(document).ready(function () {
     "use strict";
-    var paramsObj = {deleteFlag:"0"};
+    var paramsObj = {deleteFlag:0};
     
     jQuery(tableSelector).customTable({
         url: basePathJS + '/dirSpecialApps/list',
@@ -61,7 +61,7 @@ jQuery(document).ready(function () {
 
     function setParams() {
         var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {searchKey : searchKeyVal};
+        paramsObj = {searchKey : searchKeyVal,deleteFlag:0};
     }
     
     

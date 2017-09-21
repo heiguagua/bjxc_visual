@@ -99,7 +99,7 @@ public class DirPolicyController extends BaseController {
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
 		//todo 逻辑删除
-    	service.deleteById(id);
+    	service.DeleteByFlag(id);
 		return new HandleResult().success("删除政策表成功");
     }
 

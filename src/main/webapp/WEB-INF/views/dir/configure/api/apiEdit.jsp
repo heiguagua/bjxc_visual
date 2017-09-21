@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/system/user/apiEdit.js"></script>
+    <script src="<%=basePath%>/js/dir/configure/api/apiEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <section class="content">
@@ -13,7 +13,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/system/user/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/dirDevelopApis/doEdit">
                         <input id="apiId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                            <div class="form-group">
@@ -37,15 +37,17 @@
                                        placeholder="请输入排序号" data-rule="排序号:required;order_number;">
                             </div>
                             <div class="form-group">
-                                <label for="apiDesc">目录类别描述:</label>
+                                <label for="apiDesc">api描述:</label>
                                 <textarea class="form-control" 
 									id="Eapi_desc"  name="apiDesc" data-rule="目录类别描述:required;order_number;"></textarea>                                
                             </div>   
                         </div><!-- /.box-body -->
                         <div class="box-footer">
+                        	
                             <%--<button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>--%>
                             <input type="submit" style="display:none;"/>
                         </div>
+                        
                     </form>
                 </div>
             </div>

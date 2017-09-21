@@ -59,25 +59,32 @@ public class SysDeptAuthorityController extends BaseController {
     /**
      * 编辑组织机构权限
      */
-    @RequiresPermissions("system:dept:edit")
+    @RequiresPermissions("system:deptAuthority:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
-    public  HandleResult editLoad(@RequestParam String deptId){
+    public  HandleResult editLoad(@RequestParam String id, @RequestParam String authType){
         HandleResult handleResult = new HandleResult();
         try {
             Map<String, Object> paramMap = new HashMap();
-            if(StringUtils.isBlank(deptId)){
-                throw new Exception("被分配的部门不能为空！");
+            if(StringUtils.isBlank(id)){
+                throw new Exception("被分配的权限不能为空！");
             }
-            if(ShiroUtils.getLoginUserDeptId().equals(deptId)){
-                throw new Exception("被分配的部门不能为用户所属部门！");
+            if(ShiroUtils.getLoginUserDeptId().equals(id)){
+                throw new Exception("被分配的权限不能为登录用户所属部门！");
             }
-            paramMap.put("deptId", deptId);
-            List<SysDeptAuthorityVo> result = service.selectVoList(paramMap);
+            List<SysDeptAuthorityVo> result = null;
+            paramMap.put("authObjType", AuthObjTypeEnum.DEPT);
+            if("dept".equals(authType)){
+                paramMap.put("deptId", id);
+                result = service.selectVoList(paramMap);
+            }else if("dir".equals(authType)){
+                paramMap.put("classifyId", id);
+                result = service.selectVoList(paramMap);
+            }
             handleResult.put("selected", result);
         } catch (Exception e) {
-            handleResult.error("获取组织机构信息失败");
-            logger.error("获取组织机构信息失败", e);
+            handleResult.error("获取数据权限信息失败");
+            logger.error("获取数据权限失败", e);
         }
         return handleResult;
     }
