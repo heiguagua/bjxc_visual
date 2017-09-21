@@ -37,17 +37,17 @@ public class DirNewsController extends BaseController {
     @Autowired
     private IDirNewsService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "dir/configure/news/newsList";
     }
 
     /**
      * 分页查询新闻表
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -65,7 +65,7 @@ public class DirNewsController extends BaseController {
     /**
      * 新增新闻表
      */
-    @RequiresPermissions("XXX:XXX:add")
+//    @RequiresPermissions("XXX:XXX:add")
     @RequestMapping("/add")
     public  String add(){
 		return "XXX/XXX/XXXAdd";
@@ -74,7 +74,7 @@ public class DirNewsController extends BaseController {
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
+//    @RequiresPermissions("XXX:XXX:add")
     @Log("创建新闻表")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -93,7 +93,7 @@ public class DirNewsController extends BaseController {
     /**
      * 删除新闻表
      */
-    @RequiresPermissions("XXX:XXX:delete")
+//    @RequiresPermissions("XXX:XXX:delete")
     @Log("删除新闻表")
     @RequestMapping("/delete")
     @ResponseBody
@@ -106,14 +106,14 @@ public class DirNewsController extends BaseController {
     /**
      * 编辑新闻表
      */
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "XXX/XXX/XXXEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -131,7 +131,7 @@ public class DirNewsController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @Log("编辑新闻表")
     @RequestMapping("/doEdit")
     @ResponseBody

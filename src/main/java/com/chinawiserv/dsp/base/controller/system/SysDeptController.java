@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -54,11 +55,12 @@ public class SysDeptController extends BaseController {
     public PageResult list(@RequestParam Map<String , Object> paramMap){
         PageResult pageResult = new PageResult();
         try {
+            paramMap.put("excludeRoot", false);
             Page<SysDeptVo> page = sysDeptService.selectVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
             pageResult.error("分页查询组织机构出错");
-            logger.error("分页查询角色出错", e);
+            logger.error("分页查询组织机构出错", e);
         }
         return pageResult;
     }
@@ -123,7 +125,7 @@ public class SysDeptController extends BaseController {
     }
 
     /**
-     * 编辑角色
+     * 编辑组织机构
      */
     @RequiresPermissions("system:dept:edit")
     @RequestMapping("/editLoad")
@@ -144,7 +146,6 @@ public class SysDeptController extends BaseController {
      * 执行编辑
      */
     @RequiresPermissions("system:dept:edit")
-    @Log("编辑组织机构")
     @RequestMapping("/doEdit")
     @ResponseBody
     public  HandleResult doEdit(SysDeptVo dept){
@@ -174,15 +175,15 @@ public class SysDeptController extends BaseController {
 
     /**
      * 组织机构的下拉数据
-     * @param regionCode 区域代码，如果未空则使用登录用户regionCode
+     * @param paramMap
      * @return
      */
     @RequestMapping("/getDeptSelectDataList")
     @ResponseBody
-    public HandleResult getDeptSelectDataList(String regionCode) {
+    public HandleResult getDeptSelectDataList(@RequestParam Map<String, Object> paramMap) {
         HandleResult handleResult = new HandleResult();
         try {
-            JSONArray result = sysDeptService.getDeptSelectDataList(regionCode);
+            List<SysDeptVo> result = sysDeptService.getDeptSelectDataList(paramMap);
             handleResult.put("selectData", result);
         } catch (Exception e) {
             handleResult.error("获取组织机构列表失败");

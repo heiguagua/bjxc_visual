@@ -20,4 +20,12 @@ public interface IApiService {
 
     List<Map<String,Object>> getSubDataItemById(Map<String,Object> paramMap);
 
+    List<Map<String,Object>> getDatasetByClassifyId(Map<String,Object> paramMap);
+
+    List<Map<String,Object>> getDbInfoByDatasetId(Map<String,Object> paramMap);
+
+    List<Map<String, Object>> getItemAndTableInfoByDatasetId(Map<String, Object> paramMap);
+
+    boolean releaseService(Map<String, Object> paramMap);
+
 }

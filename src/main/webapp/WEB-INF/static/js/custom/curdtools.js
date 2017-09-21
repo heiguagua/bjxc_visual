@@ -75,6 +75,47 @@ function update(title, url, id, width, height, isRestful) {
     createWindow(options);
 }
 
+function addApi(title, url, parentId, width, height, isRestful) {
+
+    if (parentId) {
+        if(isRestful!='undefined'&&isRestful){
+            url += '/'+parentId;
+        }else{
+            if (url.indexOf("?") == -1 ) {
+                url += '?parentId='+parentId;
+            } else {
+                url += '&parentId='+parentId;
+            }
+        }
+    }
+
+    var options = _getDefaultWinOptions(title , url , width, height) ;
+
+    createWindow(options);
+}
+
+
+
+//updateapi customization
+function updateApi(title, url, id, width, height, isRestful) {
+
+    if (id) {
+        if(isRestful!='undefined'&&isRestful){
+            url += '/'+id;
+        }else{
+            if (url.indexOf("?") == -1 ) {
+                url += '?id='+id;
+            } else {
+                url += '&id='+id;
+            }
+        }
+    }
+
+    var options = _getDefaultWinOptions(title , url , width, height) ;
+
+    createWindow(options);
+}
+
 /**
  * 如果页面是详细查看页面，无效化所有表单元素，只能进行查看
  */

@@ -1,20 +1,14 @@
 /**
  * Created by zhanf on 2017/4/28.
  */
-
 jQuery(document).ready(function () {
-	 var parentId = $("#parentId").val();	
-     initSelectData();
-});
+    var appId = $("#appId").val();
 
-function initSelectData() {
     initUserTypeList();
     initDeptSelectDataList();
     initRoleNameList();
-  
-}
-
-
+    initFormerDate(appId);
+});
 
 function initUserTypeList(){
     $.commonAjax({
@@ -40,14 +34,35 @@ function initDeptSelectDataList(){
     });
 }
 
+//初始化用户信息
+function initFormerDate(appId) {
+    $.commonAjax({
+        url: basePathJS + "/dirSpecialApps/editLoad",
+        data: {id:appId},
+        success: function (result) {
+            if (result.state) {
+                var vo = result.content.vo;
+                if(vo){
+
+                    $("#Eapp_name").val(vo.appName);
+                    $("#Eapp_category").val(vo.appCategory);
+                    $("#Eapp_url").val(vo.appUrl);
+                    $("#Eorder_number").val(vo.orderNumber);                             
+
+                }
+            }
+        }
+    });
+}
+//加载角色菜单列表
 function initRoleNameList(){
     $.commonAjax({
         url: basePathJS + "/system/role/getRoleNameList",
         success: function (result) {
             if (result.state) {
-                var selectData = result.content.selectData;
+                var roleNames = result.content.selectData;
                 $("#roleIds").select2({
-                    data: selectData
+                    data: roleNames
                 });
             }
         }
@@ -62,7 +77,7 @@ function runBeforeSubmit(form) {
 function runAfterSubmitSuccess(response) {
     console.log("runAfterSubmitSuccess");
     //刷新主页面
-//    parent.reloadTable();
+    parent.reloadTable();
 }
 
 function runAfterSubmit(response) {

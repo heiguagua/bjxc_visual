@@ -29,4 +29,6 @@ public interface SysDeptAuthorityMapper extends BaseMapper<SysDeptAuthority> {
     int baseUpdate(SysDeptAuthority entity);
 
     int baseDelete(String id);
+
+    List<SysDeptAuthorityVo> selectVoList(Map<String, Object> paramMap);
 }

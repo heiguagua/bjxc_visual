@@ -59,7 +59,7 @@ public class DirDevelopApisController extends BaseController {
     @ResponseBody
     public JSONObject loadZtree(@RequestParam Map<String , Object> paramMap){
     	Map<String, Object> params = new HashMap<>();
-    	List<DirDevelopApis> listTree = new ArrayList<DirDevelopApis>();
+    	List<DirDevelopApis> listTree = null;
     	JSONObject jsonObject = new JSONObject();
 		try {			
 			listTree = service.getDirApiZtree();			
@@ -79,7 +79,8 @@ public class DirDevelopApisController extends BaseController {
      */
 //    @RequiresPermissions("XXX:XXX:add")
     @RequestMapping("/add")
-    public  String add(){
+    public  String add(@RequestParam String parentId, Model model){
+    	model.addAttribute("parentId",parentId);
 		return "dir/configure/api/apiAdd";
     }
 

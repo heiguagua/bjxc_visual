@@ -3,8 +3,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-
-    <script src="<%=basePath%>/js/system/user/userAdd.js"></script>
+    <script src="<%=basePath%>/js/dir/configure/api/apiAdd.js"></script>
+ 
 </head>
 <body>
 <section class="content">
@@ -14,8 +14,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/system/user/doAdd">
+                          method="post" action="<%=basePath%>/dirDevelopApis/doAdd">
                         <div class="box-body">
+                        	<input id="parentId" type="hidden" value="${parentId}" name="parentId" />
                             <div class="form-group">
                                 <label for="apiName">api名称</label>
                                 <input type="text" id="api_name" name="apiName" class="form-control"
@@ -37,11 +38,11 @@
                                        placeholder="请输入排序号" data-rule="排序号:required;order_number;">
                             </div>
                             <div class="form-group">
-                                <label for="apiDesc">目录类别描述:</label>
+                                <label for="apiDesc">api描述:</label>
                                 <textarea class="form-control" 
 									id="api_desc"  name="apiDesc" data-rule="目录类别描述:required;order_number;"></textarea>                                
                             </div>                           
-                           
+
                         </div><!-- /.box-body -->
                         <div class="box-footer">
                             <%--<button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>--%>

@@ -21,7 +21,10 @@ public interface DirPolicyMapper extends BaseMapper<DirPolicy> {
     List<DirPolicyVo> selectVoPage(Page<DirPolicyVo> page, Map<String, Object> paramMap);
 
     DirPolicyVo selectVoById(String id);
-
+    
+    //逻辑删除
+    void updateDeleteFlag(String id);
+    
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(DirPolicy entity);

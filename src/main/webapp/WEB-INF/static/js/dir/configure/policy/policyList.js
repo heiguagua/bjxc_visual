@@ -2,7 +2,7 @@ var tableSelector = '#policyListId';
 
 jQuery(document).ready(function () {
     "use strict";
-    var paramsObj = {};
+    var paramsObj = {deleteFlag:0};
 
     jQuery(tableSelector).customTable({
         url: basePathJS + '/dirPolicy/list',
@@ -49,7 +49,7 @@ jQuery(document).ready(function () {
 
     function setParams() {
         var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {searchKey : searchKeyVal};
+        paramsObj = {searchKey : searchKeyVal,deleteFlag:0};
     }
 
 });
@@ -60,11 +60,11 @@ function reloadTable() {
 }
 
 function addUser() {
-    add('新增用户',basePathJS + '/dirPolicy/add');
+    add('新增政策',basePathJS + '/dirPolicy/add');
 }
 
 function editUser(id) {
-    update('编辑用户',basePathJS + '/dirPolicy/edit' , id);
+    update('编辑政策',basePathJS + '/dirPolicy/edit' , id);
 }
 
 function deleteUser(id) {

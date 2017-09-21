@@ -39,4 +39,26 @@ public class ApiServiceImpl implements IApiService {
     public List<Map<String, Object>> getSubDataItemById(Map<String, Object> paramMap) {
         return mapper.getSubDataItemById(paramMap);
     }
+
+    @Override
+    public List<Map<String, Object>> getDatasetByClassifyId(Map<String, Object> paramMap) {
+        return mapper.getDatasetByClassifyId(paramMap);
+    }
+
+    @Override
+    public List<Map<String, Object>> getDbInfoByDatasetId(Map<String, Object> paramMap) {
+        return mapper.getDbInfoByDatasetId(paramMap);
+    }
+
+    @Override
+    public List<Map<String, Object>> getItemAndTableInfoByDatasetId(Map<String, Object> paramMap) {
+        return mapper.getItemAndTableInfoByDatasetId(paramMap);
+    }
+    /**
+     * 发布服务，往表插入数据
+     * */
+    @Override
+    public boolean releaseService(Map<String, Object> paramMap) {
+        return false;
+    }
 }

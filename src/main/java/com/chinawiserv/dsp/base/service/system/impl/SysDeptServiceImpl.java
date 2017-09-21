@@ -1,6 +1,5 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -43,14 +42,18 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 
     @Override
     public Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-        paramMap.putAll(this.getDeptCondition(ShiroUtils.getLoginUser().getRegionCode()));
-        Page<SysDeptVo> page = getPage(paramMap);
-        page.setOrderByField("tree_code");
-        page.setAsc(true);
-        List<SysDeptVo> sysDeptVos = sysDeptMapper.selectVoPage(page, paramMap);
-        page.setTotal(sysDeptMapper.selectVoCount(paramMap));
-        page.setRecords(sysDeptVos);
-        return page;
+        Map<String, Object> param = this.getDeptCondition(null);
+        if(!param.isEmpty()){
+            paramMap.putAll(param);
+            Page<SysDeptVo> page = getPage(paramMap);
+            page.setOrderByField("tree_code");
+            page.setAsc(true);
+            List<SysDeptVo> sysDeptVos = sysDeptMapper.selectVoPage(page, paramMap);
+            page.setTotal(sysDeptMapper.selectVoCount(paramMap));
+            page.setRecords(sysDeptVos);
+            return page;
+        }
+        return getPage(paramMap);
     }
 
     @Override
@@ -74,19 +77,37 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
-    public JSONArray getDeptSelectDataList(String regionCode) throws Exception {
-        JSONArray jsonArray = new JSONArray();
-        if(StringUtils.isBlank(regionCode)){
-            regionCode = ShiroUtils.getLoginUser().getRegionCode();
+    public List<SysDeptVo> getDeptSelectDataList(Map<String, Object> paramMap) throws Exception {
+        if(paramMap == null) paramMap = new HashMap();
+        String regionCode = (String) paramMap.get("regionCode");
+        Boolean onlyRoot = (Boolean) paramMap.get("onlyRoot");
+        Boolean excludeRoot = (Boolean) paramMap.get("excludeRoot");
+        Boolean checkIsLeaf = (Boolean) paramMap.get("checkIsLeaf");
+        if(onlyRoot == null){
+            onlyRoot = false;
         }
-        List<SysDeptVo> list = this.selectVoList(this.getDeptCondition(regionCode));
-        for (SysDept sysDept : list) {
-            JSONObject obj = new JSONObject();
-            obj.put("id", sysDept.getId());
-            obj.put("text", sysDept.getDeptName());
-            jsonArray.add(obj);
+        if(excludeRoot == null){
+            excludeRoot = true;
         }
-        return jsonArray;
+        if(checkIsLeaf == null){
+            checkIsLeaf = true;
+        }
+        List<SysDeptVo> list = new ArrayList();
+        Map<String, Object> param = this.getDeptCondition(regionCode);
+        if(!param.isEmpty()){
+            if(onlyRoot){
+                param.put("onlyRoot", onlyRoot);
+            }else if(excludeRoot){
+                param.put("excludeRoot", excludeRoot);
+            }
+            list.addAll(this.selectVoList(param));
+            if(checkIsLeaf){
+                for(SysDeptVo sysDeptVo : list){
+                    sysDeptVo.setIsLeaf(this.isLeafDept(sysDeptVo.getDeptCode()));
+                }
+            }
+        }
+        return list;
     }
 
     @Override
@@ -141,15 +162,12 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public Map<String, Object> getDeptCondition(String regionCode){
         Map<String, Object> paramMap = new HashMap();
         SysUserVo loginUser = ShiroUtils.getLoginUser();
-        List<String> permissionDeptTreeCodes = loginUser.getPermissionDeptTreeCodes();
         String deptTreeCode = loginUser.getDeptTreeCode();
         if (StringUtils.isNotBlank(deptTreeCode)) {
-            if (!permissionDeptTreeCodes.contains(deptTreeCode)) {
-                permissionDeptTreeCodes.add(deptTreeCode);
-            }
+            paramMap.put("deptTreeCodeCondition", deptTreeCode);
         }
-        if(!permissionDeptTreeCodes.isEmpty()){
-            paramMap.put("permissionDeptTreeCodes", permissionDeptTreeCodes);
+        if(StringUtils.isBlank(regionCode)){
+            regionCode = ShiroUtils.getLoginUser().getRegionCode();
         }
         if (StringUtils.isNotBlank(regionCode)) {
             SysRegionVo sysRegionVo = sysRegionMapper.selectVoByRegionCode(regionCode);

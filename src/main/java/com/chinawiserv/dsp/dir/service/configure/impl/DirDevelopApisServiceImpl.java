@@ -80,7 +80,8 @@ public class DirDevelopApisServiceImpl extends CommonServiceImpl<DirDevelopApisM
 
 	@Override
 	public List<DirDevelopApis> getDirApiZtree() {
-		return mapper.getDirApiZtree();
+		List<DirDevelopApis> l  = mapper.getDirApiZtree();
+		return l;
 	}
 
 	

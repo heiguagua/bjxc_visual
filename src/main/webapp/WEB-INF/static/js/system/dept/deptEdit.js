@@ -2,7 +2,7 @@
  * Created by zhanf on 2017/4/28.
  */
 $(document).ready(function(){
-    initSelectData();
+    // initSelectData();
     initEditPage();
 });
 
@@ -33,14 +33,34 @@ function initEditPage(){
         function(data){
             if(data && data.content && data.content.vo){
                 var vo = data.content.vo;
-                $("#deptName").val(vo.deptName);
-                $("#deptAlias").val(vo.deptAlias);
+                alert(JSON.stringify(vo))
+                $("#regionCode").val(vo.regionCode);
+                $("#fcode").val(vo.fcode);
                 $("#deptCode").val(vo.deptCode);
+                $("#fname").val(vo.fname);
+                $("#deptName").val(vo.deptName);
+                $("#deptShortName").val(vo.deptShortName)
+                $("#deptAlias").val(vo.deptAlias)
+                $("#deptListingName").val(vo.deptListingName);
+                $("#deptDesc").val(vo.deptDesc);
+                $("#functionKeyword").val(vo.functionKeyword);
+                $("#deptFunction").val(vo.deptFunction);
+                // $("#pid").val(vo.pid).trigger("change");
+                $("#deptResponseMan").val(vo.deptResponseMan);
+                $("#deptResponsePhone").val(vo.deptResponsePhone);
+                $("#deptResponseEmail").val(vo.deptResponseEmail);
                 $("#deptContactMan").val(vo.deptContactMan);
-                $("#deptContactNum").val(vo.deptContactNum);
+                $("#deptContactDept").val(vo.deptContactDept);
+                $("#deptContactPost").val(vo.deptContactPost);
+                $("#deptContactPhone").val(vo.deptContactPhone);
+                $("#deptContactFixedPhone").val(vo.deptContactFixedPhone);
+                $("#deptContactEmail").val(vo.deptContactEmail);
                 $("#deptAddress").val(vo.deptAddress);
-                $("#deptDesc").text(vo.deptDesc);
-                $("#pid").val(vo.pid).trigger("change");
+                $("#orgLongitude").val(vo.orgLongitude);
+                $("#orgLatitude").val(vo.orgLatitude);
+                $("#orderNumber").val(vo.orderNumber);
+                // $("#icon").text(vo.icon);
+                $("#inlineRadio"+vo.status).attr("checked", true);
             }
         }
     );
