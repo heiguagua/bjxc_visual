@@ -112,7 +112,7 @@
                 update_time = #{updateTime},
             </if>
                     <if test="deleteFlag != null">
-                delete_flag = #{deleteFlag},
+                delete_flag = #{deleteFlag}
             </if>
                 </set>
         where  id = #{id}                                  </update>
@@ -129,6 +129,12 @@
                                                                                                                                                                                                                                                                                                                     </where>
     </sql>
 
+
+<select id="getApiByParentId" resultType="com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis">
+
+select * from dir_develop_apis where parent_id = #{id}
+
+</select>
 
 
 </mapper>

@@ -1,28 +1,21 @@
 package com.chinawiserv.dsp.dir.controller.configure;
 
-
-
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirDevelopApisVo;
+import com.chinawiserv.dsp.dir.mapper.configure.DirDevelopApisMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirDevelopApisService;
-
 import net.sf.json.JSONObject;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +36,9 @@ public class DirDevelopApisController extends BaseController {
 
     @Autowired
     private IDirDevelopApisService service;
+    
+    @Autowired
+    private DirDevelopApisMapper mapper;
 
 //    @RequiresPermissions("dirDevelopApis:list")
     @RequestMapping("")
@@ -113,8 +109,27 @@ public class DirDevelopApisController extends BaseController {
     public HandleResult delete(@RequestParam String id){
 		//todo 逻辑删除
     	//service.deleteById(id);
+    	List<DirDevelopApis> list = null;
+    	list = mapper.getApiByParentId(id);
+    	if(!list.isEmpty() && list!=null ){
+    		return new HandleResult().error("此节点下有子集，无法删除");   
+    	}
     	service.DeleteByFlag(id);
 		return new HandleResult().success("删除开发者工具成功");
+    }
+    
+    /**
+     * 删除前验证是否有子api
+     */    
+    @Log("删除验证子集")
+    @RequestMapping("/Isdelete")
+    @ResponseBody
+    public HandleResult Isdelete(String id){
+		//todo 逻辑删除
+    	//service.deleteById(id);
+    	
+    	
+    	return new HandleResult().success("");
     }
 
     /**
