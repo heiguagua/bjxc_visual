@@ -2,12 +2,16 @@ package com.chinawiserv.dsp.dir.service.catalog.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,4 +63,24 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 		//todo
 		return 0;
 	}
+
+    @Override
+    public List<Map<String, Object>> selectActivityByDeptId(String dept_id) {
+        return mapper.selectActivityByDeptId(dept_id);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectDatasetByActivityId(String activity_id) {
+        return mapper.selectDatasetByActivityId(activity_id);
+    }
+
+    @Override
+    public List<DrapDatasetItem> selectDatasetItemByDatasetId(String dataset_id) {
+        return mapper.selectDatasetItemByDatasetId(dataset_id);
+    }
+
+    @Override
+    public DrapDataset getDrapDatasetDetail(String id) {
+        return mapper.getDrapDatasetDetail(id);
+    }
 }
