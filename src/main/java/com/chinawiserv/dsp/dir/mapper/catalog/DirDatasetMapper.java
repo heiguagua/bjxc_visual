@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -38,4 +39,6 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
     List<Map<String,Object>> selectDatasetByActivityId(@Param("activity_id")String activity_id);
 
     List<DrapDatasetItem> selectDatasetItemByDatasetId(@Param("dataset_id")String dataset_id);
+
+    DrapDataset getDrapDatasetDetail(@Param("id") String id);
 }

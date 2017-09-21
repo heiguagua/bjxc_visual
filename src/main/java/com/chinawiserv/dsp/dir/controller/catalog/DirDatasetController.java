@@ -154,6 +154,22 @@ public class DirDatasetController extends BaseController {
     }
 
     /**
+     * 获取梳理数据集详情
+     * @param id
+     * @return
+     */
+    @RequestMapping("/getDrapDatasetDetail")
+    @ResponseBody
+    public HandleResult getDrapDatasetDetail(String id){
+        HandleResult result = new HandleResult();
+        if(StringUtils.isEmpty(id)){
+            result.error("参数不能为空");
+        }else{
+            service.getDrapDatasetDetail(id);
+        }
+        return result;
+    }
+    /**
      * 从资源添加数据集-快速添加页面
      */
     @RequestMapping("/catalogue/quickAddDatasetUI")

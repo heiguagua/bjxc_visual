@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
@@ -76,5 +77,10 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     @Override
     public List<DrapDatasetItem> selectDatasetItemByDatasetId(String dataset_id) {
         return mapper.selectDatasetItemByDatasetId(dataset_id);
+    }
+
+    @Override
+    public DrapDataset getDrapDatasetDetail(String id) {
+        return mapper.getDrapDatasetDetail(id);
     }
 }
