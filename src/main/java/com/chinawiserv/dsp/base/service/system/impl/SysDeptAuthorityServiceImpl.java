@@ -85,7 +85,6 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
 
     @Override
     public List<SysDeptAuthorityVo> selectVoList(Map<String, Object> paramMap) {
-        paramMap.put("authObjType", AuthObjTypeEnum.DEPT);
         return mapper.selectVoList(paramMap);
     }
 }

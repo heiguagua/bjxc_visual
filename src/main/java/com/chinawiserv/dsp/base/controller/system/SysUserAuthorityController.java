@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,46 +22,42 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>
- * 部门数据权限分配表 前端控制器
- * </p>
- *
- * @author wuty
- * @since 2017-09-19
+ * Created by zengpzh on 2017/9/21.
  */
 @Controller
-@RequestMapping("/system/deptAuthority")
-public class SysDeptAuthorityController extends BaseController {
+@RequestMapping("/system/userAuthority")
+public class SysUserAuthorityController extends BaseController {
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private ISysDeptAuthorityService service;
 
-    @RequiresPermissions("system:deptAuthority:list")
+    @RequiresPermissions("system:userAuthority:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
-		setCurrentMenuInfo(paramMap);
-    	return "system/deptAuthority/deptAuthorityList";
+        setCurrentMenuInfo(paramMap);
+        return "system/userAuthority/userAuthorityList";
     }
 
     /**
      * 编辑部门数据权限分配表
      */
-    @RequiresPermissions("system:deptAuthority:edit")
+    @RequiresPermissions("system:userAuthority:edit")
     @RequestMapping("/edit")
     public String edit(@RequestParam String id, @RequestParam String authType, Model model) throws Exception {
-		model.addAttribute("id", id);
-		model.addAttribute("authType", authType);
-        return "system/deptAuthority/deptAuthorityEdit";
+        model.addAttribute("id", id);
+        model.addAttribute("authType", authType);
+        return "system/userAuthority/userAuthorityEdit";
     }
 
     /**
      * 编辑组织机构权限
      */
-    @RequiresPermissions("system:deptAuthority:edit")
+    @RequiresPermissions("system:userAuthority:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
-    public  HandleResult editLoad(@RequestParam String id, @RequestParam String authType){
+    public HandleResult editLoad(@RequestParam String id, @RequestParam String authType){
         HandleResult handleResult = new HandleResult();
         try {
             Map<String, Object> paramMap = new HashMap();
@@ -73,7 +68,7 @@ public class SysDeptAuthorityController extends BaseController {
                 throw new Exception("被分配的权限不能为登录用户所属部门！");
             }
             List<SysDeptAuthorityVo> result = null;
-            paramMap.put("authObjType", AuthObjTypeEnum.DEPT);
+            paramMap.put("authObjType", AuthObjTypeEnum.USER);
             if("dept".equals(authType)){
                 paramMap.put("deptId", id);
                 result = service.selectVoList(paramMap);
@@ -96,14 +91,15 @@ public class SysDeptAuthorityController extends BaseController {
     @RequestMapping("/doEdit")
     @ResponseBody
     public  HandleResult doEdit(SysDeptAuthorityVo entity){
-		HandleResult handleResult = new HandleResult();
-		try {
-		    service.updateVO(entity);
-		    handleResult.success("编辑部门数据权限分配表成功");
-		} catch (Exception e) {
-		    handleResult.error("编辑部门数据权限分配表失败");
-		    logger.error("编辑部门数据权限分配表失败", e);
-		}
-		return handleResult;
+        HandleResult handleResult = new HandleResult();
+        try {
+            service.updateVO(entity);
+            handleResult.success("编辑用户数据权限分配表成功");
+        } catch (Exception e) {
+            handleResult.error("编辑用户数据权限分配表失败");
+            logger.error("编辑用户数据权限分配表失败", e);
+        }
+        return handleResult;
     }
+
 }
