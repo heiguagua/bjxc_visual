@@ -88,3 +88,7 @@ function deleteDept(id) {
     var parameter = {id: id};
     delObj(url , parameter) ;
 }
+
+function quickAddDatasetUI() {
+    add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI',1300,800);
+}

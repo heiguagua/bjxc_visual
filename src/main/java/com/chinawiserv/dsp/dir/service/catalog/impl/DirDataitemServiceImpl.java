@@ -8,6 +8,9 @@ import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,4 +62,23 @@ public class DirDataitemServiceImpl extends CommonServiceImpl<DirDataitemMapper,
 		//todo
 		return 0;
 	}
+
+    @Override
+    public int insertListItem(List<DirDataitem> list) {
+        if(list!=null && list.size()>0){
+            List<DirDataitem> dirDataitems = new ArrayList<>();
+            for (DirDataitem dataitem:list) {
+                if(dataitem!=null){
+                    dirDataitems.add(dataitem);
+                }
+            }
+            int i=0;
+            if(dirDataitems!=null && dirDataitems.size()>0) {
+                i = mapper.insertListItem(dirDataitems);
+            }
+            return i;
+        }else{
+            return 0;
+        }
+    }
 }

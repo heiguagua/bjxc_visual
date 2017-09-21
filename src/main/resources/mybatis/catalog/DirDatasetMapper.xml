@@ -165,6 +165,56 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </where>
     </sql>
 
+    <select id="selectActivityByDeptId" resultType="map">
+        SELECT
+            dba.id,
+            dba.activity_name
+        FROM
+            drap_business_activity dba
+        LEFT JOIN sys_dept sd ON dba.belong_dept = sd.id
+        WHERE TRUE AND sd.id=#{dept_id}
+    </select>
 
+    <select id="selectDatasetByActivityId" resultType="map">
+        SELECT
+            dd.id,dd.dataset_name
+        FROM
+            drap_dataset dd
+        LEFT JOIN drap_business_activity dba ON dd.belong_activity_id = dba.id
+        WHERE TRUE AND dba.id=#{activity_id}
+    </select>
 
+    <resultMap id="result_DrapDatasetItem_Map" type="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem">
+        <id column="id" property="id" />
+        <result column="item_code" property="itemCode" />
+        <result column="item_name" property="itemName" />
+        <result column="item_type" property="itemType" />
+        <result column="item_desc" property="itemDesc" />
+        <result column="belong_dept" property="belongDept" />
+        <result column="sensitive_remark" property="sensitiveRemark" />
+        <result column="update_frequency" property="updateFrequency" />
+        <result column="share_type" property="shareType" />
+        <result column="share_range" property="shareRange" />
+        <result column="share_method" property="shareMethod" />
+        <result column="share_condition_desc" property="shareConditionDesc" />
+        <result column="share_method_desc" property="shareMethodDesc" />
+        <result column="no_share_reason" property="noShareReason" />
+        <result column="is_open" property="isOpen" />
+        <result column="open_condition" property="openCondition" />
+        <result column="store_media" property="storeMedia" />
+        <result column="physics_store_location" property="physicsStoreLocation" />
+        <result column="code_index" property="codeIndex" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+    <select id="selectDatasetItemByDatasetId" resultMap="result_DrapDatasetItem_Map">
+        SELECT
+            ddi.*
+        FROM drap_dataset_item ddi
+        LEFT JOIN drap_dataset_item_map ddim ON ddi.id=ddim.item_id
+        LEFT JOIN drap_dataset dd ON ddim.dataset_id=dd.id
+        WHERE TRUE AND dd.id=#{dataset_id}
+    </select>
 </mapper>

@@ -1,8 +1,12 @@
 package com.chinawiserv.dsp.dir.service.catalog;
 
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,5 +17,9 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  * @since 2017-09-08
  */
 public interface IDirDatasetService extends ICommonService<DirDataset, DirDatasetVo> {
-	
+    List<Map<String,Object>> selectActivityByDeptId(String dept_id);
+
+    List<Map<String,Object>> selectDatasetByActivityId(String activity_id);
+
+    List<DrapDatasetItem> selectDatasetItemByDatasetId(String dataset_id);
 }

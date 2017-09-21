@@ -3,7 +3,10 @@ package com.chinawiserv.dsp.dir.mapper.catalog;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +32,10 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
     int baseUpdate(DirDataset entity);
 
     int baseDelete(String id);
+
+    List<Map<String,Object>> selectActivityByDeptId(@Param("dept_id")String dept_id);
+
+    List<Map<String,Object>> selectDatasetByActivityId(@Param("activity_id")String activity_id);
+
+    List<DrapDatasetItem> selectDatasetItemByDatasetId(@Param("dataset_id")String dataset_id);
 }
