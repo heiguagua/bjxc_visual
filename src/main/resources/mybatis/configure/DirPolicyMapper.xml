@@ -27,12 +27,21 @@
                type="com.chinawiserv.dsp.dir.entity.vo.configure.DirPolicyVo">
 
     </resultMap>
-
+	<update id="updateDeleteFlag" parameterType="string">
+    	update dir_policy 
+    	
+    		set delete_flag = 1
+     
+     	where  id = #{id}                              
+    </update>
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="deleteFlag != null">
+                t.delete_flag = #{deleteFlag,jdbcType=INTEGER}
             </if>
         </where>
     </sql>
@@ -43,9 +52,12 @@
         FROM
         dir_policy t
         LEFT JOIN sys_user su ON t.create_user_id =su.id
-        <if test="searchKey != null">
-            WHERE t.title LIKE CONCAT('%',#{searchKey},'%')
+        where t.delete_flag = #{deleteFlag,jdbcType=INTEGER}
+        
+        <if test="searchKey != null and searchKey !='' ">
+           and t.title LIKE CONCAT('%',#{searchKey},'%')
         </if>
+        
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
@@ -58,8 +70,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirPolicy">
-        insert into dir_policy(id,region_code,source_type,policy_level,title,content,publisher,publish_date,status,create_user_id,create_time,update_user_id,update_time,delete_flag,) values(
-            #{id},#{regionCode},#{sourceType},#{policyLevel},#{title},#{content},#{publisher},#{publishDate},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},        )
+        insert into dir_policy(id,region_code,source_type,policy_level,title,content,publisher,publish_date,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(
+            #{id},#{regionCode},#{sourceType},#{policyLevel},#{title},#{content},#{publisher},#{publishDate},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag}  )
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirPolicy">
@@ -105,7 +117,7 @@
                 update_time = #{updateTime},
             </if>
             <if test="deleteFlag != null">
-                delete_flag = #{deleteFlag},
+                delete_flag = #{deleteFlag}
             </if>
         </set>
         where id = #{id}

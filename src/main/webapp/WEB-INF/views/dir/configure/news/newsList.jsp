@@ -3,11 +3,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/dir/configure/api/apiList.js"></script>
-    <%-- <script src="<%=basePath%>/plugins/jquery.ztree.exedit.js"></script> --%>
-    <script src="<%=basePath%>/plugins/jquery.ztree.all.js"></script>
-    <%-- <script src="<%=basePath%>/plugins/jquery.ztree.core.js"></script> --%>
-	<link rel="stylesheet" href="<%=basePath%>/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <script src="<%=basePath%>/js/dir/configure/news/newsList.js"></script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -18,7 +15,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <small>配置管理 > 开发者工具管理</small>
+                <small>配置管理 > 轮播图片管理</small>
             </h1>
         </section>
         <!-- Main content -->
@@ -27,36 +24,28 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <%-- <div class="form-inline">
+                        <div class="form-inline">
                             <div class="box-header">
-                                <#if permissions?seq_contains('addDept')>
+                                <%--<#if permissions?seq_contains('addDept')>--%>
                                 <div class="input-group">
-                                    <a class="btn btn-primary  btn-flat" onclick="javascript:addUser()" > <i class="fa fa-plus"></i> 创建用户</a>
+                                    <a class="btn btn-primary  btn-flat" onclick="javascript:addUser()" > <i class="fa fa-plus"></i> 新增</a>
                                 </div>
-                                </#if>
+                                <%--</#if>--%>
                                 <div class="input-group">
-                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="用户名称">
+                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="请输入标题">
                                     <div class="input-group-btn">
                                         <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
                                     </div>
                                 </div>
 
                             </div><!-- /.box-header -->
-                        </div> --%>
-						<div>		                    
-					          <div class="navi-wrap">
-					                 <div class="" style="min-height: 300px;">				
-					                       <div class="padder-v">
-					                           <%@include file="/WEB-INF/views/common/ztree.jsp" %>
-					                      </div>
-					                 </div>
-					           </div>
-					     </div>
-                        <!-- <div class="box-body table-responsive no-padding">
-                            <table id="systemUserTableId" class="table table-hover">
+                        </div>
+						
+                        <div class="box-body table-responsive no-padding">
+                            <table id="dirSpecialAppsTableId" class="table table-hover">
 
                             </table>
-                        </div>/.box-body -->
+                        </div><!-- /.box-body -->
 
                     </div><!-- /.box -->
                 </div>

@@ -5,10 +5,13 @@ import com.chinawiserv.dsp.dir.entity.po.configure.DirPolicy;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirPolicyVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirPolicyMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirPolicyService;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +29,18 @@ public class DirPolicyServiceImpl extends CommonServiceImpl<DirPolicyMapper, Dir
     @Autowired
     private DirPolicyMapper mapper;
 
-
+    @Override
+	public void DeleteByFlag(String id) {
+    	mapper.updateDeleteFlag(id);
+	}
+    
     @Override
     public boolean updateVO(DirPolicyVo vo) throws Exception {
         //todo
         boolean b=true;
+        vo.setUpdateTime(new Date());
+        String loginUserId = ShiroUtils.getLoginUserId();
+    	vo.setUpdateUserId(loginUserId);
         int i = mapper.baseUpdate(vo);
         if(i<1){
             b=false;
@@ -42,6 +52,11 @@ public class DirPolicyServiceImpl extends CommonServiceImpl<DirPolicyMapper, Dir
     public boolean insertVO(DirPolicyVo vo) throws Exception {
 		//todo
         boolean b=true;
+        vo.setId(CommonUtil.get32UUID());
+        vo.setCreateTime(new Date());
+        String loginUserId = ShiroUtils.getLoginUserId();
+    	vo.setCreateUserId(loginUserId);
+    	vo.setDeleteFlag(0);
         int i = mapper.baseInsert(vo);
         if(i<1){
             b=false;
@@ -75,4 +90,6 @@ public class DirPolicyServiceImpl extends CommonServiceImpl<DirPolicyMapper, Dir
 		//todo
 		return 0;
 	}
+
+	
 }

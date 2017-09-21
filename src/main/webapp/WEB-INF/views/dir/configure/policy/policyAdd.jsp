@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/system/user/doAdd">
+                          method="post" action="<%=basePath%>/dirPolicy/doAdd">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="title">标题</label>
@@ -26,14 +26,15 @@
                             <div class="form-group">
                                 <label>类型</label>
                                 <div id='type-group' class="btn-group">
-                                    <input type="radio" checked name="model.policyType" value="G">国家级</input>
-                                    <input type="radio" name="model.policyType" value="S">省级</input>
-                                    <input type="radio" name="model.policyType" value="C">市级</input>
+                                    <input type="radio" checked name="policyLevel" value="G">国家级</input>
+                                    <input type="radio" name="policyLevel" value="S">省级</input>
+                                    <input type="radio" name="policyLevel" value="C">市级</input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label >内容</label>
-                                <div id="myEditor"></div>
+                                <script id="editor" style="height:300px;" name="content" type="text/plain">
+								</script>										
                             </div>
                         </div><!-- /.box-body -->
                         <div class="box-footer">

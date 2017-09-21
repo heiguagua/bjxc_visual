@@ -1,4 +1,4 @@
-var tableSelector = '#systemUserTableId';
+//var tableSelector = '#systemUserTableId';
 
 jQuery(document).ready(function () {
     "use strict";
@@ -37,11 +37,11 @@ jQuery(document).ready(function () {
 		        simpleData: {//简单数据模式
 		        	 enable:true,
 			         idKey: "id",
-			         pIdKey: "fcode",    				         
+			         pIdKey: "parentId",    				         
 			         rootPId: "root"
 		        },
 		      	key : {
-		    	  name : "name"
+		    	  name : "apiName"
 		    	}
 		      },
 		      callback: {
@@ -74,8 +74,8 @@ jQuery(document).ready(function () {
 			   +	"添加 <span class='caret'></span></button>"
 			   +	"<ul id='diyBtn_space3_" +treeNode.id+ "' class='dropdown-menu' role='menu'>"
 
-				+"<li><a class='s1' id='addSibling' data-id ="+treeNode.id+" href='#'  data-toggle='modal' data-target='#modal-add'>添加同级</a></li>"
-				+"<li><a class='s2' id='addSon' href='#' data-id ="+treeNode.id+" data-toggle='modal' data-target='#modal-add'>添加下级</a></li></ul>"				
+				+"<li><a class='s1' id='addSibling' data-id ="+treeNode.id+" data-pcode="+treeNode.parentId+" href='#'  >添加同级</a></li>"
+				+"<li><a class='s2' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"				
 				aObj.after(editStr2);
 				aObj.after(editStr1);		
@@ -123,97 +123,31 @@ jQuery(document).ready(function () {
 		});
 		//添加同级
 		$(".s1").on("click", function () {
-			var ss = $(this).attr("data-id");
-			var params = {
-	                id: ss
-	         };
-//			if(ss!='AA' && ss!='AB'){
-	    	$.post('/admin/APIS_getDirApi', params, function (data) {
-	            if (data.code == 'OK') {
-	            	var result = data.result;
-	            	var dirApi = result.dirApi;
-	            	$('#delete_button').addClass('hidden');
-	            	sessionStorage['dirApi'] = JSON.stringify(dirApi);
-	            }
-	        }, 'json');
-	    	
-	    setTimeout(function () {
-	        var dirApi = JSON.parse(sessionStorage['dirApi']);
-	        $('#fcode').attr("readonly", "readonly").val(dirApi.fcode);
-//	        $('#dir_level').attr("readonly", "readonly").val(dirApi.dir_level);
-	        $('#fname').attr("readonly", "readonly").val(dirApi.fname);
-//	        $('#fdescription').attr("readonly", "readonly").val(dirApi.fdescription);
-	        $("#dir_id").val("");
-	        $('#dir_code').val("");
-	        $('#name').val("");
-//	        $('#type').val("");
-	        $('#description').val("");
-	        $('#expandsForm input').val('');
-	        checkIsRepeat();
-	        //清空标签和内存中的数据
-	        tagHandel.empty();
-	        tagHandel.hiddenTag();
-	        //$('#delete').attr('disabled','disabled');
-	        //$("#delete").removeClass('btn-danger').addClass('btn-unbut');
-//	        $('#delete').addClass('hidden');
-	        //回到顶部
-//		        goTop();
-//	        $("#add_son_sub").val('1');
-
-	        //可以修改目录类别编码
-	        $('#dir_code').removeAttr('readonly');
-	    }, 100);
-//			}else{
-//				$.bootstrapDialog.tip('无法添加初始目录同级,请在初始目录下开始添加');
-//	        	return false;
-//
-//			}
+			var curThis=this;
+			var parentId=$(curThis).attr('data-pcode');
+//			$('#parent_id').val(api_fcode);	
+			addApi('新增api--同级',basePathJS + '/dirDevelopApis/add' , parentId);
+//			$('#api_name').val('');
+//			$('#api_category').val('');
+//			$('#api_url').val('');
+//			$('#order_number').val('');
+//			$('#api_desc').val('');
+								
 		});
-		
 		//添加子级
 	    $(".s2").on("click", function () {
-	    	var params = {
-                    id: $(this).attr("data-id")
-             };
-	    	$.post('/admin/APIS_getDirApi', params, function (data) {
-                if (data.code == 'OK') {
-                	var result = data.result;
-                	var dirApi = result.dirApi;
-                	sessionStorage['dirApi'] = JSON.stringify(dirApi);
-                	$('#delete_button').addClass('hidden');
-//                	$('.hasDataset').text(result.datasetCount);
-                }
-            }, 'json');
+	    	var curThis=this;
+			var parentId=$(curThis).attr('data-id');
+//			$('#parent_id').val(api_fcode);
+			addApi('新增api--子级',basePathJS + '/dirDevelopApis/add',parentId);
+//	    	$('#api_name').val('');
+//			$('#api_category').val('');
+//			$('#api_url').val('');
+//			$('#order_number').val('');
+//			$('#api_desc').val('');
 	    	
-	    	setTimeout(function () {			        			        
-	            var dirApi = JSON.parse(sessionStorage['dirApi']);
-	            $('#fcode').attr("readonly", "readonly").val(dirApi.id);
-//	            $('#dir_level').attr("readonly", "readonly").val(temp_dirList.dir_level+1);
-	            $('#fname').attr("readonly", "readonly").val(dirApi.name);
-//	            $('#fdescription').attr("readonly", "readonly").val(dirApi.description);			            
-//	            $('#type').val("");
-		        $('#url_adress').val("");
-		        $('#privilege').val("");			       
-	            $("#dir_id").val("");
-	            $('#dir_code').val("");
-	            $('#name').val("");
-	            $('#description').val("");
-	            $('#expandsForm input').val('');
-	            checkIsRepeat();
-	            //清空标签和内存中的数据
-	            tagHandel.empty();
-	            tagHandel.hiddenTag();
-	            //$('#delete').attr('disabled','disabled');
-	            //$("#delete").removeClass('btn-danger').addClass('btn-unbut');
-//	            $('#delete').addClass('hidden');
-	            //回到顶部
-//	            goTop();
-//	            $("#add_son_sub").val('2');
-	            //可以修改目录类别编码
-	            $('#dir_code').removeAttr('readonly');			      
-	    	}, 100);
-	        
 	    });
+
 		if (btn) btn.bind("change", function(){alert("diy Select value="+btn.attr("value")+" for " + treeNode.name);});
 
 //		<button type="button" class="btn btn-add dropdown-toggle "
@@ -261,12 +195,12 @@ jQuery(document).ready(function () {
       alert('亲，请求失败！');
     },
     success:function(data){
-       if(data.code == "OK") {
-       var result = data.result;
+       
+     
       //console.log(data);
       //请求成功后处理函数
-      treeNodes = result.data;//把后台封装好的简单Json格式赋给treeNodes
-    }
+      treeNodes = data.data;//把后台封装好的简单Json格式赋给treeNodes
+    
     }
   });
 //    var nodes = [
@@ -280,100 +214,96 @@ jQuery(document).ready(function () {
   
   }
 
-    
-    
-    
-
-    jQuery(tableSelector).customTable({
-        url: basePathJS + '/dirDevelopApis/list',
-        queryParams: function (params) {
-            return $.extend(params, paramsObj);
-        },
-        columns: [{
-            field: 'userName',
-            title: '用户名',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        }, {
-            field: 'realName',
-            title: '真实姓名',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        }, {
-            field: 'userType',
-            title: '用户类型',
-            align: 'center',
-            valign: 'middle',
-            sortable: false,
-            formatter : function (value) {
-                var ret = '';
-                if (value === 1 ) {
-                    ret = '管理员';
-                } else if (value === 2 ) {
-                    ret = '普通用户';
-                }
-                return ret ;
-            }
-        }, {
-            field: 'userDesc',
-            title: '描述',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        }, {
-            field: 'deptName',
-            title: '组织机构名称',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        }, {
-            field: 'status',
-            title: '用户状态',
-            align: 'center',
-            valign: 'middle',
-            sortable: false,
-            formatter : function (value) {
-                var res;
-                if(value === 1){
-                    res = "启用";
-                }
-                else {
-                    res = "禁用";
-                }
-                return res;
-            }
-        },{
-            field: 'createName',
-            title: '创建者',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        },{
-            field: 'createTime',
-            title: '创建用户时间',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        },{
-            field: 'id',
-            title: '操作',
-            align: 'center',
-            valign: 'middle',
-            sortable: false ,
-            formatter : function (value) {
-                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
-                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteUser(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
-
-                return editBtn + OPERATION_SEPARATOR +  deleteBtn ;
-            }
-        }]
-    });
+//    jQuery(tableSelector).customTable({
+//        url: basePathJS + '/dirDevelopApis/list',
+//        queryParams: function (params) {
+//            return $.extend(params, paramsObj);
+//        },
+//        columns: [{
+//            field: 'userName',
+//            title: '用户名',
+//            align: 'center',
+//            valign: 'middle',
+//            sortable: false
+//        }, {
+//            field: 'realName',
+//            title: '真实姓名',
+//            align: 'center',
+//            valign: 'middle',
+//            sortable: false
+//        }, {
+//            field: 'userType',
+//            title: '用户类型',
+//            align: 'center',
+//            valign: 'middle',
+//            sortable: false,
+//            formatter : function (value) {
+//                var ret = '';
+//                if (value === 1 ) {
+//                    ret = '管理员';
+//                } else if (value === 2 ) {
+//                    ret = '普通用户';
+//                }
+//                return ret ;
+//            }
+//        }, {
+//            field: 'userDesc',
+//            title: '描述',
+//            align: 'center',
+//            valign: 'middle',
+//            sortable: false
+//        }, {
+//            field: 'deptName',
+//            title: '组织机构名称',
+//            align: 'center',
+//            valign: 'middle',
+//            sortable: false
+//        }, {
+//            field: 'status',
+//            title: '用户状态',
+//            align: 'center',
+//            valign: 'middle',
+//            sortable: false,
+//            formatter : function (value) {
+//                var res;
+//                if(value === 1){
+//                    res = "启用";
+//                }
+//                else {
+//                    res = "禁用";
+//                }
+//                return res;
+//            }
+//        },{
+//            field: 'createName',
+//            title: '创建者',
+//            align: 'center',
+//            valign: 'middle',
+//            sortable: false
+//        },{
+//            field: 'createTime',
+//            title: '创建用户时间',
+//            align: 'center',
+//            valign: 'middle',
+//            sortable: false
+//        },{
+//            field: 'id',
+//            title: '操作',
+//            align: 'center',
+//            valign: 'middle',
+//            sortable: false ,
+//            formatter : function (value) {
+//                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+//                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteUser(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
+//
+//                return editBtn + OPERATION_SEPARATOR +  deleteBtn ;
+//            }
+//        }]
+//    });
 
     jQuery('#queryBtnId').click(function () {
-        setParams();
-        reloadTable();
+//        setParams();
+//        reloadTable();
     });
 
     function setParams() {
@@ -387,13 +317,13 @@ jQuery(document).ready(function () {
 
 });
 
-function reloadTable() {
-    $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
-    $(tableSelector).data("bootstrap.table").refresh();
-}
+//function reloadTable() {
+//    $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
+//    $(tableSelector).data("bootstrap.table").refresh();
+//}
 
 function addUser() {
-    add('新增api',basePathJS + '/dirDevelopApis/add');
+    add('新增api',basePathJS + '/dirDevelopApis/add' , id);
 }
 
 function editUser(id) {
