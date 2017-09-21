@@ -222,12 +222,12 @@ public class DrapDataset {
         this.physicsStoreLocation = physicsStoreLocation;
     }
 
-    public String get扩展编码() {
-        return this.扩展编码;
+    public String getExtendCode() {
+        return extendCode;
     }
 
-    public void set扩展编码(String 扩展编码) {
-        this.扩展编码 = 扩展编码;
+    public void setExtendCode(String extendCode) {
+        this.extendCode = extendCode;
     }
 
     public Integer getCodeIndex() {

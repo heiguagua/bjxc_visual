@@ -5,6 +5,7 @@ import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
@@ -165,7 +166,8 @@ public class DirDatasetController extends BaseController {
         if(StringUtils.isEmpty(id)){
             result.error("参数不能为空");
         }else{
-            service.getDrapDatasetDetail(id);
+            DrapDataset drapdataset = service.getDrapDatasetDetail(id);
+            result.put("result",drapdataset);
         }
         return result;
     }
