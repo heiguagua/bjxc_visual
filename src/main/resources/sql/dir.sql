@@ -1512,7 +1512,6 @@ create table sys_dept_authority
    distributor_id       varchar(36) comment '分配操作人',
    distribute_opinion   varchar(512) comment '分配意见',
    distribute_date      date comment '分配操作时间',
-   is_from_audit        varchar(2) comment '是否来自于审核',
    primary key (id)
 );
 

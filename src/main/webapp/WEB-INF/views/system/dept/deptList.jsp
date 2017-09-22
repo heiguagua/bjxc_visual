@@ -28,7 +28,7 @@
                                 <div class="box-header">
                                     <%--<#if permissions?seq_contains('addDept')>--%>
                                         <div class="input-group">
-                                            <a class="btn btn-primary  btn-flat" onclick="javascript:addDept()" > <i class="fa fa-plus"></i> 创建组织机构</a>
+                                            <a class="btn btn-primary  btn-flat" onclick="javascript:addDept()" > <i class="fa fa-plus"></i> 创建一级组织机构</a>
                                         </div>
                                     <%--</#if>--%>
                                     <div class="input-group">

@@ -190,7 +190,7 @@ public class DirDatasetController extends BaseController {
         HandleResult handleResult = new HandleResult();
         try {
             service.insertVO(entity);
-            dataitemService.insertListItem(items.getParams());
+            dataitemService.insertListItem(null);
             handleResult.success("创建数据集（信息资源）成功");
         } catch (Exception e) {
             handleResult.error("创建数据集（信息资源）失败");

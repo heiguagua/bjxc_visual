@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.controller.api;
 
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,24 @@ public class ServiceApiController extends BaseController {
         return handleResult;
     }
 
+    /**
+     * 同步目录的接口
+     * */
+    @RequestMapping("syncClassifyData")
+    @ResponseBody
+    public HandleResult syncClassifyData(){
+        HandleResult handleResult = new HandleResult();
+        try{
+            List<DirClassify> result = service.syncClassifyData();
+            handleResult.put("rows",result);
+            handleResult.setState(true);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
+    }
     /**
      * 查询数据集关联的数据项
      * */
@@ -105,7 +124,7 @@ public class ServiceApiController extends BaseController {
      * */
     @RequestMapping("getDbInfoByDatasetId")
     @ResponseBody
-    public HandleResult getDbInfoByDatasetId(Map<String, Object> paramMap){
+    public HandleResult getDbInfoByDatasetId(@RequestParam Map<String, Object> paramMap){
         HandleResult handleResult = new HandleResult();
         if(null == paramMap || paramMap.size() == 0){
             handleResult.setMsg("未传入参数");
@@ -127,9 +146,9 @@ public class ServiceApiController extends BaseController {
     /**
      * 查询指定数据集下面的表信息、字段信息
      * */
-    @RequestMapping("getItemAndTableInfoByDatasetId")
+    @RequestMapping("getServiceInfoByDatasetId")
     @ResponseBody
-    public HandleResult getItemAndTableInfoByDatasetId(Map<String, Object> paramMap){
+    public HandleResult getServiceInfoByDatasetId(@RequestParam Map<String, Object> paramMap){
         HandleResult handleResult = new HandleResult();
         if(null == paramMap || paramMap.size() == 0){
             handleResult.setMsg("未传入参数");
@@ -137,7 +156,7 @@ public class ServiceApiController extends BaseController {
             return handleResult;
         }
         try{
-            List<Map<String,Object>> result = service.getItemAndTableInfoByDatasetId(paramMap);
+            Map<String,Object> result = service.getServiceInfoByDatasetId(paramMap);
             handleResult.put("rows",result);
             handleResult.setState(true);
         }catch (Exception e){
@@ -153,7 +172,7 @@ public class ServiceApiController extends BaseController {
      * */
     @RequestMapping("releaseService")
     @ResponseBody
-    public HandleResult releaseService(Map<String, Object> paramMap){
+    public HandleResult releaseService(@RequestParam Map<String, Object> paramMap){
         HandleResult handleResult = new HandleResult();
         if(null == paramMap || paramMap.size() == 0){
             handleResult.setMsg("未传入参数");

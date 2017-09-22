@@ -96,7 +96,7 @@ function addDept() {
 }
 
 function allotDept(id) {
-    // update('编辑组织机构',basePathJS + '/system/dept/edit' , id );
+    update('编辑组织机构',basePathJS + '/system/dept/edit' , id );
 }
 
 function editDept(id) {

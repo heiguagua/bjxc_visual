@@ -9,6 +9,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
+    <script src="<%=basePath%>/plugins/layui/layui.all.js"></script>
+    <script src="<%=basePath%>/js/custom/mock.min.js"></script>
     <script src="<%=basePath%>/js/system/menu/menuList.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -144,7 +146,7 @@
         if (v && b === 0) {
             cmf('删除操作', function () {
                 $.ajax({
-                    url: 'http://localhost:8081/dir/dirRegistUser/delete?id=' + v || '',
+                    url: '/dir/dirRegistUser/delete?id=' + v || '',
                     contentType: "application/json; charset=utf-8",
                     type: 'DELETE',
                     success: function (dd) {

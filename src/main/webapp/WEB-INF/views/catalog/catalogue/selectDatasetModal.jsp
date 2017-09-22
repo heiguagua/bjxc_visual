@@ -9,6 +9,8 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="<%=basePath%>/plugins/treeview/bootstrap-treeview.js"></script>
+    <script src="<%=basePath%>/plugins/treeview/data.treeview.js"></script>
 </head>
 <body>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
