@@ -16,5 +16,5 @@ import java.util.List;
  * @since 2017-09-08
  */
 public interface IDirDataitemService extends ICommonService<DirDataitem, DirDataitemVo> {
-    int insertListItem(List<DirDataitem> list);
+    int insertListItem(List<DirDataitemVo> list);
 }

@@ -20,12 +20,11 @@
         }
     </style>
 </head>
-<body>
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="addForm">
-                <button class="btn btn-primary btn-flat pull-left" data-toggle="modal" data-target="#myModal">
+            <form class="form-horizontal" id="addForm" method="post" action="<%=basePath%>/catalog/quickAddDataset">
+                <button id="deploy_dataset" class="btn btn-primary btn-flat pull-left" data-toggle="modal" data-target="#myModal">
                     配置数据集
                 </button>
                 <div class="form-group">
@@ -38,7 +37,7 @@
                     <label for="classifyName" class="col-sm-2 control-label">信息资源分类 *</label>
                     <div class="col-sm-10">
                         <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
-                        <input type="text" id="classifyName" required="required" data-parsley-required-message="该项为必填" class="form-control">
+                        <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control">
                         <input type="hidden" id="classifyId" name="classifyId">
                         <div class="menu-wrap">
                             <div id="menuContent" class="menuContent" style="display:none;">
@@ -50,18 +49,18 @@
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">信息资源名称 *</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="datasetName" name="datasetName" placeholder="信息资源名称" disabled>
+                        <input type="text" class="form-control" id="datasetName" name="datasetName" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">信息资源提供方</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="resourceProvider" placeholder="信息资源提供方" value="省办公厅" disabled>
+                        <input type="text" class="form-control" id="resourceProvider" placeholder="信息资源提供方" disabled>
                         <input type="hidden" id="belongDepId" name="belongDepId">
                     </div>
                     <label  class="col-sm-2 control-label">信息资源提供方代码</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="resourceProviderCode" placeholder="信息资源提供方代码" value="5100A" disabled>
+                        <input type="text" class="form-control" id="resourceProviderCode" placeholder="信息资源提供方代码"  disabled>
                     </div>
                 </div>
                 <div class="form-group">
@@ -174,15 +173,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="N_add_itemH" class="col-sm-2 control-label">信息项列表</label>
+                    <label for="add_item" class="col-sm-2 control-label">信息项列表</label>
                     <div class="col-sm-10">
                         <p>
-                            <a class="btn btn-primary btn-flat pull-right" id="N_add_itemH"><i class="fa fa-plus"></i> 添加信息项</a>
+                            <a class="btn btn-primary btn-flat pull-right" id="add_item"><i class="fa fa-plus"></i> 添加信息项</a>
                         </p>
                     </div>
                 </div>
-                <div class="form-group infoTable pt15">
-                    <table data-toggle="table" id="infoTableBox" class="layui-table">
+                <div class="form-group " style="overflow-x: auto;min-height:200px;">
+                    <table style="width:140%">
                         <thead>
                         <tr>
                             <th>信息项名称</th>

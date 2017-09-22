@@ -38,6 +38,8 @@
 <link rel="stylesheet"  href="<%=basePath%>/plugins/layui/css/layui.css">
 <link rel="stylesheet" href="<%=basePath%>/css/custom.css">
 
+<%--boostrap-treeview--%>
+<link rel="stylesheet" href="<%=basePath%>/plugins/treeview/bootstrap-treeview.css" type="text/css" />
 <!-- REQUIRED JS SCRIPTS -->
 
 <!--[if lt IE 9]>
