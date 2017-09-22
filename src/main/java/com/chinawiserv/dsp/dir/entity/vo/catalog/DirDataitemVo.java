@@ -13,13 +13,4 @@ import java.util.List;
  * @since 2017-09-08
  */
 public class DirDataitemVo extends DirDataitem{
-    private List<DirDataitem> params;
-
-    public List<DirDataitem> getParams() {
-        return params;
-    }
-
-    public void setParams(List<DirDataitem> params) {
-        this.params = params;
-    }
 }

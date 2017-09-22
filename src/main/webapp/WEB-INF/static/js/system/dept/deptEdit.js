@@ -33,7 +33,6 @@ function initEditPage(){
         function(data){
             if(data && data.content && data.content.vo){
                 var vo = data.content.vo;
-                alert(JSON.stringify(vo))
                 $("#regionCode").val(vo.regionCode);
                 $("#fcode").val(vo.fcode);
                 $("#deptCode").val(vo.deptCode);

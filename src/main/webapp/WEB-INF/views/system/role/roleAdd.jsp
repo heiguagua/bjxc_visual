@@ -20,18 +20,18 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
+                    <form id="form" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/system/role/doAdd">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="roleName">角色名称</label>
-                                <input type="text" id="roleName" name="roleName" class="form-control"
+                                <label for="roleName">角色名称 <i style="color: red">*必填</i> </label>
+                                <input type="text" id="roleName" name="roleName" class="form-control" required
                                        placeholder="请输入角色名称"
                                        data-rule="角色名称:required;simpleName;remote(<%=basePath%>/system/role/checkRoleName);">
                             </div>
                             <div class="form-group">
-                                <label for="roleLevel">角色级别</label>
-                                <select id="roleLevel" name="roleLevel">
+                                <label for="roleLevel">角色级别 <i style="color: red">*必选</i></label>
+                                <select  id="roleLevel" name="roleLevel" class="form-control">
                                     <option value="">请选择角色级别</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -39,6 +39,8 @@
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                 </select>
+
+
                             </div>
                             <div class="form-group">
                                 <label>角色描述</label>
@@ -60,8 +62,8 @@
                         </div><!-- /.box-body -->
 
                         <div class="box-footer">
-                            <%--<button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>--%>
-                            <button type="submit" style="display:none;"/>
+                         <%--  <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>--%>
+                            <button type="submit" style="display:none; " class="btn2" onclick="checkUser();"/>
                         </div>
                     </form>
                 </div>
@@ -71,5 +73,28 @@
 </section><!-- /.content -->
 
 </body>
+<script  type="text/javascript">
+   /* function checkUser(){
+        alert("hahahaha")
+        var val = $("#roleLevel").val();  //获取选中的项
+
+        if(!val ){
+            alert("请选择角色级别");
+            return false;
+        }
+        document.getElementById("form").submit();
+    }*/
+
+     $(document).ready(function(){
+             /*var val = $("#roleLevel").val();  //获取选中的项
+             if (val === "") {
+                 alert("请选择角色级别");
+                 return false;
+             }else {
+                 return true;
+             }*/
+     });
+
+</script>
 </html>
 

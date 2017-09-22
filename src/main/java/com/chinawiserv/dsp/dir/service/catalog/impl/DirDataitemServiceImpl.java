@@ -64,10 +64,10 @@ public class DirDataitemServiceImpl extends CommonServiceImpl<DirDataitemMapper,
 	}
 
     @Override
-    public int insertListItem(List<DirDataitem> list) {
+    public int insertListItem(List<DirDataitemVo> list) {
         if(list!=null && list.size()>0){
-            List<DirDataitem> dirDataitems = new ArrayList<>();
-            for (DirDataitem dataitem:list) {
+            List<DirDataitemVo> dirDataitems = new ArrayList<>();
+            for (DirDataitemVo dataitem:list) {
                 if(dataitem!=null){
                     dirDataitems.add(dataitem);
                 }

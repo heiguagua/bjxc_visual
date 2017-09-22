@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.base.mapper.system;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import java.util.List;
 import java.util.Map;
@@ -33,4 +34,6 @@ public interface SysRegionMapper extends BaseMapper<SysRegion> {
     int baseDelete(String id);
 
     List<SysRegionVo> selectAllRegionByRegionCode(String regionCode);
+
+    List<SysRegionVo> selectVoListForTreeData(Map<String, Object> paramMap);
 }

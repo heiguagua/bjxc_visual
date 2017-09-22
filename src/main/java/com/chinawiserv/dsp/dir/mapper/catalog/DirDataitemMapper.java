@@ -37,5 +37,5 @@ public interface DirDataitemMapper extends BaseMapper<DirDataitem> {
      * @param list
      * @return
      */
-    int insertListItem(@Param("list") List<DirDataitem> list);
+    int insertListItem(@Param("list") List<DirDataitemVo> list);
 }

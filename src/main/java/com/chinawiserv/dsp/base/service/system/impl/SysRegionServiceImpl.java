@@ -12,6 +12,7 @@ import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
 
     @Override
     public SysRegionVo selectVoById(String id) throws Exception {
-		return null;
+		return mapper.selectVoById(id);
 	}
 
     @Override
@@ -81,16 +82,19 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
     }
 
     @Override
-    public JSONArray getRegionSelectDataList() {
-        JSONArray jsonArray = new JSONArray();
+    public List<SysRegionVo> getRegionSelectDataList(Map<String, Object> paramMap) {
+        return mapper.selectVoListForTreeData(paramMap);
+
+        /* JSONArray jsonArray = new JSONArray();
         List<SysRegionVo> list = this.selectAllRegionByRegionCode(ShiroUtils.getLoginUser().getRegionCode());
         for (SysRegionVo sysRegionVo : list) {
             JSONObject obj = new JSONObject();
             obj.put("id", sysRegionVo.getRegionCode());
             obj.put("text", sysRegionVo.getRegionName());
             jsonArray.add(obj);
-        }
-        return jsonArray;
+        }*/
+
+//        return jsonArray;
     }
 
 }
