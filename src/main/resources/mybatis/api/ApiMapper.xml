@@ -14,13 +14,13 @@
         WHERE TRUE
         <choose>
             <when test="null != id and ''!= id and 'root' != id">
-                AND t.`fcode` IN (SELECT DISTINCT classify_code FROM dir_classify WHERE id = #{id})
+                AND t.`fid` = #{id}
             </when>
             <when test="'root' == id">
-                AND t.`fcode` = 'root'
+                AND t.`fid` = 'root'
             </when>
             <otherwise>
-                AND t.`fcode` IS NULL
+                AND t.`fid` IS NULL
             </otherwise>
         </choose>
     </select>
@@ -171,6 +171,22 @@
             </otherwise>
         </choose>
     </select>
+
+    <!-- 同步目录数据 -->
+    <select id="syncClassifyData" parameterType="map" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+        SELECT * FROM dir_classify
+    </select>
+
+    <!-- 同步部门数据 -->
+    <select id="syncDeptData" parameterType="map" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDept">
+        SELECT * FROM sys_dept
+    </select>
+
+    <!-- 同步用户数据 -->
+    <select id="syncUserData" parameterType="map" resultType="com.chinawiserv.dsp.base.entity.po.system.SysUser">
+        SELECT * FROM sys_user
+    </select>
+
 
     <sql id="datasetWhereClause">
         <choose>

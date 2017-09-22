@@ -1,5 +1,8 @@
 package com.chinawiserv.dsp.dir.service.api.impl;
 
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.mapper.api.ApiMapper;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
 import com.google.common.collect.Maps;
@@ -102,4 +105,29 @@ public class ApiServiceImpl implements IApiService {
     public boolean releaseService(Map<String, Object> paramMap) {
         return false;
     }
+
+    /**
+     * 同步神马用户数据(插入更新)
+     * */
+    @Override
+    public Map<String, Object> syncUserInfo(List<SysUser> userList) {
+        return null;
+    }
+
+    @Override
+    public List<DirClassify> syncClassifyData() {
+        return mapper.syncClassifyData();
+    }
+
+    @Override
+    public List<SysDept> syncDeptData() {
+        return mapper.syncDeptData();
+    }
+
+    @Override
+    public List<SysUser> syncUserData() {
+        return mapper.syncUserData();
+    }
+
+
 }

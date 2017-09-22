@@ -1,5 +1,9 @@
 package com.chinawiserv.dsp.dir.mapper.api;
 
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
+
 import java.util.List;
 import java.util.Map;
 
@@ -26,5 +30,11 @@ public interface ApiMapper{
     List<Map<String, Object>> getTableInfoByDatasetId(Map<String, Object> paramMap);
 
     List<Map<String, Object>> getColumnInfoByTableId(Map<String, Object> paramMap);
+
+    List<DirClassify> syncClassifyData();
+
+    List<SysDept> syncDeptData();
+
+    List<SysUser> syncUserData();
 
 }

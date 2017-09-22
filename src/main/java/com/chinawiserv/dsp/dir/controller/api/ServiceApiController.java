@@ -2,6 +2,9 @@ package com.chinawiserv.dsp.dir.controller.api;
 
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +55,24 @@ public class ServiceApiController extends BaseController {
         return handleResult;
     }
 
+    /**
+     * 同步目录的接口
+     * */
+    @RequestMapping("syncClassifyData")
+    @ResponseBody
+    public HandleResult syncClassifyData(){
+        HandleResult handleResult = new HandleResult();
+        try{
+            List<DirClassify> result = service.syncClassifyData();
+            handleResult.put("rows",result);
+            handleResult.setState(true);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
+    }
     /**
      * 查询数据集关联的数据项
      * */
@@ -163,6 +184,44 @@ public class ServiceApiController extends BaseController {
         try{
             boolean result = service.releaseService(paramMap);
             handleResult.setState(result);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 同步部门数据
+     * */
+    @RequestMapping("syncDeptData")
+    @ResponseBody
+    public HandleResult syncDeptData(){
+        HandleResult handleResult = new HandleResult();
+        try{
+            List<SysDept> result = service.syncDeptData();
+            handleResult.put("rows",result);
+            handleResult.setState(true);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 同步部门数据
+     * */
+    @RequestMapping("syncUserData")
+    @ResponseBody
+    public HandleResult syncUserData(){
+        HandleResult handleResult = new HandleResult();
+        try{
+            List<SysUser> result = service.syncUserData();
+            handleResult.put("rows",result);
+            handleResult.setState(true);
         }catch (Exception e){
             logger.error(e.getMessage());
             handleResult.setMsg(e.getMessage());
