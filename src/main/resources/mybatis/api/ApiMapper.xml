@@ -172,6 +172,11 @@
         </choose>
     </select>
 
+    <!-- 同步目录数据 -->
+    <select id="syncClassifyData" parameterType="map" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+        SELECT * FROM dir_classify
+    </select>
+
     <sql id="datasetWhereClause">
         <choose>
             <when test="null != datasetId and '' != datasetId">

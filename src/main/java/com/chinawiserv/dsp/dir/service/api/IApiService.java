@@ -1,6 +1,9 @@
 package com.chinawiserv.dsp.dir.service.api;
 
 
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
+
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +30,9 @@ public interface IApiService {
     Map<String,Object> getServiceInfoByDatasetId(Map<String, Object> paramMap);
 
     boolean releaseService(Map<String, Object> paramMap);
+
+    Map<String,Object> syncUserInfo(List<SysUser> userList);
+
+    List<DirClassify> syncClassifyData();
 
 }
