@@ -61,8 +61,6 @@ public class SyncUserInfoTaskSchema {
                     sysUser.setCreateTime(rsUser.getDate("register_time"));
                     sysUser.setUpdateTime(rsUser.getDate("updatetime"));
                     sysUser.setStatus(rsUser.getInt("status"));
-                    int roleId =  rsUser.getInt("role_id") == 0? 4 : rsUser.getInt("role_id");
-                    sysUser.setUserType(roleId);
                     sysUser.setEmail(rsUser.getString("email"));
                     sysUser.setCellPhoneNumber(rsUser.getString("mobile"));
                     sysUser.setPassword(rsUser.getString("password"));
@@ -74,7 +72,8 @@ public class SyncUserInfoTaskSchema {
                     users.add(sysUser);
                 }
 
-                ResultSet rsDept = stmt.executeQuery("SELECT * FROM " + viewDeptTableName);
+                ResultSet rsDept = stmt.executeQuery("SELECT a.*,b.uuid AS fuuid FROM "+ viewDeptTableName+" a\n" +
+                        "LEFT JOIN "+viewDeptTableName+" b ON b.org_code = a.org_fcode");
                 SysDept sysDept= null;
                 while (rsDept.next()){
                     sysDept = new SysDept();
@@ -91,7 +90,6 @@ public class SyncUserInfoTaskSchema {
                     sysDept.setDeptContactPhone(rsDept.getString("landline_telephone"));
                     sysDept.setDeptListingName(rsDept.getString("listing_name"));
                     sysDept.setDeptContactFixedPhone(rsDept.getString("othter_connact"));
-                    sysDept.setDeptCode(rsDept.getString("org_category_code"));
                     sysDept.setDeptShortName(rsDept.getString("org_shortname"));
                     sysDept.setDeptContactEmail(rsDept.getString("contact_email"));
                     sysDept.setDeptContactMan(rsDept.getString("contact_person"));
@@ -101,14 +99,13 @@ public class SyncUserInfoTaskSchema {
                     sysDept.setDeptType(rsDept.getString("org_category"));
                     sysDept.setDeptCode(rsDept.getString("org_code"));
                     sysDept.setDeptContactDept(rsDept.getString("org_extend_code"));
-                    sysDept.setFcode(rsDept.getString("org_fcode"));
+                    sysDept.setFid(rsDept.getString("fuuid"));
                     sysDept.setFname(rsDept.getString("org_fname"));
                     sysDept.setDeptName(rsDept.getString("org_fullname"));
                     sysDept.setDeptResponseMan(rsDept.getString("org_response_person"));
                     sysDept.setRegionCode(rsDept.getString("region"));
                     sysDept.setDeptResponseEmail(rsDept.getString("response_email"));
                     sysDept.setDeptResponsePhone(rsDept.getString("response_phone"));
-                    sysDept.setId(rsDept.getString("uuid"));
                     sysDept.setDeptFunction(rsDept.getString("org_function"));
                     sysDept.setUpdateTime(rsDept.getDate("last_update_time"));
                     sysDept.setDeptLevel(rsDept.getInt("org_level"));

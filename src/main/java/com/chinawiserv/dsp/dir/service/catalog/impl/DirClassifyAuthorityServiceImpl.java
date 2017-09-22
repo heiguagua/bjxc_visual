@@ -1,14 +1,21 @@
 package com.chinawiserv.dsp.dir.service.catalog.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
+import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassifyAuthority;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyAuthorityMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,14 +36,29 @@ public class DirClassifyAuthorityServiceImpl extends CommonServiceImpl<DirClassi
 
     @Override
     public boolean insertVO(DirClassifyAuthorityVo vo) throws Exception {
-		//todo
-		return false;
+        String classifyIds = vo.getClassifyIds();
+        if(StringUtils.isNotBlank(classifyIds)){
+            String[] classifyIdArray = classifyIds.split(",");
+            for(String classifyId : classifyIdArray){
+                if(StringUtils.isNotBlank(classifyId)){
+                    vo.setId(CommonUtil.get32UUID());
+                    vo.setClassifyId(classifyId);
+                    vo.setDistributorId(ShiroUtils.getLoginUserId());
+                    vo.setDistributeDate(new Date());
+                    if(!insert(vo)){
+                        throw new Exception("添加用户数据权限失败！");
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean updateVO(DirClassifyAuthorityVo vo) throws Exception {
-		//todo
-		return false;
+        //删除已有权限
+        mapper.delete(new EntityWrapper<DirClassifyAuthority>().eq("classify_id", vo.getClassifyId()));
+        return this.insertVO(vo);
 	}
 
     @Override

@@ -31,8 +31,8 @@
             <if test="authObjType != null">
                 AND t.auth_obj_type = #{authObjType,jdbcType=VARCHAR}
             </if>
-            <if test="classifyId != null">
-                AND t.classify_id = #{classifyId,jdbcType=VARCHAR}
+            <if test="authObjId != null">
+                AND t.auth_obj_id = #{authObjId,jdbcType=VARCHAR}
             </if>
         </where>
     </sql>

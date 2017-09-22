@@ -14,13 +14,13 @@
         WHERE TRUE
         <choose>
             <when test="null != id and ''!= id and 'root' != id">
-                AND t.`fid` = #{id}
+                AND t.`fcode` IN (SELECT DISTINCT classify_code FROM dir_classify WHERE id = #{id})
             </when>
             <when test="'root' == id">
-                AND t.`fid` = 'root'
+                AND t.`fcode` = 'root'
             </when>
             <otherwise>
-                AND t.`fid` IS NULL
+                AND t.`fcode` IS NULL
             </otherwise>
         </choose>
     </select>

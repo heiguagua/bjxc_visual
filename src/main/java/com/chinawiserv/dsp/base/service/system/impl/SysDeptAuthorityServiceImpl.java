@@ -36,14 +36,13 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
 
     @Override
     public boolean insertVO(SysDeptAuthorityVo vo) throws Exception {
-        String authObjIds = vo.getAuthObjIds();
-        if(StringUtils.isNotBlank(authObjIds)){
-            String[] authObjIdArray = authObjIds.split(",");
-            for(String authObjId : authObjIdArray){
-                if(StringUtils.isNotBlank(authObjId)){
+        String deptIds = vo.getDeptIds();
+        if(StringUtils.isNotBlank(deptIds)){
+            String[] deptIdArray = deptIds.split(",");
+            for(String deptId : deptIdArray){
+                if(StringUtils.isNotBlank(deptId)){
                     vo.setId(CommonUtil.get32UUID());
-                    vo.setAuthObjType(AuthObjTypeEnum.DEPT.getKey());
-                    vo.setAuthObjId(authObjId);
+                    vo.setDeptId(deptId);
                     vo.setDistributorId(ShiroUtils.getLoginUserId());
                     vo.setDistributeDate(new Date());
                     vo.setIsFromAudit("0");

@@ -6,6 +6,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -66,24 +67,23 @@ public class SysUserAuthorityController extends BaseController {
         try {
             Map<String, Object> paramMap = new HashMap();
             if(StringUtils.isBlank(id)){
-                throw new Exception("被分配的权限不能为空！");
+                throw new Exception("被分配的用户权限不能为空！");
             }
             if(ShiroUtils.getLoginUserDeptId().equals(id)){
-                throw new Exception("被分配的权限不能为登录用户所属部门！");
+                throw new Exception("被分配的用户权限不能为登录用户所属部门！");
             }
             List result = null;
             paramMap.put("authObjType", AuthObjTypeEnum.USER);
+            paramMap.put("authObjId", id);
             if("dept".equals(authType)){
-                paramMap.put("deptId", id);
                 result = service.selectVoList(paramMap);
             }else if("dir".equals(authType)){
-                paramMap.put("classifyId", id);
                 result = dirClassifyAuthorityService.selectVoList(paramMap);
             }
             handleResult.put("selected", result);
         } catch (Exception e) {
-            handleResult.error("获取数据权限信息失败");
-            logger.error("获取数据权限失败", e);
+            handleResult.error("获取用户数据权限信息失败");
+            logger.error("获取用户数据权限失败", e);
         }
         return handleResult;
     }
@@ -94,10 +94,28 @@ public class SysUserAuthorityController extends BaseController {
     @RequiresPermissions("system:deptAuthority:edit")
     @RequestMapping("/doEdit")
     @ResponseBody
-    public  HandleResult doEdit(SysDeptAuthorityVo entity){
+    public  HandleResult doEdit(@RequestParam Map<String, Object> paramMap){
         HandleResult handleResult = new HandleResult();
         try {
-            service.updateVO(entity);
+            String authType = (String) paramMap.get("authType");
+            String authObjId = (String) paramMap.get("authObjId");
+            if("dept".equals(authType)){
+                String deptIds = (String) paramMap.get("deptIds");
+                SysDeptAuthorityVo sysDeptAuthorityVo = new SysDeptAuthorityVo();
+                sysDeptAuthorityVo.setDeptIds(deptIds);
+                sysDeptAuthorityVo.setAuthObjType(AuthObjTypeEnum.USER.getKey());
+                sysDeptAuthorityVo.setAuthObjId(authObjId);
+                service.updateVO(sysDeptAuthorityVo);
+            }else if("dir".equals(authType)){
+                String classifyIds = (String) paramMap.get("classifyIds");
+                String authDetail = (String) paramMap.get("authDetail");
+                DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
+                dirClassifyAuthorityVo.setClassifyIds(classifyIds);
+                dirClassifyAuthorityVo.setAuthObjType(AuthObjTypeEnum.USER.getKey());
+                dirClassifyAuthorityVo.setAuthObjId(authObjId);
+                dirClassifyAuthorityVo.setAuthDetail(authDetail);
+                dirClassifyAuthorityService.updateVO(dirClassifyAuthorityVo);
+            }
             handleResult.success("编辑用户数据权限分配表成功");
         } catch (Exception e) {
             handleResult.error("编辑用户数据权限分配表失败");

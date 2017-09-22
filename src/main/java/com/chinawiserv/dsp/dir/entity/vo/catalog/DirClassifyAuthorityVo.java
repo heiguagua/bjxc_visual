@@ -11,4 +11,14 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassifyAuthority;
  * @since 2017-09-08
  */
 public class DirClassifyAuthorityVo extends DirClassifyAuthority{
+
+    private  String classifyIds;
+
+    public String getClassifyIds() {
+        return classifyIds;
+    }
+
+    public void setClassifyIds(String classifyIds) {
+        this.classifyIds = classifyIds;
+    }
 }
