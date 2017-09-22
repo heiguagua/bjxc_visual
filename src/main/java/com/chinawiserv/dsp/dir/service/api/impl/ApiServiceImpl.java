@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.dir.service.api.impl;
 
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.mapper.api.ApiMapper;
@@ -117,4 +118,16 @@ public class ApiServiceImpl implements IApiService {
     public List<DirClassify> syncClassifyData() {
         return mapper.syncClassifyData();
     }
+
+    @Override
+    public List<SysDept> syncDeptData() {
+        return mapper.syncDeptData();
+    }
+
+    @Override
+    public List<SysUser> syncUserData() {
+        return mapper.syncUserData();
+    }
+
+
 }
