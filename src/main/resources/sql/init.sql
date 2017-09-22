@@ -119,10 +119,10 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
     values (REPLACE(uuid(),'-',''),'09f4fef9249c457ca67b4a7a45823730','737933bffef640329a4f864c4e2746ba');
 
 -- 系统配置表
-  INSERT INTO `sys_setting` VALUES ('1', '', '1', 'systemName', '系统名称', '目录管理系统', null, '1', null, null, null, null, 0);
-  INSERT INTO `sys_setting` VALUES ('2', '', '1', 'systemSubName', '系统简称', 'DIR', null, '1', null, null, null, null, 0);
-  INSERT INTO `sys_setting` VALUES ('3', '', '1', 'bottomCopyright', '许可说明', 'Copyright © 2017 勤智数码. All rights reserved.', null, '1', null, null, null, null, 0);
-  INSERT INTO `sys_setting` VALUES ('4', '', '1', 'crawlerInterface', '爬虫接口地址', 'http://127.0.0.1:8080/crawler/wbsiteStore', '', '1', '549d321508db446e9bcaa477835fe5f1', '2017-06-27 10:46:53', null, null, '0');
+  INSERT INTO `sys_setting` VALUES ('1', '', 'sysConfig', 'systemName', '系统名称', '目录管理系统', null, '1', null, null, null, null, 0);
+  INSERT INTO `sys_setting` VALUES ('2', '', 'sysConfig', 'systemSubName', '系统简称', 'DIR', null, '1', null, null, null, null, 0);
+  INSERT INTO `sys_setting` VALUES ('3', '', 'sysConfig', 'bottomCopyright', '许可说明', 'Copyright © 2017 勤智数码. All rights reserved.', null, '1', null, null, null, null, 0);
+  INSERT INTO `sys_setting` VALUES ('4', '', 'apiConfig', 'crawlerInterface', '爬虫接口地址', 'http://127.0.0.1:8080/crawler/wbsiteStore', '', '1', '549d321508db446e9bcaa477835fe5f1', '2017-06-27 10:46:53', null, null, '0');
 
 -- 系统字典分类表
   INSERT INTO `sys_dict_category` VALUES ('001', '', null);
