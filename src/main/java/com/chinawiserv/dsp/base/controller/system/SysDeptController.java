@@ -274,7 +274,7 @@ public class SysDeptController extends BaseController {
         int level = 0;//需要循环的次数
         int count = 0;
         for (SysDeptVo item : list) {
-            count = Integer.parseInt(item.getdept);
+            count = item.getDeptLevel();
             if (count > level) {
                 level = count;
             }
@@ -284,12 +284,12 @@ public class SysDeptController extends BaseController {
         for (int i = 1; i <= level; i++) {
             temList = new ArrayList<SysDeptVo>();
             for (SysDeptVo item : list) {
-                if (i == Integer.parseInt(item.getOrg_level())) {
+                if (i == item.getDeptLevel()) {
                     temList.add(item);
                 }
             }
             for (SysDeptVo organizeCustom : temList) {
-                fetchStruOrg(list, organizeCustom.getOrg_code(), organizeCustom);
+                fetchStruOrg(list, organizeCustom.getId(), organizeCustom);
                 listTree.add(organizeCustom);
             }
             list.removeAll(temList);
@@ -298,8 +298,8 @@ public class SysDeptController extends BaseController {
     private void fetchStruOrg(List<SysDeptVo> source,String org_code, SysDeptVo orgC){
         List<SysDeptVo> list =new ArrayList<SysDeptVo>();
         for (SysDeptVo org : source) {
-            String code = org.getOrg_code();
-            String fcode = org.getOrg_fcode();
+            String code = org.getId();
+            String fcode = org.getFid();
             if(fcode.equals(org_code)){
                 list.add(org);
                 fetchStruOrg(source,code,org);
