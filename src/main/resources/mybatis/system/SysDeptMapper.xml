@@ -72,4 +72,27 @@
 		SELECT count(1) from sys_dept t WHERE t.delete_flag = '0' AND t.fid = #{id}
 	</select>
 
+	<select id="selectDeptListLikeTreeCode" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
+		SELECT * FROM sys_dept WHERE TRUE
+		<if test="list != null ">
+		  AND (
+			<foreach collection="list" item="item" separator=" OR ">
+				tree_code LIKE CONCAT(#{item},'%')
+			</foreach>
+			  )
+		</if>
+		GROUP BY sys_dept.id
+	</select>
+	<select id="selectDeptByPrivilege" resultType="java.lang.String">
+		SELECT
+			sd.tree_code
+		FROM
+			sys_dept sd
+		LEFT JOIN sys_dept_authority sda ON sd.id = sda.dept_id
+		LEFT JOIN sys_user su ON sda.auth_obj_id = su.id
+		WHERE
+			su.id = #{user_id}
+		GROUP BY
+			sd.tree_code
+	</select>
 </mapper>

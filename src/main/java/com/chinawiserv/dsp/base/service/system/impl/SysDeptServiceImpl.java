@@ -187,4 +187,19 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         }
     }
 
+    @Override
+    public List<SysDeptVo> selectDeptListLikeTreeCode(List<String> list) {
+        List<SysDeptVo> depts=null;
+        if (list!=null && list.size()>0){
+            depts= sysDeptMapper.selectDeptListLikeTreeCode(list);
+        }else{
+            depts= sysDeptMapper.selectDeptListLikeTreeCode(null);
+        }
+        return depts;
+    }
+
+    @Override
+    public List<String> selectDeptByPrivilege(String user_id) {
+        return sysDeptMapper.selectDeptByPrivilege(user_id);
+    }
 }

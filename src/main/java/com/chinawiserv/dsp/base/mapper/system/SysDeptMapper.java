@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
+import org.apache.ibatis.annotations.Param;
 
 
 import java.util.List;
@@ -29,4 +30,7 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     boolean isLeafDept(String id);
 
+    List<SysDeptVo> selectDeptListLikeTreeCode(@Param("list")List<String> list);
+
+    List<String> selectDeptByPrivilege(@Param("user_id") String user_id);
 }
