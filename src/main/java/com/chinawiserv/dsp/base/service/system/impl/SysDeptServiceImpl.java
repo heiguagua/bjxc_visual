@@ -80,28 +80,28 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public List<SysDeptVo> getDeptSelectDataList(Map<String, Object> paramMap) throws Exception {
         if(paramMap == null) paramMap = new HashMap();
         String regionCode = (String) paramMap.get("regionCode");
-        Boolean onlyRoot = (Boolean) paramMap.get("onlyRoot");
-        Boolean excludeRoot = (Boolean) paramMap.get("excludeRoot");
-        Boolean checkIsLeaf = (Boolean) paramMap.get("checkIsLeaf");
+        Integer onlyRoot = (Integer) paramMap.get("onlyRoot");
+        Integer excludeRoot = (Integer) paramMap.get("excludeRoot");
+        Integer checkIsLeaf = (Integer) paramMap.get("checkIsLeaf");
         if(onlyRoot == null){
-            onlyRoot = false;
+            onlyRoot = 0;
         }
         if(excludeRoot == null){
-            excludeRoot = true;
+            excludeRoot = 1;
         }
         if(checkIsLeaf == null){
-            checkIsLeaf = true;
+            checkIsLeaf = 1;
         }
         List<SysDeptVo> list = new ArrayList();
         Map<String, Object> param = this.getDeptCondition(regionCode);
         if(!param.isEmpty()){
-            if(onlyRoot){
+            if(onlyRoot == 1){
                 param.put("onlyRoot", onlyRoot);
-            }else if(excludeRoot){
+            }else if(excludeRoot == 1){
                 param.put("excludeRoot", excludeRoot);
             }
             list.addAll(this.selectVoList(param));
-            if(checkIsLeaf){
+            if(checkIsLeaf == 1){
                 for(SysDeptVo sysDeptVo : list){
                     sysDeptVo.setIsLeaf(this.isLeafDept(sysDeptVo.getDeptCode()));
                 }

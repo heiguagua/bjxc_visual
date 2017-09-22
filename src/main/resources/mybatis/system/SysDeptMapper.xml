@@ -34,10 +34,10 @@
 	<sql id="queryConditions">
 		<where>
 			t.delete_flag = '0'
-			<if test="onlyRoot != null and onlyRoot == true">
+			<if test="onlyRoot != null and onlyRoot == 1">
 				AND t.fcode == 'root'
 			</if>
-			<if test="excludeRoot != null and excludeRoot == true">
+			<if test="excludeRoot != null and excludeRoot == 0">
 				AND t.fcode != 'root'
 			</if>
 			<if test="searchKey != null">

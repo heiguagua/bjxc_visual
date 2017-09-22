@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/21 13:19:01                           */
+/* Created on:     2017/9/22 15:24:16                           */
 /*==============================================================*/
 
 
@@ -80,7 +80,11 @@ drop table if exists dir_special_apps;
 
 drop table if exists dir_suggestion;
 
+drop table if exists drap_activity_doc_item;
+
 drop table if exists drap_activity_doc_map;
+
+drop table if exists drap_activity_pre_relation;
 
 drop table if exists drap_activity_rel_depts;
 
@@ -95,6 +99,8 @@ drop table if exists drap_business_doc;
 drop table if exists drap_business_requirement;
 
 drop table if exists drap_data_column_map;
+
+drop table if exists drap_data_meta;
 
 drop table if exists drap_dataset;
 
@@ -118,13 +124,17 @@ drop table if exists drap_dict_table_column;
 
 drop table if exists drap_dict_table_info;
 
+drop table if exists drap_file_system;
+
 drop table if exists drap_info_system;
+
+drop table if exists drap_item_required_dept;
 
 drop table if exists drap_requirement_dataset_map;
 
 drop table if exists drap_requirement_resources;
 
-drop table if exists drap_sx_table_feedback;
+drop table if exists drap_system_service;
 
 drop table if exists drap_system_use_dept;
 
@@ -740,6 +750,10 @@ create table dir_news
    region_code          varchar(6) comment '所属行政区划',
    title                varchar(256) comment '新闻标题',
    news_pic             varchar(128) comment '新闻图片',
+   pic_name             varchar(128),
+   pic_type             varchar(36),
+   pic_order            int(6),
+   pic_size             varchar(36),
    news_content         text comment '新闻内容',
    publisher            varchar(36) comment '发布人',
    publish_date         date comment '发布时间',
@@ -766,6 +780,7 @@ create table dir_policy
    content              text comment '发布内容',
    publisher            varchar(36) comment '政策发布人',
    publish_date         date comment '发布时间',
+   visit_count          int(10),
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -858,6 +873,26 @@ create table dir_suggestion
 alter table dir_suggestion comment '咨询建议表';
 
 /*==============================================================*/
+/* Table: drap_activity_doc_item                                */
+/*==============================================================*/
+create table drap_activity_doc_item
+(
+   id                   varchar(36) not null comment 'ID',
+   doc_id               varchar(36) comment '活动资料ID',
+   item_code            varchar(64) comment '数据项编码',
+   item_name            varchar(64) comment '数据项名称',
+   code_index           int comment '编码序号',
+   create_user          varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user          varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+);
+
+alter table drap_activity_doc_item comment '业务活动资料数据项表';
+
+/*==============================================================*/
 /* Table: drap_activity_doc_map                                 */
 /*==============================================================*/
 create table drap_activity_doc_map
@@ -870,6 +905,19 @@ create table drap_activity_doc_map
 );
 
 alter table drap_activity_doc_map comment '业务活动关联资料表';
+
+/*==============================================================*/
+/* Table: drap_activity_pre_relation                            */
+/*==============================================================*/
+create table drap_activity_pre_relation
+(
+   id                   varchar(36) not null comment 'ID',
+   activity_id          varchar(36) comment '业务活动ID',
+   pre_activity_id      varchar(36) comment '前置活动节点ID',
+   primary key (id)
+);
+
+alter table drap_activity_pre_relation comment '业务活动前置关系表';
 
 /*==============================================================*/
 /* Table: drap_activity_rel_depts                               */
@@ -923,7 +971,7 @@ create table drap_business_activity
    handle_basis         varchar(256) comment '办理依据',
    activity_desc        varchar(1000) comment '业务描述',
    activity_name        varchar(256) comment '业务名称',
-   extend_code          varchar(64) comment '扩展编码？',
+   extend_code          varchar(64) comment '扩展编码',
    short_name           varchar(64) comment '业务简称',
    parent_code          varchar(36) comment '上级业务节点编码',
    parent_guid_activity varchar(36) comment '上级组织指导业务',
@@ -977,17 +1025,21 @@ create table drap_business_doc
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
    belong_dept          varchar(36) comment '所属部门',
+   source_type          varchar(36) comment '添加类型',
    doc_code             varchar(36) comment '资料编码',
    doc_name             varchar(64) comment '资料名称',
    doc_desc             varchar(1000) comment '资料描述',
    category             varchar(36) comment '资料类型',
-   doc_sample           varchar(64) comment '材料样本',
+   doc_sample           varchar(1000) comment '材料样本',
+   sync_flag            varchar(2) comment '是否同步为需求或信息资源',
    template_flag        int comment '是否资料库',
    code_index           int comment '编码序号',
+   status               int(3) comment '状态',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user          varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
@@ -1000,14 +1052,14 @@ create table drap_business_requirement
 (
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
-   requirement_desc     varchar(1000) comment '需求资源描述',
-   requre_dept_id       varchar(36) comment '需求组织ID',
+   requre_dept_id       varchar(72) comment '需求组织ID',
    source_dept_id       varchar(36) comment '需求来源组织',
-   code_index           int comment '编码序号',
+   status               int(3) comment '状态',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user          varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
@@ -1031,6 +1083,33 @@ create table drap_data_column_map
 alter table drap_data_column_map comment '数据项与表字段关系梳理表';
 
 /*==============================================================*/
+/* Table: drap_data_meta                                        */
+/*==============================================================*/
+create table drap_data_meta
+(
+   id                   varchar(36) not null comment 'ID',
+   category             varchar(36) comment '数据元类型',
+   parent_code          varchar(36) comment '上级数据元编码',
+   meta_code            varchar(64) comment '数据元编码',
+   meta_en_name         varchar(64) comment '数据元英文名',
+   meta_name            varchar(64) comment '数据元中文名',
+   meta_define          varchar(256) comment '数据元定义',
+   meta_format          varchar(256) comment '格式',
+   is_show              int comment '是否显示',
+   order_by             numeric(6) comment '排序号',
+   code_index           int comment '编码序号',
+   status               int(3) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+);
+
+alter table drap_data_meta comment '数据元表';
+
+/*==============================================================*/
 /* Table: drap_dataset                                          */
 /*==============================================================*/
 create table drap_dataset
@@ -1038,6 +1117,8 @@ create table drap_dataset
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
    belong_dept_id       varchar(36) comment '【国】信息资源提供方ID',
+   source_type          varchar(36) comment '添加类型',
+   doc_id               varchar(36) comment '业务产生材料id',
    belong_activity_id   varchar(36) comment '所属业务',
    dataset_code         varchar(36) comment '数据集编号',
    dataset_name         varchar(64) comment '【国】信息资源名称',
@@ -1046,13 +1127,13 @@ create table drap_dataset
    update_frequency     varchar(36) comment '【国】信息资源更新周期',
    dataset_desc         varchar(256) comment '【国】信息资源摘要',
    share_type           varchar(36) comment '【国】信息资源共享类型',
-   share_condition_desc varchar(1000) comment '【国】信息资源共享条件',
+   share_condition_desc text comment '【国】信息资源共享条件',
    share_method         varchar(36) comment '【国】信息资源共享方式',
    share_method_desc    varchar(1000) comment '共享方式说明',
    share_range          varchar(1000) comment '共享范围',
    no_share_reason      varchar(1000) comment '不予共享依据',
    is_open              varchar(36) comment '【国】信息资源是否社会开放',
-   open_condition       varchar(36) comment '【国】信息资源开放条件',
+   open_condition       varchar(1000) comment '【国】信息资源开放条件',
    rel_dataset_code     varchar(36) comment '【国】信息资源关联资源代码',
    data_level           varchar(36) comment '【川】信息资源最小分级单元',
    data_index_system    varchar(36) comment '【川】信息资源指标体系',
@@ -1061,10 +1142,12 @@ create table drap_dataset
    physics_store_location varchar(128) comment '物理存储位置',
    extend_code          varchar(64) comment '扩展编码',
    code_index           int comment '编码序号',
+   status               int(3) comment '状态',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user          varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
@@ -1077,7 +1160,7 @@ create table drap_dataset_item
 (
    id                   varchar(36) not null comment 'ID',
    item_code            varchar(64) comment '数据项编码',
-   item_name            varchar(64) comment '【国】数据项名称',
+   item_name            varchar(128) comment '【国】数据项名称',
    item_type            varchar(36) comment '【国】数据项类型',
    item_desc            varchar(1000) comment '数据项描述',
    belong_dept          varchar(36) comment '所属组织',
@@ -1090,7 +1173,7 @@ create table drap_dataset_item
    share_method_desc    varchar(1000) comment '共享方式说明',
    no_share_reason      varchar(1000) comment '不予共享依据',
    is_open              varchar(36) comment '是否开放',
-   open_condition       varchar(36) comment '开放条件',
+   open_condition       varchar(1000) comment '开放条件',
    store_media          varchar(36) comment '存储介质',
    physics_store_location varchar(128) comment '物理存储位置',
    code_index           int comment '编码序号',
@@ -1098,6 +1181,7 @@ create table drap_dataset_item
    create_time          datetime comment '创建时间',
    update_user          varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
@@ -1180,15 +1264,16 @@ create table drap_db_info
    password             varchar(64) comment '密码',
    order_by             numeric(6) comment '排序号',
    is_show              int comment '是否显示',
-   delete_flag          int(1) comment '删除标志',
    code_index           int comment '编码序号',
    cur_connect_status   varchar(36) comment '本次连接状态',
    cur_update_status    varchar(36) comment '本次更新状态',
    cur_monitor_time     datetime comment '本次监控时间',
+   status               int(3) comment '状态',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user          varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
@@ -1228,6 +1313,8 @@ create table drap_db_table_column
    column_desc          varchar(256) comment '字段描述',
    data_precision       varchar(36) comment '字段数据精度',
    code_index           int comment '编码序号',
+   status               int(3) comment '状态',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
@@ -1247,6 +1334,8 @@ create table drap_db_table_info
    table_cn_name        varchar(64) comment '数据表中文名称',
    table_desc           varchar(256) comment '数据表描述',
    code_index           int comment '编码序号',
+   status               int(3) comment '状态',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
@@ -1299,18 +1388,47 @@ create table drap_dict_table_info
 alter table drap_dict_table_info comment '字典导入数据表信息';
 
 /*==============================================================*/
+/* Table: drap_file_system                                      */
+/*==============================================================*/
+create table drap_file_system
+(
+   id                   varchar(36) not null comment 'ID',
+   region_code          varchar(6) comment '所属行政区划',
+   file_code            varchar(64) comment '文件编码',
+   file_name            varchar(64) comment '文件名称',
+   file_desc            varchar(1000) comment '文件描述',
+   status               varchar(36) comment '文件状态',
+   enable_time          date comment '启用时间',
+   disable_time         date comment '停用时间',
+   provide_dept         varchar(36) comment '文件提供部门',
+   provide_date         date comment '文件提供时间',
+   provider             varchar(64) comment '文件提供人',
+   provider_phone       varchar(64) comment '文件提供人电话',
+   provider_email       varchar(128) comment '文件提供人邮箱',
+   other_contacts       varchar(128) comment '文件其他联系方式',
+   update_frequence     varchar(36) comment '文件更新频率',
+   order_by             numeric(6) comment '排序号',
+   is_show              int comment '是否显示',
+   code_index           int comment '编码序号',
+   primary key (id)
+);
+
+alter table drap_file_system comment '文件系统表(NO)';
+
+/*==============================================================*/
 /* Table: drap_info_system                                      */
 /*==============================================================*/
 create table drap_info_system
 (
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
+   source_type          varchar(36) comment '添加类型',
    system_code          varchar(36) comment '业务系统编码',
    system_name          varchar(64) comment '业务系统名称',
    system_phase         varchar(36) comment '系统阶段',
    system_phase_desc    varchar(1000) comment '系统阶段补充说明',
    main_feature         varchar(1000) comment '主要功能',
-   main_data            varchar(1000) comment '主要数据',
+   main_data            text comment '主要数据',
    enable_time          date comment '启用时间',
    disable_time         date comment '停用时间',
    system_level         varchar(256) comment '系统归属级别(建设性质)',
@@ -1352,14 +1470,29 @@ create table drap_info_system
    old_system_desc      varchar(1000) comment '旧系统补充说明',
    system_desc          varchar(1000) comment '系统功能描述',
    code_index           int comment '编码序号',
+   status               int(3) comment '状态',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user          varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
 alter table drap_info_system comment '信息系统表';
+
+/*==============================================================*/
+/* Table: drap_item_required_dept                               */
+/*==============================================================*/
+create table drap_item_required_dept
+(
+   id                   varchar(36) not null comment 'ID',
+   item_id              varchar(36) comment '数据项ID',
+   dept_id              varchar(36) comment '关联部门ID',
+   primary key (id)
+);
+
+alter table drap_item_required_dept comment '业务数据项关联需求部门(NO)';
 
 /*==============================================================*/
 /* Table: drap_requirement_dataset_map                          */
@@ -1367,8 +1500,8 @@ alter table drap_info_system comment '信息系统表';
 create table drap_requirement_dataset_map
 (
    id                   varchar(36) not null comment 'ID',
-   require_id           varchar(36) comment '需求ID',
-   dataset_id           varchar(36) comment '数据集ID',
+   require_id           varchar(36) comment '需求资源ID',
+   dataset_id           varchar(36) comment '来源对象ID',
    primary key (id)
 );
 
@@ -1381,6 +1514,8 @@ create table drap_requirement_resources
 (
    id                   varchar(36) not null comment 'ID',
    require_id           varchar(36) comment '需求ID',
+   require_combing_type int(3) comment '需求梳理数据来源(1业务需求梳理2应用需求梳理3门户需求梳理)',
+   doc_id               varchar(36) comment '业务产生材料id',
    require_code         varchar(64) comment '需求编号',
    require_name         varchar(64) comment '需求资源名称',
    requirement_desc     varchar(1000) comment '需求资源描述',
@@ -1388,31 +1523,45 @@ create table drap_requirement_resources
    is_get               varchar(36) comment '是否已获取',
    expect_get_type      varchar(36) comment '期望获取方式',
    source_type          varchar(36) comment '需求来源方式（选择、填写）',
-   require_type         varchar(36) comment '需求类型',
+   require_type         varchar(36) comment '需求类型(1.手动添加2.从信息资源添加3.从应用系统添加)',
    require_remark       varchar(512) comment '需求资源备注',
    other_info           varchar(512) comment '其他信息',
    expect_update_frequence varchar(36) comment '期望更新频率',
+   brace_app            varchar(512) comment '支撑应用',
+   status               int(3) comment '状态',
+   create_user          varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user          varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
 alter table drap_requirement_resources comment '需求资源信息表';
 
 /*==============================================================*/
-/* Table: drap_sx_table_feedback                                */
+/* Table: drap_system_service                                   */
 /*==============================================================*/
-create table drap_sx_table_feedback
+create table drap_system_service
 (
    id                   varchar(36) not null comment 'ID',
-   collection_id        varchar(36) comment '？采集ID',
-   db_id                varchar(36) comment '数据库ID',
-   table_id             varchar(36) comment '表ID',
-   result_info          varchar(1024) comment '采集状态',
-   message_info         varchar(1024) comment '采集结果说明',
-   access_time          datetime comment '接收数据时间',
+   region_code          varchar(6) comment '所属行政区划',
+   belong_dept          varchar(36) comment '所属组织',
+   doc_id               varchar(36) comment '服务中文名称',
+   activity_id          varchar(36) comment '服务英文名称',
+   service_method       varchar(36) comment '服务使用方式',
+   ip_address           varchar(64) comment 'IP地址',
+   username             varchar(64) comment '用户名',
+   password             varchar(64) comment '密码',
+   service_desc         varchar(1000) comment '服务说明',
+   belong_system        varchar(36) comment '所属系统',
+   params_desc          varchar(1000) comment '调用参数详细说明',
+   samples              varchar(1000) comment '样例描述',
+   code_index           int comment '编码序号',
    primary key (id)
 );
 
-alter table drap_sx_table_feedback comment '数据表反馈记录(淞幸)';
+alter table drap_system_service comment '系统服务表(NO)';
 
 /*==============================================================*/
 /* Table: drap_system_use_dept                                  */
@@ -1463,7 +1612,7 @@ create table sys_dept
    dept_desc            varchar(512) comment '组织机构描述',
    function_keyword     varchar(256) comment '职能关键字',
    dept_function        varchar(4000) comment '组织机构职能',
-   fcode                varchar(64) comment '父组织机构编码',
+   fid                  varchar(64) comment '父组织机构编码',
    fname                varchar(64) comment '父组织机构名称',
    dept_structure_name  varchar(512) comment '组织机构结构名称',
    dept_level           int(3) comment '部门级别',
@@ -1512,6 +1661,7 @@ create table sys_dept_authority
    distributor_id       varchar(36) comment '分配操作人',
    distribute_opinion   varchar(512) comment '分配意见',
    distribute_date      date comment '分配操作时间',
+   is_from_audit        varchar(2) comment '是否来自于审核',
    primary key (id)
 );
 
