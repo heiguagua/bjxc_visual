@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/20 9:45:31                            */
+/* Created on:     2017/9/21 13:19:01                           */
 /*==============================================================*/
 
 
@@ -443,7 +443,7 @@ create table dir_dataitem
    item_name            varchar(128) comment '【国】数据项名称',
    item_desc            varchar(500) comment '数据项描述',
    item_type            varchar(36) comment '【国】数据项类型',
-   item_length          int(6) comment '【国】数据长度',
+   item_length          int(6) comment '【国】数据项长度',
    belong_dept_id       varchar(36) comment '责任部门',
    share_type           varchar(36) comment '共享类型',
    share_method         varchar(36) comment '共享方式',
@@ -762,7 +762,7 @@ create table dir_policy
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
    policy_level         varchar(36) comment '政策级别',
-   title                varchar(36) comment '政策标题',
+   title                varchar(255) comment '政策标题',
    content              text comment '发布内容',
    publisher            varchar(36) comment '政策发布人',
    publish_date         date comment '发布时间',
@@ -1059,7 +1059,7 @@ create table drap_dataset
    is_secret            varchar(36) comment '【川】信息资源涉密性',
    store_media          varchar(36) comment '存储介质',
    physics_store_location varchar(128) comment '物理存储位置',
-   扩展编码                 varchar(64) comment '扩展编码',
+   extend_code          varchar(64) comment '扩展编码',
    code_index           int comment '编码序号',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -1504,7 +1504,6 @@ alter table sys_dept comment '系统组织机构表';
 create table sys_dept_authority
 (
    id                   varchar(36) not null comment 'id',
-   is_from_audit        varchar(2) comment '是否来自于审核',
    auth_obj_type        varchar(36) comment '权限对象类型',
    auth_obj_id          varchar(36) comment '权限对象ID',
    dept_id              varchar(36) comment '被分配权限部门ID',

@@ -1,6 +1,5 @@
 package com.chinawiserv.dsp.base.controller.system;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
@@ -55,7 +54,7 @@ public class SysDeptController extends BaseController {
     public PageResult list(@RequestParam Map<String , Object> paramMap){
         PageResult pageResult = new PageResult();
         try {
-            paramMap.put("excludeRoot", false);
+            paramMap.put("excludeRoot", true);
             Page<SysDeptVo> page = sysDeptService.selectVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {

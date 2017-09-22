@@ -12,6 +12,8 @@ jQuery(document).ready(function () {
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
+        pagination: true, //分页
+        pageSize: 15,
         columns: [{
             checkbox: true,
             align: 'center',

@@ -21,7 +21,7 @@ public class SysRole implements Serializable {
 
 	private String id;
 
-	private Integer roleType;
+//	private Integer roleType;
 
 	private String roleName;
 
@@ -47,14 +47,6 @@ public class SysRole implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public Integer getRoleType() {
-		return roleType;
-	}
-
-	public void setRoleType(Integer roleType) {
-		this.roleType = roleType;
 	}
 
 	public String getRoleName() {

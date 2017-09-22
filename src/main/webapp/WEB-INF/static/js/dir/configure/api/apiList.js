@@ -67,7 +67,8 @@ jQuery(document).ready(function () {
 		var aObj = $("#" + treeNode.tId + "_a");
 		if ($("#diyBtn_"+treeNode.id).length>0) return;
 //		var editStr1 = "<span id='diyBtn_space_" +treeNode.dir_code+ "' >&nbsp;</span><select class='selDemo ' id='diyBtn_" +treeNode.dir_code+ "'><option value=1>1</option><option value=2>2</option><option value=3>3</option></select>";
-		var editStr1 = "<span id='diyBtn_space_" +treeNode.id+ "'><a class='btn btn-edit s3' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-toggle='modal' data-target='#modal-add'>编辑</a></span>"
+		var editStr1 = "<span id='diyBtn_space_" +treeNode.id+ "'><a class='btn btn-edit s3' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-desc= "+treeNode.apiDesc+" data-orderNumber= "+treeNode.orderNumber+" data-url= "+treeNode.apiUrl+" data-category= "+treeNode.apiCategory+">编辑</a></span>"
+		var editStr3 = "<span id='diyBtn_space4_" +treeNode.id+ "'><a class='btn btn-edit s4' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-parentId = "+treeNode.parentId+" >删除</a></span>"
 		var editStr2 = "<div class='btn-group'>"
 				+"<button id='diyBtn_space2_" +treeNode.id+ "' type='button' class='btn btn-add dropdown-toggle'"
 	           +         "data-toggle='dropdown'>"
@@ -76,50 +77,58 @@ jQuery(document).ready(function () {
 
 				+"<li><a class='s1' id='addSibling' data-id ="+treeNode.id+" data-pcode="+treeNode.parentId+" href='#'  >添加同级</a></li>"
 				+"<li><a class='s2' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
-				+"</div>"				
+				+"</div>"	
+				aObj.after(editStr3);
 				aObj.after(editStr2);
 				aObj.after(editStr1);		
 		var btn = $("#diyBtn_"+treeNode.id);				
 		
+		
+		//删除
+		$(".s4").on("click", function () {
+						        
+			var curThis=this;
+			var id=$(curThis).attr('data-id');
+//			var apiDesc=$(curThis).attr('data-desc');
+//			var apiUrl=$(curThis).attr('data-url');
+//			var apiName=$(curThis).attr('data-name');
+//			var apiCatgegory=$(curThis).attr('data-category');
+//			var orderNumber=$(curThis).attr('data-orderNumber');
+//			$('#parent_id').val(api_fcode);	
+//			updateApi('新增api--同级',basePathJS + '/dirDevelopApis/edit' , id);
+			
+			
+			var url = basePathJS + "/dirDevelopApis/delete";
+		    var parameter = {id: id};
+		    delObjApi(url , parameter) ;
+		    
+//			$('#api_name').val(apiName);
+//			$('#api_category').val(apiCatgegory);
+//			$('#api_url').val(apiUrl);
+//			$('#order_number').val(orderNumber);
+//			$('#api_desc').val(apiDesc);
+		  
+		});
+		
+		
 		//编辑
 		$(".s3").on("click", function () {
 						        
-			var params = {
-	                id: $(this).attr("data-id")
-	         };
-	    	$.post('/admin/APIS_getDirApi', params, function (data) {
-	            if (data.code == 'OK') {
-	            	var result = data.result;
-	            	var dirApi = result.dirApi;
-	            	sessionStorage['dirApi'] = JSON.stringify(dirApi);
-	            	$('#delete_button').removeClass('hidden');
-	            	$('#delete').attr('data-id',dirApi.id); 
-	            	if(treeNode.children){$('#delete').attr('tree_child',treeNode.children);}else{
-	            		$('#delete').removeAttr('tree_child');
-	            	}      	  
-	            	var dirApi = JSON.parse(sessionStorage['dirApi']);
-	            	$('#fcode').attr("readonly", "readonly").val(dirApi.fcode);
-			        $('#fname').attr("readonly", "readonly").val(dirApi.fname);
-			        $('#type').val(dirApi.type);
-			        $('#url_adress').val((dirApi.url_adress).substring(7));
-			        $('#privilege').val(dirApi.privilege);
-//			        $('#fdescription').attr("readonly", "readonly").val(temp_dirList.fdescription);
-			        $('#dir_id').attr("readonly", "readonly").val(dirApi.id);
-			        $('#name').val(dirApi.name);
-			        $('#description').val(dirApi.description);
-	            }
-	        }, 'json');
-	        checkIsRepeat();
-	        //清空标签和内存中的数据
-	        tagHandel.empty();
-	        tagHandel.hiddenTag();
-	        //$('#delete').attr('disabled','disabled');
-	        //$("#delete").removeClass('btn-danger').addClass('btn-unbut');			        
-	        //回到顶部
-//		        goTop();
-//	        $("#add_son_sub").val('1');	
-	        //可以修改目录类别编码
-	        $('#dir_code').removeAttr('readonly');
+			var curThis=this;
+			var id=$(curThis).attr('data-id');
+//			var apiDesc=$(curThis).attr('data-desc');
+//			var apiUrl=$(curThis).attr('data-url');
+//			var apiName=$(curThis).attr('data-name');
+//			var apiCatgegory=$(curThis).attr('data-category');
+//			var orderNumber=$(curThis).attr('data-orderNumber');
+//			$('#parent_id').val(api_fcode);	
+			updateApi('新增api--同级',basePathJS + '/dirDevelopApis/edit' , id);
+//			$('#api_name').val(apiName);
+//			$('#api_category').val(apiCatgegory);
+//			$('#api_url').val(apiUrl);
+//			$('#order_number').val(orderNumber);
+//			$('#api_desc').val(apiDesc);
+			
 		});
 		//添加同级
 		$(".s1").on("click", function () {
@@ -132,7 +141,7 @@ jQuery(document).ready(function () {
 //			$('#api_url').val('');
 //			$('#order_number').val('');
 //			$('#api_desc').val('');
-								
+							
 		});
 		//添加子级
 	    $(".s2").on("click", function () {
@@ -145,7 +154,7 @@ jQuery(document).ready(function () {
 //			$('#api_url').val('');
 //			$('#order_number').val('');
 //			$('#api_desc').val('');
-	    	
+			
 	    });
 
 		if (btn) btn.bind("change", function(){alert("diy Select value="+btn.attr("value")+" for " + treeNode.name);});
@@ -182,6 +191,8 @@ jQuery(document).ready(function () {
 				$("#diyBtn_space_" +treeNode.id).unbind().remove();
 				$("#diyBtn_space2_" +treeNode.id).unbind().remove();
 				$("#diyBtn_space3_" +treeNode.id).unbind().remove();
+				$("#diyBtn_space4_" +treeNode.id).unbind().remove();
+				
 		};  
 		     			
     $.ajax({

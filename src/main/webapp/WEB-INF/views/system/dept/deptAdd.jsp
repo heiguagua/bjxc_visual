@@ -5,6 +5,21 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
     <script src="<%=basePath%>/js/system/dept/deptAdd.js"></script>
+    <style type="text/css">
+        .menu-wrap{
+            position:relative;
+
+        }
+        .menu-wrap .menuContent{
+            top: 0 !important;
+            display: block;
+            position: absolute;
+            left: 0 !important;
+            z-index: 1999;
+            background: #FFF;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <section class="content">
@@ -16,17 +31,19 @@
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/system/dept/doAdd">
                         <div class="box-body">
-                            <div class="form-group">
-                                <label for="regionCode" style='float:left;' class="col-sm-3 control-label">所属行政区域 *</label>
-                                <div select id="regionCode" name="regionCode" class="col-sm-3">
-                                    <select class="form-control">
-                                    <option value="">--请选择--</option>
-                                        <option value="">四川 000001A</option>
-                                        <option value="">湖南 000002B</option>
-                                        <option value="">陕西 000003C</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label for="regionName" style='float:left;' class="col-sm-2 control-label">所属行政区域 *</label>
+                                    <div class="col-sm-10">
+                                        <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
+                                        <input type="text" id="regionName" required="required" data-parsley-required-message="该项为必填" class="form-control">
+                                        <input type="hidden" id="regionId" name="regionId">
+                                        <div class="menu-wrap">
+                                            <div id="menuContent" class="menuContent" style="display:none;">
+                                                <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
                             <div class="form-group">
                                 <label for="fcode" style='float:left;' class="col-sm-3 control-label">父组织机构编码</label>
                                 <div id="fcode" name="fcode" class="col-sm-3">
