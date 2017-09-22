@@ -6,6 +6,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
+import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -32,6 +33,9 @@ public class SysUserAuthorityController extends BaseController {
 
     @Autowired
     private ISysDeptAuthorityService service;
+
+    @Autowired
+    private IDirClassifyAuthorityService dirClassifyAuthorityService;
 
     @RequiresPermissions("system:userAuthority:list")
     @RequestMapping("")
@@ -67,14 +71,14 @@ public class SysUserAuthorityController extends BaseController {
             if(ShiroUtils.getLoginUserDeptId().equals(id)){
                 throw new Exception("被分配的权限不能为登录用户所属部门！");
             }
-            List<SysDeptAuthorityVo> result = null;
+            List result = null;
             paramMap.put("authObjType", AuthObjTypeEnum.USER);
             if("dept".equals(authType)){
                 paramMap.put("deptId", id);
                 result = service.selectVoList(paramMap);
             }else if("dir".equals(authType)){
                 paramMap.put("classifyId", id);
-                result = service.selectVoList(paramMap);
+                result = dirClassifyAuthorityService.selectVoList(paramMap);
             }
             handleResult.put("selected", result);
         } catch (Exception e) {
