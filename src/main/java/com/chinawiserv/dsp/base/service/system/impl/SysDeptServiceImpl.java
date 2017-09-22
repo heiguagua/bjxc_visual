@@ -103,7 +103,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             list.addAll(this.selectVoList(param));
             if(checkIsLeaf == 1){
                 for(SysDeptVo sysDeptVo : list){
-                    sysDeptVo.setIsLeaf(this.isLeafDept(sysDeptVo.getDeptCode()));
+                    sysDeptVo.setIsLeaf(this.isLeafDept(sysDeptVo.getId()));
                 }
             }
         }
@@ -179,11 +179,11 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
-    public boolean isLeafDept(String deptCode) {
-        if(StringUtils.isBlank(deptCode)){
+    public boolean isLeafDept(String id) {
+        if(StringUtils.isBlank(id)){
             return true;
         }else{
-            return sysDeptMapper.isLeafDept(deptCode);
+            return sysDeptMapper.isLeafDept(id);
         }
     }
 

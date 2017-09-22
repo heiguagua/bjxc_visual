@@ -14,16 +14,6 @@ public class SysDeptAuthorityVo extends SysDeptAuthority{
 
     private String authObjIds;
 
-    private String authType;
-
-    public String getAuthType() {
-        return authType;
-    }
-
-    public void setAuthType(String authType) {
-        this.authType = authType;
-    }
-
     public String getAuthObjIds() {
         return authObjIds;
     }

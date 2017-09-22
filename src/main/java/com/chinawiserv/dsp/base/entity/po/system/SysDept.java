@@ -40,7 +40,7 @@ public class SysDept implements Serializable {
 
 	private String deptFunction;
 
-	private String fcode;
+	private String fid;
 
 	private String fname;
 
@@ -182,12 +182,12 @@ public class SysDept implements Serializable {
 		this.deptFunction = deptFunction;
 	}
 
-	public String getFcode() {
-		return fcode;
+	public String getFid() {
+		return fid;
 	}
 
-	public void setFcode(String fcode) {
-		this.fcode = fcode;
+	public void setFid(String fid) {
+		this.fid = fid;
 	}
 
 	public String getFname() {
