@@ -44,4 +44,11 @@ public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
      * 查询指定部门用户数
      */
     int selectUsersCountByDeptId(String deptId);
+
+    /**
+     * 获取用户角色类型
+     * @param user_id
+     * @return
+     */
+    int selectUserRoleType(String user_id);
 }

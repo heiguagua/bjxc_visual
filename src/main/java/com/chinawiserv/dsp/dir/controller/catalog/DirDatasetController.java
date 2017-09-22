@@ -186,11 +186,11 @@ public class DirDatasetController extends BaseController {
      */
     @RequestMapping("/quickAddDataset")
     @ResponseBody
-    public  HandleResult quickAddDataset(DirDatasetVo entity, DirDataitemVo items, Model model){
+    public  HandleResult quickAddDataset(DirDatasetVo entity, Model model){
         HandleResult handleResult = new HandleResult();
         try {
             service.insertVO(entity);
-            dataitemService.insertListItem(null);
+            dataitemService.insertListItem(entity.getItems());
             handleResult.success("创建数据集（信息资源）成功");
         } catch (Exception e) {
             handleResult.error("创建数据集（信息资源）失败");
