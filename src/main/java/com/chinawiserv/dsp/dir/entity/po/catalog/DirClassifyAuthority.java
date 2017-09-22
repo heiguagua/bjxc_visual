@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.dir.entity.po.catalog;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -41,6 +42,22 @@ public class DirClassifyAuthority implements Serializable {
      */
 	@TableField("auth_detail")
 	private String authDetail;
+
+	/**
+	 * 分配操作人
+	 */
+	@TableField("distributor_id")
+	private String distributorId;
+	/**
+	 * 分配意见
+	 */
+	@TableField("distribute_opinion")
+	private String distributeOpinion;
+	/**
+	 * 分配操作时间
+	 */
+	@TableField("distribute_date")
+	private Date distributeDate;
 
 
 	public String getId() {
@@ -83,4 +100,27 @@ public class DirClassifyAuthority implements Serializable {
 		this.authDetail = authDetail;
 	}
 
+	public String getDistributorId() {
+		return distributorId;
+	}
+
+	public void setDistributorId(String distributorId) {
+		this.distributorId = distributorId;
+	}
+
+	public String getDistributeOpinion() {
+		return distributeOpinion;
+	}
+
+	public void setDistributeOpinion(String distributeOpinion) {
+		this.distributeOpinion = distributeOpinion;
+	}
+
+	public Date getDistributeDate() {
+		return distributeDate;
+	}
+
+	public void setDistributeDate(Date distributeDate) {
+		this.distributeDate = distributeDate;
+	}
 }
