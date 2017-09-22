@@ -23,6 +23,8 @@ public interface ApiMapper{
 
     List<Map<String, Object>> getDbInfoByDatasetId(Map<String, Object> paramMap);
 
-    List<Map<String, Object>> getItemAndTableInfoByDatasetId(Map<String, Object> paramMap);
+    List<Map<String, Object>> getTableInfoByDatasetId(Map<String, Object> paramMap);
+
+    List<Map<String, Object>> getColumnInfoByTableId(Map<String, Object> paramMap);
 
 }

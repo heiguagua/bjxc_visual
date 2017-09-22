@@ -27,8 +27,8 @@
 
     <!-- 根据数据集的ID查询数据项 -->
     <select id="getSubDataItemById" parameterType="map" resultType="map">
-       SELECT * FROM dir_dataitem t
-       WHERE TRUE
+        SELECT * FROM dir_dataitem t
+        WHERE TRUE
         <choose>
             <when test="null != datasetId and '' != datasetId">
                 AND t.`dataset_id` = #{datasetId}
@@ -46,9 +46,9 @@
         FROM
         dir_dataset t
         LEFT JOIN dir_dataset_classify_map dcm
-          ON dcm.`dataset_id` = t.`id`
+        ON dcm.`dataset_id` = t.`id`
         LEFT JOIN dir_classify dc
-          ON dc.`id` = dcm.`classify_id`
+        ON dc.`id` = dcm.`classify_id`
         WHERE TRUE
         <choose>
             <when test="null != classifyId and '' != classifyId">
@@ -63,18 +63,116 @@
     <!-- 查询指定数据集下面的数据库信息 -->
     <select id="getDbInfoByDatasetId" parameterType="map" resultType="map">
         SELECT
-        ddi.*
+        ddi.`db_name` AS dbName,
+        ddi.`db_cn_name` AS DB_CN_NAME,
+        ddi.`db_type` AS dbType,
+        ddi.`ip_address` AS ipAddress,
+        ddi.`user_name` AS userName,
+        ddi.`password`,
+        ddi.`port`,
+        ddi.`sid`,
+        ddi.`service_name` AS serviceName,
+        dd.`dataset_name` AS datasetName,
+        dis.`system_name` AS systemName
         FROM
         drap_db_info ddi
         LEFT JOIN drap_db_system_map dsm
-          ON dsm.`db_id` = ddi.`id`
+        ON dsm.`db_id` = ddi.`id`
         LEFT JOIN drap_info_system dis
-          ON dis.`id` = dsm.`info_system_id`
+        ON dis.`id` = dsm.`info_system_id`
         LEFT JOIN drap_dataset_system_map dst
-          ON dst.`system_id` = dis.`id`
+        ON dst.`system_id` = dis.`id`
         LEFT JOIN dir_dataset dd
-          ON dd.`id` = dst.`dataset_id`
+        ON dd.`id` = dst.`dataset_id`
         WHERE TRUE
+        <include refid="datasetWhereClause"/>
+    </select>
+
+    <!-- 查询指定数据集下面的数据表信息和字段关系 -->
+    <select id="getTableInfoByDatasetId" parameterType="map" resultType="map">
+        SELECT
+        sourceddti.`table_name` AS sourceTableName,
+        sourceddti.`id` AS sourceTableId,
+        sourceddtc.`column_en_name` AS sourceColumnName,
+        sourceddtc.`id` AS sourceColumnId,
+        targetddti.`table_name` AS targetTableName,
+        targetddti.`id` AS targetTableId,
+        targetddtc.`column_en_name` AS targetTableName,
+        targetddtc.`id` AS targetTableId,
+        ddsr.`relation_type` AS relationType
+        FROM
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN dir_dataset_source_relation ddsr
+        ON ddsr.`dataset_id` = dd.`id`
+        LEFT JOIN drap_db_table_info sourceddti
+        ON sourceddti.`id` = ddsr.`source_table_id`
+        LEFT JOIN drap_db_table_column sourceddtc
+        ON sourceddtc.`id` = ddsr.`source_column_id`
+        LEFT JOIN drap_db_table_info targetddti
+        ON targetddti.`id` = ddsr.`target_table_id`
+        LEFT JOIN drap_db_table_column targetddtc
+        ON targetddtc.`id` = ddsr.`target_column_id`
+        WHERE ddsi.`source_mode` = 'table'
+        <include refid="datasetWhereClause"/>
+        GROUP BY dd.`id`
+
+        UNION ALL
+
+        SELECT
+        sourceddti.`table_name` AS sourceTableName,
+        sourceddti.`id` AS sourceTableId,
+        sourceddtc.`column_en_name` AS sourceColumnName,
+        sourceddtc.`id` AS sourceColumnId,
+        targetddti.`table_name` AS targetTableName,
+        targetddti.`id` AS targetTableId,
+        targetddtc.`column_en_name` AS targetTableName,
+        targetddtc.`id` AS targetTableId,
+        ddtr.`relation_type` AS relationType
+        FROM
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN drap_dataset ddt
+        ON ddt.`id` = ddsi.`source_obj_id`
+        LEFT JOIN drap_dataset_table_relation ddtr
+        ON ddtr.`dataset_id` = ddt.`id`
+        LEFT JOIN drap_db_table_info sourceddti
+        ON sourceddti.`id` = ddtr.`source_table`
+        LEFT JOIN drap_db_table_info targetddti
+        ON targetddti.`id` = ddtr.`target_table`
+        LEFT JOIN drap_db_table_column sourceddtc
+        ON sourceddti.`id` = ddtr.`source_column`
+        LEFT JOIN drap_db_table_column targetddtc
+        ON targetddti.`id` = ddtr.`target_column`
+        WHERE ddsi.`source_mode` = 'source'
+        <include refid="datasetWhereClause"/>
+        GROUP BY dd.`id`
+
+    </select>
+
+    <!-- 查询指定数据表下面的字段信息 -->
+    <select id="getColumnInfoByTableId" parameterType="map" resultType="map">
+        SELECT
+          ddtc.`id` AS columnId,
+          ddtc.`column_en_name` AS columnName,
+          ddtc.`column_cn_name` AS columnCnName,
+          ddtc.`column_desc` AS columnDesc
+        FROM
+          drap_db_table_column ddtc
+        WHERE TRUE
+        <choose>
+            <when test="null != tableId and '' != tableId">
+                AND ddtc.`table_id` = #{tableId}
+            </when>
+            <otherwise>
+                AND ddtc.`table_id` IS NULL
+            </otherwise>
+        </choose>
+    </select>
+
+    <sql id="datasetWhereClause">
         <choose>
             <when test="null != datasetId and '' != datasetId">
                 AND dd.`id` = #{datasetId}
@@ -83,139 +181,7 @@
                 AND dd.`id` IS NULL
             </otherwise>
         </choose>
-    </select>
+    </sql>
 
-    <!-- 查询指定数据集下面的数据项、字段、表信息 -->
-    <select id="getItemAndTableInfoByDatasetId" parameterType="map" resultType="map">
-        SELECT
-          *
-        FROM
-          drap_db_table_column tc
-          LEFT JOIN dir_dataitem_source_info ddsi
-            ON ddsi.`source_obj_id` = tc.`id`
-          LEFT JOIN dir_dataitem ditemc
-            ON ditemc.`id` = ddsi.`item_id`
-          LEFT JOIN drap_db_table_info ddti
-            ON ddti.`id` = tc.`table_id`
-        GROUP BY tc.`id`
-       <!--
-       SELECT
-				dset.set_name,
-				ditem.item_name,
-			CASE
-			WHEN ditem.column_id IS NOT NULL THEN
-				(
-					SELECT
-					tc.COLUMN_EN_NAME
-					FROM
-						table_column tc
-					LEFT JOIN dir_dataitem ditemc ON tc.ID = ditemc.column_id
-					LEFT JOIN table_info ti ON tc.TABLE_ID = ti.ID
-					WHERE
-						tc.ID = ditem.column_id
-					GROUP BY tc.ID
-				)
-			ELSE
-				(
-					SELECT
-					tcs.COLUMN_EN_NAME
-					FROM
-						dir_dataitem ditems
-					LEFT JOIN data_column_map dcm ON dcm.BUSINESS_ITEM_ID = ditems.dataitem_id
-					LEFT JOIN table_column tcs ON dcm.SYSTEM_COLUMN_ID = tcs.ID
-					LEFT JOIN table_info tic ON tic.ID = tcs.TABLE_ID
-					WHERE
-						ditems.dataitem_id = ditem.dataitem_id
-					GROUP BY tic.ID
-				)
-			END AS column_name,
-				CASE
-			WHEN ditem.column_id IS NOT NULL THEN
-				(
-					SELECT
-					 tc.ID
-					FROM
-						table_column tc
-					LEFT JOIN dir_dataitem ditemc ON tc.ID = ditemc.column_id
-					LEFT JOIN table_info ti ON tc.TABLE_ID = ti.ID
-					WHERE
-						tc.ID = ditem.column_id
-					GROUP BY tc.ID
-				)
-			ELSE
-				(
-					SELECT
-					 tcs.ID
-					FROM
-						dir_dataitem ditems
-					LEFT JOIN data_column_map dcm ON dcm.BUSINESS_ITEM_ID = ditems.dataitem_id
-					LEFT JOIN table_column tcs ON dcm.SYSTEM_COLUMN_ID = tcs.ID
-					LEFT JOIN table_info tic ON tic.ID = tcs.TABLE_ID
-					WHERE
-						ditems.dataitem_id = ditem.dataitem_id
-					GROUP BY tic.ID
-				)
-			END AS column_id ,
-			 CASE
-			WHEN ditem.column_id IS NOT NULL THEN
-				(
-					SELECT
-						 ti.TABLE_NAME
-					FROM
-						table_column tc
-					LEFT JOIN dir_dataitem ditemc ON tc.ID = ditemc.column_id
-					LEFT JOIN table_info ti ON tc.TABLE_ID = ti.ID
-					WHERE
-						tc.ID = ditem.column_id
-					GROUP BY tc.ID
-				)
-			ELSE
-				(
-					SELECT
-						 tic.TABLE_NAME
-					FROM
-						dir_dataitem ditems
-					LEFT JOIN data_column_map dcm ON dcm.BUSINESS_ITEM_ID = ditems.dataitem_id
-					LEFT JOIN table_column tcs ON dcm.SYSTEM_COLUMN_ID = tcs.ID
-					LEFT JOIN table_info tic ON tic.ID = tcs.TABLE_ID
-					WHERE
-						ditems.dataitem_id = ditem.dataitem_id
-					GROUP BY tic.ID
-				)
-			END  AS table_name,
-			 CASE
-			WHEN ditem.column_id IS NOT NULL THEN
-				(
-					SELECT
-					 ti.ID
-					FROM
-						table_column tc
-					LEFT JOIN dir_dataitem ditemc ON tc.ID = ditemc.column_id
-					LEFT JOIN table_info ti ON tc.TABLE_ID = ti.ID
-					WHERE
-						tc.ID = ditem.column_id
-					GROUP BY tc.ID
-				)
-			ELSE
-				(
-					SELECT
-						 tic.ID
-					FROM
-						dir_dataitem ditems
-					LEFT JOIN data_column_map dcm ON dcm.BUSINESS_ITEM_ID = ditems.dataitem_id
-					LEFT JOIN table_column tcs ON dcm.SYSTEM_COLUMN_ID = tcs.ID
-					LEFT JOIN table_info tic ON tic.ID = tcs.TABLE_ID
-					WHERE
-						ditems.dataitem_id = ditem.dataitem_id
-					GROUP BY tic.ID
-				)
-			END  AS table_id
-			FROM
-				dir_dataset dset
-			LEFT JOIN dir_dataitem ditem ON ditem.set_code = dset.set_code
-			WHERE
-			dset.set_code = #{setCode}
-			-->
-    </select>
 
 </mapper>

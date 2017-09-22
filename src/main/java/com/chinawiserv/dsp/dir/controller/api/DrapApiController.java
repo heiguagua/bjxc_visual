@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Chinawiserv Technologies Co., Ltd.
  */
 @Controller
-@RequestMapping("api/sourcemanage")
+@RequestMapping("api/drap")
 public class DrapApiController extends BaseController{
 }
