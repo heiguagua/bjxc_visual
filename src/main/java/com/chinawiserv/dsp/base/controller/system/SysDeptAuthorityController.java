@@ -6,6 +6,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -99,10 +100,21 @@ public class SysDeptAuthorityController extends BaseController {
     @RequiresPermissions("system:deptAuthority:edit")
     @RequestMapping("/doEdit")
     @ResponseBody
-    public  HandleResult doEdit(SysDeptAuthorityVo entity){
+    public  HandleResult doEdit(@RequestParam Map<String, Object> paramMap){
 		HandleResult handleResult = new HandleResult();
 		try {
-		    service.updateVO(entity);
+		    String authType = (String) paramMap.get("authType");
+            String authObjIds = (String) paramMap.get("authObjIds");
+            if("dept".equals(authType)){
+                String deptId = (String) paramMap.get("deptId");
+                SysDeptAuthorityVo sysDeptAuthorityVo = new SysDeptAuthorityVo();
+                sysDeptAuthorityVo.setDeptId(deptId);
+                sysDeptAuthorityVo.setAuthObjIds(authObjIds);
+                service.updateVO(sysDeptAuthorityVo);
+            }else if("dir".equals(authType)){
+                DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
+
+            }
 		    handleResult.success("编辑数据权限分配表成功");
 		} catch (Exception e) {
 		    handleResult.error("编辑数据权限分配表失败");

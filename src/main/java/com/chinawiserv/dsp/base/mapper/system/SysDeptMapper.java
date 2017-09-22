@@ -27,6 +27,6 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
 
-    boolean isLeafDept(String deptCode);
+    boolean isLeafDept(String id);
 
 }
