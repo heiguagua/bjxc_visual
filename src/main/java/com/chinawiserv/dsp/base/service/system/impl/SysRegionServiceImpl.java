@@ -53,7 +53,7 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
 
     @Override
     public SysRegionVo selectVoById(String id) throws Exception {
-		return null;
+		return mapper.selectVoById(id);
 	}
 
     @Override
