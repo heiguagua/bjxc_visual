@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,11 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     int selectUsersCountByRoleId(String roleId);
     int selectUsersCountByDeptId(String deptId);
     boolean checkCanBeDeletedById(String userId);
+
+    /**
+     * 获取用户角色类型
+     * @param user_id
+     * @return
+     */
+    int selectUserRoleType(@Param("user_id")String user_id);
 }
