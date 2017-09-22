@@ -21,6 +21,7 @@ public interface ISysRegionService extends ICommonService<SysRegion, SysRegionVo
 
     List<SysRegionVo> selectAllRegionByRegionCode(String regionCode);
 
-    JSONArray getRegionSelectDataList();
-	
+   /* JSONArray getRegionSelectDataList();*/
+
+   public List<SysRegionVo> getRegionSelectDataList(Map<String, Object> paramMap) throws Exception;
 }

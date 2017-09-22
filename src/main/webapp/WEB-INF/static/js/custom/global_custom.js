@@ -151,9 +151,9 @@ var Mysql_TYPE_SOURCE = [
     //{value: 'GEOMETRYCOLLECTION', text: 'GEOMETRYCOLLECTION'}
 ];
 
-function getColumnTypeByDbType(dbType){
+function getColumnTypeByDbType(dbType) {
     var result = [];
-    switch(dbType) {
+    switch (dbType) {
         case '101':
             result = Mysql_TYPE_SOURCE;
             break;
@@ -178,320 +178,320 @@ function initGlobalCustom(tempUrlPrefix) {
      */
     $.validator.config({
         rules: {
-            simpleName: [/^[-\w\u4E00-\u9FA5]{2,32}$/,"请填写2-32位汉字、数字、字母、下划线、横线"],
-            simpleName64: [/^[-\w\u4E00-\u9FA5]{2,64}$/,"请填写2-64位汉字、数字、字母、下划线、横线"],
-            simpleCode: [/^[-\w]{2,32}$/,"请填写2-32位数字、字母、下划线、横线"],
-            simpleCode64: [/^[-\w]{2,64}$/,"请填写2-64位数字、字母、下划线、横线"],
-            address: [/^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]+/,"请填写汉字、数字、字母、横杠，必须包含汉字且不能以横杠开头"],
-            jobName: [/^[_a-zA-Z0-9\u4e00-\u9fa5\(\)\[\]\{\}（）【】｛｝]*$/,"作业名称不能包含特殊符号"],
-            taskName: [/^[_a-zA-Z0-9\u4e00-\u9fa5\(\)\[\]\{\}（）【】｛｝]*$/,"任务名称不能包含特殊符号"],
-            tableName: [/^[_a-zA-Z][_a-zA-Z0-9]*$/,"请输入字母、数字、下划线，且不能以数字开头"],
-            columnName: [/^[_a-zA-Z][_a-zA-Z0-9]*$/,"请输入字母、数字、下划线，且不能以数字开头"],
-            tableRemark: [/^[_a-zA-Z0-9\u4e00-\u9fa5\(\)\[\]\{\}（）【】｛｝]*$/,"表注释不能包含特殊符号"],//todo 验证
-            tableDesc: [/^[_a-zA-Z0-9\u4e00-\u9fa5\(\)\[\]\{\}（）【】｛｝]*$/,"表详细描述不能包含特殊符号"],
+            simpleName: [/^[-\w\u4E00-\u9FA5]{2,32}$/, "请填写2-32位汉字、数字、字母、下划线、横线"],
+            simpleName64: [/^[-\w\u4E00-\u9FA5]{2,64}$/, "请填写2-64位汉字、数字、字母、下划线、横线"],
+            simpleCode: [/^[-\w]{2,32}$/, "请填写2-32位数字、字母、下划线、横线"],
+            simpleCode64: [/^[-\w]{2,64}$/, "请填写2-64位数字、字母、下划线、横线"],
+            address: [/^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]+/, "请填写汉字、数字、字母、横杠，必须包含汉字且不能以横杠开头"],
+            jobName: [/^[_a-zA-Z0-9\u4e00-\u9fa5\(\)\[\]\{\}（）【】｛｝]*$/, "作业名称不能包含特殊符号"],
+            taskName: [/^[_a-zA-Z0-9\u4e00-\u9fa5\(\)\[\]\{\}（）【】｛｝]*$/, "任务名称不能包含特殊符号"],
+            tableName: [/^[_a-zA-Z][_a-zA-Z0-9]*$/, "请输入字母、数字、下划线，且不能以数字开头"],
+            columnName: [/^[_a-zA-Z][_a-zA-Z0-9]*$/, "请输入字母、数字、下划线，且不能以数字开头"],
+            tableRemark: [/^[_a-zA-Z0-9\u4e00-\u9fa5\(\)\[\]\{\}（）【】｛｝]*$/, "表注释不能包含特殊符号"],//todo 验证
+            tableDesc: [/^[_a-zA-Z0-9\u4e00-\u9fa5\(\)\[\]\{\}（）【】｛｝]*$/, "表详细描述不能包含特殊符号"],
             checkDateTime: [/^\d{4}-\d{2}-\d{2}\s([01]\d|2[0-3])(:[0-5]\d){1,2}$/, "请填写有效的日期，格式:YYYY-MM-DD HH:mm:ss "],
             reg_scheduleModeDetail: [/^[1-9][0-9]*$/],//定时模式详情
-            ipAddress : [/^(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])$/ , '请输入正确的ip地址'],
-            ftpFilePath : [/^\/$|(^(?=\/)|^\.|^\.\.)(\/(?=[^/\0])[^/\0]+)*\/?$/ , "请输入正确的ftp文件路径"]
+            ipAddress: [/^(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])$/, '请输入正确的ip地址'],
+            ftpFilePath: [/^\/$|(^(?=\/)|^\.|^\.\.)(\/(?=[^/\0])[^/\0]+)*\/?$/, "请输入正确的ftp文件路径"]
         }
     });
 
     /**
      *  增加验证规则:my_email
      */
-/*    $.validator.addMethod("my_email", function (value, element, params) {
-        var emailReg = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i;
-        if (params && (value = $.trim(value)) && !value.match(emailReg)) {
-            $.validator.messages.my_email = "邮箱格式不正确！";
-            return false;
-        }
-        return true;
-    }, $.validator.messages.my_email);
-    /!**
+    /*    $.validator.addMethod("my_email", function (value, element, params) {
+     var emailReg = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i;
+     if (params && (value = $.trim(value)) && !value.match(emailReg)) {
+     $.validator.messages.my_email = "邮箱格式不正确！";
+     return false;
+     }
+     return true;
+     }, $.validator.messages.my_email);
+     /!**
      *  增加验证规则:notEqualTo
      *  参数是一个html选择器对象
      *!/
-    $.validator.addMethod("notEqualTo", function (value, element, target) {
-        var isEqual = false;
-        if (target && $(target)) isEqual = value == $(target).val();
-        return !isEqual;
-    }, "请输入不同的内容！");
+     $.validator.addMethod("notEqualTo", function (value, element, target) {
+     var isEqual = false;
+     if (target && $(target)) isEqual = value == $(target).val();
+     return !isEqual;
+     }, "请输入不同的内容！");
 
-    /!**
+     /!**
      * 增加验证规则:exists_in_db_check
      * rangelength(默认长度6-12),checkExistsUrl(如果要检查是否存在,传入验证的url),tableName(从哪张表查),column(哪个字段),excludes(除开某些值不判断)，extraCondtions(额外的判断条件,object对象{columnName: columnValue})
      *!/
-    $.validator.addMethod("exists_in_db_check", function (value, element, params) {
-        var rangelength = [6, 12];
-        var checkExistsUrl = "checkExistsInDB.action";
-        var tableName = "SYS_USER";
-        var column = "USERNAME";
-        var excludes = [];
-        var extraCondtions = {};
-        var message = "";
-        if (params && typeof params == "object") {
-            rangelength = params["rangelength"] && $.isArray(params["rangelength"]) && params["rangelength"].length == 2 ? params["rangelength"] : rangelength;
-            checkExistsUrl = params["checkExistsUrl"] ? params["checkExistsUrl"] : checkExistsUrl;
-            if (checkExistsUrl.indexOf("/") != 0) checkExistsUrl = "/" + checkExistsUrl;
-            tableName = params['tableName'] ? params['tableName'] : tableName;
-            column = params['column'] ? params['column'] : column;
-            excludes = params['excludes'] ? params['excludes'] : excludes;
-            extraCondtions = params['extraCondtions'] && typeof params['extraCondtions'] == 'object' ? params['extraCondtions'] : extraCondtions;
-            message = params['message'] ? params['message'] : message;
-        }
-        if (value = $.trim(value)) {
-            if (value.length < rangelength[0] || value.length > rangelength[1]) {
-                $.validator.messages.exists_in_db_check = "长度在" + rangelength[0] + "-" + rangelength[1] + "之间！";
-                return false;
-            }
-            if ($.isArray(excludes) && excludes.length > 0) {
-                for (var i in excludes) {
-                    if (value == excludes[i]) return true;
-                }
-            }
-            var errMsg = "系统错误!检查失败!";
-            if (checkExistsUrl && tableName && column) {
-                var status = true;
-                var result = true;
-                $.ajax({
-                    type: "POST",
-                    url: urlPrefix + checkExistsUrl,
-                    async: false,//这里使用同步,因为要等待检查完的结果再返回是否通过验证
-                    data: {
-                        check: value.replace(/'/g, "&apos;").replace(/\\/g, "\\\\"),
-                        tableName: tableName,
-                        columns: column,
-                        extraCondtions: JSON.stringify(extraCondtions)
-                    },
-                    dataType: "json",
-                    success: function (json) {
-                        status = json['status'] ? json['status'] : false;
-                        result = json['result'] ? json['result'] : false;
-                        message = message ? message : json['message'] ? json['message'] : status ? '该值已存在！' : errMsg;
-                        $.validator.messages.exists_in_db_check = message;
-                    },
-                    error: function () {
-                        $.validator.messages.exists_in_db_check = message;
-                    }
-                });
-                return status && !result;
-            } else $.validator.messages.exists_in_db_check = message;
-        }
-        return true;
-    }, $.validator.messages.exists_in_db_check);
+     $.validator.addMethod("exists_in_db_check", function (value, element, params) {
+     var rangelength = [6, 12];
+     var checkExistsUrl = "checkExistsInDB.action";
+     var tableName = "SYS_USER";
+     var column = "USERNAME";
+     var excludes = [];
+     var extraCondtions = {};
+     var message = "";
+     if (params && typeof params == "object") {
+     rangelength = params["rangelength"] && $.isArray(params["rangelength"]) && params["rangelength"].length == 2 ? params["rangelength"] : rangelength;
+     checkExistsUrl = params["checkExistsUrl"] ? params["checkExistsUrl"] : checkExistsUrl;
+     if (checkExistsUrl.indexOf("/") != 0) checkExistsUrl = "/" + checkExistsUrl;
+     tableName = params['tableName'] ? params['tableName'] : tableName;
+     column = params['column'] ? params['column'] : column;
+     excludes = params['excludes'] ? params['excludes'] : excludes;
+     extraCondtions = params['extraCondtions'] && typeof params['extraCondtions'] == 'object' ? params['extraCondtions'] : extraCondtions;
+     message = params['message'] ? params['message'] : message;
+     }
+     if (value = $.trim(value)) {
+     if (value.length < rangelength[0] || value.length > rangelength[1]) {
+     $.validator.messages.exists_in_db_check = "长度在" + rangelength[0] + "-" + rangelength[1] + "之间！";
+     return false;
+     }
+     if ($.isArray(excludes) && excludes.length > 0) {
+     for (var i in excludes) {
+     if (value == excludes[i]) return true;
+     }
+     }
+     var errMsg = "系统错误!检查失败!";
+     if (checkExistsUrl && tableName && column) {
+     var status = true;
+     var result = true;
+     $.ajax({
+     type: "POST",
+     url: urlPrefix + checkExistsUrl,
+     async: false,//这里使用同步,因为要等待检查完的结果再返回是否通过验证
+     data: {
+     check: value.replace(/'/g, "&apos;").replace(/\\/g, "\\\\"),
+     tableName: tableName,
+     columns: column,
+     extraCondtions: JSON.stringify(extraCondtions)
+     },
+     dataType: "json",
+     success: function (json) {
+     status = json['status'] ? json['status'] : false;
+     result = json['result'] ? json['result'] : false;
+     message = message ? message : json['message'] ? json['message'] : status ? '该值已存在！' : errMsg;
+     $.validator.messages.exists_in_db_check = message;
+     },
+     error: function () {
+     $.validator.messages.exists_in_db_check = message;
+     }
+     });
+     return status && !result;
+     } else $.validator.messages.exists_in_db_check = message;
+     }
+     return true;
+     }, $.validator.messages.exists_in_db_check);
 
-    /!**
+     /!**
      * 增加验证规则:username_check
      *
      *!/
-    $.validator.addMethod("username_check", function (value, element, params) {
-        if (params == true && (value = $.trim(value))) {
-            var reg = /^[A-Za-z0-9]+$/g;
-            if (!value.match(reg)) {
-                $.validator.messages.username_check = "用户名由字母或数字组成！";
-                return false;
-            }
-        }
-        return true;
-    }, $.validator.messages.username_check);
+     $.validator.addMethod("username_check", function (value, element, params) {
+     if (params == true && (value = $.trim(value))) {
+     var reg = /^[A-Za-z0-9]+$/g;
+     if (!value.match(reg)) {
+     $.validator.messages.username_check = "用户名由字母或数字组成！";
+     return false;
+     }
+     }
+     return true;
+     }, $.validator.messages.username_check);
 
-    /!**
+     /!**
      * 增加验证规则:byte_length_check
      * 参数length
      *!/
-    $.validator.addMethod("byte_length_check", function (value, element, params) {
-        var limitLength = params['length'] && typeof params['length'] == 'number' ? params['length'] : 10;
-        if (limitLength > 0 && (value = $.trim(value))) {
-            var reg = /[\u4e00-\u9fa5]/g;
-            var length = 0;
-            for (var i = 0; i < value.length; i++) {
-                var v = value.charAt(i) + "";
-                if (v.match(reg)) {
-                    length += 2;
-                } else length++;
-            }
-            if (length > limitLength) {
-                $.validator.messages.byte_length_check = "字符个数必须小于" + limitLength + "！（中文占2个字符）";
-                return false;
-            }
-        }
-        return true;
-    }, $.validator.messages.byte_length_check);
+     $.validator.addMethod("byte_length_check", function (value, element, params) {
+     var limitLength = params['length'] && typeof params['length'] == 'number' ? params['length'] : 10;
+     if (limitLength > 0 && (value = $.trim(value))) {
+     var reg = /[\u4e00-\u9fa5]/g;
+     var length = 0;
+     for (var i = 0; i < value.length; i++) {
+     var v = value.charAt(i) + "";
+     if (v.match(reg)) {
+     length += 2;
+     } else length++;
+     }
+     if (length > limitLength) {
+     $.validator.messages.byte_length_check = "字符个数必须小于" + limitLength + "！（中文占2个字符）";
+     return false;
+     }
+     }
+     return true;
+     }, $.validator.messages.byte_length_check);
 
-    /!**
+     /!**
      * 增加验证规则:password
      * level密码强度级别,1 > 2 > 3 > 0(默认0), rangelength(默认长度6-12)
      *!/
-    $.validator.addMethod("password_check", function (value, element, params) {
-        var level = 0;
-        var rangelength = [6, 12];
-        if (params && typeof params == "object") {
-            level = params['level'] && typeof params['level'] == 'number' ? params['level'] : level;
-            rangelength = params["rangelenth"] && $.isArray(params["rangelenth"]) && params["rangelenth"].length == 2 ? params["rangelenth"] : rangelength;
-        }
-        if (value = $.trim(value)) {
-            if (value.length < rangelength[0] || value.length > rangelength[1]) {
-                $.validator.messages.password_check = "密码在" + rangelength[0] + "-" + rangelength[1] + "个字符之间！";
-                return false;
-            }
-            var reg;
-            var errorMsg;
-            switch (level) {
-                case 1:
-                    reg = /^(.*([A-Za-z]+.*[0-9]+.*[^A-Za-z0-9]+)|([0-9]+.*[A-Za-z]+.*[^A-Za-z0-9]+)|([0-9]+.*[^A-Za-z0-9]+.*[A-Za-z]+)|([A-Za-z]+.*[^A-Za-z0-9]+).*[0-9]+|([^A-Za-z0-9].*[A-Za-z]+.*[0-9]+)|([^A-Za-z0-9].*[0-9]+.*[A-Za-z]+).*)$/g;
-                    errorMsg = "必须包含字符、数字、特殊字符!";
-                    break;
-                case 2:
-                    reg = /^.*(([A-Za-z]+.*[0-9]+)|([0-9]+.*[A-Za-z]+)).*$/g;
-                    errorMsg = "密码必须包含字符、数字!";
-                    break;
-                case 3:
-                    reg = /^.*[A-Za-z]+.*$/g;
-                    errorMsg = "密码必须包含字符!";
-                    break;
-                default :
-                    reg = "";
-            }
-            if (reg && !value.match(reg)) {
-                $.validator.messages.password_check = errorMsg;
-                return false;
-            }
-        }
-        return true;
-    }, $.validator.messages.password_check);
+     $.validator.addMethod("password_check", function (value, element, params) {
+     var level = 0;
+     var rangelength = [6, 12];
+     if (params && typeof params == "object") {
+     level = params['level'] && typeof params['level'] == 'number' ? params['level'] : level;
+     rangelength = params["rangelenth"] && $.isArray(params["rangelenth"]) && params["rangelenth"].length == 2 ? params["rangelenth"] : rangelength;
+     }
+     if (value = $.trim(value)) {
+     if (value.length < rangelength[0] || value.length > rangelength[1]) {
+     $.validator.messages.password_check = "密码在" + rangelength[0] + "-" + rangelength[1] + "个字符之间！";
+     return false;
+     }
+     var reg;
+     var errorMsg;
+     switch (level) {
+     case 1:
+     reg = /^(.*([A-Za-z]+.*[0-9]+.*[^A-Za-z0-9]+)|([0-9]+.*[A-Za-z]+.*[^A-Za-z0-9]+)|([0-9]+.*[^A-Za-z0-9]+.*[A-Za-z]+)|([A-Za-z]+.*[^A-Za-z0-9]+).*[0-9]+|([^A-Za-z0-9].*[A-Za-z]+.*[0-9]+)|([^A-Za-z0-9].*[0-9]+.*[A-Za-z]+).*)$/g;
+     errorMsg = "必须包含字符、数字、特殊字符!";
+     break;
+     case 2:
+     reg = /^.*(([A-Za-z]+.*[0-9]+)|([0-9]+.*[A-Za-z]+)).*$/g;
+     errorMsg = "密码必须包含字符、数字!";
+     break;
+     case 3:
+     reg = /^.*[A-Za-z]+.*$/g;
+     errorMsg = "密码必须包含字符!";
+     break;
+     default :
+     reg = "";
+     }
+     if (reg && !value.match(reg)) {
+     $.validator.messages.password_check = errorMsg;
+     return false;
+     }
+     }
+     return true;
+     }, $.validator.messages.password_check);
 
-    /!**
+     /!**
      * 增加验证规则:phone_number_check
      * 参数type(cellPhone:手机号，tellPhone:电话号)
      *!/
-    $.validator.addMethod("phone_number_check", function (value, element, params) {
-        var type = 'cellPhone';
-        if (params) {
-            type = params ? params : type;
-        }
-        if (value = $.trim(value)) {
-            var name = type == 'tellPhone' ? "电话" : "手机";
-            var phoneReg = type == 'tellPhone' ? /^(\+?86)?\d{3,4}-\d{7,8}(-\d{3,4})?$/g : /^(\+?86)?1\d{10}$/g;
-            if (!value.match(phoneReg)) {
-                $.validator.messages.phone_number_check = name + "号码格式不正确！";
-                return false;
-            }
-        }
-        return true;
-    }, $.validator.messages.phone_number_check);
+     $.validator.addMethod("phone_number_check", function (value, element, params) {
+     var type = 'cellPhone';
+     if (params) {
+     type = params ? params : type;
+     }
+     if (value = $.trim(value)) {
+     var name = type == 'tellPhone' ? "电话" : "手机";
+     var phoneReg = type == 'tellPhone' ? /^(\+?86)?\d{3,4}-\d{7,8}(-\d{3,4})?$/g : /^(\+?86)?1\d{10}$/g;
+     if (!value.match(phoneReg)) {
+     $.validator.messages.phone_number_check = name + "号码格式不正确！";
+     return false;
+     }
+     }
+     return true;
+     }, $.validator.messages.phone_number_check);
 
-    /!**
+     /!**
      * 增加验证规则:unionpaycardsnum_check
      * 参数：错误消息
      *!/
-    $.validator.addMethod("unionpaycardsnum_check", function (value, element, params) {
-        var errorMsg = params ? params : "银行卡号格式不正确！";
-        if (value = $.trim(value)) {
-            var reg = /^((\d{16})|(\d{19}))$/g;
-            if (!value.match(reg)) {
-                $.validator.messages.unionpaycardsnum_check = errorMsg;
-                return false;
-            }
-        }
-        return true;
-    }, $.validator.messages.unionpaycardsnum_check);
+     $.validator.addMethod("unionpaycardsnum_check", function (value, element, params) {
+     var errorMsg = params ? params : "银行卡号格式不正确！";
+     if (value = $.trim(value)) {
+     var reg = /^((\d{16})|(\d{19}))$/g;
+     if (!value.match(reg)) {
+     $.validator.messages.unionpaycardsnum_check = errorMsg;
+     return false;
+     }
+     }
+     return true;
+     }, $.validator.messages.unionpaycardsnum_check);
 
-    /!**
+     /!**
      * 增加验证规则:keywords_check,检查是否有重复关键字
      * 参数length
      *!/
-    $.validator.addMethod("keywords_check", function (value, element, params) {
-        var length = params['length'] && typeof params['length'] == 'number' ? params['length'] : 10;
-        if (length > 0 && (value = $.trim(value))) {
-            var keywordArray = value.split(",");
-            var tempKeywordArray = [];
-            for (var i in keywordArray) {
-                var keyword = $.trim(keywordArray[i]);
-                if (!keyword) {
-                    $.validator.messages.keywords_check = "关键字格式不正确！";
-                    return false;
-                }
-                if (keyword.length > length) {
-                    $.validator.messages.keywords_check = "每个关键字长度不能大于" + length + "！";
-                    return false;
-                }
-                if (tempKeywordArray.indexOf(keyword) >= 0) {
-                    $.validator.messages.keywords_check = "不能有重复关键字！";
-                    return false;
-                }
-                tempKeywordArray.push(keyword);
-            }
-            delete tempKeywordArray;
-            tempKeywordArray = null;
-        }
-        return true;
-    }, $.validator.messages.keywords_check);
+     $.validator.addMethod("keywords_check", function (value, element, params) {
+     var length = params['length'] && typeof params['length'] == 'number' ? params['length'] : 10;
+     if (length > 0 && (value = $.trim(value))) {
+     var keywordArray = value.split(",");
+     var tempKeywordArray = [];
+     for (var i in keywordArray) {
+     var keyword = $.trim(keywordArray[i]);
+     if (!keyword) {
+     $.validator.messages.keywords_check = "关键字格式不正确！";
+     return false;
+     }
+     if (keyword.length > length) {
+     $.validator.messages.keywords_check = "每个关键字长度不能大于" + length + "！";
+     return false;
+     }
+     if (tempKeywordArray.indexOf(keyword) >= 0) {
+     $.validator.messages.keywords_check = "不能有重复关键字！";
+     return false;
+     }
+     tempKeywordArray.push(keyword);
+     }
+     delete tempKeywordArray;
+     tempKeywordArray = null;
+     }
+     return true;
+     }, $.validator.messages.keywords_check);
 
-    /!**
+     /!**
      * 增加验证规则:val_from_source_check 根据值来源的值来验证
      * 参数source: 值来源 rules: 规则  messages: 错误消息
      *!/
-    $.validator.addMethod("val_from_source_check", function (value, element, params) {
-        var source = params['source'] ? params['source'] : element;
-        var rules = params['rules'] ? params['rules'] : {};
-        var messages = params['messages'] ? params['messages'] : {};
-        for (var key in rules) {
-            var result = $.validator.methods[key].call(this, source.val(), element, rules[key]);
-            if (!result) {
-                $.validator.messages.val_from_source_check = messages[key] ? messages[key] : $.validator.messages[key];
-                return false;
-            }
-        }
-        return true;
-    }, $.validator.messages.val_from_source_check);
+     $.validator.addMethod("val_from_source_check", function (value, element, params) {
+     var source = params['source'] ? params['source'] : element;
+     var rules = params['rules'] ? params['rules'] : {};
+     var messages = params['messages'] ? params['messages'] : {};
+     for (var key in rules) {
+     var result = $.validator.methods[key].call(this, source.val(), element, rules[key]);
+     if (!result) {
+     $.validator.messages.val_from_source_check = messages[key] ? messages[key] : $.validator.messages[key];
+     return false;
+     }
+     }
+     return true;
+     }, $.validator.messages.val_from_source_check);
 
-    /!**
+     /!**
      * 增加验证规则:specialCharCheck
      *
      *!/
-    $.validator.addMethod("specialCharCheck", function (value, element, params) {
-        if (params == true && (value = $.trim(value))) {
-            if (specialReg.test(value)) {
-                $.validator.messages.specialCharCheck = "不能包含英文的单引号及双引号等特殊字符！";
-                return false;
-            }
-        }
-        return true;
-    }, $.validator.messages.specialCharCheck);
+     $.validator.addMethod("specialCharCheck", function (value, element, params) {
+     if (params == true && (value = $.trim(value))) {
+     if (specialReg.test(value)) {
+     $.validator.messages.specialCharCheck = "不能包含英文的单引号及双引号等特殊字符！";
+     return false;
+     }
+     }
+     return true;
+     }, $.validator.messages.specialCharCheck);
 
-    /!**
+     /!**
      * 增加验证规则:customRegexCheck
      *
      *!/
-    $.validator.addMethod("customRegexCheck", function (value, element, params) {
-        var customRegex = new RegExp(params['regex']);
-        if (!customRegex.test(value)) {
-            var message = params['message'] ?  params['message'] : "格式不正确!";
-            $.validator.messages.customRegexCheck = message;
-            return false;
-        }
-        return true;
-    }, $.validator.messages.customRegexCheck);
+     $.validator.addMethod("customRegexCheck", function (value, element, params) {
+     var customRegex = new RegExp(params['regex']);
+     if (!customRegex.test(value)) {
+     var message = params['message'] ?  params['message'] : "格式不正确!";
+     $.validator.messages.customRegexCheck = message;
+     return false;
+     }
+     return true;
+     }, $.validator.messages.customRegexCheck);
 
-    /!**
+     /!**
      * 增加验证规则:dataBaseRegexCheck,检测是否有不符合数据库要求的表名或字段名的命名规则
      *
      *!/
-    $.validator.addMethod("dataBaseRegexCheck", function (value, element, params) {
-        if(params==true &&(value = $.trim(value))){
-            if(value.indexOf(" ")!= -1){
-                $.validator.messages.dataBaseRegexCheck = "生成表名中不能包含空格";
-                return false;
-            }
-            var reg = /^[A-Za-z0-9_-]+$/g;
-            if (!value.match(reg)) {
-                $.validator.messages.dataBaseRegexCheck = "生成表名只能由字母、数字或下划线组成！";
-                return false;
-            }
-        }
+     $.validator.addMethod("dataBaseRegexCheck", function (value, element, params) {
+     if(params==true &&(value = $.trim(value))){
+     if(value.indexOf(" ")!= -1){
+     $.validator.messages.dataBaseRegexCheck = "生成表名中不能包含空格";
+     return false;
+     }
+     var reg = /^[A-Za-z0-9_-]+$/g;
+     if (!value.match(reg)) {
+     $.validator.messages.dataBaseRegexCheck = "生成表名只能由字母、数字或下划线组成！";
+     return false;
+     }
+     }
 
-        return true;
-    }, $.validator.messages.dataBaseRegexCheck);*/
+     return true;
+     }, $.validator.messages.dataBaseRegexCheck);*/
     /*
      * **************************************
      *              扩展方法
@@ -660,11 +660,11 @@ function initGlobalCustom(tempUrlPrefix) {
         },
         checkSessionInvalid: function (json, callback) {
             //todo
-            return false ;
+            return false;
 
             if (json && json['session_invalid']) {
                 var defualt_callback;
-                if(callback && typeof callback == 'function') defualt_callback = callback;
+                if (callback && typeof callback == 'function') defualt_callback = callback;
                 else {
                     defualt_callback = function () {
                         var actionMsg = json["actionMsg"] ? json["actionMsg"] : "";
@@ -673,16 +673,16 @@ function initGlobalCustom(tempUrlPrefix) {
                     };
                 }
                 $.post(urlPrefix + "/login/logout_ajax.action", defualt_callback);
-            }else if(json && json['home_session_invalid']){
+            } else if (json && json['home_session_invalid']) {
                 var home_callback;
-                if(callback && typeof callback == 'function') home_callback = callback;
+                if (callback && typeof callback == 'function') home_callback = callback;
                 else {
                     home_callback = function () {
                         var inModal = json["inModal"] ? json["inModal"] : "";
                         $.postRequest(urlPrefix + "/home.action", {inModal: inModal});
                     };
                 }
-                $.post(urlPrefix + "/home.action",home_callback);
+                $.post(urlPrefix + "/home.action", home_callback);
             }
 
             return json['session_invalid'] == true;
@@ -1271,52 +1271,57 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param treeDivDomId      树形展开区域的DIV的id
          */
         initClassifyTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId) {
-            var selectIds="";
+            var selectIds = "";
             var setting = {
                 async: {
                     enable: true,
                     url: basePathJS + "/dirClassify/authorityList",
-                    autoParam:["fcode"],
-                    dataFilter: function(treeId, parentNode, childNodes){//过滤数据库查询出来的数据为ztree接受的格式
-                        var params=[];
+                    autoParam: ["fcode"],
+                    dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
+                        var params = [];
                         var nodeObjs = childNodes.content.vo;
-                        if (!nodeObjs){
+                        if (!nodeObjs) {
                             return null;
                         }
-                        for ( var i in nodeObjs) {
-                            params[i]={'id':nodeObjs[i].id,'name':nodeObjs[i].classifyName,'fcode':nodeObjs[i].classifyCode,'isParent':(nodeObjs[i].hasLeaf=="1"?true:false)}
+                        for (var i in nodeObjs) {
+                            params[i] = {
+                                'id': nodeObjs[i].id,
+                                'name': nodeObjs[i].classifyName,
+                                'fcode': nodeObjs[i].classifyCode,
+                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
+                            }
                         }
                         return params;
                     }
                 },
                 callback: {
-                    beforeClick: function(treeId, treeNode){ //如果点击的节点还有下级节点，则展开该节点
+                    beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
                         var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
                         if (treeNode.isParent) {
-                            if(treeNode.open){
-                                zTreeObj.expandNode(treeNode,false);
-                            }else{
-                                zTreeObj.expandNode(treeNode,true);
+                            if (treeNode.open) {
+                                zTreeObj.expandNode(treeNode, false);
+                            } else {
+                                zTreeObj.expandNode(treeNode, true);
                             }
                             return false;
                         } else {
                             return true;
                         }
                     },
-                    onClick: function(e, treeId, treeNode){ //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+                    onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
                         $.commonAjax({
-                            url:basePathJS + "/dirClassify/editLoad",
-                            data:{id: treeNode.id},
+                            url: basePathJS + "/dirClassify/editLoad",
+                            data: {id: treeNode.id},
                             success: function (result) {
                                 if (result.state) {
                                     var classifyObj = result.content.vo;
-                                    $('#'+nameInputDomId).val(classifyObj.classifyStructureName);
-                                    if(selectIds==""){
+                                    $('#' + nameInputDomId).val(classifyObj.classifyStructureName);
+                                    if (selectIds == "") {
                                         selectIds = treeNode.id;
-                                    }else{
+                                    } else {
                                         selectIds += "," + treeNode.id;
                                     }
-                                    $('#'+codeInputDomId).val(selectIds);
+                                    $('#' + codeInputDomId).val(selectIds);
                                 }
                             }
                         });
@@ -1324,13 +1329,99 @@ function initGlobalCustom(tempUrlPrefix) {
                 }
             };
 
-            $('#'+nameInputDomId).click(function(){
-                $.fn.zTree.init($("#"+treeDomId), setting);
-                var cityOffset = $("#"+nameInputDomId).offset();
-                $("#"+treeDivDomId).css({left:cityOffset.left + "px", top:cityOffset.top + $("#"+nameInputDomId).outerHeight() + "px"}).slideDown("fast");
-                $("body").bind("mousedown", function(event) {
-                    if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#"+treeDivDomId).length>0)) {
-                        $("#"+treeDivDomId).fadeOut("fast");
+            $('#' + nameInputDomId).click(function () {
+                $.fn.zTree.init($("#" + treeDomId), setting);
+                var cityOffset = $("#" + nameInputDomId).offset();
+                $("#" + treeDivDomId).css({
+                    left: cityOffset.left + "px",
+                    top: cityOffset.top + $("#" + nameInputDomId).outerHeight() + "px"
+                }).slideDown("fast");
+                $("body").bind("mousedown", function (event) {
+                    if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#" + treeDivDomId).length > 0)) {
+                        $("#" + treeDivDomId).fadeOut("fast");
+                        $("body").unbind("mousedown");
+                    }
+                });
+            })
+
+        },
+
+        /**
+         * 获取区域类别的下拉树对象
+         * @param treeDomId         ztree对象的id
+         * @param nameInputDomId    显示选中目录类别的名称的input框的id
+         * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
+         * @param treeDivDomId      树形展开区域的DIV的id
+         */
+        initRegionTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId) {
+            var selectIds = "";
+            var setting = {
+                async: {
+                    enable: true,
+                    url: basePathJS + "/sysRegion/getRegionSelectDataList",
+                    autoParam: ["fcode"],
+                    dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
+                        var params = [];
+                        var nodeObjs = childNodes.content.selectData;
+                        if (!nodeObjs) {
+                            return null;
+                        }
+                        for (var i in nodeObjs) {
+                            params[i] = {
+                                'id': nodeObjs[i].id,
+                                'name': nodeObjs[i].regionName,
+                                'fcode': nodeObjs[i].regionCode,
+                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
+                            }
+                        }
+                        return params;
+                    }
+                },
+                callback: {
+                    beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+                        var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
+                        if (treeNode.isParent) {
+                            if (treeNode.open) {
+                                zTreeObj.expandNode(treeNode, false);
+                            } else {
+                                zTreeObj.expandNode(treeNode, true);
+                            }
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
+                    onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+                        $.commonAjax({
+                            url: basePathJS + "/sysRegion/editLoad",
+                            data: {id: treeNode.id},
+                            success: function (result) {
+                                if (result.state) {
+                                    var regionObj = result.content.vo;
+                                    $('#' + nameInputDomId).val(regionObj.regionName);
+                                    if (selectIds == "") {
+                                        selectIds = treeNode.id;
+                                    } else {
+                                        selectIds += "," + treeNode.id;
+                                    }
+                                    $('#' + codeInputDomId).val(selectIds);
+                                }
+                            }
+                        });
+                    }
+                }
+            };
+
+            $('#' + nameInputDomId).click(function () {
+                $.fn.zTree.init($("#" + treeDomId), setting);
+                var cityOffset = $("#" + nameInputDomId).offset();
+                $("#" + treeDivDomId).css({
+                    left: cityOffset.left + "px",
+                    top: cityOffset.top + $("#" + nameInputDomId).outerHeight() + "px"
+                }).slideDown("fast");
+                $("body").bind("mousedown", function (event) {
+                    if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#" + treeDivDomId).length > 0)) {
+                        $("#" + treeDivDomId).fadeOut("fast");
                         $("body").unbind("mousedown");
                     }
                 });
@@ -1339,6 +1430,8 @@ function initGlobalCustom(tempUrlPrefix) {
         }
 
     });
+
+
 
     $.fn.extend({
         /*  参数
@@ -1589,7 +1682,7 @@ function initGlobalCustom(tempUrlPrefix) {
         customTable: function (options) {
             var options = $.extend({
                 sidePagination: 'server',
-                queryParamsType : '',
+                queryParamsType: '',
                 method: 'post',
                 url: '',
                 dataType: "json",
@@ -1616,14 +1709,14 @@ function initGlobalCustom(tempUrlPrefix) {
                 // clickToSelect: true,
                 columns: []
                 /*responseHandler: function (json) {
-                    $.MessagePusher.loadMsgToShow();
-                    if (!$.checkSessionInvalid(json)) {
-                        if (json && json.state) {
-                            return json;
-                        }
-                    }
-                    return {rows: [], total: 0};
-                }*/
+                 $.MessagePusher.loadMsgToShow();
+                 if (!$.checkSessionInvalid(json)) {
+                 if (json && json.state) {
+                 return json;
+                 }
+                 }
+                 return {rows: [], total: 0};
+                 }*/
             }, options);
 
             if (options.height <= 0) {
@@ -1640,11 +1733,11 @@ function initGlobalCustom(tempUrlPrefix) {
                         height += $(item).height();
                     });
                     var minHeight = (document.body.clientHeight - ($(".breadcrumb").length ? ($(".breadcrumb").height() + 25) : 0) - ($(".searchBar").length ? $(".searchBar").height() : 0) - ($("#title").length ? ($("#title").height() + 10) : 0) - ($("nav").length ? $("nav").height() : 0) - ($(".fixed-table-toolbar").length ? $(".fixed-table-toolbar").height() : 0) - 160);
-                    var minHeight = options.minHeight ? options.minHeight : (document.body.clientHeight - ($(".breadcrumb").length ? ($(".breadcrumb").height() + 25) : 0) - ($(".box-header").length ? ($(".box-header").height()+20) : 0) - ($(".content-header").length ? ($(".content-header").height() + 10) : 0) - ($("nav").length ? $("nav").height() : 0) - ($(".fixed-table-toolbar").length ? $(".fixed-table-toolbar").height() : 0) - 180);
+                    var minHeight = options.minHeight ? options.minHeight : (document.body.clientHeight - ($(".breadcrumb").length ? ($(".breadcrumb").height() + 25) : 0) - ($(".box-header").length ? ($(".box-header").height() + 20) : 0) - ($(".content-header").length ? ($(".content-header").height() + 10) : 0) - ($("nav").length ? $("nav").height() : 0) - ($(".fixed-table-toolbar").length ? $(".fixed-table-toolbar").height() : 0) - 180);
                     if (height >= minHeight) {
                         $(this).parent().css({"overflow-y": "hidden", height: 'auto'});
                         //$(this).parent().parent().css("margin-bottom",  "87px");
-                    }else {
+                    } else {
                         $(this).parent().css({"overflow-y": "auto", height: minHeight});
                     }
                     $(this).parent().parent().css("padding-bottom", "0");
@@ -1730,7 +1823,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     "firstDay": 1
                 },
                 "alwaysShowCalendars": true,
-                "autoUpdateInput":false,
+                "autoUpdateInput": false,
                 "opens": "right",//时间选择器打开的位置
                 "drops": "down",//是向下还是向上打开
                 "buttonClasses": "btn btn-sm",//按钮的样式
@@ -1749,7 +1842,7 @@ function initGlobalCustom(tempUrlPrefix) {
             } else {
                 $(this).daterangepicker(options);
 
-                $(this).on('apply.daterangepicker', function(ev, picker) {
+                $(this).on('apply.daterangepicker', function (ev, picker) {
                     $(this).val(picker.startDate.format(format) + ' ~ ' + picker.endDate.format(format));
                 });
             }
@@ -1763,10 +1856,10 @@ function initGlobalCustom(tempUrlPrefix) {
                 "singleDatePicker": true,//true 单个时间 false 时间范围
                 "showDropdowns": true,//(boolean) 年和月是否显示下拉选择
                 "showWeekNumbers": true,//(boolean) 是否显示当前周为一年当中的第几周
-                 "timePicker": true,//(boolean) 是否显示时间选择
-                 "timePicker24Hour": true,//(boolean) 如果显示时间选择,那么是否以24小时制方式显示小时
-                 "timePickerIncrement": 1,//(boolean) 如果显示时间选择,那么小时以多少的增长从0到24;
-                 "timePickerSeconds": true,//是否显示秒
+                "timePicker": true,//(boolean) 是否显示时间选择
+                "timePicker24Hour": true,//(boolean) 如果显示时间选择,那么是否以24小时制方式显示小时
+                "timePickerIncrement": 1,//(boolean) 如果显示时间选择,那么小时以多少的增长从0到24;
+                "timePickerSeconds": true,//是否显示秒
                 // "autoApply": false,//是否自动确定,如果否,则需要手动确定时间选择
                 /*"startDate": null,//设置初始化起始时间
                  "endDate": null,//设置初始化结束时间
@@ -1833,7 +1926,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     "firstDay": 1
                 },
                 "alwaysShowCalendars": true,
-                "autoUpdateInput":false,
+                "autoUpdateInput": false,
                 "opens": "right",//时间选择器打开的位置
                 "drops": "down",//是向下还是向上打开
                 "buttonClasses": "btn btn-sm",//按钮的样式
@@ -1852,7 +1945,7 @@ function initGlobalCustom(tempUrlPrefix) {
             } else {
                 $(this).daterangepicker(options);
 
-                $(this).on('apply.daterangepicker', function(ev, picker) {
+                $(this).on('apply.daterangepicker', function (ev, picker) {
                     $(this).val(picker.startDate.format(format));
                 });
             }
@@ -1952,30 +2045,30 @@ function initGlobalCustom(tempUrlPrefix) {
             var options = $.extend({
                 selected: 0,
                 theme: 'dots',
-                transitionEffect:'fade',
+                transitionEffect: 'fade',
                 showStepURLhash: true,
-                keyNavigation :false ,
-                toolbarSettings: {toolbarPosition : 'none' }
-            } , options);
+                keyNavigation: false,
+                toolbarSettings: {toolbarPosition: 'none'}
+            }, options);
 
             // Step show event
-            $(this).on("showStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
+            $(this).on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
                 //alert("You are on step "+stepNumber+" now");
 
                 //todo
                 var submitBtn = parent.$(".layui-layer-btn2");
                 submitBtn.hide();
 
-                if(stepPosition === 'first'){
+                if (stepPosition === 'first') {
                     var prevBtn = parent.$(".layui-layer-btn0");
                     prevBtn.hide();
-                }else if(stepPosition === 'final'){
+                } else if (stepPosition === 'final') {
                     var nextBtn = parent.$(".layui-layer-btn1");
                     nextBtn.hide();
 
                     var submitBtn = parent.$(".layui-layer-btn2");
                     submitBtn.show();
-                }else{
+                } else {
                     var prevBtn = parent.$(".layui-layer-btn0");
                     prevBtn.show();
 
@@ -2000,16 +2093,17 @@ function initGlobalCustom(tempUrlPrefix) {
                 initVal: '',//初始化值
                 split: ',',//勾选值的分隔符号
                 filter: {},//过滤数据
-                exclude:{},//过滤不需要的数据
-                notSaveIds:[],//不需要保存的数据id
+                exclude: {},//过滤不需要的数据
+                notSaveIds: [],//不需要保存的数据id
                 canCheckParent: true,//是否可以选择父节点
                 isSaveParentVal: true,//是否保存父节点值（当canCheckParent=true时生效）
                 isEffertParents: false,//勾选/取消节点时是否影响父节点的勾选状态
                 isEffertChildren: false,//勾选/取消节点时是否影响子节点的勾选状态
-                onCheck: function(e, treeId, treeNode){}//勾选时回调函数
+                onCheck: function (e, treeId, treeNode) {
+                }//勾选时回调函数
             }
             if (options && typeof options == 'object') $.extend(opt, options);
-            if(!opt.dropdownWidth) {
+            if (!opt.dropdownWidth) {
                 opt.dropdownWidth = target.width();
             }
             var valueHiddenId = target.attr("id") ? (target.attr("id") + "_hidden") : new Date().getTime();
@@ -2035,44 +2129,46 @@ function initGlobalCustom(tempUrlPrefix) {
                 "border-radius": "2px"
             });
             target.renderCustomDropdownTree(opt);
-            target.click(function(){target._showMenu(opt);});
+            target.click(function () {
+                target._showMenu(opt);
+            });
             $(window).bind("load resize", function () {
-                if(target.is(':visible')) target._hideMenu(opt);
+                if (target.is(':visible')) target._hideMenu(opt);
             });
         },
-        renderCustomDropdownTree: function(newOpt){
-                var target = $(this);
-                var opt = newOpt;
-                if(target.data("opt")) opt = newOpt ? $.extend(true, target.data("opt"), newOpt) : target.data("opt");
-                var zTree = opt.treeId ? $.fn.zTree.getZTreeObj(opt.treeId) : null;
-                if(zTree) zTree.destroy();
-                if(newOpt.url){
-                    $.commonAjax({
-                        url: newOpt.url,
-                        async: opt.async,
-                        data: newOpt.param ? newOpt.param : {},
-                        success: function (json) {
-                            if (!$.checkSessionInvalid(json)) {
-                                if (json.state) {
-                                    opt.treeDatas = json.rows;
-                                    target._initCustomDropdownTree(opt);
-                                }
+        renderCustomDropdownTree: function (newOpt) {
+            var target = $(this);
+            var opt = newOpt;
+            if (target.data("opt")) opt = newOpt ? $.extend(true, target.data("opt"), newOpt) : target.data("opt");
+            var zTree = opt.treeId ? $.fn.zTree.getZTreeObj(opt.treeId) : null;
+            if (zTree) zTree.destroy();
+            if (newOpt.url) {
+                $.commonAjax({
+                    url: newOpt.url,
+                    async: opt.async,
+                    data: newOpt.param ? newOpt.param : {},
+                    success: function (json) {
+                        if (!$.checkSessionInvalid(json)) {
+                            if (json.state) {
+                                opt.treeDatas = json.rows;
+                                target._initCustomDropdownTree(opt);
                             }
                         }
-                    });
-                }else target._initCustomDropdownTree(opt);
+                    }
+                });
+            } else target._initCustomDropdownTree(opt);
         },
-        _initCustomDropdownTree: function(opt){
+        _initCustomDropdownTree: function (opt) {
             var target = $(this);
             target._initChecked(opt);
             var effertNodes = "";
-            if(opt.isEffertParents) effertNodes += "p";
-            if(opt.isEffertChildren) effertNodes += "s";
+            if (opt.isEffertParents) effertNodes += "p";
+            if (opt.isEffertChildren) effertNodes += "s";
             var setting = {
                 check: {
                     enable: true,
                     chkStyle: opt.multi ? "checkbox" : "radio",
-                    chkboxType: { "Y": effertNodes, "N":  effertNodes},
+                    chkboxType: {"Y": effertNodes, "N": effertNodes},
                     radioType: 'all'
                 },
                 view: {
@@ -2091,22 +2187,22 @@ function initGlobalCustom(tempUrlPrefix) {
                     },
                     onCheck: function (e, treeId, treeNode) {
                         target._setValue(opt.notSaveIds);
-                        if(opt.onCheck && typeof opt.onCheck == 'function') opt.onCheck(e, treeId, treeNode);
+                        if (opt.onCheck && typeof opt.onCheck == 'function') opt.onCheck(e, treeId, treeNode);
                     }
                 }
             };
             var filteredTreeDatas = target._filterTreeDatas(opt.treeDatas, opt.filter, opt.exclude);
-            $.fn.zTree.init($("#"+opt.treeId), setting, filteredTreeDatas);
+            $.fn.zTree.init($("#" + opt.treeId), setting, filteredTreeDatas);
             target.data("opt", opt);
             target._setValue(opt.notSaveIds);
             target.attr("title", target.val());
         },
-        _filterTreeDatas: function(treeDatas, filter, exclude){
+        _filterTreeDatas: function (treeDatas, filter, exclude) {
             var target = $(this);
             var filteredTreeDatas = [];
-            if(!filter || typeof filter != 'object') filter = {};
-            if(!exclude || typeof exclude != 'object') exclude = {};
-            if(treeDatas && $.isArray(treeDatas)) {
+            if (!filter || typeof filter != 'object') filter = {};
+            if (!exclude || typeof exclude != 'object') exclude = {};
+            if (treeDatas && $.isArray(treeDatas)) {
                 for (var i in treeDatas) {
                     var flag = true;
                     for (var k in filter) {
@@ -2120,14 +2216,14 @@ function initGlobalCustom(tempUrlPrefix) {
                         if (children && $.isArray(children) && children.length > 0) {
                             treeDatas[i]["children"] = target._filterTreeDatas(children, filter);
                         }
-                        if(exclude.length>0){
+                        if (exclude.length > 0) {
                             for (var k in exclude) {
                                 if (treeDatas[i]["data"][k] != exclude[k]) {
                                     filteredTreeDatas.push(treeDatas[i]);
                                     break;
                                 }
                             }
-                        }else{
+                        } else {
                             filteredTreeDatas.push(treeDatas[i]);
                         }
 
@@ -2141,7 +2237,7 @@ function initGlobalCustom(tempUrlPrefix) {
             var initDatas = opt.initVal;
             var isMulti = opt.multi;
             var split = opt.split;
-            var canCheckParent = (opt.canCheckParent == true ||  opt.canCheckParent == false) ? opt.canCheckParent : isMulti;
+            var canCheckParent = (opt.canCheckParent == true || opt.canCheckParent == false) ? opt.canCheckParent : isMulti;
             var target = $(this);
             var checkedCount = 0;
             if (!initDatas) initDatas = [];
@@ -2154,13 +2250,13 @@ function initGlobalCustom(tempUrlPrefix) {
                         opt1.treeDatas = children;
                         var childrenCheckedCount = target._initChecked(opt1);
                         if (!canCheckParent) treeDatas[i]["nocheck"] = true;
-                        else{
+                        else {
                             if ($.isArray(initDatas) && initDatas.indexOf(treeDatas[i]["id"]) >= 0) {
                                 treeDatas[i]["checked"] = true;
                                 isMulti ? checkedCount++ : checkedCount = 1;
                             }
                             if (childrenCheckedCount > 0) {
-                                if(opt.isEffertParents && !treeDatas[i]["checked"] && childrenCheckedCount == children.length) {
+                                if (opt.isEffertParents && !treeDatas[i]["checked"] && childrenCheckedCount == children.length) {
                                     treeDatas[i]["checked"] = true;
                                     checkedCount++;
                                 }
@@ -2177,15 +2273,15 @@ function initGlobalCustom(tempUrlPrefix) {
             }
             return checkedCount;
         },
-        getCustomDropdownTreeValue: function(){
+        getCustomDropdownTreeValue: function () {
             var target = $(this);
             var opt = target.data("opt");
-            return opt ? $("#"+opt.valueHiddenId).val() : "";
+            return opt ? $("#" + opt.valueHiddenId).val() : "";
         },
-        setCustomDropdownTreeValue: function(values){
+        setCustomDropdownTreeValue: function (values) {
             var target = $(this);
             var opt = target.data("opt");
-            if(opt) {
+            if (opt) {
                 if (values == null || values == undefined) values = [];
                 if (!$.isArray(values)) values = values.split(opt.split);
                 var zTree = $.fn.zTree.getZTreeObj(opt.treeId);
@@ -2195,7 +2291,7 @@ function initGlobalCustom(tempUrlPrefix) {
                 }
             }
         },
-        _setValue: function(notSaveIds){
+        _setValue: function (notSaveIds) {
             var target = $(this);
             var opt = target.data("opt");
             var zTree = $.fn.zTree.getZTreeObj(opt.treeId),
@@ -2204,9 +2300,9 @@ function initGlobalCustom(tempUrlPrefix) {
             var names = "";
             for (var i = 0, l = nodes.length; i < l; i++) {
                 var notNeedSave = false;
-                if(notSaveIds && typeof notSaveIds == 'object'){
-                    for(var k= 0,kk=notSaveIds.length;k<kk;k++){
-                        if(nodes[i].id == notSaveIds[k]){
+                if (notSaveIds && typeof notSaveIds == 'object') {
+                    for (var k = 0, kk = notSaveIds.length; k < kk; k++) {
+                        if (nodes[i].id == notSaveIds[k]) {
                             notNeedSave = true;
                             break;
                         }
@@ -2219,31 +2315,35 @@ function initGlobalCustom(tempUrlPrefix) {
             }
             if (v.length > 0) v = v.substring(0, v.length - 1);
             if (names.length > 0) names = names.substring(0, names.length - 1);
-            $("#"+opt.valueHiddenId).val(v);
+            $("#" + opt.valueHiddenId).val(v);
             target.val(names);
             target.attr("title", target.val());
         },
         _showMenu: function (opt) {
             var target = $(this);
-            $("#"+opt.dropdownId).css({width: target.outerWidth(), left: target.position().left});
-            $("#"+opt.dropdownId).slideDown("fast");
-            $("body").bind("mousedown", function(e){target._onBodyDown(e, opt)});
+            $("#" + opt.dropdownId).css({width: target.outerWidth(), left: target.position().left});
+            $("#" + opt.dropdownId).slideDown("fast");
+            $("body").bind("mousedown", function (e) {
+                target._onBodyDown(e, opt)
+            });
         },
         _hideMenu: function (opt) {
             var target = $(this);
-            $("#"+opt.dropdownId).fadeOut("fast");
-            $("body").unbind("mousedown", function(e){target._onBodyDown(e, opt);});
+            $("#" + opt.dropdownId).fadeOut("fast");
+            $("body").unbind("mousedown", function (e) {
+                target._onBodyDown(e, opt);
+            });
         },
         _onBodyDown: function (event, opt) {
             if (!(event.target.id == $(this).attr("id")
-                || event.target.id == opt.dropdownId || $(event.target).parents("#"+opt.dropdownId).length > 0)) {
+                || event.target.id == opt.dropdownId || $(event.target).parents("#" + opt.dropdownId).length > 0)) {
                 $(this)._hideMenu(opt);
             }
         }
     });
 }
 
-$(function(){
+$(function () {
     //select2
     // $(".select2").select2();
     // //iCheck for checkbox and radio inputs
@@ -2256,18 +2356,18 @@ $(function(){
     var checkedBgColor = "#f5f5f5",
         unCheckedBgColor = "#fff";
     //单选
-    $(".checkbox-item").on('ifChecked',function(){
-        $(this).parents('tr').css('background',checkedBgColor);
-    }).on('ifUnchecked',function(){
-        $(this).parents("tr").css('background',unCheckedBgColor);
+    $(".checkbox-item").on('ifChecked', function () {
+        $(this).parents('tr').css('background', checkedBgColor);
+    }).on('ifUnchecked', function () {
+        $(this).parents("tr").css('background', unCheckedBgColor);
     });
     //全选
-    $(".checkbox-toolbar").on('ifChecked',function(){
+    $(".checkbox-toolbar").on('ifChecked', function () {
         $(".checkbox-item").iCheck('check');
-        $(".checkbox-item").parents("tr").css('background',checkedBgColor);
-    }).on('ifUnchecked',function(){
+        $(".checkbox-item").parents("tr").css('background', checkedBgColor);
+    }).on('ifUnchecked', function () {
         $(".checkbox-item").iCheck('uncheck');
-        $(".checkbox-item").parents("tr").css('background',unCheckedBgColor);
+        $(".checkbox-item").parents("tr").css('background', unCheckedBgColor);
     });
 
     // Custom theme
@@ -2284,19 +2384,19 @@ $(function(){
  * 初始化部门选择器
  * @param belongDepIdSelector 下拉控件选择器
  */
-function initDeptSelector(belongDepIdSelector){
+function initDeptSelector(belongDepIdSelector) {
     $.commonAjax({
-        type:'get',
+        type: 'get',
         url: basePathJS + "/system/dept/getDeptSelectDataList",
-        dataType:'json',
-        async:false,
+        dataType: 'json',
+        async: false,
         success: function (json) {
             if (json.state) {
                 var selectData = json.content.selectData;
                 $(belongDepIdSelector).select2({
                     data: selectData
                 });
-            }else{
+            } else {
                 errorMsgTip(json.msg);
             }
         }
@@ -2307,7 +2407,7 @@ function initDeptSelector(belongDepIdSelector){
  * 初始化同步下拉选择器
  * @param needCacheSelector 下拉控件选择器
  */
-function initNeedCache(needCacheSelector){
+function initNeedCache(needCacheSelector) {
     $.commonAjax({
         url: basePathJS + "/enums/NeedCacheEnum",
         async: false,
@@ -2324,7 +2424,7 @@ function initNeedCache(needCacheSelector){
  * 初始化同步下拉选择器
  * @param needSyncSelector 下拉控件选择器
  */
-function initNeedSync(needSyncSelector){
+function initNeedSync(needSyncSelector) {
     $.commonAjax({
         url: basePathJS + "/enums/NeedSyncEnum",
         async: false,
@@ -2346,10 +2446,10 @@ function validateColumnRange() {
     var contentRowsRange = $("#contentRowsRange").val();
     var titleRownum = $("#titleRownum").val();
     var fieldRownum = $("#fieldRownum").val();
-    if(contentRowsRange != "" && titleRownum != ""){
-        if(contentRowsRange.match(reg_numberRange)){
+    if (contentRowsRange != "" && titleRownum != "") {
+        if (contentRowsRange.match(reg_numberRange)) {
             var checkRowRange = checkRange(contentRowsRange, titleRownum, fieldRownum);
-            if(contentRowsRange.startWith(',') || contentRowsRange.startWith('-')){
+            if (contentRowsRange.startWith(',') || contentRowsRange.startWith('-')) {
                 //alert("内容行号范围必须以正整数开始！");
                 jQuery("#checktip_contentRowsRange ").html("<span style='color: red;'>内容行号范围必须以正整数开始！</span>");
                 return false;
@@ -2357,11 +2457,11 @@ function validateColumnRange() {
                 //alert("内容行号范围-或者,符号不能连续出现！");
                 jQuery("#checktip_contentRowsRange ").html("<span style='color: red;'>内容行号范围-或者,符号不能连续出现！</span>");
                 return false;
-            }else if(checkRowRange == -1){
+            } else if (checkRowRange == -1) {
                 //alert("内容行号范围必须按照升序排列！");
                 jQuery("#checktip_contentRowsRange ").html("<span style='color: red;'>内容行号范围必须按照升序排列！</span>");
                 return false;
-            }else if(checkRowRange == 0){
+            } else if (checkRowRange == 0) {
                 return false;
             }
         } else {
@@ -2379,31 +2479,31 @@ function validateColumnRange() {
  * 结构化文件列范围验证
  * @returns {boolean}
  */
-function checkRange(range, titleRownum, fieldRownum){
-    range = range.replace(/-/g,",");
-    if(range.endWith(",")){
-        range = range.substring(0,range.length-1);
+function checkRange(range, titleRownum, fieldRownum) {
+    range = range.replace(/-/g, ",");
+    if (range.endWith(",")) {
+        range = range.substring(0, range.length - 1);
     }
     var rangeArr = range.split(",");
     if (rangeArr[0].match(reg_englishRange)) {
         rangeArr = parseCharArr(rangeArr);
-    }else{
-        if(titleRownum && parseInt(rangeArr[0]) <= parseInt(titleRownum)){
+    } else {
+        if (titleRownum && parseInt(rangeArr[0]) <= parseInt(titleRownum)) {
             //alert("字段英文行号必须小于内容行号！");
             jQuery("#checktip_contentRowsRange ").html("<span style='color: red;'>字段英文行号必须小于内容行号！</span>");
             return 0;
         }
-        if(fieldRownum  && parseInt(rangeArr[0]) <= parseInt(fieldRownum)){
+        if (fieldRownum && parseInt(rangeArr[0]) <= parseInt(fieldRownum)) {
             //alert("字段中文行号必须小于内容行号！");
             jQuery("#checktip_contentRowsRange ").html("<span style='color: red;'>字段中文行号必须小于内容行号！</span>");
             return 0;
         }
     }
-    for(var i = 0; i < rangeArr.length; i++){
-        for(var j = 0; j < i; j++){
+    for (var i = 0; i < rangeArr.length; i++) {
+        for (var j = 0; j < i; j++) {
             var rangeArr_i = parseInt(rangeArr[i]);
             var rangeArr_j = parseInt(rangeArr[j]);
-            if(rangeArr_i < rangeArr_j){
+            if (rangeArr_i < rangeArr_j) {
                 return -1;
             }
         }
@@ -2415,30 +2515,30 @@ function checkRange(range, titleRownum, fieldRownum){
  * 验证结构化输出表名成都
  * @returns {boolean}
  */
-function validateSfTableNameLength(){
-    if(sfOutputType !=""){
-        if(sfOutputType == "Mysql"){
-            if ($("#outputTableName").val().length >61){
+function validateSfTableNameLength() {
+    if (sfOutputType != "") {
+        if (sfOutputType == "Mysql") {
+            if ($("#outputTableName").val().length > 61) {
                 jQuery("#checkTableNameLength").html("<span style='color: red;'>Mysql表名最大长度为61！</span>");
                 return false;
-            }else{
+            } else {
                 jQuery("#checkTableNameLength").empty();
                 return true;
             }
-        }else if(sfOutputType == "Oracle"){
-            if($("#outputTableName").val().length > 27){
+        } else if (sfOutputType == "Oracle") {
+            if ($("#outputTableName").val().length > 27) {
                 jQuery("#checkTableNameLength").html("<span style='color: red;'>Oracle表名最大长度为27！</span>");
                 return false;
-            }else {
+            } else {
                 jQuery("#checkTableNameLength").empty();
                 return true
             }
         }
         jQuery("#checkTableNameLength").empty();
-        return  true;
+        return true;
     }
     jQuery("#checkTableNameLength").empty();
-    return  true;
+    return true;
 }
 
 /**
@@ -2446,10 +2546,10 @@ function validateSfTableNameLength(){
  * @param s
  * @returns {boolean}
  */
-String.prototype.endWith=function(s){
-    if(s==null||s==""||this.length==0||s.length>this.length)
+String.prototype.endWith = function (s) {
+    if (s == null || s == "" || this.length == 0 || s.length > this.length)
         return false;
-    if(this.substring(this.length-s.length)==s)
+    if (this.substring(this.length - s.length) == s)
         return true;
     else
         return false;
@@ -2461,10 +2561,10 @@ String.prototype.endWith=function(s){
  * @param s
  * @returns {boolean}
  */
-String.prototype.startWith=function(s){
-    if(s==null||s==""||this.length==0||s.length>this.length)
+String.prototype.startWith = function (s) {
+    if (s == null || s == "" || this.length == 0 || s.length > this.length)
         return false;
-    if(this.substr(0,s.length)==s)
+    if (this.substr(0, s.length) == s)
         return true;
     else
         return false;

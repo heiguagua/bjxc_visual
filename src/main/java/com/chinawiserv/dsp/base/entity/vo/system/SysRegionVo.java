@@ -14,11 +14,22 @@ public class SysRegionVo extends SysRegion{
 
     private Integer regionLevel;
 
+    private String hasLeaf;
+
     public Integer getRegionLevel() {
         return regionLevel;
     }
 
     public void setRegionLevel(Integer regionLevel) {
         this.regionLevel = regionLevel;
+    }
+
+
+    public String getHasLeaf() {
+        return hasLeaf;
+    }
+
+    public void setHasLeaf(String hasLeaf) {
+        this.hasLeaf = hasLeaf;
     }
 }
