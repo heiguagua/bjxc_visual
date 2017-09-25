@@ -1377,6 +1377,7 @@ function initGlobalCustom(tempUrlPrefix) {
                         return params;
                     }
                 },
+                check: {enable: true,chkStyle: "radio",chkboxType: { "Y":"s","N":"s"},radioType: "all"},
                 callback: {
                     beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
                         var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
@@ -1391,7 +1392,7 @@ function initGlobalCustom(tempUrlPrefix) {
                             return true;
                         }
                     },
-                    onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+                    onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的全名称，显示到输入框中
                         $.commonAjax({
                             url: basePathJS + "/sysRegion/editLoad",
                             data: {id: treeNode.id},
@@ -1405,12 +1406,49 @@ function initGlobalCustom(tempUrlPrefix) {
                                         selectIds += "," + treeNode.id;
                                     }
                                     $('#' + codeInputDomId).val(selectIds);
+                                    initDeptSelectDataList(regionObj.regionCode);
                                 }
                             }
                         });
                     }
                 }
             };
+            function initDeptSelectDataList(dd){
+                // $("#regionCode").val()
+                $.commonAjax({
+                    // url: basePathJS + "/system/dept/getDeptSelectDataList?regionCode=510100&onlyRoot=" + onlyRoot +"&excludeRoot="+ excludeRoot +"&checkIsLeaf="+ checkIsLeaf,
+                    url: basePathJS + "/system/dept/getDeptSelectDataList",
+                    data:{
+                        regionCode : dd,
+                        onlyRoot : 1,
+                        excludeRoot : 0,
+                        checkIsLeaf : 0
+                    },
+                    success: function (result) {
+                        if (result.state) {
+                            var selectData = result.content.selectData;
+                            var data = [];
+                            if(selectData && selectData.length > 0){
+                                for(var i in selectData){
+                                    var id = selectData[i].id;
+                                    var text = selectData[i].deptName;
+                                    if(id && text){
+                                        data.push({id: id, text: text})
+                                    }
+                                }
+                            }
+                            $("#fname").html("")
+                            $("#fname").select2({
+                                data: data,
+                                placeholder : '',
+                                allowClear: true
+                            });
+
+                            $("#fname").val('').trigger("change");
+                        }
+                    }
+                });
+            }
 
             $('#' + nameInputDomId).click(function () {
                 $.fn.zTree.init($("#" + treeDomId), setting);

@@ -2,216 +2,223 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetMapper">
 
-	<!-- 开启二级缓存 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
-	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
-                    <id column="id" property="id" />
-                                                                                                                                                                                                                                                                                                                                                                    <result column="region_code" property="regionCode" />
-                            <result column="dataset_code" property="datasetCode" />
-                            <result column="dataset_name" property="datasetName" />
-                            <result column="alias" property="alias" />
-                            <result column="belong_dept_id" property="belongDeptId" />
-                            <result column="dataset_desc" property="datasetDesc" />
-                            <result column="share_type" property="shareType" />
-                            <result column="share_condition" property="shareCondition" />
-                            <result column="share_method" property="shareMethod" />
-                            <result column="share_method_desc" property="shareMethodDesc" />
-                            <result column="is_open" property="isOpen" />
-                            <result column="open_condition" property="openCondition" />
-                            <result column="update_frequency" property="updateFrequency" />
-                            <result column="rel_dataset_code" property="relDatasetCode" />
-                            <result column="storage_medium" property="storageMedium" />
-                            <result column="storage_location" property="storageLocation" />
-                            <result column="data_level" property="dataLevel" />
-                            <result column="data_index_system" property="dataIndexSystem" />
-                            <result column="is_secret" property="isSecret" />
-                            <result column="source_type" property="sourceType" />
-                            <result column="status" property="status" />
-                            <result column="create_user_id" property="createUserId" />
-                            <result column="create_time" property="createTime" />
-                            <result column="update_user_id" property="updateUserId" />
-                            <result column="update_time" property="updateTime" />
-                            <result column="delete_flag" property="deleteFlag" />
-            	</resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
+        <id column="id" property="id"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="dataset_code" property="datasetCode"/>
+        <result column="dataset_name" property="datasetName"/>
+        <result column="alias" property="alias"/>
+        <result column="belong_dept_id" property="belongDeptId"/>
+        <result column="dataset_desc" property="datasetDesc"/>
+        <result column="share_type" property="shareType"/>
+        <result column="share_condition" property="shareCondition"/>
+        <result column="share_method" property="shareMethod"/>
+        <result column="share_method_desc" property="shareMethodDesc"/>
+        <result column="is_open" property="isOpen"/>
+        <result column="open_condition" property="openCondition"/>
+        <result column="update_frequency" property="updateFrequency"/>
+        <result column="rel_dataset_code" property="relDatasetCode"/>
+        <result column="storage_medium" property="storageMedium"/>
+        <result column="storage_location" property="storageLocation"/>
+        <result column="data_level" property="dataLevel"/>
+        <result column="data_index_system" property="dataIndexSystem"/>
+        <result column="is_secret" property="isSecret"/>
+        <result column="source_type" property="sourceType"/>
+        <result column="status" property="status"/>
+        <result column="create_user_id" property="createUserId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user_id" property="updateUserId"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo">
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo">
 
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-                                <if test="id != null">
+            <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </where>
+        </where>
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-    		SELECT t.* FROM dir_dataset t <include refid="queryConditions"></include>
+        SELECT t.* FROM dir_dataset t
+        <include refid="queryConditions"></include>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-    	SELECT t.* FROM dir_dataset t WHERE t.id = #{id}
+        SELECT t.* FROM dir_dataset t WHERE t.id = #{id}
     </select>
 
-    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
-    	SELECT count(1) FROM dir_dataset t <include refid="queryConditions"></include>
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM dir_dataset t
+        <include refid="queryConditions"></include>
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
-        insert into dir_dataset(id,region_code,dataset_code,dataset_name,alias,belong_dept_id,dataset_desc,share_type,share_condition,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,is_secret,source_type,status,create_user_id,create_time,update_user_id,update_time,delete_flag,) values(
-            #{id},#{regionCode},#{datasetCode},#{datasetName},#{alias},#{belongDeptId},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{isSecret},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},        )
+        insert into
+        dir_dataset(id,region_code,dataset_code,dataset_name,alias,belong_dept_id,dataset_desc,share_type,share_condition,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,is_secret,source_type,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
+        values(
+        #{id},#{regionCode},#{datasetCode},#{datasetName},#{alias},#{belongDeptId},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{isSecret},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag})
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
         update dir_dataset
         <set>
-                    <if test="id != null">
+            <if test="id != null">
                 id = #{id},
             </if>
-                    <if test="regionCode != null">
+            <if test="regionCode != null">
                 region_code = #{regionCode},
             </if>
-                    <if test="datasetCode != null">
+            <if test="datasetCode != null">
                 dataset_code = #{datasetCode},
             </if>
-                    <if test="datasetName != null">
+            <if test="datasetName != null">
                 dataset_name = #{datasetName},
             </if>
-                    <if test="alias != null">
+            <if test="alias != null">
                 alias = #{alias},
             </if>
-                    <if test="belongDeptId != null">
+            <if test="belongDeptId != null">
                 belong_dept_id = #{belongDeptId},
             </if>
-                    <if test="datasetDesc != null">
+            <if test="datasetDesc != null">
                 dataset_desc = #{datasetDesc},
             </if>
-                    <if test="shareType != null">
+            <if test="shareType != null">
                 share_type = #{shareType},
             </if>
-                    <if test="shareCondition != null">
+            <if test="shareCondition != null">
                 share_condition = #{shareCondition},
             </if>
-                    <if test="shareMethod != null">
+            <if test="shareMethod != null">
                 share_method = #{shareMethod},
             </if>
-                    <if test="shareMethodDesc != null">
+            <if test="shareMethodDesc != null">
                 share_method_desc = #{shareMethodDesc},
             </if>
-                    <if test="isOpen != null">
+            <if test="isOpen != null">
                 is_open = #{isOpen},
             </if>
-                    <if test="openCondition != null">
+            <if test="openCondition != null">
                 open_condition = #{openCondition},
             </if>
-                    <if test="updateFrequency != null">
+            <if test="updateFrequency != null">
                 update_frequency = #{updateFrequency},
             </if>
-                    <if test="relDatasetCode != null">
+            <if test="relDatasetCode != null">
                 rel_dataset_code = #{relDatasetCode},
             </if>
-                    <if test="storageMedium != null">
+            <if test="storageMedium != null">
                 storage_medium = #{storageMedium},
             </if>
-                    <if test="storageLocation != null">
+            <if test="storageLocation != null">
                 storage_location = #{storageLocation},
             </if>
-                    <if test="dataLevel != null">
+            <if test="dataLevel != null">
                 data_level = #{dataLevel},
             </if>
-                    <if test="dataIndexSystem != null">
+            <if test="dataIndexSystem != null">
                 data_index_system = #{dataIndexSystem},
             </if>
-                    <if test="isSecret != null">
+            <if test="isSecret != null">
                 is_secret = #{isSecret},
             </if>
-                    <if test="sourceType != null">
+            <if test="sourceType != null">
                 source_type = #{sourceType},
             </if>
-                    <if test="status != null">
+            <if test="status != null">
                 status = #{status},
             </if>
-                    <if test="createUserId != null">
+            <if test="createUserId != null">
                 create_user_id = #{createUserId},
             </if>
-                    <if test="createTime != null">
+            <if test="createTime != null">
                 create_time = #{createTime},
             </if>
-                    <if test="updateUserId != null">
+            <if test="updateUserId != null">
                 update_user_id = #{updateUserId},
             </if>
-                    <if test="updateTime != null">
+            <if test="updateTime != null">
                 update_time = #{updateTime},
             </if>
-                    <if test="deleteFlag != null">
+            <if test="deleteFlag != null">
                 delete_flag = #{deleteFlag},
             </if>
-                </set>
-        where  id = #{id}                                                          </update>
+        </set>
+        where id = #{id}
+    </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">
-        delete from dir_dataset <include refid="deleteWhereCause"/>
+        delete from dir_dataset
+        <include refid="deleteWhereCause"/>
     </delete>
 
     <sql id="deleteWhereCause">
         <where>
-                                <if test="id != null">
+            <if test="id != null">
                 id = #{id}
             </if>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </where>
+        </where>
     </sql>
 
     <select id="selectActivityByDeptId" resultType="map">
         SELECT
-            dba.id,
-            dba.activity_name
+        dba.id,
+        dba.activity_name
         FROM
-            drap_business_activity dba
+        drap_business_activity dba
         LEFT JOIN sys_dept sd ON dba.belong_dept = sd.id
         WHERE TRUE AND sd.id=#{dept_id}
     </select>
 
     <select id="selectDatasetByActivityId" resultType="map">
         SELECT
-            dd.id,dd.dataset_name
+        dd.id,dd.dataset_name
         FROM
-            drap_dataset dd
+        drap_dataset dd
         LEFT JOIN drap_business_activity dba ON dd.belong_activity_id = dba.id
         WHERE TRUE AND dba.id=#{activity_id}
     </select>
 
     <resultMap id="result_DrapDatasetItem_Map" type="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem">
-        <id column="id" property="id" />
-        <result column="item_code" property="itemCode" />
-        <result column="item_name" property="itemName" />
-        <result column="item_type" property="itemType" />
-        <result column="item_desc" property="itemDesc" />
-        <result column="belong_dept" property="belongDept" />
-        <result column="sensitive_remark" property="sensitiveRemark" />
-        <result column="update_frequency" property="updateFrequency" />
-        <result column="share_type" property="shareType" />
-        <result column="share_range" property="shareRange" />
-        <result column="share_method" property="shareMethod" />
-        <result column="share_condition_desc" property="shareConditionDesc" />
-        <result column="share_method_desc" property="shareMethodDesc" />
-        <result column="no_share_reason" property="noShareReason" />
-        <result column="is_open" property="isOpen" />
-        <result column="open_condition" property="openCondition" />
-        <result column="store_media" property="storeMedia" />
-        <result column="physics_store_location" property="physicsStoreLocation" />
-        <result column="code_index" property="codeIndex" />
-        <result column="create_user" property="createUser" />
-        <result column="create_time" property="createTime" />
-        <result column="update_user" property="updateUser" />
-        <result column="update_time" property="updateTime" />
+        <id column="id" property="id"/>
+        <result column="item_code" property="itemCode"/>
+        <result column="item_name" property="itemName"/>
+        <result column="item_type" property="itemType"/>
+        <result column="item_desc" property="itemDesc"/>
+        <result column="belong_dept" property="belongDept"/>
+        <result column="sensitive_remark" property="sensitiveRemark"/>
+        <result column="update_frequency" property="updateFrequency"/>
+        <result column="share_type" property="shareType"/>
+        <result column="share_range" property="shareRange"/>
+        <result column="share_method" property="shareMethod"/>
+        <result column="share_condition_desc" property="shareConditionDesc"/>
+        <result column="share_method_desc" property="shareMethodDesc"/>
+        <result column="no_share_reason" property="noShareReason"/>
+        <result column="is_open" property="isOpen"/>
+        <result column="open_condition" property="openCondition"/>
+        <result column="store_media" property="storeMedia"/>
+        <result column="physics_store_location" property="physicsStoreLocation"/>
+        <result column="code_index" property="codeIndex"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
     <select id="selectDatasetItemByDatasetId" resultMap="result_DrapDatasetItem_Map">
         SELECT
-            ddi.*
+        ddi.*
         FROM drap_dataset_item ddi
         LEFT JOIN drap_dataset_item_map ddim ON ddi.id=ddim.item_id
         LEFT JOIN drap_dataset dd ON ddim.dataset_id=dd.id
@@ -219,40 +226,40 @@
     </select>
 
     <resultMap id="result_DrapDataset_Map" type="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset">
-        <id column="id" property="id" />
-        <result column="region_code" property="regionCode" />
-        <result column="belong_dept_id" property="belongDeptId" />
-        <result column="belong_activity_id" property="belongActivityId" />
-        <result column="dataset_code" property="datasetCode" />
-        <result column="dataset_name" property="datasetName" />
-        <result column="category" property="category" />
-        <result column="sensitive_remark" property="sensitiveRemark" />
-        <result column="update_frequency" property="updateFrequency" />
-        <result column="dataset_desc" property="datasetDesc" />
-        <result column="share_type" property="shareType" />
-        <result column="share_condition_desc" property="shareConditionDesc" />
-        <result column="share_method" property="shareMethod" />
-        <result column="share_method_desc" property="shareMethodDesc" />
-        <result column="share_range" property="shareRange" />
-        <result column="no_share_reason" property="noShareReason" />
-        <result column="is_open" property="isOpen" />
-        <result column="open_condition" property="openCondition" />
-        <result column="rel_dataset_code" property="relDatasetCode" />
-        <result column="data_level" property="dataLevel" />
-        <result column="data_index_system" property="dataIndexSystem" />
-        <result column="is_secret" property="isSecret" />
-        <result column="store_media" property="storeMedia" />
-        <result column="physics_store_location" property="physicsStoreLocation" />
-        <result column="extend_code" property="extendCode" />
-        <result column="code_index" property="codeIndex" />
-        <result column="create_user" property="createUser" />
-        <result column="create_time" property="createTime" />
-        <result column="update_user" property="updateUser" />
-        <result column="update_time" property="updateTime" />
+        <id column="id" property="id"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="belong_dept_id" property="belongDeptId"/>
+        <result column="belong_activity_id" property="belongActivityId"/>
+        <result column="dataset_code" property="datasetCode"/>
+        <result column="dataset_name" property="datasetName"/>
+        <result column="category" property="category"/>
+        <result column="sensitive_remark" property="sensitiveRemark"/>
+        <result column="update_frequency" property="updateFrequency"/>
+        <result column="dataset_desc" property="datasetDesc"/>
+        <result column="share_type" property="shareType"/>
+        <result column="share_condition_desc" property="shareConditionDesc"/>
+        <result column="share_method" property="shareMethod"/>
+        <result column="share_method_desc" property="shareMethodDesc"/>
+        <result column="share_range" property="shareRange"/>
+        <result column="no_share_reason" property="noShareReason"/>
+        <result column="is_open" property="isOpen"/>
+        <result column="open_condition" property="openCondition"/>
+        <result column="rel_dataset_code" property="relDatasetCode"/>
+        <result column="data_level" property="dataLevel"/>
+        <result column="data_index_system" property="dataIndexSystem"/>
+        <result column="is_secret" property="isSecret"/>
+        <result column="store_media" property="storeMedia"/>
+        <result column="physics_store_location" property="physicsStoreLocation"/>
+        <result column="extend_code" property="extendCode"/>
+        <result column="code_index" property="codeIndex"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
     <select id="getDrapDatasetDetail" resultMap="result_DrapDataset_Map">
         select
-          *
+        *
         from drap_dataset
         where drap_dataset.id = #{id}
     </select>
