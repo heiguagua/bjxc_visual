@@ -200,6 +200,10 @@ public class SysDeptController extends BaseController {
         return handleResult;
     }
 
+    /**
+     * 根据登录用户获取部门树，用于快速添加
+     * @return
+     */
     @RequestMapping("/getDeptByPrivilege")
     @ResponseBody
     public HandleResult getDeptByPrivilege(){
@@ -209,12 +213,14 @@ public class SysDeptController extends BaseController {
             handleResult.error("登录已失效，请刷新页面！");
         }else{
             int roleType = sysUserService.selectUserRoleType(userId);
+            SysDeptVo sysDeptVo = DeptVoList(roleType);
+            handleResult.put("result",sysDeptVo);
         }
 
         return handleResult;
     }
 
-    public SysDeptVo DeptVoList(int roleType){
+    private SysDeptVo DeptVoList(int roleType){
         if(roleType==-1){//超级管理员
             List<SysDeptVo> sysDepts = sysDeptService.selectDeptListLikeTreeCode(null);
             SysDeptVo sysDeptVo = treeMenuList(sysDepts, "root", new SysDeptVo());
@@ -235,11 +241,53 @@ public class SysDeptController extends BaseController {
                 treeCodes.add(treeCode);
             }
             List<SysDeptVo> sysDepts = sysDeptService.selectDeptListLikeTreeCode(treeCodes);
-            return null;
+            SysDeptVo sysDeptVo = new SysDeptVo();
+            buildSysDeptVo(sysDepts,sysDeptVo);
+            return sysDeptVo;
         }
     }
 
-    public SysDeptVo treeMenuList(List<SysDeptVo> objectList, String parentId, SysDeptVo dir) {
+    private void buildSysDeptVo(List<SysDeptVo> list,SysDeptVo sysDeptVo){
+        int level = 0;//需要循环的次数
+        int count = 0;
+        for (SysDeptVo item : list) {
+            count = item.getDeptLevel();
+            if (count > level) {
+                level = count;
+            }
+        }
+        List<SysDeptVo> listTree = new ArrayList<>();
+        List<SysDeptVo> temList;
+        for (int i = 1; i <= level; i++) {
+            temList = new ArrayList<SysDeptVo>();
+            for (SysDeptVo item : list) {
+                if (i == item.getDeptLevel()) {
+                    temList.add(item);
+                }
+            }
+            for (SysDeptVo organizeCustom : temList) {
+                fetchStruOrg(list, organizeCustom.getId(), organizeCustom);
+                listTree.add(organizeCustom);
+            }
+            list.removeAll(temList);
+        }
+        sysDeptVo.setChilds(listTree);
+    }
+    private void fetchStruOrg(List<SysDeptVo> source,String org_code, SysDeptVo orgC){
+        List<SysDeptVo> list =new ArrayList<SysDeptVo>();
+        for (SysDeptVo org : source) {
+            String code = org.getId();
+            String fcode = org.getFid();
+            if(fcode.equals(org_code)){
+                list.add(org);
+                fetchStruOrg(source,code,org);
+            }
+        }
+        orgC.setChilds(list);
+        source.removeAll(list);
+    }
+
+    private SysDeptVo treeMenuList(List<SysDeptVo> objectList, String parentId, SysDeptVo dir) {
         List<SysDeptVo> rootDirects = new ArrayList<SysDeptVo>(1);
         if (objectList == null || objectList.isEmpty())
         {
@@ -268,44 +316,5 @@ public class SysDeptController extends BaseController {
             }
         }
         return dir;
-    }
-
-    public void buildSysDeptVo(List<SysDeptVo> list){
-        int level = 0;//需要循环的次数
-        int count = 0;
-        for (SysDeptVo item : list) {
-            count = item.getDeptLevel();
-            if (count > level) {
-                level = count;
-            }
-        }
-        List<SysDeptVo> listTree = new ArrayList<>();
-        List<SysDeptVo> temList;
-        for (int i = 1; i <= level; i++) {
-            temList = new ArrayList<SysDeptVo>();
-            for (SysDeptVo item : list) {
-                if (i == item.getDeptLevel()) {
-                    temList.add(item);
-                }
-            }
-            for (SysDeptVo organizeCustom : temList) {
-                fetchStruOrg(list, organizeCustom.getId(), organizeCustom);
-                listTree.add(organizeCustom);
-            }
-            list.removeAll(temList);
-        }
-    }
-    private void fetchStruOrg(List<SysDeptVo> source,String org_code, SysDeptVo orgC){
-        List<SysDeptVo> list =new ArrayList<SysDeptVo>();
-        for (SysDeptVo org : source) {
-            String code = org.getId();
-            String fcode = org.getFid();
-            if(fcode.equals(org_code)){
-                list.add(org);
-                fetchStruOrg(source,code,org);
-            }
-        }
-        orgC.setChilds(list);
-        source.removeAll(list);
     }
 }
