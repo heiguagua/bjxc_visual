@@ -40,9 +40,11 @@ public class SysDept implements Serializable {
 
 	private String deptFunction;
 
-	private String fcode;
+	private String fid;
 
 	private String fname;
+
+	private int deptLevel;
 
 	private String deptResponseMan;
 
@@ -180,12 +182,12 @@ public class SysDept implements Serializable {
 		this.deptFunction = deptFunction;
 	}
 
-	public String getFcode() {
-		return fcode;
+	public String getFid() {
+		return fid;
 	}
 
-	public void setFcode(String fcode) {
-		this.fcode = fcode;
+	public void setFid(String fid) {
+		this.fid = fid;
 	}
 
 	public String getFname() {
@@ -386,5 +388,13 @@ public class SysDept implements Serializable {
 
 	public void setTreeCode(String treeCode) {
 		this.treeCode = treeCode;
+	}
+
+	public int getDeptLevel() {
+		return deptLevel;
+	}
+
+	public void setDeptLevel(int deptLevel) {
+		this.deptLevel = deptLevel;
 	}
 }

@@ -36,14 +36,13 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
 
     @Override
     public boolean insertVO(SysDeptAuthorityVo vo) throws Exception {
-        String authObjIds = vo.getAuthObjIds();
-        if(StringUtils.isNotBlank(authObjIds)){
-            String[] authObjIdArray = authObjIds.split(",");
-            for(String authObjId : authObjIdArray){
-                if(StringUtils.isNotBlank(authObjId)){
+        String deptIds = vo.getDeptIds();
+        if(StringUtils.isNotBlank(deptIds)){
+            String[] deptIdArray = deptIds.split(",");
+            for(String deptId : deptIdArray){
+                if(StringUtils.isNotBlank(deptId)){
                     vo.setId(CommonUtil.get32UUID());
-                    vo.setAuthObjType(AuthObjTypeEnum.DEPT.getKey());
-                    vo.setAuthObjId(authObjId);
+                    vo.setDeptId(deptId);
                     vo.setDistributorId(ShiroUtils.getLoginUserId());
                     vo.setDistributeDate(new Date());
                     vo.setIsFromAudit("0");
@@ -60,7 +59,7 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
     public boolean updateVO(SysDeptAuthorityVo vo) throws Exception {
         //删除已有权限
         mapper.delete(new EntityWrapper<SysDeptAuthority>().eq("dept_id", vo.getDeptId()));
-		return this.insert(vo);
+		return this.insertVO(vo);
 	}
 
     @Override
@@ -85,7 +84,6 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
 
     @Override
     public List<SysDeptAuthorityVo> selectVoList(Map<String, Object> paramMap) {
-        paramMap.put("authObjType", AuthObjTypeEnum.DEPT);
         return mapper.selectVoList(paramMap);
     }
 }

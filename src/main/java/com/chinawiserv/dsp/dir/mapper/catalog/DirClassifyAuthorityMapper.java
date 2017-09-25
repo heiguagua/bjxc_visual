@@ -29,4 +29,6 @@ public interface DirClassifyAuthorityMapper extends BaseMapper<DirClassifyAuthor
     int baseUpdate(DirClassifyAuthority entity);
 
     int baseDelete(String id);
+
+    List<DirClassifyAuthorityVo> selectVoList(Map<String, Object> paramMap);
 }

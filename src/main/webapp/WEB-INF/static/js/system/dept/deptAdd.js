@@ -6,26 +6,11 @@ jQuery(document).ready(function () {
 });
 
 function initSelectData() {
-    initDeptSelectDataList();
+    $.initRegionTreeSelect('treeDemo','regionName','regionId','menuContent'); //初始化区域分类下拉框
+    // initDeptSelectDataList();
 }
 
-function initDeptSelectDataList(){
-    $.commonAjax({
-        url: basePathJS + "/system/dept/getDeptSelectDataList",
-        success: function (result) {
-            if (result.state) {
-                var selectData = result.content.selectData;
-                $("#pid").select2({
-                    data: selectData,
-                    placeholder : '',
-                    allowClear: true
-                });
 
-                $("#pid").val('').trigger("change");
-            }
-        }
-    });
-}
 
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");

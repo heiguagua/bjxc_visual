@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -62,7 +63,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
-    public JSONObject checkDeptName(String deptName, String deptId) {
+    public JSONObject checkDeptName(String deptName, String deptId){
         List<SysDept> list;
         JSONObject result = new JSONObject();
         if (StringUtils.isNotBlank(deptId)) {
@@ -80,30 +81,30 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public List<SysDeptVo> getDeptSelectDataList(Map<String, Object> paramMap) throws Exception {
         if(paramMap == null) paramMap = new HashMap();
         String regionCode = (String) paramMap.get("regionCode");
-        Boolean onlyRoot = (Boolean) paramMap.get("onlyRoot");
-        Boolean excludeRoot = (Boolean) paramMap.get("excludeRoot");
-        Boolean checkIsLeaf = (Boolean) paramMap.get("checkIsLeaf");
+        String onlyRoot = (String) paramMap.get("onlyRoot");
+        String excludeRoot = (String) paramMap.get("excludeRoot");
+        String checkIsLeaf = (String) paramMap.get("checkIsLeaf");
         if(onlyRoot == null){
-            onlyRoot = false;
+            onlyRoot = "0";
         }
         if(excludeRoot == null){
-            excludeRoot = true;
+            excludeRoot = "1";
         }
         if(checkIsLeaf == null){
-            checkIsLeaf = true;
+            checkIsLeaf = "1";
         }
         List<SysDeptVo> list = new ArrayList();
         Map<String, Object> param = this.getDeptCondition(regionCode);
         if(!param.isEmpty()){
-            if(onlyRoot){
+            if("1".equals(onlyRoot)){
                 param.put("onlyRoot", onlyRoot);
-            }else if(excludeRoot){
+            }else if("1".equals(excludeRoot)){
                 param.put("excludeRoot", excludeRoot);
             }
             list.addAll(this.selectVoList(param));
-            if(checkIsLeaf){
+            if("1".equals(checkIsLeaf)){
                 for(SysDeptVo sysDeptVo : list){
-                    sysDeptVo.setIsLeaf(this.isLeafDept(sysDeptVo.getDeptCode()));
+                    sysDeptVo.setIsLeaf(this.isLeafDept(sysDeptVo.getId()));
                 }
             }
         }
@@ -179,12 +180,27 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
-    public boolean isLeafDept(String deptCode) {
-        if(StringUtils.isBlank(deptCode)){
+    public boolean isLeafDept(String id) {
+        if(StringUtils.isBlank(id)){
             return true;
         }else{
-            return sysDeptMapper.isLeafDept(deptCode);
+            return sysDeptMapper.isLeafDept(id);
         }
     }
 
+    @Override
+    public List<SysDeptVo> selectDeptListLikeTreeCode(List<String> list) {
+        List<SysDeptVo> depts=null;
+        if (list!=null && list.size()>0){
+            depts= sysDeptMapper.selectDeptListLikeTreeCode(list);
+        }else{
+            depts= sysDeptMapper.selectDeptListLikeTreeCode(null);
+        }
+        return depts;
+    }
+
+    @Override
+    public List<String> selectDeptByPrivilege(String user_id) {
+        return sysDeptMapper.selectDeptByPrivilege(user_id);
+    }
 }

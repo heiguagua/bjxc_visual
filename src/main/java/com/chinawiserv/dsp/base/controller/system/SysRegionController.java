@@ -15,11 +15,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -150,11 +152,15 @@ public class SysRegionController extends BaseController {
 
     @RequestMapping("/getRegionSelectDataList")
     @ResponseBody
-    public  HandleResult getRegionSelectDataList(){
+    public  HandleResult getRegionSelectDataList(@RequestParam Map<String , Object> paramMap){
         HandleResult handleResult = new HandleResult();
         try {
-            JSONArray result = service.getRegionSelectDataList();
-            handleResult.put("selectData", result);
+            String fcode = (String)paramMap.get("fcode");
+            if(StringUtils.isEmpty(fcode)){
+                paramMap.put("fcode",ShiroUtils.getLoginUser().getRegionCode());
+            }
+            List<SysRegionVo> sysRegionVoList= service.getRegionSelectDataList(paramMap);
+            handleResult.put("selectData", sysRegionVoList);
         } catch (Exception e) {
             handleResult.error("获取区域列表失败");
             logger.error("获取区域列表失败", e);

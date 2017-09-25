@@ -164,4 +164,8 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
         }
     }
 
+    @Override
+    public int selectUserRoleType(String user_id) {
+        return userMapper.selectUserRoleType(user_id);
+    }
 }

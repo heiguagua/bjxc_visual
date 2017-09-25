@@ -38,16 +38,6 @@ public class DirDatasetClassifyMap implements Serializable {
 	@TableField("info_resource_code")
 	private String infoResourceCode;
     /**
-     * 注册人
-     */
-	@TableField("register_id")
-	private String registerId;
-    /**
-     * 注册时间
-     */
-	@TableField("registe_date")
-	private Date registeDate;
-    /**
      * 状态
      */
 	private String status;
@@ -93,22 +83,6 @@ public class DirDatasetClassifyMap implements Serializable {
 
 	public void setInfoResourceCode(String infoResourceCode) {
 		this.infoResourceCode = infoResourceCode;
-	}
-
-	public String getRegisterId() {
-		return registerId;
-	}
-
-	public void setRegisterId(String registerId) {
-		this.registerId = registerId;
-	}
-
-	public Date getRegisteDate() {
-		return registeDate;
-	}
-
-	public void setRegisteDate(Date registeDate) {
-		this.registeDate = registeDate;
 	}
 
 	public String getStatus() {

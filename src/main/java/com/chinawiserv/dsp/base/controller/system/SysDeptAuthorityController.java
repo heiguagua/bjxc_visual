@@ -6,6 +6,8 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
+import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -38,6 +40,9 @@ public class SysDeptAuthorityController extends BaseController {
     @Autowired
     private ISysDeptAuthorityService service;
 
+    @Autowired
+    private IDirClassifyAuthorityService dirClassifyAuthorityService;
+
     @RequiresPermissions("system:deptAuthority:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
@@ -59,25 +64,31 @@ public class SysDeptAuthorityController extends BaseController {
     /**
      * 编辑组织机构权限
      */
-    @RequiresPermissions("system:dept:edit")
+    @RequiresPermissions("system:deptAuthority:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
-    public  HandleResult editLoad(@RequestParam String deptId){
+    public  HandleResult editLoad(@RequestParam String id, @RequestParam String authType){
         HandleResult handleResult = new HandleResult();
         try {
             Map<String, Object> paramMap = new HashMap();
-            if(StringUtils.isBlank(deptId)){
-                throw new Exception("被分配的部门不能为空！");
+            if(StringUtils.isBlank(id)){
+                throw new Exception("被分配的部门权限不能为空！");
             }
-            if(ShiroUtils.getLoginUserDeptId().equals(deptId)){
-                throw new Exception("被分配的部门不能为用户所属部门！");
+            if(ShiroUtils.getLoginUserDeptId().equals(id)){
+                throw new Exception("被分配的部门权限不能为登录用户所属部门！");
             }
-            paramMap.put("deptId", deptId);
-            List<SysDeptAuthorityVo> result = service.selectVoList(paramMap);
+            List result = null;
+            paramMap.put("authObjType", AuthObjTypeEnum.DEPT);
+            paramMap.put("authObjId", id);
+            if("dept".equals(authType)){
+                result = service.selectVoList(paramMap);
+            }else if("dir".equals(authType)){
+                result = dirClassifyAuthorityService.selectVoList(paramMap);
+            }
             handleResult.put("selected", result);
         } catch (Exception e) {
-            handleResult.error("获取组织机构信息失败");
-            logger.error("获取组织机构信息失败", e);
+            handleResult.error("获取部门数据权限信息失败");
+            logger.error("获取部门数据权限失败", e);
         }
         return handleResult;
     }
@@ -88,10 +99,28 @@ public class SysDeptAuthorityController extends BaseController {
     @RequiresPermissions("system:deptAuthority:edit")
     @RequestMapping("/doEdit")
     @ResponseBody
-    public  HandleResult doEdit(SysDeptAuthorityVo entity){
+    public  HandleResult doEdit(@RequestParam Map<String, Object> paramMap){
 		HandleResult handleResult = new HandleResult();
 		try {
-		    service.updateVO(entity);
+            String authType = (String) paramMap.get("authType");
+            String authObjId = (String) paramMap.get("authObjId");
+            if("dept".equals(authType)){
+                String deptIds = (String) paramMap.get("deptIds");
+                SysDeptAuthorityVo sysDeptAuthorityVo = new SysDeptAuthorityVo();
+                sysDeptAuthorityVo.setDeptIds(deptIds);
+                sysDeptAuthorityVo.setAuthObjType(AuthObjTypeEnum.DEPT.getKey());
+                sysDeptAuthorityVo.setAuthObjId(authObjId);
+                service.updateVO(sysDeptAuthorityVo);
+            }else if("dir".equals(authType)){
+                String classifyIds = (String) paramMap.get("classifyIds");
+                String authDetail = (String) paramMap.get("authDetail");
+                DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
+                dirClassifyAuthorityVo.setClassifyIds(classifyIds);
+                dirClassifyAuthorityVo.setAuthObjType(AuthObjTypeEnum.DEPT.getKey());
+                dirClassifyAuthorityVo.setAuthObjId(authObjId);
+                dirClassifyAuthorityVo.setAuthDetail(authDetail);
+                dirClassifyAuthorityService.updateVO(dirClassifyAuthorityVo);
+            }
 		    handleResult.success("编辑部门数据权限分配表成功");
 		} catch (Exception e) {
 		    handleResult.error("编辑部门数据权限分配表失败");

@@ -196,5 +196,12 @@
             <include refid="whereCause"/>
         </select>-->
 
+    <select id="selectUserRoleType" resultType="java.lang.Integer">
+        SELECT MIN(sr.role_level)
+        FROM sys_user su
+        LEFT JOIN sys_user_role sur ON su.id=sur.user_id
+        LEFT JOIN sys_role sr ON sur.role_id=sr.id
+        WHERE TRUE AND su.id=#{user_id}
+    </select>
 
 </mapper>

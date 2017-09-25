@@ -41,6 +41,9 @@
             <if test="regionCode != null">
                 t.region_code = #{regionCode,jdbcType=VARCHAR}
             </if>
+            <if test="fcode != null">
+                t.fcode = #{fcode,jdbcType=VARCHAR}
+            </if>
         </where>
     </sql>
 
@@ -125,5 +128,11 @@
         </where>
     </sql>
 
+    <select id="selectVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
+        FROM sys_region t
+        LEFT JOIN (SELECT DISTINCT(fcode) AS dcode FROM sys_region) b ON t.region_code=b.dcode
+        <include refid="queryConditions"></include>
+    </select>
 
 </mapper>

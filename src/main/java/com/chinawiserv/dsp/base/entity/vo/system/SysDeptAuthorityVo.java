@@ -12,13 +12,13 @@ import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
  */
 public class SysDeptAuthorityVo extends SysDeptAuthority{
 
-    private String authObjIds;
+    private String deptIds;
 
-    public String getAuthObjIds() {
-        return authObjIds;
+    public String getDeptIds() {
+        return deptIds;
     }
 
-    public void setAuthObjIds(String authObjIds) {
-        this.authObjIds = authObjIds;
+    public void setDeptIds(String deptIds) {
+        this.deptIds = deptIds;
     }
 }
