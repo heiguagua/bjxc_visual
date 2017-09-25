@@ -183,7 +183,7 @@ public class DirClassifyController extends BaseController {
 		try {
 			String fcode = (String) paramMap.get("fcode");
 			if (StringUtils.isEmpty(fcode)) {
-				paramMap.put("fcode", "root");
+				paramMap.put("fid", "root");
 			}
 			List<DirClassifyVo> dirClassifyVoList = service.selectVoList(paramMap);
 			handleResult.put("vo", dirClassifyVoList);

@@ -55,7 +55,7 @@
     <select id="selectVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
         FROM dir_classify t
-        LEFT JOIN (SELECT DISTINCT(fcode) AS dcode FROM dir_classify) b ON t.classify_code=b.dcode
+        LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
         <include refid="queryConditions"></include>and delete_flag = 0 
     </select>
 
