@@ -181,8 +181,8 @@ public class DirClassifyController extends BaseController {
 	public HandleResult getClassifyListForLoginUser(@RequestParam Map<String, Object> paramMap) {
 		HandleResult handleResult = new HandleResult();
 		try {
-			String fcode = (String) paramMap.get("fcode");
-			if (StringUtils.isEmpty(fcode)) {
+			String fid = (String) paramMap.get("fid");
+			if (StringUtils.isEmpty(fid)) {
 				paramMap.put("fid", "root");
 			}
 			List<DirClassifyVo> dirClassifyVoList = service.selectVoList(paramMap);

@@ -34,7 +34,12 @@ jQuery(document).ready(function () {
                           return null;
                       }
                       for ( var i in nodeObjs) {
-                          params[i]={'id':nodeObjs[i].id,'classifyCode':nodeObjs[i].classifyCode,'classifyName':nodeObjs[i].classifyName,'fid':nodeObjs[i].fid,'isParent':(nodeObjs[i].hasLeaf=="1"?true:false)}
+                          params[i]={'id':nodeObjs[i].id,
+                        		  'classifyCode':nodeObjs[i].classifyCode,
+                        		  'classifyName':nodeObjs[i].classifyName,
+                        		  'fid':nodeObjs[i].id,
+                        		  'isParent':(nodeObjs[i].hasLeaf=="1"?true:false)
+                          }
                       }
                       return params;
                   }
@@ -53,7 +58,7 @@ jQuery(document).ready(function () {
 		        simpleData: {//简单数据模式
 		        	 enable:true,
 			         idKey: "id",
-			         pIdKey: "fid",    				         
+			         pIdKey: "parentId",    				         
 			         rootPId: "root"
 		        },
 		      	key : {

@@ -30,6 +30,9 @@
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
+            <if test="applicant != null">
+                t.applicant = #{applicant,jdbcType=VARCHAR}
+            </if>
         </where>
     </sql>
 
