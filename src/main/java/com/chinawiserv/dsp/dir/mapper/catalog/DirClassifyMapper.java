@@ -23,6 +23,11 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
     List<DirClassifyVo> selectVoListForTreeData(Map<String, Object> paramMap);
 
     DirClassifyVo selectVoById(String id);
+  //逻辑删除
+    
+    void  updateDeleteFlag(String classifyCode);
+    
+    List<DirClassifyVo> getCatelogByParentCode(String classifyCode);
 
     int selectVoCount(Map<String, Object> paramMap);
 

@@ -5,10 +5,12 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,20 +31,29 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 
     @Override
     public boolean insertVO(DirClassifyVo vo) throws Exception {
-		//todo
+		
 		return false;
     }
 
     @Override
     public boolean updateVO(DirClassifyVo vo) throws Exception {
-		//todo
-		return false;
+    	vo.setUpdateTime(new Date());
+    	String loginUserId = ShiroUtils.getLoginUserId();
+    	vo.setUpdateUserId(loginUserId);
+    	mapper.baseUpdate(vo);
+    	return true;
 	}
 
     @Override
     public boolean deleteByQuery(Map<String, Object> paramMap) throws Exception {
 		//todo
 		return false;
+	}
+    
+	@Override
+	public void DeleteByFlag(String classifyCode) {
+		mapper.updateDeleteFlag(classifyCode);
+		
 	}
 
     @Override
@@ -66,4 +77,6 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     public List<DirClassifyVo> selectVoList(Map<String, Object> paramMap) throws Exception {
         return mapper.selectVoListForTreeData(paramMap);
     }
+
+
 }

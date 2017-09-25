@@ -36,12 +36,14 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
+        	
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
             <if test="fcode != null">
                 t.fcode = #{fcode,jdbcType=VARCHAR}
             </if>
+                 
         </where>
     </sql>
 
@@ -54,12 +56,28 @@
         SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
         FROM dir_classify t
         LEFT JOIN (SELECT DISTINCT(fcode) AS dcode FROM dir_classify) b ON t.classify_code=b.dcode
-        <include refid="queryConditions"></include>
+        <include refid="queryConditions"></include>and delete_flag = 0 
     </select>
 
+
+	<update id="updateDeleteFlag" parameterType="string">
+    	update dir_classify 
+    	
+    		set delete_flag = 1
+     
+     	where  classify_code = #{classifyCode}                              
+    </update>
+    
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
         SELECT t.* FROM dir_classify t WHERE t.id = #{id}
     </select>
+
+	
+	<select id="getCatelogByParentCode" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+	
+		select * from dir_classify where fcode = #{classifyCode}
+	
+	</select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         SELECT count(1) FROM dir_classify t
