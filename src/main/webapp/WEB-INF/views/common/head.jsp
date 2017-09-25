@@ -30,6 +30,7 @@
 <link rel="stylesheet" href="<%=basePath%>/plugins/bootstrap-table/bootstrap-table.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="<%=basePath%>/app/css/AdminLTE.css">
+<%-- <link rel="stylesheet" href="<%=basePath%>/app/css/skins/_all-skins.min.css"> --%>
 <link rel="stylesheet" href="<%=basePath%>/app/css/skins/skin-blue.css">
 <!-- zTree style -->
 <link rel="stylesheet" href="<%=basePath%>/plugins/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
@@ -37,6 +38,7 @@
 <!-- 自定义 css -->
 <link rel="stylesheet"  href="<%=basePath%>/plugins/layui/css/layui.css">
 <link rel="stylesheet" href="<%=basePath%>/css/custom.css">
+<link rel="stylesheet" href="<%=basePath%>/css/Rebaseadmin.css">
 
 <%--boostrap-treeview--%>
 <link rel="stylesheet" href="<%=basePath%>/plugins/treeview/bootstrap-treeview.css" type="text/css" />

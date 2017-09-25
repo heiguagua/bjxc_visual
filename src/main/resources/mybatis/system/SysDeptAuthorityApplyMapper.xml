@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityApplyMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthorityApply">
+        <id column="id" property="id"/>
+        <result column="applicant" property="applicant"/>
+        <result column="apply_reason" property="applyReason"/>
+        <result column="apply_time" property="applyTime"/>
+        <result column="to_dept_id" property="toDeptId"/>
+        <result column="authority_type" property="authorityType"/>
+        <result column="auditor" property="auditor"/>
+        <result column="audit_time" property="auditTime"/>
+        <result column="audit_opinion" property="auditOpinion"/>
+        <result column="audit_status" property="auditStatus"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityApplyVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_dept_authority_apply t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_dept_authority_apply t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM sys_dept_authority_apply t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthorityApply">
+        insert into
+        sys_dept_authority_apply(id,applicant,apply_reason,apply_time,to_dept_id,authority_type,auditor,audit_time,audit_opinion,audit_status)
+        values(
+        #{id},#{applicant},#{applyReason},#{applyTime},#{toDeptId},#{authorityType},#{auditor},#{auditTime},#{auditOpinion},#{auditStatus}
+        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthorityApply">
+        update sys_dept_authority_apply
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="applicant != null">
+                applicant = #{applicant},
+            </if>
+            <if test="applyReason != null">
+                apply_reason = #{applyReason},
+            </if>
+            <if test="applyTime != null">
+                apply_time = #{applyTime},
+            </if>
+            <if test="toDeptId != null">
+                to_dept_id = #{toDeptId},
+            </if>
+            <if test="authorityType != null">
+                authority_type = #{authorityType},
+            </if>
+            <if test="auditor != null">
+                auditor = #{auditor},
+            </if>
+            <if test="auditTime != null">
+                audit_time = #{auditTime},
+            </if>
+            <if test="auditOpinion != null">
+                audit_opinion = #{auditOpinion},
+            </if>
+            <if test="auditStatus != null">
+                audit_status = #{auditStatus},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from sys_dept_authority_apply
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>
