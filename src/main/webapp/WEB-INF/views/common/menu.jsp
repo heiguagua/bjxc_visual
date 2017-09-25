@@ -18,8 +18,8 @@
    <!-- Sidebar Menu -->
    <ul class="sidebar-menu">
      <!-- Optionally, you can add icons to the links -->
-     <li class="header">菜单导航</li>
-
+    <!--  <li class="header">菜单导航</li>
+ -->
      <%--<c:if test="${treeMenus != null}">
         <c:forEach items="${treeMenus}" var="vo">
 
@@ -64,9 +64,9 @@
                 if(data && data.content){
 
                     var treeMenus = data.content.treeMenus ;
+                    
                     var res = data.content.res ;
                     var cur = data.content.cur ;
-
                     for(var i = 0; i < treeMenus.length; i++ ) {
                         var parentMenu = treeMenus[i];
                         var childrenMenu = parentMenu.children ;
