@@ -13,7 +13,7 @@
         <div class="content-wrapper">
             <section class="content-header">
                 <h1>
-                    <small>目录管理 > 目录编目</small>
+                    <small>返回上一级/目录管理 /目录编目</small>
                 </h1>
             </section>
             <!-- Main content -->

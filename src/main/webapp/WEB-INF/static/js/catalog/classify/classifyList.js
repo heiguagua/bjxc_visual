@@ -26,7 +26,7 @@ jQuery(document).ready(function () {
 		      async: {
                   enable: true,
                   url: basePathJS + "/dirClassify/authorityList",
-                  autoParam:["fcode"],
+                  autoParam:["fid"],
                   dataFilter: function(treeId, parentNode, childNodes){//过滤数据库查询出来的数据为ztree接受的格式
                       var params=[];
                       var nodeObjs = childNodes.content.vo;
@@ -34,7 +34,7 @@ jQuery(document).ready(function () {
                           return null;
                       }
                       for ( var i in nodeObjs) {
-                          params[i]={'id':nodeObjs[i].id,'classifyCode':nodeObjs[i].classifyCode,'classifyName':nodeObjs[i].classifyName,'fcode':nodeObjs[i].classifyCode,'isParent':(nodeObjs[i].hasLeaf=="1"?true:false)}
+                          params[i]={'id':nodeObjs[i].id,'classifyCode':nodeObjs[i].classifyCode,'classifyName':nodeObjs[i].classifyName,'fid':nodeObjs[i].fid,'isParent':(nodeObjs[i].hasLeaf=="1"?true:false)}
                       }
                       return params;
                   }
@@ -53,7 +53,7 @@ jQuery(document).ready(function () {
 		        simpleData: {//简单数据模式
 		        	 enable:true,
 			         idKey: "id",
-			         pIdKey: "parentId",    				         
+			         pIdKey: "fid",    				         
 			         rootPId: "root"
 		        },
 		      	key : {
