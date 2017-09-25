@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -62,7 +63,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
-    public JSONObject checkDeptName(String deptName, String deptId) {
+    public JSONObject checkDeptName(String deptName, String deptId){
         List<SysDept> list;
         JSONObject result = new JSONObject();
         if (StringUtils.isNotBlank(deptId)) {

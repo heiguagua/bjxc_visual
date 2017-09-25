@@ -4,9 +4,9 @@
 
 jQuery(document).ready(function () {
     window.Dict=new dict();
-    initAllSelect();
-    initInputValue();
-
+    initAllSelect();  //初始化所有下拉框
+    initInputValue(); //初始化所有需要设值的输入框的值
+    initButtonClickEvent(); //初始化按钮点击事件
 });
 
 function initAllSelect(){
@@ -37,35 +37,120 @@ function initAllSelect(){
             $("#shareConditionDiv").show();
         }
         if(selectedValue=="3"){
-            $("#share_method_div").hide();
+            $("#shareMethodDiv").hide();
         }else{
-            $("#share_method_div").show();
+            $("#shareMethodDiv").show();
         }
     });
 }
 
 function initInputValue(){
     //初始化资源提供方和提供方代码输入框的值
-    $.ajax({
-        url: CONTEXT_PATH+"/admin/Dataset_getProviderInfo",
-        type:"post",
-        data:{},
-        dataType:"json",
-        success:function(data){
-            if(data.code == 'OK'){
-                var provider = data.result;
-                $("#resource_provider").val(provider.orgName);
-                $("#resource_provider_code").val(provider.organizationCode);
-                $("#org_code").val(provider.orgCode);
+    $.commonAjax({
+        url:basePathJS + "/system/dept/getDeptInfoForLoginUser",
+        success: function (result) {
+            if (result.state) {
+                var deptObj = result.content.vo;
+                $("#resourceProvider").val(deptObj.deptName);
+                $("#resourceProviderCode").val(deptObj.deptCode);
+                $("#belongDepId").val(deptObj.id);
             }
-        },
-        error: function(xhr, c){}
+        }
     });
+}
+
+function initButtonClickEvent(){
+    //点击添加信息项按钮，新增一行表格
+    $("#N_add_itemH").on("click",function(){
+        var thisTrNum=0;
+        var trNums=$('#N_dataitemList tr').length;
+        if(trNums>0){
+            $('#N_dataitemList tr').each(function(){
+                var maxTrNum=$(this).find('input:first').attr('trNum');
+                if(maxTrNum>thisTrNum){
+                    thisTrNum=maxTrNum;
+                }
+            });
+            thisTrNum++;
+        }
+        $('#N_dataitemList').prepend('<tr id="tr_'+thisTrNum+'"><td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
+        '<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
+        '<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" min="1" type="text" class="form-control"></td>'+
+        '<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
+        '<td><input name="items['+thisTrNum+'].shareCondition" type="text" class="form-control" ></td>'+
+        '<td><select name="items['+thisTrNum+'].shareMethod" data-rule="共享方式:required;" class="form-control">'+Dict.selectsDom("dataSetShareMethod")+'</select></td>'+
+        '<td><select name="items['+thisTrNum+'].isOpen" class="form-control"><option value="1" selected>是</option><option value="0" >否</option></select></td>'+
+        '<td><input name="items['+thisTrNum+'].openCondition" type="text" class="form-control" ></td>'+
+        '<td><select name="items['+thisTrNum+'].storageMedium" data-rule="存储介质:required;" class="form-control">'+Dict.selectsDom("setItemStoreMedia")+'</select></td>'+
+        '<td><select name="items['+thisTrNum+'].storageLocation" data-rule="存储位置:required;" class="form-control">'+Dict.selectsDom("setItemStoreLocation")+'</select></td>'+
+        '<td><select name="items['+thisTrNum+'].storageLocation" data-rule="更新周期:required;" class="form-control">'+Dict.selectsDom("setItemFrequency")+'</select></td>'+
+        '<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" ></td>'+
+        '<td><a class="btn btn-danger btn-flat btn-xs" href="javascript:;" onclick="javascript:infoTableDel(\''+thisTrNum+'\')"><i class="fa fa-close">&#160;</i>删除</a></td></tr>');
+    });
+
+    //点击确定按钮
+    /*$('#addForm').on('form:submit',function(form) {
+        // 获取触发提交表单的对象
+        var formdata = form.$element.serialize();
+        $.commonAjax({  //先验证数据集名称在选择的目录类别下是否重复
+            url:basePathJS + "/catalog/checkDatasetName",
+            data:{datasetName:$("#datasetName").val(),classifyIds:$("#classifyId").val()},
+            success:function(result){
+                if(result.state){
+                    $.commonAjax({ //名称不重复，插入数据库
+                        url:basePathJS + "/catalog/doAdd",
+                        data:formdata,
+                        success:function(result){
+                            if(result.state){
+                                successMsgTip("新增成功！！");
+                            }else{
+                                errorMsgTip(result.msg);
+                            }
+                        }
+                    })
+                }else{
+                    errorMsgTip(result.msg);
+                }
+            }
+        });
+        var operate = "add";
+        var url = CONTEXT_PATH+ '/admin/Dataset_addDataset';
+        var tagArr = [];
+        var set_name=form.fields[0].value;
+        submitForm(url, formdata + '&tags=['+ tagArr + ']' + "&operate="+ operate
+            ,'set', "modal-add","add",set_name);
+        return false;
+    });*/
+}
+
+function infoTableDel(trNum){
+    var trId = "tr_"+trNum;
+    if($("#"+trId) != undefined){
+        $("#"+trId).remove();
+    }
 }
 
 
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
+    /*$.commonAjax({  //先验证数据集名称在选择的目录类别下是否重复
+        url:basePathJS + "/catalog/checkDatasetName",
+        async:false,
+        data:{datasetName:$("#datasetName").val(),classifyIds:$("#classifyId").val()},
+        success:function(result){
+            if(result.state){
+                var hasThisName = result.content.hasThisName;
+                if(hasThisName){
+                    errorMsgTip("该分类下，已存在名称为："+$("#datasetName").val()+" 的信息资源！！");
+                    return false;
+                }else{
+                    return true;
+                }
+            }else{
+                return false;
+            }
+        }
+    });*/
     return true ;
 }
 

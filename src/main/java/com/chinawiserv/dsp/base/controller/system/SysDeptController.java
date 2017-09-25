@@ -9,6 +9,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang.StringUtils;
@@ -307,5 +308,29 @@ public class SysDeptController extends BaseController {
         }
         orgC.setChilds(list);
         source.removeAll(list);
+    }
+
+    /**
+     * 获取当前登录人的所属部门信息
+     * @return
+     */
+    @RequestMapping("/getDeptInfoForLoginUser")
+    @ResponseBody
+    public HandleResult getDeptInfoForLoginUser() {
+        HandleResult handleResult = new HandleResult();
+        try {
+            SysUserVo userVo = ShiroUtils.getLoginUser();
+            String deptId = userVo.getDeptId();
+            if(!StringUtils.isEmpty(deptId)){
+                SysDeptVo deptVo = sysDeptService.selectVoById(deptId);
+                handleResult.put("vo", deptVo);
+            }else{
+                handleResult.error("当前登录人没有所属部门");
+            }
+        } catch (Exception e) {
+            handleResult.error("获取当前登录人的组织机构信息失败");
+            logger.error("获取当前登录人的组织机构信息失败", e);
+        }
+        return handleResult;
     }
 }

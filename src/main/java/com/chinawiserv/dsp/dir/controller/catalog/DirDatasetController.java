@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.dir.controller.catalog;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
@@ -81,7 +82,7 @@ public class DirDatasetController extends BaseController {
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("catalog:catalogue:add")
     @Log("创建数据集（信息资源）")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -252,6 +253,26 @@ public class DirDatasetController extends BaseController {
         }else{
             List<DrapDatasetItem> list = service.selectDatasetItemByDatasetId(set_id);
             handleResult.put("list",list);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 检查在指定目录类别下的数据集名称是否重复
+     * @param datasetName   数据集名称
+     * @param classifyIds   目录类别ids
+     * @return
+     */
+    @RequestMapping("/checkDatasetName")
+    @ResponseBody
+    public HandleResult checkDatasetName(@RequestParam(required = true) String datasetName, @RequestParam(required = true) String classifyIds){
+        HandleResult handleResult = new HandleResult();
+        try {
+            boolean hasThisName = service.checkDatasetName(datasetName, classifyIds);
+            handleResult.put("hasThisName",hasThisName);
+        } catch (Exception e) {
+            handleResult.error("检查数据集是否重名出错");
+            logger.error("检查数据集是否重名出错", e);
         }
         return handleResult;
     }
