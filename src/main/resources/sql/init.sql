@@ -60,9 +60,9 @@
   INSERT INTO `sys_menu` VALUES ('2010204', '修改目录', '20102', null, null, '4', '3', '020203', 'catalog:catalogue:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('2010205', '删除目录', '20102', null, null, '5', '3', '020204', 'catalog:catalogue:delete', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
 
-  INSERT INTO `sys_menu` VALUES ('20103', '目录注册', '201', '/catalog/register', 'fa-cog', '3', '2', '0203', 'catalog:register', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
-  INSERT INTO `sys_menu` VALUES ('2010301', '查看目录列表', '20103', null, null, '1', '3', '020301', 'catalog:register:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
-  INSERT INTO `sys_menu` VALUES ('2010302', '注册', '20103', null, null, '2', '3', '020302', 'catalog:register:save', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('20103', '目录注册', '201', '/catalog/registe', 'fa-cog', '3', '2', '0203', 'catalog:registe', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010301', '查看目录列表', '20103', null, null, '1', '3', '020301', 'catalog:registe:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('2010302', '注册', '20103', null, null, '2', '3', '020302', 'catalog:registe:save', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
 
   INSERT INTO `sys_menu` VALUES ('20104', '目录审核', '201', '/catalog/audit', 'fa-cog', '4', '2', '0204', 'catalog:audit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('2010401', '查看目录列表', '20104', null, null, '1', '3', '020401', 'catalog:audit:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
