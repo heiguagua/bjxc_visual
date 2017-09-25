@@ -39,7 +39,7 @@
                                     <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
                                     <input type="text" id="regionName" required="required"
                                            data-parsley-required-message="该项为必填" class="form-control">
-                                    <input type="hidden" id="regionId" name="regionId">
+                                    <input type="hidden" id="regionCode" name="regionCode">
                                     <div class="menu-wrap">
                                         <div id="menuContent" class="menuContent" style="display:none;">
                                             <ul id="treeDemo" class="ztree"
@@ -60,11 +60,12 @@
                                  </div>
                              </div>--%>
                             <div class="form-group">
-                                <label for="fname" style='float:left;' class="col-sm-3 control-label">父组织机构名称</label>
+                                <label for="fid" style='float:left;' class="col-sm-3 control-label">父组织机构名称</label>
                                 <div class="col-sm-3">
-                                    <select id="fname" name="fname" class="form-control">
+                                    <select id="fid" name="fid" class="form-control">
                                     </select>
                                 </div>
+                                <input type="hidden" id="fname" name="fname">
                             </div>
                             <div class="form-group">
                                 <label for="deptCode" style='float:left;' class="col-sm-3 control-label">组织机构编码</label>
@@ -235,10 +236,10 @@
                                 <label for="status" style='float:left;' class="col-sm-3 control-label">状态</label>
                                 <div class="col-sm-7">
                     <span class="radio-inline">
-	                      <input type="radio" name="status" id="inlineRadio2" value="0">启用
+	                      <input type="radio" name="status" id="inlineRadio2" value="1">启用
 	                    </span>
                                     <span class="radio-inline">
-	                      <input type="radio" name="status" id="inlineRadio3" value="1" checked>停用
+	                      <input type="radio" name="status" id="inlineRadio3" value="0" checked>停用
 	                    </span>
                                 </div>
                             </div>

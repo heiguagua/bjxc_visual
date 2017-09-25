@@ -7,8 +7,9 @@ jQuery(document).ready(function () {
 });
 
 function initSelectData() {
+    $.initDeptTreeSelect('treeDemo','deptName','deptId','menuContent'); //初始化角色分类下拉框
     initUserTypeList();
-    initDeptSelectDataList();
+    // initDeptSelectDataList();
     initRoleNameList();
 
 }
@@ -43,7 +44,7 @@ function initRoleNameList(){
         success: function (result) {
             if (result.state) {
                 var selectData = result.content.selectData;
-                $("#roleIds").select2({
+                $("#roleId").select2({
                     data: selectData
                 });
             }

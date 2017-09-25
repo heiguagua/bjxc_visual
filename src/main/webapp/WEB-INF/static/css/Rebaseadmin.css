@@ -1,11 +1,13 @@
 .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side{
 	background:#fff !important;
 }
+.main-sidebar, .left-side{
+	padding-top:70px;
+}
 .skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a{
 	background: #F2F8FF;
 	color: #4197F4;
-	border-right: 3px solid transparent;
-	border-right-color: #4197F4;
+	
 	border-left:none;
 }
 .skin-blue .sidebar-menu > li > .treeview-menu{
@@ -20,4 +22,39 @@
 }
 .skin-blue .sidebar a{
 	color: #595959;
+}
+.skin-blue .treeview-menu > li.active > a, .skin-blue .treeview-menu > li > a:hover{
+	    background: #F2F8FF;
+    color: #4197F4;
+    border-right: 3px solid transparent;
+    border-right-color: #4197F4;
+    border-left: none;
+}
+
+
+
+.main-header .navbar{
+	min-height:70px;
+}
+.main-header .logo{
+	height: 70px;
+	line-height:70px;
+}
+.skin-blue .main-header .logo{
+	background: #4197F4;
+}
+.main-header .logo .logo-lg span{
+	font-size:12px;
+}
+.skin-blue .main-header .navbar{
+	background: #142444;
+}
+.main-header .sidebar-toggle{
+	    padding: 28px 28px;
+}
+.navbar-nav > li > a{
+	    padding-top: 30px
+}
+.skin-blue .main-header .logo:hover{
+	    background: #4197F4;
 }

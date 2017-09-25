@@ -265,7 +265,7 @@ create table dir_classify
    classify_code        varchar(64) comment '【国】分类编号',
    classify_name        varchar(128) comment '【国】分类名称',
    classify_desc        varchar(1000) comment '分类描述',
-   fcode                varchar(36) comment '上级分类编号',
+   fid                varchar(36) comment '上级分类ID',
    fname                varchar(128) comment '上级分类名称',
    classify_level       int comment '级别',
    classify_index       int default 0 comment '目录类别索引',

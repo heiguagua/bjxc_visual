@@ -12,7 +12,7 @@
         <result column="classify_code" property="classifyCode"/>
         <result column="classify_name" property="classifyName"/>
         <result column="classify_desc" property="classifyDesc"/>
-        <result column="fcode" property="fcode"/>
+        <result column="fid" property="fid"/>
         <result column="fname" property="fname"/>
         <result column="classify_level" property="classifyLevel"/>
         <result column="classify_index" property="classifyIndex"/>
@@ -40,8 +40,8 @@
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
-            <if test="fcode != null">
-                t.fcode = #{fcode,jdbcType=VARCHAR}
+            <if test="fid != null">
+                t.fid = #{fid,jdbcType=VARCHAR}
             </if>
                  
         </where>
@@ -55,8 +55,8 @@
     <select id="selectVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
         FROM dir_classify t
-        LEFT JOIN (SELECT DISTINCT(fcode) AS dcode FROM dir_classify) b ON t.classify_code=b.dcode
-        <include refid="queryConditions"></include>and delete_flag = 0 
+        LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
+        <include refid="queryConditions"></include>and t.delete_flag = 0 
     </select>
 
 
@@ -86,9 +86,9 @@
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
         insert into
-        dir_classify(id,region_code,classify_code,classify_name,classify_desc,fcode,fname,classify_level,classify_index,dcm_index,order_number,classify_structure_code,classify_structure_name,status,create_user_id,create_time,update_user_id,update_time,delete_flag,)
+        dir_classify(id,region_code,classify_code,classify_name,classify_desc,fcode,fname,classify_level,classify_index,dcm_index,order_number,classify_structure_code,classify_structure_name,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
         values(
-        #{id},#{regionCode},#{classifyCode},#{classifyName},#{classifyDesc},#{fcode},#{fname},#{classifyLevel},#{classifyIndex},#{dcmIndex},#{orderNumber},#{classifyStructureCode},#{classifyStructureName},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},
+        #{id},#{regionCode},#{classifyCode},#{classifyName},#{classifyDesc},#{fcode},#{fname},#{classifyLevel},#{classifyIndex},#{dcmIndex},#{orderNumber},#{classifyStructureCode},#{classifyStructureName},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag}
         )
     </insert>
 
