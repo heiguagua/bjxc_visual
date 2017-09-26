@@ -15,7 +15,6 @@
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/system/user/doAdd">
-                        <div class="box-body">
                             <div class="form-group">
                                 <label for="userName">用户名</label>
                                 <input type="text" id="userName" name="userName" class="form-control"
@@ -41,12 +40,12 @@
                                 <select id="userType" name="userType" class="form-control select2" style="width: 100%;"></select>
                             </div>
                             <div class="form-group">
-                                <label for="telephoneNumber">电话</label>
+                                <label for="telephoneNumber">电话号码</label>
                                 <input type="text" id="telephoneNumber" name="telephoneNumber" class="form-control"
                                        placeholder="请输入电话号码" data-rule="电话:tel;">
                             </div>
                             <div class="form-group">
-                                <label for="cellPhoneNumber">手机</label>
+                                <label for="cellPhoneNumber">手机号码</label>
                                 <input type="text" id="cellPhoneNumber" name="cellPhoneNumber" class="form-control"
                                        placeholder="请输入手机号码" data-rule="电话:mobile;">
                             </div>
@@ -55,9 +54,31 @@
                                 <input type="text" id="email" name="email" class="form-control"
                                        placeholder="请输入手机号码">
                             </div>
+                        <div class="form-group">
+                            <label for="regionName" style='float:left;'>所属区域 *</label>
+                            <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
+                            <input type="text" id="regionName" required="required"
+                                   data-parsley-required-message="该项为必填" class="form-control">
+                            <input type="hidden" id="regionCode" name="regionCode">
+                            <div class="menu-wrap">
+                                <div id="menuRegionContent" class="menuRegionContent" style="display:none;">
+                                    <ul id="treeRegionDemo" class="ztree"
+                                        style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                </div>
+                            </div>
+                        </div>
                             <div class="form-group">
-                                <label for="deptId">所属组织机构</label>
-                                <select id="deptId" name="deptId" class="form-control select2" style="width: 100%;"></select>
+                                <label for="deptName" style='float:left;'>所属组织机构 *</label>
+                                    <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
+                                    <input type="text" id="deptName" required="required"
+                                           data-parsley-required-message="该项为必填" class="form-control">
+                                    <input type="hidden" id="deptId" name="deptId">
+                                    <div class="menu-wrap">
+                                        <div id="menuContent" class="menuContent" style="display:none;">
+                                            <ul id="treeDemo" class="ztree"
+                                                style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                        </div>
+                                    </div>
                             </div>
                             <div class="form-group">
                                 <label>用户描述</label>
@@ -65,17 +86,18 @@
                                           placeholder="请输入描述，最多300个字符 ..."></textarea>
                             </div>
                             <div class="form-group">
-                                <label>添加角色</label>
-                                <select id="roleIds" name="roleIds" class="form-control select2" style="width: 100%;" multiple></select>
+                                <label for="roleIds" >添加角色</label>
+                                    <select id="roleIds" name="roleIds" class="form-control" ></select>
                             </div>
+
                             <div class="form-group">
                                 <label>状态</label>
                                 <div class="col-sm-10">
                                     <label>
-                                        <input name="status" type="radio" class="minimal" checked value="1"> 启用
+                                        <input name="status" type="radio"  id="inlineRadio2" class="minimal" checked value="1"> 启用
                                     </label>
                                     <label>
-                                        <input name="status" type="radio" class="minimal"  value="-1"> 禁用
+                                        <input name="status" type="radio"  id="inlineRadio3" class="minimal"  value="-1"> 禁用
                                     </label>
                                 </div>
                             </div>

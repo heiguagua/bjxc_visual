@@ -24,7 +24,7 @@
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="addForm">
+            <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd">
                 <div class="form-group">
                     <label  class="col-sm-3 control-label">&#160;</label>
                     <div class="col-sm-9">
@@ -35,8 +35,8 @@
                     <label for="classifyName" class="col-sm-2 control-label">信息资源分类 *</label>
                     <div class="col-sm-10">
                         <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
-                        <input type="text" id="classifyName" required="required" data-parsley-required-message="该项为必填" class="form-control">
-                        <input type="hidden" id="classifyId" name="classifyId">
+                        <input type="text" id="classifyName" data-rule="required;" class="form-control">
+                        <input type="hidden" id="classifyId" name="classifyIds">
                         <div class="menu-wrap">
                             <div id="menuContent" class="menuContent" style="display:none;">
                                 <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
@@ -47,22 +47,23 @@
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">信息资源名称 *</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="datasetName" name="datasetName" placeholder="信息资源名称" disabled>
+                        <input type="text" class="form-control" id="datasetName" name="datasetName"
+                               data-rule="required;">
                     </div>
                 </div>
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">信息资源提供方</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="resourceProvider" placeholder="信息资源提供方" value="省办公厅" disabled>
+                        <input type="text" class="form-control" id="resourceProvider"  disabled>
                         <input type="hidden" id="belongDepId" name="belongDepId">
                     </div>
                     <label  class="col-sm-2 control-label">信息资源提供方代码</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="resourceProviderCode" placeholder="信息资源提供方代码" value="5100A" disabled>
+                        <input type="text" class="form-control" id="resourceProviderCode" disabled>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="datasetDesc" class="col-sm-2 control-label">信息资源摘要*</label>
+                    <label for="datasetDesc" class="col-sm-2 control-label">信息资源摘要</label>
                     <div class="col-sm-4">
                         <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="信息资源摘要*" value="无"> -->
                         <textarea class="form-control" rows="3" id="datasetDesc" name="datasetDesc">无</textarea>
@@ -72,7 +73,7 @@
                 <div class="form-group">
                     <label for="resourceFormat" class="col-sm-2 control-label">信息资源格式 *</label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="resourceFormat" name="storageMedium">
+                        <select class="form-control" id="resourceFormat" name="storageMedium" data-rule="required;">
                             <%--<option value="">--请选择--</option>
                             <option value="1" name="电子文件">电子文件</option>
                             <option value="2" name="电子表格">电子表格</option>
@@ -87,7 +88,7 @@
                 <div class="form-group">
                     <label for="shareType" class="col-sm-2 control-label">共享类型*</label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="shareType" name="shareType">
+                        <select class="form-control" id="shareType" name="shareType" data-rule="required;">
                             <%--<option value="2">--请选择--</option>
                             <option value="1" name="有条件共享">有条件共享</option>
                             <option value="2" name="无条件共享">无条件共享</option>
@@ -97,7 +98,7 @@
                 </div>
                 <!-- 有条件共享 包含无条件共享和不予共享 -->
                 <!-- 无条件共享 -->
-                <div class="form-group shareType2">
+                <div class="form-group shareType2" id="shareMethodDiv">
                     <label for="shareMethod" class="col-sm-2 control-label">共享方式*</label>
                     <div class="col-sm-4">
                         <select class="form-control" id="shareMethod" name="shareMethod">
@@ -110,13 +111,14 @@
                             <option value="9" name="其他">其他</option>--%>
                         </select>
                     </div>
+                    <span>
+                        <label for="shareMethodDesc" class="col-sm-2 control-label">共享方式说明</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="shareMethodDesc" name="shareMethodDesc" placeholder="说明">
+                        </div>
+                    </span>
                 </div>
-                <div class="form-group shareType2">
-                    <label for="shareMethodDesc" class="col-sm-2 control-label">共享方式说明</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="shareMethodDesc" name="shareMethodDesc" placeholder="说明">
-                    </div>
-                </div>
+
                 <!-- 无条件共享 end-->
                 <!-- 不予共享 -->
                 <div class="form-group shareType3" id="shareConditionDiv">
@@ -186,6 +188,16 @@
                             <th>信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>
+                            <%--<th>责任部门</th>--%>
+                            <th>共享类型</th>
+                            <th>共享条件</th>
+                            <th>共享方式</th>
+                            <th>是否向社会开放</th>
+                            <th>开放条件</th>
+                            <th>存储介质</th>
+                            <th>存储位置</th>
+                            <th>更新周期</th>
+                            <th>备注</th>
                             <th width="10%">操作</th>
                         </tr>
                         </thead>

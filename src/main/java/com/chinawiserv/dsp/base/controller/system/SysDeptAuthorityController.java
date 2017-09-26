@@ -108,7 +108,7 @@ public class SysDeptAuthorityController extends BaseController {
                 String deptIds = (String) paramMap.get("deptIds");
                 SysDeptAuthorityVo sysDeptAuthorityVo = new SysDeptAuthorityVo();
                 sysDeptAuthorityVo.setDeptIds(deptIds);
-                sysDeptAuthorityVo.setAuthObjType(AuthObjTypeEnum.USER.getKey());
+                sysDeptAuthorityVo.setAuthObjType(AuthObjTypeEnum.DEPT.getKey());
                 sysDeptAuthorityVo.setAuthObjId(authObjId);
                 service.updateVO(sysDeptAuthorityVo);
             }else if("dir".equals(authType)){
@@ -116,7 +116,7 @@ public class SysDeptAuthorityController extends BaseController {
                 String authDetail = (String) paramMap.get("authDetail");
                 DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
                 dirClassifyAuthorityVo.setClassifyIds(classifyIds);
-                dirClassifyAuthorityVo.setAuthObjType(AuthObjTypeEnum.USER.getKey());
+                dirClassifyAuthorityVo.setAuthObjType(AuthObjTypeEnum.DEPT.getKey());
                 dirClassifyAuthorityVo.setAuthObjId(authObjId);
                 dirClassifyAuthorityVo.setAuthDetail(authDetail);
                 dirClassifyAuthorityService.updateVO(dirClassifyAuthorityVo);

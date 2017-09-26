@@ -16,11 +16,21 @@ public class DirDatasetVo extends DirDataset{
 
     private List<DirDataitemVo> items;
 
+    private String classifyIds;
+
     public List<DirDataitemVo> getItems() {
         return items;
     }
 
     public void setItems(List<DirDataitemVo> items) {
         this.items = items;
+    }
+
+    public String getClassifyIds() {
+        return classifyIds;
+    }
+
+    public void setClassifyIds(String classifyIds) {
+        this.classifyIds = classifyIds;
     }
 }

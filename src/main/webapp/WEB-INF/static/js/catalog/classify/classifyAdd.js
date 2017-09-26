@@ -3,16 +3,18 @@
  */
 
 jQuery(document).ready(function () {
-    initSelectData();
+	 var parentId = $("#parentId").val();	
+     initSelectData();
 });
 
 function initSelectData() {
-    $.initDeptTreeSelect('treeDemo','deptName','deptId','menuContent'); //初始化角色分类下拉框
     initUserTypeList();
-    // initDeptSelectDataList();
+    initDeptSelectDataList();
     initRoleNameList();
-
+  
 }
+
+
 
 function initUserTypeList(){
     $.commonAjax({
@@ -60,7 +62,7 @@ function runBeforeSubmit(form) {
 function runAfterSubmitSuccess(response) {
     console.log("runAfterSubmitSuccess");
     //刷新主页面
-    parent.reloadTable();
+//    parent.reloadTable();
 }
 
 function runAfterSubmit(response) {

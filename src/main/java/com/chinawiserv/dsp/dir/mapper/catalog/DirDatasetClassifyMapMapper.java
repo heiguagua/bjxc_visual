@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetClassifyMap;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,8 @@ public interface DirDatasetClassifyMapMapper extends BaseMapper<DirDatasetClassi
 
     DirDatasetClassifyMapVo selectVoById(String id);
 
+    List<DirDatasetClassifyMapVo> checkDatasetName(@Param("datasetName") String datasetName, @Param("classifyIds")String classifyIds);
+
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(DirDatasetClassifyMap entity);
@@ -29,4 +33,6 @@ public interface DirDatasetClassifyMapMapper extends BaseMapper<DirDatasetClassi
     int baseUpdate(DirDatasetClassifyMap entity);
 
     int baseDelete(String id);
+
+    int insertListItem(List<DirDatasetClassifyMapVo> classifyMapVoList);
 }

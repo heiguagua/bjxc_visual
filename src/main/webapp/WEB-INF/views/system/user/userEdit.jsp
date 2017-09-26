@@ -36,12 +36,12 @@
                                 <select id="userType" name="userType" class="form-control select2" style="width: 100%;"></select>
                             </div>
                             <div class="form-group">
-                                <label for="telephoneNumber">电话</label>
+                                <label for="telephoneNumber">电话号码</label>
                                 <input type="text" id="telephoneNumber" name="telephoneNumber" class="form-control"
                                        placeholder="请输入电话号码" data-rule="电话:tel;">
                             </div>
                             <div class="form-group">
-                                <label for="cellPhoneNumber">手机</label>
+                                <label for="cellPhoneNumber">手机号码</label>
                                 <input type="text" id="cellPhoneNumber" name="cellPhoneNumber" class="form-control"
                                        placeholder="请输入手机号码" data-rule="手机:mobile;">
                             </div>
@@ -50,17 +50,33 @@
                                 <input type="text" id="email" name="email" class="form-control"
                                        placeholder="请输入手机号码">
                             </div>
-                            <div class="form-group">
+                            <%--<div class="form-group">
                                 <label for="deptId">所属组织机构</label>
                                 <select id="deptId" name="deptId" class="form-control select2" style="width: 100%;"></select>
+                            </div>--%>
+                            <div class="form-group">
+                                <label for="deptName" style='float:left;'>所属组织机构 *</label>
+                                <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
+                                <input type="text" id="deptName"  class="form-control">
+                                <input type="hidden" id="deptId" name="deptId">
+                                <div class="menu-wrap">
+                                    <div id="menuContent" class="menuContent" style="display:none;">
+                                        <ul id="treeDemo" class="ztree"
+                                            style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>用户描述</label>
                                 <textarea class="form-control" id="userDesc" name="userDesc" rows="3"></textarea>
                             </div>
-                            <div class="form-group">
+                           <%-- <div class="form-group">
                                 <label>添加角色</label>
                                 <select id="roleIds" name="roleIds" class="form-control select2" style="width: 100%;" multiple></select>
+                            </div>--%>
+                            <div class="form-group">
+                                <label>添加角色</label>
+                                <select id="roleId" name="roleId" class="form-control select2" style="width: 100%;"></select>
                             </div>
                             <div class="form-group">
                                 <label>状态</label>

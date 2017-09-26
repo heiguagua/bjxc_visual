@@ -16,5 +16,10 @@ import java.util.Map;
  * @since 2017-09-08
  */
 public interface IDirClassifyService extends ICommonService<DirClassify, DirClassifyVo> {
-	List<DirClassifyVo> selectVoList(Map<String,Object> paramMap) throws Exception;
+
+
+    List<DirClassifyVo> selectVoList(Map<String,Object> paramMap) throws Exception;
+
+    String generateDatasetCode(String classifyId);
+	void DeleteByFlag(String classifyCode);
 }

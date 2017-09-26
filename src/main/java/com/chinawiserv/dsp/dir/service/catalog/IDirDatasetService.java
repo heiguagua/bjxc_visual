@@ -26,5 +26,7 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
 
     List<DrapDatasetItem> selectDatasetItemByIds(List<String> list);
 
-    DrapDataset getDrapDatasetDetail(String id);
+    public DrapDataset getDrapDatasetDetail(String id);
+
+    boolean checkDatasetName(String datasetName, String classifyIds);
 }

@@ -43,7 +43,7 @@ public class DirClassify implements Serializable {
     /**
      * 上级分类编号
      */
-	private String fcode;
+	private String fid;
     /**
      * 上级分类名称
      */
@@ -145,12 +145,12 @@ public class DirClassify implements Serializable {
 		this.classifyDesc = classifyDesc;
 	}
 
-	public String getFcode() {
-		return fcode;
+	public String getFid() {
+		return fid;
 	}
 
-	public void setFcode(String fcode) {
-		this.fcode = fcode;
+	public void setFid(String fid) {
+		this.fid = fid;
 	}
 
 	public String getFname() {

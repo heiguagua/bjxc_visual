@@ -1,18 +1,14 @@
 /**
  * Created by zhanf on 2017/4/28.
  */
-
 jQuery(document).ready(function () {
-    initSelectData();
+    var classifyId = $("#classifyId").val();
+
+//    initUserTypeList();
+//    initDeptSelectDataList();
+//    initRoleNameList();
+    initFormerDate(classifyId);
 });
-
-function initSelectData() {
-    $.initDeptTreeSelect('treeDemo','deptName','deptId','menuContent'); //初始化角色分类下拉框
-    initUserTypeList();
-    // initDeptSelectDataList();
-    initRoleNameList();
-
-}
 
 function initUserTypeList(){
     $.commonAjax({
@@ -38,19 +34,45 @@ function initDeptSelectDataList(){
     });
 }
 
+//初始化用户信息
+function initFormerDate(classifyId) {
+    $.commonAjax({
+        url: basePathJS + "/dirClassify/editLoad",
+        data: {id:classifyId},
+        success: function (result) {
+            if (result.state) {
+                var vo = result.content.vo;
+                if(vo){
+
+                    $("#Eclassify_name").val(vo.classifyName);
+                    $("#Eclassify_desc").val(vo.classifyDesc);
+                                  
+
+                }
+            }
+        }
+    });
+}
+//加载角色菜单列表
 function initRoleNameList(){
     $.commonAjax({
         url: basePathJS + "/system/role/getRoleNameList",
         success: function (result) {
             if (result.state) {
-                var selectData = result.content.selectData;
+                var roleNames = result.content.selectData;
                 $("#roleIds").select2({
-                    data: selectData
+                    data: roleNames
                 });
             }
         }
     });
 }
+function deleteUser(id) {
+    var url = basePathJS + "/dirDevelopApis/delete";
+    var parameter = {id: id};
+    delObj(url , parameter) ;
+}
+
 
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
@@ -60,7 +82,7 @@ function runBeforeSubmit(form) {
 function runAfterSubmitSuccess(response) {
     console.log("runAfterSubmitSuccess");
     //刷新主页面
-    parent.reloadTable();
+//    parent.reloadTable();
 }
 
 function runAfterSubmit(response) {

@@ -89,7 +89,7 @@ function addApi(title, url, parentId, width, height, isRestful) {
         }
     }
 
-    var options = _getDefaultWinOptionsForUpdateapiList(title , url , width, height) ;
+    var options = _getDefaultWinOptions(title , url , width, height) ;
 
     createWindow(options);
 }

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/22 15:24:16                           */
+/* Created on:     2017/9/25 11:04:44                           */
 /*==============================================================*/
 
 
@@ -17,6 +17,8 @@ drop table if exists common_obj_label;
 drop table if exists dir_classify;
 
 drop table if exists dir_classify_authority;
+
+drop table if exists dir_classify_dept_map;
 
 drop table if exists dir_data_audit;
 
@@ -196,10 +198,10 @@ alter table common_extend_config_info comment '扩展属性配置表';
 /*==============================================================*/
 create table common_extend_data_info
 (
-   id                   varchar(32) not null comment 'ID',
-   extend_type          varchar(32) comment '扩展信息类别',
-   obj_id               varchar(32) comment '扩展对象ID',
-   extend_id            varchar(32) comment '扩展配置表ID',
+   id                   varchar(36) not null comment 'ID',
+   extend_type          varchar(36) comment '扩展信息类别',
+   obj_id               varchar(36) comment '扩展对象ID',
+   extend_id            varchar(36) comment '扩展配置表ID',
    extend_value         varchar(64) comment '扩展值',
    primary key (id)
 );
@@ -263,12 +265,13 @@ create table dir_classify
    classify_code        varchar(64) comment '【国】分类编号',
    classify_name        varchar(128) comment '【国】分类名称',
    classify_desc        varchar(1000) comment '分类描述',
-   fcode                varchar(36) comment '上级分类编号',
+   fid                varchar(36) comment '上级分类ID',
    fname                varchar(128) comment '上级分类名称',
    classify_level       int comment '级别',
    classify_index       int default 0 comment '目录类别索引',
    dcm_index            int default 0 comment '信息资源索引',
    order_number         int(4) comment '显示顺序',
+   icon                 varchar(256) comment '图标',
    classify_structure_code varchar(256) comment '分类结构编号',
    classify_structure_name varchar(1024) comment '分类结构名称',
    status               varchar(36) comment '状态',
@@ -299,6 +302,19 @@ create table dir_classify_authority
 );
 
 alter table dir_classify_authority comment '目录类别权限分配表';
+
+/*==============================================================*/
+/* Table: dir_classify_dept_map                                 */
+/*==============================================================*/
+create table dir_classify_dept_map
+(
+   id                   varchar(36) not null comment 'ID',
+   classify_id          varchar(36) comment '部门分类ID',
+   dept_id              varchar(36) comment '部门ID',
+   primary key (id)
+);
+
+alter table dir_classify_dept_map comment '部门分类关联表';
 
 /*==============================================================*/
 /* Table: dir_data_audit                                        */
@@ -522,7 +538,7 @@ create table dir_dataitem_source_info
    item_id              varchar(36) comment '数据项ID',
    source_obj_type      varchar(36) comment '来源对象类型',
    source_obj_id        varchar(36) comment '来源对象ID',
-   source__item_id      varchar(36) comment '来源数据项ID',
+   source_item_id       varchar(36) comment '来源数据项ID',
    primary key (id)
 );
 
@@ -727,6 +743,7 @@ create table dir_develop_apis
    api_category         varchar(36) comment 'API种类',
    api_url              varchar(128) comment 'URL地址',
    api_desc             varchar(512) comment '描述',
+   icon                 varchar(256) comment '图标',
    parent_id            varchar(36) comment '父节点ID',
    parent_name          varchar(128) comment '父节点名称',
    order_number         int(4) comment '排序',
@@ -750,10 +767,10 @@ create table dir_news
    region_code          varchar(6) comment '所属行政区划',
    title                varchar(256) comment '新闻标题',
    news_pic             varchar(128) comment '新闻图片',
-   pic_name             varchar(128),
-   pic_type             varchar(36),
-   pic_order            int(6),
-   pic_size             varchar(36),
+   pic_name             varchar(128) comment '图片名称',
+   pic_type             varchar(36) comment '图片类型',
+   pic_order            int(6) comment '播放顺序',
+   pic_size             varchar(36) comment '图片大小',
    news_content         text comment '新闻内容',
    publisher            varchar(36) comment '发布人',
    publish_date         date comment '发布时间',
@@ -780,7 +797,7 @@ create table dir_policy
    content              text comment '发布内容',
    publisher            varchar(36) comment '政策发布人',
    publish_date         date comment '发布时间',
-   visit_count          int(10),
+   visit_count          int(10) comment '浏览量',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -839,6 +856,7 @@ create table dir_special_apps
    app_category         varchar(36) comment '所属类别',
    app_name             varchar(64) comment '应用名称',
    app_url              varchar(512) comment '应用URL',
+   icon                 varchar(256) comment '图标',
    order_number         int(4) comment '排序',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
@@ -1736,6 +1754,7 @@ create table sys_dict
    dict_desc            varchar(512) comment '字典描述',
    parent_code          varchar(36) comment '上级字典编码',
    order_number         int(4) comment '显示顺序',
+   icon                 varchar(256) comment '图标',
    status               int(3) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -1947,7 +1966,7 @@ create table sys_user
    telephone_number     varchar(16) comment '电话号码',
    cell_phone_number    varchar(16) comment '手机号码',
    email                varchar(64) comment '邮箱',
-   user_img             varchar(125) comment '用户头像',
+   user_img             varchar(255) comment '用户头像',
    user_desc            varchar(512) comment '用户描述',
    status               int(3) comment '状态',
    create_user_id       varchar(36) comment '创建人',
