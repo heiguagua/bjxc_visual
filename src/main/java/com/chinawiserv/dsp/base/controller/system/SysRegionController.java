@@ -155,10 +155,13 @@ public class SysRegionController extends BaseController {
     public  HandleResult getRegionSelectDataList(@RequestParam Map<String , Object> paramMap){
         HandleResult handleResult = new HandleResult();
         try {
-            String fcode = (String)paramMap.get("fcode");
-            if(StringUtils.isEmpty(fcode)){
-                paramMap.put("fcode",ShiroUtils.getLoginUser().getRegionCode());
+            String regionCode = (String)paramMap.get("regionCode");
+            if(StringUtils.isEmpty(regionCode)){
+                regionCode = ShiroUtils.getLoginUser().getRegionCode();
+            }else{
+                paramMap.remove("regionCode");
             }
+            paramMap.put("fcode", regionCode);
             List<SysRegionVo> sysRegionVoList= service.getRegionSelectDataList(paramMap);
             handleResult.put("selectData", sysRegionVoList);
         } catch (Exception e) {

@@ -34,11 +34,14 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
 
     int baseDelete(String id);
 
+    //用户梳理系统的查询
     List<Map<String,Object>> selectActivityByDeptId(@Param("dept_id")String dept_id);
-
+    //用户梳理系统的查询
     List<Map<String,Object>> selectDatasetByActivityId(@Param("activity_id")String activity_id);
-
+    //用户梳理系统的查询
     List<DrapDatasetItem> selectDatasetItemByDatasetId(@Param("dataset_id")String dataset_id);
-
+    //用户梳理系统的查询
+    List<DrapDatasetItem> selectDatasetItemByIds(@Param("list")List<String> list);
+    //用户梳理系统的查询
     DrapDataset getDrapDatasetDetail(@Param("id") String id);
 }

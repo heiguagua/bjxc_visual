@@ -3,6 +3,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
+    <script src="<%=basePath%>/plugins/treeview/bootstrap-treeview.js"></script>
+    <script src="<%=basePath%>/plugins/treeview/data.treeview.js"></script>
     <script src="<%=basePath%>/js/catalog/catalogue/quickAddDatasetUI.js"></script>
     <style type="text/css">
         .menu-wrap{
@@ -173,21 +175,26 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="add_item" class="col-sm-2 control-label">信息项列表</label>
+                    <label class="col-sm-2 control-label">信息项列表</label>
                     <div class="col-sm-10">
-                        <p>
+                        <%--<p>
                             <a class="btn btn-primary btn-flat pull-right" id="add_item"><i class="fa fa-plus"></i> 添加信息项</a>
-                        </p>
+                        </p>--%>
                     </div>
                 </div>
                 <div class="form-group " style="overflow-x: auto;min-height:200px;">
                     <table style="width:140%">
                         <thead>
                         <tr>
+                            <th><input type="checkbox" id="selectAllItem"> 全选</th>
                             <th>信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>
                             <th>责任部门</th>
+                            <th>所属信息资源</th>
+                            <th>所属系统</th>
+                            <th>所属信息资源格式</th>
+                            <th>涉密标识</th>
                             <th>共享类型</th>
                             <th>共享条件</th>
                             <th>共享方式</th>
@@ -196,8 +203,7 @@
                             <th>存储介质</th>
                             <th>存储位置</th>
                             <th>更新周期</th>
-                            <th>备注</th>
-                            <th width="10%">操作</th>
+                            <th>标签</th>
                         </tr>
                         </thead>
                         <tbody id="dataitemList">

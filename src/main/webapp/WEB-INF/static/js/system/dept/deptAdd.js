@@ -6,7 +6,7 @@ jQuery(document).ready(function () {
 });
 
 function initSelectData() {
-    $.initRegionTreeSelect('treeDemo','regionName','regionId','menuContent'); //初始化区域分类下拉框
+    $.initRegionTreeSelect('treeDemo','regionName','regionCode','menuContent'); //初始化区域分类下拉框
     // initDeptSelectDataList();
 }
 

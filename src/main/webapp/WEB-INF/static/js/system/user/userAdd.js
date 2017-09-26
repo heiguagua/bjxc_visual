@@ -44,7 +44,7 @@ function initRoleNameList(){
         success: function (result) {
             if (result.state) {
                 var selectData = result.content.selectData;
-                $("#roleId").select2({
+                $("#roleIds").select2({
                     data: selectData
                 });
             }

@@ -1353,13 +1353,13 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
          * @param treeDivDomId      树形展开区域的DIV的id
          */
-        initRegionTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId ,oncheck) {
-            var selectIds = "";
+        initRegionTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId , multiple) {
+            var selectRegionCodes = "";
             var setting = {
                 async: {
                     enable: true,
                     url: basePathJS + "/sysRegion/getRegionSelectDataList",
-                    autoParam: ["fcode"],
+                    autoParam: ["regionCode"],
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                         var params = [];
                         var nodeObjs = childNodes.content.selectData;
@@ -1370,7 +1370,7 @@ function initGlobalCustom(tempUrlPrefix) {
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].regionName,
-                                'fcode': nodeObjs[i].regionCode,
+                                'regionCode': nodeObjs[i].regionCode,
                                 'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
                             }
                         }
@@ -1393,23 +1393,18 @@ function initGlobalCustom(tempUrlPrefix) {
                         }
                     },
                     onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的全名称，显示到输入框中
-                        $.commonAjax({
-                            url: basePathJS + "/sysRegion/editLoad",
-                            data: {id: treeNode.id},
-                            success: function (result) {
-                                if (result.state) {
-                                    var regionObj = result.content.vo;
-                                    $('#' + nameInputDomId).val(regionObj.regionName);
-                                    if (selectIds == "") {
-                                        selectIds = treeNode.id;
-                                    } else {
-                                        selectIds += "," + treeNode.id;
-                                    }
-                                    $('#' + codeInputDomId).val(selectIds);
-                                    initDeptSelectDataList(regionObj.regionCode);
-                                }
+                        $('#' + nameInputDomId).val(treeNode.name);
+                        if(multiple){
+                            if (selectRegionCodes == "") {
+                                selectRegionCodes = treeNode.regionCode;
+                            } else {
+                                selectRegionCodes += "," + treeNode.regionCode;
                             }
-                        });
+                        }else{
+                            selectRegionCodes = treeNode.regionCode;
+                        }
+                        $('#' + codeInputDomId).val(selectRegionCodes);
+                        initDeptSelectDataList(selectRegionCodes);
                     }
                 }
             };
@@ -1437,14 +1432,16 @@ function initGlobalCustom(tempUrlPrefix) {
                                     }
                                 }
                             }
-                            $("#fname").html("")
-                            $("#fname").select2({
+                            $("#fid").html("")
+                            $("#fid").select2({
                                 data: data,
                                 placeholder : '',
                                 allowClear: true
                             });
-
-                            $("#fname").val('').trigger("change");
+                            $("#fid").change(function(){
+                                $("#fname").val($("#select2-fid-container").attr("title"))
+                            })
+                            $("#fid").val('').trigger("change");
                         }
                     }
                 });
@@ -1492,8 +1489,7 @@ function initGlobalCustom(tempUrlPrefix) {
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].deptName,
-                                'fid': nodeObjs[i].regionCode,
-                                'isParent': (nodeObjs[i].isLeaf == "1" ? true : false)
+                                'isParent': (nodeObjs[i].isLeaf ? false : true)
                             }
                         }
                         return params;
@@ -1514,28 +1510,18 @@ function initGlobalCustom(tempUrlPrefix) {
                             return true;
                         }
                     },
-                    onCheck: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
-                        $.commonAjax({
-                            url: basePathJS + "/system/dept/editLoad",
-                            data: {id: treeNode.id},
-                            success: function (result) {
-                                if (result.state) {
-                                    var deptObj = result.content.vo;
-                                    $('#' + nameInputDomId).val(deptObj.deptName);
-                                    if(multiple){
-                                        if (selectIds == "") {
-                                            selectIds = treeNode.id;
-                                        } else {
-                                            selectIds += "," + treeNode.id;
-                                        }
-                                    }else{
-                                        selectIds = treeNode.id;
-                                    }
-
-                                    $('#' + codeInputDomId).val(selectIds);
-                                }
+                    onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的名称，显示到输入框中
+                        $('#' + nameInputDomId).val(treeNode.name);
+                        if(multiple){
+                            if (selectIds == "") {
+                                selectIds = treeNode.id;
+                            } else {
+                                selectIds += "," + treeNode.id;
                             }
-                        });
+                        }else{
+                            selectIds = treeNode.id;
+                        }
+                        $('#' + codeInputDomId).val(selectIds);
                     }
                 }
             };

@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * <p>
@@ -45,6 +47,8 @@ public class DirDatasetController extends BaseController {
 
     @Autowired
     private IDirDataitemService dataitemService;
+
+    @Autowired
 
     @RequestMapping("/catalogue")
     public  String init(@RequestParam Map<String , Object> paramMap){
@@ -190,8 +194,14 @@ public class DirDatasetController extends BaseController {
     public  HandleResult quickAddDataset(DirDatasetVo entity, Model model){
         HandleResult handleResult = new HandleResult();
         try {
+            entity.setId(UUID.randomUUID().toString().replace("-",""));
             service.insertVO(entity);
-            dataitemService.insertListItem(entity.getItems());
+            List<DirDataitemVo> items = entity.getItems();
+            for(DirDataitemVo item:items){
+                item.setId(UUID.randomUUID().toString().replace("-",""));
+                item.setDatasetId(entity.getId());
+            }
+            dataitemService.insertListItem(items);
             handleResult.success("创建数据集（信息资源）成功");
         } catch (Exception e) {
             handleResult.error("创建数据集（信息资源）失败");
@@ -273,6 +283,29 @@ public class DirDatasetController extends BaseController {
         } catch (Exception e) {
             handleResult.error("检查数据集是否重名出错");
             logger.error("检查数据集是否重名出错", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 获取数据项
+     * @param ids
+     * @param model
+     * @return
+     */
+    @RequestMapping("/selectDatasetItemByIds")
+    @ResponseBody
+    public  HandleResult selectDatasetItemByIds(String [] ids,Model model){
+        HandleResult handleResult = new HandleResult();
+        if(ids==null || ids.length==0){
+            handleResult.error("参数不能为空！");
+        }else{
+            List<String> strings = new ArrayList<String>();
+            for (String i:ids){
+                strings.add(i);
+            }
+            List<DrapDatasetItem> list = service.selectDatasetItemByIds(strings);
+            handleResult.put("list",list);
         }
         return handleResult;
     }

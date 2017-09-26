@@ -169,4 +169,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     }
 
 
+
+    @Override
+    public List<DrapDatasetItem> selectDatasetItemByIds(List<String> list) {
+        List<DrapDatasetItem> items=null;
+        if(list!=null && list.size()>0){
+            items= mapper.selectDatasetItemByIds(list);
+        }
+        return items;
+    }
 }

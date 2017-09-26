@@ -28,7 +28,7 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
 
-    boolean isLeafDept(String id);
+    boolean isParentDept(String id);
 
     List<SysDeptVo> selectDeptListLikeTreeCode(@Param("list")List<String> list);
 
