@@ -136,6 +136,8 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
   INSERT INTO `sys_dict_category` VALUES ('dataSetShareType', '业务数据集共享类型', null);
   INSERT INTO `sys_dict_category` VALUES ('dataSetStoreMedia', '业务数据集管理-存储介质', null);
   INSERT INTO `sys_dict_category` VALUES ('dataSetType', '业务数据集类型', null);
+  INSERT INTO `sys_dict_category` VALUES ('dataSetStatus', '业务数据集流程状态', null);
+  INSERT INTO `sys_dict_category` VALUES ('dataSetReleaseType', '业务数据集发布类型', null);
   INSERT INTO `sys_dict_category` VALUES ('dbCategory', '数据库管理-数据库大分类', null);
   INSERT INTO `sys_dict_category` VALUES ('dbType', '数据库管理-数据库类型', null);
   INSERT INTO `sys_dict_category` VALUES ('goldProjecty', '十二金工程类型', null);
@@ -158,6 +160,7 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
   INSERT INTO `sys_dict_category` VALUES ('setItemShareMethod', '业务数据集的数据项-共享方式', null);
   INSERT INTO `sys_dict_category` VALUES ('setItemStoreLocation', '业务数据集的数据项-物理存储位置', null);
   INSERT INTO `sys_dict_category` VALUES ('setItemStoreMedia', '业务数据集的数据项-存储介质', null);
+  INSERT INTO `sys_dict_category` VALUES ('setItemAuditStatus', '业务数据集的审核状态', null);
   INSERT INTO `sys_dict_category` VALUES ('systemArchitecture', '系统架构', null);
   INSERT INTO `sys_dict_category` VALUES ('systemConstructionProperty', '系统建设性质', null);
   INSERT INTO `sys_dict_category` VALUES ('systemDeploymentLocation', '系统-部署位置', null);
@@ -348,6 +351,18 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
   INSERT INTO `sys_dict` VALUES ('f1b3eec9c7204484bc4bd19d54124f66', '', 'dataSetType', 'fcca0b72e56849e3a5b7ff1e42b6a205', '222', null, null, null, '1', null, '2017-04-29 20:11:18', null, null, '0');
   INSERT INTO `sys_dict` VALUES ('f3f879edee42429a9a553c362e33ed0f', '', 'dataSetType', '839c7ed6c80d4bc4970a34bcb337bd68', 'vvvvvvvvvvvvvvvvvvvv', null, null, null, '1', null, '2017-06-27 12:20:31', null, null, '0');
   INSERT INTO `sys_dict` VALUES ('f777828ff96e4dcda1681bc0dd67a8d5', '', 'dataSetType', 'ccfd83abbb854ecda292b45063c656e0', '1213', null, null, null, '1', null, '2017-06-27 10:03:57', null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('147', '', 'dataSetStatus', '0', '待注册', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('148', '', 'dataSetStatus', '1', '待审核', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('149', '', 'dataSetStatus', '2', '审核不通过', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('150', '', 'dataSetStatus', '3', '待发布', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('151', '', 'dataSetStatus', '4', '驳回审核', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('152', '', 'dataSetStatus', '5', '已发布', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('153', '', 'dataSetReleaseType', '1', '发布到互联网', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('154', '', 'dataSetReleaseType', '2', '发布到电子政务外网', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('155', '', 'dataSetReleaseType', '3', '同时发布', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('156', '', 'setItemAuditStatus', '0', '待审核"),', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('157', '', 'setItemAuditStatus', '1', '同意', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` VALUES ('158', '', 'setItemAuditStatus', '2', '拒绝', null, null, null, '1', null, now(), null, null, '0');
 
 
   -- 行政区划相关初始化数据
