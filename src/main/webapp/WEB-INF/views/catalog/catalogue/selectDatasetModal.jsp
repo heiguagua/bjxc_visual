@@ -9,8 +9,6 @@
 <html>
 <head>
     <title>Title</title>
-    <script src="<%=basePath%>/plugins/treeview/bootstrap-treeview.js"></script>
-    <script src="<%=basePath%>/plugins/treeview/data.treeview.js"></script>
 </head>
 <body>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -52,21 +50,26 @@
                     }
                 </style>
                 <div class="col-md-12" style="/*height: 100%;*/padding: 0px;">
-                    <div class="col-md-4 col_container">
-                        <div class="header_title">组织</div>
+                    <div class="col-md-3 col_container">
+                        <div class="header_title">选择组织</div>
                         <div class="content_scroll_item list-group">
                             <div id="group_tree" class=""></div>
                         </div>
                     </div>
-                    <div class="col-md-4 col_container">
-                        <div class="header_title">业务</div>
+                    <div class="col-md-3 col_container">
+                        <div class="header_title">选择业务</div>
                         <div class="content_scroll_item list-group">
                             <div id="bus_tree" class=""></div>
                         </div>
                     </div>
-                    <div class="col-md-4 col_container">
-                        <div class="header_title">信息资源</div>
+                    <div class="col-md-3 col_container">
+                        <div class="header_title">选择信息资源</div>
                         <div id="dataset_item_container" class="content_scroll_item list-group">
+                        </div>
+                    </div>
+                    <div class="col-md-3 col_container">
+                        <div class="header_title">选择数据项</div>
+                        <div id="field_tree" class="content_scroll_item list-group">
                         </div>
                     </div>
                 </div>
@@ -74,7 +77,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="button" id="field_add" class="btn btn-primary">
                     确认
                 </button>
             </div>

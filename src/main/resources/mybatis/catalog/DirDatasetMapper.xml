@@ -209,6 +209,14 @@
         <result column="update_user" property="updateUser" />
         <result column="update_time" property="updateTime" />
     </resultMap>
+
+    <resultMap id="itemVo" type="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem" extends="result_DrapDatasetItem_Map">
+        <result column="dept_short_name" property="dept_short_name" />
+        <result column="dataset_name" property="dataset_name" />
+        <result column="system_name" property="system_name" />
+        <result column="system_id" property="system_id" />
+
+    </resultMap>
     <select id="selectDatasetItemByDatasetId" resultMap="result_DrapDatasetItem_Map">
         SELECT
             ddi.*
@@ -216,6 +224,23 @@
         LEFT JOIN drap_dataset_item_map ddim ON ddi.id=ddim.item_id
         LEFT JOIN drap_dataset dd ON ddim.dataset_id=dd.id
         WHERE TRUE AND dd.id=#{dataset_id}
+    </select>
+
+    <select id="selectDatasetItemByIds" resultMap="itemVo">
+        SELECT
+            ddi.*,sd.dept_short_name,dd.dataset_name,dis.system_name,dis.id AS system_id
+        FROM
+            drap_dataset_item ddi
+        LEFT JOIN sys_dept sd ON ddi.belong_dept = sd.id
+        LEFT JOIN drap_dataset_item_map ddim ON ddi.id = ddim.item_id
+        LEFT JOIN drap_dataset dd ON ddim.dataset_id = dd.id
+        LEFT JOIN drap_dataset_system_map ddsm ON dd.id = ddsm.dataset_id
+        LEFT JOIN drap_info_system dis ON ddsm.system_id = dis.id
+        WHERE TRUE
+        <foreach collection="list" item="item" open="AND ddi.id IN (" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY ddi.id
     </select>
 
     <resultMap id="result_DrapDataset_Map" type="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset">

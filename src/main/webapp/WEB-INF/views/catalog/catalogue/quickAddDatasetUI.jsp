@@ -3,6 +3,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
+    <script src="<%=basePath%>/plugins/treeview/bootstrap-treeview.js"></script>
+    <script src="<%=basePath%>/plugins/treeview/data.treeview.js"></script>
     <script src="<%=basePath%>/js/catalog/catalogue/quickAddDatasetUI.js"></script>
     <style type="text/css">
         .menu-wrap{
@@ -173,11 +175,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="add_item" class="col-sm-2 control-label">信息项列表</label>
+                    <label class="col-sm-2 control-label">信息项列表</label>
                     <div class="col-sm-10">
-                        <p>
+                        <%--<p>
                             <a class="btn btn-primary btn-flat pull-right" id="add_item"><i class="fa fa-plus"></i> 添加信息项</a>
-                        </p>
+                        </p>--%>
                     </div>
                 </div>
                 <div class="form-group " style="overflow-x: auto;min-height:200px;">

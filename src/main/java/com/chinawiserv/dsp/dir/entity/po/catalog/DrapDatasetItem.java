@@ -1,4 +1,5 @@
 package com.chinawiserv.dsp.dir.entity.po.catalog;
+
 public class DrapDatasetItem {
     private String id;//ID
     private String itemCode;//数据项编码
@@ -23,6 +24,35 @@ public class DrapDatasetItem {
     private java.util.Date createTime;//创建时间
     private String updateUser;//更新人
     private java.util.Date updateTime;//更新时间
+
+    private String dept_short_name;
+    private String dataset_name;
+    private String system_name;
+    private String system_id;
+    public String getDept_short_name() {
+        return dept_short_name;
+    }
+
+    public void setDept_short_name(String dept_short_name) {
+        this.dept_short_name = dept_short_name;
+    }
+
+    public String getDataset_name() {
+        return dataset_name;
+    }
+
+    public void setDataset_name(String dataset_name) {
+        this.dataset_name = dataset_name;
+    }
+
+    public String getSystem_name() {
+        return system_name;
+    }
+
+    public void setSystem_name(String system_name) {
+        this.system_name = system_name;
+    }
+
     public String getId() {
         return this.id;
     }

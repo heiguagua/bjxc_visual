@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -45,6 +46,8 @@ public class DirDatasetController extends BaseController {
 
     @Autowired
     private IDirDataitemService dataitemService;
+
+    @Autowired
 
     @RequestMapping("/catalogue")
     public  String init(@RequestParam Map<String , Object> paramMap){
@@ -258,6 +261,29 @@ public class DirDatasetController extends BaseController {
             handleResult.error("参数不能为空！");
         }else{
             List<DrapDatasetItem> list = service.selectDatasetItemByDatasetId(set_id);
+            handleResult.put("list",list);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 获取数据项
+     * @param ids
+     * @param model
+     * @return
+     */
+    @RequestMapping("/selectDatasetItemByIds")
+    @ResponseBody
+    public  HandleResult selectDatasetItemByIds(String [] ids,Model model){
+        HandleResult handleResult = new HandleResult();
+        if(ids==null || ids.length==0){
+            handleResult.error("参数不能为空！");
+        }else{
+            List<String> strings = new ArrayList<String>();
+            for (String i:ids){
+                strings.add(i);
+            }
+            List<DrapDatasetItem> list = service.selectDatasetItemByIds(strings);
             handleResult.put("list",list);
         }
         return handleResult;
