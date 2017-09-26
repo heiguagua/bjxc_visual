@@ -400,10 +400,14 @@ $(document).on('click','#add_item',function () {
         '<td><a class="btn btn-danger btn-flat btn-xs" href="javascript:;" onclick="javascript:infoTableDel(\''+thisTrNum+'\')"><i class="fa fa-close">&#160;</i>删除</a></td></tr>');
 })
 function buildItem(thisTrNum,data){
-    $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'"><td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
-        '<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
-        '<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" min="1" type="text" class="form-control"></td>'+
+    $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'">' +
+        '<td><input trNum='+thisTrNum+' type="checkbox"></td>'+
+        '<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
+        '<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.itemType)+'</select></td>'+
+        '<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+data.Length+'" min="1" type="text" class="form-control"></td>'+
         '<td></td>'+
+        '<td><input type="text" disabled value="'+data.dataset_name+'"></td>'+
+        '<td><select name="items['+thisTrNum+'].belongSystemId" data-rule="系统:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.itemType)+'</select></td>'+
         '<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
         '<td><input name="items['+thisTrNum+'].shareCondition" type="text" class="form-control" ></td>'+
         '<td><select name="items['+thisTrNum+'].shareMethod" data-rule="共享方式:required;" class="form-control">'+Dict.selectsDom("dataSetShareMethod")+'</select></td>'+
