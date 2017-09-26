@@ -19,10 +19,11 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    选择数据集
+                  配置数据项
                 </h4>
+                	
             </div>
-            <div class="modal-body" style="height: 250px;padding: 0px 1px 2px 1px;">
+            <div class="modal-body" style="height: 300px;">
                 <style>
                     .col_container{
                         border: solid #C3C3C3 1px;
@@ -49,6 +50,7 @@
                         overflow: auto;
                     }
                 </style>
+                <p>选择数据项</p>
                 <div class="col-md-12" style="/*height: 100%;*/padding: 0px;">
                     <div class="col-md-3 col_container">
                         <div class="header_title">选择组织</div>
@@ -59,7 +61,9 @@
                     <div class="col-md-3 col_container">
                         <div class="header_title">选择业务</div>
                         <div class="content_scroll_item list-group">
-                            <div id="bus_tree" class=""></div>
+                            <div id="bus_tree" class="" style="text-align:center">
+                            <img alt="" src="<%=basePath%>/images/addimg/orgcontainer.png">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3 col_container">
