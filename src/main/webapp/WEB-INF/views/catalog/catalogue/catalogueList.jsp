@@ -30,9 +30,9 @@
                             <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
                                 <div class="box-header">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle"
+                                        <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
                                                 data-toggle="dropdown">
-                                            <i class="fa fa-plus"></i>快速添加<span class="caret"></span>
+                                           <!--  <i class="fa fa-plus"></i> -->快速添加<span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li>
@@ -44,14 +44,23 @@
                                         </ul>
                                     </div>
                                     <div class="input-group">
-                                        <a class="btn btn-default btn-flat" onclick="javascript:addCustom()">
-                                            <i class="fa fa-plus-circle"></i>自定义添加
+                                        <a class="btn btn-default btn-flat  btn-myself" onclick="javascript:addCustom()">
+                                            <!-- <i class="fa fa-plus-circle"></i> -->自定义添加
                                         </a>
                                     </div>
                                     <div class="input-group">
-                                        <input class="form-control" id="editSelect" name="selectEdit" placeholder="请选择" type="text" />
+                                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
+                                                data-toggle="dropdown">
+                                            <!-- <i class="fa fa-plus"></i> -->导入<span class="caret"></span>
+                                        </button>
                                     </div>
                                     <div class="input-group">
+                                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle btn-myself"
+                                                data-toggle="dropdown">
+                                            <!-- <i class="fa fa-plus"></i> -->删除<span class="caret"></span>
+                                        </button>
+                                    </div>
+                                    <div class="input-group" style="float:right">
                                         <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称" type="text">
                                         <div class="input-group-btn">
                                             <button class="btn btn-primary btn-flat" id="queryBtnEdit" type="button">
@@ -60,6 +69,10 @@
                                         </div>
                                         </input>
                                     </div>
+                                    <div class="input-group" style="float:right;margin-right:4px;">
+                                        <input class="form-control" id="editSelect" name="selectEdit" placeholder="全部目录" type="text" />
+                                    </div>
+                                    
                                 </div>
                             </form>
                             <div class="box-body table-responsive no-padding">
