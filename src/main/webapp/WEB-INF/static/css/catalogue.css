@@ -1,0 +1,17 @@
+.title_ul{
+	margin-top:10px;
+	    height: 35px;
+border-bottom:1px solid #ccc;
+    width: 320px;
+}
+.title_ul>li{
+	float:left;
+	margin-right:20px;
+	color: #8F8F8F;
+	font-size:18px;
+	cursor:pointer;
+		
+}
+.title_ul>li.active{
+	color: #4197F4;
+}

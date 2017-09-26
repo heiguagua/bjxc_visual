@@ -39,6 +39,7 @@
 <link rel="stylesheet"  href="<%=basePath%>/plugins/layui/css/layui.css">
 <link rel="stylesheet" href="<%=basePath%>/css/custom.css">
 <link rel="stylesheet" href="<%=basePath%>/css/Rebaseadmin.css">
+<link rel="stylesheet" href="<%=basePath%>/css/catalogue.css">
 
 <%--boostrap-treeview--%>
 <link rel="stylesheet" href="<%=basePath%>/plugins/treeview/bootstrap-treeview.css" type="text/css" />
