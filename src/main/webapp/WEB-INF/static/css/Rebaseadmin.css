@@ -58,3 +58,19 @@
 .skin-blue .main-header .logo:hover{
 	    background: #4197F4;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+.content-header > h1 > small{
+	font-size:12px;
+}

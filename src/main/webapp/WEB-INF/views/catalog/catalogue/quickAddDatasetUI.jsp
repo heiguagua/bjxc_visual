@@ -186,10 +186,15 @@
                     <table style="width:140%">
                         <thead>
                         <tr>
+                            <th><input type="checkbox" id="selectAllItem"> 全选</th>
                             <th>信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>
                             <th>责任部门</th>
+                            <th>所属信息资源</th>
+                            <th>所属系统</th>
+                            <th>所属信息资源格式</th>
+                            <th>涉密标识</th>
                             <th>共享类型</th>
                             <th>共享条件</th>
                             <th>共享方式</th>
@@ -198,8 +203,7 @@
                             <th>存储介质</th>
                             <th>存储位置</th>
                             <th>更新周期</th>
-                            <th>备注</th>
-                            <th width="10%">操作</th>
+                            <th>标签</th>
                         </tr>
                         </thead>
                         <tbody id="dataitemList">

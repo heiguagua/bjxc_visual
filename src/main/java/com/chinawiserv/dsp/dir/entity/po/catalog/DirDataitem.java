@@ -131,7 +131,19 @@ public class DirDataitem implements Serializable {
      */
 	@TableField("delete_flag")
 	private Integer deleteFlag;
+	/**
+     * 所属系统
+     */
+	@TableField("belong_system_id")
+	private String belongSystemId;
 
+	public String getBelongSystemId() {
+		return belongSystemId;
+	}
+
+	public void setBelongSystemId(String belongSystemId) {
+		this.belongSystemId = belongSystemId;
+	}
 
 	public String getId() {
 		return id;
