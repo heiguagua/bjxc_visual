@@ -37,11 +37,12 @@
                 </div> -->
                 <div class="form-group">
                 	<div class="row">
-	                	<div class="col-sm-6">
-		                    <label for="classifyName" class="col-sm-3 control-label">信息资源分类 :</label>
+	                	<div class="col-sm-7">
+		                    <label for="classifyName" class="col-sm-3 control-label" style="width: 21%;">信息资源分类 :</label>
 		                    <div class="col-sm-9">
 		                        <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
-		                        <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control">
+		                        <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+		                         placeholder="基础信息资源目录>人口目录>专题信息>房屋租赁人员">
 		                        <input type="hidden" id="classifyId" name="classifyId">
 		                        <div class="menu-wrap">
 		                            <div id="menuContent" class="menuContent" style="display:none;">
@@ -50,7 +51,7 @@
 		                        </div>
 		                    </div>
 		                 </div>   
-	                	<div class="col-sm-6">
+	                	<div class="col-sm-5">
 	                		<label class="col-sm-3"></label>
 	                		<div class="col-sm-9">
 	                			 <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas" data-toggle="modal" data-target="#myModal">
