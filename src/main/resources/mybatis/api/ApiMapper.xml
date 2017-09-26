@@ -97,8 +97,8 @@
         sourceddtc.`id` AS sourceColumnId,
         targetddti.`table_name` AS targetTableName,
         targetddti.`id` AS targetTableId,
-        targetddtc.`column_en_name` AS targetTableName,
-        targetddtc.`id` AS targetTableId,
+        targetddtc.`column_en_name` AS targetColumnName,
+        targetddtc.`id` AS targetColumnId,
         ddsr.`relation_type` AS relationType
         FROM
         dir_dataset dd
@@ -127,8 +127,8 @@
         sourceddtc.`id` AS sourceColumnId,
         targetddti.`table_name` AS targetTableName,
         targetddti.`id` AS targetTableId,
-        targetddtc.`column_en_name` AS targetTableName,
-        targetddtc.`id` AS targetTableId,
+        targetddtc.`column_en_name` AS targetColumnName,
+        targetddtc.`id` AS targetColumnId,
         ddtr.`relation_type` AS relationType
         FROM
         dir_dataset dd
@@ -143,9 +143,9 @@
         LEFT JOIN drap_db_table_info targetddti
         ON targetddti.`id` = ddtr.`target_table`
         LEFT JOIN drap_db_table_column sourceddtc
-        ON sourceddti.`id` = ddtr.`source_column`
+        ON sourceddtc.`id` = ddtr.`source_column`
         LEFT JOIN drap_db_table_column targetddtc
-        ON targetddti.`id` = ddtr.`target_column`
+        ON targetddtc.`id` = ddtr.`target_column`
         WHERE ddsi.`source_mode` = 'source'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`

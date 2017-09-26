@@ -171,7 +171,8 @@ public class ApiServiceImpl implements IApiService {
                     dirDatasetServiceMap.setStatus(status);
                     dirDatasetServiceMap.setValidFrom(startDate);
                     dirDatasetServiceMap.setValidTo(endDate);
-                    dirDatasetServiceMap.setDcmId(dcmId);
+                    dirDatasetServiceMap.setObjId(null);
+                    dirDatasetServiceMap.setObjType(null);
                     /**
                      * 插入服务信息
                      * */
