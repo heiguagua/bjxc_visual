@@ -72,8 +72,8 @@ public class SyncUserInfoTaskSchema {
                     users.add(sysUser);
                 }
 
-                ResultSet rsDept = stmt.executeQuery("SELECT a.*,b.uuid AS fuuid FROM "+ viewDeptTableName+" a\n" +
-                        "LEFT JOIN "+viewDeptTableName+" b ON b.org_code = a.org_fcode");
+                ResultSet rsDept = stmt.executeQuery("SELECT a.*,b.uuid AS fuuid FROM "+ viewDeptTableName +" a\n" +
+                        "LEFT JOIN "+ viewDeptTableName +" b ON b.org_code = a.org_fcode");
                 SysDept sysDept= null;
                 while (rsDept.next()){
                     sysDept = new SysDept();
