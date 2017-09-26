@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,33 +35,42 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
 
     @Override
     public boolean insertVO(SysDeptAuthorityApplyVo vo) throws Exception {
+        String applicant = vo.getApplicant();
+        if(StringUtils.isBlank(applicant)){
+            applicant = ShiroUtils.getLoginUserId();
+        }
         String toDeptIds = vo.getToDeptIds();
-        if(StringUtils.isNotBlank(toDeptIds)){
+        if(StringUtils.isNoneBlank(applicant, toDeptIds)) {
             String[] toDeptIdArray = toDeptIds.split(",");
-            for(String toDeptId : toDeptIdArray){
-                SysDeptAuthorityApply apply = new SysDeptAuthorityApply();
-                apply.setId(CommonUtil.get32UUID());
-                apply.setApplicant(ShiroUtils.getLoginUserId());
-                apply.setToDeptId(toDeptId);
-                apply.setApplyTime(new Date());
-                apply.setAuditStatus("0");
-                if(!insert(apply)){
-                    throw new Exception("添加失败！");
+            Map paramMap = new HashMap();
+            paramMap.put("applicant", applicant);
+            paramMap.put("toDeptIds", toDeptIdArray);
+            int count = selectVoCount(paramMap);
+            if(count <= 0){
+                for (String toDeptId : toDeptIdArray) {
+                    SysDeptAuthorityApply apply = new SysDeptAuthorityApply();
+                    apply.setId(CommonUtil.get32UUID());
+                    apply.setApplicant(applicant);
+                    apply.setToDeptId(toDeptId);
+                    apply.setApplyTime(new Date());
+                    apply.setAuditStatus("0");
+                    if (!insert(apply)) {
+                        throw new Exception("添加部门数据权限申请失败！");
+                    }
                 }
-            }
-            return true;
-        }else return false;
+                return true;
+            }else throw new Exception("重复添加部门数据权限申请！");
+        }
+        return false;
     }
 
     @Override
     public boolean updateVO(SysDeptAuthorityApplyVo vo) throws Exception {
-		//todo
-		return false;
+        return false;
 	}
 
     @Override
     public boolean deleteByQuery(Map<String, Object> paramMap) throws Exception {
-		//todo
 		return false;
 	}
 
@@ -83,7 +93,6 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
 
     @Override
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return 0;
+		return mapper.selectVoCount(paramMap);
 	}
 }

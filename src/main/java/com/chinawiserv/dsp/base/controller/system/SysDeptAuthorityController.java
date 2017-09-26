@@ -74,9 +74,6 @@ public class SysDeptAuthorityController extends BaseController {
             if(StringUtils.isBlank(id)){
                 throw new Exception("被分配的部门权限不能为空！");
             }
-            if(ShiroUtils.getLoginUserDeptId().equals(id)){
-                throw new Exception("被分配的部门权限不能为登录用户所属部门！");
-            }
             List result = null;
             paramMap.put("authObjType", AuthObjTypeEnum.DEPT);
             paramMap.put("authObjId", id);
