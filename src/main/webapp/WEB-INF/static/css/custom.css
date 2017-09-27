@@ -129,6 +129,12 @@ table td {
     border-radius: 0;
 }
 
+.table tbody tr td p{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .layui-table {
     margin-top: 0;
 }
@@ -172,7 +178,7 @@ table td {
 
 .content_scroll_item {
     overflow: auto;
-    height: 230px;
+    height: 274px;
 }
 
 .btnw100 {
@@ -216,3 +222,17 @@ table td {
     /*height: 1px;*/
     width: 100%;
     background: #eee;}
+
+.menu-wrap{
+    position:relative;
+
+}
+.menu-wrap .menuContent{
+    top: 0 !important;
+    display: block;
+    position: absolute;
+    left: 0 !important;
+    z-index: 1999;
+    background: #FFF;
+    width: 100%;
+}

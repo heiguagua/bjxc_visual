@@ -14,29 +14,57 @@ jQuery(document).ready(function () {
             title: '配置编码',
             align: 'center',
             valign: 'middle',
-            width : '150px' ,
+            // width : '150px' ,
             sortable: false
         }, {
             field: 'settingName',
             title: '配置名称',
             align: 'center',
             valign: 'middle',
-            width : '150px' ,
+            // width : '150px' ,
             sortable: false
         }, {
             field: 'settingValue',
             title: '配置值',
             align: 'center',
             valign: 'middle',
-            width : '400px' ,
+            // width : '400px' ,
             sortable: false
         }, {
+            field: 'regionCode',
+            title: '所属区域',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        },
+            {
             field: 'settingDesc',
             title: '配置描述',
             align: 'center',
             valign: 'middle',
             sortable: false
         }, {
+            field: 'status',
+            title: '状态',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        },
+            {
+                field: 'createUserName',
+                title: '创建人',
+                align: 'center',
+                valign: 'middle',
+                sortable: false
+            },
+            {
+                field: 'createTime',
+                title: '创建时间',
+                align: 'center',
+                valign: 'middle',
+                sortable: false
+            },
+            {
             field: 'updateUserName',
             title: '更新人',
             align: 'center',
@@ -47,7 +75,7 @@ jQuery(document).ready(function () {
             title: '更新时间',
             align: 'center',
             valign: 'middle',
-            width : '180px' ,
+            // width : '180px' ,
             sortable: false
         }, {
             field: 'id',

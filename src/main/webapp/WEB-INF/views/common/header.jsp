@@ -6,7 +6,7 @@
    <!-- mini logo for sidebar mini 50x50 pixels -->
    <span class="logo-mini"><b>${systemSubName}</b></span>
    <!-- logo for regular state and mobile devices -->
-   <span class="logo-lg"><span><img src="../../static/images/addimg/favicon@2x.ICO"/>政务信息资源管理-${systemName}</span></span>
+   <span class="logo-lg"><span><img src="<%=basePath%>/images/addimg/logo.png"/>&nbsp;政务信息资源管理-${systemName}</span></span>
  </a>
 
  <!-- Header Navbar -->
@@ -14,6 +14,17 @@
    <!-- Sidebar toggle button-->
    <!-- <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a> -->
    <!-- Navbar Right Menu -->
+   
+   <div class="btn-group">
+   	<ul class="nav_uls">
+   		<li><i class="fa fa-institution (alias)"></i>&nbsp;资源梳理</li>
+   		<li class="active"><i class="fa fa-list-alt"></i>&nbsp;目录管理</li>
+   		<li><i class="fa fa-newspaper-o"></i>&nbsp;服务封装</li>
+   		<li><i class="fa  fa-database"></i>&nbsp;采集系统</li>
+   	</ul>
+   </div>
+   
+   
    <div class="navbar-custom-menu">
      <ul class="nav navbar-nav">
        <!-- Notifications Menu -->

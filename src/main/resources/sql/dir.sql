@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/25 11:04:44                           */
+/* Created on:     2017/9/27 14:12:20                           */
 /*==============================================================*/
 
 
@@ -20,6 +20,8 @@ drop table if exists dir_classify_authority;
 
 drop table if exists dir_classify_dept_map;
 
+drop table if exists dir_data_apply;
+
 drop table if exists dir_data_audit;
 
 drop table if exists dir_data_collection;
@@ -27,6 +29,12 @@ drop table if exists dir_data_collection;
 drop table if exists dir_data_comment;
 
 drop table if exists dir_data_correction;
+
+drop table if exists dir_data_distribute;
+
+drop table if exists dir_data_item_apply;
+
+drop table if exists dir_data_item_distribute;
 
 drop table if exists dir_data_offline;
 
@@ -39,10 +47,6 @@ drop table if exists dir_data_registe;
 drop table if exists dir_data_visit;
 
 drop table if exists dir_dataitem;
-
-drop table if exists dir_dataitem_apply;
-
-drop table if exists dir_dataitem_distribute;
 
 drop table if exists dir_dataitem_source_info;
 
@@ -67,6 +71,8 @@ drop table if exists dir_dataset_service_map;
 drop table if exists dir_dataset_source_info;
 
 drop table if exists dir_dataset_source_relation;
+
+drop table if exists dir_dataset_survey;
 
 drop table if exists dir_develop_apis;
 
@@ -106,9 +112,13 @@ drop table if exists drap_data_meta;
 
 drop table if exists drap_dataset;
 
+drop table if exists drap_dataset_ext_format;
+
 drop table if exists drap_dataset_item;
 
 drop table if exists drap_dataset_item_map;
+
+drop table if exists drap_dataset_survey;
 
 drop table if exists drap_dataset_system_map;
 
@@ -265,7 +275,7 @@ create table dir_classify
    classify_code        varchar(64) comment '【国】分类编号',
    classify_name        varchar(128) comment '【国】分类名称',
    classify_desc        varchar(1000) comment '分类描述',
-   fid                varchar(36) comment '上级分类ID',
+   fid                  varchar(36) comment '上级分类ID',
    fname                varchar(128) comment '上级分类名称',
    classify_level       int comment '级别',
    classify_index       int default 0 comment '目录类别索引',
@@ -280,6 +290,8 @@ create table dir_classify
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
+   tree_index           int(6) comment '树索引',
+   tree_code            varchar(1000) comment '树编码',
    primary key (id)
 );
 
@@ -315,6 +327,27 @@ create table dir_classify_dept_map
 );
 
 alter table dir_classify_dept_map comment '部门分类关联表';
+
+/*==============================================================*/
+/* Table: dir_data_apply                                        */
+/*==============================================================*/
+create table dir_data_apply
+(
+   id                   varchar(36) not null comment 'id',
+   dcm_id               varchar(36) comment '申请信息资源ID',
+   applicant_id         varchar(36) comment '申请人ID',
+   apply_info           varchar(512) comment '申请详情',
+   apply_date           datetime comment '申请时间',
+   limit_visit_cnt      int comment '申请访问次数',
+   limit_visit_date_period varchar(256) comment '申请访问有效期范围',
+   auditor_id           varchar(36) comment '审核人',
+   status               varchar(36) comment '审核状态',
+   audit_opinion        varchar(512) comment '审核意见',
+   audit_date           datetime comment '审核时间',
+   primary key (id)
+);
+
+alter table dir_data_apply comment '数据集权限申请表';
 
 /*==============================================================*/
 /* Table: dir_data_audit                                        */
@@ -380,6 +413,52 @@ create table dir_data_correction
 );
 
 alter table dir_data_correction comment '数据纠错记录';
+
+/*==============================================================*/
+/* Table: dir_data_distribute                                   */
+/*==============================================================*/
+create table dir_data_distribute
+(
+   id                   varchar(36) not null comment 'id',
+   dcm_id               varchar(36) comment '分配信息资源ID',
+   limit_visit_cnt      int comment '申请访问次数',
+   limit_visit_date_period varchar(256) comment '申请访问有效期范围',
+   obj_type             varchar(36) comment '分配对象类型',
+   obj_id               varchar(36) comment '分配对象ID',
+   distributor_id       varchar(36) comment '分配操作人',
+   distribute_opinion   varchar(512) comment '分配意见',
+   distribute_date      date comment '分配操作时间',
+   primary key (id)
+);
+
+alter table dir_data_distribute comment '数据集权限分配表';
+
+/*==============================================================*/
+/* Table: dir_data_item_apply                                   */
+/*==============================================================*/
+create table dir_data_item_apply
+(
+   id                   varchar(36) not null comment 'id',
+   dcm_id               varchar(36) comment '申请信息资源ID',
+   item_id              varchar(36) comment '申请数据项ID',
+   status               varchar(36) comment '审核状态',
+   primary key (id)
+);
+
+alter table dir_data_item_apply comment '数据项权限申请表';
+
+/*==============================================================*/
+/* Table: dir_data_item_distribute                              */
+/*==============================================================*/
+create table dir_data_item_distribute
+(
+   id                   varchar(36) not null comment 'id',
+   dcm_id               varchar(36) comment '分配信息资源ID',
+   item_id              varchar(36) comment '分配数据项ID',
+   primary key (id)
+);
+
+alter table dir_data_item_distribute comment '数据项权限分配表';
 
 /*==============================================================*/
 /* Table: dir_data_offline                                      */
@@ -472,12 +551,15 @@ create table dir_dataitem
    item_length          int(6) comment '【国】数据项长度',
    belong_dept_id       varchar(36) comment '责任部门',
    share_type           varchar(36) comment '共享类型',
-   share_method         varchar(36) comment '共享方式',
    share_condition      varchar(500) comment '共享条件',
-   no_share_explain     varchar(500) comment '不予共享说明',
-   is_open              varchar(36) comment '是否开放',
+   share_method_category char(10) comment '共享方式分类',
+   share_method         varchar(36) comment '共享方式',
+   is_open              varchar(36) comment '是否向社会开放',
    open_condition       varchar(500) comment '开放条件',
    update_frequency     varchar(36) comment '更新周期',
+   format_category      varchar(36) comment '资源格式分类',
+   format_type          varchar(36) comment '资源格式类型',
+   format_info          varchar(256) comment '资源格式说明',
    storage_medium       varchar(36) comment '存储介质',
    storage_location     varchar(500) comment '存储位置',
    status               varchar(36) comment '状态',
@@ -490,44 +572,6 @@ create table dir_dataitem
 );
 
 alter table dir_dataitem comment '数据集对应数据项表【国】';
-
-/*==============================================================*/
-/* Table: dir_dataitem_apply                                    */
-/*==============================================================*/
-create table dir_dataitem_apply
-(
-   id                   varchar(36) not null comment 'id',
-   dcm_id               varchar(36) comment '申请信息资源ID',
-   item_id              varchar(36) comment '申请数据项ID',
-   applicant_id         varchar(36) comment '申请人ID',
-   apply_info           varchar(512) comment '申请详情',
-   apply_date           datetime comment '申请时间',
-   auditor_id           varchar(36) comment '审核人',
-   status               varchar(36) comment '审核状态',
-   audit_opinion        varchar(512) comment '审核意见',
-   audit_date           datetime comment '审核时间',
-   primary key (id)
-);
-
-alter table dir_dataitem_apply comment '数据项权限申请表';
-
-/*==============================================================*/
-/* Table: dir_dataitem_distribute                               */
-/*==============================================================*/
-create table dir_dataitem_distribute
-(
-   id                   varchar(36) not null comment 'id',
-   dcm_id               varchar(36) comment '分配信息资源ID',
-   item_id              varchar(36) comment '分配数据项ID',
-   obj_type             varchar(36) comment '分配对象类型',
-   obj_id               varchar(36) comment '分配对象ID',
-   distributor_id       varchar(36) comment '分配操作人',
-   distribute_opinion   varchar(512) comment '分配意见',
-   distribute_date      date comment '分配操作时间',
-   primary key (id)
-);
-
-alter table dir_dataitem_distribute comment '数据项权限分配表';
 
 /*==============================================================*/
 /* Table: dir_dataitem_source_info                              */
@@ -554,11 +598,13 @@ create table dir_dataset
    dataset_code         varchar(64) comment '数据集编码',
    dataset_name         varchar(128) comment '【国】信息资源名称',
    alias                varchar(128) comment '别名',
+   belong_dept_type     varchar(36) comment '【国】信息资源提供方类型',
    belong_dept_id       varchar(36) comment '【国】信息资源提供方ID',
    dataset_desc         varchar(1000) comment '【国】信息资源摘要',
    share_type           varchar(36) comment '【国】信息资源共享类型',
    share_condition      varchar(500) comment '【国】信息资源共享条件',
-   share_method         varchar(36) comment '【国】信息资源共享方式',
+   share_method_category varchar(36) comment '【国】信息资源共享方式分类',
+   share_method         varchar(36) comment '【国】信息资源共享方式类型',
    share_method_desc    varchar(500) comment '信息资源共享方式说明',
    is_open              varchar(36) comment '【国】信息资源是否社会开放',
    open_condition       varchar(500) comment '【国】信息资源开放条件',
@@ -731,6 +777,24 @@ create table dir_dataset_source_relation
 );
 
 alter table dir_dataset_source_relation comment '信息资源来源关系表';
+
+/*==============================================================*/
+/* Table: dir_dataset_survey                                    */
+/*==============================================================*/
+create table dir_dataset_survey
+(
+   id                   varchar(36) not null comment 'id',
+   dataset_id           varchar(36) comment '数据集ID',
+   total_storage        int(16) comment '数据存储总量',
+   structure_count      int(16) comment '结构化信息记录总数',
+   shared_storage       int(16) comment '已共享的数据存储量',
+   shared_structure_count int(16) comment '已共享的结构化记录数',
+   opened_storage       int(16) comment '已开放的数据存储量',
+   opened_structure_count int(16) comment '已开放的结构化记录数',
+   primary key (id)
+);
+
+alter table dir_dataset_survey comment '信息资源大普查信息表';
 
 /*==============================================================*/
 /* Table: dir_develop_apis                                      */
@@ -1134,6 +1198,7 @@ create table drap_dataset
 (
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
+   belong_dept_type     varchar(36) comment '【国】信息资源提供方类型',
    belong_dept_id       varchar(36) comment '【国】信息资源提供方ID',
    source_type          varchar(36) comment '添加类型',
    doc_id               varchar(36) comment '业务产生材料id',
@@ -1145,8 +1210,9 @@ create table drap_dataset
    update_frequency     varchar(36) comment '【国】信息资源更新周期',
    dataset_desc         varchar(256) comment '【国】信息资源摘要',
    share_type           varchar(36) comment '【国】信息资源共享类型',
-   share_condition_desc text comment '【国】信息资源共享条件',
-   share_method         varchar(36) comment '【国】信息资源共享方式',
+   share_condition_desc varchar(4000) comment '【国】信息资源共享条件',
+   share_method_category varchar(36) comment '【国】信息资源共享方式分类',
+   share_method         varchar(36) comment '【国】信息资源共享方式类型',
    share_method_desc    varchar(1000) comment '共享方式说明',
    share_range          varchar(1000) comment '共享范围',
    no_share_reason      varchar(1000) comment '不予共享依据',
@@ -1172,6 +1238,21 @@ create table drap_dataset
 alter table drap_dataset comment '信息资源（数据集）';
 
 /*==============================================================*/
+/* Table: drap_dataset_ext_format                               */
+/*==============================================================*/
+create table drap_dataset_ext_format
+(
+   id                   varchar(36) not null comment 'ID',
+   dataset_id           varchar(36) comment '数据集ID',
+   format_category      varchar(36) comment '资源格式分类',
+   format_type          varchar(36) comment '资源格式类型',
+   format_info          varchar(256) comment '资源格式说明',
+   primary key (id)
+);
+
+alter table drap_dataset_ext_format comment '数据集扩展信息（【国】资源格式）';
+
+/*==============================================================*/
 /* Table: drap_dataset_item                                     */
 /*==============================================================*/
 create table drap_dataset_item
@@ -1183,17 +1264,21 @@ create table drap_dataset_item
    item_desc            varchar(1000) comment '数据项描述',
    belong_dept          varchar(36) comment '所属组织',
    sensitive_remark     varchar(36) comment '敏感标识',
-   update_frequency     varchar(36) comment '更新频率',
-   share_type           varchar(36) comment '共享类型',
-   share_range          varchar(1000) comment '共享范围',
-   share_method         varchar(36) comment '共享方式',
-   share_condition_desc varchar(1000) comment '共享条件说明',
-   share_method_desc    varchar(1000) comment '共享方式说明',
+   update_frequency     varchar(36) comment '【国】更新频率',
+   share_type           varchar(36) comment '【国】共享类型',
+   share_condition      varchar(1000) comment '【国】共享条件',
    no_share_reason      varchar(1000) comment '不予共享依据',
-   is_open              varchar(36) comment '是否开放',
-   open_condition       varchar(1000) comment '开放条件',
+   share_range          varchar(1000) comment '共享范围',
+   share_method_category varchar(36) comment '【国】共享方式分类',
+   share_method         varchar(36) comment '【国】共享方式类型',
+   share_method_desc    varchar(1000) comment '共享方式说明',
+   is_open              varchar(36) comment '【国】是否开放',
+   open_condition       varchar(1000) comment '【国】开放条件',
    store_media          varchar(36) comment '存储介质',
    physics_store_location varchar(128) comment '物理存储位置',
+   format_category      varchar(36) comment '资源格式分类',
+   format_type          varchar(36) comment '资源格式类型',
+   format_info          varchar(256) comment '资源格式说明',
    code_index           int comment '编码序号',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -1217,6 +1302,24 @@ create table drap_dataset_item_map
 );
 
 alter table drap_dataset_item_map comment '数据集数据项关联表';
+
+/*==============================================================*/
+/* Table: drap_dataset_survey                                   */
+/*==============================================================*/
+create table drap_dataset_survey
+(
+   id                   varchar(36) not null comment 'id',
+   dataset_id           varchar(36) comment '数据集ID',
+   total_storage        int(16) comment '数据存储总量',
+   structure_count      int(16) comment '结构化信息记录总数',
+   shared_storage       int(16) comment '已共享的数据存储量',
+   shared_structure_count int(16) comment '已共享的结构化记录数',
+   opened_storage       int(16) comment '已开放的数据存储量',
+   opened_structure_count int(16) comment '已开放的结构化记录数',
+   primary key (id)
+);
+
+alter table drap_dataset_survey comment '信息资源大普查信息表';
 
 /*==============================================================*/
 /* Table: drap_dataset_system_map                               */
@@ -1440,17 +1543,27 @@ create table drap_info_system
 (
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
+   belong_dept          varchar(36) comment '【国】所属组织',
    source_type          varchar(36) comment '添加类型',
-   system_code          varchar(36) comment '业务系统编码',
-   system_name          varchar(64) comment '业务系统名称',
+   system_code          varchar(36) comment '【国】业务系统编码',
+   system_name          varchar(64) comment '【国】业务系统名称',
    system_phase         varchar(36) comment '系统阶段',
    system_phase_desc    varchar(1000) comment '系统阶段补充说明',
+   security_level       varchar(36) comment '【国】信息系统安全等级定级情况',
+   project_fund_source  varchar(36) comment '【国】项目建设资金来源',
+   prject_name          varchar(128) comment '【国】预算项目名称',
+   project_audit_dept   varchar(64) comment '【国】项目立项审批部门',
+   project_audit_date   date comment '【国】项目立项审批日期',
+   project_budget_money varchar(64) comment '【国】项目预算批复总金额（万元）',
+   maintain_money       varchar(64) comment '【国】运维费用总支出',
+   cleaned_situation    varchar(1000) comment '【国】清理后情况',
+   data_status          varchar(256) comment '【国】数据状态',
    main_feature         varchar(1000) comment '主要功能',
    main_data            text comment '主要数据',
-   enable_time          date comment '启用时间',
+   enable_time          date comment '【国】启用时间',
    disable_time         date comment '停用时间',
    system_level         varchar(256) comment '系统归属级别(建设性质)',
-   belong_network       varchar(256) comment '系统所属网络',
+   belong_network       varchar(256) comment '【国】承载网络',
    phisical_location    varchar(256) comment '系统物理位置',
    create_dept          varchar(36) comment '录入单位',
    self_build_flag      varchar(36) comment '是否本地部门建设',
@@ -1458,13 +1571,16 @@ create table drap_info_system
    system_structure     varchar(36) comment '系统架构',
    login_type           varchar(36) comment '系统登录方式',
    system_usage_info    varchar(36) comment '系统应用情况',
+   charge_dept          varchar(64) comment '【国】主管单位',
+   charge_contacts      varchar(64) comment '【国】主管单位联系人',
+   charge_contacts_phone varchar(64) comment '【国】主管单位联系电话',
    system_usage_desc    varchar(1000) comment '系统应用情况说明',
    support_company      varchar(64) comment '系统开发商',
    support_contacts     varchar(64) comment '系统开发商联系人',
    support_contacts_phone varchar(64) comment '系统开发商联系人电话',
    support_contacts_email varchar(128) comment '系统开发商联系人邮箱',
    support_other_contacts varchar(64) comment '系统开发商其他联系方式',
-   maintain_dept        varchar(64) comment '运维单位',
+   maintain_dept        varchar(64) comment '【国】运维单位',
    maintain_contacts    varchar(64) comment '运维单位联系人',
    maintain_contacts_phone varchar(64) comment '运维单位联系人电话',
    maintain_contacts_email varchar(64) comment '运维单位联系人邮箱',
@@ -1486,7 +1602,7 @@ create table drap_info_system
    has_old_system       varchar(36) comment '是否有旧系统',
    old_system_name      varchar(36) comment '旧系统名称',
    old_system_desc      varchar(1000) comment '旧系统补充说明',
-   system_desc          varchar(1000) comment '系统功能描述',
+   system_desc          varchar(1000) comment '【国】系统描述',
    code_index           int comment '编码序号',
    status               int(3) comment '状态',
    create_user          varchar(36) comment '创建人',
@@ -1656,8 +1772,8 @@ create table sys_dept
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
-   tree_index           int default 0 comment '树索引',
-   tree_code            varchar(128) comment '树编码',
+   tree_index           int(6) comment '树索引',
+   tree_code            varchar(1000) comment '树编码',
    primary key (id)
 )
 ENGINE = InnoDB
@@ -1703,7 +1819,7 @@ create table sys_dept_authority_apply
    primary key (id)
 );
 
-alter table sys_dept_authority_apply comment '数据权限申请表';
+alter table sys_dept_authority_apply comment '部门数据权限申请表';
 
 /*==============================================================*/
 /* Table: sys_dept_category_template                            */
@@ -1752,7 +1868,7 @@ create table sys_dict
    dict_code            varchar(36) comment '字典编码',
    dict_name            varchar(64) comment '字典名称',
    dict_desc            varchar(512) comment '字典描述',
-   parent_code          varchar(36) comment '上级字典编码',
+   parent_code          varchar(36) comment '上级字典值',
    order_number         int(4) comment '显示顺序',
    icon                 varchar(256) comment '图标',
    status               int(3) comment '状态',

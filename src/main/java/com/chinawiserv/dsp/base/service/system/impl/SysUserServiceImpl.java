@@ -144,6 +144,7 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
             page.setAsc(false);
             page.setTotal(userMapper.selectVoCount(paramMap));
             page.setRecords(userMapper.selectVoList(page,paramMap));
+            return page;
         }
         return getPage(paramMap);
     }

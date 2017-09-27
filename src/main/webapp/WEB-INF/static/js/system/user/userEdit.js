@@ -49,8 +49,10 @@ function initFormerDate(userId) {
                     $("#userType").val(user.userType).trigger("change");
                     $("#telephoneNumber").val(user.telephoneNumber);
                     $("#cellPhoneNumber").val(user.cellPhoneNumber);
+                    $("#regionCode").val(user.regionCode);
+                    $("#deptName").val(user.deptName);
                     $("#email").val(user.email);
-                    $("#deptId").val(user.deptId).trigger("change");
+                    // $("#deptId").val(user.deptId).trigger("change");
                     $("#roleIds").val(user.roleIds).trigger("change");
 
                     $("#userDesc").val(user.userDesc);

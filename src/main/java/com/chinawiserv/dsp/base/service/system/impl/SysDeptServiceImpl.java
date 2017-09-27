@@ -80,46 +80,42 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public List<SysDeptVo> getDeptSelectDataList(Map<String, Object> paramMap) throws Exception {
         if(paramMap == null) paramMap = new HashMap();
-        String id = (String) paramMap.get("id");
-        String regionCode = (String) paramMap.get("regionCode");
         String onlyRoot = (String) paramMap.get("onlyRoot");
-        String excludeRoot = (String) paramMap.get("excludeRoot");
-        String checkIsLeaf = (String) paramMap.get("checkIsLeaf");
-        String treeCode = ShiroUtils.getLoginUser().getDeptTreeCode();
-        if(StringUtils.isBlank(regionCode)){
-            regionCode = ShiroUtils.getLoginUser().getRegionCode();
-        }
         if(StringUtils.isBlank(onlyRoot)){
             onlyRoot = "0";
         }
-        if(excludeRoot == null){
-            excludeRoot = "1";
-        }
-        if(checkIsLeaf == null){
-            checkIsLeaf = "1";
-        }
         List<SysDeptVo> list = new ArrayList();
         Map<String, Object> param = new HashMap();
+        String regionCode = (String) paramMap.get("regionCode");
+        if(StringUtils.isBlank(regionCode)){
+            regionCode = ShiroUtils.getLoginUser().getRegionCode();
+        }
+        param.put("regionCode", regionCode);
         if("1".equals(onlyRoot)){
             param.put("onlyRoot", onlyRoot);
         }else {
+            String id = (String) paramMap.get("id");
             if(StringUtils.isNotBlank(id)){
                 param.put("fid", id);
             }else {
-                if("1".equals(excludeRoot)){
-                    param.put("excludeRoot", excludeRoot);
+                param.put("treeCode", ShiroUtils.getLoginUser().getDeptTreeCode());
+
+                String excludeRoot = (String) paramMap.get("excludeRoot");
+                if(StringUtils.isBlank(excludeRoot)){
+                    excludeRoot = "1";
                 }
-                if(StringUtils.isNotBlank(regionCode)){
-                    param.put("regionCode", regionCode);
-                }
-                if(StringUtils.isNotBlank(treeCode)){
-                    param.put("treeCode", treeCode);
-                }
+                param.put("excludeRoot", excludeRoot);
             }
+        }
+        String withoutAuthDept = (String) paramMap.get("withoutAuthDept");
+        if("1".equals(withoutAuthDept)){
+            param.put("withoutAuthDept", withoutAuthDept);
+            param.put("applicant", ShiroUtils.getLoginUserId());
         }
         if(!param.isEmpty()){
             list.addAll(this.selectVoList(param));
-            if("1".equals(checkIsLeaf)){
+            String checkIsLeaf = (String) paramMap.get("checkIsLeaf");
+            if(StringUtils.isBlank(checkIsLeaf) || "1".equals(checkIsLeaf)){
                 for(SysDeptVo sysDeptVo : list){
                     sysDeptVo.setIsLeaf(!this.isParentDept(sysDeptVo.getId()));
                 }
@@ -138,7 +134,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
                     SysDept sysDept = new SysDept();
                     sysDept.setId(id);
                     sysDept.setDeleteFlag(1);
-                    return this.updateById(sysDept);
+                    return updateById(sysDept);
                 }
             }
         }

@@ -4,7 +4,7 @@
  <!-- sidebar: style can be found in sidebar.less -->
  <section class="sidebar">
    <!-- Sidebar user panel (optional) -->
-   <div class="user-panel">
+   <%-- <div class="user-panel">
      <div class="pull-left image">
        <img src="<%=basePath%>${me.userImg}" class="img-circle">
      </div>
@@ -13,7 +13,7 @@
        <!-- Status -->
        <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
      </div>
-   </div>
+   </div> --%>
 
    <!-- Sidebar Menu -->
    <ul class="sidebar-menu">

@@ -24,11 +24,47 @@ public class DrapDatasetItem {
     private java.util.Date createTime;//创建时间
     private String updateUser;//更新人
     private java.util.Date updateTime;//更新时间
+    private int itemLength;//【国】数据项长度
+    private int isSecret;//是否涉密
+    private int itemFormat;//所属信息资源格式
 
     private String dept_short_name;
     private String dataset_name;
     private String system_name;
     private String system_id;
+
+    public int getItemFormat() {
+        return itemFormat;
+    }
+
+    public void setItemFormat(int itemFormat) {
+        this.itemFormat = itemFormat;
+    }
+
+    public int getIsSecret() {
+        return isSecret;
+    }
+
+    public void setIsSecret(int isSecret) {
+        this.isSecret = isSecret;
+    }
+
+    public String getSystem_id() {
+        return system_id;
+    }
+
+    public void setSystem_id(String system_id) {
+        this.system_id = system_id;
+    }
+
+    public int getItemLength() {
+        return itemLength;
+    }
+
+    public void setItemLength(int itemLength) {
+        this.itemLength = itemLength;
+    }
+
     public String getDept_short_name() {
         return dept_short_name;
     }
