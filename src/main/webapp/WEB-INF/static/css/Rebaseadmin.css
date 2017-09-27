@@ -75,11 +75,12 @@
 	color: #FFFFFF;
 	font-size: 14px;
 	opacity: 0.45;
-	padding: 25px;
+	padding: 24px;
 	cursor:pointer;
 }
 .nav_uls>li.active{
 	opacity: 1;
+	border-bottom:3px solid #4197F4;
 }
 
 
