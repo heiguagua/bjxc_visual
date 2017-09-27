@@ -15,11 +15,11 @@
                 <h1>
                     <small>返回上一级/目录管理 /目录编目</small>
                 </h1>
-                <ul class="title_ul">
-                	<li class="active">常规模式</li>
+                <!-- <ul class="title_ul">
+                	<li class="active"><i class="fa fa-desktop" style="font-size:20px"></i>&nbsp;常规模式</li>
                 	<li>引导模式</li>
                 	<li>图谱</li>
-                </ul>
+                </ul> -->
             </section>
             <!-- Main content -->
             <section class="content">
@@ -63,7 +63,7 @@
                                     <div class="input-group" style="float:right">
                                         <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称" type="text">
                                         <div class="input-group-btn">
-                                            <button class="btn btn-primary btn-flat" id="queryBtnEdit" type="button">
+                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtnEdit" type="button">
                                                 <i class="fa fa-search"></i> 查询
                                             </button>
                                         </div>
