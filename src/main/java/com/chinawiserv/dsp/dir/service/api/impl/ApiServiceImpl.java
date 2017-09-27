@@ -158,7 +158,7 @@ public class ApiServiceImpl implements IApiService {
                     String serviceId = (String)serviceInfo.get("serviceNo");
                     String status = (String)serviceInfo.get("status");
                     String dirOrDrapType = (String)serviceInfo.get("dirType"); //目录梳理类型
-                    String dirOrDrapTypeId = (String)serviceInfo.get("dirTypeId"); //目录OR梳理ID
+                    String dirOrDrapTypeId = (String)serviceInfo.get("dirTypeId"); //目录数据集OR梳理数据表ID
                     Date startDate = null;
                     Date endDate = null;
                     Date operateDate = new Date();
@@ -200,18 +200,28 @@ public class ApiServiceImpl implements IApiService {
                     /**
                      * 插入服务信息
                      * */
-                    dirServiceInfoMapper.insert(dirServiceInfo);
+                    int insertDirServiceInfoResult = dirServiceInfoMapper.insert(dirServiceInfo);
                     /**
                      * 插入数据集服务关联信息
                      * */
-                    dirDatasetServiceMapMapper.insert(dirDatasetServiceMap);
+                    int insertDirDatasetServiceMapResult = 0;
+                    if(insertDirServiceInfoResult > 0){
+                        insertDirDatasetServiceMapResult = dirDatasetServiceMapMapper.insert(dirDatasetServiceMap);
+                    }
 
-
+                    if(insertDirDatasetServiceMapResult > 0){
+                        handleResult.setState(true);
+                        handleResult.setMsg("发布成功");
+                    }else{
+                        dirServiceInfoMapper.deleteById(serviceId); //失败就回滚
+                        handleResult.setState(false);
+                        handleResult.setMsg("发布失败");
+                    }
                 }
             }
         }
 
-        return null;
+        return handleResult;
     }
     /**
      * 下架服务，更新服务状态
