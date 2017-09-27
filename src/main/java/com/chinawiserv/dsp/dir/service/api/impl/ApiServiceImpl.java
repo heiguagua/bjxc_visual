@@ -274,5 +274,10 @@ public class ApiServiceImpl implements IApiService {
         return apiMapper.getDbInfoBySystemId(paramMap);
     }
 
+    @Override
+    public List<Map<String, Object>> getSystemInfoByDeptId(Map<String, Object> paramMap) {
+        return apiMapper.getSystemInfoByDeptId(paramMap);
+    }
+
 
 }
