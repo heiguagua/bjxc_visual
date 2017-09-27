@@ -15,7 +15,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    <small>系统管理 > 菜单管理</small>
+                    <small>返回上一级/系统管理 /菜单管理/</small>
                 </h1>
             </section>
             <!-- Main content -->
