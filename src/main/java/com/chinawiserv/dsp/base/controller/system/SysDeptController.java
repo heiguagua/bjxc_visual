@@ -133,8 +133,12 @@ public class SysDeptController extends BaseController {
      */
     @RequiresPermissions("system:dept:edit")
     @RequestMapping("/edit")
-    public  String edit(@RequestParam String id,Model model){
-        model.addAttribute("deptId",id);
+    public  String edit(@RequestParam String id, @RequestParam Integer deptLevel,
+                        @RequestParam Integer treeIndex, @RequestParam String treeCode, Model model){
+        model.addAttribute("id", id);
+        model.addAttribute("deptLevel", deptLevel + 1);
+        model.addAttribute("treeIndex",treeIndex + 1);
+        model.addAttribute("treeCode", treeCode);
         return "system/dept/deptEdit";
     }
 

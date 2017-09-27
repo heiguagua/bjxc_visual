@@ -15,7 +15,10 @@
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/system/dept/doEdit">
-                        <input type="hidden" id="deptId" value="${deptId}" name="id"/>
+                        <input type="hidden" id="deptId" value="${id}" name="id"/>
+                        <input type="hidden" id="deptLevel" value="${deptLevel}" name="deptLevel"/>
+                        <input type="hidden" id="treeIndex" value="${treeIndex}" name="treeIndex"/>
+                        <input type="hidden" id="treeCode" value="${treeCode}" name="treeCode"/>
                         <div class="box-body">
 
                          <div class="form-group">
