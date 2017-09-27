@@ -7,7 +7,6 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
-import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +51,13 @@ public class SysDeptController extends BaseController {
     public  String init(@RequestParam Map<String , Object> paramMap){
         setCurrentMenuInfo(paramMap);
         return "system/dept/deptList";
+    }
+
+    @RequiresPermissions("system:dept:list")
+    @RequestMapping("/auth")
+    public  String initAuthDeptList(@RequestParam Map<String , Object> paramMap){
+        setCurrentMenuInfo(paramMap);
+        return "system/dept/deptAuthList";
     }
 
     /**
