@@ -77,7 +77,7 @@
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="int">
-        select count(DISTINCT 1)
+        select count(DISTINCT u1.user_name)
         <include refid="VoSelectSql"/>
         LEFT JOIN sys_user_role ur ON u1.id = ur.user_id
         LEFT JOIN sys_role r ON r.id = ur.role_id

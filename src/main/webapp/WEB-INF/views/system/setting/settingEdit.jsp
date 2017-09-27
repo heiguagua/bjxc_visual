@@ -33,9 +33,24 @@
                                        placeholder="请输入系统配置值" data-rule="组织系统配置值:required;">
                             </div>
                             <div class="form-group">
+                                <label for="regionCode">所属行政区域</label>
+                                <input type="text" id="regionCode" name="regionCode" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
                                 <label>系统配置描述</label>
                                 <textarea class="form-control" id="settingDesc" name="settingDesc" rows="3"
                                           placeholder="请输入描述，最多300个字符 ..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>状态</label>
+                                <div class="col-sm-10">
+                                <span>
+                                    <input name="status" type="radio" class="minimal" value="1"> 启用
+                                </span>
+                                    <span>
+                                    <input name="status" type="radio" class="minimal"  value="-1"> 禁用
+                                </span>
+                                </div>
                             </div>
                         </div><!-- /.box-body -->
                         <div class="box-footer">
