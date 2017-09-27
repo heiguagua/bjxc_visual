@@ -151,7 +151,7 @@ public class DrapDbInfoController extends BaseController {
 
     //@RequiresPermissions("XXX:XXX:edit")
     @Log("编辑数据库信息")
-    @RequestMapping("/doEdit")
+    @RequestMapping("/doEdit1")
     @ResponseBody
     public HandleResult receiveDbInfo(@RequestBody List<DrapDbInfoVo> vos) {
         HandleResult handleResult = new HandleResult();
