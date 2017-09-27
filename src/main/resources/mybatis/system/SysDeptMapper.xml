@@ -58,6 +58,13 @@
 			<if test="regionCodeCondition != null">
 				AND t.region_code like '${regionCodeCondition}%'
 			</if>
+			<if test="withoutAuthDept != null and withoutAuthDept == '1' and applicant != null">
+				AND t.id NOT IN
+				(
+					SELECT da.to_dept_id FROM sys_dept_authority_apply da
+					WHERE da.applicant = #{applicant} AND da.audit_status != '2'
+				)
+			</if>
 		</where>
 	</sql>
 
