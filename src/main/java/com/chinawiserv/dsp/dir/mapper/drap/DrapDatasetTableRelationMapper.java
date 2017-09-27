@@ -2,8 +2,10 @@ package com.chinawiserv.dsp.dir.mapper.drap;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDataColumnMap;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetTableRelation;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetTableRelationVo;
+
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +31,17 @@ public interface DrapDatasetTableRelationMapper extends BaseMapper<DrapDatasetTa
     int baseUpdate(DrapDatasetTableRelation entity);
 
     int baseDelete(String id);
+    
+	/**
+	 * 新增数据项字段
+	 * @param dataLst
+	 */
+	void addItemRelation(List<DrapDataColumnMap> dataLst);
+	
+	
+	/**
+	 * 新增表关系
+	 * @param tableRelation
+	 */
+	void addTableFieldRelation(List<DrapDatasetTableRelation> tableRelation);
 }

@@ -1,11 +1,14 @@
 package com.chinawiserv.dsp.dir.mapper.drap;
 
+import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapRequirementDatasetMap;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessRequirementVo;
-import java.util.List;
-import java.util.Map;
+import com.chinawiserv.dsp.dir.entity.vo.drap.DrapRequirementResourcesVo;
 
 
 /**
@@ -29,4 +32,42 @@ public interface DrapBusinessRequirementMapper extends BaseMapper<DrapBusinessRe
     int baseUpdate(DrapBusinessRequirement entity);
 
     int baseDelete(String id);
+    /**
+	 * 物理删除数据集关联中间表
+	 * 
+	 * @param paramMap
+	 */
+	void deleteBusinessRequireDataset(Map<String, String> paramMap);
+	
+	/**
+	 * 物理删除需求子表数据
+	 * 
+	 * @param paramMap
+	 */
+	void deleteRequirementResource(Map<String, String> paramMap);
+	
+	
+	/**
+	 * 新增需求子表数据
+	 * 
+	 * @param resourceLst
+	 */
+	void addRequirementResource(List<DrapRequirementResourcesVo> resourceLst);
+	
+	/**
+	 * 需求主表数据新增
+	 * 
+	 * @param businessRequirement
+	 */
+	void addBusinessRequirement(DrapBusinessRequirement businessRequirement);
+	
+	
+	
+	/**
+	 * 新增需求 新增资源 中间表
+	 * 
+	 * @param datasetMap
+	 */
+	void addBusinessRequirementDataset(List<DrapRequirementDatasetMap> datasetMap);
+    
 }
