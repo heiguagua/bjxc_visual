@@ -3,7 +3,7 @@
  */
 jQuery(document).ready(function () {
     var classifyId = $("#classifyId").val();
-
+    $.initDeptTreeSelect('treeDemo','deptName','deptId','menuContent');
 //    initUserTypeList();
 //    initDeptSelectDataList();
 //    initRoleNameList();
@@ -45,6 +45,8 @@ function initFormerDate(classifyId) {
                 if(vo){
 
                     $("#Eclassify_name").val(vo.classifyName);
+                    $("#EdeptName").val(vo.DeptName);
+                    $("#Eicon").val(vo.icon);
                     $("#Eclassify_desc").val(vo.classifyDesc);
                                   
 
