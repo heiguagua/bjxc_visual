@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/dir/configure/api/apiAdd.js"></script>
+    <script src="<%=basePath%>/js/catalog/classify/classifyAdd.js"></script>
  
 </head>
 <body>
@@ -14,34 +14,55 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/dirDevelopApis/doAdd">
+                          method="post" action="<%=basePath%>/dirClassify/doAdd">
                         <div class="box-body">
-                        	<input id="parentId" type="hidden" value="${parentId}" name="parentId" />
+                        	<input id="fid" type="hidden" value="${fid}" name="fid" />
                             <div class="form-group">
-                                <label for="apiName">api名称</label>
-                                <input type="text" id="api_name" name="apiName" class="form-control"
-                                       placeholder="请输入api名称" data-rule="api名称:required;api_name;remote(<%=basePath%>/system/user/insertCheckName)">
+                                <label for="classifyName">目录名称</label>
+                                <input type="text" id="classify_name" name="classifyName" class="form-control"
+                                       placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;remote(<%=basePath%>/system/user/insertCheckName)">
                             </div>
+                            
                             <div class="form-group">
-                                <label for="apiCategory">开发者工具种类:</label>
-                                <input type="text" id="api_category" name="apiCategory" class="form-control"
-                                       placeholder="请输入api种类" data-rule="api种类:required;api_category;">
+                                <label for="deptName" style='float:left;'>所属组织机构 *</label>
+                                    <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
+                                    <input type="text" id="deptName" required="required"
+                                           data-parsley-required-message="该项为必填" class="form-control">
+                                    <input type="hidden" id="DeptId" name="DeptId">
+                                    <div class="menu-wrap">
+                                        <div id="menuContent" class="menuContent" style="display:none;">
+                                            <ul id="treeDemo" class="ztree"
+                                                style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                        </div>
+                                    </div>
                             </div>
+                            
+                            <!-- <div class="form-group">
+                                <label for="roleId" >选择图标</label>
+                                    <select id="icon" name="icon" class="form-control" >
+                                    	  <option value ="">--请选择--</option>
+                                    	  <option value ="volvo">Volvo</option>
+										  <option value ="saab">Saab</option>
+										  <option value="opel">Opel</option>
+										  <option value="audi">Audi</option>                                   	
+                                    </select>
+                            </div> -->
                             <div class="form-group">
-                                <label for="apiUrl">url_adress</label>
-                                <input type="text" id="api_url" name="apiUrl" class="form-control"
-                                       placeholder="请输入url地址" data-rule="url地址:required;api_url; ">
+                                <label for="icon">选择图标</label>
+                                <select id="icon" name="icon" class="form-control select2" style="width: 100%;">             
+                                		  <option value =""></option>
+                                		  <option value ="volvo">Volvo</option>
+										  <option value ="saab">Saab</option>
+										  <option value="opel">Opel</option>
+										  <option value="audi">Audi</option>  
+                                </select>
                             </div>
+                            
                             <div class="form-group">
-                                <label for="orderNumber">排序号</label>
-                                <input type="text" id="order_number" name="orderNumber" class="form-control"
-                                       placeholder="请输入排序号" data-rule="排序号:required;order_number;">
-                            </div>
-                            <div class="form-group">
-                                <label for="apiDesc">api描述:</label>
+                                <label for="classifyDesc">目录描述:</label>
                                 <textarea class="form-control" 
-									id="api_desc"  name="apiDesc" data-rule="目录类别描述:required;order_number;"></textarea>                                
-                            </div>                           
+									id="classify_desc"  name="classifyDesc" data-rule="目录类别描述:required;classifyDesc;"></textarea>                                
+                            </div>                            
 
                         </div><!-- /.box-body -->
                         <div class="box-footer">

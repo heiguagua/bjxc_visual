@@ -1,9 +1,12 @@
 package com.chinawiserv.dsp.dir.service.api;
 
 
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -30,7 +33,9 @@ public interface IApiService {
 
     Map<String,Object> getServiceInfoByDatasetId(Map<String, Object> paramMap);
 
-    boolean releaseService(Map<String, Object> paramMap);
+    HandleResult releaseService(Map<String, Object> paramMap);
+
+    HandleResult unReleaseService(Map<String, Object> paramMap);
 
     Map<String,Object> syncUserInfo(List<SysUser> userList);
 
@@ -39,5 +44,7 @@ public interface IApiService {
     List<SysDept> syncDeptData();
 
     List<SysUser> syncUserData();
+
+    List<Map<String,Object>> getDbInfoBySystemId(Map<String,Object> paramMap);
 
 }

@@ -170,29 +170,6 @@ public class ServiceApiController extends BaseController {
     }
 
     /**
-     * 发布服务
-     * */
-    @RequestMapping("releaseService")
-    @ResponseBody
-    public HandleResult releaseService(@RequestParam Map<String, Object> paramMap){
-        HandleResult handleResult = new HandleResult();
-        if(null == paramMap || paramMap.size() == 0){
-            handleResult.setMsg("未传入参数");
-            handleResult.setState(false);
-            return handleResult;
-        }
-        try{
-            boolean result = service.releaseService(paramMap);
-            handleResult.setState(result);
-        }catch (Exception e){
-            logger.error(e.getMessage());
-            handleResult.setMsg(e.getMessage());
-            handleResult.setState(false);
-        }
-        return handleResult;
-    }
-
-    /**
      * 同步部门数据
      * */
     @RequestMapping("syncDeptData")
@@ -228,5 +205,42 @@ public class ServiceApiController extends BaseController {
             handleResult.setState(false);
         }
         return handleResult;
+    }
+
+    /**
+     * 根据系统ID获取指定的数据库信息
+     * */
+    @RequestMapping("getDbInfoBySystemId")
+    @ResponseBody
+    public HandleResult getDbInfoBySystemId(@RequestParam Map<String,Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        try{
+            List<Map<String,Object>> result = service.getDbInfoBySystemId(paramMap);
+            handleResult.put("rows",result);
+            handleResult.setState(true);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 发布服务
+     * */
+    @RequestMapping("releaseService")
+    @ResponseBody
+    public HandleResult releaseService(@RequestParam Map<String, Object> paramMap){
+        return service.releaseService(paramMap);
+    }
+
+    /**
+     * 服务下架
+     * */
+    @RequestMapping("unReleaseService")
+    @ResponseBody
+    public HandleResult unReleaseService(@RequestParam Map<String, Object> paramMap){
+        return service.unReleaseService(paramMap);
     }
 }

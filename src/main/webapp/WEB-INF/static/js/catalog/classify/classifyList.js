@@ -96,7 +96,7 @@ jQuery(document).ready(function () {
 			   +	"添加 <span class='caret'></span></button>"
 			   +	"<ul id='diyBtn_space3_" +treeNode.id+ "' class='dropdown-menu' role='menu'>"
 
-				+"<li><a class='s1' id='addSibling' data-id ="+treeNode.id+" data-pcode="+treeNode.parentId+" href='#'  >添加同级</a></li>"
+				+"<li><a class='s1' id='addSibling' data-id ="+treeNode.id+" data-pcode="+treeNode.fid+" href='#'  >添加同级</a></li>"
 				+"<li><a class='s2' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"	
 				aObj.after(editStr3);
@@ -154,9 +154,9 @@ jQuery(document).ready(function () {
 		//添加同级
 		$(".s1").on("click", function () {
 			var curThis=this;
-			var parentId=$(curThis).attr('data-pcode');
+			var fid=$(curThis).attr('data-pcode');
 //			$('#parent_id').val(api_fcode);	
-			addApi('新增api--同级',basePathJS + '/dirDevelopApis/add' , parentId);
+			addDir('新增目录--同级',basePathJS + '/dirClassify/add' , fid);
 //			$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');
@@ -167,9 +167,9 @@ jQuery(document).ready(function () {
 		//添加子级
 	    $(".s2").on("click", function () {
 	    	var curThis=this;
-			var parentId=$(curThis).attr('data-id');
+			var fid=$(curThis).attr('data-id');
 //			$('#parent_id').val(api_fcode);
-			addApi('新增api--子级',basePathJS + '/dirDevelopApis/add',parentId);
+			addDir('新增目录--子级',basePathJS + '/dirClassify/add',fid);
 //	    	$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');

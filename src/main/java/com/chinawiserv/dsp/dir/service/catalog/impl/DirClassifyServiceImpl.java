@@ -5,6 +5,7 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.google.common.util.concurrent.FakeTimeLimiter;
@@ -39,8 +40,76 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 
     @Override
     public boolean insertVO(DirClassifyVo vo) throws Exception {
-		
-		return false;
+    	
+    	vo.setId(CommonUtil.get32UUID());
+    	vo.setCreateTime(new Date());
+    	String loginUserId = ShiroUtils.getLoginUserId();
+    	vo.setCreateUserId(loginUserId);
+    	DirClassify fclassify = mapper.selectFclassify(vo.getFid());
+    	String fclassifyStructureName = fclassify.getClassifyStructureName();
+    	String fcode = fclassify.getClassifyCode();
+    	int flevel = fclassify.getClassifyLevel();
+    	int fclassifyIndex = fclassify.getClassifyIndex(); 	
+    	int level = flevel+1;
+    	
+    	if(!vo.getFid().equals("root")){
+    		
+    	if(level == 2){
+    		 vo.setClassifyLevel(2);
+    		 if(fclassifyIndex<9){
+    			 
+    			vo.setClassifyCode(fcode.substring(0,1)+0+(fclassifyIndex+1));
+    			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
+    			mapper.updateClassifyIndexbyFid(vo.getFid());
+    			
+    		 }else{
+    			 
+    			vo.setClassifyCode(fcode.substring(0,1)+(fclassifyIndex+1));
+    			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
+    			mapper.updateClassifyIndexbyFid(vo.getFid());
+    			
+    		 }
+    		 
+    		  
+    	}else if(level == 3 ){
+    		vo.setClassifyLevel(3);
+    		if(fclassifyIndex<9){
+   			 
+    			vo.setClassifyCode(fcode.substring(0,3)+0+0+(fclassifyIndex+1));
+    			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
+    			mapper.updateClassifyIndexbyFid(vo.getFid());
+    			
+    		 }else if(fclassifyIndex < 99 && fclassifyIndex >= 9 ){
+    			 
+    			 vo.setClassifyCode(fcode.substring(0,3)+0+(fclassifyIndex+1));
+    			 vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
+    			 mapper.updateClassifyIndexbyFid(vo.getFid());
+    		 }
+    		 else{
+    			 
+    			vo.setClassifyLevel(flevel+1); 
+    			vo.setClassifyCode(fcode.substring(0,3)+(fclassifyIndex+1));
+    			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
+    			mapper.updateClassifyIndexbyFid(vo.getFid());
+    			
+    		 }
+    		
+    	}else{
+    		vo.setClassifyLevel(flevel+1);
+    		vo.setClassifyCode(fcode+(fclassifyIndex+1));
+    		vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
+    		mapper.updateClassifyIndexbyFid(vo.getFid());
+    	}
+    			
+    	}else{
+    		
+    		vo.setClassifyLevel(1);
+    		vo.setClassifyStructureName(vo.getClassifyName());
+    		vo.setClassifyCode(""+(mapper.selectCountLevel1()+1));
+    		
+    	}
+    	
+		return true;
     }
 
     @Override

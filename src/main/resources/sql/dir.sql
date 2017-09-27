@@ -486,6 +486,9 @@ create table dir_dataitem
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
+   belong_system_id varchar(36) DEFAULT NULL COMMENT '所属系统',
+   secret_flag int(3) DEFAULT NULL COMMENT '是否涉密',
+   item_format int(3) DEFAULT NULL COMMENT '所属信息资源格式',
    primary key (id)
 );
 
@@ -1200,6 +1203,7 @@ create table drap_dataset_item
    update_user          varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
+   item_length          int(11) default 0 comment '【国】数据项长度',
    primary key (id)
 );
 

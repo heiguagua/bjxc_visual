@@ -2,12 +2,15 @@ package com.chinawiserv.dsp.dir.controller.catalog;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
 import com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDeptMapMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
 
 import net.sf.json.JSONObject;
@@ -48,6 +51,9 @@ public class DirClassifyController extends BaseController {
 	@Autowired
 	private DirClassifyMapper mapper;
 	
+	@Autowired
+	private DirDeptMapMapper mapper2;
+	
 //	@RequiresPermissions("XXX:XXX:list")
 	@RequestMapping("")
 	public String init(@RequestParam Map<String, Object> paramMap) {
@@ -83,8 +89,9 @@ public class DirClassifyController extends BaseController {
 	 */
 //	@RequiresPermissions("XXX:XXX:add")
 	@RequestMapping("/add")
-	public String add() {
-		return "XXX/XXX/XXXAdd";
+	public String add(@RequestParam String fid, Model model) {
+		model.addAttribute("fid",fid);
+		return "catalog/classify/classifyAdd";
 	}
 
 	/**
@@ -97,8 +104,17 @@ public class DirClassifyController extends BaseController {
 	public HandleResult doAdd(DirClassifyVo entity) {
 		HandleResult handleResult = new HandleResult();
 		try {
+			
 			service.insertVO(entity);
+			String deptId = entity.getDeptId();
+			String classifyId = entity.getId();
+			DirDeptMap ddmap = new DirDeptMap();
+			ddmap.setClassifyId(classifyId);
+			ddmap.setDeptId(deptId);
+			ddmap.setId(CommonUtil.get32UUID());
+			mapper2.baseInsert(ddmap);
 			handleResult.success("创建目录分类表成功");
+			
 		} catch (Exception e) {
 			handleResult.error("创建目录分类表失败");
 			logger.error("创建目录分类表失败", e);
@@ -119,7 +135,7 @@ public class DirClassifyController extends BaseController {
 		//todo 逻辑删除
     	//service.deleteById(id);
     	List<DirClassifyVo> list = null;
-    	list = mapper.getCatelogByParentCode(classifyCode);
+//    	list = mapper.getCatelogByParentCode(classifyCode);
     	if(!list.isEmpty() && list!=null ){
     		return new HandleResult().error("此节点下有子集，无法删除");   
     	}

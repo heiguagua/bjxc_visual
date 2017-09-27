@@ -1,39 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DirDeptMapMapper">
 
     <!-- 开启二级缓存 -->
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap">
         <id column="id" property="id"/>
-        <result column="region_code" property="regionCode"/>
-        <result column="classify_code" property="classifyCode"/>
-        <result column="classify_name" property="classifyName"/>
-        <result column="classify_desc" property="classifyDesc"/>
-        <result column="fid" property="fid"/>
-        <result column="icon" property="icon"/>
-        <result column="fname" property="fname"/>
-        <result column="classify_level" property="classifyLevel"/>
-        <result column="classify_index" property="classifyIndex"/>
-        <result column="dcm_index" property="dcmIndex"/>
-        <result column="order_number" property="orderNumber"/>
-        <result column="classify_structure_code" property="classifyStructureCode"/>
-        <result column="classify_structure_name" property="classifyStructureName"/>
-        <result column="status" property="status"/>
-        <result column="create_user_id" property="createUserId"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_user_id" property="updateUserId"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="delete_flag" property="deleteFlag"/>
+        <result column="classify_id" property="classifyId"/>
+        <result column="dept_id" property="deptId"/>        
     </resultMap>
 
-    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
-               type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo">
-        <result column="has_leaf" property="hasLeaf"/>
-        <result column="DeptId" property="DeptId"/>
-    </resultMap>
+
 
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
@@ -48,64 +27,18 @@
                  
         </where>
     </sql>
-    
-   <select id="selectFclassify" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
-    	
-    	select * from dir_classify where id = #{fid}
-    	
-    </select>
-    
-	<!-- <select id="selectClassifyCodebyFid" resultType="string">
-		
-		select classify_code from dir_classify where id = #{fid}
-		
-	</select>
-	<select id="selectClassifyLevelbyFid" resultType="java.lang.Integer">
-	
-		select classify_level from dir_classify where id = #{fid}
-	
-	</select>
-	
-	<select id="selectClassifyIndexbyFid" resultType="java.lang.Integer">
-		
-		select classify_index from dir_classify where id = #{fid}
-		
-	</select> -->
-	
-	 <update id="updateClassifyIndexbyFid" >
-	
-		update dir_classify 
-    	
-    		set classify_index = classify_index+1
-     
-     	where  id = #{fid}  
-	
-	</update>
-	<select id="selectCountLevel1"> 
-		
-		select count(*) from dir_classify where classify_level = 1
-		
-	</select>
-	<!-- <select id="selectClassifyStructureNamebyFid"  resultType="string">
-		
-		select classify_structure_name from dir_classify where id = #{fid}
-	
-	</select> -->
-	
-	
-	
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    <!-- <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.* FROM dir_classify t
         <include refid="queryConditions"></include>
-    </select>
+    </select> -->
 
-    <select id="selectVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+  <!--   <select id="selectVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
         FROM dir_classify t
         LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
         <include refid="queryConditions"></include>and t.delete_flag = 0 
-    </select>
+    </select> -->
 
 
 	<update id="updateDeleteFlag" parameterType="string">
@@ -115,10 +48,10 @@
      
      	where  classify_code = #{classifyCode}                              
     </update>
-    
+<!--     
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
         SELECT t.* FROM dir_classify t WHERE t.id = #{id}
-    </select>
+    </select> -->
 
 	
 	<select id="getCatelogByParentCode" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
@@ -132,12 +65,10 @@
         <include refid="queryConditions"></include>
     </select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap">
         insert into
-        dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,classify_structure_code,classify_structure_name,status,create_user_id,create_time,update_user_id,update_time,delete_flag,icon)
-        values(
-        #{id},#{regionCode},#{classifyCode},#{classifyName},#{classifyDesc},#{fid},#{fname},#{classifyLevel},#{classifyIndex},#{dcmIndex},#{orderNumber},#{classifyStructureCode},#{classifyStructureName},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},#{icon}
-        )
+        dir_classify_dept_map(id,classify_id,dept_id)
+        values(#{id},#{classifyId},#{deptId})
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
@@ -158,8 +89,8 @@
             <if test="classifyDesc != null">
                 classify_desc = #{classifyDesc},
             </if>
-            <if test="fid != null">
-                fid = #{fid},
+            <if test="fcode != null">
+                fcode = #{fcode},
             </if>
             <if test="fname != null">
                 fname = #{fname},
@@ -199,9 +130,6 @@
             </if>
             <if test="deleteFlag != null">
                 delete_flag = #{deleteFlag},
-            </if>
-            <if test="icon != null">
-                icon = #{icon}
             </if>
         </set>
         where id = #{id}

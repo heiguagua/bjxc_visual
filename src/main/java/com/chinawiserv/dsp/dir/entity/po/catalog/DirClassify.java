@@ -43,10 +43,12 @@ public class DirClassify implements Serializable {
     /**
      * 上级分类编号
      */
+	@TableField("fid")
 	private String fid;
     /**
      * 上级分类名称
      */
+	@TableField("fname")
 	private String fname;
     /**
      * 级别
@@ -105,6 +107,9 @@ public class DirClassify implements Serializable {
 	private String classifyStructureName;
 
 
+	@TableField("icon")
+	private String icon;
+	
 	public String getId() {
 		return id;
 	}
@@ -256,4 +261,15 @@ public class DirClassify implements Serializable {
 	public void setClassifyStructureName(String classifyStructureName) {
 		this.classifyStructureName = classifyStructureName;
 	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+	
+	
+	
 }
