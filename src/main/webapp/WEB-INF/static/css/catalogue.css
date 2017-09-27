@@ -1,4 +1,4 @@
-.title_ul{
+ .title_ul{
 	margin-top:10px;
 	    height: 35px;
 border-bottom:1px solid #ccc;
@@ -14,7 +14,7 @@ border-bottom:1px solid #ccc;
 }
 .title_ul>li.active{
 	color: #4197F4;
-}
+} 
 .btn-myself{
 	background:none !important;
 	color: rgba(0,0,0,0.65) !important;
@@ -126,6 +126,11 @@ line-height: 21px;
 
 
 
+/* 按钮颜色Class */
+.btn_blue{
+	background: #4197F4 !important;
+	border:1px solid  #4197F4 !important;
+}
 
 
 
@@ -161,7 +166,7 @@ line-height: 21px;
       height: 10px;
       border-radius: 100%;
       position: absolute;
-      background: #27DC93;
+      background: #4197F4;
       top: 50%;
       left:50%;
       margin: -5px 0  0 -5px;

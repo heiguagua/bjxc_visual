@@ -10,6 +10,7 @@ import com.chinawiserv.dsp.dir.mapper.api.ApiMapper;
 import com.chinawiserv.dsp.dir.mapper.api.DirServiceInfoMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetServiceMapMapper;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -89,31 +90,41 @@ public class ApiServiceImpl implements IApiService {
         /**
          * 查询数据表、字段对应关系
          * */
-        List<Map<String,Object>> tableResult = apiMapper.getTableInfoByDatasetId(paramMap);
+        List<Map<String,Object>> tableRelation = apiMapper.getTableInfoByDatasetId(paramMap);
+        List<Map<String,Object>> tableInfoList = Lists.newArrayList();
+        if(null != tableRelation && tableRelation.size() > 0){
 
-        if(null != tableResult && tableResult.size() > 0){
+            for(Iterator iter = tableRelation.iterator(); iter.hasNext();){
 
-            for(Iterator iter = tableResult.iterator(); iter.hasNext();){
                 Map<String,Object> tableInfo = (Map<String,Object>)iter.next();
                 if(null != tableInfo){
                     String sourceTableId = (String)tableInfo.get("sourceTableId");
+                    String sourceTableName = (String)tableInfo.get("sourceTableName");
                     if(StringUtils.isNotBlank(sourceTableId)){
                         tableParamMap.put("tableId",sourceTableId);
                         List<Map<String,Object>> sourceTableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
-                        tableInfo.put("sourceTableColumns",sourceTableColumnList);
+                        Map<String,Object> tableSource = Maps.newHashMap();
+                        tableSource.put("tableName",sourceTableName);
+                        tableSource.put("tableColunms",sourceTableColumnList);
+                        tableInfoList.add(tableSource);
                     }
 
                     String targetTableId = (String)tableInfo.get("targetTableId");
+                    String targetTableName = (String)tableInfo.get("targetTableName");
                     if(StringUtils.isNotBlank(targetTableId)){
                         tableParamMap.put("tableId",targetTableId);
                         List<Map<String,Object>> targetTableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
-                        tableInfo.put("targetTableColumns",targetTableColumnList);
+                        Map<String,Object> tableTarget = Maps.newHashMap();
+                        tableTarget.put("tableName",targetTableName);
+                        tableTarget.put("tableColunms",targetTableColumnList);
+                        tableInfoList.add(tableTarget);
                     }
                 }
             }
 
         }
-        result.put("tableInfo",tableResult);
+        result.put("tableRelation",tableRelation);
+        result.put("tableInfo",tableInfoList);
         return result;
     }
     /**
@@ -144,9 +155,10 @@ public class ApiServiceImpl implements IApiService {
                     String requestType = (String)serviceInfo.get("requestType");
                     String dataStyle = (String)serviceInfo.get("dataStyle");
                     String serviceInfoParams = (String)serviceInfo.get("serviceInfoParams");
-                    String serviceNo = (String)serviceInfo.get("serviceNo");
+                    String serviceId = (String)serviceInfo.get("serviceNo");
                     String status = (String)serviceInfo.get("status");
-                    String dcmId = (String)serviceInfo.get("dcmId");
+                    String dirOrDrapType = (String)serviceInfo.get("dirType"); //目录梳理类型
+                    String dirOrDrapTypeId = (String)serviceInfo.get("dirTypeId"); //目录OR梳理ID
                     Date startDate = null;
                     Date endDate = null;
                     Date operateDate = new Date();
@@ -156,8 +168,18 @@ public class ApiServiceImpl implements IApiService {
                     } catch (ParseException e) {
                         logger.error(e.getMessage());
                     }
-
-                    dirServiceInfo.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                    /**
+                     * 初始化PO:DirServiceInfo
+                     * */
+                    if(null == serviceId || "" == serviceId){
+                        return handleResult;
+                    }
+                    DirServiceInfo dirServiceInfoIf = dirServiceInfoMapper.selectById(serviceId);
+                    if(null != dirServiceInfoIf){
+                        handleResult.setMsg("该服务已经存在");
+                        return handleResult;
+                    }
+                    dirServiceInfo.setId(serviceId);
                     dirServiceInfo.setOperateDate(operateDate);
                     dirServiceInfo.setRequestMethod(requestType);
                     dirServiceInfo.setServiceUrl(serviceUrl);
@@ -165,14 +187,16 @@ public class ApiServiceImpl implements IApiService {
                     dirServiceInfo.setServiceType(serviceType);
                     dirServiceInfo.setRequestFormat(dataStyle);
                     dirServiceInfo.setRequestInfo(serviceInfoParams);
-
+                    /**
+                     * 初始化PO:DirDatasetServiceMap
+                     * */
                     dirDatasetServiceMap.setId(UUID.randomUUID().toString().replaceAll("-",""));
-                    dirDatasetServiceMap.setServiceId(serviceNo);
+                    dirDatasetServiceMap.setServiceId(serviceId);
                     dirDatasetServiceMap.setStatus(status);
                     dirDatasetServiceMap.setValidFrom(startDate);
                     dirDatasetServiceMap.setValidTo(endDate);
-                    dirDatasetServiceMap.setObjId(null);
-                    dirDatasetServiceMap.setObjType(null);
+                    dirDatasetServiceMap.setObjId(dirOrDrapTypeId);
+                    dirDatasetServiceMap.setObjType(dirOrDrapType);
                     /**
                      * 插入服务信息
                      * */
@@ -190,11 +214,36 @@ public class ApiServiceImpl implements IApiService {
         return null;
     }
     /**
-     * 下架服务
+     * 下架服务，更新服务状态
      * */
     @Override
     public HandleResult unReleaseService(Map<String, Object> paramMap) {
-        return null;
+        HandleResult handleResult = new HandleResult();
+         if(null == paramMap || paramMap.size() == 0){
+            handleResult.setMsg("未传入参数");
+            handleResult.setState(false);
+            return handleResult;
+        }else{
+             DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
+             String status = (String)paramMap.get("status");
+             String serviceNo = (String)paramMap.get("serviceNo");
+             String dirOrDrapTypeId = (String)paramMap.get("dirTypeId");
+             String dirOrDrapType = (String)paramMap.get("dirType");
+             dirDatasetServiceMapParam.setServiceId(serviceNo);
+             dirDatasetServiceMapParam.setObjType(dirOrDrapType);
+             dirDatasetServiceMapParam.setObjId(dirOrDrapTypeId);
+             DirDatasetServiceMap result = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
+             if(null != result){
+                 result.setStatus(status);
+                 int i = dirDatasetServiceMapMapper.updateAllColumnById(result);
+                 if(i > 0){
+                     handleResult.setState(true);
+                 }else{
+                     handleResult.setState(false);
+                 }
+             }
+        }
+        return handleResult;
     }
 
     /**

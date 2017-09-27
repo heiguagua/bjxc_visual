@@ -1287,7 +1287,7 @@ function initGlobalCustom(tempUrlPrefix) {
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].classifyName,
-                                'fid': nodeObjs[i].classifyCode,
+                                'fid': nodeObjs[i].id,
                                 'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
                             }
                         }

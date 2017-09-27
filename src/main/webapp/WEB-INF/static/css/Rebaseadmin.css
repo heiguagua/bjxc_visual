@@ -39,12 +39,14 @@
 .main-header .logo{
 	height: 70px;
 	line-height:70px;
+	padding: 0 10px !important;
 }
 .skin-blue .main-header .logo{
 	background: #4197F4;
 }
 .main-header .logo .logo-lg span{
 	font-size:12px;
+	    font-family: PingFangSC-Medium;
 }
 .skin-blue .main-header .navbar{
 	background: #142444;
@@ -59,7 +61,9 @@
 	    background: #4197F4;
 }
 
-
+.sidebar-menu .treeview-menu > li > a{
+	padding:12px !important;
+}
 
 
 /* /*导航另加*/ */
@@ -75,11 +79,12 @@
 	color: #FFFFFF;
 	font-size: 14px;
 	opacity: 0.45;
-	padding: 25px;
+	padding: 24px;
 	cursor:pointer;
 }
 .nav_uls>li.active{
 	opacity: 1;
+	border-bottom:3px solid #4197F4;
 }
 
 
@@ -89,3 +94,18 @@
 .content-header > h1 > small{
 	font-size:12px;
 }
+
+
+
+/*fenye内容*/
+/* .fixed-table-pagination .pagination a{
+	margin-right: 14px;
+	border-radius: 4px !important;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+	background: #4197F4 !important;
+	border:1px solid  #4197F4 !important;
+	
+	
+} */
