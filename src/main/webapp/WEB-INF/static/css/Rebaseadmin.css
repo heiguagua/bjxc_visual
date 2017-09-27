@@ -39,12 +39,14 @@
 .main-header .logo{
 	height: 70px;
 	line-height:70px;
+	padding: 0 10px !important;
 }
 .skin-blue .main-header .logo{
 	background: #4197F4;
 }
 .main-header .logo .logo-lg span{
 	font-size:12px;
+	    font-family: PingFangSC-Medium;
 }
 .skin-blue .main-header .navbar{
 	background: #142444;
