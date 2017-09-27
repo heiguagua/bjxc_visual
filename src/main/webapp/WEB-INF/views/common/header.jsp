@@ -14,6 +14,17 @@
    <!-- Sidebar toggle button-->
    <!-- <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a> -->
    <!-- Navbar Right Menu -->
+   
+   <div class="btn-group">
+   	<ul class="nav_uls">
+   		<li><i class="fa fa-institution (alias)"></i>&nbsp;资源梳理</li>
+   		<li class="active"><i class="fa fa-list-alt"></i>&nbsp;目录管理</li>
+   		<li><i class="fa fa-newspaper-o"></i>&nbsp;服务封装</li>
+   		<li><i class="fa  fa-database"></i>&nbsp;采集系统</li>
+   	</ul>
+   </div>
+   
+   
    <div class="navbar-custom-menu">
      <ul class="nav navbar-nav">
        <!-- Notifications Menu -->

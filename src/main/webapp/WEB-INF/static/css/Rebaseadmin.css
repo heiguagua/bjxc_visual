@@ -62,10 +62,25 @@
 
 
 
+/* /*导航另加*/ */
 
+.nav_uls{
+	color: #FFFFFF;
+	font-size: 14px;
+	opacity: 0.45;
+}
 
-
-
+.nav_uls>li{
+	float:left;
+	color: #FFFFFF;
+	font-size: 14px;
+	opacity: 0.45;
+	padding: 25px;
+	cursor:pointer;
+}
+.nav_uls>li.active{
+	opacity: 1;
+}
 
 
 
