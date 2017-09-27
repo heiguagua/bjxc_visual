@@ -135,7 +135,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
                     SysDept sysDept = new SysDept();
                     sysDept.setId(id);
                     sysDept.setDeleteFlag(1);
-                    return this.updateById(sysDept);
+                    return updateById(sysDept);
                 }
             }
         }
