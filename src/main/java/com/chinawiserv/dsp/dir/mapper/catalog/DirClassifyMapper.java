@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.dir.mapper.catalog;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,21 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
     List<DirClassifyVo> selectVoListForTreeData(Map<String, Object> paramMap);
 
     DirClassifyVo selectVoById(String id);
+    
+//    String selectClassifyCodebyFid(String fid);
+//    
+//    int selectClassifyLevelbyFid(String fid);
+//    
+//    int selectClassifyIndexbyFid(String fid);
+    
+    void updateClassifyIndexbyFid(String fid);
+    
+    int selectCountLevel1();
+    
+    DirClassify selectFclassify(String fid);
+    
+//    String selectClassifyStructureNamebyFid(String fid);
+    
   //逻辑删除
     
     void  updateDeleteFlag(String classifyCode);

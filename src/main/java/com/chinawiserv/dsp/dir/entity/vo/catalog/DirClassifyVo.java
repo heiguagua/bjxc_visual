@@ -11,8 +11,16 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
  * @since 2017-09-08
  */
 public class DirClassifyVo extends DirClassify{
-    private String hasLeaf;
-
+	
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String hasLeaf;
+	private String DeptId;
+    
+    
+    
     public String getHasLeaf() {
         return hasLeaf;
     }
@@ -20,4 +28,14 @@ public class DirClassifyVo extends DirClassify{
     public void setHasLeaf(String hasLeaf) {
         this.hasLeaf = hasLeaf;
     }
+
+	public String getDeptId() {
+		return DeptId;
+	}
+
+	public void setDeptId(String deptId) {
+		DeptId = deptId;
+	}
+
+
 }
