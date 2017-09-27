@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapSystemServiceMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapSystemService">
+        <id column="id" property="id"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="belong_dept" property="belongDept"/>
+        <result column="doc_id" property="docId"/>
+        <result column="activity_id" property="activityId"/>
+        <result column="service_method" property="serviceMethod"/>
+        <result column="ip_address" property="ipAddress"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="service_desc" property="serviceDesc"/>
+        <result column="belong_system" property="belongSystem"/>
+        <result column="params_desc" property="paramsDesc"/>
+        <result column="samples" property="samples"/>
+        <result column="code_index" property="codeIndex"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapSystemServiceVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_system_service t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_system_service t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM drap_system_service t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapSystemService">
+        insert into
+        drap_system_service(id,region_code,belong_dept,doc_id,activity_id,service_method,ip_address,username,password,service_desc,belong_system,params_desc,samples,code_index)
+        values(
+        #{id},#{regionCode},#{belongDept},#{docId},#{activityId},#{serviceMethod},#{ipAddress},#{username},#{password},#{serviceDesc},#{belongSystem},#{paramsDesc},#{samples},#{codeIndex}
+        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapSystemService">
+        update drap_system_service
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="regionCode != null">
+                region_code = #{regionCode},
+            </if>
+            <if test="belongDept != null">
+                belong_dept = #{belongDept},
+            </if>
+            <if test="docId != null">
+                doc_id = #{docId},
+            </if>
+            <if test="activityId != null">
+                activity_id = #{activityId},
+            </if>
+            <if test="serviceMethod != null">
+                service_method = #{serviceMethod},
+            </if>
+            <if test="ipAddress != null">
+                ip_address = #{ipAddress},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="serviceDesc != null">
+                service_desc = #{serviceDesc},
+            </if>
+            <if test="belongSystem != null">
+                belong_system = #{belongSystem},
+            </if>
+            <if test="paramsDesc != null">
+                params_desc = #{paramsDesc},
+            </if>
+            <if test="samples != null">
+                samples = #{samples},
+            </if>
+            <if test="codeIndex != null">
+                code_index = #{codeIndex},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from drap_system_service
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>
