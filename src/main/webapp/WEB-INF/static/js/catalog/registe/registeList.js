@@ -121,6 +121,23 @@ function initButtonClickEvent(){
         setParams();
         reloadTable();
     });
+    
+
+
+  //tab切换
+ $("#devlop_chick >li").click(function(){
+  	$(this).addClass("active").siblings().removeClass("active")
+  	console.log($(this).text())
+  	if($(this).text().trim() == "待发布"){
+  		$("#from_undevelop").hide();
+  		$("#from_develop").show();
+  	}else if($(this).text().trim() === "已发布"){
+  		$("#from_develop").css("display","none");
+  		$("#from_undevelop").css("display","block");
+  		
+  	}
+  })
+     
 }
 
 function setParams() {
@@ -133,4 +150,6 @@ function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
     $(tableSelector).data("bootstrap.table").refresh();
 }
+
+
 
