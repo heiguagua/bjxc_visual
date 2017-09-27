@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapRequirementResourcesMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapRequirementResources">
+        <id column="id" property="id"/>
+        <result column="require_id" property="requireId"/>
+        <result column="require_combing_type" property="requireCombingType"/>
+        <result column="doc_id" property="docId"/>
+        <result column="require_code" property="requireCode"/>
+        <result column="require_name" property="requireName"/>
+        <result column="requirement_desc" property="requirementDesc"/>
+        <result column="brace_activity_id" property="braceActivityId"/>
+        <result column="is_get" property="isGet"/>
+        <result column="expect_get_type" property="expectGetType"/>
+        <result column="source_type" property="sourceType"/>
+        <result column="require_type" property="requireType"/>
+        <result column="require_remark" property="requireRemark"/>
+        <result column="other_info" property="otherInfo"/>
+        <result column="expect_update_frequence" property="expectUpdateFrequence"/>
+        <result column="brace_app" property="braceApp"/>
+        <result column="status" property="status"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapRequirementResourcesVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_requirement_resources t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_requirement_resources t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM drap_requirement_resources t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapRequirementResources">
+        insert into
+        drap_requirement_resources(id,require_id,require_combing_type,doc_id,require_code,require_name,requirement_desc,brace_activity_id,is_get,expect_get_type,source_type,require_type,require_remark,other_info,expect_update_frequence,brace_app,status,create_user,create_time,update_user,update_time,delete_flag)
+        values(
+        #{id},#{requireId},#{requireCombingType},#{docId},#{requireCode},#{requireName},#{requirementDesc},#{braceActivityId},#{isGet},#{expectGetType},#{sourceType},#{requireType},#{requireRemark},#{otherInfo},#{expectUpdateFrequence},#{braceApp},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag}
+        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapRequirementResources">
+        update drap_requirement_resources
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="requireId != null">
+                require_id = #{requireId},
+            </if>
+            <if test="requireCombingType != null">
+                require_combing_type = #{requireCombingType},
+            </if>
+            <if test="docId != null">
+                doc_id = #{docId},
+            </if>
+            <if test="requireCode != null">
+                require_code = #{requireCode},
+            </if>
+            <if test="requireName != null">
+                require_name = #{requireName},
+            </if>
+            <if test="requirementDesc != null">
+                requirement_desc = #{requirementDesc},
+            </if>
+            <if test="braceActivityId != null">
+                brace_activity_id = #{braceActivityId},
+            </if>
+            <if test="isGet != null">
+                is_get = #{isGet},
+            </if>
+            <if test="expectGetType != null">
+                expect_get_type = #{expectGetType},
+            </if>
+            <if test="sourceType != null">
+                source_type = #{sourceType},
+            </if>
+            <if test="requireType != null">
+                require_type = #{requireType},
+            </if>
+            <if test="requireRemark != null">
+                require_remark = #{requireRemark},
+            </if>
+            <if test="otherInfo != null">
+                other_info = #{otherInfo},
+            </if>
+            <if test="expectUpdateFrequence != null">
+                expect_update_frequence = #{expectUpdateFrequence},
+            </if>
+            <if test="braceApp != null">
+                brace_app = #{braceApp},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from drap_requirement_resources
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

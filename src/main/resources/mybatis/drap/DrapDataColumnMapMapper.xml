@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapDataColumnMapMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataColumnMap">
+        <id column="id" property="id"/>
+        <result column="dataset_id" property="datasetId"/>
+        <result column="business_item_id" property="businessItemId"/>
+        <result column="system_column_id" property="systemColumnId"/>
+        <result column="info_system_id" property="infoSystemId"/>
+        <result column="db_id" property="dbId"/>
+        <result column="table_id" property="tableId"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDataColumnMapVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_data_column_map t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_data_column_map t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM drap_data_column_map t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataColumnMap">
+        insert into drap_data_column_map(id,dataset_id,business_item_id,system_column_id,info_system_id,db_id,table_id)
+        values(
+        #{id},#{datasetId},#{businessItemId},#{systemColumnId},#{infoSystemId},#{dbId},#{tableId})
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataColumnMap">
+        update drap_data_column_map
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="datasetId != null">
+                dataset_id = #{datasetId},
+            </if>
+            <if test="businessItemId != null">
+                business_item_id = #{businessItemId},
+            </if>
+            <if test="systemColumnId != null">
+                system_column_id = #{systemColumnId},
+            </if>
+            <if test="infoSystemId != null">
+                info_system_id = #{infoSystemId},
+            </if>
+            <if test="dbId != null">
+                db_id = #{dbId},
+            </if>
+            <if test="tableId != null">
+                table_id = #{tableId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from drap_data_column_map
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

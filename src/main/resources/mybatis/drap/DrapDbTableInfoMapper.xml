@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapDbTableInfoMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo">
+        <id column="id" property="id"/>
+        <result column="db_id" property="dbId"/>
+        <result column="table_source_type" property="tableSourceType"/>
+        <result column="table_type" property="tableType"/>
+        <result column="table_code" property="tableCode"/>
+        <result column="table_name" property="tableName"/>
+        <result column="table_cn_name" property="tableCnName"/>
+        <result column="table_desc" property="tableDesc"/>
+        <result column="code_index" property="codeIndex"/>
+        <result column="status" property="status"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbTableInfoVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_db_table_info t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_db_table_info t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM drap_db_table_info t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo">
+        insert into
+        drap_db_table_info(id,db_id,table_source_type,table_type,table_code,table_name,table_cn_name,table_desc,code_index,status,delete_flag)
+        values(
+        #{id},#{dbId},#{tableSourceType},#{tableType},#{tableCode},#{tableName},#{tableCnName},#{tableDesc},#{codeIndex},#{status},#{deleteFlag}
+        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo">
+        update drap_db_table_info
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="dbId != null">
+                db_id = #{dbId},
+            </if>
+            <if test="tableSourceType != null">
+                table_source_type = #{tableSourceType},
+            </if>
+            <if test="tableType != null">
+                table_type = #{tableType},
+            </if>
+            <if test="tableCode != null">
+                table_code = #{tableCode},
+            </if>
+            <if test="tableName != null">
+                table_name = #{tableName},
+            </if>
+            <if test="tableCnName != null">
+                table_cn_name = #{tableCnName},
+            </if>
+            <if test="tableDesc != null">
+                table_desc = #{tableDesc},
+            </if>
+            <if test="codeIndex != null">
+                code_index = #{codeIndex},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from drap_db_table_info
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

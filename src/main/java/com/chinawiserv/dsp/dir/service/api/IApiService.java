@@ -47,4 +47,7 @@ public interface IApiService {
 
     List<Map<String,Object>> getDbInfoBySystemId(Map<String,Object> paramMap);
 
+    List<Map<String,Object>> getSystemInfoByDeptId(Map<String,Object> paramMap);
+
+
 }
