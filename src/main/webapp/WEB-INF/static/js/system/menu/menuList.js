@@ -3,7 +3,8 @@ var tableSelector = '#systemMenuTableId';
 jQuery(document).ready(function () {
 
     var paramsObj = {};
-    jQuery(tableSelector).customTable({
+    jQuery(
+).customTable({
         url: basePathJS + '/system/menu/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);

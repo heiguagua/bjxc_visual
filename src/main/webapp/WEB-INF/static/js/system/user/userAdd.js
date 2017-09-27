@@ -7,24 +7,25 @@ jQuery(document).ready(function () {
 });
 
 function initSelectData() {
-    $.initDeptTreeSelect('treeDemo','deptName','deptId','menuContent'); //初始化角色分类下拉框
+
+    $.initUserRegionTreeSelect('treeRegionDemo','regionName','regionCode', 'menuRegionContent'); //初始化区域机构下拉框
     initUserTypeList();
     // initDeptSelectDataList();
     initRoleNameList();
 
 }
 
-function initUserTypeList(){
+function initUserTypeList() {
     $.commonAjax({
         url: basePathJS + "/enums/UserType",
-        async:false,
+        async: false,
         success: function (result) {
             $("#userType").select2({data: result});
         }
     });
 }
 
-function initDeptSelectDataList(){
+function initDeptSelectDataList() {
     $.commonAjax({
         url: basePathJS + "/system/dept/getDeptSelectDataList",
         success: function (result) {
@@ -38,7 +39,7 @@ function initDeptSelectDataList(){
     });
 }
 
-function initRoleNameList(){
+function initRoleNameList() {
     $.commonAjax({
         url: basePathJS + "/system/role/getRoleNameList",
         success: function (result) {
@@ -54,7 +55,7 @@ function initRoleNameList(){
 
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
-    return true ;
+    return true;
 }
 
 function runAfterSubmitSuccess(response) {

@@ -43,10 +43,10 @@
 			<if test="treeCode != null">
 				AND t.tree_code = #{treeCode}
 			</if>
-			<if test="onlyRoot != null and onlyRoot == '1'">
+			<if test="onlyRoot != null and onlyRoot == '1'.toString()">
 				AND t.fid = 'root'
 			</if>
-			<if test="excludeRoot != null and excludeRoot == '0'">
+			<if test="excludeRoot != null and excludeRoot == '0'.toString()">
 				AND t.fid != 'root'
 			</if>
 			<if test="searchKey != null">
@@ -58,7 +58,7 @@
 			<if test="regionCodeCondition != null">
 				AND t.region_code like '${regionCodeCondition}%'
 			</if>
-			<if test="withoutAuthDept != null and withoutAuthDept == '1' and applicant != null">
+			<if test="withoutAuthDept != null and withoutAuthDept == '1'.toString() and applicant != null">
 				AND t.id NOT IN
 				(
 					SELECT da.to_dept_id FROM sys_dept_authority_apply da

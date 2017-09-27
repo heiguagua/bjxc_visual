@@ -55,16 +55,12 @@
                                 <select id="deptId" name="deptId" class="form-control select2" style="width: 100%;"></select>
                             </div>--%>
                             <div class="form-group">
-                                <label for="deptName" style='float:left;'>所属组织机构 *</label>
-                                <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
-                                <input type="text" id="deptName"  class="form-control">
-                                <input type="hidden" id="deptId" name="deptId">
-                                <div class="menu-wrap">
-                                    <div id="menuContent" class="menuContent" style="display:none;">
-                                        <ul id="treeDemo" class="ztree"
-                                            style="margin-top:0;border: 1px solid #98b7a8;"></ul>
-                                    </div>
-                                </div>
+                                <label>所属行政区域</label>
+                                    <input type="text" class="form-control"  id="regionCode"  readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>所属组织机构</label>
+                                    <input type="text" class="form-control"  id="deptName"  readonly>
                             </div>
                             <div class="form-group">
                                 <label>用户描述</label>
@@ -75,8 +71,8 @@
                                 <select id="roleIds" name="roleIds" class="form-control select2" style="width: 100%;" multiple></select>
                             </div>--%>
                             <div class="form-group">
-                                <label>添加角色</label>
-                                <select id="roleId" name="roleId" class="form-control select2" style="width: 100%;"></select>
+                                <label>角色</label>
+                                <select id="roleIds" name="roleIds" class="form-control select2" style="width: 100%;"></select>
                             </div>
                             <div class="form-group">
                                 <label>状态</label>
