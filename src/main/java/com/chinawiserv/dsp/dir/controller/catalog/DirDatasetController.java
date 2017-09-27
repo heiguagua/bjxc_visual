@@ -9,6 +9,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
@@ -24,10 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * <p>
@@ -56,8 +54,32 @@ public class DirDatasetController extends BaseController {
     	return "catalog/catalogue/catalogueList";
     }
 
+    @RequestMapping("/registe")
+    public  String registeInit(@RequestParam Map<String , Object> paramMap){
+        setCurrentMenuInfo(paramMap);
+        return "catalog/registe/registeList";
+    }
+
+    @RequestMapping("/audit")
+    public  String auditInit(@RequestParam Map<String , Object> paramMap){
+        setCurrentMenuInfo(paramMap);
+        return "catalog/audit/auditList";
+    }
+
+    @RequestMapping("/release")
+    public  String releaseInit(@RequestParam Map<String , Object> paramMap){
+        setCurrentMenuInfo(paramMap);
+        return "catalog/release/releaseList";
+    }
+
+    @RequestMapping("/query")
+    public  String queryInit(@RequestParam Map<String , Object> paramMap){
+        setCurrentMenuInfo(paramMap);
+        return "catalog/query/queryList";
+    }
+
     /**
-     * 分页查询数据集（信息资源）
+     * 分页查询信息资源列表（编目）
      */
     @RequiresPermissions("catalog:catalogue:list")
     @RequestMapping("/catalogue/list")
@@ -68,10 +90,86 @@ public class DirDatasetController extends BaseController {
 		    Page<DirDatasetVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);
 		} catch (Exception e) {
-		    pageResult.error("分页查询数据集（信息资源）出错");
-		    logger.error("分页查询数据集（信息资源）出错", e);
+		    pageResult.error("分页查询数据集（编目）出错");
+		    logger.error("分页查询数据集（编目）出错", e);
 		}
 		return pageResult;
+    }
+
+    /**
+     * 分页查询信息资源列表（注册）
+     */
+    @RequiresPermissions("catalog:registe:list")
+    @RequestMapping("/registe/list")
+    @ResponseBody
+    public PageResult registeList(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            if(paramMap == null){
+                paramMap = new HashMap<>();
+            }
+            paramMap.put("allStatus",new String[]{"0","2","4"}); //查询过滤状态为待注册、审核不通过、审核驳回的数据
+            Page<DirDatasetClassifyMapVo> page = service.selectClassifyMapVoPage(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询数据集（注册）出错");
+            logger.error("分页查询数据集（注册）出错", e);
+        }
+        return pageResult;
+    }
+
+    /**
+     * 分页查询信息资源列表（审核）
+     */
+    @RequiresPermissions("catalog:audit:list")
+    @RequestMapping("/audit/list")
+    @ResponseBody
+    public PageResult auditList(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            Page<DirDatasetVo> page = service.selectVoPage(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询数据集（审核）出错");
+            logger.error("分页查询数据集（审核）出错", e);
+        }
+        return pageResult;
+    }
+
+    /**
+     * 分页查询信息资源列表（发布）
+     */
+    @RequiresPermissions("catalog:release:list")
+    @RequestMapping("/release/list")
+    @ResponseBody
+    public PageResult releaseList(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            Page<DirDatasetVo> page = service.selectVoPage(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询数据集（发布）出错");
+            logger.error("分页查询数据集（发布）出错", e);
+        }
+        return pageResult;
+    }
+
+    /**
+     * 分页查询信息资源列表（目录查询）
+     */
+    @RequiresPermissions("catalog:query:list")
+    @RequestMapping("/query/list")
+    @ResponseBody
+    public PageResult queryList(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            Page<DirDatasetVo> page = service.selectVoPage(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询数据集（目录查询）出错");
+            logger.error("分页查询数据集（目录查询）出错", e);
+        }
+        return pageResult;
     }
 
     /**
@@ -158,6 +256,76 @@ public class DirDatasetController extends BaseController {
 		}
 		return handleResult;
     }
+
+    /**
+     * 执行注册
+     */
+    @RequiresPermissions("catalog:registe:save")
+    @Log("信息资源注册")
+    @RequestMapping("/registe/doRegiste")
+    @ResponseBody
+    public  HandleResult doRegiste(String dcmIds){
+        HandleResult handleResult = new HandleResult();
+        try {
+            boolean registerResult = service.registe(dcmIds);
+            if(registerResult){
+                handleResult.success("注册成功");
+            }else{
+                handleResult.error("注册失败");
+            }
+        } catch (Exception e) {
+            handleResult.error("信息资源注册失败");
+            logger.error("信息资源注册失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 执行审核
+     */
+    @RequiresPermissions("catalog:audit:save")
+    @Log("信息资源审核")
+    @RequestMapping("/audit/doAudit")
+    @ResponseBody
+    public  HandleResult doAudit(@RequestParam Map<String , Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        try {
+            boolean auditResult = service.audit(paramMap);
+            if(auditResult){
+                handleResult.success("审核成功");
+            }else{
+                handleResult.error("审核失败");
+            }
+        } catch (Exception e) {
+            handleResult.error("信息资源审核失败");
+            logger.error("信息资源审核失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 执行审核
+     */
+    @RequiresPermissions("catalog:release:save")
+    @Log("信息资源发布")
+    @RequestMapping("/release/doRelease")
+    @ResponseBody
+    public  HandleResult doRelease(@RequestParam Map<String , Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        try {
+            boolean auditResult = service.release(paramMap);
+            if(auditResult){
+                handleResult.success("发布成功");
+            }else{
+                handleResult.error("发布失败");
+            }
+        } catch (Exception e) {
+            handleResult.error("信息资源发布失败");
+            logger.error("信息资源发布失败", e);
+        }
+        return handleResult;
+    }
+
 
     /**
      * 获取梳理数据集详情
