@@ -8,7 +8,7 @@
  .nav_ulss{
 	color: #000;
 	font-size: 14px;
-	opacity: 0.45;
+	
 	
 }
 
@@ -21,6 +21,6 @@
 	cursor:pointer;
 }
 .nav_ulss>li.active{
-	opacity: 1;
+	opacity:1;
 	background:#27408B;
 }
