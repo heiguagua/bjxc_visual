@@ -1276,7 +1276,7 @@ function initGlobalCustom(tempUrlPrefix) {
                 async: {
                     enable: true,
                     url: basePathJS + "/dirClassify/authorityList",
-                    autoParam: ["fcode"],
+                    autoParam: ["fid"],
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                         var params = [];
                         var nodeObjs = childNodes.content.vo;
@@ -1287,7 +1287,7 @@ function initGlobalCustom(tempUrlPrefix) {
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].classifyName,
-                                'fcode': nodeObjs[i].classifyCode,
+                                'fid': nodeObjs[i].classifyCode,
                                 'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
                             }
                         }

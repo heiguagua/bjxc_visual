@@ -136,6 +136,32 @@ public class DirDataitem implements Serializable {
      */
 	@TableField("belong_system_id")
 	private String belongSystemId;
+	/**
+	 * 是否涉密
+	 */
+	@TableField("item_format")
+	private int secretFlag;
+	/**
+	 * 所属信息资源格式
+	 */
+	@TableField("item_format")
+	private int itemFormat;
+
+	public int getItemFormat() {
+		return itemFormat;
+	}
+
+	public void setItemFormat(int itemFormat) {
+		this.itemFormat = itemFormat;
+	}
+
+	public int getSecretFlag() {
+		return secretFlag;
+	}
+
+	public void setSecretFlag(int secretFlag) {
+		this.secretFlag = secretFlag;
+	}
 
 	public String getBelongSystemId() {
 		return belongSystemId;

@@ -215,6 +215,8 @@
         <result column="create_time" property="createTime"/>
         <result column="update_user" property="updateUser"/>
         <result column="update_time" property="updateTime"/>
+        <result column="item_length" property="itemLength"/>
+        <result column="is_secret" property="isSecret"/>
     </resultMap>
 
     <resultMap id="itemVo" type="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem" extends="result_DrapDatasetItem_Map">

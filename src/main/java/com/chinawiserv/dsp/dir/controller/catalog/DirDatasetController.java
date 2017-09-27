@@ -194,14 +194,7 @@ public class DirDatasetController extends BaseController {
     public  HandleResult quickAddDataset(DirDatasetVo entity, Model model){
         HandleResult handleResult = new HandleResult();
         try {
-            entity.setId(UUID.randomUUID().toString().replace("-",""));
             service.insertVO(entity);
-            List<DirDataitemVo> items = entity.getItems();
-            for(DirDataitemVo item:items){
-                item.setId(UUID.randomUUID().toString().replace("-",""));
-                item.setDatasetId(entity.getId());
-            }
-            dataitemService.insertListItem(items);
             handleResult.success("创建数据集（信息资源）成功");
         } catch (Exception e) {
             handleResult.error("创建数据集（信息资源）失败");
