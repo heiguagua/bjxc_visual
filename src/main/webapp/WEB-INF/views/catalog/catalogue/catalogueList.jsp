@@ -63,7 +63,7 @@
                                     <div class="input-group" style="float:right">
                                         <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称" type="text">
                                         <div class="input-group-btn">
-                                            <button class="btn btn-primary btn-flat" id="queryBtnEdit" type="button">
+                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtnEdit" type="button">
                                                 <i class="fa fa-search"></i> 查询
                                             </button>
                                         </div>

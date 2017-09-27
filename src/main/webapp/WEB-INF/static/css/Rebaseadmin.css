@@ -59,7 +59,9 @@
 	    background: #4197F4;
 }
 
-
+.sidebar-menu .treeview-menu > li > a{
+	padding:12px !important;
+}
 
 
 /* /*导航另加*/ */
