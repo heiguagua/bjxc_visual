@@ -61,6 +61,11 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         vo.setCreateTime(createTime);
         int datasetResult = mapper.baseInsert(vo);
         if(datasetResult>0){
+            //插入信息资源格式
+            DirDatasetExtFormat ext = vo.getExt();
+            ext.setId(UUID.randomUUID().toString());
+            ext.setDataset_id(vo.getId());
+            mapper.extInsert(ext);
             //数据集插入成功后，插入数据集与目录类别中间表的数据
             String classifyIds = vo.getClassifyIds();
             if(!StringUtils.isEmpty(classifyIds)){

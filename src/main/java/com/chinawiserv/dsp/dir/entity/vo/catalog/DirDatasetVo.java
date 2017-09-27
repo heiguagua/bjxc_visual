@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.dir.entity.vo.catalog;
 
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetExtFormat;
 
 import java.util.List;
 
@@ -17,6 +18,16 @@ public class DirDatasetVo extends DirDataset{
     private List<DirDataitemVo> items;
 
     private String classifyIds;
+
+    private DirDatasetExtFormat ext;
+
+    public DirDatasetExtFormat getExt() {
+        return ext;
+    }
+
+    public void setExt(DirDatasetExtFormat ext) {
+        this.ext = ext;
+    }
 
     public List<DirDataitemVo> getItems() {
         return items;
