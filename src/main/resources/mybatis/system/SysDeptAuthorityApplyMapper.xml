@@ -28,7 +28,19 @@
     <sql id="queryConditions">
         <where>
             <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
+                AND t.id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="applicant != null">
+                AND t.applicant = #{applicant,jdbcType=VARCHAR}
+            </if>
+            <if test="toDeptId != null">
+                AND t.to_dept_id = #{toDeptId, jdbcType=VARCHAR}
+            </if>
+            <if test="toDeptIds != null">
+                AND t.to_dept_id IN
+                <foreach collection="toDeptIds" open="(" close=")" item="item" separator=",">
+                    #{item, jdbcType=VARCHAR}
+                </foreach>
             </if>
         </where>
     </sql>

@@ -6,7 +6,6 @@ jQuery(document).ready(function () {
     initAllSelect();
 
 });
-
 function initAllSelect(){
     $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化信息资源分类下拉框
     $.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联信息资源分类下拉框
@@ -78,9 +77,71 @@ var Model = {
                     $("#dataset_item_container").empty();
                     var html = '';
                     $.each(this.datas, function(idx, itm){
-                        html += '<a class="list-group-item no-border" data-id="'+itm.id+'" data-code="'+itm.dataset_code+'">'+itm.dataset_name+'</a>';
+                        html += '<a class="list-group-item no-border" data-id="'+itm.id+'">'+itm.dataset_name+'</a>';
                     });
                     $("#dataset_item_container").html(html);
+                }
+            },
+            item:{
+                datas:[],
+                existed: function(id,pool){
+                    /*var pool = dataItemTable.api().data();*/
+                    if(pool != null && pool.length >0){
+                        for (var i = 0; i < pool.length; i++) {
+                            if(pool[i] == id+""){
+                                return true;
+                            }
+                        }
+                        return false;
+                    }else{
+                        return false;
+                    }
+                },
+                build: function(){
+                    $("#field_tree").empty();
+                    var html = '';
+                    var cur = this;
+
+                    var pool=[];
+                    var setCode=$('#set_code').val();//操作的对象
+                    /*$.ajax({
+                        url: basePathJS+"/admin/SysBus_getDirBusinessBySetCode",
+                        type:"post",
+                        data:{
+                            set_code:setCode
+                        },
+                        dataType:"json",
+                        async:false,
+                        success:function(data){
+                            if(data.state){
+                                pool=data.result;
+                            }else{
+                                $.bootstrapDialog.failure(data.message);
+                            }
+
+                        }
+                    })*/
+
+                    $.each(cur.datas, function(idx, itm){
+                        try {
+                            if(cur.existed(itm.ID,pool)){
+                                html += '<a class="list-group-item no-border disabled" data-id="'+itm.id+'">'+itm.itemName+'</a>';
+                            }else{
+                                html += '<a class="list-group-item no-border" data-id="'+itm.id+'">'+itm.itemName+'</a>';
+                            }
+                        } catch (e) {
+                            html += '<a class="list-group-item no-border" data-id="'+itm.id+'" >'+itm.itemName+'</a>';
+                        }
+
+                    });
+                    $("#field_tree").html(html);
+                },
+                selected: function(){
+                    return [];
+                },
+                reset: function(){
+                    this.datas = [];
+                    this.build();
                 }
             },
             reset: function(){
@@ -100,8 +161,8 @@ var Model = {
         loadGroups: function(success){
             this.cache.group.tree = tree;
             var cur = this;
-            $.get(CONTEXT_PATH+'/admin/Organize_getOrgnizeByPrivilege',null, function (data) {
-                var d = JSON.parse(data);
+            $.get(basePathJS+'/system/dept/getDeptByPrivilege',null, function (data) {
+                var d=data.content;
                 if(d.result!=null){
                     $('#group_tree').treeview({
                         data: formatOrg(d.result.childs),
@@ -128,8 +189,29 @@ var Model = {
         loadBusiness: function(success){
             this.cache.bus.tree = tree;
             var cur = this;
-            this.cache.bus.tree.init({
-                requestUrl: CONTEXT_PATH+'/admin/Bus_getBusinessByPidAndOrgCode?org_code='+(cur.cache.group.select?cur.cache.group.select.dir_code:""),
+            $.get(basePathJS+'/catalog/selectActivityByDeptId?dept_id='+(cur.cache.group.select?cur.cache.group.select.dir_code:""),null, function (data) {
+                var d = data.content;
+                if(d.list!=null){
+                    $('#bus_tree').treeview({
+                        data:formatTable(d.list),
+                        color: "#428bca",
+                        nodeIcon: 'fa fa-tag',
+                        showBorder: false,
+                        levels: 1,
+                        searchResultColor: "",
+                        onNodeSelected: function (e, n) {
+                            cur.cache.bus.select = n;
+                            cur.loadDataSet(n.dir_code);
+                        },
+                        onNodeUnselected: function (e, n) {
+                            cur.cache.item.reset();
+                            cur.cache.data.reset();
+                        }
+                    });
+                }
+            });
+            /*this.cache.bus.tree.init({
+                requestUrl: basePathJS+'/catalog/selectActivityByDeptId?dept_id='+(cur.cache.group.select?cur.cache.group.select.dir_code:""),
                 treeId: 'bus_tree',
                 nodeIcon: 'fa fa-tag',
                 name: "ACTIVITY_NAME",
@@ -144,21 +226,21 @@ var Model = {
                     cur.cache.item.reset();
                     cur.cache.data.reset();
                 }
-            });
+            });*/
         },
         loadDataSet: function(success){
             var cur = this;
             if(cur.cache.bus.select){
                 $.ajax({
-                    url: CONTEXT_PATH+"/admin/Dataset_getBusinessDataset",
+                    url: basePathJS+"/catalog/selectDatasetByActivityId",
                     type: "post",
                     data: {
                         activity_id: cur.cache.bus.select.dir_code
                     },
                     dataType: "json",
                     success: function (data) {
-                        if(data.code == 'OK' && data.result){
-                            cur.cache.data.datas = data.result;
+                        if(data.state && data.content){
+                            cur.cache.data.datas = data.content.list;
                             cur.cache.data.build();
                         }
                     },
@@ -167,12 +249,114 @@ var Model = {
                     }
                 });
             }
+        },
+        loadItems: function(success){
+            var cur = this;
+            if(cur.cache.data.select){
+                $.ajax({
+                    url: basePathJS+"/catalog/selectDatasetItemByDatasetId",
+                    type: "post",
+                    data: {
+                        set_id: cur.cache.data.select.id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.state && data.content){
+                            cur.cache.item.datas = data.content.list;
+                            cur.cache.item.build();
+                        }
+                    },
+                    error: function(xhr, c){
+                    }
+                });
+            }
         }
     }
 };
-$('#deploy_dataset').click(function(){
+
+$(document).on('click','#deploy_dataset',function () {
     window.model = Model;
     window.model.business.open();
+})
+$(document).on("click", "#dataset_item_container>a", function(){
+    var setId = $(this).attr("data-id");
+    Model.business.cache.data.select = {
+        id: setId
+    };
+    $("#dataset_item_container>a").removeClass("active");
+    $(this).addClass("active");
+    Model.business.cache.item.reset();
+    Model.business.loadItems();
+});
+$(document).on("click", "#field_tree>a", function(){
+    var disabled = $(this).hasClass("disabled");
+    if(!disabled){
+        var has = $(this).hasClass("active");
+        if(has){
+            $(this).removeClass("active");
+        }else{
+            $(this).addClass("active");
+        }
+    }
+});
+$(document).on("click", "button#field_add", function(){
+    //提交
+    var ids=[];
+    var i=0;
+    $.each($("#field_tree>a.active"), function(idx, itm){
+        var id = $(itm).attr("data-id");
+        if(id){
+            ids.push(id);
+        }
+    });
+    var dataset_id=$("#dataset_item_container>a.active").attr('data-id');
+
+    //获取选中的数据集
+    if(dataset_id){
+        $.ajax({
+            url: basePathJS+"/catalog/getDrapDatasetDetail",
+            type:"get",
+            data:{
+                id:dataset_id
+            },
+            dataType:"json",
+            success:function(data){
+                if(data.state){
+
+                }else{
+                    $.bootstrapDialog.failure(data.message);
+                }
+            },
+            error: function(xhr, c){
+
+            }
+        });
+    }
+    //获取选中的数据项
+    if(ids){
+        $.ajax({
+            url: basePathJS+"/catalog/selectDatasetItemByIds",
+            type:"get",
+            data:{
+                ids:ids.toString()
+            },
+            dataType:"json",
+            success:function(data){
+                if(data.state){
+                    /*for(var i in ids){
+                        $('a[column-id='+ids[i]+']').removeClass('active');
+                        $('a[column-id='+ids[i]+']').addClass('disabled');
+                    }*/
+
+                }else{
+                    $.bootstrapDialog.failure(data.message);
+                }
+            },
+            error: function(xhr, c){
+
+            }
+        });
+    }
 });
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
@@ -215,6 +399,26 @@ $(document).on('click','#add_item',function () {
         '<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" ></td>'+
         '<td><a class="btn btn-danger btn-flat btn-xs" href="javascript:;" onclick="javascript:infoTableDel(\''+thisTrNum+'\')"><i class="fa fa-close">&#160;</i>删除</a></td></tr>');
 })
+function buildItem(thisTrNum,data){
+    $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'">' +
+        '<td><input trNum='+thisTrNum+' type="checkbox"></td>'+
+        '<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
+        '<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.itemType)+'</select></td>'+
+        '<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+data.Length+'" min="1" type="text" class="form-control"></td>'+
+        '<td></td>'+
+        '<td><input type="text" disabled value="'+data.dataset_name+'"></td>'+
+        '<td><select name="items['+thisTrNum+'].belongSystemId" data-rule="系统:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.itemType)+'</select></td>'+
+        '<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
+        '<td><input name="items['+thisTrNum+'].shareCondition" type="text" class="form-control" ></td>'+
+        '<td><select name="items['+thisTrNum+'].shareMethod" data-rule="共享方式:required;" class="form-control">'+Dict.selectsDom("dataSetShareMethod")+'</select></td>'+
+        '<td><select name="items['+thisTrNum+'].isOpen" class="form-control"><option value="1" selected>是</option><option value="0" >否</option></select></td>'+
+        '<td><input name="items['+thisTrNum+'].openCondition" type="text" class="form-control" ></td>'+
+        '<td><select name="items['+thisTrNum+'].storageMedium" data-rule="存储介质:required;" class="form-control">'+Dict.selectsDom("setItemStoreMedia")+'</select></td>'+
+        '<td><select name="items['+thisTrNum+'].storageLocation" data-rule="存储位置:required;" class="form-control">'+Dict.selectsDom("setItemStoreLocation")+'</select></td>'+
+        '<td><select name="items['+thisTrNum+'].updateFrequency" data-rule="更新周期:required;" class="form-control">'+Dict.selectsDom("setItemFrequency")+'</select></td>'+
+        '<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" ></td>'+
+        '<td><a class="btn btn-danger btn-flat btn-xs" href="javascript:;" onclick="javascript:infoTableDel(\''+thisTrNum+'\')"><i class="fa fa-close">&#160;</i>删除</a></td></tr>');
+}
 function infoTableDel(thisTrNum){
     $('#tr_'+thisTrNum).remove();
 }
@@ -223,13 +427,31 @@ function formatOrg(aaData) {
     if (aaData.length == 0) return null;
     var objArr = [];
     aaData.forEach(function (v, n) {
+
         var temp_json = {};
-        temp_json.text = v.org_shortname;
-        temp_json.dir_code = v.org_code;
-        temp_json.nodes = formatOrg(v.childs);
+        temp_json.text = v.deptShortName;
+        temp_json.dir_code = v.id;
+        try {
+            temp_json.nodes = formatOrg(v.childs);
+        } catch (e) {
+            temp_json.nodes = formatOrg([]);
+        }
         if (temp_json.nodes) {
             temp_json.selectable = false;
         }
+        objArr.push(temp_json);
+
+    });
+    return objArr;
+}
+function formatTable(aaData) {
+    if (aaData.length == 0) return null;
+    var objArr = [];
+    aaData.forEach(function (v, n) {
+        var temp_json = {};
+        temp_json.text = v.activity_name;
+        temp_json.dir_code = v.id;
+        temp_json.nodes=null;
         objArr.push(temp_json);
     });
     return objArr;

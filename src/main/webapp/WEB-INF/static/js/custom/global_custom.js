@@ -1392,26 +1392,6 @@ function initGlobalCustom(tempUrlPrefix) {
                             return true;
                         }
                     },
-                    /*onClick: function(e, treeId, treeNode){
-                        alert("111")
-                        $.commonAjax({
-                            url: basePathJS + "/sysRegion/editLoad",
-                            data: {id: treeNode.id},
-                            success: function (result) {
-                                if (result.state) {
-                                    var regionObj = result.content.vo;
-                                    $('#' + nameInputDomId).val(regionObj.regionName);
-                                    if (selectRegionCodes == "") {
-                                        selectRegionCodes = treeNode.regionCode;
-                                    } else {
-                                        selectRegionCodes += "," + treeNode.regionCode;
-                                    }
-                                    $('#' + codeInputDomId).val(selectIds);
-                                    initDeptSelectDataList(regionObj.regionCode);
-                                }
-                            }
-                        });
-                    },*/
                     onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的全名称，显示到输入框中
                         $('#' + nameInputDomId).val(treeNode.name);
                         if(multiple){
@@ -1509,8 +1489,7 @@ function initGlobalCustom(tempUrlPrefix) {
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].deptName,
-                                'fid': nodeObjs[i].regionCode,
-                                'isParent': (nodeObjs[i].isLeaf == "1" ? true : false)
+                                'isParent': (nodeObjs[i].isLeaf ? false : true)
                             }
                         }
                         return params;
@@ -1531,28 +1510,18 @@ function initGlobalCustom(tempUrlPrefix) {
                             return true;
                         }
                     },
-                    onCheck: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
-                        $.commonAjax({
-                            url: basePathJS + "/system/dept/editLoad",
-                            data: {id: treeNode.id},
-                            success: function (result) {
-                                if (result.state) {
-                                    var deptObj = result.content.vo;
-                                    $('#' + nameInputDomId).val(deptObj.deptName);
-                                    if(multiple){
-                                        if (selectIds == "") {
-                                            selectIds = treeNode.id;
-                                        } else {
-                                            selectIds += "," + treeNode.id;
-                                        }
-                                    }else{
-                                        selectIds = treeNode.id;
-                                    }
-
-                                    $('#' + codeInputDomId).val(selectIds);
-                                }
+                    onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的名称，显示到输入框中
+                        $('#' + nameInputDomId).val(treeNode.name);
+                        if(multiple){
+                            if (selectIds == "") {
+                                selectIds = treeNode.id;
+                            } else {
+                                selectIds += "," + treeNode.id;
                             }
-                        });
+                        }else{
+                            selectIds = treeNode.id;
+                        }
+                        $('#' + codeInputDomId).val(selectIds);
                     }
                 }
             };

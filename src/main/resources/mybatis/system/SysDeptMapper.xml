@@ -34,8 +34,17 @@
 	<sql id="queryConditions">
 		<where>
 			t.delete_flag = '0'
+			<if test="fid != null">
+				AND t.fid = #{fid}
+			</if>
+			<if test="regionCode != null">
+				AND t.region_code = #{regionCode}
+			</if>
+			<if test="treeCode != null">
+				AND t.tree_code = #{treeCode}
+			</if>
 			<if test="onlyRoot != null and onlyRoot == '1'">
-				AND t.fid == 'root'
+				AND t.fid = 'root'
 			</if>
 			<if test="excludeRoot != null and excludeRoot == '0'">
 				AND t.fid != 'root'
@@ -68,7 +77,7 @@
 		SELECT t.* FROM sys_dept t <include refid="queryConditions"></include>
 	</select>
 
-	<select id="isLeafDept" parameterType="java.lang.String" resultType="java.lang.Boolean">
+	<select id="isParentDept" parameterType="java.lang.String" resultType="java.lang.Boolean">
 		SELECT count(1) from sys_dept t WHERE t.delete_flag = '0' AND t.fid = #{id}
 	</select>
 

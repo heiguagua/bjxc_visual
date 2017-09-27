@@ -11,4 +11,14 @@ import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthorityApply;
  * @since 2017-09-25
  */
 public class SysDeptAuthorityApplyVo extends SysDeptAuthorityApply{
+
+    private String toDeptIds;
+
+    public String getToDeptIds() {
+        return toDeptIds;
+    }
+
+    public void setToDeptIds(String toDeptIds) {
+        this.toDeptIds = toDeptIds;
+    }
 }

@@ -37,4 +37,21 @@ public interface ApiMapper{
 
     List<SysUser> syncUserData();
 
+    List<Map<String, Object>> getDbInfoBySystemId(Map<String, Object> paramMap);
+
+    /**
+     * 发布服务
+     * */
+
+
+    /**
+     * 查询服务
+     * */
+    List<Map<String, Object>> getServiceInfoByServiceNoOrId(Map<String, Object> paramMap);
+
+    /**
+     * 下架服务
+     * */
+    boolean unReleaseService(Map<String, Object> paramMap);
+
 }

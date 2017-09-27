@@ -97,8 +97,8 @@
         sourceddtc.`id` AS sourceColumnId,
         targetddti.`table_name` AS targetTableName,
         targetddti.`id` AS targetTableId,
-        targetddtc.`column_en_name` AS targetTableName,
-        targetddtc.`id` AS targetTableId,
+        targetddtc.`column_en_name` AS targetColumnName,
+        targetddtc.`id` AS targetColumnId,
         ddsr.`relation_type` AS relationType
         FROM
         dir_dataset dd
@@ -127,8 +127,8 @@
         sourceddtc.`id` AS sourceColumnId,
         targetddti.`table_name` AS targetTableName,
         targetddti.`id` AS targetTableId,
-        targetddtc.`column_en_name` AS targetTableName,
-        targetddtc.`id` AS targetTableId,
+        targetddtc.`column_en_name` AS targetColumnName,
+        targetddtc.`id` AS targetColumnId,
         ddtr.`relation_type` AS relationType
         FROM
         dir_dataset dd
@@ -143,9 +143,9 @@
         LEFT JOIN drap_db_table_info targetddti
         ON targetddti.`id` = ddtr.`target_table`
         LEFT JOIN drap_db_table_column sourceddtc
-        ON sourceddti.`id` = ddtr.`source_column`
+        ON sourceddtc.`id` = ddtr.`source_column`
         LEFT JOIN drap_db_table_column targetddtc
-        ON targetddti.`id` = ddtr.`target_column`
+        ON targetddtc.`id` = ddtr.`target_column`
         WHERE ddsi.`source_mode` = 'source'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -185,6 +185,36 @@
     <!-- 同步用户数据 -->
     <select id="syncUserData" parameterType="map" resultType="com.chinawiserv.dsp.base.entity.po.system.SysUser">
         SELECT * FROM sys_user
+    </select>
+
+    <!-- 根据系统ID查询数据库信息 -->
+    <select id="getDbInfoBySystemId" parameterType="map" resultType="map">
+        SELECT
+        ddi.`db_name` AS dbName,
+        ddi.`db_cn_name` AS DB_CN_NAME,
+        ddi.`db_type` AS dbType,
+        ddi.`ip_address` AS ipAddress,
+        ddi.`user_name` AS userName,
+        ddi.`password`,
+        ddi.`port`,
+        ddi.`sid`,
+        ddi.`service_name` AS serviceName,
+        dis.`system_name` AS systemName
+        FROM
+        drap_db_info ddi
+        LEFT JOIN drap_db_system_map dsm
+        ON dsm.`db_id` = ddi.`id`
+        LEFT JOIN drap_info_system dis
+        ON dis.`id` = dsm.`info_system_id`
+        WHERE TRUE
+        <choose>
+            <when test="null != systemId and '' != systemId">
+                dis.`id` = #{systemId}
+            </when>
+            <otherwise>
+                dis.`id` IS NULL
+            </otherwise>
+        </choose>
     </select>
 
 
