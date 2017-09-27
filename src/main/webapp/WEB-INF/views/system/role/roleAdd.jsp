@@ -39,8 +39,6 @@
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                 </select>
-
-
                             </div>
                             <div class="form-group">
                                 <label>角色描述</label>
