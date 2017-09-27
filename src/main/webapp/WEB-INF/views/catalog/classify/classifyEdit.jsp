@@ -23,6 +23,31 @@
                             </div>
                             
                             <div class="form-group">
+                                <label for="EdeptName" style='float:left;'>所属组织机构 *</label>
+                                    <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
+                                    <input type="text" id="EdeptName" required="required"
+                                           data-parsley-required-message="该项为必填" class="form-control">
+                                    <input type="hidden" id="EdeptId" name="DeptId">
+                                    <div class="menu-wrap">
+                                        <div id="menuContent" class="menuContent" style="display:none;">
+                                            <ul id="treeDemo" class="ztree"
+                                                style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                        </div>
+                                    </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="icon">选择图标</label>
+                                <select id="Eicon" name="icon" class="form-control select2" style="width: 100%;">             
+                                		  <option value =""></option>
+                                		  <option value ="volvo">Volvo</option>
+										  <option value ="saab">Saab</option>
+										  <option value="opel">Opel</option>
+										  <option value="audi">Audi</option>  
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
                                 <label for="apiDesc">目录描述:</label>
                                 <textarea class="form-control" 
 									id="Eclassify_desc"  name="classifyDesc" data-rule="目录类别描述:required;classifyDesc;"></textarea>                                

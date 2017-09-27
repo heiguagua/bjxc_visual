@@ -8,8 +8,9 @@ jQuery(document).ready(function () {
 });
 
 function initSelectData() {
+	$.initDeptTreeSelect('treeDemo','deptName','deptId','menuContent');
     initUserTypeList();
-    initDeptSelectDataList();
+//    initDeptSelectDataList();
     initRoleNameList();
   
 }
@@ -32,7 +33,7 @@ function initDeptSelectDataList(){
         success: function (result) {
             if (result.state) {
                 var selectData = result.content.selectData;
-                $("#deptId").select2({
+                $("#DeptId").select2({
                     data: selectData
                 });
             }

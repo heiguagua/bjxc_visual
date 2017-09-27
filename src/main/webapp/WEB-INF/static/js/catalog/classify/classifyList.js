@@ -38,6 +38,7 @@ jQuery(document).ready(function () {
                         		  'classifyCode':nodeObjs[i].classifyCode,
                         		  'classifyName':nodeObjs[i].classifyName,
                         		  'fid':nodeObjs[i].id,
+                        		  'fidforadd':nodeObjs[i].fid,
                         		  'isParent':(nodeObjs[i].hasLeaf=="1"?true:false)
                           }
                       }
@@ -96,7 +97,7 @@ jQuery(document).ready(function () {
 			   +	"添加 <span class='caret'></span></button>"
 			   +	"<ul id='diyBtn_space3_" +treeNode.id+ "' class='dropdown-menu' role='menu'>"
 
-				+"<li><a class='s1' id='addSibling' data-id ="+treeNode.id+" data-pcode="+treeNode.fid+" href='#'  >添加同级</a></li>"
+				+"<li><a class='s1' id='addSibling'  data-pcode="+treeNode.fidforadd+" href='#'  >添加同级</a></li>"
 				+"<li><a class='s2' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"	
 				aObj.after(editStr3);

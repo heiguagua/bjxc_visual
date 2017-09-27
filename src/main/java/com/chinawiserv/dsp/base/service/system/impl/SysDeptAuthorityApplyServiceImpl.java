@@ -3,10 +3,13 @@ package com.chinawiserv.dsp.base.service.system.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthorityApply;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityApplyVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
+import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityApplyMapper;
+import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityApplyService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +23,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 数据权限申请表 服务实现类
+ * 数据权限审批 服务实现类
  * </p>
  *
  * @author wuty
@@ -32,6 +35,8 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
     @Autowired
     private SysDeptAuthorityApplyMapper mapper;
 
+    @Autowired
+    private SysDeptAuthorityMapper sysDeptAuthorityMapper;
 
     @Override
     public boolean insertVO(SysDeptAuthorityApplyVo vo) throws Exception {
@@ -45,7 +50,7 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
             Map paramMap = new HashMap();
             paramMap.put("applicant", applicant);
             paramMap.put("toDeptIds", toDeptIdArray);
-            int count = selectVoCount(paramMap);
+            int count = mapper.selectVoCount(paramMap);
             if(count <= 0){
                 for (String toDeptId : toDeptIdArray) {
                     SysDeptAuthorityApply apply = new SysDeptAuthorityApply();
@@ -66,6 +71,29 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
 
     @Override
     public boolean updateVO(SysDeptAuthorityApplyVo vo) throws Exception {
+        vo.setAuditor(ShiroUtils.getLoginUserId());
+        vo.setAuditTime(new Date());
+        int count = mapper.updateById(vo);
+        if(count == 1){
+            vo = mapper.selectVoById(vo.getId());
+            String auditStatus = vo.getAuditStatus();
+            if("1".equals(auditStatus)){
+                SysDeptAuthority sysDeptAuthority = new SysDeptAuthority();
+                sysDeptAuthority.setId(CommonUtil.get32UUID());
+                sysDeptAuthority.setAuthObjType(AuthObjTypeEnum.USER.getKey());
+                sysDeptAuthority.setAuthObjId(vo.getApplicant());
+                sysDeptAuthority.setDeptId(ShiroUtils.getLoginUserDeptId());
+                sysDeptAuthority.setDistributorId(vo.getAuditor());
+                sysDeptAuthority.setDistributeDate(new Date());
+                sysDeptAuthority.setDistributeOpinion(vo.getAuditOpinion());
+                sysDeptAuthority.setIsFromAudit("1");
+                count = sysDeptAuthorityMapper.insert(sysDeptAuthority);
+                if(count <= 0){
+                    throw new Exception("添加部门数据权限失败！");
+                }
+                return true;
+            }
+        }
         return false;
 	}
 
@@ -76,7 +104,7 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
 
     @Override
     public SysDeptAuthorityApplyVo selectVoById(String id) throws Exception {
-		return null;
+        return mapper.selectVoById(id);
 	}
 
     @Override
@@ -95,4 +123,26 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
 		return mapper.selectVoCount(paramMap);
 	}
+
+    @Override
+    public Page<SysDeptAuthorityApplyVo> selectVoPage4Audit(Map<String, Object> paramMap) throws Exception {
+        String audited = (String) paramMap.get("audited");
+        String orderField;
+        if("1".equals(audited)){
+            orderField = "audit_time";
+            paramMap.put("audited", audited);
+        }else {
+            orderField = "apply_time";
+            paramMap.put("audited", "0");
+        }
+        paramMap.put("toDeptId", ShiroUtils.getLoginUser().getDeptId());
+        Page<SysDeptAuthorityApplyVo> page = getPage(paramMap);
+        page.setOrderByField(orderField);
+        page.setAsc(false);
+        List<SysDeptAuthorityApplyVo> sysDeptAuthorityApplyVos = mapper.selectVoPage(page, paramMap);
+        page.setRecords(sysDeptAuthorityApplyVos);
+        page.setTotal(mapper.selectVoCount(paramMap));
+        return page;
+    }
+
 }
