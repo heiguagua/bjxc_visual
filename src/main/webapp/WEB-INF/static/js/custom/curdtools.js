@@ -94,7 +94,24 @@ function addApi(title, url, parentId, width, height, isRestful) {
     createWindow(options);
 }
 
+function addDir(title, url, fid, width, height, isRestful) {
 
+    if (fid) {
+        if(isRestful!='undefined'&&isRestful){
+            url += '/'+fid;
+        }else{
+            if (url.indexOf("?") == -1 ) {
+                url += '?fid='+fid;
+            } else {
+                url += '&fid='+fid;
+            }
+        }
+    }
+
+    var options = _getDefaultWinOptions(title , url , width, height) ;
+
+    createWindow(options);
+}
 
 //updateapi customization
 function updateApi(title, url, id, width, height, isRestful) {
