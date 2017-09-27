@@ -126,6 +126,11 @@ line-height: 21px;
 
 
 
+/* 按钮颜色Class */
+.btn_blue{
+	background: #4197F4 !important;
+	border:1px solid  #4197F4 !important;
+}
 
 
 
@@ -161,7 +166,7 @@ line-height: 21px;
       height: 10px;
       border-radius: 100%;
       position: absolute;
-      background: #27DC93;
+      background: #4197F4;
       top: 50%;
       left:50%;
       margin: -5px 0  0 -5px;

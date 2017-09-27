@@ -4,21 +4,6 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/js/catalog/catalogue/catalogueAdd.js"></script>
-    <style type="text/css">
-        .menu-wrap{
-            position:relative;
-
-        }
-        .menu-wrap .menuContent{
-            top: 0 !important;
-            display: block;
-            position: absolute;
-            left: 0 !important;
-            z-index: 1999;
-            background: #FFF;
-            width: 100%;
-        }
-    </style>
 </head>
 <body>
 <section class="content">
