@@ -220,5 +220,8 @@
         </where>
     </sql>
 
-
+	<insert id="insertSysMap"   >
+		INSERT INTO drap_db_system_map (id, db_id, info_system_id) VALUES (#{id}, #{dbId}, #{sysId});
+	</insert>
+	
 </mapper>
