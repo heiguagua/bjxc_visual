@@ -38,9 +38,14 @@
                                     </a>
                                 </div>
                                   <div class="input-group">
-                                        <a class="btn btn-default btn-flat  btn-myself" id="releaseButton">
+                                        <button class="btn btn-default btn-flat  btn-myself dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="releaseButton">
                                             <!-- <i class="fa fa-plus-circle"></i> -->发布
-                                        </a>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" style="left:-21px;text-align:center;">
+                                            <li><a id="releaseboth" href="#">同时发布</a></li>
+                                            <li><a id="releaseInternet" href="#">发布到互联网</a></li>
+                                            <li><a id="releaseInside" href="#">发布到电子政务外网</a></li>
+                                        </ul>
                                     </div>    
                                 <div class="input-group pull-right">
                                     <input class="form-control" id="unReleaseSearchName" placeholder="资源名称" type="text">
