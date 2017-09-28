@@ -73,7 +73,8 @@
         ddi.`sid`,
         ddi.`service_name` AS serviceName,
         dd.`dataset_name` AS datasetName,
-        dis.`system_name` AS systemName
+        dis.`system_name` AS systemName,
+        dis.`build_dept` AS buildDept
         FROM
         drap_db_info ddi
         LEFT JOIN drap_db_system_map dsm
@@ -209,10 +210,10 @@
         WHERE TRUE
         <choose>
             <when test="null != systemId and '' != systemId">
-                dis.`id` = #{systemId}
+               AND dis.`id` = #{systemId}
             </when>
             <otherwise>
-                dis.`id` IS NULL
+               AND dis.`id` IS NULL
             </otherwise>
         </choose>
     </select>
@@ -229,10 +230,10 @@
         WHERE TRUE
         <choose>
             <when test="null != deptId and '' != deptId">
-                dsud.`dept_id` = #{deptId}
+               AND dsud.`dept_id` = #{deptId}
             </when>
             <otherwise>
-                dsud.`dept_id` IS NULL
+               AND dsud.`dept_id` IS NULL
             </otherwise>
         </choose>
     </select>

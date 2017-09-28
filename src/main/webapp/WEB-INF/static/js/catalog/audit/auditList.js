@@ -1,4 +1,4 @@
-var tableSelector = '#registeTable';
+var tableSelector = '#auditTable';
 var paramsObj = {};
 
 jQuery(document).ready(function () {
@@ -9,7 +9,7 @@ jQuery(document).ready(function () {
 
 function initTable(){
     $(tableSelector).customTable({
-        url: basePathJS + '/catalog/registe/list',
+        url: basePathJS + '/catalog/audit/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
@@ -89,10 +89,22 @@ function initAllSelect(){
 
 
 function initButtonClickEvent(){
-    //点击注册按钮
-    $("#registeButton").on("click",function(){
-        //获取已选择的资源目录的id
+    //点击审核按钮
+    $("#auditButton").on("click",function(){
         var selectedDcmIds="";
+        var selectedRow = $(tableSelector).bootstrapTable('getSelections');
+        if(selectedRow && selectedRow.length > 0) {
+            for (var i = 0, ii = selectedRow.length; i < ii; i++) {
+                var dcmId = selectedRow[i].id;
+                selectedDcmIds += i == 0 ? dcmId : "," + dcmId;
+            }
+            update('目录审核',basePathJS + '/catalog/auditInfo' , selectedDcmIds );
+        }else{
+            errorMsgTip("请先选择要审核的信息资源");
+        }
+
+        //获取已选择的资源目录的id
+       /* var selectedDcmIds="";
         var selectedRow = $(tableSelector).bootstrapTable('getSelections');
         if(selectedRow && selectedRow.length > 0){
             for(var i=0,ii=selectedRow.length;i<ii;i++){
@@ -100,7 +112,7 @@ function initButtonClickEvent(){
                 selectedDcmIds += i==0?dcmId:","+dcmId;
             }
             $.commonAjax({
-                url:basePathJS + "/catalog/registe/doRegiste",
+                url:basePathJS + "/catalog/audit/doAudit",
                 data:{dcmIds:selectedDcmIds},
                 success:function(result){
                     if(result.state){
@@ -112,32 +124,15 @@ function initButtonClickEvent(){
                 }
             });
         }else{
-            errorMsgTip("请先选择要注册的信息资源");
-        }
+            errorMsgTip("请先选择要审核的信息资源");
+        }*/
     });
 
     //点击查询按钮
-    $('#registeQueryBtn').click(function () {
+    $('#auditQueryBtn').click(function () {
         setParams();
         reloadTable();
     });
-    
-
-
-  //tab切换
- $("#devlop_chick >li").click(function(){
-  	$(this).addClass("active").siblings().removeClass("active")
-  	console.log($(this).text())
-  	if($(this).text().trim() == "待发布"){
-  		$("#from_undevelop").hide();
-  		$("#from_develop").show();
-  	}else if($(this).text().trim() === "已发布"){
-  		$("#from_develop").css("display","none");
-  		$("#from_undevelop").css("display","block");
-  		
-  	}
-  })
-     
 }
 
 function setParams() {
@@ -150,6 +145,4 @@ function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
     $(tableSelector).data("bootstrap.table").refresh();
 }
-
-
 

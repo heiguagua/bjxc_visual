@@ -46,6 +46,8 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     	String loginUserId = ShiroUtils.getLoginUserId();
     	vo.setCreateUserId(loginUserId);
     	vo.setDeleteFlag(0);
+    	vo.setClassifyIndex(0);
+    	vo.setDcmIndex(0);
     	DirClassify fclassify = mapper.selectFclassify(vo.getFid());
     	String fclassifyStructureName = fclassify.getClassifyStructureName();
     	String fcode = fclassify.getClassifyCode();
@@ -132,13 +134,14 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 	}
     
 	@Override
-	public void DeleteByFlag(String classifyCode) {
-		mapper.updateDeleteFlag(classifyCode);
+	public void DeleteByFlag(String id) {
+		mapper.updateDeleteFlag(id);
 		
 	}
 
     @Override
     public DirClassifyVo selectVoById(String id) throws Exception {
+    	DirClassifyVo  s = mapper.selectVoById(id);
 		return mapper.selectVoById(id);
 	}
 

@@ -89,7 +89,7 @@ jQuery(document).ready(function () {
 		var aObj = $("#" + treeNode.tId + "_a");
 		if ($("#diyBtn_"+treeNode.id).length>0) return;
 //		var editStr1 = "<span id='diyBtn_space_" +treeNode.dir_code+ "' >&nbsp;</span><select class='selDemo ' id='diyBtn_" +treeNode.dir_code+ "'><option value=1>1</option><option value=2>2</option><option value=3>3</option></select>";
-		var editStr1 = "<span id='diyBtn_space_" +treeNode.id+ "'><a class='btn btn-edit s3' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-desc= "+treeNode.apiDesc+" data-orderNumber= "+treeNode.orderNumber+" data-url= "+treeNode.apiUrl+" data-category= "+treeNode.apiCategory+">编辑</a></span>"
+		var editStr1 = "<span id='diyBtn_space_" +treeNode.id+ "'><a class='btn btn-edit "+treeNode.classifyName+"' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-desc= "+treeNode.apiDesc+" data-orderNumber= "+treeNode.orderNumber+" data-url= "+treeNode.apiUrl+" data-category= "+treeNode.apiCategory+">编辑</a></span>"
 		var editStr3 = "<span id='diyBtn_space4_" +treeNode.id+ "'><a class='btn btn-edit s4' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-code = "+treeNode.classifyCode+" >删除</a></span>"
 		var editStr2 = "<div class='btn-group'>"
 				+"<button id='diyBtn_space2_" +treeNode.id+ "' type='button' class='btn btn-add dropdown-toggle'"
@@ -97,8 +97,8 @@ jQuery(document).ready(function () {
 			   +	"添加 <span class='caret'></span></button>"
 			   +	"<ul id='diyBtn_space3_" +treeNode.id+ "' class='dropdown-menu' role='menu'>"
 
-				+"<li><a class='s1' id='addSibling'  data-pcode="+treeNode.fidforadd+" href='#'  >添加同级</a></li>"
-				+"<li><a class='s2' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
+				+"<li><a class='"+treeNode.fidforadd+"' id='addSibling'  data-pcode="+treeNode.fidforadd+" href='#'  >添加同级</a></li>"
+				+"<li><a class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"	
 				aObj.after(editStr3);
 				aObj.after(editStr2);
@@ -110,7 +110,7 @@ jQuery(document).ready(function () {
 		$(".s4").on("click", function () {
 						        
 			var curThis=this;
-			var classifyCode=$(curThis).attr('data-code');
+			var id=$(curThis).attr('data-id');
 //			var apiDesc=$(curThis).attr('data-desc');
 //			var apiUrl=$(curThis).attr('data-url');
 //			var apiName=$(curThis).attr('data-name');
@@ -121,7 +121,7 @@ jQuery(document).ready(function () {
 			
 			
 			var url = basePathJS + "/dirClassify/delete";
-		    var parameter = {classifyCode: classifyCode};
+		    var parameter = {id: id};
 		    delObjApi(url , parameter) ;
 		    
 //			$('#api_name').val(apiName);
@@ -134,7 +134,7 @@ jQuery(document).ready(function () {
 		
 		
 		//编辑
-		$(".s3").on("click", function () {
+		$("."+treeNode.classifyName+"").on("click", function () {
 						        
 			var curThis=this;
 			var id=$(curThis).attr('data-id');
@@ -153,10 +153,14 @@ jQuery(document).ready(function () {
 			
 		});
 		//添加同级
-		$(".s1").on("click", function () {
+		$("."+treeNode.fidforadd+"").on("click", function () {
 			var curThis=this;
 			var fid=$(curThis).attr('data-pcode');
 //			$('#parent_id').val(api_fcode);	
+			if(fid=="root"){
+				 tip("无权限添加初始目录类别，请联系管理员。" );
+				 return false;
+			 }
 			addDir('新增目录--同级',basePathJS + '/dirClassify/add' , fid);
 //			$('#api_name').val('');
 //			$('#api_category').val('');
@@ -166,7 +170,7 @@ jQuery(document).ready(function () {
 							
 		});
 		//添加子级
-	    $(".s2").on("click", function () {
+	    $("."+treeNode.id+"").on("click", function () {
 	    	var curThis=this;
 			var fid=$(curThis).attr('data-id');
 //			$('#parent_id').val(api_fcode);
