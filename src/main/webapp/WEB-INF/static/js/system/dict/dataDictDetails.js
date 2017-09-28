@@ -28,7 +28,7 @@ jQuery(document).ready(function () {
                 // width : '150px' ,
                 sortable: false
             }, {
-                field: 'dictName',
+                field: 'categoryCode',
                 title: '配置项编码',
                 align: 'center',
                 valign: 'middle',
@@ -36,7 +36,7 @@ jQuery(document).ready(function () {
                 sortable: false
             },
             {
-                field: 'status',
+                field: 'categoryName',
                 title: '配置项名称',
                 align: 'center',
                 valign: 'middle',
@@ -48,15 +48,13 @@ jQuery(document).ready(function () {
                 title: '适用范围',
                 align: 'center',
                 valign: 'middle',
-                // width : '400px' ,
                 sortable: false
             },
             {
-                field: 'status',
+                field: 'orderNumber',
                 title: '顺序',
                 align: 'center',
                 valign: 'middle',
-                // width : '400px' ,
                 sortable: false
             }, {
                 field: 'status',
@@ -66,7 +64,7 @@ jQuery(document).ready(function () {
                 // width : '400px' ,
                 sortable: false
             }, {
-                field: 'dictDesc',
+                field: 'categoryDesc',
                 title: ' 描述',
                 align: 'center',
                 valign: 'middle',
@@ -79,8 +77,9 @@ jQuery(document).ready(function () {
                 sortable: false ,
                 formatter : function (value) {
                     var editBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:editDictDetails(\"" + value + "\")'><i class='fa fa-times'></i> 修改</a>";
-                    // return editBtn + OPERATION_SEPARATOR +  deleteBtn ;
-                    return  OPERATION_SEPARATOR + editBtn ;
+                    var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteDictDetails(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
+
+                    return editBtn + OPERATION_SEPARATOR +  deleteBtn ;
                 }
             }]
     });
@@ -105,6 +104,11 @@ function reloadTable() {
 
 function editDictDetails(id) {
     update('编辑字典',basePathJS + '/sysDict/edit' , id );
+}
+function deleteDictDetails(id) {
+    var url = basePathJS + "/sysDict/delete";
+    var parameter = {id: id};
+    delObj(url , parameter) ;
 }
 
 

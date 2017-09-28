@@ -32,9 +32,12 @@ public class DirClassify implements Serializable {
 	private String classifyCode;
     /**
      * 【国】分类名称
-     */
+     */	
 	@TableField("classify_name")
 	private String classifyName;
+	
+	@TableField("tree_code")
+	private String treeCode;
     /**
      * 分类描述
      */
@@ -268,6 +271,14 @@ public class DirClassify implements Serializable {
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+
+	public String getTreeCode() {
+		return treeCode;
+	}
+
+	public void setTreeCode(String treeCode) {
+		this.treeCode = treeCode;
 	}
 	
 	

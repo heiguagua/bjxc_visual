@@ -33,4 +33,6 @@ public interface DirDataRegisteMapper extends BaseMapper<DirDataRegiste> {
     int baseDelete(String id);
 
     int insertListData(@Param("list") List<DirDataRegisteVo> list);
+
+    int batchUpdateActiveFlag(Map<String, Object> paramMap);
 }

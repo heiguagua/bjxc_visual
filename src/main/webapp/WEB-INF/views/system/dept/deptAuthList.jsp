@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="box-body table-responsive no-padding">
-                            <table id="systemDeptTableId" class="table table-hover">
+                            <table id="systemAuthDeptTableId" class="table table-hover">
 
                             </table>
                         </div><!-- /.box-body -->

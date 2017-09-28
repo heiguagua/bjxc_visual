@@ -30,6 +30,8 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
 
     Page<DirDatasetClassifyMapVo> selectClassifyMapVoPage(Map<String, Object> paramMap);
 
+    Page<DirDatasetClassifyMapVo> selectReleasedClassifyMapVoPage(Map<String, Object> paramMap);
+
     public DrapDataset getDrapDatasetDetail(String id);
 
     boolean checkDatasetName(String datasetName, String classifyIds);
@@ -39,4 +41,8 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
     boolean audit(Map<String , Object> paramMap);
 
     boolean release(Map<String , Object> paramMap);
+
+    boolean auditReject(String dcmId);
+
+    boolean offline(String dcmId);
 }

@@ -3,7 +3,9 @@ package com.chinawiserv.dsp.dir.mapper.drap;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapActivityDocItem;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapActivitySystemMap;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapActivityDocItemVo;
+
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +31,7 @@ public interface DrapActivityDocItemMapper extends BaseMapper<DrapActivityDocIte
     int baseUpdate(DrapActivityDocItem entity);
 
     int baseDelete(String id);
+
+	int batchInsertPO(List<DrapActivityDocItem> drapActivitySystemMapPos);
+
 }

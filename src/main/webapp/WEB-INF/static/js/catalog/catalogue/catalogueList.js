@@ -50,6 +50,8 @@ function initTable(){
                 }
                 if (row['audit_status'] === 4) {
                     return '已发布';
+                }else if (row['status'] == 6) {
+                    return '已下架';
                 }
             }
         }, {

@@ -22,6 +22,7 @@
         <result column="classify_name" property="classifyName"/>
         <result column="classify_structure_name" property="classifyStructureName"/>
         <result column="dept_name" property="deptName"/>
+        <result column="publish_type" property="publishType"/>
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -46,10 +47,20 @@
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.*,d.dataset_name,c.classify_name,c.classify_structure_name,p.dept_name FROM dir_dataset_classify_map t
+        SELECT t.*,d.dataset_name,c.classify_name,c.classify_structure_name,de.dept_name FROM dir_dataset_classify_map t
             left join dir_dataset d on t.dataset_id=d.id
             left join dir_classify c on t.classify_id=c.id
-            left join sys_dept p on d.belong_dept_id=p.id
+            left join sys_dept de on d.belong_dept_id=de.id
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoPageForReleased" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.*,d.dataset_name,c.classify_name,c.classify_structure_name,de.dept_name,p.publish_type
+        FROM dir_dataset_classify_map t
+        left join dir_dataset d on t.dataset_id=d.id
+        left join dir_classify c on t.classify_id=c.id
+        left join sys_dept de on d.belong_dept_id=de.id
+        left join dir_data_publish p on t.id=p.dcm_id and p.active_flag="1"
         <include refid="queryConditions"></include>
     </select>
 

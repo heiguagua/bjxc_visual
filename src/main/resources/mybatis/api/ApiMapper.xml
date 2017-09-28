@@ -63,6 +63,7 @@
     <!-- 查询指定数据集下面的数据库信息 -->
     <select id="getDbInfoByDatasetId" parameterType="map" resultType="map">
         SELECT
+        ddi.`id`,
         ddi.`db_name` AS dbName,
         ddi.`db_cn_name` AS DB_CN_NAME,
         ddi.`db_type` AS dbType,
@@ -87,6 +88,7 @@
         ON dd.`id` = dst.`dataset_id`
         WHERE TRUE
         <include refid="datasetWhereClause"/>
+        GROUP BY ddi.`id`
     </select>
 
     <!-- 查询指定数据集下面的数据表信息和字段关系 -->
@@ -191,6 +193,7 @@
     <!-- 根据系统ID查询数据库信息 -->
     <select id="getDbInfoBySystemId" parameterType="map" resultType="map">
         SELECT
+        ddi.`id`,
         ddi.`db_name` AS dbName,
         ddi.`db_cn_name` AS DB_CN_NAME,
         ddi.`db_type` AS dbType,

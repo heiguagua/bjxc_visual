@@ -29,4 +29,6 @@ public interface DrapBusinessDocMapper extends BaseMapper<DrapBusinessDoc> {
     int baseUpdate(DrapBusinessDoc entity);
 
     int baseDelete(String id);
+
+	int batchInsertPO(List<DrapBusinessDoc> drapBusinessDocPos);
 }

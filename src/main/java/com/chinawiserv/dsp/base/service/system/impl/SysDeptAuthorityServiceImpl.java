@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,6 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
 
     @Autowired
     private SysDeptAuthorityMapper mapper;
-
 
     @Override
     public boolean insertVO(SysDeptAuthorityVo vo) throws Exception {
@@ -58,7 +58,7 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
     @Override
     public boolean updateVO(SysDeptAuthorityVo vo) throws Exception {
         //删除已有权限
-        mapper.delete(new EntityWrapper<SysDeptAuthority>().eq("dept_id", vo.getDeptId()));
+        mapper.deleteByVo(vo);
 		return this.insertVO(vo);
 	}
 

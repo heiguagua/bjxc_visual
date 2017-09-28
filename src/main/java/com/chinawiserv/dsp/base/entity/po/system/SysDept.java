@@ -44,7 +44,7 @@ public class SysDept implements Serializable {
 
 	private String fname;
 
-	private int deptLevel;
+	private Integer deptLevel;
 
 	private String deptResponseMan;
 
@@ -390,11 +390,11 @@ public class SysDept implements Serializable {
 		this.treeCode = treeCode;
 	}
 
-	public int getDeptLevel() {
+	public Integer getDeptLevel() {
 		return deptLevel;
 	}
 
-	public void setDeptLevel(int deptLevel) {
+	public void setDeptLevel(Integer deptLevel) {
 		this.deptLevel = deptLevel;
 	}
 }

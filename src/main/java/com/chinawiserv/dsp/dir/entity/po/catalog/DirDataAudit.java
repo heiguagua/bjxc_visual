@@ -47,7 +47,11 @@ public class DirDataAudit implements Serializable {
      */
 	@TableField("audit_opinion")
 	private String auditOpinion;
-
+    /**
+     * 有效标识
+     */
+    @TableField("active_flag")
+    private int activeFlag;
 
 	public String getId() {
 		return id;
@@ -97,4 +101,11 @@ public class DirDataAudit implements Serializable {
 		this.auditOpinion = auditOpinion;
 	}
 
+    public int getActiveFlag() {
+        return activeFlag;
+    }
+
+    public void setActiveFlag(int activeFlag) {
+        this.activeFlag = activeFlag;
+    }
 }

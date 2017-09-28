@@ -13,6 +13,7 @@
         <result column="audit_date" property="auditDate"/>
         <result column="audit_status" property="auditStatus"/>
         <result column="audit_opinion" property="auditOpinion"/>
+        <result column="active_flag" property="activeFlag"/>
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
@@ -44,15 +45,15 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataAudit">
-        insert into dir_data_audit(id,dcm_id,auditor_id,audit_date,audit_status,audit_opinion) values(
-        #{id},#{dcmId},#{auditorId},#{auditDate},#{auditStatus},#{auditOpinion})
+        insert into dir_data_audit(id,dcm_id,auditor_id,audit_date,audit_status,audit_opinion,active_flag) values(
+        #{id},#{dcmId},#{auditorId},#{auditDate},#{auditStatus},#{auditOpinion},#{activeFlag})
     </insert>
 
     <insert id="insertListData">
-        insert into dir_data_audit(id,dcm_id,auditor_id,audit_date,audit_status,audit_opinion)
+        insert into dir_data_audit(id,dcm_id,auditor_id,audit_date,audit_status,audit_opinion,active_flag)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.dcmId},#{item.auditorId},#{item.auditDate},#{item.auditStatus},#{item.auditOpinion})
+            (#{item.id},#{item.dcmId},#{item.auditorId},#{item.auditDate},#{item.auditStatus},#{item.auditOpinion},#{item.activeFlag})
         </foreach>
     </insert>
 
@@ -77,8 +78,38 @@
             <if test="auditOpinion != null">
                 audit_opinion = #{auditOpinion},
             </if>
+            <if test="activeFlag != null">
+                active_flag = #{activeFlag},
+            </if>
         </set>
         where id = #{id}
+    </update>
+
+    <update id="batchUpdateActiveFlag" parameterType="java.util.Map">
+        <if test="ids != null and ids !='' ">
+            update dir_data_audit
+            <set>
+                <if test="auditorId != null">
+                    auditor_id = #{auditorId},
+                </if>
+                <if test="auditDate != null">
+                    audit_date = #{auditDate},
+                </if>
+                <if test="auditStatus != null">
+                    audit_status = #{auditStatus},
+                </if>
+                <if test="auditOpinion != null">
+                    audit_opinion = #{auditOpinion},
+                </if>
+                <if test="activeFlag != null">
+                    active_flag = #{activeFlag},
+                </if>
+            </set>
+            where dcm_id in
+            <foreach collection="ids" open="(" close=")" item="item" separator=",">
+                #{item, jdbcType=VARCHAR}
+            </foreach>
+        </if>
     </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">

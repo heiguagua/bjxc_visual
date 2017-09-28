@@ -42,7 +42,7 @@
                         </div>
 						
                         <div class="box-body table-responsive no-padding">
-                            <table id="dirSpecialAppsTableId" class="table table-hover">
+                            <table id="dirNewsTableId" class="table table-hover">
 
                             </table>
                         </div><!-- /.box-body -->

@@ -3,12 +3,18 @@ package com.chinawiserv.dsp.dir.service.configure.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.configure.DirNews;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirNewsVo;
+import com.chinawiserv.dsp.dir.entity.vo.configure.DirPolicyVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirNewsMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirNewsService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -36,6 +42,11 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 		//todo
 		return false;
 	}
+    
+    @Override
+	public void DeleteByFlag(String id) {		
+    	mapper.updateDeleteFlag(id);
+	}
 
     @Override
     public boolean deleteByQuery(Map<String, Object> paramMap) throws Exception {
@@ -50,8 +61,13 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 
     @Override
     public Page<DirNewsVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return null;
+		//todoPage<DirPolicyVo> page = getPage(paramMap);
+    	Page<DirNewsVo> page = getPage(paramMap);
+        page.setOrderByField("create_time");
+        page.setAsc(false);
+        List<DirNewsVo> voPage = mapper.selectVoPage(page, paramMap);
+        page.setRecords(voPage);
+        return page;		
 	}
 
     @Override
@@ -59,4 +75,12 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 		//todo
 		return 0;
 	}
+
+	@Override
+	public String fileUpload(DirNewsVo entity, MultipartFile file, HttpServletRequest request) {
+		
+		return null;
+	}
+
+	
 }
