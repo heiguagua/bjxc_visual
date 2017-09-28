@@ -43,7 +43,7 @@
   INSERT INTO `sys_menu` VALUES ('b4e7232189b14cf3ba160cf7b0d3bf37', '删除角色', '3', null, null, '3', '3', '010203', 'system:role:delete', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:34:27', '0');
   INSERT INTO `sys_menu` VALUES ('d2bc30feb5474a1bb7e02d48d39a3f8a', '查看用户列表', '2', null, null, '0', '3', '010100', 'system:user:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:28:01', '0');
   INSERT INTO `sys_menu` VALUES ('dc5f478d98ed4297a8ae638fe90df050', '编辑菜单', '4', null, null, '3', '3', '010302', 'system:menu:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
-  INSERT INTO `sys_menu` VALUES ('f5a20c82110b4a3ea9e30ca01a038680', '系统监控', '1', '/system/monitor', 'fa-eye', '7', '2', '0107', 'system:monitor', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
+ --  INSERT INTO `sys_menu` VALUES ('f5a20c82110b4a3ea9e30ca01a038680', '系统监控', '1', '/system/monitor', 'fa-eye', '7', '2', '0107', 'system:monitor', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('f899f3d3baec4571b1c786717f9906fd', '批量删除角色', '3', null, null, '5', '3', '010205', 'system:role:deleteBatch', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:35:08', '0');
 
   INSERT INTO `sys_menu` VALUES ('201', '目录管理', '0', null, 'fa fa-cogs', '1', '1', '02', 'catalog', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
@@ -547,18 +547,20 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
 	VALUES('151', '', 'dataSetStatus', '4', '驳回审核', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
 	VALUES('152', '', 'dataSetStatus', '5', '已发布', null, null, null, '1', null, now(), null, null, '0');
+	INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
+	VALUES('153', '', 'dataSetStatus', '6', '已下架', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('153', '', 'dataSetReleaseType', '1', '发布到互联网', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('154', '', 'dataSetReleaseType', '1', '发布到互联网', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('154', '', 'dataSetReleaseType', '2', '发布到电子政务外网', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('155', '', 'dataSetReleaseType', '2', '发布到电子政务外网', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('155', '', 'dataSetReleaseType', '3', '同时发布', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('156', '', 'dataSetReleaseType', '3', '同时发布', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('156', '', 'setItemAuditStatus', '0', '待审核"),', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('157', '', 'setItemAuditStatus', '0', '待审核"),', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('157', '', 'setItemAuditStatus', '1', '同意', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('158', '', 'setItemAuditStatus', '1', '同意', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('158', '', 'setItemAuditStatus', '2', '拒绝', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('159', '', 'setItemAuditStatus', '2', '拒绝', null, null, null, '1', null, now(), null, null, '0');
 
   -- 行政区划相关初始化数据
   -- 行政区划版本表

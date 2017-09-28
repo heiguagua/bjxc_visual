@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/registe/registeList.js"></script>
+    <script src="<%=basePath%>/js/catalog/release/releaseList.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -13,12 +13,12 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                <small>目录管理 > 目录注册</small>
+                <small>目录管理 > 目录发布</small>
             </h1>
         </section>
         <!-- Main content -->
        <div class="btn-group btn_develop">
-		   	<ul class="nav_ulss" id="devlop_chick">
+		   	<ul class="nav_ulss" id="releaseTab">
 		   		<li class="active"><i class="fa "></i>&nbsp;待发布</li>
 		   		<li><i class="fa fa-list-alt"></i>&nbsp;已发布</li>
 		   	</ul>
@@ -28,24 +28,29 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form class="form-inline" method="post" id=from_develop>
+                        <form class="form-inline" method="post" id=unReleaseSearchDiv>
                             <div class="box-header">
                                 <div class="input-group">
-                                    <a class="btn btn-primary btn-flat btn-myself" id="registeButton">
+                                    <a class="btn btn-primary btn-flat btn-myself" id="auditRejectButton">
                                         <i class="fa fa-plus">
                                         </i>
                                       审核驳回
                                     </a>
                                 </div>
                                   <div class="input-group">
-                                        <a class="btn btn-default btn-flat  btn-myself">
+                                        <button class="btn btn-default btn-flat  btn-myself dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="releaseButton">
                                             <!-- <i class="fa fa-plus-circle"></i> -->发布
-                                        </a>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" style="left:-21px;text-align:center;">
+                                            <li><a id="releaseboth" href="#">同时发布</a></li>
+                                            <li><a id="releaseInternet" href="#">发布到互联网</a></li>
+                                            <li><a id="releaseInside" href="#">发布到电子政务外网</a></li>
+                                        </ul>
                                     </div>    
                                 <div class="input-group pull-right">
-                                    <input class="form-control" id="searchName" placeholder="资源名称" type="text">
+                                    <input class="form-control" id="unReleaseSearchName" placeholder="资源名称" type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat btn_blue" id="registeQueryBtn" type="button">
+                                        <button class="btn btn-primary btn-flat btn_blue" id="unReleaseQueryBtn" type="button">
                                             <i class="fa fa-search">
                                             </i> 查询
                                         </button>
@@ -53,11 +58,11 @@
                                     </input>
                                 </div>
                                 <div class="input-group pull-right" style="margin-right:4px;">
-                                    <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control">
-                                    <input type="hidden" id="searchClassifyId">
+                                    <input type="text" id="unReleaseSearchClassifyName" placeholder="请选择目录类别" class="form-control">
+                                    <input type="hidden" id="unReleaseSearchClassifyId">
                                     <div class="menu-wrap">
-                                        <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
-                                            <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                        <div id="unReleaseSearchClassifyMenuContent" class="menuContent" style="display:none;">
+                                            <ul id="unReleaseSearchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                         </div>
                                     </div>
                                 </div>
@@ -65,18 +70,18 @@
                             </div>
                         </form>
                         <!-- 复制二级标题 已经发布 -->
-                        <form class="form-inline" method="post"  style="display:none" id="from_undevelop">
+                        <form class="form-inline" method="post"  style="display:none" id="releasedSearchDiv">
                             <div class="box-header">
                        
                                   <div class="input-group">
-                                        <a class="btn btn-default btn-flat  btn-myself">
+                                        <a class="btn btn-default btn-flat  btn-myself" id="offlineButton">
                                             <!-- <i class="fa fa-plus-circle"></i> -->下架
                                         </a>
                                     </div>    
                                 <div class="input-group pull-right">
-                                    <input class="form-control" id="searchName" placeholder="资源名称" type="text">
+                                    <input class="form-control" id="releasedSearchName" placeholder="资源名称" type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat btn_blue" id="registeQueryBtn" type="button">
+                                        <button class="btn btn-primary btn-flat btn_blue" id="releasedQueryBtn" type="button">
                                             <i class="fa fa-search">
                                             </i> 查询
                                         </button>
@@ -84,11 +89,11 @@
                                     </input>
                                 </div>
                                 <div class="input-group pull-right" style="margin-right:4px;">
-                                    <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control">
-                                    <input type="hidden" id="searchClassifyId">
+                                    <input type="text" id="releasedSearchClassifyName" placeholder="请选择目录类别" class="form-control">
+                                    <input type="hidden" id="releasedSearchClassifyId">
                                     <div class="menu-wrap">
-                                        <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
-                                            <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                        <div id="releasedSearchClassifyMenuContent" class="menuContent" style="display:none;">
+                                            <ul id="releasedSearchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +102,7 @@
                         </form>
                         <div class="box-body table-responsive no-padding">
                             <!-- 表格 -->
-                            <table id="registeTable" class="table table-hover"></table>
+                            <table id="releaseTable" class="table table-hover"></table>
                             <!-- 表格 end-->
                         </div>
                     </div>

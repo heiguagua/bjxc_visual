@@ -148,17 +148,62 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 
     @Override
     public boolean insertVO(SysDeptVo sysDeptVo) throws Exception {
-        sysDeptVo.setId(CommonUtil.get32UUID());
-        sysDeptVo.setDeptLevel(1);
-        sysDeptVo.setTreeIndex(0);
-        sysDeptVo.setStatus(1);
-        sysDeptVo.setCreateUserId(ShiroUtils.getLoginUserId());
-        sysDeptVo.setCreateTime(new Date());
-        return insert(sysDeptVo);
+        String fid = sysDeptVo.getFid();
+        if(StringUtils.isBlank(fid)){
+            throw new Exception("未能找到父节点id");
+        }
+        SysDeptVo parent = sysDeptMapper.selectVoById(fid);
+        if(parent != null){
+            Integer deptLevel = parent.getDeptLevel();
+            if(deptLevel != null){
+                sysDeptVo.setDeptLevel(deptLevel + 1);
+            }else{
+                sysDeptVo.setDeptLevel(1);
+            }
+            Integer status = sysDeptVo.getStatus();
+            if(status == null){
+                status = 1;
+            }
+            if(status == 0){
+                sysDeptVo.setValidateTo(new Date());
+            }else{
+                sysDeptVo.setValidateFrom(new Date());
+            }
+            sysDeptVo.setId(CommonUtil.get32UUID());
+            sysDeptVo.setTreeIndex(0);
+            sysDeptVo.setCreateUserId(ShiroUtils.getLoginUserId());
+            sysDeptVo.setCreateTime(new Date());
+            if(insert(sysDeptVo)){
+                Integer treeIndex = parent.getTreeIndex();
+                if(treeIndex == null){
+                    treeIndex = 1;
+                }else {
+                    treeIndex++;
+                }
+                SysDept updateParent = new SysDept();
+                updateParent.setId(parent.getId());
+                updateParent.setTreeIndex(treeIndex);
+                if(sysDeptMapper.updateById(updateParent) == 1){
+                    return true;
+                }
+            }
+            throw new Exception("添加组织机构失败");
+        }else{
+            throw new Exception("未能找到父节点");
+        }
     }
 
     @Override
     public boolean updateVO(SysDeptVo sysDeptVo) throws Exception {
+        Integer status = sysDeptVo.getStatus();
+        if(status == null){
+            status = 1;
+        }
+        if(status == 0){
+            sysDeptVo.setValidateTo(new Date());
+        }else{
+            sysDeptVo.setValidateFrom(new Date());
+        }
         sysDeptVo.setUpdateUserId(ShiroUtils.getLoginUserId());
         sysDeptVo.setUpdateTime(new Date());
         return updateById(sysDeptVo);

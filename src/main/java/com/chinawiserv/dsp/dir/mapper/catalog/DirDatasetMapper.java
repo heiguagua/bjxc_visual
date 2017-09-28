@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.dir.mapper.catalog;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetExtFormat;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
@@ -33,6 +34,8 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
     int baseUpdate(DirDataset entity);
 
     int baseDelete(String id);
+
+    int extInsert(DirDatasetExtFormat entity);
 
     //用户梳理系统的查询
     List<Map<String,Object>> selectActivityByDeptId(@Param("dept_id")String dept_id);

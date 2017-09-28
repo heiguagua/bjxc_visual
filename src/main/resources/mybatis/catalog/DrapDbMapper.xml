@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DrapDbMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <select id="selectDbByDeptId" resultType="map">
+        SELECT
+            ddi.id,
+            ddi.db_name
+        FROM
+            drap_db_info ddi
+        LEFT JOIN sys_dept sd ON ddi.belong_dept = sd.id
+        WHERE
+            TRUE
+        AND sd.id = #{dept_id}
+    </select>
+
+    <select id="selectTableByDbId" resultType="map">
+        SELECT
+            ddti.id,ddti.table_name
+        FROM drap_db_table_info ddti
+        LEFT JOIN drap_db_info ddi ON ddti.db_id=ddi.id
+        WHERE TRUE
+        AND ddi.id=#{db_id}
+    </select>
+
+    <select id="selectFieldByTableId" resultType="map">
+        SELECT
+            ddtc.id,
+            ddtc.column_en_name
+        FROM
+            drap_db_table_column ddtc
+        LEFT JOIN drap_db_table_info ddti ON ddtc.table_id = ddti.id
+        WHERE
+            TRUE
+        AND ddti.id = #{table_id}
+    </select>
+
+    <select id="selectFieldByIds" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDbTableColumn">
+        SELECT
+            ddtc.*, ddti.table_cn_name,
+            ddti.table_name,
+            sd.dept_name,
+            sd.id AS dept_id
+        FROM
+            drap_db_table_column ddtc
+        LEFT JOIN drap_db_table_info ddti ON ddtc.table_id = ddti.id
+        LEFT JOIN drap_db_info ddi ON ddti.db_id = ddti.db_id
+        LEFT JOIN sys_dept sd ON sd.id = ddi.belong_dept
+        WHERE
+            TRUE
+        <foreach collection="list" item="item" open=" AND ddtc.id IN (" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY
+            ddtc.id
+    </select>
+</mapper>

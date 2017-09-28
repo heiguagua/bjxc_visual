@@ -146,9 +146,7 @@ public class ApiServiceImpl implements IApiService {
 
                     DirServiceInfo dirServiceInfo = new DirServiceInfo();
 
-                    DirDatasetServiceMap dirDatasetServiceMap = new DirDatasetServiceMap();
 
-                    DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
 
                     JSONObject serviceInfo = serviceInfoArr.getJSONObject(i);
                     String serviceName = (String)serviceInfo.get("serviceName");
@@ -166,14 +164,28 @@ public class ApiServiceImpl implements IApiService {
                     String status = (String)serviceInfo.get("status");
                     String dirOrDrapType = (String)serviceInfo.get("dirType"); //目录梳理类型
                     String dirOrDrapTypeId = (String)serviceInfo.get("dirTypeId"); //目录数据集OR梳理数据表ID
+
+                    /**
+                     * 多个源，对ID进行拆分
+                     * */
+                    String[] idList = null;
+                    if(null != dirOrDrapTypeId && dirOrDrapTypeId.contains(",")){
+                        idList = dirOrDrapTypeId.split(",");
+                    }
                     Date startDate = null;
                     Date endDate = null;
+
                     try {
                         startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String)serviceInfo.get("startDate"));
-                        endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String)serviceInfo.get("endDate"));
-                    } catch (ParseException e) {
-                        logger.error(e.getMessage());
+                    } catch (Exception e) {
+                        startDate = null;
                     }
+                    try {
+                        endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String)serviceInfo.get("endDate"));
+                    } catch (Exception e) {
+                        endDate = null;
+                    }
+
                     /**
                      * 初始化PO:DirServiceInfo
                      * */
@@ -189,61 +201,84 @@ public class ApiServiceImpl implements IApiService {
                     dirServiceInfo.setServiceType(serviceType);
                     dirServiceInfo.setRequestFormat(dataStyle);
                     dirServiceInfo.setRequestInfo(serviceInfoParams);
-                    /**
-                     * 初始化PO:DirDatasetServiceMap
-                     * */
 
-                    dirDatasetServiceMap.setId(UUID.randomUUID().toString().replaceAll("-",""));
-                    dirDatasetServiceMap.setServiceId(serviceId);
-                    dirDatasetServiceMap.setStatus(status);
-                    dirDatasetServiceMap.setValidFrom(startDate);
-                    dirDatasetServiceMap.setValidTo(endDate);
-                    dirDatasetServiceMap.setObjId(dirOrDrapTypeId);
-                    dirDatasetServiceMap.setObjType(dirOrDrapType);
-                    dirDatasetServiceMap.setOperateTime(new Date());
 
-                    /**
-                     * 判断是否是重新发布，重新发布就更新数据库，不是就插入数据库
-                     * */
                     DirServiceInfo dirServiceInfoIf = dirServiceInfoMapper.selectById(serviceId);
-                    dirDatasetServiceMapParam.setServiceId(serviceId);
-                    DirDatasetServiceMap dirDatasetServiceMapIf = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
-                    if (null != dirServiceInfoIf && null != dirDatasetServiceMapIf){
-                        dirDatasetServiceMapIf.setServiceId(serviceId);
-                        dirDatasetServiceMapIf.setValidFrom(startDate);
-                        dirDatasetServiceMapIf.setValidTo(endDate);
-                        dirDatasetServiceMapIf.setObjId(dirOrDrapTypeId);
-                        dirDatasetServiceMapIf.setObjType(dirOrDrapType);
-                        dirDatasetServiceMapIf.setOperateTime(new Date());
-                        int reInfoResult = dirServiceInfoMapper.updateAllColumnById(dirServiceInfo);
-                        int reMapResult = dirDatasetServiceMapMapper.updateAllColumnById(dirDatasetServiceMapIf);
-                        if(reInfoResult > 0 && reMapResult > 0){
-                            handleResult.setState(true);
-                            handleResult.setMsg("服务重新发布成功");
+
+                    if(null != dirServiceInfoIf){
+                        dirServiceInfoMapper.updateById(dirServiceInfo);
+                    }else if(null == dirServiceInfoIf){
+                        dirServiceInfoMapper.insert(dirServiceInfo);
+                    }
+
+                    if(null != idList){
+                        for (int j = 0; j < idList.length; j++) {
+                            DirDatasetServiceMap dirDatasetServiceMapEntity = new DirDatasetServiceMap();
+                            dirDatasetServiceMapEntity.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                            dirDatasetServiceMapEntity.setServiceId(serviceId);
+                            dirDatasetServiceMapEntity.setStatus(status);
+                            dirDatasetServiceMapEntity.setValidFrom(startDate);
+                            dirDatasetServiceMapEntity.setValidTo(endDate);
+                            dirDatasetServiceMapEntity.setObjId(idList[j]);
+                            dirDatasetServiceMapEntity.setObjType(dirOrDrapType);
+                            dirDatasetServiceMapEntity.setOperateTime(new Date());
+
+                            DirDatasetServiceMap dirDatasetServiceMapEntityParam = new DirDatasetServiceMap();
+
+                            dirDatasetServiceMapEntityParam.setServiceId(serviceId);
+                            dirDatasetServiceMapEntityParam.setObjId(idList[j]);
+                            dirDatasetServiceMapEntityParam.setObjType(dirOrDrapType);
+
+                            DirDatasetServiceMap dirDatasetServiceMapEntityIf = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapEntityParam);
+                            if(null == dirDatasetServiceMapEntityIf){
+                                dirDatasetServiceMapMapper.insert(dirDatasetServiceMapEntity);
+                            }else{
+                                dirDatasetServiceMapEntityIf.setValidFrom(startDate);
+                                dirDatasetServiceMapEntityIf.setValidTo(endDate);
+                                dirDatasetServiceMapEntityIf.setStatus(status);
+                                dirDatasetServiceMapEntityIf.setOperateTime(new Date());
+                                dirDatasetServiceMapMapper.updateById(dirDatasetServiceMapEntityIf);
+                            }
                         }
-                        return handleResult;
-                    }
-
-                    /**
-                     * 插入服务信息
-                     * */
-                    int insertDirServiceInfoResult = dirServiceInfoMapper.insert(dirServiceInfo);
-                    /**
-                     * 插入数据集服务关联信息
-                     * */
-                    int insertDirDatasetServiceMapResult = 0;
-                    if(insertDirServiceInfoResult > 0){
-                        insertDirDatasetServiceMapResult = dirDatasetServiceMapMapper.insert(dirDatasetServiceMap);
-                    }
-
-                    if(insertDirDatasetServiceMapResult > 0){
                         handleResult.setState(true);
                         handleResult.setMsg("发布成功");
-                    }else{
-                        dirServiceInfoMapper.deleteById(serviceId); //失败就回滚
-                        handleResult.setState(false);
-                        handleResult.setMsg("发布失败");
+                    }else if(null == idList){
+                        /**
+                         * 判断是否是重新发布，重新发布就更新数据库，不是就插入数据库
+                         * */
+
+                        DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
+                        dirDatasetServiceMapParam.setServiceId(serviceId);
+                        dirDatasetServiceMapParam.setObjId(dirOrDrapTypeId);
+                        DirDatasetServiceMap dirDatasetServiceMapIf = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
+                        if (null != dirDatasetServiceMapIf){
+                            dirDatasetServiceMapIf.setValidFrom(startDate);
+                            dirDatasetServiceMapIf.setValidTo(endDate);
+                            dirDatasetServiceMapIf.setObjType(dirOrDrapType);
+                            dirDatasetServiceMapIf.setStatus(status);
+                            dirDatasetServiceMapIf.setOperateTime(new Date());
+                            dirDatasetServiceMapMapper.updateById(dirDatasetServiceMapIf);
+                            handleResult.setState(true);
+                            handleResult.setMsg("发布成功");
+                        }else if(null == dirDatasetServiceMapIf){
+                            /**
+                             * 插入数据集服务关联信息
+                             * */
+                            DirDatasetServiceMap dirDatasetServiceMap = new DirDatasetServiceMap();
+                            dirDatasetServiceMap.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                            dirDatasetServiceMap.setServiceId(serviceId);
+                            dirDatasetServiceMap.setStatus(status);
+                            dirDatasetServiceMap.setValidFrom(startDate);
+                            dirDatasetServiceMap.setValidTo(endDate);
+                            dirDatasetServiceMap.setObjId(dirOrDrapTypeId);
+                            dirDatasetServiceMap.setObjType(dirOrDrapType);
+                            dirDatasetServiceMap.setOperateTime(new Date());
+                            dirDatasetServiceMapMapper.insert(dirDatasetServiceMap);
+                            handleResult.setState(true);
+                            handleResult.setMsg("发布成功");
+                        }
                     }
+
                 }
             }else {
                 handleResult.setState(false);
@@ -253,7 +288,7 @@ public class ApiServiceImpl implements IApiService {
         return handleResult;
     }
     /**
-     * 下架服务/重新发布，更新服务状态
+     * 下架服务，更新服务状态
      * */
     @Override
     public HandleResult unReleaseService(Map<String, Object> paramMap) {
@@ -265,28 +300,44 @@ public class ApiServiceImpl implements IApiService {
         }else{
              DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
              String status = (String)paramMap.get("status");
-             String serviceNo = (String)paramMap.get("serviceNo");
+             String serviceId = (String)paramMap.get("serviceNo");
              String dirOrDrapTypeId = (String)paramMap.get("dirTypeId");
              String dirOrDrapType = (String)paramMap.get("dirType");
-             dirDatasetServiceMapParam.setServiceId(serviceNo);
-             dirDatasetServiceMapParam.setObjType(dirOrDrapType);
-             dirDatasetServiceMapParam.setObjId(dirOrDrapTypeId);
-             DirDatasetServiceMap result = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
-             if(null != result){
-                 result.setStatus(status);
-                 result.setOperateTime(new Date());
-                 int i = dirDatasetServiceMapMapper.updateAllColumnById(result);
-                 if(i > 0){
+             dirDatasetServiceMapParam.setServiceId(serviceId);
+             String[] idList = null;
+             if(null != dirOrDrapTypeId && dirOrDrapTypeId.contains(",")){
+                 idList = dirOrDrapTypeId.split(",");
+             }
+             if(null != idList){
+                 for (int i = 0; i < idList.length; i++) {
+                     dirDatasetServiceMapParam.setObjId(idList[i]);
+                     DirDatasetServiceMap result = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
+                     if(null != result){
+                         result.setStatus(status);
+                         result.setOperateTime(new Date());
+                         dirDatasetServiceMapMapper.updateById(result);
+                     }else{
+                         logger.error(dirOrDrapType+"类型，id为"+idList[i]+"对应服务不存在");
+                     }
+                 }
+                 handleResult.setMsg("服务下架成功");
+                 handleResult.setState(true);
+             }else if(null == idList){
+                 dirDatasetServiceMapParam.setObjId(dirOrDrapTypeId);
+                 DirDatasetServiceMap result = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
+                 if(null != result){
+                     result.setStatus(status);
+                     result.setOperateTime(new Date());
+                     dirDatasetServiceMapMapper.updateById(result);
                      handleResult.setMsg("服务下架成功");
                      handleResult.setState(true);
                  }else{
-                     handleResult.setMsg("服务下架失败");
+                     logger.error(dirOrDrapType+"类型，id为"+dirOrDrapTypeId+"对应服务不存在");
                      handleResult.setState(false);
                  }
-             }else{
-                 handleResult.setMsg("服务下架失败");
-                 handleResult.setState(false);
              }
+
+
         }
         return handleResult;
     }

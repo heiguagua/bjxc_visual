@@ -68,20 +68,27 @@
 		</where>
 	</sql>
 
+	<sql id="baseSelectVo">
+		SELECT t.*,r.region_name FROM sys_dept t LEFT JOIN sys_region r on t.region_code = r.region_code
+	</sql>
+
 	<select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
-		SELECT t.* FROM sys_dept t <include refid="queryConditions"></include>
+		<include refid="baseSelectVo"></include>
+		<include refid="queryConditions"></include>
 	</select>
 
 	<select id="selectVoById" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
-		SELECT t.* FROM sys_dept t WHERE t.delete_flag = '0' AND t.id = #{id}
+		<include refid="baseSelectVo"></include> WHERE t.delete_flag = '0' AND t.id = #{id}
 	</select>
 
 	<select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
-		SELECT count(1) FROM sys_dept t <include refid="queryConditions"></include>
+		SELECT count(1) FROM sys_dept t  LEFT JOIN sys_region r on t.region_code = r.region_code
+		<include refid="queryConditions"></include>
 	</select>
 
 	<select id="selectVoList" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
-		SELECT t.* FROM sys_dept t <include refid="queryConditions"></include>
+		<include refid="baseSelectVo"></include>
+		<include refid="queryConditions"></include>
 	</select>
 
 	<select id="isParentDept" parameterType="java.lang.String" resultType="java.lang.Boolean">

@@ -38,17 +38,17 @@ public class SysDictController extends BaseController {
     @Autowired
     private ISysDictService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "system/dataDict/dataDictList";
     }
 
     /**
      * 分页查询系统字典表
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){

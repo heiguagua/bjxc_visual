@@ -1,4 +1,38 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style>
+	*{margin: 0;padding: 0;}
+	.citytitle{
+		position: relative;
+/* 		margin: 0 21px; */
+		display: inline-block;
+		letter-spacing: 1px;
+	}
+	.citytitle .defaultcity{
+		display: block;
+		position: relative;
+		color: #fff;
+		text-align: center;
+		font-size:20px;
+		cursor: pointer;
+		
+	}
+	.citytitle .innerul{width: 427px;
+	/* height: 400px; */
+	list-style: none;background: #fff; z-index: 999;
+		position: absolute;
+		/* left: 0; */
+		right: 0;
+		border: 1px solid #ccc;margin-top: 17px;border-radius: 7px;
+		display: none;
+	}
+	.citytitle .innerul>li{width: 100px;height: 40px;text-align:center;float: left;line-height: 40px;
+		cursor:pointer;color:#828689;background: #F5F5F5;margin: 3px;
+	}
+	.citytitle .innerul>li:nth-child(1){
+		font-weight: bold;
+	}
+	.citytitle .innerul>li:hover{background:#56B4F8;color: #fff;}
+</style>
 
 <header class="main-header">
  <!-- Logo -->
@@ -50,6 +84,16 @@
          </ul>
        </li>--%>
        <!-- User Account Menu -->
+       
+        <li>
+         <!-- Menu Toggle Button -->
+          <a class="citytitle">
+			<span class="defaultcity">chengdu</span>
+			<ul class="innerul" id="box1">	
+			</ul>
+		  </a>
+       </li>
+       
        <li class="dropdown user user-menu">
          <!-- Menu Toggle Button -->
          <a href="<%=basePath%>/system/me/page" class="dropdown-toggle" data-toggle="tooltip" title="Admnin" data-placement="bottom">
@@ -68,3 +112,30 @@
     </div>
   </nav>
 </header>
+
+
+<script type="text/javascript">
+
+$(".citytitle .defaultcity").click(function(){
+	$(".citytitle .innerul").stop().toggle(500);
+})
+$(".citytitle .innerul").delegate("li",'click',function(event){
+		var k =$(this).index();
+		$(".citytitle .defaultcity").text($(this).text())
+		event.stopPropagation();
+		$(".citytitle .innerul").stop().slideUp();
+		/* var click_region_code = $(this).attr("region_code");
+		var regionObj = JSON.parse(window.localStorage.getItem("regionObj"));
+		if(regionObj.code != click_region_code){
+			for(var i = 0 ;i < regions.length; i++){
+				if(regions[i].regionCode == click_region_code){
+					var regionObj = {name:regions[i].regionName , code : regions[i].regionCode};
+					var regionsi_str = JSON.stringify(regionObj);
+					window.localStorage.setItem("regionObj", regionsi_str);
+				}
+			}
+			console.log(JSON.parse(window.localStorage.getItem("regionObj")));
+		} */
+})
+
+</script>

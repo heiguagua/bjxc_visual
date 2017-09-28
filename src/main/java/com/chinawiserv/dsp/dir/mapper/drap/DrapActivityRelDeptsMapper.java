@@ -29,4 +29,6 @@ public interface DrapActivityRelDeptsMapper extends BaseMapper<DrapActivityRelDe
     int baseUpdate(DrapActivityRelDepts entity);
 
     int baseDelete(String id);
+
+	int batchInsertPO(List<DrapActivityRelDepts> drapActivityRelDeptsPos);
 }
