@@ -236,3 +236,17 @@ table td {
     background: #FFF;
     width: 100%;
 }
+
+.interNet {
+    margin-right: 1px;
+    width: 13px;
+    height: 13px;
+    border-radius: 13px;
+    background-color: #27c24c;
+    display: inline-block;
+}
+
+.fa.fa-circle{
+    color: #999999;
+    font-size: 12px;
+}

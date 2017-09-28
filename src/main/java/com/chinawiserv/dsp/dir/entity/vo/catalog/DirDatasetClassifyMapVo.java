@@ -16,6 +16,8 @@ public class DirDatasetClassifyMapVo extends DirDatasetClassifyMap{
     private String classifyName;
     private String classifyStructureName;
     private String deptName;
+    private String publishType;
+
 
     public String getDatasetName() {
         return datasetName;
@@ -47,5 +49,13 @@ public class DirDatasetClassifyMapVo extends DirDatasetClassifyMap{
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
+    }
+
+    public String getPublishType() {
+        return publishType;
+    }
+
+    public void setPublishType(String publishType) {
+        this.publishType = publishType;
     }
 }
