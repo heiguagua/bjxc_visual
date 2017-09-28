@@ -1,4 +1,4 @@
-var tableSelector = '#registeTable';
+var tableSelector = '#queryTable';
 var paramsObj = {};
 
 jQuery(document).ready(function () {
@@ -9,7 +9,7 @@ jQuery(document).ready(function () {
 
 function initTable(){
     $(tableSelector).customTable({
-        url: basePathJS + '/catalog/registe/list',
+        url: basePathJS + '/catalog/query/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
@@ -91,35 +91,8 @@ function initAllSelect(){
 
 
 function initButtonClickEvent(){
-    //点击注册按钮
-    $("#registeButton").on("click",function(){
-        //获取已选择的资源目录的id
-        var selectedDcmIds="";
-        var selectedRow = $(tableSelector).bootstrapTable('getSelections');
-        if(selectedRow && selectedRow.length > 0){
-            for(var i=0,ii=selectedRow.length;i<ii;i++){
-                var dcmId = selectedRow[i].id;
-                selectedDcmIds += i==0?dcmId:","+dcmId;
-            }
-            $.commonAjax({
-                url:basePathJS + "/catalog/registe/doRegiste",
-                data:{dcmIds:selectedDcmIds},
-                success:function(result){
-                    if(result.state){
-                        successMsgTip(result.msg);
-                        reloadTable();
-                    }else{
-                        errorMsgTip(result.msg);
-                    }
-                }
-            });
-        }else{
-            errorMsgTip("请先选择要注册的信息资源");
-        }
-    });
-
     //点击查询按钮
-    $('#registeQueryBtn').click(function () {
+    $('#queryBtn').click(function () {
         setParams();
         reloadTable();
     });

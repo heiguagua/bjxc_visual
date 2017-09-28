@@ -48,7 +48,7 @@ function initUnReleaseTable(){
                 return '<p title="'+value+'">'+value+'</p>';
             }
         }, {
-            field: 'classifyName',
+            field: 'classifyStructureName',
             title: '所属目录类别',
             sortable: false,
             formatter:function(value, row, index){
@@ -130,7 +130,7 @@ function initReleasedTable(){
                 return '<p title="'+value+'">'+value+'</p>';
             }
         }, {
-            field: 'classifyName',
+            field: 'classifyStructureName',
             title: '所属目录类别',
             sortable: false,
             formatter:function(value, row, index){
