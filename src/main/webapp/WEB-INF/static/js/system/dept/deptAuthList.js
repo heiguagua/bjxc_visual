@@ -132,20 +132,48 @@ function getTree(title, url,width, height,id,url2,tp) {
             content:'<ul id="treeDemo" class="ztree"></ul>',
             btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
             yes :function(index, layero){
-                var treeObj=$.fn.zTree.getZTreeObj("treeDemo"), selectNodes=treeObj.getCheckedNodes(true);
-                console.log(selectNodes[0].id);
+                var treeObj=$.fn.zTree.getZTreeObj("treeDemo"), selectNodes=treeObj.getCheckedNodes(true),ids=[];
+                ////////////////////////////////////////////////////
+                var resultList = [];
+                var tempList = [];
+                for(var i in selectNodes){
+                    var node = selectNodes[i];
+                    if(node.check_Child_State!=1){
+                        tempList.push(node);
+                    }
+                }
+                if(tempList.length > 0){
+                    for(var i in tempList){
+                        var flag = false;
+                        var tempNode = tempList[i];
+                        for(var j in tempList){
+                            if(tempNode.pId == tempList[j].id){
+                                flag = true;
+                                break;
+                            }
+                        }
+                        if(!flag){
+                            resultList.push(tempNode);
+                        }
+                    }
+                }
+                for (var i = 0; i < resultList.length; i++) {
+                    ids.push(resultList[i].id);
+                }
+                ////////////////////////////////////////////////////
+                console.log(ids);
                 var params;
                 if(tp==="dept"){
                     params={
                         authObjId:id,
-                        deptIds : selectNodes[0].id,
+                        deptIds : ids.join(','),
                         authType : tp
                     }
                 }
                 if(tp==="dir"){
                     params={
                         authObjId:id,
-                        classifyIds : selectNodes[0].id,
+                        classifyIds :ids.join(','),
                         authType : tp
                     }
                 }
@@ -184,8 +212,9 @@ function getTree(title, url,width, height,id,url2,tp) {
                     var setting = {
                         check: {
                             enable: true,
-                            chkStyle: "radio",
-                            radioType: "level"
+                            chkboxType: { "Y": "ps", "N": "ps" }
+                            //chkStyle: "radio",
+                            //radioType: "level"
                         },
                         data: {
                             simpleData: {
@@ -223,8 +252,7 @@ function getTree(title, url,width, height,id,url2,tp) {
                     var setting = {
                         check: {
                             enable: true,
-                            chkStyle: "radio",
-                            radioType: "level"
+                            chkboxType: { "Y": "ps", "N": "ps" }
                         },
                         data: {
                             simpleData: {
@@ -257,10 +285,8 @@ function getTree(title, url,width, height,id,url2,tp) {
                         }
                     }
                 }
-
                 $.fn.zTree.init($("#treeDemo"), setting, zNodes);
             })
-
             //////////////////////////////////////////////////////////////////////////// end
 
         })
