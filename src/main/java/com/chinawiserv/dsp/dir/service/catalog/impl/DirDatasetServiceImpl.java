@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataRegisteVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.*;
 import com.chinawiserv.dsp.dir.enums.apply.SourceTypeEnum;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.*;
@@ -225,26 +222,33 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     @Override
     public boolean audit(Map<String , Object> paramMap) {
         boolean result = false;
-        String dcmId = (String)paramMap.get("dcmId");
+        String dcmIds = (String)paramMap.get("id");
         String auditStatus = (String)paramMap.get("status");
         String auditOpinion = (String)paramMap.get("opinion");
-        if(!StringUtils.isEmpty(dcmId) && !StringUtils.isEmpty(auditStatus)){
-            DirDatasetClassifyMapVo classifyMapVo = dirDatasetClassifyMapMapper.selectVoById(dcmId);
-            if(!ObjectUtils.isEmpty(classifyMapVo)){
-                classifyMapVo.setStatus(auditStatus);
-                int updateResult = dirDatasetClassifyMapMapper.baseUpdate(classifyMapVo);
-                if(updateResult > 0){
-                    DirDataAudit dataAudit = new DirDataAudit();
+        if(!StringUtils.isEmpty(dcmIds) && !StringUtils.isEmpty(auditStatus)){
+            Map<String,Object> params = new HashMap<>();
+            String [] dcmIdArray = dcmIds.split(",");
+            Date now = new Date();
+            params.put("ids",dcmIdArray);
+            params.put("status",auditStatus);//状态改为待审核
+            params.put("updateUserId",ShiroUtils.getLoginUserId());
+            params.put("updateTime",now);
+            int updateResult = dirDatasetClassifyMapMapper.batchUpdateStatus(params);
+            if(updateResult >= 0){
+                List<DirDataAuditVo> dataAuditList = new ArrayList<>();
+                for(String dcmId : dcmIdArray){
+                    DirDataAuditVo dataAudit = new DirDataAuditVo();
                     dataAudit.setId(UUID.randomUUID().toString());
                     dataAudit.setDcmId(dcmId);
                     dataAudit.setAuditStatus(auditStatus);
                     dataAudit.setAuditorId(ShiroUtils.getLoginUserId());
                     dataAudit.setAuditDate(new Date());
                     dataAudit.setAuditOpinion(auditOpinion);
-                    int insertResult = auditMapper.baseInsert(dataAudit);
-                    if(insertResult > 0){
-                        result = true;
-                    }
+                    dataAuditList.add(dataAudit);
+                }
+                int insertResult = auditMapper.insertListData(dataAuditList);
+                if(insertResult == dcmIdArray.length){
+                    result = true;
                 }
             }
         }

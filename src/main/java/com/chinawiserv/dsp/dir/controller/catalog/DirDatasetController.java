@@ -66,6 +66,12 @@ public class DirDatasetController extends BaseController {
         return "catalog/audit/auditList";
     }
 
+    @RequestMapping("/auditInfo")
+    public  String auditInfo(@RequestParam String id, Model model){
+        model.addAttribute("id",id);
+        return "catalog/audit/auditInfo";
+    }
+
     @RequestMapping("/release")
     public  String releaseInit(@RequestParam Map<String , Object> paramMap){
         setCurrentMenuInfo(paramMap);
@@ -127,7 +133,8 @@ public class DirDatasetController extends BaseController {
     public PageResult auditList(@RequestParam Map<String , Object> paramMap){
         PageResult pageResult = new PageResult();
         try {
-            Page<DirDatasetVo> page = service.selectVoPage(paramMap);
+            paramMap.put("status","1"); //查询过滤状态为待审核的数据
+            Page<DirDatasetClassifyMapVo> page = service.selectClassifyMapVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
             pageResult.error("分页查询数据集（审核）出错");
