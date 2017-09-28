@@ -1,5 +1,5 @@
+<!doctype html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
@@ -55,7 +55,7 @@
 	                		<label class="col-sm-3"></label>
 	                		<div class="col-sm-9">
 	                			 <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas" data-toggle="modal" data-target="#myModal">
-             			      	配置数据集
+             			      	配置数据项
                 			</button>
 	                		</div>
 		                 	
@@ -291,12 +291,14 @@
                         <thead>
                         <tr class='table_title_tr'>
                             <th><input type="checkbox" id="selectAllItem"> 全选</th>
+                            <th>字段名</th>
                             <th>信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>
                             <th>责任部门</th>
                             <th>所属信息资源</th>
                             <th>所属系统</th>
+                            <th>所属表</th>
                             <th>涉密标识</th>
                             <th>共享类型</th>
                             <th>共享条件</th>
@@ -312,6 +314,27 @@
                         </tbody>
                     </table>
                 </div>
+				<div class="checkh1">
+					<span class="checkspan">表间关系列表</span>
+					<h5>资源涉及 <span id='table_number' style='color: #062cff;'></span>张不同的表，至少需要<span id='link_number' style='color: #062cff;'></span>个表间关系</h5>
+					<input type="button" id="addLinks" class="pull-right btn-del" value="添加关联">
+				</div>
+				<div class="form-group " style="overflow-x: auto;min-height:200px;">
+					<table style="width:100%" class="table-striped">
+						<thead>
+						<tr>
+							<th>序号</th>
+							<th colspan="2" style='text-align: center'>表A</th>
+							<th>关联</th>
+							<th colspan="2" style='text-align: center'>表B</th>
+							<th>操作</th>
+						</tr>
+						</thead>
+						<tbody id="data_sys_link">
+
+						</tbody>
+					</table>
+				</div>
             </form>
         </div>
     </div>
