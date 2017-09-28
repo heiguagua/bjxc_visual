@@ -15,20 +15,23 @@
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/system/dept/doEdit">
-                        <input type="hidden" id="deptId" value="${deptId}" name="id"/>
+                        <input type="hidden" id="deptId" value="${id}" name="id"/>
+                        <input type="hidden" id="deptLevel" value="${deptLevel}" name="deptLevel"/>
+                        <input type="hidden" id="treeIndex" value="${treeIndex}" name="treeIndex"/>
+                        <input type="hidden" id="treeCode" value="${treeCode}" name="treeCode"/>
                         <div class="box-body">
 
                             <div class="form-group">
-                                <label for="regionCode" style='float:left;' class="col-sm-3 control-label">所属行政区域 *</label>
+                                <label for="regionCode" style='float:left;' class="col-sm-3 control-label">所属行政区域</label>
                                 <div  class="col-sm-7">
                                     <input type="text" class="form-control"  id="regionCode"  readonly>
 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="fcode" style='float:left;' class="col-sm-3 control-label">父组织机构编码</label>
+                                <label for="fid" style='float:left;' class="col-sm-3 control-label">父组织机构编码</label>
                                 <div  class="col-sm-7">
-                                    <input type="text" class="form-control"  id="fcode"  readonly>
+                                    <input type="text" class="form-control"  id="fid"  readonly>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -38,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="deptName"  style='float:left;' class="col-sm-3 control-label">组织机构名称 *</label>
+                                <label for="deptName"  style='float:left;' class="col-sm-3 control-label">组织机构名称</label>
                                 <div class="col-sm-7">
                                     <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="组织机构名称" disabled> -->
                                     <input type="text" class="form-control" name="deptName" id="deptName" placeholder="组织机构名称">

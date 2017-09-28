@@ -22,12 +22,12 @@
                                        placeholder="请输入目录名称" data-rule="api名称:required;classifyName;remote(<%=basePath%>/system/user/insertCheckName)">
                             </div>
                             
-                            <div class="form-group">
-                                <label for="EdeptName" style='float:left;'>所属组织机构 *</label>
+                            <div class="form-group" id="Edep">
+                                <label for="deptName" style='float:left;'>所属组织机构 *</label>
                                     <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
-                                    <input type="text" id="EdeptName" required="required"
+                                    <input type="text" id="deptName" required="required"
                                            data-parsley-required-message="该项为必填" class="form-control">
-                                    <input type="hidden" id="EdeptId" name="DeptId">
+                                    <input type="hidden" id="deptId" name="DeptId">
                                     <div class="menu-wrap">
                                         <div id="menuContent" class="menuContent" style="display:none;">
                                             <ul id="treeDemo" class="ztree"

@@ -42,7 +42,7 @@
 		                    <div class="col-sm-9">
 		                        <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
 		                        <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
-		                         placeholder="基础信息资源目录>人口目录>专题信息>房屋租赁人员">
+		                         placeholder="">
 		                        <input type="hidden" id="classifyId" name="classifyId">
 		                        <div class="menu-wrap">
 		                            <div id="menuContent" class="menuContent" style="display:none;">
@@ -73,7 +73,7 @@
                			<div class="col-sm-6">
 			                    <label  class="col-sm-3 control-label">信息资源编码 :</label>
 			                    <div class="col-sm-9">
-			                        <input type="text" class="form-control" id="datasetName" name="datasetName" disabled>
+			                        <input type="text" class="form-control" id="datasetCode" name="datasetCode" disabled>
 			                    </div>
 	                    </div>
                     </div>
@@ -83,14 +83,14 @@
 	                	<div class="col-sm-6">
 	                	<label  class="col-sm-3 control-label">信息资源提供方:</label>
 	                    <div class="col-sm-9">
-	                        <input type="text" class="form-control" id="resourceProvider" placeholder="信息资源提供方" disabled>
-	                        <input type="hidden" id="belongDepId" name="belongDepId">
+	                        <input type="text" class="form-control" id="dept_short_name" placeholder="信息资源提供方" disabled>
+	                        <input type="hidden" id="belongDeptId" name="belongDeptId">
 	                    </div>
 	                	</div>
 	                	<div class="col-sm-6">
 		                	 <label  class="col-sm-3 control-label" style="padding-left:0px">信息资源提供方代码:</label>
 		                    <div class="col-sm-9">
-		                        <input type="text" class="form-control" id="resourceProviderCode" placeholder="信息资源提供方代码"  disabled>
+		                        <input type="text" class="form-control" id="dept_code" placeholder="信息资源提供方代码"  disabled>
 		                    </div>
 	                	</div>
 	                </div>   
@@ -113,7 +113,7 @@
 	                	<div class="col-sm-6">
 		                	 <label  class="col-sm-3 control-label" style="padding-left:0px">所属系统:</label>
 		                    <div class="col-sm-9">
-		                        <input type="text" class="form-control" id="resourceProviderCode" placeholder="成都市公民信息管理系统">
+		                        <input type="text" class="form-control" id="system_name" placeholder="成都市公民信息管理系统">
 		                    </div>
 	                	</div>
 	                </div>   
@@ -122,29 +122,31 @@
                  <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-6">
-		                	<label for="relDatasetCode" class="col-sm-3 control-label">存储介质:</label>
+		                	<label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式:</label>
 		                    <div class="col-sm-9">
-			                        <select class="form-control col-sm-4" style="width:25%" >
-			                            <%--<option value="">--请选择--</option>
-			                            <option value="1" name="电子文件">电子文件</option>
-			                            <option value="2" name="电子表格">电子表格</option>
-			                            <option value="3" name="数据库类">数据库类</option>
-			                            <option value="4" name="图形图像类">图形图像类</option>
-			                            <option value="5" name="流媒体类">流媒体类</option>
-			                            <option value="6" name="自描述格式">自描述格式</option>--%>
-			                        </select>
-		                        <label for="resourceFormat" class="col-sm-4 control-label">信息资源格式:</label>
-			                    <div class="col-sm-5" style="padding:0">
-			                        <select class="form-control" id="resourceFormat" name="storageMedium">
-			                            <%--<option value="">--请选择--</option>
-			                            <option value="1" name="电子文件">电子文件</option>
-			                            <option value="2" name="电子表格">电子表格</option>
-			                            <option value="3" name="数据库类">数据库类</option>
-			                            <option value="4" name="图形图像类">图形图像类</option>
-			                            <option value="5" name="流媒体类">流媒体类</option>
-			                            <option value="6" name="自描述格式">自描述格式</option>--%>
-			                        </select>
-			                    </div>
+								<div class="col-sm-6" style="padding:0">
+									<select class="form-control" data-rule="所属资源格式:required;" id="storeMedia" name="ext.format_category">
+										<%--<option value="">--请选择--</option>
+                                        <option value="1" name="电子文件">电子文件</option>
+                                        <option value="2" name="电子表格">电子表格</option>
+                                        <option value="3" name="数据库类">数据库类</option>
+                                        <option value="4" name="图形图像类">图形图像类</option>
+                                        <option value="5" name="流媒体类">流媒体类</option>
+                                        <option value="6" name="自描述格式">自描述格式</option>--%>
+									</select>
+								</div>
+								<div class="col-sm-6" style="padding:0">
+									<select class="form-control" id="" name="ext.format_type" >
+										<%--<option value="">--请选择--</option>
+										<option value="1" name="电子文件">电子文件</option>
+										<option value="2" name="电子表格">电子表格</option>
+										<option value="3" name="数据库类">数据库类</option>
+										<option value="4" name="图形图像类">图形图像类</option>
+										<option value="5" name="流媒体类">流媒体类</option>
+										<option value="6" name="自描述格式">自描述格式</option>--%>
+									</select>
+								</div>
+
 		                    </div>
 	                	</div>
 			                	<div class="col-sm-6">
@@ -159,20 +161,16 @@
 				                    </div> -->
 				                    
 				                     		<div class="redio-box">
-				                        		<input type="radio" name="radiobutton" value="radiobutton" ><span></span>
-				                        		
+				                        		<input type="radio" name="radiobutton" value="1" ><span></span>
 				                        	 </div>
 				                        	 <label style="display:inline-block">涉密</label>
 				                     		<div class="redio-box">
-				                        		<input type="radio" name="radiobutton" value="radiobutton"><span></span>
-				                        		
+				                        		<input type="radio" name="radiobutton" value="0"><span></span>
 				                        	 </div>
-				                        	 <label style="display:inline-block">非涉密</label>
+										    <label style="display:inline-block">非涉密</label>
 				                        	<span class="updatedate">更新周期：</span>
-				                        	<select class="form-controls updateSelec">
-					                           	<option>年</option>
-					                           	<option>asdfasds年</option>
-					                       	 </select>
+				                        	<select class="form-controls updateSelec" id="updateFrequency" name="updateFrequency">
+											</select>
 				                    </div>
 			                	</div>
 	                </div>   
@@ -229,9 +227,9 @@
                 <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-6 shareType3" id="shareConditionDiv">
-		                	<label for="shareCondition" class="col-sm-3 control-label">共享条件:</label>
+		                	<label for="shareConditionDesc" class="col-sm-3 control-label">共享条件:</label>
 		                    <div class="col-sm-9">
-		                    	<textarea class="form-control" rows="3" id="shareCondition" name="shareCondition"></textarea>
+		                    	<textarea class="form-control" rows="3" id="shareConditionDesc" name="shareCondition"></textarea>
 		                    </div>
 	                	</div>
 	                	<div class="col-sm-6">
@@ -375,9 +373,9 @@
                 <div class="checkh1">
                 	<span class="checkspan">已选字段列表</span>
                 	
-	                	<button class="pull-right btn-del">
-             			      	删  除
-                			</button>
+	                	<input type="button" id="deleteItems" class="pull-right btn-del" value="删除">
+
+                		</input>
                 </div>
                 <div class="form-group " style="overflow-x: auto;min-height:200px;">
                     <table style="width:135%" class="table-striped">
@@ -402,26 +400,7 @@
                         </tr>
                         </thead>
                         <tbody id="dataitemList">
-								<tr>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-								</tr>
-                        </tbody>
+						</tbody>
                     </table>
                 </div>
             </form>

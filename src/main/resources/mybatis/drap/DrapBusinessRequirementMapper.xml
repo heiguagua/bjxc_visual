@@ -105,5 +105,40 @@
         </where>
     </sql>
 
+   <!-- 同步需求 -->
+   <insert id="addBusinessRequirement" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement">
 
+		insert into
+		drap_business_requirement
+		(id,region_code
+		, requre_dept_id,
+		source_dept_id,create_user, create_time,`status`,delete_flag
+		)values(#{id},#{regionCode},
+		#{requreDeptId},#{sourceDeptId},#{createUser},#{createTime},#{status},#{deleteFlag})
+	</insert>
+
+	<insert id="addRequirementResource"
+		parameterType="com.chinawiserv.dsp.dir.entity.vo.drap.DrapRequirementResourcesVo">
+		insert into drap_requirement_resources
+		(id,require_id,require_code,require_name,requirement_desc,
+		brace_activity_id,is_get,expect_get_type,
+		source_type,require_type,
+		require_remark, other_info, expect_update_frequence
+		,require_combing_type,doc_id,brace_app,`status`,delete_flag)values
+		<foreach collection="list" item="a" index="0" separator=",">
+			(#{a.id},#{a.requireId},#{a.requireCode},#{a.requireName},#{a.requirementDesc},#{a.braceActivityId},
+			#{a.isGet},#{a.expectGetType},#{a.sourceType},#{a.requireType},#{a.requireRemark},#{a.otherInfo},#{a.expectUpdateFrequence},
+			#{a.requireCombingType},#{a.docId},#{a.braceApp},#{a.status},#{a.deleteFlag})
+		</foreach>
+
+	</insert>
+	<insert id="addBusinessRequirementDataset"
+		parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapRequirementDatasetMap">
+		insert into
+		drap_requirement_dataset_map(id,require_id,dataset_id)values
+		<foreach collection="list" index="0" item="a" separator=",">
+			(#{a.id},#{a.requireId},#{a.datasetId})
+		</foreach>
+	</insert>
+   
 </mapper>

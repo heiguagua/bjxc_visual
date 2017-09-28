@@ -16,6 +16,7 @@ function initEditPage(){
                 var vo = data.content.vo;
                 $("#roleName").val(vo.roleName);
                 $("#roleDesc").text(vo.roleDesc);
+                $("#roleLevel").val(vo.roleLevel).trigger("change");
                 var status_selector = $("input[name='status']");
                 vo.status == 1 ? status_selector.get(0).checked=true : status_selector.get(1).checked=true;
             }

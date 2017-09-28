@@ -1,96 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapDatasetTableRelationMapper">
+<mapper
+	namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapDatasetTableRelationMapper">
 
-    <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetTableRelation">
-        <id column="id" property="id"/>
-        <result column="dataset_id" property="datasetId"/>
-        <result column="source_table" property="sourceTable"/>
-        <result column="source_column" property="sourceColumn"/>
-        <result column="target_table" property="targetTable"/>
-        <result column="target_column" property="targetColumn"/>
-        <result column="relation_type" property="relationType"/>
-    </resultMap>
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetTableRelation">
+		<id column="id" property="id" />
+		<result column="dataset_id" property="datasetId" />
+		<result column="source_table" property="sourceTable" />
+		<result column="source_column" property="sourceColumn" />
+		<result column="target_table" property="targetTable" />
+		<result column="target_column" property="targetColumn" />
+		<result column="relation_type" property="relationType" />
+	</resultMap>
 
-    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
-               type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetTableRelationVo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
+		type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetTableRelationVo">
 
-    </resultMap>
+	</resultMap>
 
-    <!-- 通用查询过滤条件 -->
-    <sql id="queryConditions">
-        <where>
-            <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
-            </if>
-        </where>
-    </sql>
+	<!-- 通用查询过滤条件 -->
+	<sql id="queryConditions">
+		<where>
+			<if test="id != null">
+				t.id = #{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM drap_dataset_table_relation t
-        <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoPage" parameterType="java.util.Map"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM drap_dataset_table_relation t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM drap_dataset_table_relation t WHERE t.id = #{id}
-    </select>
+	<select id="selectVoById" parameterType="java.lang.String"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM drap_dataset_table_relation t WHERE t.id = #{id}
+	</select>
 
-    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM drap_dataset_table_relation t
-        <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT count(1) FROM drap_dataset_table_relation t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetTableRelation">
-        insert into
-        drap_dataset_table_relation(id,dataset_id,source_table,source_column,target_table,target_column,relation_type)
-        values(
-        #{id},#{datasetId},#{sourceTable},#{sourceColumn},#{targetTable},#{targetColumn},#{relationType} )
-    </insert>
+	<insert id="baseInsert"
+		parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetTableRelation">
+		insert into
+		drap_dataset_table_relation(id,dataset_id,source_table,source_column,target_table,target_column,relation_type)
+		values(
+		#{id},#{datasetId},#{sourceTable},#{sourceColumn},#{targetTable},#{targetColumn},#{relationType}
+		)
+	</insert>
 
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetTableRelation">
-        update drap_dataset_table_relation
-        <set>
-            <if test="id != null">
-                id = #{id},
-            </if>
-            <if test="datasetId != null">
-                dataset_id = #{datasetId},
-            </if>
-            <if test="sourceTable != null">
-                source_table = #{sourceTable},
-            </if>
-            <if test="sourceColumn != null">
-                source_column = #{sourceColumn},
-            </if>
-            <if test="targetTable != null">
-                target_table = #{targetTable},
-            </if>
-            <if test="targetColumn != null">
-                target_column = #{targetColumn},
-            </if>
-            <if test="relationType != null">
-                relation_type = #{relationType},
-            </if>
-        </set>
-        where id = #{id}
-    </update>
+	<update id="baseUpdate"
+		parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetTableRelation">
+		update drap_dataset_table_relation
+		<set>
+			<if test="id != null">
+				id = #{id},
+			</if>
+			<if test="datasetId != null">
+				dataset_id = #{datasetId},
+			</if>
+			<if test="sourceTable != null">
+				source_table = #{sourceTable},
+			</if>
+			<if test="sourceColumn != null">
+				source_column = #{sourceColumn},
+			</if>
+			<if test="targetTable != null">
+				target_table = #{targetTable},
+			</if>
+			<if test="targetColumn != null">
+				target_column = #{targetColumn},
+			</if>
+			<if test="relationType != null">
+				relation_type = #{relationType},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
 
-    <delete id="baseDelete" parameterType="java.util.Map">
-        delete from drap_dataset_table_relation
-        <include refid="deleteWhereCause"/>
-    </delete>
+	<delete id="baseDelete" parameterType="java.util.Map">
+		delete from drap_dataset_table_relation
+		<include refid="deleteWhereCause" />
+	</delete>
 
-    <sql id="deleteWhereCause">
-        <where>
-            <if test="id != null">
-                id = #{id}
-            </if>
-        </where>
-    </sql>
+	<sql id="deleteWhereCause">
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</where>
+	</sql>
+	<!-- 同步关系 -->
+	<insert id="addItemRelation" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataColumnMap">
+		INSERT INTO
+		drap_data_column_map
+		(id,business_item_id,system_column_id,dataset_id,info_system_id,db_id,table_id)
+		VALUES
+		<foreach collection="list" item="a" separator="," index="0">
+			(REPLACE(UUID(),'-',''),#{a.businessItemId},#{a.systemColumnId},#{a.businessDatasetId},#{a.infoSystemId},#{a.dbId},#{a.tableId})
+		</foreach>
+	</insert>
 
+	<insert id="addTableFieldRelation" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetTableRelation">
 
+		INSERT INTO
+		drap_dataset_table_relation
+		(id,dataset_id,source_table,source_column,target_table,target_column,relation_type)
+		VALUES
+		<foreach collection="list" index="0" item="a" separator=",">
+			(REPLACE(UUID(),'-',''),#{a.datasetId},#{a.sourceTable},#{a.sourceColumn},#{a.targetTable},#{a.targetColumn},"=")
+		</foreach>
+	</insert>
 </mapper>

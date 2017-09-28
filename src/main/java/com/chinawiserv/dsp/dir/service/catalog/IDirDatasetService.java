@@ -1,8 +1,10 @@
 package com.chinawiserv.dsp.dir.service.catalog;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 
@@ -26,7 +28,19 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
 
     List<DrapDatasetItem> selectDatasetItemByIds(List<String> list);
 
+    Page<DirDatasetClassifyMapVo> selectClassifyMapVoPage(Map<String, Object> paramMap);
+
     public DrapDataset getDrapDatasetDetail(String id);
 
     boolean checkDatasetName(String datasetName, String classifyIds);
+
+    boolean registe(String dcmId);
+
+    boolean audit(Map<String , Object> paramMap);
+
+    boolean release(Map<String , Object> paramMap);
+
+    boolean auditReject(String dcmId);
+
+    boolean offline(String dcmId);
 }
