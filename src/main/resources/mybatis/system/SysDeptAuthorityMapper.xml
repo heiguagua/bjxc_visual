@@ -127,9 +127,9 @@
             <if test="deptId != null">
                 AND dept_id = #{deptId, jdbcType=VARCHAR}
             </if>
-            <if test="deptIds != null">
+            <if test="deptIdArray != null">
                 AND dept_id IN
-                <foreach collection="deptIds" open="(" close=")" item="item" separator=",">
+                <foreach collection="deptIdArray" open="(" close=")" item="item" separator=",">
                     #{item, jdbcType=VARCHAR}
                 </foreach>
             </if>

@@ -10,9 +10,19 @@ import java.util.List;
  */
 public class SysDeptVo extends SysDept {
 
+    private String regionName;
+
     private Boolean isLeaf;
 
     private List<SysDeptVo> childs;
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
 
     public Boolean getIsLeaf() {
         return isLeaf;
