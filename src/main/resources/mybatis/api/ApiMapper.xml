@@ -73,7 +73,8 @@
         ddi.`sid`,
         ddi.`service_name` AS serviceName,
         dd.`dataset_name` AS datasetName,
-        dis.`system_name` AS systemName
+        dis.`system_name` AS systemName,
+        dis.`build_dept` AS buildDept
         FROM
         drap_db_info ddi
         LEFT JOIN drap_db_system_map dsm
