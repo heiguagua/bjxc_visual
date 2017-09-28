@@ -21,7 +21,8 @@
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityApplyVo">
-
+        <result column="region_code" property="regionCode"/>
+        <result column="tree_code" property="treeCode"/>
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -48,7 +49,17 @@
             <if test="audited != null and audited == '1'.toString()">
                 AND t.audit_status != '0'
             </if>
+            <if test="deptTreeCodeCondition != null">
+                AND t.tree_code like '${deptTreeCodeCondition}%'
+            </if>
+            <if test="regionCodeCondition != null">
+                AND t.region_code like '${regionCodeCondition}%'
+            </if>
         </where>
+    </sql>
+
+    <sql id="baseSelectVo">
+        SELECT t.*,d.region_code,d.tree_code FROM sys_dept_authority_apply t LEFT JOIN sys_dept d ON t.to_dept_id = d.id
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">

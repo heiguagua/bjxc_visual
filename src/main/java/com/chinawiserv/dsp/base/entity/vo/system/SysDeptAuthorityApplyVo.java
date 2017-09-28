@@ -12,6 +12,10 @@ import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthorityApply;
  */
 public class SysDeptAuthorityApplyVo extends SysDeptAuthorityApply{
 
+    private String regionCode;
+
+    private String treeCode;
+
     private String toDeptIds;
 
     public String getToDeptIds() {
@@ -20,5 +24,21 @@ public class SysDeptAuthorityApplyVo extends SysDeptAuthorityApply{
 
     public void setToDeptIds(String toDeptIds) {
         this.toDeptIds = toDeptIds;
+    }
+
+    public String getRegionCode() {
+        return regionCode;
+    }
+
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
+    }
+
+    public String getTreeCode() {
+        return treeCode;
+    }
+
+    public void setTreeCode(String treeCode) {
+        this.treeCode = treeCode;
     }
 }

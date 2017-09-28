@@ -39,4 +39,5 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
     List<SysDeptVo> selectDeptListLikeTreeCode(List<String> list);
 
     List<String> selectDeptByPrivilege(String user_id);
+
 }

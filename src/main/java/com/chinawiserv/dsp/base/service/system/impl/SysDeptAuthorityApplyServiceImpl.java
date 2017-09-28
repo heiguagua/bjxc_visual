@@ -10,8 +10,10 @@ import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityApplyMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
+import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityApplyService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,9 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
 
     @Autowired
     private SysDeptAuthorityMapper sysDeptAuthorityMapper;
+
+    @Autowired
+    private ISysDeptService sysDeptService;
 
     @Override
     public boolean insertVO(SysDeptAuthorityApplyVo vo) throws Exception {
@@ -135,7 +140,12 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
             orderField = "apply_time";
             paramMap.put("audited", "0");
         }
-        paramMap.put("toDeptId", ShiroUtils.getLoginUser().getDeptId());
+        String deptId = ShiroUtils.getLoginUserDeptId();
+        if(StringUtils.isNotBlank(deptId)){
+            paramMap.put("toDeptId", deptId);
+        }else{
+            paramMap.putAll(sysDeptService.getDeptCondition(null));
+        }
         Page<SysDeptAuthorityApplyVo> page = getPage(paramMap);
         page.setOrderByField(orderField);
         page.setAsc(false);

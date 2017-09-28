@@ -129,16 +129,22 @@ public class SysDeptController extends BaseController {
     }
 
     /**
+     * 分配下级组织机构
+     */
+    @RequiresPermissions("system:dept:allot")
+    @RequestMapping("/allot")
+    public  String allot(@RequestParam String id, Model model){
+        model.addAttribute("id", id);
+        return "system/dept/deptAllot";
+    }
+
+    /**
      * 编辑组织机构
      */
     @RequiresPermissions("system:dept:edit")
     @RequestMapping("/edit")
-    public  String edit(@RequestParam String id, @RequestParam Integer deptLevel,
-                        @RequestParam Integer treeIndex, @RequestParam String treeCode, Model model){
+    public  String edit(@RequestParam String id, Model model){
         model.addAttribute("id", id);
-        model.addAttribute("deptLevel", deptLevel + 1);
-        model.addAttribute("treeIndex",treeIndex + 1);
-        model.addAttribute("treeCode", treeCode);
         return "system/dept/deptEdit";
     }
 

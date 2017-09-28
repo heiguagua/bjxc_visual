@@ -73,7 +73,7 @@ public class SysDeptAuthorityController extends BaseController {
                 throw new Exception("被分配的部门权限不能为空！");
             }
             List result = null;
-            paramMap.put("authObjType", AuthObjTypeEnum.DEPT);
+            paramMap.put("authObjType", AuthObjTypeEnum.DEPT.getKey());
             paramMap.put("authObjId", id);
             if("dept".equals(authType)){
                 result = service.selectVoList(paramMap);
