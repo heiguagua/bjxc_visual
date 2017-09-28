@@ -140,10 +140,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Override
     public Page<DirDatasetVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-        Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
-        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
-
-        return null;
+        Page<DirDatasetVo> page = getPage(paramMap);
+        page.setOrderByField("create_time");
+        page.setAsc(false);
+        List<DirDatasetVo> dirDatasetClassifyMapVoList = mapper.selectInfoPage(page, paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+        return page;
 	}
 
     @Override
