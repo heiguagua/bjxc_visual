@@ -25,13 +25,23 @@
                         <form class="form-inline" method="post">
                             <div class="box-header">
                                 <div class="input-group">
-                                    <a class="btn btn-primary btn-flat" id="auditButton">
+                                    <a class="btn btn-primary btn-flat btn-myself" id="auditButton">
                                         <i class="fa fa-plus">
                                         </i>
                                         审核
                                     </a>
                                 </div>
-                                <div class="input-group">
+                                <div class="input-group pull-right">
+                                    <input class="form-control" id="searchName" placeholder="资源名称" type="text">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary btn-flat btn_blue" id="auditQueryBtn" type="button">
+                                            <i class="fa fa-search">
+                                            </i> 查询
+                                        </button>
+                                    </div>
+                                    </input>
+                                </div>
+                                <div class="input-group pull-right" style="margin-right:4px">
                                     <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control">
                                     <input type="hidden" id="searchClassifyId">
                                     <div class="menu-wrap">
@@ -39,16 +49,6 @@
                                             <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="input-group">
-                                    <input class="form-control" id="searchName" placeholder="资源名称" type="text">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat" id="auditQueryBtn" type="button">
-                                            <i class="fa fa-search">
-                                            </i> 查询
-                                        </button>
-                                    </div>
-                                    </input>
                                 </div>
                             </div>
                         </form>

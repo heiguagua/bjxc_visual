@@ -22,8 +22,12 @@
                                 <input type="text" id="classify_name" name="classifyName" class="form-control"
                                        placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;remote(<%=basePath%>/system/user/insertCheckName)">
                             </div>
-                            
-                           <div class="form-group">
+                            <div class="form-group" id="Dep">
+                            	<label for="classifyName">是否为部门节点</label>
+                            	<label><input name="depnode" type="radio" value="yes" />是</label>
+								<label><input name="depnode" type="radio" value="no" checked/>否 </label>
+                            </div>
+                           <div class="form-group hidden" id="deptGroup">
                                 <label for="deptName" style='float:left;'>所属组织机构 *</label>
                                     <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
                                     <input type="text" id="deptName" required="required"

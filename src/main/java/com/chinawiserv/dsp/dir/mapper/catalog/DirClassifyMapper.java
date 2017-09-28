@@ -43,7 +43,7 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
     
     void  updateDeleteFlag(String classifyCode);
     
-    List<DirClassifyVo> getCatelogByParentCode(String classifyCode);
+    List<DirClassifyVo> getCatelogByParentCode(String id);
 
     int selectVoCount(Map<String, Object> paramMap);
 
