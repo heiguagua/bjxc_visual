@@ -88,6 +88,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <button type="button" id="add_to_container" class="btn pull-right">
+                        添加
+                    </button>
+                </div>
+                <div id="fieldTexts" class="col-md-12">
+                    <h5>已选择字段列表</h5>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn_quxiao" data-dismiss="modal">取消
