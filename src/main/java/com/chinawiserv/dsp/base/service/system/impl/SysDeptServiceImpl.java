@@ -160,9 +160,17 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             }else{
                 sysDeptVo.setDeptLevel(1);
             }
+            Integer status = sysDeptVo.getStatus();
+            if(status == null){
+                status = 1;
+            }
+            if(status == 0){
+                sysDeptVo.setValidateTo(new Date());
+            }else{
+                sysDeptVo.setValidateFrom(new Date());
+            }
             sysDeptVo.setId(CommonUtil.get32UUID());
             sysDeptVo.setTreeIndex(0);
-            sysDeptVo.setStatus(1);
             sysDeptVo.setCreateUserId(ShiroUtils.getLoginUserId());
             sysDeptVo.setCreateTime(new Date());
             if(insert(sysDeptVo)){
@@ -187,6 +195,15 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 
     @Override
     public boolean updateVO(SysDeptVo sysDeptVo) throws Exception {
+        Integer status = sysDeptVo.getStatus();
+        if(status == null){
+            status = 1;
+        }
+        if(status == 0){
+            sysDeptVo.setValidateTo(new Date());
+        }else{
+            sysDeptVo.setValidateFrom(new Date());
+        }
         sysDeptVo.setUpdateUserId(ShiroUtils.getLoginUserId());
         sysDeptVo.setUpdateTime(new Date());
         return updateById(sysDeptVo);
