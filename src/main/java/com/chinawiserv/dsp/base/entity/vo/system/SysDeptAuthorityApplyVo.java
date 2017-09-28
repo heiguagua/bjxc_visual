@@ -12,11 +12,31 @@ import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthorityApply;
  */
 public class SysDeptAuthorityApplyVo extends SysDeptAuthorityApply{
 
+    private String applicantName;
+
+    private String auditorName;
+
     private String regionCode;
 
     private String treeCode;
 
     private String toDeptIds;
+
+    public String getApplicantName() {
+        return applicantName;
+    }
+
+    public void setApplicantName(String applicantName) {
+        this.applicantName = applicantName;
+    }
+
+    public String getAuditorName() {
+        return auditorName;
+    }
+
+    public void setAuditorName(String auditorName) {
+        this.auditorName = auditorName;
+    }
 
     public String getToDeptIds() {
         return toDeptIds;

@@ -21,6 +21,8 @@
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityApplyVo">
+        <result column="applicantName" property="applicantName"/>
+        <result column="auditorName" property="auditorName"/>
         <result column="region_code" property="regionCode"/>
         <result column="tree_code" property="treeCode"/>
     </resultMap>
@@ -59,7 +61,10 @@
     </sql>
 
     <sql id="baseSelectVo">
-        SELECT t.*,d.region_code,d.tree_code FROM sys_dept_authority_apply t LEFT JOIN sys_dept d ON t.to_dept_id = d.id
+        SELECT t.*,u1.user_name applicantName,u2.user_name auditorName, d.dept_name,d.region_code,d.tree_code FROM sys_dept_authority_apply t
+        LEFT JOIN sys_user u1 ON t.applicant = u1.id
+        LEFT JOIN sys_user u2 ON t.auditor = u2.id
+        LEFT JOIN sys_dept d ON t.to_dept_id = d.id
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
