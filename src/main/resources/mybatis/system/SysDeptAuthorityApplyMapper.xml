@@ -23,6 +23,7 @@
                type="com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityApplyVo">
         <result column="applicantName" property="applicantName"/>
         <result column="auditorName" property="auditorName"/>
+        <result column="dept_name" property="deptName"/>
         <result column="region_code" property="regionCode"/>
         <result column="tree_code" property="treeCode"/>
     </resultMap>
