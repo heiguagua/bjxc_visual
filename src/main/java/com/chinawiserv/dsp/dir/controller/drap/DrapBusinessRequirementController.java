@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chinawiserv.dsp.base.controller.common.BaseController;
@@ -25,29 +26,29 @@ import com.chinawiserv.dsp.dir.service.drap.IDrapBusinessRequirementService;
 @Controller
 @RequestMapping("/drap/requirement/")
 public class DrapBusinessRequirementController extends BaseController {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    private IDrapBusinessRequirementService service;
-
-    /**
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private IDrapBusinessRequirementService service;
+	
+	/**
 	 * 同步需求
+	 * 
 	 * @param voLst
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("insert")
-	public Object insertRequirement(List<DrapBusinessRequirementVo> voLst)
-	{
+	public Object insertRequirement(
+			@RequestParam("data") List<DrapBusinessRequirementVo> voLst) {
 		HandleResult result = new HandleResult();
 		try {
-			if (voLst == null || voLst.isEmpty())
-			{
+			if (voLst == null || voLst.isEmpty()) {
 				result.error("待同步数据数据为空。");
 			}
 			service.insertBusinessRequirement(voLst);
 		} catch (Exception e) {
-			logger.error("同步需求异常。",e.toString());
+			logger.error("同步需求异常。", e.toString());
 		}
 		return result;
 	}
