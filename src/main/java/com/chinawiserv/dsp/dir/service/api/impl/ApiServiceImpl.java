@@ -300,24 +300,44 @@ public class ApiServiceImpl implements IApiService {
         }else{
              DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
              String status = (String)paramMap.get("status");
-             String serviceNo = (String)paramMap.get("serviceNo");
-             dirDatasetServiceMapParam.setServiceId(serviceNo);
-             DirDatasetServiceMap result = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
-             if(null != result){
-                 result.setStatus(status);
-                 result.setOperateTime(new Date());
-                 int i = dirDatasetServiceMapMapper.updateAllColumnById(result);
-                 if(i > 0){
+             String serviceId = (String)paramMap.get("serviceNo");
+             String dirOrDrapTypeId = (String)paramMap.get("dirTypeId");
+             String dirOrDrapType = (String)paramMap.get("dirType");
+             dirDatasetServiceMapParam.setServiceId(serviceId);
+             String[] idList = null;
+             if(null != dirOrDrapTypeId && dirOrDrapTypeId.contains(",")){
+                 idList = dirOrDrapTypeId.split(",");
+             }
+             if(null != idList){
+                 for (int i = 0; i < idList.length; i++) {
+                     dirDatasetServiceMapParam.setObjId(idList[i]);
+                     DirDatasetServiceMap result = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
+                     if(null != result){
+                         result.setStatus(status);
+                         result.setOperateTime(new Date());
+                         dirDatasetServiceMapMapper.updateById(result);
+                     }else{
+                         logger.error(dirOrDrapType+"类型，id为"+idList[i]+"对应服务不存在");
+                     }
+                 }
+                 handleResult.setMsg("服务下架成功");
+                 handleResult.setState(true);
+             }else if(null == idList){
+                 dirDatasetServiceMapParam.setObjId(dirOrDrapTypeId);
+                 DirDatasetServiceMap result = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
+                 if(null != result){
+                     result.setStatus(status);
+                     result.setOperateTime(new Date());
+                     dirDatasetServiceMapMapper.updateById(result);
                      handleResult.setMsg("服务下架成功");
                      handleResult.setState(true);
                  }else{
-                     handleResult.setMsg("服务下架失败");
+                     logger.error(dirOrDrapType+"类型，id为"+dirOrDrapTypeId+"对应服务不存在");
                      handleResult.setState(false);
                  }
-             }else{
-                 handleResult.setMsg("服务下架失败");
-                 handleResult.setState(false);
              }
+
+
         }
         return handleResult;
     }
