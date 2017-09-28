@@ -1,13 +1,16 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Zhangm
+  Date: 2017/9/28
+  Time: 10:53
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <link rel="stylesheet" href="<%=basePath%>/plugins/zTree/css/zTreeStyle/zTreeStyle.css">
-    <script src="<%=basePath%>/plugins/zTree/js/jquery.ztree.all.js"></script>
-    <script src="<%=basePath%>/plugins/layui/layui.all.js"></script>
-    <script src="<%=basePath%>/js/system/dept/deptAuthList.js"></script>
-
+    <script src="<%=basePath%>/js/system/deptAuthorityApply/deptAuthorityApplyList.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -18,7 +21,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <small>系统管理 > 组织机构管理</small>
+                <small>系统管理 > 部门权限申请管理</small>
             </h1>
         </section>
         <!-- Main content -->
@@ -29,13 +32,11 @@
                     <div class="box">
                         <div class="form-inline">
                             <div class="box-header">
-                                <%--<#if permissions?seq_contains('addDept')>--%>
                                 <div class="input-group">
-                                    <a class="btn btn-primary  btn-flat" onclick="javascript:addDept()" > <i class="fa fa-plus"></i> 创建一级组织机构</a>
+                                    <a class="btn btn-primary  btn-flat" onclick="javascript:authorityApply()" > <i class="fa fa-plus"></i>申请部门数据权限</a>
                                 </div>
-                                <%--</#if>--%>
                                 <div class="input-group">
-                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="组织机构名称">
+                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="部门数据权限申请名称">
                                     <div class="input-group-btn">
                                         <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
                                     </div>
@@ -45,7 +46,7 @@
                         </div>
 
                         <div class="box-body table-responsive no-padding">
-                            <table id="systemAuthDeptTableId" class="table table-hover">
+                            <table id="deptAuthorityApplyTableId" class="table table-hover">
 
                             </table>
                         </div><!-- /.box-body -->
@@ -59,5 +60,6 @@
     <%@include file="/WEB-INF/views/common/footer.jsp" %>
     <div class="control-sidebar-bg"></div>
 </div>
+
 </body>
 </html>

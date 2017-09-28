@@ -115,7 +115,7 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
 
     @Override
     public Page<SysDeptAuthorityApplyVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-        paramMap.put("applicant", ShiroUtils.getLoginUserId());
+        paramMap.putAll(sysDeptService.getDeptCondition(null));
         Page<SysDeptAuthorityApplyVo> page = getPage(paramMap);
         page.setOrderByField("apply_time");
         page.setAsc(false);

@@ -100,7 +100,6 @@
                                         <input name="status" type="radio"  id="inlineRadio3" class="minimal"  value="-1"> 禁用
                                     </label>
                                 </div>
-                            </div>
                         </div><!-- /.box-body -->
                         <div class="box-footer">
                             <%--<button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>--%>
