@@ -68,9 +68,9 @@
 		</where>
 	</sql>
 
-	<select id="baseSelectVo">
+	<sql id="baseSelectVo">
 		SELECT t.*,r.region_name FROM sys_dept t LEFT JOIN sys_region r on t.region_code = r.region_code
-	</select>
+	</sql>
 
 	<select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
 		<include refid="baseSelectVo"></include>
