@@ -49,7 +49,7 @@
                     #{item, jdbcType=VARCHAR}
                 </foreach>
             </if>
-            <if test="audited == null or audited == '0'.toString()">
+            <if test="audited != null and audited == '0'.toString()">
                 AND t.audit_status = '0'
             </if>
             <if test="audited != null and audited == '1'.toString()">
