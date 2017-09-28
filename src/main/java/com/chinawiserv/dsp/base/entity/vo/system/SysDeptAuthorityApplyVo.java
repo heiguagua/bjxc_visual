@@ -22,6 +22,8 @@ public class SysDeptAuthorityApplyVo extends SysDeptAuthorityApply{
 
     private String toDeptIds;
 
+    private String deptName;
+
     public String getApplicantName() {
         return applicantName;
     }
@@ -60,5 +62,13 @@ public class SysDeptAuthorityApplyVo extends SysDeptAuthorityApply{
 
     public void setTreeCode(String treeCode) {
         this.treeCode = treeCode;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 }
