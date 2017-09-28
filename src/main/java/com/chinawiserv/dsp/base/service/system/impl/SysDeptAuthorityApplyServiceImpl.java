@@ -141,12 +141,7 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
             orderField = "apply_time";
             paramMap.put("audited", "0");
         }
-        String deptId = ShiroUtils.getLoginUserDeptId();
-        if(StringUtils.isNotBlank(deptId)){
-            paramMap.put("toDeptId", deptId);
-        }else{
-            paramMap.putAll(sysDeptService.getDeptCondition(null));
-        }
+        paramMap.putAll(sysDeptService.getDeptCondition(null));
         Page<SysDeptAuthorityApplyVo> page = getPage(paramMap);
         page.setOrderByField(orderField);
         page.setAsc(false);

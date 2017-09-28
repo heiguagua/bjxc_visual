@@ -53,10 +53,10 @@
                 AND t.audit_status != '0'
             </if>
             <if test="deptTreeCodeCondition != null">
-                AND t.tree_code like '${deptTreeCodeCondition}%'
+                AND d.tree_code like '${deptTreeCodeCondition}%'
             </if>
             <if test="regionCodeCondition != null">
-                AND t.region_code like '${regionCodeCondition}%'
+                AND d.region_code like '${regionCodeCondition}%'
             </if>
         </where>
     </sql>
