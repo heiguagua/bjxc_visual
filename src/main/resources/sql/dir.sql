@@ -885,7 +885,7 @@ create table dir_dataset_service_map
    id                   varchar(36) not null comment 'id',
    service_id           varchar(36) comment '服务ID',
    obj_type             varchar(36) comment '服务注册对象类型',
-   obj_id               varchar(36) comment '服务注册对象ID',
+   obj_id               varchar(1024) comment '服务注册对象ID,多个逗号分隔',
    valid_from           date comment '有效期开始',
    valid_to             date comment '有效期结束',
    status               varchar(36) comment '状态',
