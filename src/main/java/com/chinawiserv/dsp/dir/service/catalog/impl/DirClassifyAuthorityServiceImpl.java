@@ -57,7 +57,7 @@ public class DirClassifyAuthorityServiceImpl extends CommonServiceImpl<DirClassi
     @Override
     public boolean updateVO(DirClassifyAuthorityVo vo) throws Exception {
         //删除已有权限
-        mapper.delete(new EntityWrapper<DirClassifyAuthority>().eq("classify_id", vo.getClassifyId()));
+        mapper.deleteByVo(vo);
         return this.insertVO(vo);
 	}
 

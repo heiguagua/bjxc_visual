@@ -108,10 +108,30 @@
         <include refid="deleteWhereCause"/>
     </delete>
 
+    <delete id="deleteByVo" parameterType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo">
+        delete from sys_dept_authority_apply
+        <include refid="deleteWhereCause"/>
+    </delete>
+
     <sql id="deleteWhereCause">
         <where>
             <if test="id != null">
                 id = #{id}
+            </if>
+            <if test="authObjType != null">
+                auth_obj_type = #{authObjType},
+            </if>
+            <if test="authObjId != null">
+                auth_obj_id = #{authObjId},
+            </if>
+            <if test="deptId != null">
+                AND dept_id = #{deptId, jdbcType=VARCHAR}
+            </if>
+            <if test="deptIds != null">
+                AND dept_id IN
+                <foreach collection="deptIds" open="(" close=")" item="item" separator=",">
+                    #{item, jdbcType=VARCHAR}
+                </foreach>
             </if>
         </where>
     </sql>
