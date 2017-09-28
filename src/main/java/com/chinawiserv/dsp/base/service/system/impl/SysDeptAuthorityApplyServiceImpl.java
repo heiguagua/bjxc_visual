@@ -62,6 +62,7 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
                     apply.setId(CommonUtil.get32UUID());
                     apply.setApplicant(applicant);
                     apply.setToDeptId(toDeptId);
+                    apply.setApplyReason(vo.getApplyReason());
                     apply.setApplyTime(new Date());
                     apply.setAuditStatus("0");
                     if (!insert(apply)) {
