@@ -7,7 +7,6 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirNewsVo;
 import com.chinawiserv.dsp.dir.service.configure.IDirNewsService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -68,7 +70,7 @@ public class DirNewsController extends BaseController {
 //    @RequiresPermissions("XXX:XXX:add")
     @RequestMapping("/add")
     public  String add(){
-		return "XXX/XXX/XXXAdd";
+		return "dir/configure/news/newsAdd";
     }
 
     /**
@@ -78,11 +80,19 @@ public class DirNewsController extends BaseController {
     @Log("创建新闻表")
     @RequestMapping("/doAdd")
     @ResponseBody
-    public HandleResult doAdd(DirNewsVo entity){
+    public HandleResult doAdd(DirNewsVo entity,@RequestParam(value="file",required=false) MultipartFile file,  
+            HttpServletRequest request)
+    {
 		HandleResult handleResult = new HandleResult();
 		try {
-		    service.insertVO(entity);
-		    handleResult.success("创建新闻表成功");
+			String rs = "samePic";
+//			String rs = picService.uploadPic(request, file, fileFileName);
+            if("samePic".equals(rs)){
+            	handleResult.error("该图片已存在，请重新选择图片上传");
+            }else{
+            	handleResult.success("创建新闻表成功");
+            }
+//		    service.insertVO(entity);		    
 		} catch (Exception e) {
 		    handleResult.error("创建新闻表失败");
 		    logger.error("创建新闻表失败", e);
@@ -99,7 +109,7 @@ public class DirNewsController extends BaseController {
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
 		//todo 逻辑删除
-    	//service.deleteById(id);
+    	service.DeleteByFlag(id);
 		return new HandleResult().success("删除新闻表成功");
     }
 

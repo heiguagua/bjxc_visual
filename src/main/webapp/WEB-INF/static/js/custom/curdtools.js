@@ -108,7 +108,7 @@ function addDir(title, url, fid, width, height, isRestful) {
         }
     }
 
-    var options = _getDefaultWinOptions(title , url , width, height) ;
+    var options = _getDefaultWinOptionsForUpdateapiList(title , url , width, height) ;
 
     createWindow(options);
 }
@@ -406,6 +406,8 @@ function _getDefaultWinOptions(title , url , width, height) {
     return options ;
 }
 
+
+
 function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
     var options = {
         title:title,
@@ -528,6 +530,53 @@ function _yesCallbackFunc(index, layero , options) {
 * @param options for api
 * @private
 */
+
+//function _submitFormForNews(index, layero , options){
+////	$('#uploadButton').attr("disabled", true);
+//	var form = $("#uploadPicForm");
+//	var options = {
+//	    url: CONTEXT_PATH + '/admin/Pic_uploadPic',
+//	    type: 'post',
+//	    beforeSubmit : function(formData, jqForm, options){
+//	        for(var i= 0,ii=formData.length;i<ii;i++){
+//	            var data = formData[i];
+//	            var fieldName = data["name"];
+//	            var fieldValue = data["value"];
+//	            if(fieldName == "file"){
+//	                if(fieldValue == ""){
+//	                    var requireHtml='<ul class="parsley-errors-list filled" id="parsley-id-22"><li class="parsley-required">请上传图片</li></ul>';
+//	                    $("#addPicDiv").html(requireHtml);
+//	                    $('#uploadButton').removeAttr("disabled");
+//	                    return false;
+//	                }
+//	            }else if(fieldName == "pic_title"){
+//	                if(fieldValue == ""){
+//	                    var requireHtml='<ul class="parsley-errors-list filled" id="parsley-id-22"><li class="parsley-required">请填写标题</li></ul>';
+//	                    $("#addTitleDiv").html(requireHtml);
+//	                    $("#pic_title").focus();
+//	                    $('#uploadButton').removeAttr("disabled");
+//	                    return false;
+//	                }
+//	            }
+//	
+//	        }
+//	    },
+//	    success: function (data) {
+//	        var jsondata = eval("(" + data + ")");
+//	        if (jsondata.code == "OK") {
+//	            $.bootstrapDialog.tip(jsondata.message);
+//	            $("#uploadButton").removeAttr("disabled");
+//	            $('#modal-add').modal('hide');
+//	            initPage();
+//	        } else {
+//	            $.bootstrapDialog.tip(jsondata.message);
+//	            $("#uploadButton").removeAttr("disabled");
+//	        }
+//	    }
+//	};
+//	form.ajaxSubmit(options);
+//}
+
 function _submitFormForApi(index, layero , options){
    options = options || {};
    var body ;
