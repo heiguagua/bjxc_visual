@@ -5,7 +5,7 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/plugins/treeview/bootstrap-treeview.js"></script>
     <script src="<%=basePath%>/plugins/treeview/data.treeview.js"></script>
-    <script src="<%=basePath%>/js/catalog/catalogue/quickAddDatasetUI.js"></script>
+    <script src="<%=basePath%>/js/catalog/catalogue/quickSystemAddDatasetUI.js"></script>
     <style type="text/css">
         .menu-wrap{
             position:relative;
@@ -122,32 +122,53 @@
                  <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-6">
-		                	<label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式:</label>
-		                    <div class="col-sm-9">
-								<div class="col-sm-6" style="padding:0">
-									<select class="form-control" data-rule="所属资源格式:required;" id="storeMedia" name="ext.format_category">
-										<%--<option value="">--请选择--</option>
-                                        <option value="1" name="电子文件">电子文件</option>
-                                        <option value="2" name="电子表格">电子表格</option>
-                                        <option value="3" name="数据库类">数据库类</option>
-                                        <option value="4" name="图形图像类">图形图像类</option>
-                                        <option value="5" name="流媒体类">流媒体类</option>
-                                        <option value="6" name="自描述格式">自描述格式</option>--%>
-									</select>
-								</div>
-								<div class="col-sm-6" style="padding:0">
-									<select class="form-control" id="" name="ext.format_type" >
-										<%--<option value="">--请选择--</option>
-										<option value="1" name="电子文件">电子文件</option>
-										<option value="2" name="电子表格">电子表格</option>
-										<option value="3" name="数据库类">数据库类</option>
-										<option value="4" name="图形图像类">图形图像类</option>
-										<option value="5" name="流媒体类">流媒体类</option>
-										<option value="6" name="自描述格式">自描述格式</option>--%>
-									</select>
-								</div>
+ 	
+		                	<label for="relDatasetCode" class="col-sm-3 control-label">存储介质:</label>
+ 	
+	                    <div class="col-sm-9">
+ 
+			                        <select class="form-control col-sm-4" style="width:25%" >
+ 	
+			                            <%--<option value="">--请选择--</option>
+
+			                            <option value="1" name="电子文件">电子文件</option>
+ 	
+
+			                            <option value="3" name="数据库类">数据库类</option>
+ 	
+			                            <option value="4" name="图形图像类">图形图像类</option>
+ 
+			                            <option value="5" name="流媒体类">流媒体类</option>
+ 	
+			                            <option value="6" name="自描述格式">自描述格式</option>--%>
+			                        </select>
+ 	
+		                        <label for="resourceFormat" class="col-sm-4 control-label">信息资源格式:</label>
+ 
+			                    <div class="col-sm-5" style="padding:0">
+ 	
+			                        <select class="form-control" id="resourceFormat" name="storageMedium">
+ 	
+			                            <%--<option value="">--请选择--</option>
+ 	
+			                            <option value="1" name="电子文件">电子文件</option>
+ 
+			                            <option value="2" name="电子表格">电子表格</option>
+ 
+			                            <option value="3" name="数据库类">数据库类</option>
+
+			                            <option value="4" name="图形图像类">图形图像类</option>
+
+			                            <option value="5" name="流媒体类">流媒体类</option>
+
+			                            <option value="6" name="自描述格式">自描述格式</option>--%>
+
+			                        </select>
+
+			                    </div>
 
 		                    </div>
+
 	                	</div>
 			                	<div class="col-sm-6">
 				                	<label  class="col-sm-3 control-label" style="padding-left:0px">涉密标识：</label>
@@ -257,119 +278,7 @@
                 	</div>
                    
                 </div>
-                  <!--注释暂时没有的  -->
-      <%--           <div class="form-group">
-                    <label for="resourceFormat" class="col-sm-2 control-label">信息资源格式 *</label>
-                    <div class="col-sm-4">
-                        <select class="form-control" id="resourceFormat" name="storageMedium">
-                            <option value="">--请选择--</option>
-                            <option value="1" name="电子文件">电子文件</option>
-                            <option value="2" name="电子表格">电子表格</option>
-                            <option value="3" name="数据库类">数据库类</option>
-                            <option value="4" name="图形图像类">图形图像类</option>
-                            <option value="5" name="流媒体类">流媒体类</option>
-                            <option value="6" name="自描述格式">自描述格式</option>
-                        </select>
-                    </div>
-                </div>
-                <!-- 条件筛选 -->
-                <div class="form-group">
-                    <label for="shareType" class="col-sm-2 control-label">共享类型*</label>
-                    <div class="col-sm-4">
-                        <select class="form-control" id="shareType" name="shareType">
-                            <option value="2">--请选择--</option>
-                            <option value="1" name="有条件共享">有条件共享</option>
-                            <option value="2" name="无条件共享">无条件共享</option>
-                            <option value="3" name="不予共享">不予共享</option>
-                        </select>
-                    </div>
-                </div>
-                <!-- 有条件共享 包含无条件共享和不予共享 -->
-                <!-- 无条件共享 -->
-                <div class="form-group shareType2">
-                    <label for="shareMethod" class="col-sm-2 control-label">共享方式*</label>
-                    <div class="col-sm-4">
-                        <select class="form-control" id="shareMethod" name="shareMethod">
-                            <option value="">--请选择--</option>
-                            <option value="1" name="系统对接">系统对接</option>
-                            <option value="5" name="共享平台">共享平台</option>
-                            <option value="6" name="邮件">邮件</option>
-                            <option value="7" name="拷盘">拷盘</option>
-                            <option value="8" name="介质交换">介质交换</option>
-                            <option value="9" name="其他">其他</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group shareType2">
-                    <label for="shareMethodDesc" class="col-sm-2 control-label">共享方式说明</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="shareMethodDesc" name="shareMethodDesc" placeholder="说明">
-                    </div>
-                </div>
-                <!-- 无条件共享 end-->
-                <!-- 不予共享 -->
-                <div class="form-group shareType3" id="shareConditionDiv">
-                    <label for="shareCondition" class="col-sm-2 control-label">共享条件 *</label>
-                    <div class="col-sm-9">
-                        <textarea class="form-control" rows="3" id="shareCondition" name="shareCondition"></textarea>
-                    </div>
-                </div>
-                <!-- 不予共享 end-->
-                <!-- 条件筛选 end-->
-                <div class="form-group">
-                    <label  class="col-sm-2 control-label">是否向社会开放 *</label>
-                    <div class="col-sm-4">
-                    <span class="radio-inline">
-	                      <input type="radio" name="isOpen"  value="0" checked>否
-	                    </span>
-                    <span class="radio-inline">
-	                      <input type="radio" name="isOpen"  value="1">是
-	                    </span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="openCondition" class="col-sm-2 control-label">开放条件</label>
-                    <div class="col-sm-4">
-                        <textarea class="form-control" rows="3" id="openCondition" name="openCondition">无</textarea>
-                        <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="开放条件" value="无"> -->
-                        <p><span class="pull-right">(最多256个汉字)</span></p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label  class="col-sm-2 control-label">更新周期 *</label>
-                    <div class="col-sm-4">
-                        <span class="radio-inline"><input type="radio" name="updateFrequency" value="1">每年</span>
-                        <span class="radio-inline"><input type="radio" name="updateFrequency" value="3">每季度</span>
-                        <span class="radio-inline"><input type="radio" name="updateFrequency" value="4">每月</span>
-                        <span class="radio-inline"><input type="radio" name="updateFrequency" value="6">每周</span>
-                        <span class="radio-inline"><input type="radio" name="updateFrequency" value="7" checked>每日</span>
-                        <span class="radio-inline"><input type="radio" name="updateFrequency" value="9">实时</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="relDatasetCode" class="col-sm-2 control-label">关联资源代码</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源代码" disabled>
-                            <input type="text" id="relDatasetName" required="required" data-parsley-required-message="该项为必填" class="form-control">
-                            <input type="hidden" id="relDatasetCode" name="relDatasetCode">
-                            <div class="menu-wrap">
-                                <div id="relMenuContent" class="menuContent" style="display:none;">
-                                    <ul id="relTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">信息项列表</label>
-                    <div class="col-sm-10">
-                        <p>
-                            <a class="btn btn-primary btn-flat pull-right" id="add_item"><i class="fa fa-plus"></i> 添加信息项</a>
-                        </p>
-                    </div>
-                </div> --%>
-                
-                
-                
+
                 <div class="checkh1">
                 	<span class="checkspan">已选字段列表</span>
                 	
@@ -400,14 +309,14 @@
                         </tr>
                         </thead>
                         <tbody id="dataitemList">
-						</tbody>
+                        </tbody>
                     </table>
                 </div>
             </form>
         </div>
     </div>
 
-    <%@include file="./selectDatasetModal.jsp" %>
+    <%@include file="./selectSystemDatasetModal.jsp" %>
 </section><!-- /.content -->
 
 </body>

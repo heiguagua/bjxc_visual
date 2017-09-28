@@ -168,12 +168,18 @@ public class ApiServiceImpl implements IApiService {
                     String dirOrDrapTypeId = (String)serviceInfo.get("dirTypeId"); //目录数据集OR梳理数据表ID
                     Date startDate = null;
                     Date endDate = null;
+
                     try {
                         startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String)serviceInfo.get("startDate"));
-                        endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String)serviceInfo.get("endDate"));
-                    } catch (ParseException e) {
-                        logger.error(e.getMessage());
+                    } catch (Exception e) {
+                        startDate = null;
                     }
+                    try {
+                        endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String)serviceInfo.get("endDate"));
+                    } catch (Exception e) {
+                        endDate = null;
+                    }
+
                     /**
                      * 初始化PO:DirServiceInfo
                      * */
@@ -215,8 +221,8 @@ public class ApiServiceImpl implements IApiService {
                         dirDatasetServiceMapIf.setObjId(dirOrDrapTypeId);
                         dirDatasetServiceMapIf.setObjType(dirOrDrapType);
                         dirDatasetServiceMapIf.setOperateTime(new Date());
-                        int reInfoResult = dirServiceInfoMapper.updateAllColumnById(dirServiceInfo);
-                        int reMapResult = dirDatasetServiceMapMapper.updateAllColumnById(dirDatasetServiceMapIf);
+                        int reInfoResult = dirServiceInfoMapper.updateById(dirServiceInfo);
+                        int reMapResult = dirDatasetServiceMapMapper.updateById(dirDatasetServiceMapIf);
                         if(reInfoResult > 0 && reMapResult > 0){
                             handleResult.setState(true);
                             handleResult.setMsg("服务重新发布成功");
@@ -253,7 +259,7 @@ public class ApiServiceImpl implements IApiService {
         return handleResult;
     }
     /**
-     * 下架服务/重新发布，更新服务状态
+     * 下架服务，更新服务状态
      * */
     @Override
     public HandleResult unReleaseService(Map<String, Object> paramMap) {
@@ -266,11 +272,7 @@ public class ApiServiceImpl implements IApiService {
              DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
              String status = (String)paramMap.get("status");
              String serviceNo = (String)paramMap.get("serviceNo");
-             String dirOrDrapTypeId = (String)paramMap.get("dirTypeId");
-             String dirOrDrapType = (String)paramMap.get("dirType");
              dirDatasetServiceMapParam.setServiceId(serviceNo);
-             dirDatasetServiceMapParam.setObjType(dirOrDrapType);
-             dirDatasetServiceMapParam.setObjId(dirOrDrapTypeId);
              DirDatasetServiceMap result = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
              if(null != result){
                  result.setStatus(status);

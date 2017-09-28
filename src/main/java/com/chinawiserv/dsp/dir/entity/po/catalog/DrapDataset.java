@@ -1,4 +1,5 @@
 package com.chinawiserv.dsp.dir.entity.po.catalog;
+
 public class DrapDataset {
     private String id;//ID
     private String regionCode;//所属行政区划
@@ -30,6 +31,44 @@ public class DrapDataset {
     private java.util.Date createTime;//创建时间
     private String updateUser;//更新人
     private java.util.Date updateTime;//更新时间
+
+    private String dept_short_name;
+    private String dept_code;
+    private String system_name;
+    private String system_id;
+
+    public String getDept_short_name() {
+        return dept_short_name;
+    }
+
+    public void setDept_short_name(String dept_short_name) {
+        this.dept_short_name = dept_short_name;
+    }
+
+    public String getDept_code() {
+        return dept_code;
+    }
+
+    public void setDept_code(String dept_code) {
+        this.dept_code = dept_code;
+    }
+
+    public String getSystem_name() {
+        return system_name;
+    }
+
+    public void setSystem_name(String system_name) {
+        this.system_name = system_name;
+    }
+
+    public String getSystem_id() {
+        return system_id;
+    }
+
+    public void setSystem_id(String system_id) {
+        this.system_id = system_id;
+    }
+
     public String getId() {
         return this.id;
     }

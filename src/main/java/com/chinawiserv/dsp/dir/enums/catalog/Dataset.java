@@ -27,7 +27,10 @@ public class Dataset {
         AuditReject("4", "驳回审核"),
 
         /** 已发布 */
-        Released("5", "已发布");
+        Released("5", "已发布"),
+
+        /** 已下架 */
+        Offshelf("6", "已下架");
 
         /** 主键 */
         private final String key;

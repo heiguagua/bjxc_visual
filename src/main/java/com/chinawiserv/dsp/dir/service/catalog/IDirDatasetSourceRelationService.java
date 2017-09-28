@@ -4,6 +4,9 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetSourceRelationVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 信息资源来源关系表 服务类
@@ -13,5 +16,9 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  * @since 2017-09-08
  */
 public interface IDirDatasetSourceRelationService extends ICommonService<DirDatasetSourceRelation, DirDatasetSourceRelationVo> {
-	
+    int insertDatasetListRelation(List<DirDatasetSourceRelation> list,String dataset_id);
+
+    boolean deleteByParams(Map<String, Object> paramMap);
+
+    List<DirDatasetSourceRelation> selectRelationsByDatasetId(String dataset_id);
 }

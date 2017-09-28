@@ -547,18 +547,20 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
 	VALUES('151', '', 'dataSetStatus', '4', '驳回审核', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
 	VALUES('152', '', 'dataSetStatus', '5', '已发布', null, null, null, '1', null, now(), null, null, '0');
+	INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
+	VALUES('153', '', 'dataSetStatus', '6', '已下架', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('153', '', 'dataSetReleaseType', '1', '发布到互联网', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('154', '', 'dataSetReleaseType', '1', '发布到互联网', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('154', '', 'dataSetReleaseType', '2', '发布到电子政务外网', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('155', '', 'dataSetReleaseType', '2', '发布到电子政务外网', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('155', '', 'dataSetReleaseType', '3', '同时发布', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('156', '', 'dataSetReleaseType', '3', '同时发布', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('156', '', 'setItemAuditStatus', '0', '待审核"),', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('157', '', 'setItemAuditStatus', '0', '待审核"),', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('157', '', 'setItemAuditStatus', '1', '同意', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('158', '', 'setItemAuditStatus', '1', '同意', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-	VALUES('158', '', 'setItemAuditStatus', '2', '拒绝', null, null, null, '1', null, now(), null, null, '0');
+	VALUES('159', '', 'setItemAuditStatus', '2', '拒绝', null, null, null, '1', null, now(), null, null, '0');
 
   -- 行政区划相关初始化数据
   -- 行政区划版本表
