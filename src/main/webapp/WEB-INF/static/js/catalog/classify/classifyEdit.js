@@ -45,7 +45,7 @@ function initFormerDate(classifyId) {
                 if(vo){
 					
                     $("#Eclassify_name").val(vo.classifyName);
-                    if(vo.deptId == ""){
+                    if(vo.deptId == "" || vo.deptId==undefined){
                     	 $("#Edep").addClass('hidden');
                     }else{
                     	$("#Edep").removeClass('hidden');
