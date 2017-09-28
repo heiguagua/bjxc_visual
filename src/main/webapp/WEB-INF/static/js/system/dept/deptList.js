@@ -12,6 +12,15 @@ jQuery(document).ready(function () {
         pagination: true, //分页
         pageSize: 15,
         columns: [{
+            field:'deptLevel',
+            visible:false
+        },{
+            field:'treeIndex',
+            visible:false
+        },{
+            field:'treeCode',
+            visible:false
+        },{
             checkbox: true,
             align: 'center',
             valign: 'middle',
@@ -65,9 +74,25 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false ,
             width: '18%',
-            formatter : function (value) {
-                var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:allotDept(\"" + value + "\",0)'><i class='fa fa-chain'></i>分配</a>";
-                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editDept(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+            formatter : function (value,index, row ) {
+                var deptLevel,treeIndex,treeCode;
+                if(row.deptLevel === undefined ){
+                    deptLevel=1;
+                }else{
+                    deptLevel = row.deptLevel;
+                }
+                if(row.treeIndex === undefined ){
+                    treeIndex=0;
+                }else{
+                    treeIndex = row.treeIndex;
+                }if(row.treeCode === undefined ){
+                    treeCode = "";
+                }else{
+                    treeCode = row.treeCode;
+                }
+                console.log(deptLevel,treeIndex,treeCode)
+                var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editDept(\"" + deptLevel + "\",\"" + treeIndex + "\",\"" + treeCode + "\",\"" + value + "\")'><i class='fa fa-chain'></i>分配</a>";
+                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editDept(\"" + deptLevel + "\",\"" + treeIndex + "\",\"" + treeCode + "\",\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                 var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteDept(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
             return allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR +  deleteBtn  ;
             }
@@ -95,12 +120,10 @@ function addDept() {
     add('新增组织机构',basePathJS + '/system/dept/add');
 }
 
-function allotDept(id) {
-    update('编辑组织机构',basePathJS + '/system/dept/edit' , id );
-}
 
-function editDept(id) {
-    update('编辑组织机构',basePathJS + '/system/dept/edit' , id );
+function editDept(deptLevel,treeIndex,treeCode,id) {
+    update('编辑组织机构',basePathJS + '/system/dept/edit?deptLevel='+deptLevel+'&treeIndex='+treeIndex+'&treeCode='+treeCode , id );
+    // update('编辑组织机构',basePathJS + '/system/dept/edit?deptLevel=1&treeIndex=0&treeCode=', id );
 }
 
 function deleteDept(id) {

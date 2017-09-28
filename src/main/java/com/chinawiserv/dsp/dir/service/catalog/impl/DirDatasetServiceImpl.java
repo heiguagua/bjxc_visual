@@ -4,13 +4,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.*;
 import com.chinawiserv.dsp.dir.enums.apply.SourceTypeEnum;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDataitemMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetMapper;
+import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
+import com.chinawiserv.dsp.dir.mapper.catalog.*;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
@@ -42,7 +39,17 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     private DirDatasetClassifyMapMapper dirDatasetClassifyMapMapper;
 
     @Autowired
+    private DirDataRegisteMapper registeMapper;
+
+    @Autowired
+    private DirDataAuditMapper auditMapper;
+
+    @Autowired
+    private DirDataPublishMapper releaseMapper;
+
+    @Autowired
     private IDirClassifyService dirClassifyService;
+
 
 
     @Override
@@ -123,9 +130,22 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Override
     public Page<DirDatasetVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return null;
+        Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
+        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
+
+        return null;
 	}
+
+    @Override
+    public Page<DirDatasetClassifyMapVo> selectClassifyMapVoPage(Map<String, Object> paramMap){
+        Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
+        page.setOrderByField("update_time");
+        page.setAsc(false);
+        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+        return page;
+    }
 
     @Override
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
@@ -166,6 +186,110 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             hasThisName = true;
         }
         return hasThisName;
+    }
+
+    @Override
+    public boolean registe(String dcmIds) {
+        boolean result = false;
+        if(!StringUtils.isEmpty(dcmIds)){
+            Map<String,Object> params = new HashMap<>();
+            String [] dcmIdArray = dcmIds.split(",");
+            Date now = new Date();
+            params.put("ids",dcmIdArray);
+            params.put("status","1");//状态改为待审核
+            params.put("updateUserId",ShiroUtils.getLoginUserId());
+            params.put("updateTime",now);
+            int updateResult = dirDatasetClassifyMapMapper.batchUpdateStatus(params);
+            if(updateResult >= 0){
+                List<DirDataRegisteVo> dataRegisteList = new ArrayList<>();
+                for(String dcmId : dcmIdArray){
+                    DirDataRegisteVo dataRegiste = new DirDataRegisteVo();
+                    dataRegiste.setId(UUID.randomUUID().toString());
+                    dataRegiste.setDcmId(dcmId);
+                    dataRegiste.setRegisterId(ShiroUtils.getLoginUserId());
+                    dataRegiste.setRegisteDate(now);
+                    dataRegisteList.add(dataRegiste);
+                }
+                int insertResult = registeMapper.insertListData(dataRegisteList);
+                if(insertResult == dcmIdArray.length){
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean audit(Map<String , Object> paramMap) {
+        boolean result = false;
+        String dcmIds = (String)paramMap.get("id");
+        String auditStatus = (String)paramMap.get("status");
+        String auditOpinion = (String)paramMap.get("opinion");
+        if(!StringUtils.isEmpty(dcmIds) && !StringUtils.isEmpty(auditStatus)){
+            Map<String,Object> params = new HashMap<>();
+            String [] dcmIdArray = dcmIds.split(",");
+            Date now = new Date();
+            params.put("ids",dcmIdArray);
+            params.put("status",auditStatus);//状态改为待审核
+            params.put("updateUserId",ShiroUtils.getLoginUserId());
+            params.put("updateTime",now);
+            int updateResult = dirDatasetClassifyMapMapper.batchUpdateStatus(params);
+            if(updateResult >= 0){
+                List<DirDataAuditVo> dataAuditList = new ArrayList<>();
+                for(String dcmId : dcmIdArray){
+                    DirDataAuditVo dataAudit = new DirDataAuditVo();
+                    dataAudit.setId(UUID.randomUUID().toString());
+                    dataAudit.setDcmId(dcmId);
+                    dataAudit.setAuditStatus(auditStatus);
+                    dataAudit.setAuditorId(ShiroUtils.getLoginUserId());
+                    dataAudit.setAuditDate(new Date());
+                    dataAudit.setAuditOpinion(auditOpinion);
+                    dataAuditList.add(dataAudit);
+                }
+                int insertResult = auditMapper.insertListData(dataAuditList);
+                if(insertResult == dcmIdArray.length){
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean release(Map<String , Object> paramMap) {
+        boolean result = false;
+        String dcmId = (String)paramMap.get("dcmId");
+        String publishType = (String)paramMap.get("publishType");
+        if(!StringUtils.isEmpty(dcmId)){
+            DirDatasetClassifyMapVo classifyMapVo = dirDatasetClassifyMapMapper.selectVoById(dcmId);
+            if(!ObjectUtils.isEmpty(classifyMapVo)){
+                classifyMapVo.setStatus(Dataset.DatasetStatus.Released.getKey());
+                int updateResult = dirDatasetClassifyMapMapper.baseUpdate(classifyMapVo);
+                if(updateResult > 0){
+                    DirDataPublish dataPublish = new DirDataPublish();
+                    dataPublish.setId(UUID.randomUUID().toString());
+                    dataPublish.setDcmId(dcmId);
+                    dataPublish.setPublisherId(ShiroUtils.getLoginUserId());
+                    dataPublish.setPublishDate(new Date());
+                    if(!StringUtils.isEmpty(publishType)){
+                        if(Dataset.PublishType.ToNet.getKey().equals(publishType)){
+                            dataPublish.setPublishToNet(1);
+                        }else if(Dataset.PublishType.ToDzzw.getKey().equals(publishType)){
+                            dataPublish.setPublishToDzzw(1);
+                        }else{
+                            dataPublish.setPublishToNet(1);
+                            dataPublish.setPublishToDzzw(1);
+                        }
+                    }
+                    int insertResult = releaseMapper.baseInsert(dataPublish);
+                    if(insertResult > 0){
+                        result = true;
+                        //todo 调用门户的接口，同步数据到互联网门户的数据库
+                    }
+                }
+            }
+        }
+        return result;
     }
 
 

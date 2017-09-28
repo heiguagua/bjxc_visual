@@ -73,7 +73,8 @@
         ddi.`sid`,
         ddi.`service_name` AS serviceName,
         dd.`dataset_name` AS datasetName,
-        dis.`system_name` AS systemName
+        dis.`system_name` AS systemName,
+        dis.`build_dept` AS buildDept
         FROM
         drap_db_info ddi
         LEFT JOIN drap_db_system_map dsm
@@ -209,10 +210,30 @@
         WHERE TRUE
         <choose>
             <when test="null != systemId and '' != systemId">
-                dis.`id` = #{systemId}
+               AND dis.`id` = #{systemId}
             </when>
             <otherwise>
-                dis.`id` IS NULL
+               AND dis.`id` IS NULL
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="getSystemInfoByDeptId" parameterType="map" resultType="map">
+        SELECT
+        dis.id,
+        dis.`system_name` AS systemName,
+        sd.`dept_name` AS deptName
+        FROM
+        drap_info_system dis
+        LEFT JOIN drap_system_use_dept dsud ON dsud.`system_id` = dis.`id`
+        LEFT JOIN sys_dept sd ON sd.`id` = dsud.`dept_id`
+        WHERE TRUE
+        <choose>
+            <when test="null != deptId and '' != deptId">
+               AND dsud.`dept_id` = #{deptId}
+            </when>
+            <otherwise>
+               AND dsud.`dept_id` IS NULL
             </otherwise>
         </choose>
     </select>

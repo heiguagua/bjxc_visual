@@ -403,23 +403,7 @@
                         </thead>
                         <tbody id="dataitemList">
 								<tr>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
-									<td>中国人</td>
+							
 								</tr>
                         </tbody>
                     </table>

@@ -1,0 +1,26 @@
+
+.btn_develop{
+	width:100%;
+	background:#36648B;
+	    padding-left: 20px;
+	    margin-top:10px;
+}
+ .nav_ulss{
+	color: #000;
+	font-size: 14px;
+	
+	
+}
+
+.nav_ulss>li{
+	float:left;
+	color: #fff;
+	font-size: 14px;
+	opacity: 0.45;
+	padding: 15px;
+	cursor:pointer;
+}
+.nav_ulss>li.active{
+	opacity:1;
+	background:#27408B;
+}

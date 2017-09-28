@@ -207,6 +207,27 @@ public class ServiceApiController extends BaseController {
         return handleResult;
     }
 
+
+    /**
+     * 根据部门ID获取系统信息
+     * */
+    @RequestMapping("getSystemInfoByDeptId")
+    @ResponseBody
+    public HandleResult getSystemInfoByDeptId(@RequestParam Map<String,Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        try{
+            List<Map<String,Object>> result = service.getSystemInfoByDeptId(paramMap);
+            handleResult.put("rows",result);
+            handleResult.setState(true);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            handleResult.setMsg(e.getMessage());
+            handleResult.setState(false);
+        }
+        return handleResult;
+    }
+
+
     /**
      * 根据系统ID获取指定的数据库信息
      * */

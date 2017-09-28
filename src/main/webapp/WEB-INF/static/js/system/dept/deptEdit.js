@@ -34,7 +34,10 @@ function initEditPage(){
             if(data && data.content && data.content.vo){
                 var vo = data.content.vo;
                 $("#regionCode").val(vo.regionCode);
-                $("#fcode").val(vo.fcode);
+                $("#fid").val(vo.fid);
+                $("#deptLevel").val(vo.deptLevel);
+                $("#treeIndex").val(vo.treeIndex);
+                $("#treeCode").val(vo.treeCode);
                 $("#deptCode").val(vo.deptCode);
                 $("#fname").val(vo.fname);
                 $("#deptName").val(vo.deptName);

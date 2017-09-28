@@ -154,14 +154,18 @@ public class ApiServiceImpl implements IApiService {
                     String serviceUrl = (String)serviceInfo.get("serviceUrl");
                     String requestType = (String)serviceInfo.get("requestType");
                     String dataStyle = (String)serviceInfo.get("dataStyle");
-                    String serviceInfoParams = (String)serviceInfo.get("serviceInfoParams");
+                    String serviceInfoParams = null;
+                    try{
+                        serviceInfoParams = serviceInfo.get("serviceInfoParams").toString();
+                    }catch (Exception e){
+                        serviceInfoParams = "";
+                    }
                     String serviceId = (String)serviceInfo.get("serviceNo");
                     String status = (String)serviceInfo.get("status");
                     String dirOrDrapType = (String)serviceInfo.get("dirType"); //目录梳理类型
-                    String dirOrDrapTypeId = (String)serviceInfo.get("dirTypeId"); //目录OR梳理ID
+                    String dirOrDrapTypeId = (String)serviceInfo.get("dirTypeId"); //目录数据集OR梳理数据表ID
                     Date startDate = null;
                     Date endDate = null;
-                    Date operateDate = new Date();
                     try {
                         startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String)serviceInfo.get("startDate"));
                         endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String)serviceInfo.get("endDate"));
@@ -180,7 +184,7 @@ public class ApiServiceImpl implements IApiService {
                         return handleResult;
                     }
                     dirServiceInfo.setId(serviceId);
-                    dirServiceInfo.setOperateDate(operateDate);
+                    dirServiceInfo.setOperateDate(new Date());
                     dirServiceInfo.setRequestMethod(requestType);
                     dirServiceInfo.setServiceUrl(serviceUrl);
                     dirServiceInfo.setServiceName(serviceName);
@@ -197,21 +201,34 @@ public class ApiServiceImpl implements IApiService {
                     dirDatasetServiceMap.setValidTo(endDate);
                     dirDatasetServiceMap.setObjId(dirOrDrapTypeId);
                     dirDatasetServiceMap.setObjType(dirOrDrapType);
+                    dirDatasetServiceMap.setOperateTime(new Date());
                     /**
                      * 插入服务信息
                      * */
-                    dirServiceInfoMapper.insert(dirServiceInfo);
+                    int insertDirServiceInfoResult = dirServiceInfoMapper.insert(dirServiceInfo);
                     /**
                      * 插入数据集服务关联信息
                      * */
-                    dirDatasetServiceMapMapper.insert(dirDatasetServiceMap);
+                    int insertDirDatasetServiceMapResult = 0;
+                    if(insertDirServiceInfoResult > 0){
+                        insertDirDatasetServiceMapResult = dirDatasetServiceMapMapper.insert(dirDatasetServiceMap);
+                    }
 
-
+                    if(insertDirDatasetServiceMapResult > 0){
+                        handleResult.setState(true);
+                        handleResult.setMsg("发布成功");
+                    }else{
+                        dirServiceInfoMapper.deleteById(serviceId); //失败就回滚
+                        handleResult.setState(false);
+                        handleResult.setMsg("发布失败");
+                    }
                 }
+            }else {
+                handleResult.setState(false);
             }
         }
 
-        return null;
+        return handleResult;
     }
     /**
      * 下架服务，更新服务状态
@@ -235,12 +252,18 @@ public class ApiServiceImpl implements IApiService {
              DirDatasetServiceMap result = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
              if(null != result){
                  result.setStatus(status);
+                 result.setOperateTime(new Date());
                  int i = dirDatasetServiceMapMapper.updateAllColumnById(result);
                  if(i > 0){
+                     handleResult.setMsg("服务下架成功");
                      handleResult.setState(true);
                  }else{
+                     handleResult.setMsg("服务下架失败");
                      handleResult.setState(false);
                  }
+             }else{
+                 handleResult.setMsg("服务下架失败");
+                 handleResult.setState(false);
              }
         }
         return handleResult;
@@ -272,6 +295,11 @@ public class ApiServiceImpl implements IApiService {
     @Override
     public List<Map<String, Object>> getDbInfoBySystemId(Map<String, Object> paramMap) {
         return apiMapper.getDbInfoBySystemId(paramMap);
+    }
+
+    @Override
+    public List<Map<String, Object>> getSystemInfoByDeptId(Map<String, Object> paramMap) {
+        return apiMapper.getSystemInfoByDeptId(paramMap);
     }
 
 

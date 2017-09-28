@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapDbColumnUpdateRecordMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbColumnUpdateRecord">
+        <id column="id" property="id"/>
+        <result column="monitor_history_id" property="monitorHistoryId"/>
+        <result column="table_name" property="tableName"/>
+        <result column="info_before" property="infoBefore"/>
+        <result column="info_after" property="infoAfter"/>
+        <result column="info_update" property="infoUpdate"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbColumnUpdateRecordVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_db_column_update_record t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_db_column_update_record t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM drap_db_column_update_record t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbColumnUpdateRecord">
+        insert into drap_db_column_update_record(id,monitor_history_id,table_name,info_before,info_after,info_update)
+        values(
+        #{id},#{monitorHistoryId},#{tableName},#{infoBefore},#{infoAfter},#{infoUpdate})
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbColumnUpdateRecord">
+        update drap_db_column_update_record
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="monitorHistoryId != null">
+                monitor_history_id = #{monitorHistoryId},
+            </if>
+            <if test="tableName != null">
+                table_name = #{tableName},
+            </if>
+            <if test="infoBefore != null">
+                info_before = #{infoBefore},
+            </if>
+            <if test="infoAfter != null">
+                info_after = #{infoAfter},
+            </if>
+            <if test="infoUpdate != null">
+                info_update = #{infoUpdate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from drap_db_column_update_record
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

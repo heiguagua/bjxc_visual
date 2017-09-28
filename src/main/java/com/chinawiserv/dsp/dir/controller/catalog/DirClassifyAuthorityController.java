@@ -131,7 +131,7 @@ public class DirClassifyAuthorityController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+//    @RequiresPermissions("XXX:XXX:edit")
     @Log("编辑目录类别控制权限表")
     @RequestMapping("/doEdit")
     @ResponseBody
