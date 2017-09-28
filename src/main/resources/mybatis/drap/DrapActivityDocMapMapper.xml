@@ -77,6 +77,12 @@
             </if>
         </where>
     </sql>
-
+    
+	<insert id="batchInsertPO" parameterType="java.util.Map">
+    	  insert into drap_activity_doc_map(id,activity_id,doc_id,doc_io_type) values
+        <foreach collection="list" item="item" separator=",">
+        	(#{item.id},#{item.activityId},#{item.docId},#{item.docIoType})
+        </foreach>
+    </insert>
 
 </mapper>

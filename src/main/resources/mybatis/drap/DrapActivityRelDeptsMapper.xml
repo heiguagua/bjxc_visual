@@ -75,4 +75,12 @@
     </sql>
 
 
+	<insert id="batchInsertPO" parameterType="java.util.Map">
+    	 insert into drap_activity_rel_depts(id,activity_id,dept_id) values
+        <foreach collection="list" item="item" separator="," >
+        	(#{item.id},#{item.activityId},#{item.deptId})
+        </foreach>
+    </insert>
+	
+
 </mapper>
