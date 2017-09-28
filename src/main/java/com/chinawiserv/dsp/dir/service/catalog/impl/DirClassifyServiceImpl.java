@@ -45,6 +45,9 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     	vo.setCreateTime(new Date());
     	String loginUserId = ShiroUtils.getLoginUserId();
     	vo.setCreateUserId(loginUserId);
+    	vo.setDeleteFlag(0);
+    	vo.setClassifyIndex(0);
+    	vo.setDcmIndex(0);
     	DirClassify fclassify = mapper.selectFclassify(vo.getFid());
     	String fclassifyStructureName = fclassify.getClassifyStructureName();
     	String fcode = fclassify.getClassifyCode();
@@ -61,13 +64,13 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     			vo.setClassifyCode(fcode.substring(0,1)+0+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
     			mapper.updateClassifyIndexbyFid(vo.getFid());
-    			
+    			mapper.baseInsert(vo);
     		 }else{
     			 
     			vo.setClassifyCode(fcode.substring(0,1)+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
     			mapper.updateClassifyIndexbyFid(vo.getFid());
-    			
+    			mapper.baseInsert(vo);
     		 }
     		 
     		  
@@ -78,12 +81,13 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     			vo.setClassifyCode(fcode.substring(0,3)+0+0+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
     			mapper.updateClassifyIndexbyFid(vo.getFid());
-    			
+    			mapper.baseInsert(vo);
     		 }else if(fclassifyIndex < 99 && fclassifyIndex >= 9 ){
     			 
     			 vo.setClassifyCode(fcode.substring(0,3)+0+(fclassifyIndex+1));
     			 vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
     			 mapper.updateClassifyIndexbyFid(vo.getFid());
+    			 mapper.baseInsert(vo);
     		 }
     		 else{
     			 
@@ -91,6 +95,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     			vo.setClassifyCode(fcode.substring(0,3)+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
     			mapper.updateClassifyIndexbyFid(vo.getFid());
+    			mapper.baseInsert(vo);
     			
     		 }
     		
@@ -99,6 +104,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     		vo.setClassifyCode(fcode+(fclassifyIndex+1));
     		vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
     		mapper.updateClassifyIndexbyFid(vo.getFid());
+    		mapper.baseInsert(vo);
     	}
     			
     	}else{
@@ -106,7 +112,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     		vo.setClassifyLevel(1);
     		vo.setClassifyStructureName(vo.getClassifyName());
     		vo.setClassifyCode(""+(mapper.selectCountLevel1()+1));
-    		
+    		mapper.baseInsert(vo);
     	}
     	
 		return true;
@@ -128,13 +134,14 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 	}
     
 	@Override
-	public void DeleteByFlag(String classifyCode) {
-		mapper.updateDeleteFlag(classifyCode);
+	public void DeleteByFlag(String id) {
+		mapper.updateDeleteFlag(id);
 		
 	}
 
     @Override
     public DirClassifyVo selectVoById(String id) throws Exception {
+    	DirClassifyVo  s = mapper.selectVoById(id);
 		return mapper.selectVoById(id);
 	}
 

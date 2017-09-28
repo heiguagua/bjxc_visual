@@ -32,6 +32,8 @@ public interface DirDatasetClassifyMapMapper extends BaseMapper<DirDatasetClassi
 
     int baseUpdate(DirDatasetClassifyMap entity);
 
+    int batchUpdateStatus(Map<String, Object> paramMap);
+
     int baseDelete(String id);
 
     int insertListItem(List<DirDatasetClassifyMapVo> classifyMapVoList);

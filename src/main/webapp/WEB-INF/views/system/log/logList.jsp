@@ -16,7 +16,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    <small>系统管理 > 日志查询</small>
+                    <small>返回上一级/系统管理 > 日志查询</small>
                 </h1>
             </section>
             <!-- Main content -->
@@ -31,12 +31,14 @@
                                         <label class="sr-only" for="dateRangeId">Email address</label>
                                         <input id="dateRangeId" type="text" name="daterange" class="form-control date" readonly placeholder="操作开始日期 ~ 操作结束日期" style="width: 320px;">
                                     </div>
-                                    <div class="form-group">
-                                        <label class="sr-only" for="searchKeyId">Password</label>
-                                        <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="操作描述">
-                                    </div>
-                                    
-                                    <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
+                                    <div class="pull-right">
+	                                    <div class="form-group">
+	                                        <label class="sr-only" for="searchKeyId">Password</label>
+	                                        <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="操作描述">
+	                                    </div>
+	                                    
+	                                    <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i> 查询</button>
+	                                    </div>
                                 </form>
                             </div>
 

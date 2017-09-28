@@ -1,0 +1,43 @@
+
+.btn_develop{
+	width:100%;
+	background:#36648B;
+	    padding-left: 20px;
+	    margin-top:10px;
+}
+ .nav_ulss{
+	color: #000;
+	font-size: 14px;
+	
+	
+}
+
+.nav_ulss>li{
+	float:left;
+	color: #fff;
+	font-size: 14px;
+	opacity: 0.45;
+	padding: 15px;
+	cursor:pointer;
+}
+.nav_ulss>li.active{
+	opacity:1;
+	background:#27408B;
+}
+
+
+/*目录审核意见发布框重置*/
+.control-Reslabel{
+	text-align:left;
+}
+.radio-inline, .checkbox-inline{
+	    padding-left: 80px;
+}
+
+.radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline{
+	margin-left: 45px;
+}
+.wrapper-xs{
+	text-align:center;
+	padding:10px 0;
+}

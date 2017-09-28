@@ -18,7 +18,7 @@ public class DirClassifyVo extends DirClassify{
 	private static final long serialVersionUID = 1L;
 	private String hasLeaf;
 	private String DeptId;
-    
+	private String DeptName;
     
     
     public String getHasLeaf() {
@@ -35,6 +35,14 @@ public class DirClassifyVo extends DirClassify{
 
 	public void setDeptId(String deptId) {
 		DeptId = deptId;
+	}
+
+	public String getDeptName() {
+		return DeptName;
+	}
+
+	public void setDeptName(String deptName) {
+		DeptName = deptName;
 	}
 
 

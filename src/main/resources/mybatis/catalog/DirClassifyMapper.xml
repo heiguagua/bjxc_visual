@@ -32,7 +32,8 @@
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo">
         <result column="has_leaf" property="hasLeaf"/>
-        <result column="DeptId" property="DeptId"/>
+        <result column="dept_id" property="DeptId"/>
+        <result column="dept_name" property="DeptName"/>
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -113,17 +114,20 @@
     	
     		set delete_flag = 1
      
-     	where  classify_code = #{classifyCode}                              
+     	where  id = #{id}                              
     </update>
     
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM dir_classify t WHERE t.id = #{id}
+        SELECT t.*, s.dept_name as dept_name,d.dept_id as dept_id FROM dir_classify t 
+			left join dir_classify_dept_map d on t.id = d.classify_id
+			left join sys_dept s on d.dept_id = s.id
+			WHERE t.id = #{id}
     </select>
 
 	
 	<select id="getCatelogByParentCode" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
 	
-		select * from dir_classify where fcode = #{classifyCode}
+		select * from dir_classify where fid = #{id}
 	
 	</select>
 

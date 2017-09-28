@@ -281,7 +281,7 @@ function delObj(url,parameter, func, parentWin) {
 }
 
 function delObjApi(url,parameter, func, parentWin) {
-	createDialogForApi('删除确认', '您『确定』删除当前选中的Api记录吗？', url, parameter, func, parentWin);    
+	createDialogForApi('删除确认', '您『确定』删除当前选中的记录吗？', url, parameter, func, parentWin);    
 }
 
 // 普通询问操作调用函数

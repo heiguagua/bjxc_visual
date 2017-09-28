@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapDbTableColumnMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableColumn">
+        <id column="id" property="id"/>
+        <result column="table_id" property="tableId"/>
+        <result column="column_code" property="columnCode"/>
+        <result column="column_cn_name" property="columnCnName"/>
+        <result column="default_value" property="defaultValue"/>
+        <result column="column_length" property="columnLength"/>
+        <result column="column_en_name" property="columnEnName"/>
+        <result column="is_business_data" property="isBusinessData"/>
+        <result column="is_pk" property="isPk"/>
+        <result column="is_null" property="isNull"/>
+        <result column="column_type" property="columnType"/>
+        <result column="sensitive_remark" property="sensitiveRemark"/>
+        <result column="update_frequency" property="updateFrequency"/>
+        <result column="column_desc" property="columnDesc"/>
+        <result column="data_precision" property="dataPrecision"/>
+        <result column="code_index" property="codeIndex"/>
+        <result column="status" property="status"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbTableColumnVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_db_table_column t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_db_table_column t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM drap_db_table_column t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableColumn">
+        insert into
+        drap_db_table_column(id,table_id,column_code,column_cn_name,default_value,column_length,column_en_name,is_business_data,is_pk,is_null,column_type,sensitive_remark,update_frequency,column_desc,data_precision,code_index,status,delete_flag)
+        values(
+        #{id},#{tableId},#{columnCode},#{columnCnName},#{defaultValue},#{columnLength},#{columnEnName},#{isBusinessData},#{isPk},#{isNull},#{columnType},#{sensitiveRemark},#{updateFrequency},#{columnDesc},#{dataPrecision},#{codeIndex},#{status},#{deleteFlag}
+        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableColumn">
+        update drap_db_table_column
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="tableId != null">
+                table_id = #{tableId},
+            </if>
+            <if test="columnCode != null">
+                column_code = #{columnCode},
+            </if>
+            <if test="columnCnName != null">
+                column_cn_name = #{columnCnName},
+            </if>
+            <if test="defaultValue != null">
+                default_value = #{defaultValue},
+            </if>
+            <if test="columnLength != null">
+                column_length = #{columnLength},
+            </if>
+            <if test="columnEnName != null">
+                column_en_name = #{columnEnName},
+            </if>
+            <if test="isBusinessData != null">
+                is_business_data = #{isBusinessData},
+            </if>
+            <if test="isPk != null">
+                is_pk = #{isPk},
+            </if>
+            <if test="isNull != null">
+                is_null = #{isNull},
+            </if>
+            <if test="columnType != null">
+                column_type = #{columnType},
+            </if>
+            <if test="sensitiveRemark != null">
+                sensitive_remark = #{sensitiveRemark},
+            </if>
+            <if test="updateFrequency != null">
+                update_frequency = #{updateFrequency},
+            </if>
+            <if test="columnDesc != null">
+                column_desc = #{columnDesc},
+            </if>
+            <if test="dataPrecision != null">
+                data_precision = #{dataPrecision},
+            </if>
+            <if test="codeIndex != null">
+                code_index = #{codeIndex},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from drap_db_table_column
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

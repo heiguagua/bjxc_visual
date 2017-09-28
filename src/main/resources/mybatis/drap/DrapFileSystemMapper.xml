@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapFileSystemMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapFileSystem">
+        <id column="id" property="id"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="file_code" property="fileCode"/>
+        <result column="file_name" property="fileName"/>
+        <result column="file_desc" property="fileDesc"/>
+        <result column="status" property="status"/>
+        <result column="enable_time" property="enableTime"/>
+        <result column="disable_time" property="disableTime"/>
+        <result column="provide_dept" property="provideDept"/>
+        <result column="provide_date" property="provideDate"/>
+        <result column="provider" property="provider"/>
+        <result column="provider_phone" property="providerPhone"/>
+        <result column="provider_email" property="providerEmail"/>
+        <result column="other_contacts" property="otherContacts"/>
+        <result column="update_frequence" property="updateFrequence"/>
+        <result column="order_by" property="orderBy"/>
+        <result column="is_show" property="isShow"/>
+        <result column="code_index" property="codeIndex"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapFileSystemVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_file_system t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_file_system t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM drap_file_system t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapFileSystem">
+        insert into
+        drap_file_system(id,region_code,file_code,file_name,file_desc,status,enable_time,disable_time,provide_dept,provide_date,provider,provider_phone,provider_email,other_contacts,update_frequence,order_by,is_show,code_index)
+        values(
+        #{id},#{regionCode},#{fileCode},#{fileName},#{fileDesc},#{status},#{enableTime},#{disableTime},#{provideDept},#{provideDate},#{provider},#{providerPhone},#{providerEmail},#{otherContacts},#{updateFrequence},#{orderBy},#{isShow},#{codeIndex}
+        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapFileSystem">
+        update drap_file_system
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="regionCode != null">
+                region_code = #{regionCode},
+            </if>
+            <if test="fileCode != null">
+                file_code = #{fileCode},
+            </if>
+            <if test="fileName != null">
+                file_name = #{fileName},
+            </if>
+            <if test="fileDesc != null">
+                file_desc = #{fileDesc},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="enableTime != null">
+                enable_time = #{enableTime},
+            </if>
+            <if test="disableTime != null">
+                disable_time = #{disableTime},
+            </if>
+            <if test="provideDept != null">
+                provide_dept = #{provideDept},
+            </if>
+            <if test="provideDate != null">
+                provide_date = #{provideDate},
+            </if>
+            <if test="provider != null">
+                provider = #{provider},
+            </if>
+            <if test="providerPhone != null">
+                provider_phone = #{providerPhone},
+            </if>
+            <if test="providerEmail != null">
+                provider_email = #{providerEmail},
+            </if>
+            <if test="otherContacts != null">
+                other_contacts = #{otherContacts},
+            </if>
+            <if test="updateFrequence != null">
+                update_frequence = #{updateFrequence},
+            </if>
+            <if test="orderBy != null">
+                order_by = #{orderBy},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow},
+            </if>
+            <if test="codeIndex != null">
+                code_index = #{codeIndex},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from drap_file_system
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

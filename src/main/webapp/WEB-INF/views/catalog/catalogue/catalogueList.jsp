@@ -36,10 +36,10 @@
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li>
-                                                <button type="button" style="width: 100%;" onclick="quickSystemAddDatasetUI()" class="btn btn-primary btn-flat">从系统梳理添加</button>
+                                                <button type="button" style="width: 100%;" onclick="quickSystemAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从系统梳理添加</button>
                                             </li>
                                             <li>
-                                                <button type="button" style="width: 100%;" onclick="quickAddDatasetUI()" class="btn btn-primary btn-flat">从资源梳理添加</button>
+                                                <button type="button" style="width: 100%;" onclick="quickAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从资源梳理添加</button>
                                             </li>
                                         </ul>
                                     </div>

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/27 14:12:20                           */
+/* Created on:     2017/9/28 9:23:38                            */
 /*==============================================================*/
 
 
@@ -13,6 +13,22 @@ drop table if exists common_message_info;
 drop table if exists common_message_response;
 
 drop table if exists common_obj_label;
+
+drop table if exists cs_db_info;
+
+drop table if exists cs_project;
+
+drop table if exists cs_resource;
+
+drop table if exists cs_table_column;
+
+drop table if exists cs_table_info;
+
+drop table if exists dcm_pool_rmdb;
+
+drop table if exists dcm_table_column;
+
+drop table if exists dcm_table_info;
 
 drop table if exists dir_classify;
 
@@ -264,6 +280,139 @@ create table common_obj_label
 );
 
 alter table common_obj_label comment '对象标签映射表';
+
+/*==============================================================*/
+/* Table: cs_db_info                                            */
+/*==============================================================*/
+create table cs_db_info
+(
+   id                   varchar(36) not null comment 'id',
+   数据库名称                varchar(36) comment '数据库名称',
+   primary key (id)
+);
+
+alter table cs_db_info comment '爬虫数据库表';
+
+/*==============================================================*/
+/* Table: cs_project                                            */
+/*==============================================================*/
+create table cs_project
+(
+   id                   varchar(36) not null comment 'id',
+   project_name         varchar(36) comment '项目名称',
+   primary key (id)
+);
+
+alter table cs_project comment '爬虫项目表';
+
+/*==============================================================*/
+/* Table: cs_resource                                           */
+/*==============================================================*/
+create table cs_resource
+(
+   id                   varchar(36) not null comment 'id',
+   resource_name        varchar(36) comment '资源名称',
+   primary key (id)
+);
+
+alter table cs_resource comment '爬虫资源信息';
+
+/*==============================================================*/
+/* Table: cs_table_column                                       */
+/*==============================================================*/
+create table cs_table_column
+(
+   id                   varchar(36) not null comment 'id',
+   column_name          varchar(36) comment '字段名',
+   primary key (id)
+);
+
+alter table cs_table_column comment '爬虫字段信息';
+
+/*==============================================================*/
+/* Table: cs_table_info                                         */
+/*==============================================================*/
+create table cs_table_info
+(
+   id                   varchar(36) not null comment 'id',
+   table_name           varchar(36) comment '表名',
+   primary key (id)
+);
+
+alter table cs_table_info comment '爬虫生成表';
+
+/*==============================================================*/
+/* Table: dcm_pool_rmdb                                         */
+/*==============================================================*/
+create table dcm_pool_rmdb
+(
+   id                   varchar(36) not null comment 'id',
+   connect_name         varchar(64) comment '连接名称',
+   ip_addr              varchar(36) comment 'IP地址',
+   port                 varchar(36) comment '端口号',
+   sid                  varchar(64) comment '服务名称（SID）',
+   db_name              varchar(64) comment '数据库名称',
+   username             varchar(64) comment '登录名称',
+   remark               varchar(512) comment '备注',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table dcm_pool_rmdb comment '采集关系型数据库信息';
+
+/*==============================================================*/
+/* Table: dcm_table_column                                      */
+/*==============================================================*/
+create table dcm_table_column
+(
+   id                   varchar(36) not null comment 'ID',
+   table_id             varchar(36) comment '表ID',
+   target_column_name   varchar(64) comment '生成字段名',
+   target_column_type   varchar(36) comment '生成字段类型',
+   target_column_length varchar(36) comment '生成字段长度',
+   target_emptyf_flag   varchar(36) comment '生成字段是否为空',
+   target_pk_flag       varchar(36) comment '生成字段是否为主键',
+   target_ref_flag      varchar(36) comment '生成字段是否外部路径',
+   target_default_value varchar(256) comment '生成字段默认值',
+   target_column_remark varchar(256) comment '生成字段备注',
+   target_column_detail varchar(1024) comment '生成字段详细描述',
+   column_order         int(3) comment '列顺序',
+   status               int(3) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table dcm_table_column comment '结构化数据作业字段配置表';
+
+/*==============================================================*/
+/* Table: dcm_table_info                                        */
+/*==============================================================*/
+create table dcm_table_info
+(
+   id                   varchar(36) not null comment 'ID',
+   belong_dep_id        varchar(36) comment '所属单位',
+   target_obj_code      varchar(64) comment '表英文名',
+   target_obj_name      varchar(64) comment '表中文名',
+   target_obj_desc      varchar(512) comment '表描述',
+   status               int(3) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table dcm_table_info comment '采集数据表信息';
 
 /*==============================================================*/
 /* Table: dir_classify                                          */
@@ -562,6 +711,8 @@ create table dir_dataitem
    format_info          varchar(256) comment '资源格式说明',
    storage_medium       varchar(36) comment '存储介质',
    storage_location     varchar(500) comment '存储位置',
+   belong_system_id     varchar(36) comment '所属系统',
+   secret_flag          int(3) comment '是否涉密',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -734,7 +885,7 @@ create table dir_dataset_service_map
    id                   varchar(36) not null comment 'id',
    service_id           varchar(36) comment '服务ID',
    obj_type             varchar(36) comment '服务注册对象类型',
-   obj_id               varchar(36) comment '服务注册对象ID',
+   obj_id               varchar(1024) comment '服务注册对象ID,多个逗号分隔',
    valid_from           date comment '有效期开始',
    valid_to             date comment '有效期结束',
    status               varchar(36) comment '状态',
@@ -1250,7 +1401,7 @@ create table drap_dataset_ext_format
    primary key (id)
 );
 
-alter table drap_dataset_ext_format comment '数据集扩展信息（【国】资源格式）';
+alter table drap_dataset_ext_format comment '梳理数据集扩展信息（【国】资源格式）';
 
 /*==============================================================*/
 /* Table: drap_dataset_item                                     */
@@ -1261,12 +1412,13 @@ create table drap_dataset_item
    item_code            varchar(64) comment '数据项编码',
    item_name            varchar(128) comment '【国】数据项名称',
    item_type            varchar(36) comment '【国】数据项类型',
+   item_length          int(11) comment '【国】数据项长度',
    item_desc            varchar(1000) comment '数据项描述',
    belong_dept          varchar(36) comment '所属组织',
    sensitive_remark     varchar(36) comment '敏感标识',
    update_frequency     varchar(36) comment '【国】更新频率',
    share_type           varchar(36) comment '【国】共享类型',
-   share_condition      varchar(1000) comment '【国】共享条件',
+   share_condition_desc varchar(1000) comment '【国】共享条件',
    no_share_reason      varchar(1000) comment '不予共享依据',
    share_range          varchar(1000) comment '共享范围',
    share_method_category varchar(36) comment '【国】共享方式分类',
@@ -1319,7 +1471,7 @@ create table drap_dataset_survey
    primary key (id)
 );
 
-alter table drap_dataset_survey comment '信息资源大普查信息表';
+alter table drap_dataset_survey comment '梳理信息资源大普查信息表';
 
 /*==============================================================*/
 /* Table: drap_dataset_system_map                               */
@@ -1551,7 +1703,7 @@ create table drap_info_system
    system_phase_desc    varchar(1000) comment '系统阶段补充说明',
    security_level       varchar(36) comment '【国】信息系统安全等级定级情况',
    project_fund_source  varchar(36) comment '【国】项目建设资金来源',
-   prject_name          varchar(128) comment '【国】预算项目名称',
+   project_name         varchar(128) comment '【国】预算项目名称',
    project_audit_dept   varchar(64) comment '【国】项目立项审批部门',
    project_audit_date   date comment '【国】项目立项审批日期',
    project_budget_money varchar(64) comment '【国】项目预算批复总金额（万元）',

@@ -134,7 +134,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
                     SysDept sysDept = new SysDept();
                     sysDept.setId(id);
                     sysDept.setDeleteFlag(1);
-                    return this.updateById(sysDept);
+                    return updateById(sysDept);
                 }
             }
         }
@@ -149,6 +149,8 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public boolean insertVO(SysDeptVo sysDeptVo) throws Exception {
         sysDeptVo.setId(CommonUtil.get32UUID());
+        sysDeptVo.setDeptLevel(1);
+        sysDeptVo.setTreeIndex(0);
         sysDeptVo.setStatus(1);
         sysDeptVo.setCreateUserId(ShiroUtils.getLoginUserId());
         sysDeptVo.setCreateTime(new Date());

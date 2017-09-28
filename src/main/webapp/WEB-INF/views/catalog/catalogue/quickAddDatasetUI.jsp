@@ -400,7 +400,7 @@
                         </tr>
                         </thead>
                         <tbody id="dataitemList">
-                        </tbody>
+						</tbody>
                     </table>
                 </div>
             </form>

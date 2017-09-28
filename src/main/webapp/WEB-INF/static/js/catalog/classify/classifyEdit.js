@@ -3,7 +3,7 @@
  */
 jQuery(document).ready(function () {
     var classifyId = $("#classifyId").val();
-
+    $.initDeptTreeSelect('treeDemo','deptName','deptId','menuContent');
 //    initUserTypeList();
 //    initDeptSelectDataList();
 //    initRoleNameList();
@@ -43,8 +43,16 @@ function initFormerDate(classifyId) {
             if (result.state) {
                 var vo = result.content.vo;
                 if(vo){
-
+					
                     $("#Eclassify_name").val(vo.classifyName);
+                    if(vo.deptId == "" || vo.deptId==undefined){
+                    	 $("#Edep").addClass('hidden');
+                    }else{
+                    	$("#Edep").removeClass('hidden');
+                    }
+                    $("#deptName").val(vo.deptName);
+                    $("#deptId").val(vo.deptId);
+                    $("#Eicon").val(vo.icon);
                     $("#Eclassify_desc").val(vo.classifyDesc);
                                   
 
