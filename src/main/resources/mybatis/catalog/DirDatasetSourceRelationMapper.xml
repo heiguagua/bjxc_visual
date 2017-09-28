@@ -81,18 +81,50 @@
                 </set>
         where  id = #{id}                      </update>
 
-    <delete id="baseDelete" parameterType="java.util.Map">
+    <delete id="deleteByParams" parameterType="java.util.Map">
         delete from dir_dataset_source_relation <include refid="deleteWhereCause"/>
     </delete>
 
     <sql id="deleteWhereCause">
         <where>
-                                <if test="id != null">
+            <if test="id != null">
                 id = #{id}
+            </if>
+            <if test="dataset_id !=null">
+                dataset_id = #{dataset_id}
             </if>
                                                                                                                                                                                             </where>
     </sql>
 
+    <insert id="insertDatasetListRelation">
+        INSERT INTO dir_dataset_source_relation (
+        id,
+        dataset_id,
+        source_mode,
+        source_table_id,
+        source_column_id,
+        target_table_id,
+        target_column_id,
+        relation_type,
+        relation_ext_info
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.datasetId},
+            #{item.sourceMode},
+            #{item.sourceTableId},
+            #{item.sourceColumnId},
+            #{item.targetTableId},
+            #{item.targetColumnId},
+            #{item.relationType},
+            #{item.relationExtInfo}
+            )
+        </foreach>
+    </insert>
 
-
+    <select id="selectRelationsByDatasetId" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation">
+        SELECT * FROM dir_dataset_source_relation WHERE dataset_id=#{dataset_id}
+    </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.mapper.catalog;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassifyAuthority;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 import java.util.List;
@@ -31,4 +32,6 @@ public interface DirClassifyAuthorityMapper extends BaseMapper<DirClassifyAuthor
     int baseDelete(String id);
 
     List<DirClassifyAuthorityVo> selectVoList(Map<String, Object> paramMap);
+
+    int deleteByVo(DirClassifyAuthorityVo dirClassifyAuthorityVo);
 }

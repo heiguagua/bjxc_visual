@@ -21,7 +21,11 @@
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityApplyVo">
-
+        <result column="applicantName" property="applicantName"/>
+        <result column="auditorName" property="auditorName"/>
+        <result column="dept_name" property="deptName"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="tree_code" property="treeCode"/>
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -48,20 +52,36 @@
             <if test="audited != null and audited == '1'.toString()">
                 AND t.audit_status != '0'
             </if>
+            <if test="deptTreeCodeCondition != null">
+                AND d.tree_code like '${deptTreeCodeCondition}%'
+            </if>
+            <if test="regionCodeCondition != null">
+                AND d.region_code like '${regionCodeCondition}%'
+            </if>
         </where>
     </sql>
 
+    <sql id="baseSelectVo">
+        SELECT t.*,u1.user_name applicantName,u2.user_name auditorName, d.dept_name,d.region_code,d.tree_code FROM sys_dept_authority_apply t
+        LEFT JOIN sys_user u1 ON t.applicant = u1.id
+        LEFT JOIN sys_user u2 ON t.auditor = u2.id
+        LEFT JOIN sys_dept d ON t.to_dept_id = d.id
+    </sql>
+
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM sys_dept_authority_apply t
+        <include refid="baseSelectVo"></include>
         <include refid="queryConditions"></include>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM sys_dept_authority_apply t WHERE t.id = #{id}
+        <include refid="baseSelectVo"></include> WHERE t.id = #{id}
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         SELECT count(1) FROM sys_dept_authority_apply t
+        LEFT JOIN sys_user u1 ON t.applicant = u1.id
+        LEFT JOIN sys_user u2 ON t.auditor = u2.id
+        LEFT JOIN sys_dept d ON t.to_dept_id = d.id
         <include refid="queryConditions"></include>
     </select>
 

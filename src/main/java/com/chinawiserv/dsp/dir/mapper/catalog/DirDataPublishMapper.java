@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataPublish;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataPublishVo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +31,6 @@ public interface DirDataPublishMapper extends BaseMapper<DirDataPublish> {
     int baseUpdate(DirDataPublish entity);
 
     int baseDelete(String id);
+
+    int insertListData(@Param("list") List<DirDataPublishVo> list);
 }

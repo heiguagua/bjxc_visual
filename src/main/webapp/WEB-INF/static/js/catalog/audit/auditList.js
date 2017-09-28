@@ -63,6 +63,8 @@ function initTable(){
                     return '驳回审核';
                 }else if (row['status'] == 5) {
                     return '已发布';
+                }else if (row['status'] == 6) {
+                    return '已下架';
                 }
             }
         }, {

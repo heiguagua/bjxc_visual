@@ -71,6 +71,12 @@
         #{id},#{regionCode},#{datasetCode},#{datasetName},#{alias},#{belongDeptId},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{isSecret},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag})
     </insert>
 
+    <insert id="extInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
+        INSERT INTO dir_dataset_ext_format (id,dataset_id,format_category,format_type,format_info)
+        VALUES
+            (#{id}, #{dataset_id}, #{format_category}, #{format_type}, #{format_info})
+    </insert>
+
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
         update dir_dataset
         <set>
@@ -283,11 +289,21 @@
         <result column="create_time" property="createTime"/>
         <result column="update_user" property="updateUser"/>
         <result column="update_time" property="updateTime"/>
+
+        <result column="dept_short_name" property="dept_short_name" />
+        <result column="dept_code" property="dept_code" />
+        <result column="system_name" property="system_name" />
+        <result column="system_id" property="system_id" />
     </resultMap>
     <select id="getDrapDatasetDetail" resultMap="result_DrapDataset_Map">
-        select
-        *
-        from drap_dataset
-        where drap_dataset.id = #{id}
+        SELECT
+            dd.*,sd.dept_short_name,sd.dept_code,dis.system_name,dis.id AS system_id
+        FROM
+            drap_dataset dd
+        LEFT JOIN sys_dept sd ON dd.belong_dept_id = sd.id
+        LEFT JOIN drap_dataset_system_map ddsm ON dd.id = ddsm.dataset_id
+        LEFT JOIN drap_info_system dis ON ddsm.system_id = dis.id
+        WHERE
+            dd.id = #{id}
     </select>
 </mapper>

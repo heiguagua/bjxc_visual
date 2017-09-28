@@ -31,4 +31,6 @@ public interface SysDeptAuthorityMapper extends BaseMapper<SysDeptAuthority> {
     int baseDelete(String id);
 
     List<SysDeptAuthorityVo> selectVoList(Map<String, Object> paramMap);
+
+    int deleteByVo(SysDeptAuthorityVo sysDeptAuthorityVo);
 }

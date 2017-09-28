@@ -50,6 +50,8 @@ function initTable(){
                 }
                 if (row['audit_status'] === 4) {
                     return '已发布';
+                }else if (row['status'] == 6) {
+                    return '已下架';
                 }
             }
         }, {
@@ -91,4 +93,7 @@ function deleteDept(id) {
 
 function quickAddDatasetUI() {
     add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI',1300,800);
+}
+function quickSystemAddDatasetUI() {
+    add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI',1300,800);
 }
