@@ -1,4 +1,4 @@
-var tableSelector = '#systemDeptTableId';
+var tableSelector = '#systemAuthDeptTableId';
 
 jQuery(document).ready(function () {
     "use strict";
@@ -132,133 +132,136 @@ function getTree(title, url,width, height,id,url2,tp) {
             content:'<ul id="treeDemo" class="ztree"></ul>',
             btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
             yes :function(index, layero){
-                var treeObj=$.fn.zTree.getZTreeObj("treeDemo"),
-                        selectNodes=treeObj.getCheckedNodes(true),ids=[];
-
-                if (selectNodes.length > 0) {
-                    var node = selectNodes[0].getParentNode();
-                }
-                console.log("node",node)
-                console.log("<<<<<<<<<<<<")
-                console.log(selectNodes)
-                console.log(treeObj.getParentNode())
-
-
-                //如果选中了父节点的所有子节点，deptIds为父节点的id，否则，为子节点的id
-                for (var i in selectNodes){
-                    var bl = true;
-                    if (selectNodes[i].level === 0){
-                        console.log(selectNodes[i].level)
-                        // childrens = selectNodes[i].children;
-                        var childrenArr = getChildren(selectNodes);
-                            for (var j in childrenArr){
-                                var ischeck= childrenArr[j].check;
-                                if (!ischeck){
-                                    bl = false;
-                                    var deptId = childrenArr[j].id
-                                    console.log("deptId" ,deptId)
-                                    //deptIds为子节点Id
-                                } else {
-                                    //deptIds为父节点Id
-                                    console.log("参数为父节点Id")
-                                }
-                            }
-
-
-                    }
-
-                }
-                    for(var i=0;i<selectNodes.length;i++){
-                        ids.push(selectNodes[i].id);
-                    }
-
-                   /*  $.commonAjax({
-                    url: basePathJS + "/system/deptAuthority/doEdit",
-                    data:{
+                var treeObj=$.fn.zTree.getZTreeObj("treeDemo"), selectNodes=treeObj.getCheckedNodes(true);
+                console.log(selectNodes[0].id);
+                var params;
+                if(tp==="dept"){
+                    params={
                         authObjId:id,
-                        deptIds : ids.join(','),
+                        deptIds : selectNodes[0].id,
                         authType : tp
-                    },
+                    }
+                }
+                if(tp==="dir"){
+                    params={
+                        authObjId:id,
+                        classifyIds : selectNodes[0].id,
+                        authType : tp
+                    }
+                }
+                $.commonAjax({
+                    url: basePathJS + "/system/deptAuthority/doEdit",
+                    data:params,
                     success: function (result) {
+                        console.log(result)
                         layer.msg(result.msg);
                         layer.close(idx);
                     }
-                    })*/
-                // console.log(nodes)
-                // console.log("点击确认")
+                })
             }
         })
         // -----------------
 
         $.get(url2,function(data){
-            console.log("<<<<<<<<<<<")
-            console.log(data.content.selected)
-            var selectObjs = data.content.selected,zNodes=[];
-            for (var i in selectObjs) {
-                zNodes.push(nodeObjs[i].id)
-            }
-            console.log(zNodes)
-
-        })
-        $.get(url,function(data){
-            console.log(data.content.selectData)
-            var nodeObjs = data.content.selectData;
-            var selectObjs = data.content.selected
-            var setting = {
-                check: {enable: true,chkboxType:  { "Y" : "ps", "N" : "ps" }},
-                data: {
-                    simpleData: {
-                        enable: true
+            var dd=data.content.selected,udata=[];
+            if(dd.length){
+                for(var i=0;i<dd.length;i++){
+                    if(tp==="dir"){
+                        udata.push(dd[i].classifyId)//deptId
+                    }
+                    if(tp==="dept"){
+                        udata.push(dd[i].deptId)//classifyId
                     }
                 }
-        };
-            var zNodes =[
-                { id:1, pId:0, name:"随意勾选 1", open:true},
-                { id:11, pId:1, name:"随意勾选 1-1", open:true},
-                { id:111, pId:11, name:"随意勾选 1-1-1"},
-                { id:112, pId:11, name:"随意勾选 1-1-2"},
-                { id:12, pId:1, name:"随意勾选 1-2", open:true},
-                { id:121, pId:12, name:"随意勾选 1-2-1"},
-                { id:122, pId:12, name:"随意勾选 1-2-2"},
-                { id:2, pId:0, name:"随意勾选 2", checked:true, open:true},
-                { id:21, pId:2, name:"随意勾选 2-1"},
-                { id:22, pId:2, name:"随意勾选 2-2", open:true},
-                { id:221, pId:22, name:"随意勾选 2-2-1", checked:true},
-                { id:222, pId:22, name:"随意勾选 2-2-2"},
-                { id:23, pId:2, name:"随意勾选 2-3"}
-            ];
-            // var zNodes =[];
-
-            /*for(var i in nodeObjs){
-                zNodes[i] = {
-                    'id': nodeObjs[i].id,
-                    'name': nodeObjs[i].deptName,
-                    'isParent': (nodeObjs[i].isLeaf ? false : true),
-                    // checked:true
-                }
-                for (var i in selectObjs) {
-                    if(selectObjs[i].id === nodeObjs[i].id) {
-                        zNodes[i].checked=true;
-                    }
-
-                }
-            }*/
-
-            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        })
-}
-
-
-
-function getChildren(dd) {
-    if (dd.length){
-        for (var k in dd){
-            if (dd[k].children){
-                getChildren(dd[k].children)
-            }else {
-                return dd[k]
             }
-        }
-    }
+         ////////////////////////////////////////////////////////////////////////////
+            console.log(udata)
+            $.get(url,function(data){
+                console.log(data)
+                if(tp==="dept"){
+                    var nodeObjs = data.content.selectData;
+                    var selectObjs = data.content.selected
+                    var setting = {
+                        check: {
+                            enable: true,
+                            chkStyle: "radio",
+                            radioType: "level"
+                        },
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        }
+                    };
+                    var zNodes =[];
+                    for(var i in nodeObjs){
+                        zNodes[i] = {
+                            'id': nodeObjs[i].id,
+                            'name': nodeObjs[i].deptName,
+                            'isParent': (nodeObjs[i].isLeaf ? false : true),
+                        }
+                    }
+                    if(udata.length){
+                        for(var i=0;i<udata.length;i++){
+                            for(var j in zNodes){
+                                if(zNodes[j].id===udata[i]) {
+                                    zNodes[j] = {
+                                        'id':zNodes[j].id,
+                                        'name': zNodes[j].name,
+                                        'isParent':zNodes[j].isParent,
+                                        'checked':true,
+                                        'disabled':true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // console.log(zNodes)
+                }
+                if(tp==="dir"){
+                    var nodeObjs = data.content.vo;
+                    var setting = {
+                        check: {
+                            enable: true,
+                            chkStyle: "radio",
+                            radioType: "level"
+                        },
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        }
+                    };
+                    var zNodes =[];
+                    for(var i in nodeObjs){
+                        zNodes[i] = {
+                            'id': nodeObjs[i].id,
+                            'name': nodeObjs[i].classifyName,
+                            'fid': nodeObjs[i].id,
+                            'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
+                        }
+                    }
+                    if(udata.length){
+                        for(var i=0;i<udata.length;i++){
+                            for(var j in zNodes){
+                                if(zNodes[j].id===udata[i]) {
+                                    zNodes[j] = {
+                                        'id':zNodes[j].id,
+                                        'name': zNodes[j].name,
+                                        'isParent':zNodes[j].isParent,
+                                        'checked':true,
+                                        'disabled':true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
 
+                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            })
+
+            //////////////////////////////////////////////////////////////////////////// end
+
+        })
 }
