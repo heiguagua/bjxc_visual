@@ -11,6 +11,7 @@
         <result column="dcm_id" property="dcmId"/>
         <result column="offline_user_id" property="offlineUserId"/>
         <result column="offline_time" property="offlineTime"/>
+        <result column="active_flag" property="activeFlag"/>
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
@@ -42,15 +43,15 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataOffline">
-        insert into dir_data_offline(id,dcm_id,offline_user_id,offline_time) values(
-        #{id},#{dcmId},#{offlineUserId},#{offlineTime})
+        insert into dir_data_offline(id,dcm_id,offline_user_id,offline_time,active_flag) values(
+        #{id},#{dcmId},#{offlineUserId},#{offlineTime},#{activeFlag})
     </insert>
 
     <insert id="insertListData">
-        insert into dir_data_offline(id,dcm_id,offline_user_id,offline_time)
+        insert into dir_data_offline(id,dcm_id,offline_user_id,offline_time,active_flag)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.dcmId},#{item.offlineUserId},#{item.offlineTime})
+            (#{item.id},#{item.dcmId},#{item.offlineUserId},#{item.offlineTime},#{item.activeFlag})
         </foreach>
     </insert>
 
@@ -69,8 +70,32 @@
             <if test="offlineTime != null">
                 offline_time = #{offlineTime},
             </if>
+            <if test="activeFlag != null">
+                active_flag = #{activeFlag},
+            </if>
         </set>
         where id = #{id}
+    </update>
+
+    <update id="batchUpdateActiveFlag" parameterType="java.util.Map">
+        <if test="ids != null and ids !='' ">
+            update dir_data_offline
+            <set>
+                <if test="offlineUserId != null">
+                    offline_user_id = #{offlineUserId},
+                </if>
+                <if test="offlineTime != null">
+                    offline_time = #{offlineTime},
+                </if>
+                <if test="activeFlag != null">
+                    active_flag = #{activeFlag},
+                </if>
+            </set>
+            where dcm_id in
+            <foreach collection="ids" open="(" close=")" item="item" separator=",">
+                #{item, jdbcType=VARCHAR}
+            </foreach>
+        </if>
     </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">

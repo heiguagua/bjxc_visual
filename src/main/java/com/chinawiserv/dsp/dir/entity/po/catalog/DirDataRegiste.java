@@ -42,7 +42,11 @@ public class DirDataRegiste implements Serializable {
      */
 	@TableField("registe_opinion")
 	private String registeOpinion;
-
+    /**
+     * 有效标识
+     */
+    @TableField("active_flag")
+    private int activeFlag;
 
 	public String getId() {
 		return id;
@@ -84,4 +88,11 @@ public class DirDataRegiste implements Serializable {
 		this.registeOpinion = registeOpinion;
 	}
 
+    public int getActiveFlag() {
+        return activeFlag;
+    }
+
+    public void setActiveFlag(int activeFlag) {
+        this.activeFlag = activeFlag;
+    }
 }

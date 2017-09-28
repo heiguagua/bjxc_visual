@@ -19,8 +19,8 @@
         <!-- Main content -->
        <div class="btn-group btn_develop">
 		   	<ul class="nav_ulss" id="releaseTab">
-		   		<li class="active"><i class="fa "></i>&nbsp;待发布</li>
-		   		<li><i class="fa fa-list-alt"></i>&nbsp;已发布</li>
+		   		<li class="active" id="unReleaseTab"><i class="fa "></i>&nbsp;待发布</li>
+		   		<li id="releasedTab"><i class="fa fa-list-alt"></i>&nbsp;已发布</li>
 		   	</ul>
 		   </div>
         <section class="content">
@@ -39,12 +39,12 @@
                                 </div>
                                   <div class="input-group">
                                         <button class="btn btn-default btn-flat  btn-myself dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="releaseButton">
-                                            <!-- <i class="fa fa-plus-circle"></i> -->发布
+                                            <!-- <i class="fa fa-plus-circle"></i> -->&emsp;发布&emsp;<span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu" style="left:-21px;text-align:center;">
-                                            <li><a id="releaseboth" href="#">同时发布</a></li>
-                                            <li><a id="releaseInternet" href="#">发布到互联网</a></li>
-                                            <li><a id="releaseInside" href="#">发布到电子政务外网</a></li>
+                                            <li><a id="releaseAll" href="#">同时发布</a></li>
+                                            <li><a id="releaseToInternet" href="#">发布到互联网</a></li>
+                                            <li><a id="releaseToDzzw" href="#">发布到电子政务外网</a></li>
                                         </ul>
                                     </div>    
                                 <div class="input-group pull-right">

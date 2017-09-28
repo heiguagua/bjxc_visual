@@ -33,4 +33,6 @@ public interface DirDataPublishMapper extends BaseMapper<DirDataPublish> {
     int baseDelete(String id);
 
     int insertListData(@Param("list") List<DirDataPublishVo> list);
+
+    int batchUpdateActiveFlag(Map<String, Object> paramMap);
 }

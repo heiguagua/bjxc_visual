@@ -33,4 +33,6 @@ public interface DirDataAuditMapper extends BaseMapper<DirDataAudit> {
     int baseDelete(String id);
 
     int insertListData(@Param("list") List<DirDataAuditVo> list);
+
+    int batchUpdateActiveFlag(Map<String, Object> paramMap);
 }
