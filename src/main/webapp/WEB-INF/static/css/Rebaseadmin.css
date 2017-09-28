@@ -146,3 +146,7 @@
 
 
 
+/*重置插件less里面 目录注册下拉框加载位置问题*/
+.input-group .form-control{
+	float:none;
+}

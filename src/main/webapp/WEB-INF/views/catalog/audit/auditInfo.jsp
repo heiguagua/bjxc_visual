@@ -17,7 +17,7 @@
                         <input type="hidden" id="id" name="id" value="${id}"/>
                         <div class="box-body">
                             <div class="form-group">
-                                <label class="control-label">审核意见：</label>
+                                <label class="control-label control-Reslabel">审核意见：</label>
                                 <div class="m-l-n-xxl">
                                     <label class="checkbox-inline i-checks"> <input
                                             type="radio" value="3" name="status" checked><i></i>通过

@@ -24,3 +24,20 @@
 	opacity:1;
 	background:#27408B;
 }
+
+
+/*目录审核意见发布框重置*/
+.control-Reslabel{
+	text-align:left;
+}
+.radio-inline, .checkbox-inline{
+	    padding-left: 80px;
+}
+
+.radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline{
+	margin-left: 45px;
+}
+.wrapper-xs{
+	text-align:center;
+	padding:10px 0;
+}
