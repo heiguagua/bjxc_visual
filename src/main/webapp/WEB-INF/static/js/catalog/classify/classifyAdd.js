@@ -3,16 +3,34 @@
  */
 
 jQuery(document).ready(function () {
-	 var parentId = $("#parentId").val();	
+//	 var parentId = $("#parentId").val();
+	 var fid = $("#fid").val();
      initSelectData();
+     checkDep(fid);
+     
+     
 });
-
+	$(function(){
+		$(":radio").click(function(){
+		 	var val_depnode = $('#Dep input[name="depnode"]:checked').val();
+		     if(val_depnode == "yes"){
+		         $("#deptGroup").removeClass('hidden');
+		     }else if(val_depnode == "no"){   	
+		     	 $("#deptGroup").addClass('hidden');
+		     }
+		
+		 });
+		
+	 });
+	
 function initSelectData() {
 	$.initDeptTreeSelect('treeDemo','deptName','deptId','menuContent');
     initUserTypeList();
+    
 //    initDeptSelectDataList();
-    initRoleNameList();
-  
+//    initRoleNameList();
+    
+    
 }
 
 
@@ -27,6 +45,23 @@ function initUserTypeList(){
     });
 }
 
+function checkDep(fid){
+	$.commonAjax({	
+        url: basePathJS + "/dirClassify/editLoad",
+        data: {id:fid},
+        success: function (result) {
+            if (result.state) {
+                var vo = result.content.vo;
+                if(vo){                	
+                	var ss = vo.classifyStructureName;
+					if(ss.substr(0,10)!='政务部门信息资源目录'){
+						 $("#Dep").addClass('hidden');
+					}
+                }
+            }
+        }
+    	});
+}
 function initDeptSelectDataList(){
     $.commonAjax({
         url: basePathJS + "/system/dept/getDeptSelectDataList",

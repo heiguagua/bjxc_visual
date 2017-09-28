@@ -43,9 +43,15 @@ function initFormerDate(classifyId) {
             if (result.state) {
                 var vo = result.content.vo;
                 if(vo){
-
+					
                     $("#Eclassify_name").val(vo.classifyName);
-                    $("#EdeptName").val(vo.DeptName);
+                    if(vo.deptId == ""){
+                    	 $("#Edep").addClass('hidden');
+                    }else{
+                    	$("#Edep").removeClass('hidden');
+                    }
+                    $("#deptName").val(vo.deptName);
+                    $("#deptId").val(vo.deptId);
                     $("#Eicon").val(vo.icon);
                     $("#Eclassify_desc").val(vo.classifyDesc);
                                   

@@ -89,7 +89,7 @@ public class DirClassifyController extends BaseController {
 	 */
 //	@RequiresPermissions("XXX:XXX:add")
 	@RequestMapping("/add")
-	public String add(@RequestParam String fid, Model model) {
+	public String add(@RequestParam String fid, Model model) {		 
 		model.addAttribute("fid",fid);
 		return "catalog/classify/classifyAdd";
 	}
@@ -104,16 +104,20 @@ public class DirClassifyController extends BaseController {
 	public HandleResult doAdd(DirClassifyVo entity) {
 		HandleResult handleResult = new HandleResult();
 		try {
+			if(!entity.getFid().equals("root")){
+				service.insertVO(entity);
+				String deptId = entity.getDeptId();
+				String classifyId = entity.getId();
+				DirDeptMap ddmap = new DirDeptMap();
+				ddmap.setClassifyId(classifyId);
+				ddmap.setDeptId(deptId);
+				ddmap.setId(CommonUtil.get32UUID());
+				mapper2.baseInsert(ddmap);
+				handleResult.success("创建目录分类表成功");
+			}else{
+				handleResult.error("无权限添加初始目录类别，请联系管理员");
+			}
 			
-			service.insertVO(entity);
-			String deptId = entity.getDeptId();
-			String classifyId = entity.getId();
-			DirDeptMap ddmap = new DirDeptMap();
-			ddmap.setClassifyId(classifyId);
-			ddmap.setDeptId(deptId);
-			ddmap.setId(CommonUtil.get32UUID());
-			mapper2.baseInsert(ddmap);
-			handleResult.success("创建目录分类表成功");
 			
 		} catch (Exception e) {
 			handleResult.error("创建目录分类表失败");
@@ -129,17 +133,16 @@ public class DirClassifyController extends BaseController {
 	@Log("删除目录分类表")
 	@RequestMapping("/delete")
 	@ResponseBody
-	public HandleResult delete(@RequestParam String classifyCode) {
+	public HandleResult delete(@RequestParam String id) {
 		// todo 逻辑删除
 		// service.deleteById(id);
-		//todo 逻辑删除
-    	//service.deleteById(id);
+		
     	List<DirClassifyVo> list = null;
-//    	list = mapper.getCatelogByParentCode(classifyCode);
+    	list = mapper.getCatelogByParentCode(id);
     	if(!list.isEmpty() && list!=null ){
     		return new HandleResult().error("此节点下有子集，无法删除");   
     	}
-    	service.DeleteByFlag(classifyCode);
+    	service.DeleteByFlag(id);
     	return new HandleResult().success("删除目录分类表成功");
 		
 	}
@@ -160,6 +163,7 @@ public class DirClassifyController extends BaseController {
 	public HandleResult editLoad(@RequestParam String id) {
 		HandleResult handleResult = new HandleResult();
 		try {
+			
 			DirClassifyVo vo = service.selectVoById(id);
 			handleResult.put("vo", vo);
 		} catch (Exception e) {
