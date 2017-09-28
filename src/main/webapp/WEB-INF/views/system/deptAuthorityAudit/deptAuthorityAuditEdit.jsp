@@ -20,44 +20,48 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
+                    <form class="form-horizontal" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/system/deptAuthorityAudit/doEdit">
                         <input type="hidden" id="authAuditId" name="id" value="${id}"/>
                         <div class="box-body">
                             <div class="form-group">
-                                <div class="col-sm-12">
-                                    <div class=" bg-light wrapper-xs">申请人:</div>
-                                </div>
-                                <input type="text"  name="applicantName" id="applicantName" />
+                                <label for="applicantName" class="col-sm-3">申请人： <span id="applicantName"></span></label>
+                                <%--<label for="applicantName" class="col-sm-3">申请人：</label>--%>
+                                <%--<div class="col-sm-9">--%>
+                                    <%--<input type="text" class="form-control"  name="applicantName" id="applicantName" />--%>
+                                <%--</div>--%>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-12">
-                                    <div class=" bg-light wrapper-xs">申请权限对应部门:</div>
-                                </div>
-                                <input type="text"  name="deptName" id="deptName" />
+                                <label for="deptName" class="col-sm-3">申请权限对应部门： <span id="deptName"></span></label>
+                                <%--<label for="deptName" class="col-sm-3">申请权限对应部门：</label>--%>
+                                <%--<div class="col-sm-9">--%>
+                                    <%--<input type="text" class="form-control" name="deptName" id="deptName" />--%>
+                                <%--</div>--%>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-12">
-                                    <div class=" bg-light wrapper-xs">申请理由:</div>
-                                </div>
-                                <input type="text"  name="applyReason" id="applyReason" />
+                                <label for="applyReason" class="col-sm-3">申请理由： <span id="applyReason"></span></label>
+                                <%--<label for="applyReason" class="col-sm-3 ">申请理由：</label>--%>
+                                <%--<div class="col-sm-9">--%>
+                                    <%--<input type="text" class="form-control"  name="applyReason" id="applyReason" />--%>
+                                <%--</div>--%>
                             </div>
                             <div class="form-group">
-                                <label class="control-label control-Reslabel">审核意见：</label>
-                                <div class="m-l-n-xxl">
-                                    <label class="checkbox-inline i-checks"> <input
-                                            type="radio" value="1" name="auditStatus" checked><i></i>通过
-                                    </label>
-                                    <label class="checkbox-inline i-checks "> <input
-                                            type="radio" value="2" name="auditStatus" class=""><i></i>不通过
-                                    </label>
+                                <%--<label for="sourceSelect" class="col-sm-3">审核意见: </label>--%>
+                                <div class="col-sm-7">
+                                    <label>审核意见: </label>
+                                    <span class="radio-inlinex">
+				                           <input  type="radio" value="1" name="auditStatus" checked><i></i>通过
+				                        </span>
+                                    <span class="radio-inlinex">
+				                         <input type="radio" value="2" name="auditStatus" class=""><i></i>不通过
+				                        </span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-12">
-                                    <div class=" bg-light wrapper-xs">意见说明</div>
+                                <label for="auditOpinion" class="col-sm-3">意见说明:</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" id="auditOpinion" name="auditOpinion" cols="10" rows="3"></textarea>
                                 </div>
-                                <textarea class="form-control" id="auditOpinion" name="auditOpinion" cols="30" rows="10"></textarea>
                             </div>
                         </div>
                         <!-- /.box-body -->

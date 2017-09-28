@@ -236,10 +236,10 @@
                                 <label for="status" style='float:left;' class="col-sm-3 control-label">状态</label>
                                 <div class="col-sm-7">
                     <span class="radio-inline">
-	                      <input type="radio" name="status" id="inlineRadio2" value="1">启用
+	                      <input type="radio" name="status" id="inlineRadio2" value="1" checked>启用
 	                    </span>
                                     <span class="radio-inline">
-	                      <input type="radio" name="status" id="inlineRadio3" value="0" checked>停用
+	                      <input type="radio" name="status" id="inlineRadio3" value="0" >停用
 	                    </span>
                                 </div>
                             </div>

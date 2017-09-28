@@ -32,9 +32,13 @@
                     <div class="box">
                         <div class="form-inline">
                             <div class="box-header">
-                               <%-- <div class="input-group">
-                                    <a class="btn btn-primary  btn-flat" onclick="javascript:authorityAudit()" > <i class="fa fa-plus"></i>审核部门数据权限</a>
-                                </div>--%>
+                               <div class="input-group">
+                                    <%--<a class="btn btn-primary  btn-flat" onclick="javascript:authorityAudit()" > <i class="fa fa-plus"></i>审核部门数据权限</a>--%>
+                                        <select  class="form-control"  name="audited" id="audited">
+                                            <option value="0">待审核</option>
+                                            <option value="1">已审核</option>
+                                        </select>
+                                </div>
                                 <div class="input-group">
                                     <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="部门数据权限审核名称">
                                     <div class="input-group-btn">

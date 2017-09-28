@@ -7,6 +7,7 @@ jQuery(document).ready(function () {
     "use strict";
     var paramsObj = {};
 
+
     jQuery(tableSelector).customTable({
         url: basePathJS + '/system/deptAuthorityAudit/list',
         queryParams: function (params) {
@@ -94,10 +95,15 @@ jQuery(document).ready(function () {
         setParams();
         reloadTable();
     });
+    $("#audited").change(function(){
+        setParams();
+        reloadTable();
+    });
 
     function setParams() {
         var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {searchKey : searchKeyVal};
+        var audited = $('#audited').val();
+        paramsObj = {searchKey : searchKeyVal,audited:audited};
     }
 
 });

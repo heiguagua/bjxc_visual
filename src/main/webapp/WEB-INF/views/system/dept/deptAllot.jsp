@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/system/dept/deptEdit.js"></script>
+    <script src="<%=basePath%>/js/system/dept/deptAllot.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -14,30 +14,31 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/system/dept/doEdit">
+                          method="post" action="<%=basePath%>/system/dept/doAdd">
                         <input type="hidden" id="deptId" value="${id}" name="id"/>
-                        <input type="hidden" id="deptLevel" value="${deptLevel}" name="deptLevel"/>
-                        <input type="hidden" id="treeIndex" value="${treeIndex}" name="treeIndex"/>
-                        <input type="hidden" id="treeCode" value="${treeCode}" name="treeCode"/>
+                        <input type="hidden" id="fid" value="${id}" name="fid"/>
+                        <input type="hidden" id="regionCode" name="regionCode"/>
+
                         <div class="box-body">
 
                             <div class="form-group">
-                                <label for="regionCode" style='float:left;' class="col-sm-3 control-label">所属行政区域</label>
+                                <label for="regionName" style='float:left;' class="col-sm-3 control-label">所属行政区域</label>
                                 <div  class="col-sm-7">
-                                    <input type="text" class="form-control"  id="regionCode"  readonly>
+                                    <input type="text" class="form-control"  id="regionName"  name="regionName" readonly>
+                                </div>
+                            </div>
 
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="fid" style='float:left;' class="col-sm-3 control-label">父组织机构编码</label>
-                                <div  class="col-sm-7">
-                                    <input type="text" class="form-control"  id="fid"  readonly>
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label for="fname" style='float:left;' class="col-sm-3 control-label">父组织机构名称</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control"  id="fname"  readonly>
+                                    <input type="text" class="form-control"  id="fname" name="fname" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="deptCode" style='float:left;'
+                                       class="col-sm-3 control-label">组织机构编码</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="deptCode" name="deptCode">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -163,22 +164,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="validateFrom" style='float:left;'  class="col-sm-3 control-label">组织启用时间</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="validateFrom"  readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="validateTo" style='float:left;'  class="col-sm-3 control-label">组织停用时间</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="validateTo"  readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="status"  style='float:left;' class="col-sm-3 control-label">状态</label>
+                                <label  style='float:left;' class="col-sm-3 control-label">状态</label>
                                 <div class="col-sm-7" >
                               <span class="radio-inline">
-	                            <input type="radio" name="status" id="inlineRadio1" value="1">启用
+	                            <input type="radio" name="status" id="inlineRadio1" value="1" checked>启用
 	                          </span>
                                     <span class="radio-inline">
 	                            <input type="radio" name="status" id="inlineRadio0" value="0" >停用

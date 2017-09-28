@@ -75,7 +75,7 @@ jQuery(document).ready(function () {
             sortable: false ,
             width: '18%',
             formatter : function (value ) {
-                var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editDept(\"" + value + "\")'><i class='fa fa-chain'></i>分配</a>";
+                var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:allotDept(\"" + value + "\")'><i class='fa fa-chain'></i>分配</a>";
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editDept(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                 var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteDept(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
             return allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR +  deleteBtn  ;
@@ -103,6 +103,11 @@ function reloadTable() {
 function addDept() {
     add('新增组织机构',basePathJS + '/system/dept/add');
 }
+
+function allotDept(id) {
+    update('分配组织机构',basePathJS + '/system/dept/allot',id);
+}
+
 
 
 function editDept(id) {

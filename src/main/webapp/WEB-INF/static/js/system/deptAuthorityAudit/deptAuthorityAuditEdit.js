@@ -16,9 +16,12 @@ function initAuditPage(authAuditId) {
             if (result.state) {
                 var vo = result.content.vo;
                 if(vo){
-                    $("#applicantName").val(vo.applicantName);
-                    $("#deptName").val(vo.deptName);
-                    $("#applyReason").val(vo.applyReason);
+                    $("#applicantName").html(vo.applicantName);
+                    $("#deptName").html(vo.deptName);
+                    $("#applyReason").html(vo.applyReason);
+                    // $("#applicantName").val(vo.applicantName);
+                    // $("#deptName").val(vo.deptName);
+                    // $("#applyReason").val(vo.applyReason);
                 }
             }
         }
