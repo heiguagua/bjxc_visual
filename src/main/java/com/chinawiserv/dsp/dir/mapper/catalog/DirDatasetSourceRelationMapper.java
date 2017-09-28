@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetSourceRelationVo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -28,5 +30,9 @@ public interface DirDatasetSourceRelationMapper extends BaseMapper<DirDatasetSou
 
     int baseUpdate(DirDatasetSourceRelation entity);
 
-    int baseDelete(String id);
+    int deleteByParams(Map<String, Object> paramMap);
+
+    int insertDatasetListRelation(@Param("list") List<DirDatasetSourceRelation> list);
+
+    List<DirDatasetSourceRelation> selectRelationsByDatasetId(@Param("dataset_id")String dataset_id);
 }

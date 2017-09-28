@@ -12,6 +12,7 @@ import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
+import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetSourceRelationService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -49,6 +50,7 @@ public class DirDatasetController extends BaseController {
     private IDirDataitemService dataitemService;
 
     @Autowired
+    private IDirDatasetSourceRelationService relationService;
 
     @RequestMapping("/catalogue")
     public  String init(@RequestParam Map<String , Object> paramMap){
@@ -184,7 +186,14 @@ public class DirDatasetController extends BaseController {
         return "catalog/catalogue/quickAddDatasetUI";
     }
     /**
-     * 从资源添加数据集-快速添加
+     * 从系统添加数据集-快速添加页面
+     */
+    @RequestMapping("/catalogue/quickSystemAddDatasetUI")
+    public  String quickSystemAddDatasetUI(){
+        return "catalog/catalogue/quickSystemAddDatasetUI";
+    }
+    /**
+     * 从资源/系统添加数据集-快速添加
      * @param entity
      * @param model
      * @return
@@ -195,6 +204,7 @@ public class DirDatasetController extends BaseController {
         HandleResult handleResult = new HandleResult();
         try {
             service.insertVO(entity);
+            relationService.insertDatasetListRelation(entity.getRelations(),entity.getId());
             handleResult.success("创建数据集（信息资源）成功");
         } catch (Exception e) {
             handleResult.error("创建数据集（信息资源）失败");

@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.entity.vo.catalog;
 
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetExtFormat;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation;
 
 import java.util.List;
 
@@ -20,6 +21,16 @@ public class DirDatasetVo extends DirDataset{
     private String classifyIds;
 
     private DirDatasetExtFormat ext;
+
+    private List<DirDatasetSourceRelation> relations;
+
+    public List<DirDatasetSourceRelation> getRelations() {
+        return relations;
+    }
+
+    public void setRelations(List<DirDatasetSourceRelation> relations) {
+        this.relations = relations;
+    }
 
     public DirDatasetExtFormat getExt() {
         return ext;
