@@ -137,5 +137,13 @@
         </where>
     </sql>
 
+	<insert id="batchInsertPO" parameterType="java.util.Map">
+    	 insert into
+        drap_business_doc(id,region_code,belong_dept,source_type,doc_code,doc_name,doc_desc,category,doc_sample,sync_flag,template_flag,code_index,status,create_user,create_time,update_user,update_time,delete_flag)
+        values
+        <foreach collection="list" item="item" separator=",">
+        	(#{item.id},#{item.regionCode},#{item.belongDept},#{item.sourceType},#{item.docCode},#{item.docName},#{item.docDesc},#{item.category},#{item.docSample},#{item.syncFlag},#{item.templateFlag},#{item.codeIndex},#{item.status},#{item.createUser},#{item.createTime},#{item.updateUser},#{item.updateTime},#{item.deleteFlag})
+        </foreach>
+    </insert>
 
 </mapper>

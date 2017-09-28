@@ -29,4 +29,6 @@ public interface DrapActivityDocMapMapper extends BaseMapper<DrapActivityDocMap>
     int baseUpdate(DrapActivityDocMap entity);
 
     int baseDelete(String id);
+
+	int batchInsertPO(List<DrapActivityDocMap> drapActivityDocMapPos);
 }

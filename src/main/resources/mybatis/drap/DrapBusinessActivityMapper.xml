@@ -260,6 +260,15 @@
             </if>
         </where>
     </sql>
+    
+    <insert id="batchInsertPO" parameterType="java.util.Map">
+    	insert into
+        drap_business_activity(id,region_code,belong_dept,category,activity_code,handle_basis,activity_desc,activity_name,extend_code,short_name,parent_code,parent_guid_activity,function_keywords,is_run,service_target,legal_deploy_dept,actual_deploy_dept,is_cooperate_business,handle_condition,handle_result,validity_from,validity_end,is_in_gc,handle_method,is_open,charge_standard,handle_address,legal_time_limit,promise_time_limit,handler,handler_phone,supervise_phone,handle_online,online_address,handle_online_desc,handle_program,handle_flowsheet,year_business_volume,order_by,is_show,code_index,status,create_user_id,create_time,update_user_id,update_time,delete_flag,tree_index,tree_code)
+        values
+        <foreach collection="list" item="item" separator=",">
+        	(#{item.id},#{item.regionCode},#{item.belongDept},#{item.category},#{item.activityCode},#{item.handleBasis},#{item.activityDesc},#{item.activityName},#{item.extendCode},#{item.shortName},#{item.parentCode},#{item.parentGuidActivity},#{item.functionKeywords},#{item.isRun},#{item.serviceTarget},#{item.legalDeployDept},#{item.actualDeployDept},#{item.isCooperateBusiness},#{item.handleCondition},#{item.handleResult},#{item.validityFrom},#{item.validityEnd},#{item.isInGc},#{item.handleMethod},#{item.isOpen},#{item.chargeStandard},#{item.handleAddress},#{item.legalTimeLimit},#{item.promiseTimeLimit},#{item.handler},#{item.handlerPhone},#{item.supervisePhone},#{item.handleOnline},#{item.onlineAddress},#{item.handleOnlineDesc},#{item.handleProgram},#{item.handleFlowsheet},#{item.yearBusinessVolume},#{item.orderBy},#{item.isShow},#{item.codeIndex},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},#{item.updateTime},#{item.deleteFlag},#{item.treeIndex},#{item.treeCode})
+        </foreach>
+    </insert>
 
 
 </mapper>
