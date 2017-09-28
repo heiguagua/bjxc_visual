@@ -116,7 +116,7 @@ public class DirDatasetController extends BaseController {
             if(paramMap == null){
                 paramMap = new HashMap<>();
             }
-            paramMap.put("allStatus",new String[]{"0","2","4"}); //查询过滤状态为待注册、审核不通过、审核驳回的数据
+            paramMap.put("allStatus",new String[]{"0","2","4","6"}); //查询过滤状态为待注册、审核不通过、审核驳回的数据
             Page<DirDatasetClassifyMapVo> page = service.selectClassifyMapVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
@@ -146,19 +146,39 @@ public class DirDatasetController extends BaseController {
     }
 
     /**
-     * 分页查询信息资源列表（发布）
+     * 分页查询信息资源列表（未发布）
      */
     @RequiresPermissions("catalog:release:list")
-    @RequestMapping("/release/list")
+    @RequestMapping("/unRelease/list")
     @ResponseBody
-    public PageResult releaseList(@RequestParam Map<String , Object> paramMap){
+    public PageResult unReleaseList(@RequestParam Map<String , Object> paramMap){
         PageResult pageResult = new PageResult();
         try {
+            paramMap.put("status","3"); //查询过滤状态为待发布的数据
             Page<DirDatasetVo> page = service.selectVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
-            pageResult.error("分页查询数据集（发布）出错");
-            logger.error("分页查询数据集（发布）出错", e);
+            pageResult.error("分页查询数据集（未发布）出错");
+            logger.error("分页查询数据集（未发布）出错", e);
+        }
+        return pageResult;
+    }
+
+    /**
+     * 分页查询信息资源列表（已发布）
+     */
+    @RequiresPermissions("catalog:release:list")
+    @RequestMapping("/released/list")
+    @ResponseBody
+    public PageResult releasedList(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            paramMap.put("status","5"); //查询过滤状态为已发布的数据
+            Page<DirDatasetVo> page = service.selectVoPage(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询数据集（已发布）出错");
+            logger.error("分页查询数据集（已发布）出错", e);
         }
         return pageResult;
     }
@@ -313,7 +333,7 @@ public class DirDatasetController extends BaseController {
     }
 
     /**
-     * 执行审核
+     * 执行发布
      */
     @RequiresPermissions("catalog:release:save")
     @Log("信息资源发布")
@@ -331,6 +351,52 @@ public class DirDatasetController extends BaseController {
         } catch (Exception e) {
             handleResult.error("信息资源发布失败");
             logger.error("信息资源发布失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 执行审核驳回
+     */
+    @RequiresPermissions("catalog:release:audit")
+    @Log("审核驳回信息资源")
+    @RequestMapping("/release/auditReject")
+    @ResponseBody
+    public  HandleResult auditReject(@RequestParam String dcmId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            boolean auditResult = service.auditReject(dcmId);
+            if(auditResult){
+                handleResult.success("驳回成功");
+            }else{
+                handleResult.error("驳回失败");
+            }
+        } catch (Exception e) {
+            handleResult.error("信息资源审核驳回失败");
+            logger.error("信息资源审核驳回失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 执行下架
+     */
+    @RequiresPermissions("catalog:release:off")
+    @Log("信息资源下架")
+    @RequestMapping("/release/offline")
+    @ResponseBody
+    public  HandleResult offline(@RequestParam String dcmId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            boolean offlineResult = service.offline(dcmId);
+            if(offlineResult){
+                handleResult.success("下架成功");
+            }else{
+                handleResult.error("下架失败");
+            }
+        } catch (Exception e) {
+            handleResult.error("信息资源下架失败");
+            logger.error("信息资源下架失败", e);
         }
         return handleResult;
     }

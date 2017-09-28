@@ -63,6 +63,8 @@ function initTable(){
                     return '驳回审核';
                 }else if (row['status'] == 5) {
                     return '已发布';
+                }else if (row['status'] == 6) {
+                    return '已下架';
                 }
             }
         }, {
@@ -122,22 +124,6 @@ function initButtonClickEvent(){
         reloadTable();
     });
     
-
-
-  //tab切换
- $("#devlop_chick >li").click(function(){
-  	$(this).addClass("active").siblings().removeClass("active")
-  	console.log($(this).text())
-  	if($(this).text().trim() == "待发布"){
-  		$("#from_undevelop").hide();
-  		$("#from_develop").show();
-  	}else if($(this).text().trim() === "已发布"){
-  		$("#from_develop").css("display","none");
-  		$("#from_undevelop").css("display","block");
-  		
-  	}
-  })
-     
 }
 
 function setParams() {
