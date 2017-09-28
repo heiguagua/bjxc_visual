@@ -122,32 +122,53 @@
                  <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-6">
-		                	<label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式:</label>
-		                    <div class="col-sm-9">
-								<div class="col-sm-6" style="padding:0">
-									<select class="form-control" data-rule="所属资源格式:required;" id="storeMedia" name="ext.format_category">
-										<%--<option value="">--请选择--</option>
-                                        <option value="1" name="电子文件">电子文件</option>
-                                        <option value="2" name="电子表格">电子表格</option>
-                                        <option value="3" name="数据库类">数据库类</option>
-                                        <option value="4" name="图形图像类">图形图像类</option>
-                                        <option value="5" name="流媒体类">流媒体类</option>
-                                        <option value="6" name="自描述格式">自描述格式</option>--%>
-									</select>
-								</div>
-								<div class="col-sm-6" style="padding:0">
-									<select class="form-control" id="" name="ext.format_type" >
-										<%--<option value="">--请选择--</option>
-										<option value="1" name="电子文件">电子文件</option>
-										<option value="2" name="电子表格">电子表格</option>
-										<option value="3" name="数据库类">数据库类</option>
-										<option value="4" name="图形图像类">图形图像类</option>
-										<option value="5" name="流媒体类">流媒体类</option>
-										<option value="6" name="自描述格式">自描述格式</option>--%>
-									</select>
-								</div>
+ 	
+		                	<label for="relDatasetCode" class="col-sm-3 control-label">存储介质:</label>
+ 	
+	                    <div class="col-sm-9">
+ 
+			                        <select class="form-control col-sm-4" style="width:25%" >
+ 	
+			                            <%--<option value="">--请选择--</option>
+
+			                            <option value="1" name="电子文件">电子文件</option>
+ 	
+
+			                            <option value="3" name="数据库类">数据库类</option>
+ 	
+			                            <option value="4" name="图形图像类">图形图像类</option>
+ 
+			                            <option value="5" name="流媒体类">流媒体类</option>
+ 	
+			                            <option value="6" name="自描述格式">自描述格式</option>--%>
+			                        </select>
+ 	
+		                        <label for="resourceFormat" class="col-sm-4 control-label">信息资源格式:</label>
+ 
+			                    <div class="col-sm-5" style="padding:0">
+ 	
+			                        <select class="form-control" id="resourceFormat" name="storageMedium">
+ 	
+			                            <%--<option value="">--请选择--</option>
+ 	
+			                            <option value="1" name="电子文件">电子文件</option>
+ 
+			                            <option value="2" name="电子表格">电子表格</option>
+ 
+			                            <option value="3" name="数据库类">数据库类</option>
+
+			                            <option value="4" name="图形图像类">图形图像类</option>
+
+			                            <option value="5" name="流媒体类">流媒体类</option>
+
+			                            <option value="6" name="自描述格式">自描述格式</option>--%>
+
+			                        </select>
+
+			                    </div>
 
 		                    </div>
+
 	                	</div>
 			                	<div class="col-sm-6">
 				                	<label  class="col-sm-3 control-label" style="padding-left:0px">涉密标识：</label>
