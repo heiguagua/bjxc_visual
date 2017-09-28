@@ -82,8 +82,10 @@
   INSERT INTO `sys_menu` VALUES ('533293eab1d2486895a30543c841c12d', '政策发布', 'ac760cad5be946af907e456b28b85059', '/dirPolicy', 'fa-cog', '1', '2', '0801', NULL, NULL, '09f4fef9249c457ca67b4a7a45823730', '2017-09-13 15:10:54', NULL, NULL, '0');
 
 -- 龚均
-INSERT INTO `sys_menu` (`id`, `menu_name`, `pid`, `url`, `icon`, `sort`, `menu_type`, `code`, `resource_name`, `status`, `create_user_id`, `create_time`, `update_user_id`, `update_time`, `delete_flag`)
-  VALUES ('228789199c1642747ccf530e6c6a1278', '用户注册管理', '95488536f1004e738f1796a923902d4f', '', 'fa-cog', 5, 2, '0406', 'system', 1, '09f4fef9249c457ca67b4a7a45823730', '2017-9-13 12:22:47', '549d321508db446e9bcaa477835fe5f1', '2017-9-13 12:32:36', 0);
+INSERT INTO `sys_menu` VALUES ('1101', '用户注册管理', '95488536f1004e738f1796a923902d4f', '/dirRegistUser', 'fa fa-cogs', 4, 2, '0000', 'apply:registUser:list', 1, '549d321508db446e9bcaa477835fe5f1', '2017-9-13 14:03:42', NULL, NULL, 0);
+INSERT INTO `sys_menu` VALUES ('110111', '用户注册列表', '1101', NULL, NULL, 2, 3, '110101', 'apply:registUser:list', 1, '549d321508db446e9bcaa477835fe5f1', '2017-9-13 14:03:42', NULL, NULL, 0);
+INSERT INTO `sys_menu` VALUES ('110112', '编辑用户注册', '1101', NULL, NULL, 2, 3, '110101', 'apply:registUser:edit', 1, '549d321508db446e9bcaa477835fe5f1', '2017-9-13 14:03:42', NULL, NULL, 0);
+INSERT INTO `sys_menu` VALUES ('110113', '删除用户注册', '1101', NULL, NULL, 2, 3, '110101', 'apply:registUser:delete', 1, '549d321508db446e9bcaa477835fe5f1', '2017-9-13 14:03:42', NULL, NULL, 0);
 -- INSERT INTO `sys_menu` (`id`, `menu_name`, `pid`, `url`, `icon`, `sort`, `menu_type`, `code`, `resource_name`, `status`, `create_user_id`, `create_time`, `update_user_id`, `update_time`, `delete_flag`)
 --  VALUES ('228789199c1642748aaf530e6c6a1278', '政策发布', '95488536f1004e738f1796a923902d4f', '', 'fa-cog', 3, 2, '0404', 'system', 1, '09f4fef9249c457ca67b4a7a45823730', '2017-9-13 12:22:47', '549d321508db446e9bcaa477835fe5f1', '2017-9-13 12:32:36', 0);
 INSERT INTO `sys_menu` (`id`, `menu_name`, `pid`, `url`, `icon`, `sort`, `menu_type`, `code`, `resource_name`, `status`, `create_user_id`, `create_time`, `update_user_id`, `update_time`, `delete_flag`)
