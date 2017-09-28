@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/28 9:23:38                            */
+/* Created on:     2017/9/28 18:56:08                           */
 /*==============================================================*/
 
 
@@ -509,6 +509,7 @@ create table dir_data_audit
    audit_date           date comment '审核时间',
    audit_status         varchar(36) comment '审核状态',
    audit_opinion        varchar(500) comment '审核意见',
+   active_flag          int(2) default 1 comment '有效标识',
    primary key (id)
 );
 
@@ -618,6 +619,7 @@ create table dir_data_offline
    dcm_id               varchar(36) comment '信息资源ID',
    offline_user_id      varchar(36) comment '下架人',
    offline_time         date comment '下架时间',
+   active_flag          int(2) default 1 comment '有效标识',
    primary key (id)
 );
 
@@ -630,10 +632,10 @@ create table dir_data_publish
 (
    id                   varchar(36) not null comment 'ID',
    dcm_id               varchar(36) comment '信息资源ID',
-   publish_to_net       int comment '是否发布到互联网',
-   publish_to_dzzw      int comment '是否发布到电子政务外网',
+   publish_type         varchar(36) comment '发布类型',
    publisher_id         varchar(36) comment '发布人',
    publish_date         date comment '发布时间',
+   active_flag          int(2) default 1 comment '有效标识',
    primary key (id)
 );
 
@@ -664,6 +666,7 @@ create table dir_data_registe
    register_id          varchar(36) comment '注册人',
    registe_date         date comment '注册时间',
    registe_opinion      varchar(500) comment '注册意见',
+   active_flag          int(2) default 1 comment '有效标识',
    primary key (id)
 );
 
@@ -885,7 +888,7 @@ create table dir_dataset_service_map
    id                   varchar(36) not null comment 'id',
    service_id           varchar(36) comment '服务ID',
    obj_type             varchar(36) comment '服务注册对象类型',
-   obj_id               varchar(1024) comment '服务注册对象ID,多个逗号分隔',
+   obj_id               varchar(36) comment '服务注册对象ID',
    valid_from           date comment '有效期开始',
    valid_to             date comment '有效期结束',
    status               varchar(36) comment '状态',
