@@ -88,8 +88,8 @@
         <li>
          <!-- Menu Toggle Button -->
           <a class="citytitle">
-			<span class="defaultcity">chengdu</span>
-			<ul class="innerul" id="box1">	
+			<span class="defaultcity">成都</span>
+			<ul class="innerul" id="box1">
 			</ul>
 		  </a>
        </li>

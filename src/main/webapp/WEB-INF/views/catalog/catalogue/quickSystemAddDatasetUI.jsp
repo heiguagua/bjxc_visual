@@ -322,7 +322,7 @@
 				<div class="form-group " style="overflow-x: auto;min-height:200px;">
 					<table style="width:100%" class="table-striped">
 						<thead>
-						<tr>
+						<tr class="table_title_tr">
 							<th>序号</th>
 							<th colspan="2" style='text-align: center'>表A</th>
 							<th>关联</th>
