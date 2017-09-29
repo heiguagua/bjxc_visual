@@ -292,6 +292,16 @@ $(document).on("click", "#dataset_item_container>a", function(){
     Model.business.cache.item.reset();
     Model.business.loadItems();
 });
+$(document).on("click", "em", function(){
+    $(this).closest('span').remove();
+    var id=$(this).attr('data-id');
+    for (var i in fieldIds){
+        if(fieldIds[i]==id){
+            fieldIds.splice(i,1);
+            break;
+        }
+    }
+});
 $(document).on("click", "#field_tree>a", function(){
     var disabled = $(this).hasClass("disabled");
     if(!disabled){
@@ -322,10 +332,23 @@ $(document).on("click", "button#add_to_container", function(){
         var id = $(itm).attr("data-id");
         var text = $(itm).text();
         if(id&&text){
-            fieldIds.push(id);
-            $('#fieldTexts').append("<label data-id='"+id+"'>"+text+"<label")
+            var b=true;
+            for (var i in  fieldIds){
+                if(id==fieldIds[i]){
+                    b=false;
+                    break;
+                }
+            }
+            if (b) {
+                fieldIds.push(id);
+                $('#fieldTexts').append('<span class="words-split"><a href="javascript:void(0)" class="fm-button">' + text + '<em data-id="' + id + '"> </em></a></span>');
+            }
         }
     });
+    for(var i in fieldIds){
+        $('a[data-id='+fieldIds[i]+']').removeClass('active');
+        $('a[data-id='+fieldIds[i]+']').addClass('disabled');
+    }
 });
 $(document).on("click", "button#field_add", function(){
 
