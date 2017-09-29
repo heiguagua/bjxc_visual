@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/29 11:18:08                           */
+/* Created on:     2017/9/29 21:16:21                           */
 /*==============================================================*/
 
 
@@ -771,7 +771,7 @@ create table dir_dataset
    storage_location     varchar(500) comment '物理存储位置',
    data_level           varchar(36) comment '【川】信息资源最小分级单元',
    data_index_system    varchar(36) comment '【川】信息资源指标体系',
-   is_secret            varchar(36) comment '【川】信息资源涉密性',
+   secret_flag          varchar(36) comment '【川】信息资源涉密性',
    source_type          varchar(36) comment '添加来源',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
@@ -1641,6 +1641,9 @@ create table drap_dict_table_column
    column_desc          varchar(256) comment '字段描述',
    data_precision       varchar(36) comment '字段数据精度',
    code_index           int comment '编码序号',
+   status               int(3) comment '状态',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   real_column_id       varchar(36) comment '对应实际数据表字段ID',
    primary key (id)
 );
 
