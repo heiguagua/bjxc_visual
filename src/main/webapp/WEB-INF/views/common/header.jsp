@@ -38,7 +38,7 @@
  <!-- Logo -->
  <a href="<%=basePath%>/data/collectJob" class="logo">
    <!-- mini logo for sidebar mini 50x50 pixels -->
-   <span class="logo-mini"><b>${systemSubName}</b></span>
+   <span class="logo-mini"><b>${systemShortName}</b></span>
    <!-- logo for regular state and mobile devices -->
    <span class="logo-lg"><span><img src="<%=basePath%>/images/addimg/logo.png"/>&nbsp;政务信息资源管理-${systemName}</span></span>
  </a>
@@ -88,8 +88,8 @@
         <li>
          <!-- Menu Toggle Button -->
           <a class="citytitle">
-			<span class="defaultcity">chengdu</span>
-			<ul class="innerul" id="box1">	
+			<span class="defaultcity">成都</span>
+			<ul class="innerul" id="box1">
 			</ul>
 		  </a>
        </li>

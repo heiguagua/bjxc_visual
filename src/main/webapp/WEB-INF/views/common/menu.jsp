@@ -44,6 +44,9 @@
 
      </c:if>--%>
    </ul><!-- /.sidebar-menu -->
+   <a href="#" class="sidebar-toggle trapezoid-1" data-toggle="offcanvas" role="button">
+	<img src="<%=basePath%>/images/userImg/sectionBack.png" id="smallImg"/>
+	</a>
  </section>
  <!-- /.sidebar -->
 </aside>
@@ -51,6 +54,19 @@
 <script type="text/javascript">
     jQuery(document).ready(function () {
         loadMenuData();
+        $(document).on('expanded.pushMenu',function(){
+        	setTimeout(function(){
+        		$("#smallImg").prop("src",basePathJS+"/images/userImg/sectionBack.png")
+        		$("#smallImg").parent().css("right","-15px")
+        	},200);
+        })
+        $(document).on('collapsed.pushMenu',function(){
+        	setTimeout(function(){
+        		$("#smallImg").prop("src",basePathJS+"/images/userImg/BigsectionBack.png")
+        		$("#smallImg").parent().css("right","-29px")
+        	},200);
+        	
+        })
     });
 
     /**

@@ -16,7 +16,7 @@
 <body class="hold-transition login-page">
   <div class="login-box">
 	  <div class="login-logo">
-	    <b>数据采集系统</b>
+	    <b>目录管理系统</b>
 	  </div>
 	  <!-- /.login-logo -->
 	  <form action="<%=basePath%>/login/doLogin" data-validator-option="{theme:'bootstrap', timely:2, theme:'simple_bottom'}" method="post">
@@ -38,7 +38,7 @@
 	        <span class="glyphicon glyphicon-lock form-control-feedback" ></span>
 	      </div>
 	      <div class="form-group has-feedback">
-	      	<%--<div class="row">
+	      <div class="row">
 	      		<div class="col-lg-4">
 	      			<div class="form-group has-feedback mg">
 			         	<input type="text" class="form-control" name="captcha" placeholder="验证码" data-rule="验证码:required;length(5);" size="5">
@@ -51,7 +51,7 @@
 				        <a id="change_code" href="javascript:void(0);">点击刷新</a>
 				      </div>
 	      		</div>
-	      	</div>--%>
+	      	</div>
 	      </div>
 	      
 	      <div class="row">
