@@ -81,26 +81,22 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public List<SysDeptVo> getDeptSelectDataList(Map<String, Object> paramMap) throws Exception {
         if(paramMap == null) paramMap = new HashMap();
         String onlyRoot = (String) paramMap.get("onlyRoot");
+        String regionCode = (String) paramMap.get("regionCode");
         if(StringUtils.isBlank(onlyRoot)){
             onlyRoot = "0";
         }
         List<SysDeptVo> list = new ArrayList();
         Map<String, Object> param = new HashMap();
-        /*String regionCode = (String) paramMap.get("regionCode");
-        if(StringUtils.isBlank(regionCode)){
-            regionCode = ShiroUtils.getLoginUser().getRegionCode();
-        }
-        param.put("regionCode", regionCode);*/
         if("1".equals(onlyRoot)){
             param.put("onlyRoot", onlyRoot);
+            param.put("regionCode", regionCode);
         }else {
             String id = (String) paramMap.get("id");
             if(StringUtils.isNotBlank(id)){
                 param.put("fid", id);
             }else {
-                /*param.put("treeCode", ShiroUtils.getLoginUser().getDeptTreeCode());*/
                 param.put("topLevelDept", "1");
-                param.putAll(getDeptCondition(null));
+                param.putAll(getDeptCondition(regionCode));
 
                 String excludeRoot = (String) paramMap.get("excludeRoot");
                 if(StringUtils.isBlank(excludeRoot)){
@@ -115,13 +111,13 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             param.put("applicant", ShiroUtils.getLoginUserId());
         }
         if(!param.isEmpty()){
-            list.addAll(this.selectVoList(param));
-            String checkIsLeaf = (String) paramMap.get("checkIsLeaf");
+            list.addAll(sysDeptMapper.selectVoListForTreeData(param));
+            /*String checkIsLeaf = (String) paramMap.get("checkIsLeaf");
             if(StringUtils.isBlank(checkIsLeaf) || "1".equals(checkIsLeaf)){
                 for(SysDeptVo sysDeptVo : list){
                     sysDeptVo.setIsLeaf(!this.isParentDept(sysDeptVo.getId()));
                 }
-            }
+            }*/
         }
         return list;
     }
@@ -232,11 +228,9 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         if(StringUtils.isBlank(regionCode)){
             regionCode = ShiroUtils.getLoginUser().getRegionCode();
         }
-        if (StringUtils.isNotBlank(regionCode)) {
-            SysRegionVo sysRegionVo = sysRegionMapper.selectVoByRegionCode(regionCode);
-            if(sysRegionVo != null){
-                paramMap.put("regionCodeCondition", this.getRegionCodeCondition(regionCode, sysRegionVo.getRegionLevel()));
-            }
+        SysRegionVo sysRegionVo = sysRegionMapper.selectVoByRegionCode(regionCode);
+        if(sysRegionVo != null){
+            paramMap.put("regionCodeCondition", this.getRegionCodeCondition(regionCode, sysRegionVo.getRegionLevel()));
         }
         return paramMap;
     }

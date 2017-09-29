@@ -28,6 +28,8 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
 
+    List<SysDeptVo> selectVoListForTreeData(Map<String, Object> paramMap);
+
     boolean isParentDept(String id);
 
     List<SysDeptVo> selectDeptListLikeTreeCode(@Param("list")List<String> list);

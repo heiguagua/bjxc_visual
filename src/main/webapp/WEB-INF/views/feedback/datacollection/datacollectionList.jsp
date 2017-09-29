@@ -19,21 +19,31 @@
     <%@include file="/WEB-INF/views/common/menu.jsp" %>
 
     <div class="content-wrapper">
+
+        <section class="content-header">
+            <h1>
+                <small>门户管理 > 收藏管理</small>
+            </h1>
+            <!-- <ul class="title_ul">
+                <li class="active"><i class="fa fa-desktop" style="font-size:20px"></i>&nbsp;常规模式</li>
+                <li>引导模式</li>
+                <li>图谱</li>
+            </ul> -->
+        </section>
+
+
         <!-- Content Header (Page header) -->
         <section class="content" id="dcMg">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                        <form class="form-inline marginBot" method="post">
                             <div class="box-header">
-                                <div class="input-group">
-                                    收藏管理
-                                </div>
                                 <div class="input-group pull-right">
                                     <input class="form-control" id="editListSearch" name="searchEdit" placeholder="资源名称"
                                            type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat" id="queryListBtnEdit" type="button">
+                                        <button class="btn btn-primary btn-flat btn_blue" id="queryListBtnEdit" type="button">
                                             <i class="fa fa-search">
                                             </i> 搜索
                                         </button>
@@ -56,17 +66,17 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                        <form class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group">
-                                    <a class="btn btn-primary  btn-flat" onclick="javascript:retdcView()"> <i
+                                    <a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:retdcView()"> <i
                                             class="fa fa-reply">&#160;</i>返回收藏管理列表</a>
                                 </div>
                                 <div class="input-group pull-right">
                                     <input class="form-control" id="editDetailSearch" name="searchDetailEdit"
                                            placeholder="用户名称" type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat" id="queryDetailBtnEdit" type="button">
+                                        <button class="btn btn-primary btn-flat btn_blue" id="queryDetailBtnEdit" type="button">
                                             <i class="fa fa-search">
                                             </i> 搜索
                                         </button>
@@ -198,6 +208,7 @@
                     }
                 },
                 {field: 'collectorName', title: '收藏用户'},
+                {field: 'datasetName', title: '资源名称'},
                 {field: 'collectDate', title: '最后收藏时间', width: '15%'}
             ]
 
