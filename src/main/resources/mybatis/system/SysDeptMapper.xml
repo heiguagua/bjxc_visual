@@ -46,11 +46,14 @@
 			<if test="onlyRoot != null and onlyRoot == '1'.toString()">
 				AND t.fid = 'root'
 			</if>
-			<if test="excludeRoot != null and excludeRoot == '0'.toString()">
+			<if test="excludeRoot != null and excludeRoot == '1'.toString()">
 				AND t.fid != 'root'
 			</if>
 			<if test="searchKey != null">
 				AND t.dept_name LIKE concat(concat('%', #{searchKey}), '%')
+			</if>
+			<if test="topLevelDept != null and topLevelDept == '1'.toString()">
+				AND (t.dept_level = '1' or t.dept_level is null or t.dept_level = '')
 			</if>
 			<if test="deptTreeCodeCondition != null">
 				AND t.tree_code like '${deptTreeCodeCondition}%'

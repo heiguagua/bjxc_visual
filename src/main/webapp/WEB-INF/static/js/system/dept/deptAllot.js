@@ -16,9 +16,7 @@ function initEditPage(){
                 var vo = data.content.vo;
                 $("#regionName").val(vo.regionName);
                 $("#regionCode").val(vo.regionCode);
-                // $("#fid").val(vo.fid);
-                // $("#deptCode").val(vo.deptCode);
-                $("#fname").val(vo.fname);
+                $("#fname").val(vo.deptName);
 
             }
         }
