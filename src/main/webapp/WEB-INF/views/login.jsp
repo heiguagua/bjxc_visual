@@ -11,65 +11,79 @@
 			top: 8px !important ;
 		}
 	</style>
+	<link rel="stylesheet" href="<%=basePath%>/css/load.css">
 </head>
 
 <body class="hold-transition login-page">
-  <div class="login-box">
-	  <div class="login-logo">
-	    <b>数据采集系统</b>
-	  </div>
-	  <!-- /.login-logo -->
-	  <form action="<%=basePath%>/login/doLogin" data-validator-option="{theme:'bootstrap', timely:2, theme:'simple_bottom'}" method="post">
-	  <div class="login-box-body">
-	      <p class="login-box-msg">请输入用户名和密码登录</p>
-		  <c:if test="${error != null}">
-			  <div  class="alert alert-danger alert-dismissible">
-				  <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> ${error}</h4>
-			  </div>
-		  </c:if>
-
-	      <div class="form-group has-feedback mg">
-	        <input type="hidden" name="return_url" value="${return_url}">
-	        <input type="text" class="form-control"  name="userName" placeholder="用户名" data-rule="用户名:required;username;">
-	        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-	      </div>
-	      <div class="form-group has-feedback mg">
-	        <input type="password" class="form-control" name="password"  placeholder="密码"  data-rule="密码:required;password;">
-	        <span class="glyphicon glyphicon-lock form-control-feedback" ></span>
-	      </div>
-	      <div class="form-group has-feedback">
-	      	<%--<div class="row">
-	      		<div class="col-lg-4">
-	      			<div class="form-group has-feedback mg">
-			         	<input type="text" class="form-control" name="captcha" placeholder="验证码" data-rule="验证码:required;length(5);" size="5">
-			         	<span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-			        </div>
-	      		</div>
-	      		<div class="col-lg-8">
-	      			<div class="form-group has-feedback">
-				        <img id="codeimg" alt="如果看不清楚，请单击图片刷新！" class="pointer img" src="<%=basePath%>/login/captcha">
-				        <a id="change_code" href="javascript:void(0);">点击刷新</a>
-				      </div>
-	      		</div>
-	      	</div>--%>
-	      </div>
-	      
-	      <div class="row">
-	        <div class="col-xs-8">
-	          <div class="checkbox icheck">
-	          </div>
-	        </div>
-	        <!-- /.col -->
-	        <div class="col-xs-4">
-	          <button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-sign-in"></i> 登录</button>
-	        </div>
-	        <!-- /.col -->
-	      </div>
-	    <!-- /.social-auth-links -->
-	  </div>
-	  </form>
-  <!-- /.login-box-body -->
+  
+  <div class="longin_content">
+	<div class="top_cont">
+		<section class="top_conttitle">
+				<img class="logopng" src="<%=basePath%>/images/userImg/logo.png">
+				<p>成都市大数据资源服务网</p>
+				<div class="righttext">
+					<!-- <p>成都市大数据资源服务网</p> -->
+					<!-- <p class="entitle">Chengdu Open Government Data Platform</p> -->
+				</div>
+				<div class="section_bottom">
+						<span class="left_span">
+							登录
+							<img src="<%=basePath%>/images/userImg/long_sanjiao.png" id="leftsan"/>
+						</span>
+						<!-- <span class="right_span active">
+						注册
+							<a href="/htm/applyAccount/userApplyAccount.jsp" target="_blank"></a>
+							<img src="/static/new/images/load/long_sanjiao.png" id="rightsan"/>
+						</span> -->
+				</div>
+		</section>
+	</div>
+	<div class="bottom_cont" id="country">
+					<form class="form-horizontal" id="fromid" action="<%=basePath%>/login/doLogin" data-validator-option="{theme:'bootstrap', timely:2, theme:'simple_bottom'}" method="post">
+					
+						  <c:if test="${error != null}">
+							  <div  class="alert alert-danger alert-dismissible">
+								  <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> ${error}</h4>
+							  </div>
+						  </c:if>
+					
+						<div class="inputdiv reg-box">
+							<span class="spanuser">
+								<img src="<%=basePath%>/images/userImg/Username.png"/>
+							</span
+							><input type="text" id="userLoadName" class="account"  name="userName" placeholder="用户名" data-rule="用户名:required;username;"/>
+							<input type="hidden" name="return_url" value="${return_url}">
+						</div>
+						<div class="inputdiv reg-box">
+							<span class="spanuser">
+								<img src="<%=basePath%>/images/userImg/Password.png"/>
+							</span
+							><input type="password" class="admin_pwd" id="userPassWord" name="password"  placeholder="密码"  data-rule="密码:required;password;"/>
+						</div>
+						<div class="inputdiv reg-box">
+						
+							
+					      		<div style="width:409px;display:inline-block" >
+						      		 <div class="has-feedback mg">
+								         	<input type="text" style="width:100%;margin-bottom:15px;" class="form-control" name="captcha" placeholder="验证码" data-rule="验证码:required;length(5);" size="5">
+								         	<span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+								        </div>
+						      		
+						      		
+						      			<div class="form-group has-feedback">
+									        <img id="codeimg" alt="如果看不清楚，请单击图片刷新！" class="pointer img" src="<%=basePath%>/login/captcha">
+									        <a id="change_code" href="javascript:void(0);">点击刷新</a>
+									      </div>     
+								</div>
+						</div>
+						
+						<div class="inputdiv">
+								<button class="login_subtn" id="loaded" type="submit">登&emsp;录</button>
+						</div>
+					</form>
+	</div>
 </div>
+  
 
 <script type="text/javascript">
     $('#change_code').on('click', function () {
