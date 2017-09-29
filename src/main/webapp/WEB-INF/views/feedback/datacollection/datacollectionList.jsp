@@ -19,15 +19,28 @@
     <%@include file="/WEB-INF/views/common/menu.jsp" %>
 
     <div class="content-wrapper">
+
+        <section class="content-header">
+            <h1>
+                <small>返回上一级/目录管理 /目录编目</small>
+            </h1>
+            <!-- <ul class="title_ul">
+                <li class="active"><i class="fa fa-desktop" style="font-size:20px"></i>&nbsp;常规模式</li>
+                <li>引导模式</li>
+                <li>图谱</li>
+            </ul> -->
+        </section>
+
+
         <!-- Content Header (Page header) -->
         <section class="content" id="dcMg">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group">
-                                    收藏管理
+                                   <a class="btn btn-default btn-myself" href=" javascript:void(0)">收藏管理</a>
                                 </div>
                                 <div class="input-group pull-right">
                                     <input class="form-control" id="editListSearch" name="searchEdit" placeholder="资源名称"
@@ -56,7 +69,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group">
                                     <a class="btn btn-primary  btn-flat" onclick="javascript:retdcView()"> <i
