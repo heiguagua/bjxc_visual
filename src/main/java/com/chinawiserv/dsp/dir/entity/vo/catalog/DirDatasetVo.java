@@ -20,6 +20,10 @@ public class DirDatasetVo extends DirDataset{
 
     private String classifyIds;
 
+    private String classifyName;
+
+    private String classifyStatus;
+
     private DirDatasetExtFormat ext;
 
     private List<DirDatasetSourceRelation> relations;
@@ -30,6 +34,22 @@ public class DirDatasetVo extends DirDataset{
 
     public void setRelations(List<DirDatasetSourceRelation> relations) {
         this.relations = relations;
+    }
+
+    public String getClassifyName() {
+        return classifyName;
+    }
+
+    public void setClassifyName(String classifyName) {
+        this.classifyName = classifyName;
+    }
+
+    public String getClassifyStatus() {
+        return classifyStatus;
+    }
+
+    public void setClassifyStatus(String classifyStatus) {
+        this.classifyStatus = classifyStatus;
     }
 
     public DirDatasetExtFormat getExt() {

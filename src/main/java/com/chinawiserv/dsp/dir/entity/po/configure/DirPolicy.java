@@ -27,11 +27,7 @@ public class DirPolicy implements Serializable {
      */
 	@TableField("region_code")
 	private String regionCode;
-    /**
-     * 政策来源
-     */
-	@TableField("source_type")
-	private String sourceType;
+    
     /**
      * 政策级别
      */
@@ -99,14 +95,6 @@ public class DirPolicy implements Serializable {
 
 	public void setRegionCode(String regionCode) {
 		this.regionCode = regionCode;
-	}
-
-	public String getSourceType() {
-		return sourceType;
-	}
-
-	public void setSourceType(String sourceType) {
-		this.sourceType = sourceType;
 	}
 
 	public String getPolicyLevel() {

@@ -16,7 +16,7 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
-            field: 'user_name',
+            field: 'userName',
             title: '创建人',
             align: 'center',
             valign: 'middle',

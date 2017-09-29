@@ -23,6 +23,9 @@ public interface DirNewsMapper extends BaseMapper<DirNews> {
     DirNewsVo selectVoById(String id);
 
     int selectVoCount(Map<String, Object> paramMap);
+    
+  //逻辑删除
+    void updateDeleteFlag(String id);
 
     int baseInsert(DirNews entity);
 

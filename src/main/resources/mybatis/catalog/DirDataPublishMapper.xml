@@ -9,10 +9,10 @@
     <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataPublish">
         <id column="id" property="id"/>
         <result column="dcm_id" property="dcmId"/>
-        <result column="publish_to_net" property="publishToNet"/>
-        <result column="publish_to_dzzw" property="publishToDzzw"/>
+        <result column="publish_type" property="publishType"/>
         <result column="publisher_id" property="publisherId"/>
         <result column="publish_date" property="publishDate"/>
+        <result column="active_flag" property="activeFlag"/>
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
@@ -44,15 +44,15 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataPublish">
-        insert into dir_data_publish(id,dcm_id,publish_to_net,publish_to_dzzw,publisher_id,publish_date) values(
-        #{id},#{dcmId},#{publishToNet},#{publishToDzzw},#{publisherId},#{publishDate})
+        insert into dir_data_publish(id,dcm_id,publish_type,publisher_id,publish_date,active_flag) values(
+        #{id},#{dcmId},#{publish_type},#{publisherId},#{publishDate},#{activeFlag})
     </insert>
 
     <insert id="insertListData">
-        insert into dir_data_publish(id,dcm_id,publish_to_net,publish_to_dzzw,publisher_id,publish_date)
+        insert into dir_data_publish(id,dcm_id,publish_type,publisher_id,publish_date,active_flag)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.dcmId},#{item.publishToNet},#{item.publishToDzzw},#{item.publisherId},#{item.publishDate})
+            (#{item.id},#{item.dcmId},#{item.publishType},#{item.publisherId},#{item.publishDate},#{item.activeFlag})
         </foreach>
     </insert>
 
@@ -65,11 +65,8 @@
             <if test="dcmId != null">
                 dcm_id = #{dcmId},
             </if>
-            <if test="publishToNet != null">
-                publish_to_net = #{publishToNet},
-            </if>
-            <if test="publishToDzzw != null">
-                publish_to_dzzw = #{publishToDzzw},
+            <if test="publishType != null">
+                publish_type = #{publishType},
             </if>
             <if test="publisherId != null">
                 publisher_id = #{publisherId},
@@ -77,8 +74,35 @@
             <if test="publishDate != null">
                 publish_date = #{publishDate},
             </if>
+            <if test="activeFlag != null">
+                active_flag = #{activeFlag},
+            </if>
         </set>
         where id = #{id}
+    </update>
+
+    <update id="batchUpdateActiveFlag" parameterType="java.util.Map">
+        <if test="ids != null and ids !='' ">
+            update dir_data_publish
+            <set>
+                <if test="publishType != null">
+                    publish_type = #{publishType},
+                </if>
+                <if test="publisherId != null">
+                    publisher_id = #{publisherId},
+                </if>
+                <if test="publishDate != null">
+                    publish_date = #{publishDate},
+                </if>
+                <if test="activeFlag != null">
+                    active_flag = #{activeFlag},
+                </if>
+            </set>
+            where dcm_id in
+            <foreach collection="ids" open="(" close=")" item="item" separator=",">
+                #{item, jdbcType=VARCHAR}
+            </foreach>
+        </if>
     </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">

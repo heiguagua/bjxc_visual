@@ -1,120 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapBusinessRequirementMapper">
+<mapper
+	namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapBusinessRequirementMapper">
 
-    <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement">
-        <id column="id" property="id"/>
-        <result column="region_code" property="regionCode"/>
-        <result column="requre_dept_id" property="requreDeptId"/>
-        <result column="source_dept_id" property="sourceDeptId"/>
-        <result column="status" property="status"/>
-        <result column="create_user" property="createUser"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_user" property="updateUser"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="delete_flag" property="deleteFlag"/>
-    </resultMap>
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement">
+		<id column="id" property="id" />
+		<result column="region_code" property="regionCode" />
+		<result column="requre_dept_id" property="requreDeptId" />
+		<result column="source_dept_id" property="sourceDeptId" />
+		<result column="status" property="status" />
+		<result column="create_user" property="createUser" />
+		<result column="create_time" property="createTime" />
+		<result column="update_user" property="updateUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="delete_flag" property="deleteFlag" />
+	</resultMap>
 
-    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
-               type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessRequirementVo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
+		type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessRequirementVo">
 
-    </resultMap>
+	</resultMap>
 
-    <!-- 通用查询过滤条件 -->
-    <sql id="queryConditions">
-        <where>
-            <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
-            </if>
-        </where>
-    </sql>
+	<!-- 通用查询过滤条件 -->
+	<sql id="queryConditions">
+		<where>
+			<if test="id != null">
+				t.id = #{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM drap_business_requirement t
-        <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoPage" parameterType="java.util.Map"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM drap_business_requirement t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM drap_business_requirement t WHERE t.id = #{id}
-    </select>
+	<select id="selectVoById" parameterType="java.lang.String"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM drap_business_requirement t WHERE t.id =
+		#{id}
+	</select>
 
-    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM drap_business_requirement t
-        <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT count(1) FROM drap_business_requirement t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement">
-        insert into
-        drap_business_requirement(id,region_code,requre_dept_id,source_dept_id,status,create_user,create_time,update_user,update_time,delete_flag)
-        values(
-        #{id},#{regionCode},#{requreDeptId},#{sourceDeptId},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag}
-        )
-    </insert>
+	<insert id="baseInsert"
+		parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement">
+		insert into
+		drap_business_requirement(id,region_code,requre_dept_id,source_dept_id,status,create_user,create_time,update_user,update_time,delete_flag)
+		values(
+		#{id},#{regionCode},#{requreDeptId},#{sourceDeptId},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag}
+		)
+	</insert>
 
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement">
-        update drap_business_requirement
-        <set>
-            <if test="id != null">
-                id = #{id},
-            </if>
-            <if test="regionCode != null">
-                region_code = #{regionCode},
-            </if>
-            <if test="requreDeptId != null">
-                requre_dept_id = #{requreDeptId},
-            </if>
-            <if test="sourceDeptId != null">
-                source_dept_id = #{sourceDeptId},
-            </if>
-            <if test="status != null">
-                status = #{status},
-            </if>
-            <if test="createUser != null">
-                create_user = #{createUser},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
-            </if>
-            <if test="updateUser != null">
-                update_user = #{updateUser},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime},
-            </if>
-            <if test="deleteFlag != null">
-                delete_flag = #{deleteFlag},
-            </if>
-        </set>
-        where id = #{id}
-    </update>
+	<update id="baseUpdate"
+		parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement">
+		update drap_business_requirement
+		<set>
+			<if test="id != null">
+				id = #{id},
+			</if>
+			<if test="regionCode != null">
+				region_code = #{regionCode},
+			</if>
+			<if test="requreDeptId != null">
+				requre_dept_id = #{requreDeptId},
+			</if>
+			<if test="sourceDeptId != null">
+				source_dept_id = #{sourceDeptId},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag = #{deleteFlag},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
 
-    <delete id="baseDelete" parameterType="java.util.Map">
-        delete from drap_business_requirement
-        <include refid="deleteWhereCause"/>
-    </delete>
+	<delete id="baseDelete" parameterType="java.util.Map">
+		delete from drap_business_requirement
+		<include refid="deleteWhereCause" />
+	</delete>
 
-    <sql id="deleteWhereCause">
-        <where>
-            <if test="id != null">
-                id = #{id}
-            </if>
-        </where>
-    </sql>
+	<sql id="deleteWhereCause">
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</where>
+	</sql>
+	<!-- 批量删除需求 -->
+	<sql id="batchDeleteRequirement">
+		<where>
+			1=1
+			<if test="status!=null and status != ''">
+				AND status=#{status}
+			</if>
+			<if test="ids!=null">
+				AND id in
+				<foreach collection="ids" item="id" open="(" close=")"
+					separator="," index="0">
+					#{id}
+				</foreach>
+			</if>
+		</where>
+	</sql>
 
-   <!-- 同步需求 -->
-   <insert id="addBusinessRequirement" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement">
+	<sql id="batchDeleteRequireSource">
+		<where>
+			1=1
+			<if test="status!=null and status != ''">
+				AND status=#{status}
+			</if>
+			<if test="ids!=null">
+				AND require_id in
+				<foreach collection="ids" item="id" open="(" close=")"
+					separator="," index="0">
+					#{id}
+				</foreach>
+			</if>
+		</where>
+
+	</sql>
+
+	<sql id="batchDeleteRequireDatasetMap">
+		<where>
+			1=1
+			<if test="ids!=null">
+				AND require_id in
+				<foreach collection="ids" item="id" open="(" close=")"
+					separator="," index="0">
+					#{id}
+				</foreach>
+			</if>
+		</where>
+
+
+	</sql>
+	<!-- 同步需求 -->
+	<!-- 批量删除需求 -->
+	<delete id="deleteRequirement" parameterType="map">
+		delete from drap_business_requirement
+		<include refid="batchDeleteRequirement"></include>
+	</delete>
+
+	<delete id="deleteRequireResource">
+		delete from drap_requirement_resources
+		<include refid="batchDeleteRequireSource"></include>
+	</delete>
+
+	<delete id="deleteRequireDatasetMap">
+
+		delete from drap_requirement_dataset_map
+		<include refid="batchDeleteRequireDatasetMap"></include>
+
+	</delete>
+	<!-- 批量删除结束 -->
+	<insert id="addBusinessRequirement"
+		parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement">
 
 		insert into
 		drap_business_requirement
-		(id,region_code
-		, requre_dept_id,
-		source_dept_id,create_user, create_time,`status`,delete_flag
-		)values(#{id},#{regionCode},
-		#{requreDeptId},#{sourceDeptId},#{createUser},#{createTime},#{status},#{deleteFlag})
+		(id,region_code,requre_dept_id,source_dept_id,status,create_user,create_time,update_user,update_time,delete_flag
+		)values(#{id},#{regionCode},#{requreDeptId},#{sourceDeptId},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag})
 	</insert>
 
 	<insert id="addRequirementResource"
@@ -140,5 +211,5 @@
 			(#{a.id},#{a.requireId},#{a.datasetId})
 		</foreach>
 	</insert>
-   
+
 </mapper>

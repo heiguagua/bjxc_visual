@@ -37,6 +37,11 @@ public class DirDataOffline implements Serializable {
      */
 	@TableField("offline_time")
 	private Date offlineTime;
+    /**
+     * 有效标识
+     */
+    @TableField("active_flag")
+    private int activeFlag;
 
 
 	public String getId() {
@@ -71,4 +76,11 @@ public class DirDataOffline implements Serializable {
 		this.offlineTime = offlineTime;
 	}
 
+    public int getActiveFlag() {
+        return activeFlag;
+    }
+
+    public void setActiveFlag(int activeFlag) {
+        this.activeFlag = activeFlag;
+    }
 }

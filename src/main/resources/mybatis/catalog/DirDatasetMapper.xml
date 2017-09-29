@@ -38,7 +38,8 @@
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo">
-
+        <result column="classify_name" property="classifyName"/>
+        <result column="classify_status" property="classifyStatus"/>
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -53,6 +54,14 @@
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.* FROM dir_dataset t
         <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,MAX(IFNULL(m.status,0)) AS classify_status,GROUP_CONCAT(c.classify_structure_name) AS classify_name FROM dir_dataset t
+        left join  dir_dataset_classify_map m ON t.id=m.dataset_id
+        left join dir_classify c ON m.classify_id=c.id
+        <include refid="queryConditions"></include>
+        group by t.id
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">

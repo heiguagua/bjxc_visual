@@ -41,6 +41,13 @@ public class DirNews implements Serializable {
      */
 	@TableField("news_content")
 	private String newsContent;
+	
+	@TableField("pic_name")
+	private String picName;
+	
+	@TableField("pic_type")
+	private String picType;
+	
     /**
      * 发布人
      */
@@ -111,6 +118,22 @@ public class DirNews implements Serializable {
 
 	public void setNewsPic(String newsPic) {
 		this.newsPic = newsPic;
+	}
+	
+	public String getPicName() {
+		return picName;
+	}
+
+	public void setPicName(String picName) {
+		this.picName = picName;
+	}
+
+	public String getPicType() {
+		return picType;
+	}
+
+	public void setPicType(String picType) {
+		this.picType = picType;
 	}
 
 	public String getNewsContent() {

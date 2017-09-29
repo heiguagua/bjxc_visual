@@ -27,6 +27,7 @@
         <result column="update_user_id" property="updateUserId"/>
         <result column="update_time" property="updateTime"/>
         <result column="delete_flag" property="deleteFlag"/>
+        <result column="tree_code" property="treeCode"/>
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
@@ -138,9 +139,9 @@
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
         insert into
-        dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,classify_structure_code,classify_structure_name,status,create_user_id,create_time,update_user_id,update_time,delete_flag,icon)
+        dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,classify_structure_code,classify_structure_name,status,create_user_id,create_time,update_user_id,update_time,delete_flag,icon,tree_code)
         values(
-        #{id},#{regionCode},#{classifyCode},#{classifyName},#{classifyDesc},#{fid},#{fname},#{classifyLevel},#{classifyIndex},#{dcmIndex},#{orderNumber},#{classifyStructureCode},#{classifyStructureName},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},#{icon}
+        #{id},#{regionCode},#{classifyCode},#{classifyName},#{classifyDesc},#{fid},#{fname},#{classifyLevel},#{classifyIndex},#{dcmIndex},#{orderNumber},#{classifyStructureCode},#{classifyStructureName},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},#{icon},#{treeCode}
         )
     </insert>
 

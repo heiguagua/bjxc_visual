@@ -14,6 +14,8 @@
                             <result column="news_content" property="newsContent" />
                             <result column="publisher" property="publisher" />
                             <result column="publish_date" property="publishDate" />
+                            <result column="pic_name" property="picName" />
+                            <result column="pic_type" property="picType" />
                             <result column="status" property="status" />
                             <result column="create_user_id" property="createUserId" />
                             <result column="create_time" property="createTime" />
@@ -29,12 +31,26 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-                                <if test="id != null">
+            <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
-                                                                                                                                                                                                                                                                            </where>
+            <if test="deleteFlag != null">
+                t.delete_flag = #{deleteFlag,jdbcType=INTEGER}
+            </if>
+            <if test="searchKey != null">
+                 and t.title LIKE CONCAT('%',#{searchKey},'%')
+       		 </if>                                                                                                                                                                                                                                                                               </where>
     </sql>
 
+
+	<update id="updateDeleteFlag" parameterType="string">
+    	update dir_news 
+    	
+    		set delete_flag = 1
+     
+     	where  id = #{id}                              
+    </update>
+    
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
     		SELECT t.* FROM dir_news t <include refid="queryConditions"></include>
     </select>

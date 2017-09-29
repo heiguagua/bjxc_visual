@@ -9,7 +9,6 @@
     <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.configure.DirPolicy">
         <id column="id" property="id"/>
         <result column="region_code" property="regionCode"/>
-        <result column="source_type" property="sourceType"/>
         <result column="policy_level" property="policyLevel"/>
         <result column="title" property="title"/>
         <result column="content" property="content"/>
@@ -25,7 +24,7 @@
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.dir.entity.vo.configure.DirPolicyVo">
-
+	<result column="user_name" property="userName"/>
     </resultMap>
 	<update id="updateDeleteFlag" parameterType="string">
     	update dir_policy 
@@ -70,8 +69,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirPolicy">
-        insert into dir_policy(id,region_code,source_type,policy_level,title,content,publisher,publish_date,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(
-            #{id},#{regionCode},#{sourceType},#{policyLevel},#{title},#{content},#{publisher},#{publishDate},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag}  )
+        insert into dir_policy(id,region_code,policy_level,title,content,publisher,publish_date,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(
+            #{id},#{regionCode},#{policyLevel},#{title},#{content},#{publisher},#{publishDate},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag}  )
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirPolicy">
@@ -82,10 +81,7 @@
             </if>
             <if test="regionCode != null">
                 region_code = #{regionCode},
-            </if>
-            <if test="sourceType != null">
-                source_type = #{sourceType},
-            </if>
+            </if>           
             <if test="policyLevel != null">
                 policy_level = #{policyLevel},
             </if>

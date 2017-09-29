@@ -24,33 +24,40 @@ function initTable(){
             return $.extend(params, paramsObj);
         },
         columns: [{
-            field: 'set_name',
+            field: 'id',
+            visible: false
+        },{
+            field: 'datasetName',
             title: '信息资源名称',
-            sortable: true, //启用排序
-            width: '20%'
+            sortable: false,
+            width: '20%',
+            formatter:function(value, row, index){
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
-            field: 'dir_structure',
-            title: '所属目录类别'
+            field: 'classifyName',
+            title: '所属目录类别',
+            sortable: false,
+            formatter:function(value, row, index){
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
-            field: 'audit_status',
+            field: 'classifyStatus',
             title: '状态',
             width: '5%',
+            sortable: false,
             formatter: function(value, row, index) {
-                if (row['audit_status'] === 0) {
+                if (value == 0) {
                     return '待注册'
-                }
-                if (row['audit_status'] === 1) {
+                }else if (value == 1) {
                     return '已注册';
-                }
-                if (row['audit_status'] === 2) {
+                }else if (value == 2) {
                     return '待审核';
-                }
-                if (row['audit_status'] === 3) {
+                }else if (value == 3) {
                     return '待发布';
-                }
-                if (row['audit_status'] === 4) {
+                }else if (value == 4) {
                     return '已发布';
-                }else if (row['status'] == 6) {
+                }else if (value == 6) {
                     return '已下架';
                 }
             }

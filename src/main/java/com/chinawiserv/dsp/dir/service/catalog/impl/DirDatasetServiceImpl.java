@@ -140,10 +140,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Override
     public Page<DirDatasetVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-        Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
-        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
-
-        return null;
+        Page<DirDatasetVo> page = getPage(paramMap);
+        page.setOrderByField("create_time");
+        page.setAsc(false);
+        List<DirDatasetVo> dirDatasetClassifyMapVoList = mapper.selectInfoPage(page, paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+        return page;
 	}
 
     @Override
@@ -152,6 +155,17 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         page.setOrderByField("update_time");
         page.setAsc(false);
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+        return page;
+    }
+
+    @Override
+    public Page<DirDatasetClassifyMapVo> selectReleasedClassifyMapVoPage(Map<String, Object> paramMap){
+        Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
+        page.setOrderByField("update_time");
+        page.setAsc(false);
+        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForReleased(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
         return page;
@@ -211,6 +225,10 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             params.put("updateTime",now);
             int updateResult = dirDatasetClassifyMapMapper.batchUpdateStatus(params);
             if(updateResult >= 0){
+                Map<String, Object> updateFlagParams = new HashMap<>();
+                updateFlagParams.put("activeFlag",0);
+                updateFlagParams.put("ids",dcmIdArray);
+                registeMapper.batchUpdateActiveFlag(updateFlagParams);
                 List<DirDataRegisteVo> dataRegisteList = new ArrayList<>();
                 for(String dcmId : dcmIdArray){
                     DirDataRegisteVo dataRegiste = new DirDataRegisteVo();
@@ -218,6 +236,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     dataRegiste.setDcmId(dcmId);
                     dataRegiste.setRegisterId(ShiroUtils.getLoginUserId());
                     dataRegiste.setRegisteDate(now);
+                    dataRegiste.setActiveFlag(1);
                     dataRegisteList.add(dataRegiste);
                 }
                 int insertResult = registeMapper.insertListData(dataRegisteList);
@@ -245,6 +264,10 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             params.put("updateTime",now);
             int updateResult = dirDatasetClassifyMapMapper.batchUpdateStatus(params);
             if(updateResult >= 0){
+                Map<String, Object> updateFlagParams = new HashMap<>();
+                updateFlagParams.put("activeFlag",0);
+                updateFlagParams.put("ids",dcmIdArray);
+                auditMapper.batchUpdateActiveFlag(updateFlagParams);
                 List<DirDataAuditVo> dataAuditList = new ArrayList<>();
                 for(String dcmId : dcmIdArray){
                     DirDataAuditVo dataAudit = new DirDataAuditVo();
@@ -254,6 +277,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     dataAudit.setAuditorId(ShiroUtils.getLoginUserId());
                     dataAudit.setAuditDate(now);
                     dataAudit.setAuditOpinion(auditOpinion);
+                    dataAudit.setActiveFlag(1);
                     dataAuditList.add(dataAudit);
                 }
                 int insertResult = auditMapper.insertListData(dataAuditList);
@@ -280,6 +304,10 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             params.put("updateTime", now);
             int updateResult = dirDatasetClassifyMapMapper.batchUpdateStatus(params);
             if (updateResult >= 0) {
+                Map<String, Object> updateFlagParams = new HashMap<>();
+                updateFlagParams.put("activeFlag",0);
+                updateFlagParams.put("ids",dcmIdArray);
+                releaseMapper.batchUpdateActiveFlag(updateFlagParams);
                 List<DirDataPublishVo> dataPublishList = new ArrayList<>();
                 for (String dcmId : dcmIdArray) {
                     DirDataPublishVo dataPublish = new DirDataPublishVo();
@@ -287,14 +315,8 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     dataPublish.setDcmId(dcmId);
                     dataPublish.setPublisherId(ShiroUtils.getLoginUserId());
                     dataPublish.setPublishDate(now);
-                    if (Dataset.PublishType.ToNet.getKey().equals(publishType)) {
-                        dataPublish.setPublishToNet(1);
-                    } else if (Dataset.PublishType.ToDzzw.getKey().equals(publishType)) {
-                        dataPublish.setPublishToDzzw(1);
-                    } else {
-                        dataPublish.setPublishToNet(1);
-                        dataPublish.setPublishToDzzw(1);
-                    }
+                    dataPublish.setPublishType(publishType);
+                    dataPublish.setActiveFlag(1);
                     dataPublishList.add(dataPublish);
                 }
                 int insertResult = releaseMapper.insertListData(dataPublishList);
@@ -320,6 +342,10 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             params.put("updateTime",now);
             int updateResult = dirDatasetClassifyMapMapper.batchUpdateStatus(params);
             if(updateResult >= 0){
+                Map<String, Object> updateFlagParams = new HashMap<>();
+                updateFlagParams.put("activeFlag",0);
+                updateFlagParams.put("ids",dcmIdArray);
+                auditMapper.batchUpdateActiveFlag(updateFlagParams);
                 List<DirDataAuditVo> dataAuditList = new ArrayList<>();
                 for(String dcmId : dcmIdArray){
                     DirDataAuditVo dataAudit = new DirDataAuditVo();
@@ -328,6 +354,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     dataAudit.setAuditStatus("4");
                     dataAudit.setAuditorId(ShiroUtils.getLoginUserId());
                     dataAudit.setAuditDate(now);
+                    dataAudit.setActiveFlag(1);
                     dataAuditList.add(dataAudit);
                 }
                 int insertResult = auditMapper.insertListData(dataAuditList);
@@ -352,6 +379,10 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             params.put("updateTime",now);
             int updateResult = dirDatasetClassifyMapMapper.batchUpdateStatus(params);
             if(updateResult >= 0){
+                Map<String, Object> updateFlagParams = new HashMap<>();
+                updateFlagParams.put("activeFlag",0);
+                updateFlagParams.put("ids",dcmIdArray);
+                offlineMapper.batchUpdateActiveFlag(updateFlagParams);
                 List<DirDataOfflineVo> dataOfflineList = new ArrayList<>();
                 for(String dcmId : dcmIdArray){
                     DirDataOfflineVo dataOffline = new DirDataOfflineVo();
@@ -359,6 +390,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     dataOffline.setDcmId(dcmId);
                     dataOffline.setOfflineUserId(ShiroUtils.getLoginUserId());
                     dataOffline.setOfflineTime(now);
+                    dataOffline.setActiveFlag(1);
                     dataOfflineList.add(dataOffline);
                 }
                 int insertResult = offlineMapper.insertListData(dataOfflineList);
