@@ -43,7 +43,7 @@
                                     <input class="form-control" id="editListSearch" name="searchEdit" placeholder="资源名称"
                                            type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat" id="queryListBtnEdit" type="button">
+                                        <button class="btn btn-primary btn-flat btn_blue" id="queryListBtnEdit" type="button">
                                             <i class="fa fa-search">
                                             </i> 搜索
                                         </button>
