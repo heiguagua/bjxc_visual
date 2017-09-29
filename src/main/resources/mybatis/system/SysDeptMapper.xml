@@ -94,7 +94,7 @@
 		<include refid="queryConditions"></include>
 	</select>
 
-	<select id="selectVoListForTreeData" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
+	<select id="selectVoListForTreeData" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo" useCache="false">
 		SELECT t.*,r.region_name,CASE WHEN b.dcode IS NULL THEN '1' ELSE '0' END AS isLeaf
 		FROM sys_dept t
 		LEFT JOIN sys_region r ON t.region_code = r.region_code

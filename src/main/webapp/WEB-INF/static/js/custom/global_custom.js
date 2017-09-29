@@ -1493,13 +1493,14 @@ function initGlobalCustom(tempUrlPrefix) {
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].deptName,
+                                'fid': nodeObjs[i].fid,
                                 'isParent': (nodeObjs[i].isLeaf ? false : true)
                             }
                         }
                         return params;
                     }
                 },
-                check: {enable: true,chkStyle: chkStyle,chkboxType: { "Y":"s","N":"s"},radioType: "all"},
+                check: {enable: true,chkStyle: chkStyle,chkboxType: { "Y":"ps","N":"ps"}},
                 callback: {
                     beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
                         var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
@@ -1515,28 +1516,51 @@ function initGlobalCustom(tempUrlPrefix) {
                         }
                     },
                     onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的名称，显示到输入框中
-                        var ids = "", names = "";
+                        var ids = [], names = [];
                         if(multiple){
-                            if(treeNode.checked){
-                                selects[treeNode.id] = treeNode.name;
-                            }else{
-                                delete selects[treeNode.id];
+                            var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId), selectNodes = zTreeObj.getCheckedNodes(true)
+                            var resultList = [];
+                            var tempList = [];
+                            for(var i in selectNodes){
+                                var node = selectNodes[i];
+                                if(node.check_Child_State!=1){
+                                    tempList.push(node);
+                                }
                             }
-                            for(var id in selects){
-                                var name = selects[id];
-                                if(name && id){
-                                    if(ids) ids += ",";
-                                    ids += id;
-                                    if(names) names += ",";
-                                    names += name;
+                            if(tempList.length > 0){
+                                for(var i in tempList){
+                                    var flag = false;
+                                    var tempNode = tempList[i];
+                                    for(var j in tempList){
+                                        if(tempNode.fid == tempList[j].id){
+                                            flag = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!flag){
+                                        resultList.push(tempNode);
+                                    }
+                                }
+                            }
+                            for(var i in resultList){
+                                var selectedNode = resultList[i];
+                                var id = selectedNode.id;
+                                var name = selectedNode.name;
+                                if(id && name){
+                                    ids.push(id);
+                                    names.push(name);
                                 }
                             }
                         }else{
-                            ids = treeNode.id;
-                            names = treeNode.name;
+                            var id = treeNode.id;
+                            var name = treeNode.name;
+                            if(id && name){
+                                ids.push(id);
+                                names.push(name);
+                            }
                         }
-                        $('#' + codeInputDomId).val(ids);
-                        $('#' + nameInputDomId).val(names);
+                        $('#' + codeInputDomId).val(ids.join(","));
+                        $('#' + nameInputDomId).val(names.join(","));
                     }
                 }
             };
