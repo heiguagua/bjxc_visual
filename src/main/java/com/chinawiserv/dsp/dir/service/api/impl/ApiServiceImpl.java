@@ -3,8 +3,7 @@ package com.chinawiserv.dsp.dir.service.api.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.system.SysDept;
-import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.po.system.*;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetServiceMap;
 import com.chinawiserv.dsp.dir.entity.po.service.DirServiceInfo;
@@ -344,8 +343,33 @@ public class ApiServiceImpl implements IApiService {
     }
 
     @Override
+    public List<SysDict> syncSysDictData() {
+        return apiMapper.syncSysDictData();
+    }
+
+    @Override
     public List<SysUser> syncUserData() {
         return apiMapper.syncUserData();
+    }
+
+    @Override
+    public List<SysRegion> syncSysRegionData() {
+        return apiMapper.syncSysRegionData();
+    }
+
+    @Override
+    public List<SysRegionLevel> syncSysRegionLevelData() {
+        return apiMapper.syncSysRegionLevelData();
+    }
+
+    @Override
+    public List<SysDeptAuthority> syncSysDeptAuthorityData() {
+        return apiMapper.syncSysDeptAuthorityData();
+    }
+
+    @Override
+    public List<SysDeptAuthorityApply> syncSysDeptAuthorityApplyData() {
+        return apiMapper.syncSysDeptAuthorityApplyData();
     }
 
     @Override

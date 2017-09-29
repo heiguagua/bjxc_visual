@@ -1,7 +1,6 @@
 package com.chinawiserv.dsp.dir.mapper.api;
 
-import com.chinawiserv.dsp.base.entity.po.system.SysDept;
-import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.po.system.*;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 
 import java.util.List;
@@ -37,14 +36,19 @@ public interface ApiMapper{
 
     List<SysUser> syncUserData();
 
+    List<SysDict> syncSysDictData();
+
+    List<SysRegion> syncSysRegionData();
+
+    List<SysRegionLevel> syncSysRegionLevelData();
+
+    List<SysDeptAuthority> syncSysDeptAuthorityData();
+
+    List<SysDeptAuthorityApply> syncSysDeptAuthorityApplyData();
+
     List<Map<String, Object>> getDbInfoBySystemId(Map<String, Object> paramMap);
 
     List<Map<String,Object>> getSystemInfoByDeptId(Map<String,Object> paramMap);
-
-    /**
-     * 发布服务
-     * */
-
 
     /**
      * 查询服务

@@ -4,6 +4,7 @@ import com.chinawiserv.dsp.base.common.util.Props;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -57,9 +58,9 @@ public class SyncUserInfoTaskSchema {
                     sysUser = new SysUser();
 
                     sysUser.setRealName(rsUser.getString("user_name"));
-                    sysUser.setUserName(rsUser.getString("login_time"));
-                    sysUser.setCreateTime(rsUser.getDate("register_time"));
-                    sysUser.setUpdateTime(rsUser.getDate("updatetime"));
+                    sysUser.setCreateTime(rsUser.getTimestamp("register_time"));
+                    sysUser.setUserName(rsUser.getString("login_name"));
+                    sysUser.setUpdateTime(rsUser.getTimestamp("updatetime"));
                     sysUser.setStatus(rsUser.getInt("status"));
                     sysUser.setEmail(rsUser.getString("email"));
                     sysUser.setCellPhoneNumber(rsUser.getString("mobile"));
@@ -67,8 +68,8 @@ public class SyncUserInfoTaskSchema {
                     sysUser.setId(rsUser.getString("uuid"));
                     sysUser.setUserImg(rsUser.getString("head_img"));
                     sysUser.setDeptId(rsUser.getString("organize_code"));
-                    sysUser.setUpdateTime(rsUser.getDate("last_update_time"));
-
+                    sysUser.setUpdateTime(rsUser.getTimestamp("last_update_time"));
+                    sysUser.setUserType(1);
                     users.add(sysUser);
                 }
 
@@ -86,7 +87,7 @@ public class SyncUserInfoTaskSchema {
                     sysDept.setFunctionKeyword(rsDept.getString("function_keyword"));
                     sysDept.setDeptAddress(rsDept.getString("org_address"));
                     sysDept.setRegionCode(rsDept.getString("region_code"));
-                    sysDept.setCreateTime(rsDept.getDate("create_time"));
+                    sysDept.setCreateTime(rsDept.getTimestamp("create_time"));
                     sysDept.setDeptContactPhone(rsDept.getString("landline_telephone"));
                     sysDept.setDeptListingName(rsDept.getString("listing_name"));
                     sysDept.setDeptContactFixedPhone(rsDept.getString("othter_connact"));
@@ -101,15 +102,18 @@ public class SyncUserInfoTaskSchema {
                     sysDept.setDeptContactDept(rsDept.getString("org_extend_code"));
                     sysDept.setFid(rsDept.getString("fuuid"));
                     sysDept.setFname(rsDept.getString("org_fname"));
-                    sysDept.setDeptName(rsDept.getString("org_fullname"));
+                    String deptName = rsDept.getString("org_fullname");
+                    if(StringUtils.isBlank(deptName)){
+                        deptName = rsDept.getString("org_shortname");
+                    }
+                    sysDept.setDeptName(deptName);
                     sysDept.setDeptResponseMan(rsDept.getString("org_response_person"));
                     sysDept.setRegionCode(rsDept.getString("region"));
                     sysDept.setDeptResponseEmail(rsDept.getString("response_email"));
                     sysDept.setDeptResponsePhone(rsDept.getString("response_phone"));
                     sysDept.setDeptFunction(rsDept.getString("org_function"));
-                    sysDept.setUpdateTime(rsDept.getDate("last_update_time"));
+                    sysDept.setUpdateTime(rsDept.getTimestamp("last_update_time"));
                     sysDept.setDeptLevel(rsDept.getInt("org_level"));
-
                     depts.add(sysDept);
                 }
                 /**
