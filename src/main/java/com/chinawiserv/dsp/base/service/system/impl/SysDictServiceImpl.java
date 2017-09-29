@@ -56,7 +56,11 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
     @Override
     public Page<SysDictVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
 		//todo
-		return null;
+        Page<SysDictVo> page = getPage(paramMap);
+        page.setOrderByField("create_time");
+        List<SysDictVo> dictVos = mapper.selectVoPage(page,paramMap);
+        page.setRecords(dictVos);
+		return page;
 	}
 
     @Override

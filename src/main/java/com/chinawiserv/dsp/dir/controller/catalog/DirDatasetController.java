@@ -11,6 +11,7 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetSourceRelationService;
@@ -70,7 +71,7 @@ public class DirDatasetController extends BaseController {
 
     @RequestMapping("/auditInfo")
     public  String auditInfo(@RequestParam String id, Model model){
-        model.addAttribute("id",id);
+        model.addAttribute("id", id);
         return "catalog/audit/auditInfo";
     }
 
@@ -155,7 +156,7 @@ public class DirDatasetController extends BaseController {
         PageResult pageResult = new PageResult();
         try {
             paramMap.put("status","3"); //查询过滤状态为待发布的数据
-            Page<DirDatasetVo> page = service.selectVoPage(paramMap);
+            Page<DirDatasetClassifyMapVo> page = service.selectClassifyMapVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
             pageResult.error("分页查询数据集（未发布）出错");
@@ -174,7 +175,7 @@ public class DirDatasetController extends BaseController {
         PageResult pageResult = new PageResult();
         try {
             paramMap.put("status","5"); //查询过滤状态为已发布的数据
-            Page<DirDatasetVo> page = service.selectVoPage(paramMap);
+            Page<DirDatasetClassifyMapVo> page = service.selectReleasedClassifyMapVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
             pageResult.error("分页查询数据集（已发布）出错");
@@ -192,7 +193,7 @@ public class DirDatasetController extends BaseController {
     public PageResult queryList(@RequestParam Map<String , Object> paramMap){
         PageResult pageResult = new PageResult();
         try {
-            Page<DirDatasetVo> page = service.selectVoPage(paramMap);
+            Page<DirDatasetClassifyMapVo> page = service.selectClassifyMapVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
             pageResult.error("分页查询数据集（目录查询）出错");
@@ -333,24 +334,79 @@ public class DirDatasetController extends BaseController {
     }
 
     /**
-     * 执行发布
+     * 执行发布到互联网
      */
     @RequiresPermissions("catalog:release:save")
-    @Log("信息资源发布")
-    @RequestMapping("/release/doRelease")
+    @Log("信息资源发布到互联网")
+    @RequestMapping("/release/releaseToInternet")
     @ResponseBody
-    public  HandleResult doRelease(@RequestParam Map<String , Object> paramMap){
+    public  HandleResult releaseToInternet(@RequestParam String dcmId){
         HandleResult handleResult = new HandleResult();
         try {
-            boolean auditResult = service.release(paramMap);
-            if(auditResult){
+            Map<String,Object> params = new HashMap<>();
+            params.put("dcmId",dcmId);
+            params.put("publishType", Dataset.PublishType.ToNet.getKey());
+            boolean releaseResult = service.release(params);
+            if(releaseResult){
                 handleResult.success("发布成功");
             }else{
                 handleResult.error("发布失败");
             }
         } catch (Exception e) {
-            handleResult.error("信息资源发布失败");
-            logger.error("信息资源发布失败", e);
+            handleResult.error("信息资源发布到互联网失败");
+            logger.error("信息资源发布到互联网失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 执行发布到电子政务外网
+     */
+    @RequiresPermissions("catalog:release:save")
+    @Log("信息资源发布到电子政务外网")
+    @RequestMapping("/release/releaseToDzzw")
+    @ResponseBody
+    public  HandleResult releaseToDzzw(@RequestParam String dcmId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String,Object> params = new HashMap<>();
+            params.put("dcmId",dcmId);
+            params.put("publishType", Dataset.PublishType.ToDzzw.getKey());
+            boolean releaseResult = service.release(params);
+            if(releaseResult){
+                handleResult.success("发布成功");
+            }else{
+                handleResult.error("发布失败");
+            }
+        } catch (Exception e) {
+            handleResult.error("信息资源发布到电子政务外网失败");
+            logger.error("信息资源发布到电子政务外网失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 执行同时发布
+     */
+    @RequiresPermissions("catalog:release:save")
+    @Log("信息资源同时发布")
+    @RequestMapping("/release/releaseAll")
+    @ResponseBody
+    public  HandleResult releaseAll(@RequestParam String dcmId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String,Object> params = new HashMap<>();
+            params.put("dcmId",dcmId);
+            params.put("publishType", Dataset.PublishType.ToAll.getKey());
+            boolean releaseResult = service.release(params);
+            if(releaseResult){
+                handleResult.success("发布成功");
+            }else{
+                handleResult.error("发布失败");
+            }
+        } catch (Exception e) {
+            handleResult.error("信息资源同时发布失败");
+            logger.error("信息资源同时发布失败", e);
         }
         return handleResult;
     }
@@ -445,7 +501,7 @@ public class DirDatasetController extends BaseController {
         HandleResult handleResult = new HandleResult();
         try {
             service.insertVO(entity);
-            relationService.insertDatasetListRelation(entity.getRelations(),entity.getId());
+            relationService.insertDatasetListRelation(entity.getRelations(), entity.getId());
             handleResult.success("创建数据集（信息资源）成功");
         } catch (Exception e) {
             handleResult.error("创建数据集（信息资源）失败");

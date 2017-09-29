@@ -14,9 +14,10 @@ jQuery(document).ready(function () {
             $("#releasedSearchDiv").css("display","block");
             initReleasedTable();
         }
-    })
+    });
     initAllSelect();
     initButtonClickEvent();
+    $("#unReleaseTab").click();
 });
 
 
@@ -24,6 +25,7 @@ function initUnReleaseTable(){
     var searchName = $("#unReleaseSearchName").val();
     var searchClassify = $("#unReleaseSearchClassifyId").val();
     paramsObj = {datasetName:searchName,classifyId:searchClassify};
+    $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/unRelease/list',
         queryParams: function (params) {
@@ -46,7 +48,7 @@ function initUnReleaseTable(){
                 return '<p title="'+value+'">'+value+'</p>';
             }
         }, {
-            field: 'classifyName',
+            field: 'classifyStructureName',
             title: '所属目录类别',
             sortable: false,
             formatter:function(value, row, index){
@@ -105,8 +107,9 @@ function initReleasedTable(){
     var searchName = $("#releasedSearchName").val();
     var searchClassify = $("#releasedSearchClassifyId").val();
     paramsObj = {datasetName:searchName,classifyId:searchClassify};
+    $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
-        url: basePathJS + '/catalog/unRelease/list',
+        url: basePathJS + '/catalog/released/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
@@ -127,7 +130,7 @@ function initReleasedTable(){
                 return '<p title="'+value+'">'+value+'</p>';
             }
         }, {
-            field: 'classifyName',
+            field: 'classifyStructureName',
             title: '所属目录类别',
             sortable: false,
             formatter:function(value, row, index){
@@ -143,26 +146,21 @@ function initReleasedTable(){
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
-            field: 'status',
-            title: '状态',
-            width: '10%',
+            field: 'publishType',
+            title: '发布平台类型',
+            width: '20%',
+            align: 'center',
             sortable: false,
             formatter: function(value, row, index) {
-                if (row['status'] == 0) {
-                    return '待注册'
-                }else if (row['status'] == 1) {
-                    return '待审核';
-                }else if (row['status'] == 2) {
-                    return '审核不通过';
-                }else if (row['status'] == 3) {
-                    return '待发布';
-                }else if (row['status'] == 4) {
-                    return '驳回审核';
-                }else if (row['status'] == 5) {
-                    return '已发布';
-                }else if (row['status'] == 6) {
-                    return '已下架';
+                var typeHtml="";
+                if(value == "1"){
+                    typeHtml = '<div class="text-left"><span><i class="interNet"></i> </span>互联网&nbsp;&nbsp;<span><i class="fa fa-circle"></i> 电子政务外网</span></div>';
+                }else if(value == "2"){
+                    typeHtml = '<div class="text-left"><span><i class="fa fa-circle"></i> </span>互联网&nbsp;&nbsp;<span class=" interNet"> </span>电子政务外网</div>';
+                }else if(value == "3"){
+                    typeHtml = '<div class="text-left"><span class="interNet"> </span>互联网&nbsp;&nbsp;<span class="interNet"> </span>电子政务外网</div>';
                 }
+                return typeHtml;
             }
         }, {
             field: 'uuid',
@@ -194,8 +192,12 @@ function initButtonClickEvent(){
     invokeButton("auditRejectButton","/catalog/release/auditReject","审核驳回");
     //点击下架按钮
     invokeButton("offlineButton","/catalog/release/offline","下架");
-    //点击发布按钮
-    invokeButton("releaseButton","/catalog/release/doRelease","发布");
+    //发布到互联网按钮
+    invokeButton("releaseToInternet","/catalog/release/releaseToInternet","发布到互联网");
+    //发布到电子政务外网按钮
+    invokeButton("releaseToDzzw","/catalog/release/releaseToDzzw","发布到电子政务外网");
+    //同时发布按钮
+    invokeButton("releaseAll","/catalog/release/releaseAll","同时发布");
 
     //点击未发布的查询按钮
     $('#unReleaseQueryBtn').click(function () {
@@ -219,17 +221,20 @@ function invokeButton(buttonId, url, msg){
                 var dcmId = selectedRow[i].id;
                 selectedDcmIds += i == 0 ? dcmId : "," + dcmId;
             }
-            $.commonAjax({
-                url:basePathJS + url,
-                data:{dcmIds:selectedDcmIds},
-                success:function(result){
-                    if(result.state){
-                        successMsgTip(result.msg);
-                        reloadTable();
-                    }else{
-                        errorMsgTip(result.msg);
+            layer.confirm("是否要对选中的信息资源进行"+msg+"操作?", {icon: 3, title:"确认信息", zIndex: layer.zIndex}, function(index){
+                $.commonAjax({
+                    url:basePathJS + url,
+                    data:{dcmId:selectedDcmIds},
+                    success:function(result){
+                        if(result.state){
+                            successMsgTip(result.msg);
+                            reloadTable();
+                        }else{
+                            errorMsgTip(result.msg);
+                        }
                     }
-                }
+                });
+                layer.close(index);
             });
         }else{
             errorMsgTip("请先选择要"+msg+"的信息资源");

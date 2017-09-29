@@ -12,6 +12,7 @@
         <result column="register_id" property="registerId"/>
         <result column="registe_date" property="registeDate"/>
         <result column="registe_opinion" property="registeOpinion"/>
+        <result column="active_flag" property="activeFlag"/>
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
@@ -43,15 +44,15 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataRegiste">
-        insert into dir_data_registe(id,dcm_id,register_id,registe_date,registe_opinion) values(
-        #{id},#{dcmId},#{registerId},#{registeDate},#{registeOpinion} )
+        insert into dir_data_registe(id,dcm_id,register_id,registe_date,registe_opinion,active_flag) values(
+        #{id},#{dcmId},#{registerId},#{registeDate},#{registeOpinion},#{activeFlag} )
     </insert>
 
     <insert id="insertListData">
-        insert into dir_data_registe(id,dcm_id,register_id,registe_date,registe_opinion)
+        insert into dir_data_registe(id,dcm_id,register_id,registe_date,registe_opinion,active_flag)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.dcmId},#{item.registerId},#{item.registeDate},#{item.registeOpinion} )
+            (#{item.id},#{item.dcmId},#{item.registerId},#{item.registeDate},#{item.registeOpinion},#{item.activeFlag} )
         </foreach>
     </insert>
 
@@ -73,8 +74,37 @@
             <if test="registeOpinion != null">
                 registe_opinion = #{registeOpinion},
             </if>
+            <if test="activeFlag != null">
+                active_flag = #{activeFlag},
+            </if>
+
         </set>
         where id = #{id}
+    </update>
+
+    <update id="batchUpdateActiveFlag" parameterType="java.util.Map">
+        <if test="ids != null and ids !='' ">
+            update dir_data_registe
+            <set>
+                <if test="registerId != null">
+                    register_id = #{registerId},
+                </if>
+                <if test="registeDate != null">
+                    registe_date = #{registeDate},
+                </if>
+                <if test="registeOpinion != null">
+                    registe_opinion = #{registeOpinion},
+                </if>
+                <if test="activeFlag != null">
+                    active_flag = #{activeFlag},
+                </if>
+
+            </set>
+            where dcm_id in
+            <foreach collection="ids" open="(" close=")" item="item" separator=",">
+                #{item, jdbcType=VARCHAR}
+            </foreach>
+        </if>
     </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">

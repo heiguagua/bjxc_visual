@@ -38,7 +38,33 @@
         AND ddti.id = #{table_id}
     </select>
 
-    <select id="selectFieldByIds" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDbTableColumn">
+    <resultMap id="result_DrapDbTableColumn_Map" type="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDbTableColumn">
+        <id column="id" property="id" />
+        <result column="table_id" property="table_id" />
+        <result column="column_code" property="column_code" />
+        <result column="column_cn_name" property="column_cn_name" />
+        <result column="default_value" property="default_value" />
+        <result column="column_length" property="column_length" />
+        <result column="column_en_name" property="column_en_name" />
+        <result column="is_business_data" property="is_business_data" />
+        <result column="is_pk" property="is_pk" />
+        <result column="is_null" property="is_null" />
+        <result column="column_type" property="column_type" />
+        <result column="sensitive_remark" property="sensitive_remark" />
+        <result column="update_frequency" property="update_frequency" />
+        <result column="column_desc" property="column_desc" />
+        <result column="data_precision" property="data_precision" />
+        <result column="code_index" property="code_index" />
+        <result column="status" property="status" />
+        <result column="delete_flag" property="delete_flag" />
+
+        <result column="table_cn_name" property="table_cn_name" />
+        <result column="table_name" property="table_name" />
+        <result column="dept_name" property="dept_name" />
+        <result column="dept_id" property="dept_id" />
+    </resultMap>
+
+    <select id="selectFieldByIds" resultMap="result_DrapDbTableColumn_Map">
         SELECT
             ddtc.*, ddti.table_cn_name,
             ddti.table_name,

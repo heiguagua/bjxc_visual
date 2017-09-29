@@ -28,15 +28,10 @@ public class DirDataPublish implements Serializable {
 	@TableField("dcm_id")
 	private String dcmId;
     /**
-     * 是否发布到互联网
+     * 发布类型
      */
-	@TableField("publish_to_net")
-	private Integer publishToNet;
-    /**
-     * 是否发布到电子政务外网
-     */
-	@TableField("publish_to_dzzw")
-	private Integer publishToDzzw;
+	@TableField("publish_type")
+	private String publishType;
     /**
      * 发布人
      */
@@ -47,6 +42,11 @@ public class DirDataPublish implements Serializable {
      */
 	@TableField("publish_date")
 	private Date publishDate;
+    /**
+     * 有效标识
+     */
+    @TableField("active_flag")
+    private int activeFlag;
 
 
 	public String getId() {
@@ -65,23 +65,15 @@ public class DirDataPublish implements Serializable {
 		this.dcmId = dcmId;
 	}
 
-	public Integer getPublishToNet() {
-		return publishToNet;
-	}
+    public String getPublishType() {
+        return publishType;
+    }
 
-	public void setPublishToNet(Integer publishToNet) {
-		this.publishToNet = publishToNet;
-	}
+    public void setPublishType(String publishType) {
+        this.publishType = publishType;
+    }
 
-	public Integer getPublishToDzzw() {
-		return publishToDzzw;
-	}
-
-	public void setPublishToDzzw(Integer publishToDzzw) {
-		this.publishToDzzw = publishToDzzw;
-	}
-
-	public String getPublisherId() {
+    public String getPublisherId() {
 		return publisherId;
 	}
 
@@ -97,4 +89,11 @@ public class DirDataPublish implements Serializable {
 		this.publishDate = publishDate;
 	}
 
+    public int getActiveFlag() {
+        return activeFlag;
+    }
+
+    public void setActiveFlag(int activeFlag) {
+        this.activeFlag = activeFlag;
+    }
 }

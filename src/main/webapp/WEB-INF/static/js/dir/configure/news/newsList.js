@@ -1,4 +1,4 @@
-var tableSelector = '#dirSpecialAppsTableId';
+var tableSelector = '#dirNewsTableId';
 
 jQuery(document).ready(function () {
     "use strict";
@@ -22,8 +22,8 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
-            field: 'newsContent',
-            title: '新闻内容',
+            field: 'picType',
+            title: '图片类型',
             align: 'center',
             valign: 'middle',
             sortable: false,           
@@ -44,7 +44,7 @@ jQuery(document).ready(function () {
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                 var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteUser(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
 
-                return statusBtn + OPERATION_SEPARATOReditBtn + OPERATION_SEPARATOR + deleteBtn ;
+                return statusBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR + deleteBtn ;
             }
         }]
     });
@@ -56,7 +56,7 @@ jQuery(document).ready(function () {
 
     function setParams() {
         var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {searchKey : searchKeyVal};
+        paramsObj = {searchKey : searchKeyVal,deleteFlag:0};
     }
     
     
@@ -83,7 +83,7 @@ function editUser(id) {
 }
 
 function deleteUser(id) {
-    var url = basePathJS + "/dirSpecialApps/delete";
+    var url = basePathJS + "/dirNews/delete";
     var parameter = {id: id};
     delObj(url , parameter) ;
 }

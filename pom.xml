@@ -325,10 +325,10 @@
                 </configuration>
             </plugin>
             <!-- 自定义打包，add by liuzx -->
-            <!--<plugin>
+            <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    &lt;!&ndash;生成的目录名是否包括package xml定义的id名&ndash;&gt;
+                    <!--生成的目录名是否包括package xml定义的id名 -->
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptors>
                         <descriptor>src/main/build/package.xml</descriptor>
@@ -343,7 +343,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
         </plugins>
     </build>
 

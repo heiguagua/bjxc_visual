@@ -33,4 +33,6 @@ public interface DirDataOfflineMapper extends BaseMapper<DirDataOffline> {
     int baseDelete(String id);
 
     int insertListData(@Param("list") List<DirDataOfflineVo> list);
+
+    int batchUpdateActiveFlag(Map<String, Object> paramMap);
 }
