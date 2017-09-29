@@ -197,6 +197,7 @@
                     }
                 },
                 {field: 'correctorName', title: '纠错用户'},
+                {field: 'datasetName', title: '资源名称'},
                 {field: 'correctContent', title: '纠错内容'},
                 {field: 'correctDate', title: '最后纠错时间', width: '15%'}
             ]

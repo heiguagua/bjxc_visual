@@ -197,6 +197,7 @@
                     }
                 },
                 {field: 'raterName', title: '评分用户'},
+                {field: 'datasetName', title: '资源名称'},
                 {field: 'rateScore', title: '评分值', width: '15%'},
                 {field: 'rateDate', title: '最后评分时间', width: '15%'}
             ]
