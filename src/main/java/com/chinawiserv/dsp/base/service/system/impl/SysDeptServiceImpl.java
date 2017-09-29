@@ -86,11 +86,11 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         }
         List<SysDeptVo> list = new ArrayList();
         Map<String, Object> param = new HashMap();
-        String regionCode = (String) paramMap.get("regionCode");
+        /*String regionCode = (String) paramMap.get("regionCode");
         if(StringUtils.isBlank(regionCode)){
             regionCode = ShiroUtils.getLoginUser().getRegionCode();
         }
-        param.put("regionCode", regionCode);
+        param.put("regionCode", regionCode);*/
         if("1".equals(onlyRoot)){
             param.put("onlyRoot", onlyRoot);
         }else {
@@ -98,7 +98,9 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             if(StringUtils.isNotBlank(id)){
                 param.put("fid", id);
             }else {
-                param.put("treeCode", ShiroUtils.getLoginUser().getDeptTreeCode());
+                /*param.put("treeCode", ShiroUtils.getLoginUser().getDeptTreeCode());*/
+                param.put("topLevelDept", "1");
+                param.putAll(getDeptCondition(null));
 
                 String excludeRoot = (String) paramMap.get("excludeRoot");
                 if(StringUtils.isBlank(excludeRoot)){

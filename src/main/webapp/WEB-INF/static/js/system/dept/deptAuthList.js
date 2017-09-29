@@ -116,7 +116,7 @@ function  dirAndDeptAllot(id,authType) {
       getTree('目录分配',url,500,300,id,url2,'dir')
   }
     if(authType==="dept"){
-        url= basePathJS+'/system/dept/getDeptSelectDataList';
+        url= basePathJS+'/system/dept/getDeptSelectDataList?';
         getTree('部门分配',url,500,300,id,url2,'dept')
     }
 }
