@@ -69,14 +69,14 @@
                         <form class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group">
-                                    <a class="btn btn-primary  btn-flat" onclick="javascript:retdcView()"> <i
+                                    <a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:retdcView()"> <i
                                             class="fa fa-reply">&#160;</i>返回收藏管理列表</a>
                                 </div>
                                 <div class="input-group pull-right">
                                     <input class="form-control" id="editDetailSearch" name="searchDetailEdit"
                                            placeholder="用户名称" type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat" id="queryDetailBtnEdit" type="button">
+                                        <button class="btn btn-primary btn-flat btn_blue" id="queryDetailBtnEdit" type="button">
                                             <i class="fa fa-search">
                                             </i> 搜索
                                         </button>
