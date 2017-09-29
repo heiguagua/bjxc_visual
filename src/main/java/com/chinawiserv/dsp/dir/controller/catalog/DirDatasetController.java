@@ -6,6 +6,7 @@ import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
@@ -497,19 +498,36 @@ public class DirDatasetController extends BaseController {
      */
     @RequestMapping("/quickAddDataset")
     @ResponseBody
-    public  HandleResult quickAddDataset(DirDatasetVo entity, Model model){
+    public  HandleResult quickAddDataset(DirDatasetVo entity,Integer tableNumber, Model model){
         HandleResult handleResult = new HandleResult();
-        try {
-            service.insertVO(entity);
-            relationService.insertDatasetListRelation(entity.getRelations(), entity.getId());
-            handleResult.success("创建数据集（信息资源）成功");
-        } catch (Exception e) {
-            handleResult.error("创建数据集（信息资源）失败");
-            logger.error("创建数据集（信息资源）失败", e);
+        if(verifyRelations(entity.getRelations(),tableNumber)){
+            try {
+                service.insertVO(entity);
+                relationService.insertDatasetListRelation(entity.getRelations(), entity.getId());
+                handleResult.success("创建数据集（信息资源）成功");
+            } catch (Exception e) {
+                handleResult.error("创建数据集（信息资源）失败");
+                logger.error("创建数据集（信息资源）失败", e);
+            }
+        }else{
+            handleResult.error("表间关系不足，请检查！");
         }
         return handleResult;
     }
 
+    public boolean verifyRelations(List<DirDatasetSourceRelation> relations,Integer tableNumber){
+        boolean b=true;
+        if(relations!=null||tableNumber!=null){
+            try {
+                if(tableNumber-1 > relations.size()){
+                    b=false;
+                }
+            } catch (Exception e) {
+                b=false;
+            }
+        }
+        return b;
+    }
     /**
      * 获取业务
      * @param dept_id

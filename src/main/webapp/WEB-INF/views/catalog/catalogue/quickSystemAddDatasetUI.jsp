@@ -327,6 +327,7 @@
                         </tbody>
                     </table>
                 </div>
+                <input id="tableNumber" type="hidden" name="tableNumber" value="">
             </form>
         </div>
     </div>

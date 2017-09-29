@@ -76,7 +76,14 @@
             </if>
                                                                                                             </where>
     </sql>
+    <insert id="insertList">
+        INSERT INTO `dir_dataitem_source_info` (`id`,`item_id`,`source_obj_type`,`source_obj_id`,`source_item_id`)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.itemId},#{item.sourceObjType},#{item.sourceObjId},#{item.sourceItemId})
+        </foreach>
 
+    </insert>
 
 
 </mapper>

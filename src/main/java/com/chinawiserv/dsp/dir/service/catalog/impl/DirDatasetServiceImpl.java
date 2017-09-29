@@ -55,7 +55,8 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     @Autowired
     private IDirClassifyService dirClassifyService;
 
-
+    @Autowired
+    private DirDataitemSourceInfoMapper sourceInfoMapper;
 
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
@@ -95,9 +96,14 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
                 classifyMapResult = dirDatasetClassifyMapMapper.insertListItem(classifyMapVoList);
             }
+            //数据项来源
+            List<DirDataitemSourceInfo> sourceInfos = vo.getSourceInfos();
             //数据集插入成功后，插入该数据集的数据项的数据
             List<DirDataitemVo> dirDataitemVoList = vo.getItems();
             if(!ObjectUtils.isEmpty(dirDataitemVoList)){
+                int i=0;
+                List<DirDataitemSourceInfo> insertSourceInfos=new ArrayList<>();
+                DirDataitemSourceInfo sourceInfo=null;
                 for(DirDataitemVo item : dirDataitemVoList){
                     String itemId = UUID.randomUUID().toString();
                     item.setId(itemId);
@@ -105,9 +111,21 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     item.setStatus("0");
                     item.setCreateUserId(logionUser.getId());
                     item.setCreateTime(createTime);
+                    //数据项来源
+                    if(!ObjectUtils.isEmpty(sourceInfos)){
+                        sourceInfo = sourceInfos.get(i);
+                        sourceInfo.setId(itemId);
+                        sourceInfo.setItemId(itemId);
+                        insertSourceInfos.add(sourceInfo);
+                        i++;
+                    }
                 }
                 itemResult = itemMapper.insertListItem(dirDataitemVoList);
+                if(insertSourceInfos!=null&&insertSourceInfos.size()>0){
+                    sourceInfoMapper.insertList(insertSourceInfos);
+                }
             }
+
         }
         if(classifyMapResult > 0){
             if(!ObjectUtils.isEmpty(vo.getItems())){

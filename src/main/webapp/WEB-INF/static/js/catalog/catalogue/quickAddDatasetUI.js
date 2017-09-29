@@ -354,7 +354,7 @@ $(document).on("click", "button#field_add", function(){
                         var arr=data.content.list;
                         for (var i in arr){
                            var thisTrNum = getTrNum();
-                           buildItem(thisTrNum,arr[i]);
+                           buildItem(thisTrNum,arr[i],sourceObjId);
                         }
                     }
                 }else{
@@ -443,7 +443,7 @@ function buildItem(thisTrNum,data){
         +'<td><input name="items['+thisTrNum+'].openCondition" type="text" class="form-control" value="'+(data.openCondition?data.openCondition:'')+'"></td>'
         +'<td><select name="items['+thisTrNum+'].storageLocation" data-rule="存储位置:required;" class="form-control">'+Dict.selectsDom("setItemStoreLocation",data.physicsStoreLocation?data.physicsStoreLocation:'')+'</select></td>'
         +'<td><select name="items['+thisTrNum+'].updateFrequency" data-rule="更新周期:required;" class="form-control">'+Dict.selectsDom("setItemFrequency",data.updateFrequency?data.updateFrequency:'')+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
+        +'<td><input type="hidden" name="sourceInfos['+thisTrNum+'].sourceObjId" value="'+data.id+'"><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
     $('#dataitemList').prepend(str)}
 function infoTableDel(thisTrNum){
     $('#tr_'+thisTrNum).remove();
