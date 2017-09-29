@@ -22,7 +22,7 @@
 
         <section class="content-header">
             <h1>
-                <small>返回上一级/目录管理 /目录编目</small>
+                <small>门户管理 > 收藏管理</small>
             </h1>
             <!-- <ul class="title_ul">
                 <li class="active"><i class="fa fa-desktop" style="font-size:20px"></i>&nbsp;常规模式</li>
@@ -37,11 +37,8 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline marginBot" method="post">
+                        <form class="form-inline marginBot" method="post">
                             <div class="box-header">
-                                <div class="input-group">
-                                   <a class="btn btn-default btn-myself" href=" javascript:void(0)">收藏管理</a>
-                                </div>
                                 <div class="input-group pull-right">
                                     <input class="form-control" id="editListSearch" name="searchEdit" placeholder="资源名称"
                                            type="text">
@@ -69,7 +66,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline marginBot" method="post">
+                        <form class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group">
                                     <a class="btn btn-primary  btn-flat" onclick="javascript:retdcView()"> <i
@@ -211,6 +208,7 @@
                     }
                 },
                 {field: 'collectorName', title: '收藏用户'},
+                {field: 'datasetName', title: '资源名称'},
                 {field: 'collectDate', title: '最后收藏时间', width: '15%'}
             ]
 

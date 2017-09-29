@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                        <form class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group pull-right">
                                     <input class="form-control" id="editListSearch" name="searchEdit" placeholder="资源名称" type="text">
@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                        <form class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group">
                                     <a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:retdcView()"> <i class="fa fa-reply">&#160;</i>返回纠错管理列表</a>

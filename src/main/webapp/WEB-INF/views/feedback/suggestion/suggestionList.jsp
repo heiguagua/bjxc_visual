@@ -29,10 +29,10 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                        <form class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group pull-right">
-                                    <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称" type="text">
+                                    <input class="form-control" id="editSearch" name="searchEdit" placeholder="标题" type="text">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary btn-flat btn_blue" id="queryBtnEdit" type="button">
                                             <i class="fa fa-search">
