@@ -1470,14 +1470,19 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param nameInputDomId    显示选中目录类别的名称的input框的id
          * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
          * @param treeDivDomId      树形展开区域的DIV的id
+         * @param multiple      复选还是单选
+         * @param param      异步加载url参数
          */
-        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple) {
-            var selectIds = "";
+        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param) {
+            var selects = {};
+            var chkStyle = multiple ? "checkbox" : "radio";
+            if(!param || typeof param != 'object') param = {};
             var setting = {
                 async: {
                     enable: true,
                     url: basePathJS + "/system/dept/getDeptSelectDataList",
                     autoParam: ["id"],
+                    otherParam: param,
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                         var params = [];
                         var nodeObjs = childNodes.content.selectData;
@@ -1494,7 +1499,7 @@ function initGlobalCustom(tempUrlPrefix) {
                         return params;
                     }
                 },
-                check: {enable: true,chkStyle: "radio",chkboxType: { "Y":"s","N":"s"},radioType: "all"},
+                check: {enable: true,chkStyle: chkStyle,chkboxType: { "Y":"s","N":"s"},radioType: "all"},
                 callback: {
                     beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
                         var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
@@ -1510,17 +1515,28 @@ function initGlobalCustom(tempUrlPrefix) {
                         }
                     },
                     onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的名称，显示到输入框中
-                        $('#' + nameInputDomId).val(treeNode.name);
+                        var ids = "", names = "";
                         if(multiple){
-                            if (selectIds == "") {
-                                selectIds = treeNode.id;
-                            } else {
-                                selectIds += "," + treeNode.id;
+                            if(treeNode.checked){
+                                selects[treeNode.id] = treeNode.name;
+                            }else{
+                                delete selects[treeNode.id];
+                            }
+                            for(var id in selects){
+                                var name = selects[id];
+                                if(name && id){
+                                    if(ids) ids += ",";
+                                    ids += id;
+                                    if(names) names += ",";
+                                    names += name;
+                                }
                             }
                         }else{
-                            selectIds = treeNode.id;
+                            ids = treeNode.id;
+                            names = treeNode.name;
                         }
-                        $('#' + codeInputDomId).val(selectIds);
+                        $('#' + codeInputDomId).val(ids);
+                        $('#' + nameInputDomId).val(names);
                     }
                 }
             };
