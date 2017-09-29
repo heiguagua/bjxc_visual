@@ -2,8 +2,7 @@ package com.chinawiserv.dsp.dir.service.api;
 
 
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.system.SysDept;
-import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.po.system.*;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +42,17 @@ public interface IApiService {
 
     List<SysDept> syncDeptData();
 
+    List<SysDict> syncSysDictData();
+
     List<SysUser> syncUserData();
+
+    List<SysRegion> syncSysRegionData();
+
+    List<SysRegionLevel> syncSysRegionLevelData();
+
+    List<SysDeptAuthority> syncSysDeptAuthorityData();
+
+    List<SysDeptAuthorityApply> syncSysDeptAuthorityApplyData();
 
     List<Map<String,Object>> getDbInfoBySystemId(Map<String,Object> paramMap);
 

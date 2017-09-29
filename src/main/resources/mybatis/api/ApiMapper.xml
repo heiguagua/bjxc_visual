@@ -190,6 +190,31 @@
         SELECT * FROM sys_user
     </select>
 
+    <!-- 同步字典数据 -->
+    <select id="syncSysDictData" parameterType="map" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDict">
+        SELECT * FROM sys_dict
+    </select>
+
+    <!-- 同步行政区域数据 -->
+    <select id="syncSysRegionData" parameterType="map" resultType="com.chinawiserv.dsp.base.entity.po.system.SysRegion">
+        SELECT * FROM sys_region
+    </select>
+
+    <!-- 同步行政区域级别数据 -->
+    <select id="syncSysRegionLevelData" parameterType="map" resultType="com.chinawiserv.dsp.base.entity.po.system.SysRegionLevel">
+        SELECT * FROM sys_region_level
+    </select>
+
+    <!-- 同步部门权限分配信息 -->
+    <select id="syncSysDeptAuthorityData" parameterType="map" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority">
+        SELECT * FROM sys_dept_authority
+    </select>
+
+    <!-- 同步部门权限分配信息 -->
+    <select id="syncSysDeptAuthorityApplyData" parameterType="map" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthorityApply">
+        SELECT * FROM sys_dept_authority_apply
+    </select>
+
     <!-- 根据系统ID查询数据库信息 -->
     <select id="getDbInfoBySystemId" parameterType="map" resultType="map">
         SELECT
