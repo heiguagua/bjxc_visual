@@ -144,7 +144,7 @@
                         }
 
                         .words-split a em:after {
-                            content: "-";
+                            content: "x";
                             color: #fff;
                             font: bold 20px 'Microsoft Yahei';
                         }

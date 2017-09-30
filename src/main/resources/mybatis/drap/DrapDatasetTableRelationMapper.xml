@@ -106,7 +106,7 @@
 		(id,business_item_id,system_column_id,dataset_id,info_system_id,db_id,table_id)
 		VALUES
 		<foreach collection="list" item="a" separator="," index="0">
-			(REPLACE(UUID(),'-',''),#{a.businessItemId},#{a.systemColumnId},#{a.businessDatasetId},#{a.infoSystemId},#{a.dbId},#{a.tableId})
+			(REPLACE(UUID(),'-',''),#{a.businessItemId},#{a.systemColumnId},#{a.datasetId},#{a.infoSystemId},#{a.dbId},#{a.tableId})
 		</foreach>
 	</insert>
 
