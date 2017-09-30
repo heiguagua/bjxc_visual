@@ -4,8 +4,10 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
+import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +36,9 @@ public class SysUserAuthorityController extends BaseController {
 
     @Autowired
     private ISysDeptAuthorityService service;
+
+    @Autowired
+    private ISysUserService userService;
 
     @Autowired
     private IDirClassifyAuthorityService dirClassifyAuthorityService;
@@ -79,6 +84,20 @@ public class SysUserAuthorityController extends BaseController {
                 result = service.selectVoList(paramMap);
             }else if("dir".equals(authType)){
                 result = dirClassifyAuthorityService.selectVoList(paramMap);
+            }
+            //如果为空，说明为默认数据权限用户，数据权限为所属部门分配的数据权限
+            if(result.isEmpty()){
+                SysUserVo sysUserVo = userService.selectVoById(id);
+                String deptId = sysUserVo.getDeptId();
+                if(StringUtils.isNotBlank(deptId)){
+                    paramMap.put("authObjType", AuthObjTypeEnum.DEPT.getKey());
+                    paramMap.put("authObjId", deptId);
+                    if("dept".equals(authType)){
+                        result = service.selectVoList(paramMap);
+                    }else if("dir".equals(authType)){
+                        result = dirClassifyAuthorityService.selectVoList(paramMap);
+                    }
+                }
             }
             handleResult.put("selected", result);
         } catch (Exception e) {

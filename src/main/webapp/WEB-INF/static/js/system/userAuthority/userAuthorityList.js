@@ -2,7 +2,7 @@ var tableSelector = '#systemAuthUserTableId';
 
 jQuery(document).ready(function () {
     "use strict";
-    var paramsObj = {};
+    var paramsObj = {"defaultAuth": $("#defaultAuth").val()};
 
     jQuery(tableSelector).customTable({
         url: basePathJS + '/system/user/list',
@@ -116,8 +116,9 @@ jQuery(document).ready(function () {
     });
 
     function setParams() {
+        var defaultAuth = $('#defaultAuth').val();
         var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {searchKey: searchKeyVal};
+        paramsObj = {"defaultAuth": defaultAuth, searchKey: searchKeyVal};
     }
 
 });
