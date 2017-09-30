@@ -73,12 +73,11 @@
 
 
 
-/* /*导航另加*/ */
+/* 导航另外加*/
 
  .nav_uls{
 	color: #FFFFFF;
 	font-size: 14px;
-	opacity: 0.45;
 }
 
 .nav_uls>li{
@@ -155,3 +154,37 @@
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background-color:#eee;}
 ::-webkit-scrollbar-thumb{background-color:#ccc;}
+
+
+/*侧边section相对定位*/
+section .sidebar{
+	postion:relative;
+}
+/* 点击缩放标签绝对定位 */
+.trapezoid-1{
+	position:absolute;
+	right: -15px;
+}
+
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+	    background: #4197F4 !important;
+    border: 1px solid #4197F4 !important;
+	
+	
+}
+
+
+/*登录验证的样式*/
+div.mg_right{
+	float:right;
+	margin-right:0 !important;
+}
+div.mg{
+	float:left;
+}
+input.input_test{
+	    width: 135px !important;
+    height: 50px !important;
+    margin-bottom:0 !important;
+}

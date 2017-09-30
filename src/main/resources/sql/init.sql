@@ -120,10 +120,91 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
   insert into sys_user_role(id,user_id,role_id)
     values (REPLACE(uuid(),'-',''),'09f4fef9249c457ca67b4a7a45823730','737933bffef640329a4f864c4e2746ba');
 
+-- 图标库初始化值
+  delete from sys_icon_lib;
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'menu_icon','fa-folder','','fa-folder');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'menu_icon','fa-cogs','','fa-cogs');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'menu_icon','fa-cog','','fa-cog');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'menu_icon','fa-user-circle-o','','fa-user-circle-o');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'menu_icon','fa-graduation-cap','','fa-graduation-cap');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'menu_icon','fa-users','','fa-users');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'menu_icon','fa-list','','fa-list');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'menu_icon','fa-info-circle','','fa-info-circle');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'menu_icon','fa-eye','','fa-eye');
+
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','base1','/images/index/base1.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','base2','/images/index/base2.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','base3','/images/index/base3.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','base4','/images/index/base4.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','base5','/images/index/base5.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','base6','/images/index/base6.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','bg2x','/images/index/bg2x.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','Catalog2x','/images/index/Catalog2x.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','data1','/images/index/data1.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','data2','/images/index/data2.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','data3','/images/index/data3.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','data4','/images/index/data4.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','dep1','/images/index/dep1.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','dep2','/images/index/dep2.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','dep3','/images/index/dep3.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','dep4','/images/index/dep4.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','dep5','/images/index/dep5.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','hot2x','/images/index/hot2x.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','ico1','/images/index/ico1.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','ico2','/images/index/ico2.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','main1-bg','/images/index/main1-bg.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','main3_1','/images/index/main3_1.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','main3_2','/images/index/main3_2.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','main3_3','/images/index/main3_3.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','main3_4','/images/index/main3_4.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','main3_5','/images/index/main3_5.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','map1','/images/index/map1.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','map2','/images/index/map2.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','map3','/images/index/map3.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','map4','/images/index/map4.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','map5','/images/index/map5.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','new2x','/images/index/new2x.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','policy2x','/images/index/policy2x.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','Shape2x','/images/index/Shape2x.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','share','/images/index/share.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','tool1','/images/index/tool1.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','tool2','/images/index/tool2.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','tool3','/images/index/tool3.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','tool4','/images/index/tool4.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','tool5','/images/index/tool5.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic1','/images/index/topic1.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic10','/images/index/topic10.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic11','/images/index/topic11.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic12','/images/index/topic12.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic13','/images/index/topic13.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic14','/images/index/topic14.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic2','/images/index/topic2.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic3','/images/index/topic3.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic4','/images/index/topic4.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic5','/images/index/topic5.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic6','/images/index/topic6.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic7','/images/index/topic7.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic8','/images/index/topic8.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','topic9','/images/index/topic9.png','');
+  insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values (REPLACE(uuid(),'-',''),'classify_icon','total','/images/index/total.png','');
+
+
+
+-- 系统配置类别表
+  delete from sys_setting_category;
+  insert into sys_setting_category (category_code,category_name) values ('1','系统基本配置');
+  insert into sys_setting_category (category_code,category_name) values ('2','接口配置');
+
 -- 系统配置表
-  INSERT INTO `sys_setting` VALUES ('1', '', '1', 'systemName', '系统名称', '目录管理系统', null, '1', null, null, null, null, 0);
-  INSERT INTO `sys_setting` VALUES ('2', '', '1', 'systemSubName', '系统简称', 'DIR', null, '1', null, null, null, null, 0);
-  INSERT INTO `sys_setting` VALUES ('3', '', '1', 'bottomCopyright', '许可说明', 'Copyright © 2017 勤智数码. All rights reserved.', null, '1', null, null, null, null, 0);
+  delete from sys_setting;
+  INSERT INTO `sys_setting` VALUES (REPLACE(uuid(),'-',''), '', '1', 'systemName', '系统名称', '目录管理系统', null, '1', null, null, null, null, 0);
+  INSERT INTO `sys_setting` VALUES (REPLACE(uuid(),'-',''), '', '1', 'systemShortName', '系统英文简称', 'DIR', null, '1', null, null, null, null, 0);
+  INSERT INTO `sys_setting` VALUES (REPLACE(uuid(),'-',''), '', '1', 'systemSubName', '系统子名称', '目录管理', null, '1', null, null, null, null, 0);
+  INSERT INTO `sys_setting` VALUES (REPLACE(uuid(),'-',''), '', '1', 'defaultIcon', '系统默认Icon图标', '', null, '1', null, null, null, null, 0);
+  INSERT INTO `sys_setting` VALUES (REPLACE(uuid(),'-',''), '', '1', 'localRegion', '系统所属行政区划', '510100', null, '1', null, null, null, null, 0);
+  INSERT INTO `sys_setting` VALUES (REPLACE(uuid(),'-',''), '', '1', 'bottomCopyright', '许可说明', 'Copyright © 2017 勤智数码. All rights reserved.', null, '1', null, null, null, null, 0);
+
+
   INSERT INTO `sys_setting` VALUES ('4', '', '2', 'crawlerInterface', '爬虫接口地址', 'http://127.0.0.1:8080/crawler/wbsiteStore', '', '1', '549d321508db446e9bcaa477835fe5f1', '2017-06-27 10:46:53', null, null, '0');
 
 -- 系统字典分类表
@@ -561,6 +642,18 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
 	VALUES('158', '', 'setItemAuditStatus', '1', '同意', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
 	VALUES('159', '', 'setItemAuditStatus', '2', '拒绝', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('123683ac-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '1', '字符串型C', '数据项数据类型', '1');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('127327cf-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '2', '数值型N', '数据项数据类型', '2');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('127e355e-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '3', '货币型Y', '数据项数据类型', '3');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('128a1df8-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '4', '日期型D', '数据项数据类型', '4');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('129774bf-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '5', '日期时间型T', '数据项数据类型', '5');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12a009ae-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '6', '逻辑型L', '数据项数据类型', '6');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12aa2217-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '7', '备注型M', '数据项数据类型', '7');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12b2a66c-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '8', '通用型G', '数据项数据类型', '8');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12bcef93-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '9', '双精度型B', '数据项数据类型', '9');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12c53b73-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '10', '整型I', '数据项数据类型', '10');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12d4a85e-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '11', '浮动型F', '数据项数据类型', '11');
+
 
   -- 行政区划相关初始化数据
   -- 行政区划版本表

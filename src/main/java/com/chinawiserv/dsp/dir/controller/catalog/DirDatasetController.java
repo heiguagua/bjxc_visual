@@ -1,32 +1,41 @@
 package com.chinawiserv.dsp.dir.controller.catalog;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
+import com.chinawiserv.dsp.dir.schema.ExportExcelUtil;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetSourceRelationService;
-import org.apache.commons.lang.StringUtils;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -233,14 +242,24 @@ public class DirDatasetController extends BaseController {
     /**
      * 删除数据集（信息资源）
      */
-    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("catalog:catalogue:delete")
     @Log("删除数据集（信息资源）")
-    @RequestMapping("/delete")
+    @RequestMapping("/doDelete")
     @ResponseBody
-    public HandleResult delete(@RequestParam String id){
-		//todo 逻辑删除
-    	//service.deleteById(id);
-		return new HandleResult().success("删除数据集（信息资源）成功");
+    public HandleResult doDelete(@RequestParam String id){
+        HandleResult handleResult = new HandleResult();
+        try {
+            boolean deleteResult = service.deleteById(id);
+            if(deleteResult){
+                handleResult.success("删除成功");
+            }else{
+                handleResult.error("删除失败");
+            }
+        } catch (Exception e) {
+            handleResult.error("删除信息资源失败");
+            logger.error("删除信息资源失败", e);
+        }
+        return handleResult;
     }
 
     /**
@@ -266,7 +285,7 @@ public class DirDatasetController extends BaseController {
 		    logger.error("获取数据集（信息资源）信息失败", e);
 		}
 		return handleResult;
-		}
+	}
 
     /**
      * 执行编辑
@@ -497,19 +516,36 @@ public class DirDatasetController extends BaseController {
      */
     @RequestMapping("/quickAddDataset")
     @ResponseBody
-    public  HandleResult quickAddDataset(DirDatasetVo entity, Model model){
+    public  HandleResult quickAddDataset(DirDatasetVo entity,Integer tableNumber, Model model){
         HandleResult handleResult = new HandleResult();
-        try {
-            service.insertVO(entity);
-            relationService.insertDatasetListRelation(entity.getRelations(), entity.getId());
-            handleResult.success("创建数据集（信息资源）成功");
-        } catch (Exception e) {
-            handleResult.error("创建数据集（信息资源）失败");
-            logger.error("创建数据集（信息资源）失败", e);
+        if(verifyRelations(entity.getRelations(),tableNumber)){
+            try {
+                service.insertVO(entity);
+                relationService.insertDatasetListRelation(entity.getRelations(), entity.getId());
+                handleResult.success("创建数据集（信息资源）成功");
+            } catch (Exception e) {
+                handleResult.error("创建数据集（信息资源）失败");
+                logger.error("创建数据集（信息资源）失败", e);
+            }
+        }else{
+            handleResult.error("表间关系不足，请检查！");
         }
         return handleResult;
     }
 
+    public boolean verifyRelations(List<DirDatasetSourceRelation> relations,Integer tableNumber){
+        boolean b=true;
+        if(relations!=null||tableNumber!=null){
+            try {
+                if(tableNumber-1 > relations.size()){
+                    b=false;
+                }
+            } catch (Exception e) {
+                b=false;
+            }
+        }
+        return b;
+    }
     /**
      * 获取业务
      * @param dept_id
@@ -608,5 +644,34 @@ public class DirDatasetController extends BaseController {
             handleResult.put("list",list);
         }
         return handleResult;
+    }
+    /**
+     * 导出完整模板excel
+     */
+    @RequestMapping("/downloadDatasetExcel")
+    public void downloadDatasetExcel(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        OutputStream os=null;
+        Workbook wb=null;
+        try {
+
+
+            ExportExcelUtil util = new ExportExcelUtil();
+            File file =util.getExcelDemoFile("excelTemplate/完整目录模板.xlsx");
+            String sheetName="Sheet1";
+            wb = util.writeNewExcel(file, sheetName,null);
+
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode("完整目录模板.xlsx", "utf-8"));
+            os = response.getOutputStream();
+            wb.write(os);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            os.flush();
+            os.close();
+            wb.close();
+        }
     }
 }

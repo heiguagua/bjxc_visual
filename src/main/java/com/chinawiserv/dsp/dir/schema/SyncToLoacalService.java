@@ -25,18 +25,18 @@ public class SyncToLoacalService {
 		    if(null == sysUser){
 		    	return;
 			}
-			SysUser sysUserIfExist = null;
-		    EntityWrapper ew = new EntityWrapper();
-		    ew.eq("id",sysUser.getId());
-		    ew.eq("user_name",sysUser.getUserName());
-		    sysUserIfExist = sysUserService.selectOne(ew);
-			if(sysUserIfExist == null){
+		    EntityWrapper ewId = new EntityWrapper();
+		    EntityWrapper ewEntity = new EntityWrapper();
+		    ewId.eq("id",sysUser.getId());
+		    SysUser sysUserIfById = sysUserService.selectOne(ewId);
+		    ewEntity.setEntity(sysUser);
+		    SysUser sysUserIfByEntity = sysUserService.selectOne(ewEntity);
+			if(sysUserIfById == null){
 				sysUserService.insert(sysUser);
-			}else{
-                int localRoleId = sysUserIfExist.getUserType();
-                sysUser.setUserType(localRoleId);
-				sysUserService.update(sysUser,null);
-				
+			}else if(sysUserIfById != null && sysUserIfByEntity == null){
+				sysUserService.updateById(sysUser);
+			}else if(sysUserIfByEntity != null){
+				return;
 			}
 			
 		
@@ -45,18 +45,19 @@ public class SyncToLoacalService {
          if(null == sysDept){
          	return;
 		 }
-		 SysDept sysDeptIfExist = null;
-		 EntityWrapper ew = new EntityWrapper();
-		 ew.eq("id",sysDept.getId());
-		 ew.eq("dept_code",sysDept.getDeptCode());
-		 sysDeptIfExist = sysDeptService.selectOne(ew);
-			if(sysDeptIfExist == null){
-				sysDeptService.insert(sysDept);
-			}else{
-				sysDeptService.update(sysDept,null);
-			}
-			
-		
+		 EntityWrapper ewId = new EntityWrapper();
+		 EntityWrapper ewEntity = new EntityWrapper();
+		 ewId.eq("id",sysDept.getId());
+		 SysDept sysDeptIfById = sysDeptService.selectOne(ewId);
+		 ewEntity.setEntity(sysDept);
+		 SysDept sysDeptIfByEntity = sysDeptService.selectOne(ewEntity);
+		 if(sysDeptIfById == null){
+			 sysDeptService.insert(sysDept);
+		 }else if(sysDeptIfById != null && sysDeptIfByEntity == null){
+			 sysDeptService.updateById(sysDept);
+		 }else if(sysDeptIfByEntity != null){
+			 return;
+		 }
 		}
 	
 	public void insertOrUpdateSysDept(List<SysDept> depts){

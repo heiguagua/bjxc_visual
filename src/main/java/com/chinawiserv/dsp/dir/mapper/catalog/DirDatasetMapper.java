@@ -25,6 +25,8 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
 
     List<DirDatasetVo> selectVoPage(Page<DirDatasetVo> page, Map<String, Object> paramMap);
 
+    List<DirDatasetVo> selectInfoPage(Page<DirDatasetVo> page, Map<String, Object> paramMap);
+
     DirDatasetVo selectVoById(String id);
 
     int selectVoCount(Map<String, Object> paramMap);
@@ -33,7 +35,7 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
 
     int baseUpdate(DirDataset entity);
 
-    int baseDelete(String id);
+    int baseDelete(Map<String,Object> param);
 
     int extInsert(DirDatasetExtFormat entity);
 

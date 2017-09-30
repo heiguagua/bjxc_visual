@@ -1,5 +1,7 @@
 package com.chinawiserv.dsp.dir.service.drap.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,97 +30,108 @@ import com.chinawiserv.dsp.dir.service.drap.IDrapBusinessRequirementService;
  * @since 2017-09-27
  */
 @Service
-public class DrapBusinessRequirementServiceImpl extends CommonServiceImpl<DrapBusinessRequirementMapper, DrapBusinessRequirement , DrapBusinessRequirementVo> implements IDrapBusinessRequirementService {
+public class DrapBusinessRequirementServiceImpl
+		extends
+		CommonServiceImpl<DrapBusinessRequirementMapper, DrapBusinessRequirement, DrapBusinessRequirementVo>
+		implements IDrapBusinessRequirementService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    private DrapBusinessRequirementMapper mapper;
-
-
-    @Override
-    public boolean insertVO(DrapBusinessRequirementVo vo) throws Exception {
-		//todo
-		return false;
-    }
-
-    @Override
-    public boolean updateVO(DrapBusinessRequirementVo vo) throws Exception {
-		//todo
+	
+	@Autowired
+	private DrapBusinessRequirementMapper mapper;
+	
+	@Override
+	public boolean insertVO(DrapBusinessRequirementVo vo) throws Exception {
+		// todo
 		return false;
 	}
-
-    @Override
-    public boolean deleteByQuery(Map<String, Object> paramMap) throws Exception {
-		//todo
+	
+	@Override
+	public boolean updateVO(DrapBusinessRequirementVo vo) throws Exception {
+		// todo
 		return false;
 	}
-
-    @Override
-    public DrapBusinessRequirementVo selectVoById(String id) throws Exception {
+	
+	@Override
+	public boolean deleteByQuery(Map<String, Object> paramMap) throws Exception {
+		// todo
+		return false;
+	}
+	
+	@Override
+	public DrapBusinessRequirementVo selectVoById(String id) throws Exception {
 		return null;
 	}
-
-    @Override
-    public Page<DrapBusinessRequirementVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
+	
+	@Override
+	public Page<DrapBusinessRequirementVo> selectVoPage(
+			Map<String, Object> paramMap) throws Exception {
+		// todo
 		return null;
 	}
-
-    @Override
-    public int selectVoCount(Map<String, Object> paramMap) throws Exception {
-		//todo
+	
+	@Override
+	public int selectVoCount(Map<String, Object> paramMap) throws Exception {
+		// todo
 		return 0;
 	}
-    @Override
-    public HandleResult insertBusinessRequirement(
-    		List<DrapBusinessRequirementVo> voLst) {
-
+	
+	@Override
+	public HandleResult insertBusinessRequirement(
+			List<DrapBusinessRequirementVo> voLst) {
 		
 		List<DrapRequirementResourcesVo> resourceVoLst = null;
 		List<DrapRequirementDatasetMap> datasetMapLst = null;
 		HandleResult result = new HandleResult();
-
+		List<String> idLst = new ArrayList<String>(1);
+		Map<String, Object> deleteMap = new HashMap<String, Object>(1);
 		try {
-			for (DrapBusinessRequirementVo vo:voLst)
-			{
-				if (vo == null)
-				{
+			for (DrapBusinessRequirementVo vo : voLst) {
+				if (vo == null) {
 					logger.warn("BusinessRequirementVo对象为空，跳过当前循环。");
 					continue;
 				}
 				resourceVoLst = vo.getRequireSourceVoLst();
-				if (resourceVoLst == null || resourceVoLst.isEmpty())
-				{
+				if (resourceVoLst == null || resourceVoLst.isEmpty()) {
 					logger.warn("RequireSourceVo集合对象为空，跳过当前循环。");
 					continue;
 				}
-
-				for (DrapRequirementResourcesVo resourceVo : resourceVoLst)
-				{
-					if (resourceVo == null || !Helper.checkParam(resourceVo.getRequireId()))
-					{
+				
+				for (DrapRequirementResourcesVo resourceVo : resourceVoLst) {
+					if (resourceVo == null
+							|| !Helper.checkParam(resourceVo.getRequireId())) {
 						logger.warn("RequireSourceVo对象为空，跳过当前循环。");
 						continue;
 					}
 					datasetMapLst = resourceVo.getRequirementDatasetMapLst();
-					if (datasetMapLst == null || datasetMapLst.isEmpty())
-					{
+					if (datasetMapLst == null || datasetMapLst.isEmpty()) {
 						logger.warn("datasetMapLst对象为空，跳过当前循环。");
 						continue;
-					}else{
+					} else {
+						idLst.add(resourceVo.getId());
+						deleteMap.put("ids", idLst);
+						// 存在数据集中间表数据 则先删除原有数据
+						mapper.deleteRequireDatasetMap(deleteMap);
 						mapper.addBusinessRequirementDataset(datasetMapLst);
 					}
 				}
+				idLst.clear();
+				deleteMap.clear();
+				idLst.add(vo.getId());
+				deleteMap.put("ids", idLst);
+				// 如果存在需求 则先删除原有需求
+				mapper.deleteRequireResource(deleteMap);
+				mapper.deleteRequirement(deleteMap);
+				// 新增需求主表
 				mapper.addRequirementResource(resourceVoLst);
 				mapper.addBusinessRequirement(vo);
 				
 			}
 			result.success("同步需求成功。");
 		} catch (Exception e) {
-			logger.error("同步需求失败。",e.toString());
-			result.error("同步需求失败。错误原因："+e.getCause());
+			logger.error("同步需求失败。", e);
+			result.error("同步需求失败。错误原因：" + e.getCause());
 		}
 		return result;
-	
-    }
+		
+	}
 }

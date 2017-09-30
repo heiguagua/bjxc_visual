@@ -32,21 +32,24 @@ public interface DrapBusinessRequirementMapper extends BaseMapper<DrapBusinessRe
     int baseUpdate(DrapBusinessRequirement entity);
 
     int baseDelete(String id);
+    
     /**
-	 * 物理删除数据集关联中间表
-	 * 
-	 * @param paramMap
-	 */
-	void deleteBusinessRequireDataset(Map<String, String> paramMap);
+     * 批量删除
+     * @param paramMap
+     */
+	void  deleteRequirement(Map<String,Object> paramMap);	
 	
 	/**
-	 * 物理删除需求子表数据
-	 * 
+	 * 批量删除
 	 * @param paramMap
 	 */
-	void deleteRequirementResource(Map<String, String> paramMap);
+	void deleteRequireResource(Map<String,Object> paramMap);
 	
-	
+	/**
+	 * 批量删除
+	 * @param paramMap
+	 */
+	void deleteRequireDatasetMap(Map<String,Object> paramMap);
 	/**
 	 * 新增需求子表数据
 	 * 

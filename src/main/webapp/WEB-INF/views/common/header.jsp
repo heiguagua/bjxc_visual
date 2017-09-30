@@ -12,9 +12,10 @@
 		position: relative;
 		color: #fff;
 		text-align: center;
-		font-size:20px;
+		font-size:14px;
 		cursor: pointer;
-		
+		opacity: 0.45;
+		font-family: PingFangSC-Regular;
 	}
 	.citytitle .innerul{width: 427px;
 	/* height: 400px; */
@@ -38,7 +39,7 @@
  <!-- Logo -->
  <a href="<%=basePath%>/data/collectJob" class="logo">
    <!-- mini logo for sidebar mini 50x50 pixels -->
-   <span class="logo-mini"><b>${systemSubName}</b></span>
+   <span class="logo-mini"><b>${systemShortName}</b></span>
    <!-- logo for regular state and mobile devices -->
    <span class="logo-lg"><span><img src="<%=basePath%>/images/addimg/logo.png"/>&nbsp;政务信息资源管理-${systemName}</span></span>
  </a>
@@ -88,8 +89,8 @@
         <li>
          <!-- Menu Toggle Button -->
           <a class="citytitle">
-			<span class="defaultcity">chengdu</span>
-			<ul class="innerul" id="box1">	
+			<span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span">chengdu</span>&emsp;<img class="changeAdress" src="<%=basePath%>/images/userImg/changeAdress.png" /></span>
+			<ul class="innerul" id="box1">
 			</ul>
 		  </a>
        </li>
@@ -116,7 +117,7 @@
 
 <script type="text/javascript">
 
-$(".citytitle .defaultcity").click(function(){
+$(".citytitle .defaultcity img.changeAdress").click(function(){
 	$(".citytitle .innerul").stop().toggle(500);
 })
 $(".citytitle .innerul").delegate("li",'click',function(event){

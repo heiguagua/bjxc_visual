@@ -136,7 +136,7 @@
 									</select>
 								</div>
 								<div class="col-sm-6" style="padding:0">
-									<select class="form-control" id="" name="ext.format_type" >
+									<select class="form-control" id="format_type" name="ext.format_type" >
 										<%--<option value="">--请选择--</option>
 										<option value="1" name="电子文件">电子文件</option>
 										<option value="2" name="电子表格">电子表格</option>
@@ -161,7 +161,7 @@
 				                    </div> -->
 				                    
 				                     		<div class="redio-box">
-				                        		<input type="radio" name="radiobutton" value="1" ><span></span>
+				                        		<input type="radio" name="radiobutton" value="1" checked><span></span>
 				                        	 </div>
 				                        	 <label style="display:inline-block">涉密</label>
 				                     		<div class="redio-box">
@@ -181,25 +181,15 @@
 	                	<div class="col-sm-6">
 		                	<label for="shareType" class="col-sm-3 control-label">共享类型:</label>
 		                    <div class="col-sm-9">
-		                     <select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" >
-	                            <%--<option value="2">--请选择--</option>
-	                            <option value="1" name="有条件共享">有条件共享</option>
-	                            <option value="2" name="无条件共享">无条件共享</option>
-	                            <option value="3" name="不予共享">不予共享</option>--%>
-	                        </select>
-			                       <label for="shareMethod" class="col-sm-4 control-label">共享方式:</label>
-			                       
-			                       <div class="col-sm-5" style="padding:0">
-				                        <select class="form-control" id="shareMethod" name="shareMethod">
-				                            <%--<option value="">--请选择--</option>
-				                            <option value="1" name="系统对接">系统对接</option>
-				                            <option value="5" name="共享平台">共享平台</option>
-				                            <option value="6" name="邮件">邮件</option>
-				                            <option value="7" name="拷盘">拷盘</option>
-				                            <option value="8" name="介质交换">介质交换</option>
-				                            <option value="9" name="其他">其他</option>--%>
-				                        </select>
-				                    </div>
+								<select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" >
+								</select>
+								<div id="shareMethodDiv">
+								   <label for="shareMethod" class="col-sm-4 control-label">共享方式:</label>
+								   <div class="col-sm-5" style="padding:0">
+										<select class="form-control" id="shareMethod" name="shareMethod">
+										</select>
+									</div>
+								</div>
 		                    </div>
 	                	</div>
 			                	<div class="col-sm-6">

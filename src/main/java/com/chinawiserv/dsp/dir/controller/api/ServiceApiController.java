@@ -264,4 +264,13 @@ public class ServiceApiController extends BaseController {
     public HandleResult unReleaseService(@RequestParam Map<String, Object> paramMap){
         return service.unReleaseService(paramMap);
     }
+
+    /**
+     * 服务权限处理接口
+     * */
+    @RequestMapping("serviceTokenAuthority")
+    @ResponseBody
+    public HandleResult serviceTokenAuthority(@RequestParam Map<String, Object> paramMap){
+        return service.unReleaseService(paramMap);
+    }
 }

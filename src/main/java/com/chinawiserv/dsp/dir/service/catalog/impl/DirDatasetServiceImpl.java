@@ -55,7 +55,8 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     @Autowired
     private IDirClassifyService dirClassifyService;
 
-
+    @Autowired
+    private DirDataitemSourceInfoMapper sourceInfoMapper;
 
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
@@ -95,9 +96,14 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
                 classifyMapResult = dirDatasetClassifyMapMapper.insertListItem(classifyMapVoList);
             }
+            //数据项来源
+            List<DirDataitemSourceInfo> sourceInfos = vo.getSourceInfos();
             //数据集插入成功后，插入该数据集的数据项的数据
             List<DirDataitemVo> dirDataitemVoList = vo.getItems();
             if(!ObjectUtils.isEmpty(dirDataitemVoList)){
+                int i=0;
+                List<DirDataitemSourceInfo> insertSourceInfos=new ArrayList<>();
+                DirDataitemSourceInfo sourceInfo=null;
                 for(DirDataitemVo item : dirDataitemVoList){
                     String itemId = UUID.randomUUID().toString();
                     item.setId(itemId);
@@ -105,9 +111,21 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     item.setStatus("0");
                     item.setCreateUserId(logionUser.getId());
                     item.setCreateTime(createTime);
+                    //数据项来源
+                    if(!ObjectUtils.isEmpty(sourceInfos)){
+                        sourceInfo = sourceInfos.get(i);
+                        sourceInfo.setId(itemId);
+                        sourceInfo.setItemId(itemId);
+                        insertSourceInfos.add(sourceInfo);
+                        i++;
+                    }
                 }
                 itemResult = itemMapper.insertListItem(dirDataitemVoList);
+                if(insertSourceInfos!=null&&insertSourceInfos.size()>0){
+                    sourceInfoMapper.insertList(insertSourceInfos);
+                }
             }
+
         }
         if(classifyMapResult > 0){
             if(!ObjectUtils.isEmpty(vo.getItems())){
@@ -129,9 +147,28 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Override
     public boolean deleteByQuery(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return false;
+        return false;
 	}
+
+    @Override
+    public boolean deleteById(String id){
+        boolean deleteResult = false;
+        if(!StringUtils.isEmpty(id)) {
+            String[] idArray = id.split(",");
+            Map<String,Object> itemParams = new HashMap<>();
+            itemParams.put("datasetIds", idArray);
+            int itemDeleteNum = itemMapper.baseDelete(itemParams);
+            if(itemDeleteNum >=0){
+                Map<String,Object> datasetParams = new HashMap<>();
+                datasetParams.put("ids", idArray);
+                int deleteNum = mapper.baseDelete(datasetParams);
+                if(deleteNum == idArray.length){
+                    deleteResult = true;
+                }
+            }
+        }
+        return deleteResult;
+    }
 
     @Override
     public DirDatasetVo selectVoById(String id) throws Exception {
@@ -140,10 +177,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Override
     public Page<DirDatasetVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-        Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
-        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
-
-        return null;
+        Page<DirDatasetVo> page = getPage(paramMap);
+        page.setOrderByField("create_time");
+        page.setAsc(false);
+        List<DirDatasetVo> dirDatasetClassifyMapVoList = mapper.selectInfoPage(page, paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+        return page;
 	}
 
     @Override

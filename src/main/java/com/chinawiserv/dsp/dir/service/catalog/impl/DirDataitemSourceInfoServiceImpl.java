@@ -8,7 +8,11 @@ import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemSourceInfoService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * <p>
@@ -59,4 +63,20 @@ public class DirDataitemSourceInfoServiceImpl extends CommonServiceImpl<DirDatai
 		//todo
 		return 0;
 	}
+
+    @Override
+    public int insertList(List<DirDataitemSourceInfo> list) {
+        if(list!=null&&list.size()>0){
+            List<DirDataitemSourceInfo> insertList=new ArrayList<DirDataitemSourceInfo>();
+            for (DirDataitemSourceInfo item:list
+                 ) {
+                if(item!=null){
+                    item.setId(UUID.randomUUID().toString());
+                    insertList.add(item);
+                }
+            }
+        }
+
+        return 0;
+    }
 }

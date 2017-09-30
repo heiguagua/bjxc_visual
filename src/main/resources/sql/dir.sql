@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/28 18:56:08                           */
+/* Created on:     2017/9/29 21:16:21                           */
 /*==============================================================*/
 
 
@@ -184,6 +184,8 @@ drop table if exists sys_dict_category;
 
 drop table if exists sys_guid_dept;
 
+drop table if exists sys_icon_lib;
+
 drop table if exists sys_log;
 
 drop table if exists sys_menu;
@@ -199,6 +201,8 @@ drop table if exists sys_role;
 drop table if exists sys_role_menu;
 
 drop table if exists sys_setting;
+
+drop table if exists sys_setting_category;
 
 drop table if exists sys_user;
 
@@ -431,7 +435,7 @@ create table dir_classify
    dcm_index            int default 0 comment '信息资源索引',
    order_number         int(4) comment '显示顺序',
    icon                 varchar(256) comment '图标',
-   classify_structure_code varchar(256) comment '分类结构编号',
+   classify_structure_code varchar(1024) comment '分类结构编号',
    classify_structure_name varchar(1024) comment '分类结构名称',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
@@ -439,8 +443,7 @@ create table dir_classify
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
-   tree_index           int(6) comment '树索引',
-   tree_code            varchar(1000) comment '树编码',
+   tree_code            varchar(1024) comment '树编码',
    primary key (id)
 );
 
@@ -589,7 +592,7 @@ alter table dir_data_distribute comment '数据集权限分配表';
 create table dir_data_item_apply
 (
    id                   varchar(36) not null comment 'id',
-   dcm_id               varchar(36) comment '申请信息资源ID',
+   data_apply_id        varchar(36) comment '信息资源表ID',
    item_id              varchar(36) comment '申请数据项ID',
    status               varchar(36) comment '审核状态',
    primary key (id)
@@ -704,6 +707,7 @@ create table dir_dataitem
    belong_dept_id       varchar(36) comment '责任部门',
    share_type           varchar(36) comment '共享类型',
    share_condition      varchar(500) comment '共享条件',
+   no_share_explain     varchar(500) comment '不予共享说明',
    share_method_category char(10) comment '共享方式分类',
    share_method         varchar(36) comment '共享方式',
    is_open              varchar(36) comment '是否向社会开放',
@@ -768,7 +772,7 @@ create table dir_dataset
    storage_location     varchar(500) comment '物理存储位置',
    data_level           varchar(36) comment '【川】信息资源最小分级单元',
    data_index_system    varchar(36) comment '【川】信息资源指标体系',
-   is_secret            varchar(36) comment '【川】信息资源涉密性',
+   secret_flag          varchar(36) comment '【川】信息资源涉密性',
    source_type          varchar(36) comment '添加来源',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
@@ -1638,6 +1642,9 @@ create table drap_dict_table_column
    column_desc          varchar(256) comment '字段描述',
    data_precision       varchar(36) comment '字段数据精度',
    code_index           int comment '编码序号',
+   status               int(3) comment '状态',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   real_column_id       varchar(36) comment '对应实际数据表字段ID',
    primary key (id)
 );
 
@@ -2064,6 +2071,23 @@ create table sys_guid_dept
 alter table sys_guid_dept comment '业务指导部门记录表';
 
 /*==============================================================*/
+/* Table: sys_icon_lib                                          */
+/*==============================================================*/
+create table sys_icon_lib
+(
+   id                   varchar(36) not null comment 'ID',
+   icon_type            varchar(36) comment '图标类型',
+   icon_name            varchar(64) comment '图标显示名称',
+   icon_path            varchar(128) comment '图标路径',
+   icon_css_class       varchar(64) comment '图标样式名',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_icon_lib comment '系统图标库表';
+
+/*==============================================================*/
 /* Table: sys_log                                               */
 /*==============================================================*/
 create table sys_log
@@ -2221,6 +2245,19 @@ ENGINE = InnoDB
 DEFAULT CHARSET = utf8;
 
 alter table sys_setting comment '系统配置表';
+
+/*==============================================================*/
+/* Table: sys_setting_category                                  */
+/*==============================================================*/
+create table sys_setting_category
+(
+   category_code        varchar(36) not null comment '类别编号',
+   category_name        varchar(64) comment '类别名称',
+   category_desc        varchar(256) comment '类别描述',
+   primary key (category_code)
+);
+
+alter table sys_setting_category comment '系统配置类型表';
 
 /*==============================================================*/
 /* Table: sys_user                                              */

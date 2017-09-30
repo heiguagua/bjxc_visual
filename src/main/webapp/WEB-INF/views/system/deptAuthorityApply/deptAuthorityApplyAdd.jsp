@@ -23,11 +23,11 @@
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/system/deptAuthorityApply/doAdd">
                         <div class="form-group">
-                            <label for="deptName" style='float:left;'>所属组织机构 *</label>
+                            <label for="toDeptNames" style='float:left;'>所属组织机构 *</label>
                             <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
-                            <input type="text" id="deptName" required="required"
+                            <input type="text" id="toDeptNames" required="required"
                                    data-parsley-required-message="该项为必填" class="form-control">
-                            <input type="hidden" id="deptId" name="toDeptIds">
+                            <input type="hidden" id="toDeptIds" name="toDeptIds">
                             <div class="menu-wrap">
                                 <div id="menuContent" class="menuContent" style="display:none;">
                                     <ul id="treeDemo" class="ztree"

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.cs.CsDataSyncCollectDbMapper">
+    <!-- CsDataSyncCollectDb的resultMap,column是给数据库列起的别名,它对应property类的属性-->
+    <resultMap id="result_CsDataSyncCollectDb_Map" type="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollectDb">
+        <id column="id" property="id"/>
+        <result column="db_ip" property="dbIp"/>
+        <result column="db_port" property="dbPort"/>
+        <result column="db_user" property="dbUser"/>
+        <result column="db_pass" property="dbPass"/>
+        <result column="db_name" property="dbName"/>
+        <result column="db_desc" property="dbDesc"/>
+        <result column="db_type" property="dbType"/>
+    </resultMap>
+
+    <!-- 数据库中表名为:cs_data_sync_collect_db的列名,as前是数据库的列明,as后是列的别名用于映射成实体类中的属性,需要注意的是别名必须与resultMap中的column别名一致 -->
+    <sql id="cs_data_sync_collect_db_Column">
+        cs_data_sync_collect_db.id as id
+        ,cs_data_sync_collect_db.db_ip as db_ip
+        ,cs_data_sync_collect_db.db_port as db_port
+        ,cs_data_sync_collect_db.db_user as db_user
+        ,cs_data_sync_collect_db.db_pass as db_pass
+        ,cs_data_sync_collect_db.db_name as db_name
+        ,cs_data_sync_collect_db.db_desc as db_desc
+        ,cs_data_sync_collect_db.db_type as db_type
+    </sql>
+
+    <!-- 获得一个CsDataSyncCollectDb对象,以参数CsDataSyncCollectDb对象中不为空的属性作为条件进行查询-->
+    <select id="selectCsDataSyncCollectDbByObj"
+            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollectDb"
+            resultMap="result_CsDataSyncCollectDb_Map">
+        select
+        <include refid="cs_data_sync_collect_db_Column"/>
+        from cs_data_sync_collect_db
+        <where>
+            <if test="dbType != null ">and cs_data_sync_collect_db.db_type = #{dbType}</if>
+            <if test="dbDesc != null ">and cs_data_sync_collect_db.db_desc = #{dbDesc}</if>
+            <if test="dbName != null ">and cs_data_sync_collect_db.db_name = #{dbName}</if>
+            <if test="dbPass != null ">and cs_data_sync_collect_db.db_pass = #{dbPass}</if>
+            <if test="dbUser != null ">and cs_data_sync_collect_db.db_user = #{dbUser}</if>
+            <if test="dbPort != null ">and cs_data_sync_collect_db.db_port = #{dbPort}</if>
+            <if test="dbIp != null ">and cs_data_sync_collect_db.db_ip = #{dbIp}</if>
+            <if test="id != null ">and cs_data_sync_collect_db.id = #{id}</if>
+        </where>
+    </select>
+
+    <!-- 通过CsDataSyncCollectDb的id获得对应数据库中表的数据对象-->
+    <select id="selectCsDataSyncCollectDbById" parameterType="java.lang.String"
+            resultMap="result_CsDataSyncCollectDb_Map">
+        select
+        <include refid="cs_data_sync_collect_db_Column"/>
+        from cs_data_sync_collect_db
+        where cs_data_sync_collect_db.id = #{id}
+    </select>
+
+    <!-- 将CsDataSyncCollectDb插入到对应数据库的表中,包括属性值为null的数据-->
+
+    <insert id="insertCsDataSyncCollectDb"
+            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollectDb">
+        insert into cs_data_sync_collect_db(id,db_ip,db_port,db_user,db_pass,db_name,db_desc,db_type) 
+        values(#{id},#{dbIp},#{dbPort},#{dbUser},#{dbPass},#{dbName},#{dbDesc},#{dbType})
+    </insert>
+
+    <!-- 将CsDataSyncCollectDb中属性值不为null的数据,插入到对应数据库的表中-->
+    <insert id="insertNonEmptyCsDataSyncCollectDb"
+            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollectDb">
+        insert into cs_data_sync_collect_db
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="dbIp != null">db_ip,</if>
+            <if test="dbPort != null">db_port,</if>
+            <if test="dbUser != null">db_user,</if>
+            <if test="dbPass != null">db_pass,</if>
+            <if test="dbName != null">db_name,</if>
+            <if test="dbDesc != null">db_desc,</if>
+            <if test="dbType != null">db_type,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="dbIp != null">#{dbIp},</if>
+            <if test="dbPort != null">#{dbPort},</if>
+            <if test="dbUser != null">#{dbUser},</if>
+            <if test="dbPass != null">#{dbPass},</if>
+            <if test="dbName != null">#{dbName},</if>
+            <if test="dbDesc != null">#{dbDesc},</if>
+            <if test="dbType != null">#{dbType},</if>
+        </trim>
+    </insert>
+
+    <!-- 通过CsDataSyncCollectDb的id将CsDataSyncCollectDb的数据更新到数据库中对应的表,包括值null的数据-->
+    <update id="updateCsDataSyncCollectDbById"
+            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollectDb">
+        update cs_data_sync_collect_db set
+            db_ip=#{dbIp}
+            ,db_port=#{dbPort}
+            ,db_user=#{dbUser}
+            ,db_pass=#{dbPass}
+            ,db_name=#{dbName}
+            ,db_desc=#{dbDesc}
+            ,db_type=#{dbType}
+        where id=#{id}
+    </update>
+
+    <!-- 通过CsDataSyncCollectDb的id将CsDataSyncCollectDb中属性值不为null的数据更新到数据库对应的表中-->
+    <update id="updateNonEmptyCsDataSyncCollectDbById"
+            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollectDb">
+        update cs_data_sync_collect_db
+        <set>
+            <if test="dbIp != null">
+                db_ip=#{dbIp},
+            </if>
+            <if test="dbPort != null">
+                db_port=#{dbPort},
+            </if>
+            <if test="dbUser != null">
+                db_user=#{dbUser},
+            </if>
+            <if test="dbPass != null">
+                db_pass=#{dbPass},
+            </if>
+            <if test="dbName != null">
+                db_name=#{dbName},
+            </if>
+            <if test="dbDesc != null">
+                db_desc=#{dbDesc},
+            </if>
+            <if test="dbType != null">
+                db_type=#{dbType},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+</mapper>
