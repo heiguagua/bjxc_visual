@@ -15,7 +15,7 @@ import java.util.List;
  * Created by lixy on 2017/9/29.
  */
 @Service
-public class ICsDataSyncServiceImpl implements ICsDataSyncService {
+public class CsDataSyncServiceImpl implements ICsDataSyncService {
     @Autowired
     private CsDataSyncCollectBlockMapper csDataSyncCollectBlockMapper;
     @Autowired
