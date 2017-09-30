@@ -129,9 +129,28 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Override
     public boolean deleteByQuery(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return false;
+        return false;
 	}
+
+    @Override
+    public boolean deleteById(String id){
+        boolean deleteResult = false;
+        if(!StringUtils.isEmpty(id)) {
+            String[] idArray = id.split(",");
+            Map<String,Object> itemParams = new HashMap<>();
+            itemParams.put("datasetIds", idArray);
+            int itemDeleteNum = itemMapper.baseDelete(itemParams);
+            if(itemDeleteNum >=0){
+                Map<String,Object> datasetParams = new HashMap<>();
+                datasetParams.put("ids", idArray);
+                int deleteNum = mapper.baseDelete(datasetParams);
+                if(deleteNum == idArray.length){
+                    deleteResult = true;
+                }
+            }
+        }
+        return deleteResult;
+    }
 
     @Override
     public DirDatasetVo selectVoById(String id) throws Exception {

@@ -120,4 +120,15 @@
 			(REPLACE(UUID(),'-',''),#{a.datasetId},#{a.sourceTable},#{a.sourceColumn},#{a.targetTable},#{a.targetColumn},"=")
 		</foreach>
 	</insert>
+	
+		<delete id="deleteDataColumnMapByDatasetId" parameterType="map">
+		DELETE FROM
+		`drap_data_column_map` WHERE dataset_id =
+		#{datasetId};
+	</delete>
+
+	<delete id="deleteTableRelation" parameterType="map">
+		delete from
+		drap_dataset_table_relation where dataset_id=#{datasetId};
+	</delete>
 </mapper>

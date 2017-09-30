@@ -1,21 +1,23 @@
 package com.chinawiserv.dsp.dir.service.drap.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.dir.entity.po.drap.DrapDataColumnMap;
-import com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetTableRelation;
-import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetTableRelationVo;
-import com.chinawiserv.dsp.dir.mapper.drap.DrapDatasetTableRelationMapper;
-import com.chinawiserv.dsp.dir.service.drap.IDrapDatasetTableRelationService;
-import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDataColumnMap;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetTableRelation;
+import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetTableRelationVo;
+import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetVo;
+import com.chinawiserv.dsp.dir.mapper.drap.DrapDatasetTableRelationMapper;
+import com.chinawiserv.dsp.dir.service.drap.IDrapDatasetTableRelationService;
 
 /**
  * <p>
@@ -71,10 +73,9 @@ public class DrapDatasetTableRelationServiceImpl extends CommonServiceImpl<DrapD
     /**
      * 
      */
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public HandleResult insertTableRelation(
-    		List<Map<String, Object>> datasetRelationLst) {
+    		List<DrapDatasetVo> datasetRelationLst) {
     	HandleResult result = new HandleResult();
     	if (datasetRelationLst == null || datasetRelationLst.isEmpty())
     	{
@@ -85,29 +86,27 @@ public class DrapDatasetTableRelationServiceImpl extends CommonServiceImpl<DrapD
     	try {
     		List<DrapDataColumnMap> dataColumnMapLst = null;
     		List<DrapDatasetTableRelation> datasetTableRelationMapLst = null;
-    		Object obj = null;
-			for (Map<String,Object> map : datasetRelationLst)
+    		Map<String,Object> deleteMap = new HashMap<String, Object>(1);
+			for (DrapDatasetVo dataset : datasetRelationLst)
 			{
-				if (!map.containsKey("dataColumnMap"))
+				deleteMap.clear();
+				deleteMap.put("datasetId", dataset.getId());
+				dataColumnMapLst = dataset.getDataColumnMap();
+				datasetTableRelationMapLst = dataset.getDatasetTableRelationMap();
+				if (dataColumnMapLst == null || dataColumnMapLst.isEmpty())
 				{
 					logger.warn("dataColumnMap属性不存在。");
 					continue;
 				}
-				obj = map.get("dataColumnMap");
-				if (obj instanceof List)
+				mapper.deleteDataColumnMapByDatasetId(deleteMap);
+				mapper.addItemRelation(dataColumnMapLst);
+				if (datasetTableRelationMapLst == null || datasetTableRelationMapLst.isEmpty())
 				{
-					dataColumnMapLst = (List<DrapDataColumnMap>)obj;
-					mapper.addItemRelation(dataColumnMapLst);
+					logger.warn("当前表关系不存在。");
+					continue;
 				}
-				if (map.containsKey("datasetTableRelationMap"))
-				{
-					obj = map.get("datasetTableRelationMap");
-					if (obj instanceof List)
-					{
-						datasetTableRelationMapLst = (List<DrapDatasetTableRelation>)obj;
-					    mapper.addTableFieldRelation(datasetTableRelationMapLst);
-					}
-				}
+				mapper.deleteTableRelation(deleteMap);
+			    mapper.addTableFieldRelation(datasetTableRelationMapLst);
 			}
 			result.success("同步关系成功。");
 		} catch (Exception e) {
