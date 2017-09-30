@@ -13,14 +13,17 @@ import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
+import com.chinawiserv.dsp.dir.schema.ExportExcelUtil;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetSourceRelationService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +31,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -626,5 +636,34 @@ public class DirDatasetController extends BaseController {
             handleResult.put("list",list);
         }
         return handleResult;
+    }
+    /**
+     * 导出完整模板excel
+     */
+    @RequestMapping("/downloadDatasetExcel")
+    public void downloadDatasetExcel(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        OutputStream os=null;
+        Workbook wb=null;
+        try {
+
+
+            ExportExcelUtil util = new ExportExcelUtil();
+            File file =util.getExcelDemoFile("excelTemplate/完整目录模板.xlsx");
+            String sheetName="Sheet1";
+            wb = util.writeNewExcel(file, sheetName,null);
+
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode("完整目录模板.xlsx", "utf-8"));
+            os = response.getOutputStream();
+            wb.write(os);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            os.flush();
+            os.close();
+            wb.close();
+        }
     }
 }

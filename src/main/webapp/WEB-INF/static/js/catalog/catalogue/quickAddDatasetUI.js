@@ -354,7 +354,7 @@ $(document).on("click", "button#field_add", function(){
                         var arr=data.content.list;
                         for (var i in arr){
                            var thisTrNum = getTrNum();
-                           buildItem(thisTrNum,arr[i],sourceObjId);
+                           buildItem(thisTrNum,arr[i]);
                         }
                     }
                 }else{
