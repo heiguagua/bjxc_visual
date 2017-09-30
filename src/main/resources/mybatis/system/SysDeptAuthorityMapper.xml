@@ -109,20 +109,20 @@
     </delete>
 
     <delete id="deleteByVo" parameterType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo">
-        delete from sys_dept_authority_apply
+        delete from sys_dept_authority
         <include refid="deleteWhereCause"/>
     </delete>
 
     <sql id="deleteWhereCause">
         <where>
             <if test="id != null">
-                id = #{id}
+                AND id = #{id}
             </if>
             <if test="authObjType != null">
-                auth_obj_type = #{authObjType},
+                AND auth_obj_type = #{authObjType}
             </if>
             <if test="authObjId != null">
-                auth_obj_id = #{authObjId},
+                AND auth_obj_id = #{authObjId}
             </if>
             <if test="deptId != null">
                 AND dept_id = #{deptId, jdbcType=VARCHAR}

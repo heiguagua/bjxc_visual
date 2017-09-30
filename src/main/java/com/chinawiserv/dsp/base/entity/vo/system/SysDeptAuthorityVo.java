@@ -26,9 +26,6 @@ public class SysDeptAuthorityVo extends SysDeptAuthority{
     }
 
     public String[] getDeptIdArray() {
-        if(StringUtils.isNotBlank(deptIds)){
-            deptIdArray = deptIds.split(",");
-        }
         return deptIdArray;
     }
 

@@ -1347,6 +1347,132 @@ function initGlobalCustom(tempUrlPrefix) {
         },
 
         /**
+         * 获取目录类别的下拉树对象
+         * @param treeDomId         ztree对象的id
+         * @param nameInputDomId    显示选中目录类别的名称的input框的id
+         * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
+         * @param treeDivDomId      树形展开区域的DIV的id
+         * @param multiple          复选还是单选
+         * @param param             异步加载url参数
+         * @param selects           初始化选中值
+         */
+        initClassifyTreeSelect2: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects) {
+            var chkStyle = multiple ? "checkbox" : "radio";
+            if(!param || typeof param != 'object') param = {};
+            if(!selects || !$.isArray(selects)) selects = [];
+            var setting = {
+                async: {
+                    enable: true,
+                    url: basePathJS + "/dirClassify/authorityList",
+                    autoParam: ["fid"],
+                    otherParam: param,
+                    dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
+                        var params = [];
+                        var nodeObjs = childNodes.content.vo;
+                        if (!nodeObjs) {
+                            return null;
+                        }
+                        for (var i in nodeObjs) {
+                            params[i] = {
+                                'id': nodeObjs[i].id,
+                                'name': nodeObjs[i].classifyStructureName,
+                                'fid': nodeObjs[i].id,
+                                'pid': nodeObjs[i].fid,
+                                'checked': selects.indexOf(nodeObjs[i].id) >= 0,
+                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
+                            }
+                        }
+                        return params;
+                    }
+                },
+                check: {enable: true,chkStyle: chkStyle,chkboxType: { "Y":"ps","N":"ps"}},
+                callback: {
+                    beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+                        var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
+                        if (treeNode.isParent) {
+                            if (treeNode.open) {
+                                zTreeObj.expandNode(treeNode, false);
+                            } else {
+                                zTreeObj.expandNode(treeNode, true);
+                            }
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
+                    onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的名称，显示到输入框中
+                        var ids = [], names = [];
+                        if(multiple){
+                            var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId), selectNodes = zTreeObj.getCheckedNodes(true);
+                            var resultList = [];
+                            var tempList = [];
+                            for(var i in selectNodes){
+                                var node = selectNodes[i];
+                                if(node.check_Child_State!=1){
+                                    tempList.push(node);
+                                }
+                            }
+                            if(tempList.length > 0){
+                                for(var i in tempList){
+                                    var flag = false;
+                                    var tempNode = tempList[i];
+                                    for(var j in tempList){
+                                        if(tempNode.pid == tempList[j].id){
+                                            flag = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!flag){
+                                        resultList.push(tempNode);
+                                    }
+                                }
+                            }
+                            for(var i in resultList){
+                                var selectedNode = resultList[i];
+                                var id = selectedNode.id;
+                                var name = selectedNode.name;
+                                if(id && name){
+                                    ids.push(id);
+                                    names.push(name);
+                                }
+                            }
+                        }else{
+                            var id = treeNode.id;
+                            var name = treeNode.name;
+                            if(id && name){
+                                ids.push(id);
+                                names.push(name);
+                            }
+                        }
+                        $('#' + codeInputDomId).val(ids.join(","));
+                        if(nameInputDomId){
+                            $('#' + nameInputDomId).val(names.join(","));
+                        }
+                    }
+                }
+            };
+            if(nameInputDomId){
+                $('#' + nameInputDomId).click(function () {
+                    $.fn.zTree.init($("#" + treeDomId), setting);
+                    var cityOffset = $("#" + nameInputDomId).offset();
+                    $("#" + treeDivDomId).css({
+                        left: cityOffset.left + "px",
+                        top: cityOffset.top + $("#" + nameInputDomId).outerHeight() + "px"
+                    }).slideDown("fast");
+                    $("body").bind("mousedown", function (event) {
+                        if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#" + treeDivDomId).length > 0)) {
+                            $("#" + treeDivDomId).fadeOut("fast");
+                            $("body").unbind("mousedown");
+                        }
+                    });
+                })
+            }else{
+                $.fn.zTree.init($("#" + treeDomId), setting);
+            }
+
+        },
+
+        /**
          * 获取区域类别的下拉树对象
          * @param treeDomId         ztree对象的id
          * @param nameInputDomId    显示选中目录类别的名称的input框的id
@@ -1355,6 +1481,7 @@ function initGlobalCustom(tempUrlPrefix) {
          */
         initRegionTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId , multiple) {
             var selectRegionCodes = "";
+            var chkStyle = multiple ? "checkbox" : "radio";
             var setting = {
                 async: {
                     enable: true,
@@ -1377,7 +1504,7 @@ function initGlobalCustom(tempUrlPrefix) {
                         return params;
                     }
                 },
-                check: {enable: true,chkStyle: "radio",chkboxType: { "Y":"s","N":"s"},radioType: "all"},
+                check: {enable: true,chkStyle: chkStyle,chkboxType: { "Y":"ps","N":"ps"}},
                 callback: {
                     beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
                         var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
@@ -1470,13 +1597,14 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param nameInputDomId    显示选中目录类别的名称的input框的id
          * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
          * @param treeDivDomId      树形展开区域的DIV的id
-         * @param multiple      复选还是单选
-         * @param param      异步加载url参数
+         * @param multiple          复选还是单选
+         * @param param             异步加载url参数
+         * @param selects           初始化选中值
          */
-        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param) {
-            var selects = {};
+        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects) {
             var chkStyle = multiple ? "checkbox" : "radio";
             if(!param || typeof param != 'object') param = {};
+            if(!selects || !$.isArray(selects)) selects = [];
             var setting = {
                 async: {
                     enable: true,
@@ -1494,6 +1622,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].deptName,
                                 'fid': nodeObjs[i].fid,
+                                'checked': selects.indexOf(nodeObjs[i].id) >= 0,
                                 'isParent': (nodeObjs[i].isLeaf ? false : true)
                             }
                         }
@@ -1560,26 +1689,30 @@ function initGlobalCustom(tempUrlPrefix) {
                             }
                         }
                         $('#' + codeInputDomId).val(ids.join(","));
-                        $('#' + nameInputDomId).val(names.join(","));
+                        if(nameInputDomId){
+                            $('#' + nameInputDomId).val(names.join(","));
+                        }
                     }
                 }
             };
-
-            $('#' + nameInputDomId).click(function () {
+            if(nameInputDomId){
+                $('#' + nameInputDomId).click(function () {
+                    $.fn.zTree.init($("#" + treeDomId), setting);
+                    var cityOffset = $("#" + nameInputDomId).offset();
+                    $("#" + treeDivDomId).css({
+                        left: cityOffset.left + "px",
+                        top: cityOffset.top + $("#" + nameInputDomId).outerHeight() + "px"
+                    }).slideDown("fast");
+                    $("body").bind("mousedown", function (event) {
+                        if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#" + treeDivDomId).length > 0)) {
+                            $("#" + treeDivDomId).fadeOut("fast");
+                            $("body").unbind("mousedown");
+                        }
+                    });
+                })
+            }else{
                 $.fn.zTree.init($("#" + treeDomId), setting);
-                var cityOffset = $("#" + nameInputDomId).offset();
-                $("#" + treeDivDomId).css({
-                    left: cityOffset.left + "px",
-                    top: cityOffset.top + $("#" + nameInputDomId).outerHeight() + "px"
-                }).slideDown("fast");
-                $("body").bind("mousedown", function (event) {
-                    if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#" + treeDivDomId).length > 0)) {
-                        $("#" + treeDivDomId).fadeOut("fast");
-                        $("body").unbind("mousedown");
-                    }
-                });
-            })
-
+            }
         },
 
         /**

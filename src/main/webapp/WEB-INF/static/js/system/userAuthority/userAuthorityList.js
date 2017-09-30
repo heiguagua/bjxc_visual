@@ -1,4 +1,4 @@
-var tableSelector = '#systemUserTableId';
+var tableSelector = '#systemAuthUserTableId';
 
 jQuery(document).ready(function () {
     "use strict";
@@ -37,13 +37,12 @@ jQuery(document).ready(function () {
                 return ret;
             }
         }, {
-            field: 'userDesc',
-            title: '描述',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        },
-            {
+                field: 'userDesc',
+                title: '描述',
+                align: 'center',
+                valign: 'middle',
+                sortable: false
+        }, {
                 field: 'regionName',
                 title: '区域名称',
                 align: 'center',
@@ -77,7 +76,7 @@ jQuery(document).ready(function () {
                 align: 'center',
                 valign: 'middle',
                 sortable: false
-            },{
+            }, {
                 field: 'cellPhoneNumber',
                 title: '手机号码',
                 align: 'center',
@@ -104,10 +103,9 @@ jQuery(document).ready(function () {
                 width: '12%',
                 sortable: false,
                 formatter: function (value) {
-                    var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
-                    var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteUser(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
-
-                    return editBtn + OPERATION_SEPARATOR + deleteBtn;
+                    var allotBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dir\")'><i class='fa fa-chain'></i> 分配目录</a>";
+                    var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dept\")'><i class='fa fa-pencil-square-o'></i> 分配部门</a>";
+                    return allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR   ;
                 }
             }]
     });
@@ -129,16 +127,6 @@ function reloadTable() {
     $(tableSelector).data("bootstrap.table").refresh();
 }
 
-function addUser() {
-    add('新增用户', basePathJS + '/system/user/add');
-}
-
-function editUser(id) {
-    update('编辑用户', basePathJS + '/system/user/edit', id);
-}
-
-function deleteUser(id) {
-    var url = basePathJS + "/system/user/delete";
-    var parameter = {id: id};
-    delObj(url, parameter);
+function  dirAndDeptAllot(id,authType) {
+    update('分配数据权限', basePathJS + '/system/userAuthority/edit?authType=' + authType, id, 500, 300);
 }

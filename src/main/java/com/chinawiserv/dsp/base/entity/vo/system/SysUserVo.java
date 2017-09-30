@@ -15,6 +15,7 @@ public class SysUserVo extends SysUser {
     private String deptName;
     private String deptTreeCode;
     private String createName;
+    private String regionName;
     private String[] roleIds;
     private List<SysRole> sysRoleList;
     private List<String> permissionDeptTreeCodes = new ArrayList();
@@ -48,6 +49,14 @@ public class SysUserVo extends SysUser {
 
     public void setCreateName(String createName) {
         this.createName = createName;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
     }
 
     public void setRoleIds(String[] roleIds) { this.roleIds = roleIds;}

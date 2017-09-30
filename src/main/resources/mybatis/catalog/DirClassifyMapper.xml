@@ -45,7 +45,7 @@
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
             <if test="fid != null">
-                t.fid = #{fid,jdbcType=VARCHAR}
+                AND t.fid = #{fid,jdbcType=VARCHAR}
             </if>
                  
         </where>

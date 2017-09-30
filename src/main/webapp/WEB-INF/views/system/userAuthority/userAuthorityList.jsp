@@ -3,10 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <link rel="stylesheet" href="<%=basePath%>/plugins/zTree/css/zTreeStyle/zTreeStyle.css">
-    <script src="<%=basePath%>/plugins/zTree/js/jquery.ztree.all.js"></script>
-    <script src="<%=basePath%>/plugins/layui/layui.all.js"></script>
-    <script src="<%=basePath%>/js/system/dept/deptAuthList.js"></script>
+    <script src="<%=basePath%>/js/system/userAuthority/userAuthorityList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -18,7 +15,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <small>系统管理 > 组织机构管理</small>
+                <small>系统管理 > 用户数据权限管理</small>
             </h1>
         </section>
         <!-- Main content -->
@@ -29,13 +26,8 @@
                     <div class="box">
                         <div class="form-inline">
                             <div class="box-header">
-                                <%--<#if permissions?seq_contains('addDept')>--%>
                                 <div class="input-group">
-                                    <a class="btn btn-primary  btn-flat" onclick="javascript:addDept()" > <i class="fa fa-plus"></i> 创建一级组织机构</a>
-                                </div>
-                                <%--</#if>--%>
-                                <div class="input-group">
-                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="组织机构名称">
+                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="用户名称">
                                     <div class="input-group-btn">
                                         <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
                                     </div>
@@ -45,7 +37,7 @@
                         </div>
 
                         <div class="box-body table-responsive no-padding">
-                            <table id="systemAuthDeptTableId" class="table table-hover">
+                            <table id="systemAuthUserTableId" class="table table-hover">
 
                             </table>
                         </div><!-- /.box-body -->

@@ -96,20 +96,20 @@
     <sql id="deleteWhereCause">
         <where>
             <if test="id != null">
-                id = #{id}
+                AND id = #{id}
             </if>
             <if test="authObjType != null">
-                auth_obj_type = #{authObjType},
+                AND auth_obj_type = #{authObjType}
             </if>
             <if test="authObjId != null">
-                auth_obj_id = #{authObjId},
+                AND auth_obj_id = #{authObjId}
             </if>
             <if test="classifyId != null">
                 AND classify_id = #{classifyId, jdbcType=VARCHAR}
             </if>
-            <if test="classifyIds != null">
+            <if test="classifyIdArray != null">
                 AND classify_id IN
-                <foreach collection="classifyIds" open="(" close=")" item="item" separator=",">
+                <foreach collection="classifyIdArray" open="(" close=")" item="item" separator=",">
                     #{item, jdbcType=VARCHAR}
                 </foreach>
             </if>

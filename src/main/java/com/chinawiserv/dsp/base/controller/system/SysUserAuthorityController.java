@@ -73,7 +73,7 @@ public class SysUserAuthorityController extends BaseController {
                 throw new Exception("被分配的用户权限不能为登录用户所属部门！");
             }
             List result = null;
-            paramMap.put("authObjType", AuthObjTypeEnum.USER);
+            paramMap.put("authObjType", AuthObjTypeEnum.USER.getKey());
             paramMap.put("authObjId", id);
             if("dept".equals(authType)){
                 result = service.selectVoList(paramMap);
@@ -91,7 +91,7 @@ public class SysUserAuthorityController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("system:deptAuthority:edit")
+    @RequiresPermissions("system:userAuthority:edit")
     @RequestMapping("/doEdit")
     @ResponseBody
     public  HandleResult doEdit(@RequestParam Map<String, Object> paramMap){

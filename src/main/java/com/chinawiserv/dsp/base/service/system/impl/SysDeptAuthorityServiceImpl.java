@@ -59,7 +59,12 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
     public boolean updateVO(SysDeptAuthorityVo vo) throws Exception {
         //删除已有权限
         mapper.deleteByVo(vo);
-		return this.insertVO(vo);
+        String deptIds = vo.getDeptIds();
+        if(StringUtils.isNotBlank(deptIds)){
+            vo.setDeptIdArray(deptIds.split(","));
+            return this.insertVO(vo);
+        }
+        return true;
 	}
 
     @Override

@@ -55,28 +55,33 @@ public class DirClassifyAuthorityServiceImpl extends CommonServiceImpl<DirClassi
     public boolean updateVO(DirClassifyAuthorityVo vo) throws Exception {
         //删除已有权限
         mapper.deleteByVo(vo);
-        return this.insertVO(vo);
+        String classifyIds = vo.getClassifyIds();
+        if(StringUtils.isNotBlank(classifyIds)){
+            vo.setClassifyIdArray(classifyIds.split(","));
+            return this.insertVO(vo);
+        }
+        return true;
 	}
 
     @Override
-    public boolean deleteByQuery(Map<String, Object> paramMap) throws Exception {
+    public boolean deleteByQuery(Map<String, Object> paramMap) {
 		//todo
 		return false;
 	}
 
     @Override
-    public DirClassifyAuthorityVo selectVoById(String id) throws Exception {
+    public DirClassifyAuthorityVo selectVoById(String id) {
 		return null;
 	}
 
     @Override
-    public Page<DirClassifyAuthorityVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
+    public Page<DirClassifyAuthorityVo> selectVoPage(Map<String, Object> paramMap) {
 		//todo
 		return null;
 	}
 
     @Override
-    public int selectVoCount(Map<String, Object> paramMap) throws Exception {
+    public int selectVoCount(Map<String, Object> paramMap) {
 		//todo
 		return 0;
 	}

@@ -32,6 +32,7 @@
         <result column="dept_name" property="deptName"/>
         <result column="create_name" property="createName"/>
         <result column="tree_code" property="deptTreeCode"/>
+        <result column="region_name" property="regionName"/>
         <collection property="sysRoleList" javaType="list" column="id"
                     ofType="com.chinawiserv.dsp.base.entity.po.system.SysRole"
                     select="com.chinawiserv.dsp.base.mapper.system.SysRoleMapper.selectRolesByUserId"/>
@@ -39,7 +40,7 @@
 
     <!--定义页面vo查询字段-->
     <sql id="BaseVoSelectColumn">
-		u1.*,u2.user_name as 'create_name',d.dept_name,d.tree_code
+		u1.*,u2.user_name as 'create_name',d.dept_name,d.tree_code, sr.region_name
 	</sql>
 
     <!--定义vo查询语句-->
@@ -47,6 +48,7 @@
         FROM sys_user u1
 		LEFT JOIN sys_user u2 on u2.id = u1.create_user_id
 		LEFT JOIN sys_dept d on u1.dept_id = d.id
+		LEFT JOIN sys_region sr on u1.region_code = sr.region_code
 	</sql>
 
     <!--定义vo查询条件-->
