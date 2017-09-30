@@ -24,6 +24,8 @@ public interface DirNewsMapper extends BaseMapper<DirNews> {
 
     int selectVoCount(Map<String, Object> paramMap);
     
+    List<DirNewsVo> selectPicBaseInfo(Map<String, Object> paramMap);
+    
   //逻辑删除
     void updateDeleteFlag(String id);
 

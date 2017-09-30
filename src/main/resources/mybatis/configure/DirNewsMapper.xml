@@ -54,6 +54,9 @@
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
     		SELECT t.* FROM dir_news t <include refid="queryConditions"></include>
     </select>
+    <select id="selectPicBaseInfo" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		select * from dir_news where pic_name = #{picName,jdbcType=VARCHAR}    
+    </select>    
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
     	SELECT t.* FROM dir_news t WHERE t.id = #{id}

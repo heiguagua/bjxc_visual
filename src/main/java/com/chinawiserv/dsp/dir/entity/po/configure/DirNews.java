@@ -48,6 +48,10 @@ public class DirNews implements Serializable {
 	@TableField("pic_type")
 	private String picType;
 	
+	@TableField("pic_size")
+	private String picSize;
+		
+	
     /**
      * 发布人
      */
@@ -207,5 +211,16 @@ public class DirNews implements Serializable {
 	public void setDeleteFlag(Integer deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
+
+	public String getPicSize() {
+		return picSize;
+	}
+
+	public void setPicSize(String picSize) {
+		this.picSize = picSize;
+	}
+
+
+	
 
 }

@@ -71,15 +71,15 @@ function reloadTable() {
 }
 
 function addUser() {
-    add('新增应用',basePathJS + '/dirSpecialApps/add');
+	addNews('新增图片',basePathJS + '/dirNews/add');
 }
 
 function statusUser(id) {
-    update('禁用应用',basePathJS + '/dirSpecialApps/edit' , id);
+    update('禁用图片',basePathJS + '/dirSpecialApps/edit' , id);
 }
 
 function editUser(id) {
-    update('编辑应用',basePathJS + '/dirSpecialApps/edit' , id);
+    update('编辑应用',basePathJS + '/dirNews/edit' , id);
 }
 
 function deleteUser(id) {

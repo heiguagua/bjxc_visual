@@ -17,7 +17,7 @@
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/dirPolicy/doAdd">
-                        <div class="box-body">
+                        <ddiv class="box-body">
                             <div class="form-group">
                                 <label for="title">标题</label>
                                 <input type="text" id="title" name="title" class="form-control"
