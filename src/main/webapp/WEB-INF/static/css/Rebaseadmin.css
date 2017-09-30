@@ -165,3 +165,12 @@ section .sidebar{
 	position:absolute;
 	right: -15px;
 }
+
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+	    background: #4197F4 !important;
+    border: 1px solid #4197F4 !important;
+	
+	
+}
+
