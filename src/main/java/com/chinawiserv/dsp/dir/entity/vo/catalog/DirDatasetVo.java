@@ -25,6 +25,8 @@ public class DirDatasetVo extends DirDataset{
 
     private String classifyStatus;
 
+    private String deptName;
+
     //数据集扩展属性
     private DirDatasetExtFormat ext;
 
@@ -64,6 +66,14 @@ public class DirDatasetVo extends DirDataset{
 
     public void setClassifyStatus(String classifyStatus) {
         this.classifyStatus = classifyStatus;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 
     public DirDatasetExtFormat getExt() {

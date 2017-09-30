@@ -30,7 +30,7 @@ public interface DirDataitemMapper extends BaseMapper<DirDataitem> {
 
     int baseUpdate(DirDataitem entity);
 
-    int baseDelete(String id);
+    int baseDelete(Map<String,Object> param);
 
     /**
      * 批量新增数据项

@@ -12,9 +12,10 @@
 		position: relative;
 		color: #fff;
 		text-align: center;
-		font-size:20px;
+		font-size:14px;
 		cursor: pointer;
-		
+		opacity: 0.45;
+		font-family: PingFangSC-Regular;
 	}
 	.citytitle .innerul{width: 427px;
 	/* height: 400px; */
@@ -88,7 +89,7 @@
         <li>
          <!-- Menu Toggle Button -->
           <a class="citytitle">
-			<span class="defaultcity">成都</span>
+			<span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span">chengdu</span>&emsp;<img class="changeAdress" src="<%=basePath%>/images/userImg/changeAdress.png" /></span>
 			<ul class="innerul" id="box1">
 			</ul>
 		  </a>
@@ -116,7 +117,7 @@
 
 <script type="text/javascript">
 
-$(".citytitle .defaultcity").click(function(){
+$(".citytitle .defaultcity img.changeAdress").click(function(){
 	$(".citytitle .innerul").stop().toggle(500);
 })
 $(".citytitle .innerul").delegate("li",'click',function(event){

@@ -117,7 +117,7 @@
      * 初始化收藏列表
      * */
     $('#datacollectionListTable').bootstrapTable({
-        url: "/feedback/dirdatacollection/list",
+        url:basePathJS + "/feedback/dirdatacollection/list",
         method: 'get',
         responseHandler: function (res) {
             return res.rows;
@@ -192,7 +192,7 @@
      * */
     function dcViewTable(v) {
         $('#datacollectionDetailTable').bootstrapTable({
-            url: "/feedback/dirdatacollection/detail?dcmId="+v,
+            url:basePathJS + "/feedback/dirdatacollection/detail?dcmId="+v,
             method: 'get',
             responseHandler: function (res) {
                 return res.rows;

@@ -44,4 +44,17 @@ public interface DrapDatasetTableRelationMapper extends BaseMapper<DrapDatasetTa
 	 * @param tableRelation
 	 */
 	void addTableFieldRelation(List<DrapDatasetTableRelation> tableRelation);
+	
+	/**
+	 * 删除表关系根据数据集
+	 * @param paramMap
+	 */
+	void deleteTableRelation(Map<String, Object> paramMap);
+	
+	
+	/**
+	 * 删除数据项关联字段根据数据集ID
+	 * @param paramMap
+	 */
+	void deleteDataColumnMapByDatasetId(Map<String, Object> paramMap);
 }

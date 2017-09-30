@@ -1,6 +1,5 @@
 package com.chinawiserv.dsp.dir.controller.catalog;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
@@ -9,7 +8,6 @@ import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
@@ -17,7 +15,6 @@ import com.chinawiserv.dsp.dir.schema.ExportExcelUtil;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetSourceRelationService;
-import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -26,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -244,14 +242,24 @@ public class DirDatasetController extends BaseController {
     /**
      * 删除数据集（信息资源）
      */
-    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("catalog:catalogue:delete")
     @Log("删除数据集（信息资源）")
-    @RequestMapping("/delete")
+    @RequestMapping("/doDelete")
     @ResponseBody
-    public HandleResult delete(@RequestParam String id){
-		//todo 逻辑删除
-    	//service.deleteById(id);
-		return new HandleResult().success("删除数据集（信息资源）成功");
+    public HandleResult doDelete(@RequestParam String id){
+        HandleResult handleResult = new HandleResult();
+        try {
+            boolean deleteResult = service.deleteById(id);
+            if(deleteResult){
+                handleResult.success("删除成功");
+            }else{
+                handleResult.error("删除失败");
+            }
+        } catch (Exception e) {
+            handleResult.error("删除信息资源失败");
+            logger.error("删除信息资源失败", e);
+        }
+        return handleResult;
     }
 
     /**
@@ -277,7 +285,7 @@ public class DirDatasetController extends BaseController {
 		    logger.error("获取数据集（信息资源）信息失败", e);
 		}
 		return handleResult;
-		}
+	}
 
     /**
      * 执行编辑

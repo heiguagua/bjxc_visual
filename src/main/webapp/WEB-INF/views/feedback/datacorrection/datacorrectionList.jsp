@@ -106,7 +106,7 @@
      * 初始化纠错列表
      * */
     $('#datacorrectionListTable').bootstrapTable({
-        url: "/feedback/dirdatacorrection/list",
+        url:basePathJS + "/feedback/dirdatacorrection/list",
         method: 'get',
         responseHandler: function (res) {
             return res.rows;
@@ -181,7 +181,7 @@
      * */
     function dcViewTable(v) {
         $('#datacorrectionDetailTable').bootstrapTable({
-            url: "/feedback/dirdatacorrection/detail?dcmId="+v,
+            url:basePathJS + "/feedback/dirdatacorrection/detail?dcmId="+v,
             method: 'get',
             responseHandler: function (res) {
                 return res.rows;
