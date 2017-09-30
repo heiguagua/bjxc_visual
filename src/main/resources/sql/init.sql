@@ -642,6 +642,18 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
 	VALUES('158', '', 'setItemAuditStatus', '1', '同意', null, null, null, '1', null, now(), null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
 	VALUES('159', '', 'setItemAuditStatus', '2', '拒绝', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('123683ac-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '1', '字符串型C', '数据项数据类型', '1');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('127327cf-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '2', '数值型N', '数据项数据类型', '2');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('127e355e-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '3', '货币型Y', '数据项数据类型', '3');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('128a1df8-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '4', '日期型D', '数据项数据类型', '4');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('129774bf-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '5', '日期时间型T', '数据项数据类型', '5');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12a009ae-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '6', '逻辑型L', '数据项数据类型', '6');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12aa2217-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '7', '备注型M', '数据项数据类型', '7');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12b2a66c-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '8', '通用型G', '数据项数据类型', '8');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12bcef93-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '9', '双精度型B', '数据项数据类型', '9');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12c53b73-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '10', '整型I', '数据项数据类型', '10');
+  INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12d4a85e-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '11', '浮动型F', '数据项数据类型', '11');
+
 
   -- 行政区划相关初始化数据
   -- 行政区划版本表

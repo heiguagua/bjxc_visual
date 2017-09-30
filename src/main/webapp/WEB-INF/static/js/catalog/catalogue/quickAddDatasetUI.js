@@ -27,19 +27,19 @@ function initAllSelect(){
     //Dict.selects('26',['#service_provice']);
     //信息资源最小分级单元
     //Dict.selects('27',['#info_min_unit']);
-    //$("#shareConditionDiv").hide();
+    $("#shareConditionDiv").hide();
     $("#shareType").on("change",function(){
-        /*var selectedValue = $(this).children('option:selected').val();
-        if(selectedValue=="2" || selectedValue==""){
+        var selectedValue = $(this).children('option:selected').val();
+        if(selectedValue=="2" || selectedValue==""){ //不予共享
             $("#shareConditionDiv").hide();
-        }else{
+            $("#shareMethodDiv").hide();
+        }else if(selectedValue=="0"){ //无条件共享
+            $("#shareConditionDiv").hide();
+            $("#shareMethodDiv").show();
+        }else if(selectedValue=="1") { //有条件共享
             $("#shareConditionDiv").show();
+            $("#shareMethodDiv").show();
         }
-        if(selectedValue=="3"){
-            $("#share_method_div").hide();
-        }else{
-            $("#share_method_div").show();
-        }*/
     });
 }
 var tree=new Tree();
@@ -430,7 +430,7 @@ function buildDataset(data){
 function buildItem(thisTrNum,data){
     var str='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
         +'<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
-        +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.itemType?data.itemType:'')+'</select></td>'
+        +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.Length?data.Length:'')+'" min="1" type="text" class="form-control"></td>'
         +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_short_name?data.dept_short_name:'')+'" > </td>'
         +'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
@@ -494,4 +494,10 @@ $(document).on('click','#deleteItems',function(){
         var trNum=$(this).attr('trNum');
         infoTableDel(trNum);
     })
-})
+});
+$(document).on("change","#storeMedia",function(){
+    var selectedValue = $(this).children('option:selected').val();
+    if(selectedValue!=""){
+        Dict.cascadeSelects('dataSetStoreMedia', ['#format_type'], selectedValue);
+    }
+});
