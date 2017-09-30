@@ -128,7 +128,7 @@ public class DrapBusinessRequirementServiceImpl
 			}
 			result.success("同步需求成功。");
 		} catch (Exception e) {
-			logger.error("同步需求失败。", e.toString());
+			logger.error("同步需求失败。", e);
 			result.error("同步需求失败。错误原因：" + e.getCause());
 		}
 		return result;

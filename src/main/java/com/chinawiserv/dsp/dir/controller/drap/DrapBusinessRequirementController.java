@@ -57,7 +57,7 @@ public class DrapBusinessRequirementController extends BaseController {
 			if (voLst == null || voLst.isEmpty()) {
 				result.error("待同步数据数据为空。");
 			}
-			service.insertBusinessRequirement(voLst);
+		result = service.insertBusinessRequirement(voLst);
 		} catch (Exception e) {
 			logger.error("同步需求异常。", e.toString());
 		}
