@@ -174,3 +174,17 @@ section .sidebar{
 	
 }
 
+
+/*登录验证的样式*/
+div.mg_right{
+	float:right;
+	margin-right:0 !important;
+}
+div.mg{
+	float:left;
+}
+input.input_test{
+	    width: 135px !important;
+    height: 50px !important;
+    margin-bottom:0 !important;
+}
