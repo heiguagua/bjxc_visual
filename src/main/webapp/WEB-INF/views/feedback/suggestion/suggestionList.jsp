@@ -72,7 +72,7 @@
         $('#usersuggestTable').bootstrapTable('refresh', params);
     });
     $('#usersuggestTable').bootstrapTable({
-        url: "/feedback/dirsuggestion/list",
+        url:basePathJS + "/feedback/dirsuggestion/list",
         method: 'get',
         responseHandler: function (res) {
             return res.rows;
@@ -127,7 +127,7 @@
         }, function() {
             layer.msg(tit + v, { icon: 1 });
             $.ajax({
-                url:"/feedback/dirsuggestion/delete",
+                url:basePathJS + "/feedback/dirsuggestion/delete",
                 type:"get",
                 data:{
                     id:v

@@ -106,7 +106,7 @@
      * 初始化纠错列表
      * */
     $('#datarateListTable').bootstrapTable({
-        url: "/feedback/dirdatarate/list",
+        url:basePathJS + "/feedback/dirdatarate/list",
         method: 'get',
         responseHandler: function (res) {
             return res.rows;
@@ -181,7 +181,7 @@
      * */
     function dcViewTable(v) {
         $('#datarateDetailTable').bootstrapTable({
-            url: "/feedback/dirdatarate/detail?dcmId="+v,
+            url:basePathJS + "/feedback/dirdatarate/detail?dcmId="+v,
             method: 'get',
             responseHandler: function (res) {
                 return res.rows;
