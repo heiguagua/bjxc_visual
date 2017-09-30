@@ -45,4 +45,6 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
     boolean auditReject(String dcmId);
 
     boolean offline(String dcmId);
+
+    boolean deleteById(String id);
 }

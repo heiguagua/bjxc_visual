@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/29 11:18:08                           */
+/* Created on:     2017/9/30 13:35:01                           */
 /*==============================================================*/
 
 
@@ -14,15 +14,17 @@ drop table if exists common_message_response;
 
 drop table if exists common_obj_label;
 
-drop table if exists cs_db_info;
+drop table if exists cs_data_sync_collect;
 
-drop table if exists cs_project;
+drop table if exists cs_data_sync_collect_block;
 
-drop table if exists cs_resource;
+drop table if exists cs_data_sync_collect_column;
 
-drop table if exists cs_table_column;
+drop table if exists cs_data_sync_collect_db;
 
-drop table if exists cs_table_info;
+drop table if exists cs_data_sync_mapping;
+
+drop table if exists cs_data_sync_mapping_property;
 
 drop table if exists dcm_pool_rmdb;
 
@@ -162,6 +164,10 @@ drop table if exists drap_requirement_dataset_map;
 
 drop table if exists drap_requirement_resources;
 
+drop table if exists drap_sx_table_feedback;
+
+drop table if exists drap_sx_table_sync;
+
 drop table if exists drap_system_service;
 
 drop table if exists drap_system_use_dept;
@@ -286,64 +292,105 @@ create table common_obj_label
 alter table common_obj_label comment '对象标签映射表';
 
 /*==============================================================*/
-/* Table: cs_db_info                                            */
+/* Table: cs_data_sync_collect                                  */
 /*==============================================================*/
-create table cs_db_info
+create table cs_data_sync_collect
 (
-   id                   varchar(36) not null comment 'id',
-   数据库名称                varchar(36) comment '数据库名称',
+   id                   varchar(36) not null comment '表ID（唯一标识）',
+   db_id                varchar(36) default NULL comment '数据库id',
+   table_name           varchar(50) default NULL comment '表名',
+   update_time          bigint(20) default NULL comment '更新时间',
+   source_name          varchar(10) default NULL comment '资源名称',
+   project_name         varchar(50) default NULL comment '项目名称',
    primary key (id)
-);
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='目录抓取数据同步';
 
-alter table cs_db_info comment '爬虫数据库表';
+alter table cs_data_sync_collect comment '目录抓取数据同步';
 
 /*==============================================================*/
-/* Table: cs_project                                            */
+/* Table: cs_data_sync_collect_block                            */
 /*==============================================================*/
-create table cs_project
+create table cs_data_sync_collect_block
 (
-   id                   varchar(36) not null comment 'id',
-   project_name         varchar(36) comment '项目名称',
+   id                   varchar(36) not null,
+   block_name           varchar(50) default NULL comment '块名称',
+   block_url            varchar(50) default NULL comment '块URL',
+   table_id             varchar(36) default NULL comment '对应表id',
+   website_name         varchar(100) default NULL comment '网站名称',
    primary key (id)
-);
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='目录抓取数据同步——表所包含的网站板块';
 
-alter table cs_project comment '爬虫项目表';
+alter table cs_data_sync_collect_block comment '目录抓取数据同步——表所包含的网站板块';
 
 /*==============================================================*/
-/* Table: cs_resource                                           */
+/* Table: cs_data_sync_collect_column                           */
 /*==============================================================*/
-create table cs_resource
+create table cs_data_sync_collect_column
 (
-   id                   varchar(36) not null comment 'id',
-   resource_name        varchar(36) comment '资源名称',
+   id                   varchar(36) not null,
+   cloumn_name          varchar(20) default NULL comment '列名',
+   cloumn_chzn          varchar(30) default NULL comment '列描述',
+   table_id             varchar(36) default NULL comment '表ID',
    primary key (id)
-);
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='目录抓取数据同步---列描述';
 
-alter table cs_resource comment '爬虫资源信息';
+alter table cs_data_sync_collect_column comment '目录抓取数据同步---列描述';
 
 /*==============================================================*/
-/* Table: cs_table_column                                       */
+/* Table: cs_data_sync_collect_db                               */
 /*==============================================================*/
-create table cs_table_column
+create table cs_data_sync_collect_db
 (
-   id                   varchar(36) not null comment 'id',
-   column_name          varchar(36) comment '字段名',
+   id                   varchar(36) not null comment '数据库id',
+   db_ip                varchar(10) default NULL comment '数据库 IP',
+   db_port              varchar(10) default NULL comment '数据库端口',
+   db_user              varchar(20) default NULL comment '数据库用户',
+   db_pass              varchar(20) default NULL comment '数据库密码',
+   db_name              varchar(30) default NULL comment '数据库名称',
+   db_desc              varchar(100) default NULL comment '数据库描述',
+   db_type              varchar(20) default '' comment '数据库类型',
    primary key (id)
-);
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='目录抓取数据同步-数据库';
 
-alter table cs_table_column comment '爬虫字段信息';
+alter table cs_data_sync_collect_db comment '目录抓取数据同步-数据库';
 
 /*==============================================================*/
-/* Table: cs_table_info                                         */
+/* Table: cs_data_sync_mapping                                  */
 /*==============================================================*/
-create table cs_table_info
+create table cs_data_sync_mapping
 (
-   id                   varchar(36) not null comment 'id',
-   table_name           varchar(36) comment '表名',
+   id                   varchar(36) not null comment '配置id（可做唯一标识）',
+   website_name         varchar(50) default NULL comment '网站名称',
+   block_url            varchar(20) default NULL comment '模块URL',
+   block_name           varchar(50) default NULL comment '模块名称',
    primary key (id)
-);
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='目录映射数据同步';
 
-alter table cs_table_info comment '爬虫生成表';
+alter table cs_data_sync_mapping comment '目录映射数据同步';
+
+/*==============================================================*/
+/* Table: cs_data_sync_mapping_property                         */
+/*==============================================================*/
+create table cs_data_sync_mapping_property
+(
+   id                   varchar(36) not null,
+   conf_id              varchar(36) default NULL comment '配置ID',
+   cloumn_name          varchar(20) default NULL comment '列名',
+   cloumn_chzn          varchar(50) default NULL comment '列描述',
+   porperty_type        tinyint(2) default NULL comment '属性类别，0：列表属性；1：文章属性；2：tab页属性',
+   property_id          varchar(36) default NULL comment '属性id',
+   update_time          bigint(20) default NULL comment '属性更新时间戳',
+   update_user          varchar(20) default NULL comment '更新用户',
+   primary key (id)
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='目录同步映射数据-------网站属性';
+
+alter table cs_data_sync_mapping_property comment '目录同步映射数据-------网站属性';
 
 /*==============================================================*/
 /* Table: dcm_pool_rmdb                                         */
@@ -707,6 +754,7 @@ create table dir_dataitem
    belong_dept_id       varchar(36) comment '责任部门',
    share_type           varchar(36) comment '共享类型',
    share_condition      varchar(500) comment '共享条件',
+   no_share_explain     varchar(500) comment '不予共享说明',
    share_method_category char(10) comment '共享方式分类',
    share_method         varchar(36) comment '共享方式',
    is_open              varchar(36) comment '是否向社会开放',
@@ -771,7 +819,7 @@ create table dir_dataset
    storage_location     varchar(500) comment '物理存储位置',
    data_level           varchar(36) comment '【川】信息资源最小分级单元',
    data_index_system    varchar(36) comment '【川】信息资源指标体系',
-   is_secret            varchar(36) comment '【川】信息资源涉密性',
+   secret_flag          varchar(36) comment '【川】信息资源涉密性',
    source_type          varchar(36) comment '添加来源',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
@@ -1641,6 +1689,9 @@ create table drap_dict_table_column
    column_desc          varchar(256) comment '字段描述',
    data_precision       varchar(36) comment '字段数据精度',
    code_index           int comment '编码序号',
+   status               int(3) comment '状态',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   real_column_id       varchar(36) comment '对应实际数据表字段ID',
    primary key (id)
 );
 
@@ -1832,6 +1883,41 @@ create table drap_requirement_resources
 alter table drap_requirement_resources comment '需求资源信息表';
 
 /*==============================================================*/
+/* Table: drap_sx_table_feedback                                */
+/*==============================================================*/
+create table drap_sx_table_feedback
+(
+   id                   varchar(36) not null comment 'ID',
+   collection_id        varchar(36) comment '？采集ID',
+   db_id                varchar(36) comment '数据库ID',
+   table_id             varchar(36) comment '表ID',
+   result_info          varchar(1024) comment '采集状态',
+   message_info         varchar(1024) comment '采集结果说明',
+   access_time          datetime comment '接收数据时间',
+   primary key (id)
+);
+
+alter table drap_sx_table_feedback comment '数据表反馈记录(淞幸)';
+
+/*==============================================================*/
+/* Table: drap_sx_table_sync                                    */
+/*==============================================================*/
+create table drap_sx_table_sync
+(
+   id                   varchar(36) not null comment 'ID',
+   batch_id             varchar(36) comment '批处理任务ID',
+   db_id                varchar(36) comment '数据库ID',
+   table_id             varchar(36) comment '表ID',
+   result               varchar(36) comment '同步结果',
+   result_message       varchar(128) comment '同步结果消息',
+   status               varchar(36) comment '状态',
+   message              varchar(128) comment '消息',
+   primary key (id)
+);
+
+alter table drap_sx_table_sync comment '数据表同步记录(淞幸)';
+
+/*==============================================================*/
 /* Table: drap_system_service                                   */
 /*==============================================================*/
 create table drap_system_service
@@ -1930,7 +2016,7 @@ create table sys_dept
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
-   tree_index           int(6) comment '树索引',
+   tree_index           int(6) default 0 comment '树索引',
    tree_code            varchar(1000) comment '树编码',
    primary key (id)
 )

@@ -3,8 +3,10 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-
-    <script src="<%=basePath%>/js/dir/configure/specialapp/specialappEdit.js"></script>
+    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%=basePath%>/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="<%=basePath%>/js/dir/configure/news/newsEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <section class="content">
@@ -13,29 +15,30 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/dirSpecialApps/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/dirNews/doEdit">
                         <input id="appId" type="hidden" value="${id}" name="Id" />
                         <div class="box-body">
-                           <div class="form-group">
-                                <label for="appName">应用名称</label>
-                                <input type="text" id="Eapp_name" name="appName" class="form-control"
-                                       placeholder="请输入应用名称" data-rule="应用名称:required;appName;remote(<%=basePath%>/system/user/insertCheckName)">
+                           <div class="form-group col-md-12">
+                                <label for="editChoosePic">图片<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+                                <p style="display: inline-block" id="editPicName"></p>
+                                <input style="display:inline-block;background-color:#27DC93" type="button" class="btn btn-save" value="重选图片"  id="editChangePicButton"/>                                
+                                <div id="editPicDiv"></div>
+                                <input style="display: inline-block" type="file" name="file" value="file" id="editChoosePic">
+                                <label id="editPicNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过10M)</label>                                
                             </div>
-                            <div class="form-group">
-                                <label for="appCategory">应用种类</label>
-                                <input type="text" id="Eapp_category" name="appCategory" class="form-control"
-                                       placeholder="请输入应用种类" data-rule="应用种类:required;appCategory;">
-                            </div>
-                            <div class="form-group">
-                                <label for="appUrl">url地址</label>
-                                <input type="text" id="Eapp_url" name="appUrl" class="form-control"
-                                       placeholder="请输入url地址" data-rule="url地址:required;appUrl; ">
-                            </div>
-                            <div class="form-group">
-                                <label for="orderNumber">排序号</label>
-                                <input type="text" id="Eorder_number" name="orderNumber" class="form-control"
-                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;">
-                            </div>  
+                            <div class="form-group col-md-12" style="display:none" align="center" id="editImgDiv">
+                                <img alt="" src="" id="editShowImg" name="showImg" width="200" height="200">
+                            </div> 
+                           <div class="form-group col-md-12">
+                                <label for="edit_pic_title">标题<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+                                <input type="text" class="form-control" id="edit_pic_title" name="title" maxlength="100">
+                                <div id="editTitleDiv"></div>
+                            </div> 
+                            <div class="form-group col-md-12">
+                                <label for="edit_pic_content">内容</label>
+                                    <textarea rows="3" cols="20" class="form-control" id="pic_content" name="pic_content"></textarea>
+                                <script id="edit_pic_content" style="height:300px;display: block;"  name="picContent" type="text/plain"></script>
+                            </div>   
                         </div><!-- /.box-body -->
                         <div class="box-footer">
                             <%--<button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>--%>

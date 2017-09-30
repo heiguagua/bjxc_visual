@@ -65,12 +65,13 @@
 							
 					      		<div style="width:409px;display:inline-block" >
 						      		 <div class="has-feedback mg">
-								         	<input type="text" style="width:100%;margin-bottom:15px;" class="form-control" name="captcha" placeholder="验证码" data-rule="验证码:required;length(5);" size="5">
-								         	<span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+								         	<input type="text" class="form-control input_test" name="captcha" placeholder="验证码" data-rule="验证码:required;length(5);" size="5">
+								         	 <!-- <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span> -->
+								         	 <!--data-rule="验证码:required;length(5);"   -->
 								        </div>
 						      		
 						      		
-						      			<div class="form-group has-feedback">
+						      			<div class="form-group has-feedback mg_right">
 									        <img id="codeimg" alt="如果看不清楚，请单击图片刷新！" class="pointer img" src="<%=basePath%>/login/captcha">
 									        <a id="change_code" href="javascript:void(0);">点击刷新</a>
 									      </div>     

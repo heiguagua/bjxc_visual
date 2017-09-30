@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.dir.entity.vo.catalog;
 
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataitemSourceInfo;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetExtFormat;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation;
@@ -24,9 +25,24 @@ public class DirDatasetVo extends DirDataset{
 
     private String classifyStatus;
 
+    private String deptName;
+
+    //数据集扩展属性
     private DirDatasetExtFormat ext;
 
+    //表间关系
     private List<DirDatasetSourceRelation> relations;
+
+    //数据项来源
+    private List<DirDataitemSourceInfo> sourceInfos;
+
+    public List<DirDataitemSourceInfo> getSourceInfos() {
+        return sourceInfos;
+    }
+
+    public void setSourceInfos(List<DirDataitemSourceInfo> sourceInfos) {
+        this.sourceInfos = sourceInfos;
+    }
 
     public List<DirDatasetSourceRelation> getRelations() {
         return relations;
@@ -50,6 +66,14 @@ public class DirDatasetVo extends DirDataset{
 
     public void setClassifyStatus(String classifyStatus) {
         this.classifyStatus = classifyStatus;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 
     public DirDatasetExtFormat getExt() {

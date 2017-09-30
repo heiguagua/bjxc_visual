@@ -19,20 +19,22 @@
     <%@include file="/WEB-INF/views/common/menu.jsp" %>
 
     <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                <small>门户管理 > 用户咨询</small>
+            </h1>
+        </section>
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-12 seventy-percent-height">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                        <form class="form-inline marginBot" method="post">
                             <div class="box-header">
-                                <div class="input-group">
-                                    用户咨询
-                                </div>
                                 <div class="input-group pull-right">
-                                    <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称" type="text">
+                                    <input class="form-control" id="editSearch" name="searchEdit" placeholder="标题" type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat" id="queryBtnEdit" type="button">
+                                        <button class="btn btn-primary btn-flat btn_blue" id="queryBtnEdit" type="button">
                                             <i class="fa fa-search">
                                                     </i> 搜索
                                         </button>
@@ -43,7 +45,7 @@
                         </form>
                         <div class="box-body table-responsive no-padding">
                             <!-- 表格 -->
-                            <table class="layui-table" id="usersuggestTable" lay-even="" lay-skin="row">
+                            <table class="table-striped" id="usersuggestTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -70,14 +72,14 @@
         $('#usersuggestTable').bootstrapTable('refresh', params);
     });
     $('#usersuggestTable').bootstrapTable({
-        url: "/feedback/dirsuggestion/list",
+        url:basePathJS + "/feedback/dirsuggestion/list",
         method: 'get',
         responseHandler: function (res) {
             return res.rows;
         },
         pagination: true, //分页
         pageNum: 1,
-        pageSize: 15,
+        pageSize: 10,
         columns: [
             {
                 field: 'a', title: '序号', width: '5%',
@@ -125,7 +127,7 @@
         }, function() {
             layer.msg(tit + v, { icon: 1 });
             $.ajax({
-                url:"/feedback/dirsuggestion/delete",
+                url:basePathJS + "/feedback/dirsuggestion/delete",
                 type:"get",
                 data:{
                     id:v

@@ -20,6 +20,6 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
 public interface IDirNewsService extends ICommonService<DirNews, DirNewsVo> {
 	
 	void DeleteByFlag(String id);	
-	String fileUpload(DirNewsVo entity, MultipartFile file,HttpServletRequest request);
+	String fileUpload(DirNewsVo entity, MultipartFile file,HttpServletRequest request) throws Exception;
 	
 }

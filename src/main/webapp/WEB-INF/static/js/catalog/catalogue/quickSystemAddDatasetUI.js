@@ -29,19 +29,19 @@ function initAllSelect(){
     //Dict.selects('26',['#service_provice']);
     //信息资源最小分级单元
     //Dict.selects('27',['#info_min_unit']);
-    //$("#shareConditionDiv").hide();
+    $("#shareConditionDiv").hide();
     $("#shareType").on("change",function(){
-        /*var selectedValue = $(this).children('option:selected').val();
-        if(selectedValue=="2" || selectedValue==""){
+        var selectedValue = $(this).children('option:selected').val();
+        if(selectedValue=="2" || selectedValue==""){ //不予共享
             $("#shareConditionDiv").hide();
-        }else{
+            $("#shareMethodDiv").hide();
+        }else if(selectedValue=="0"){ //无条件共享
+            $("#shareConditionDiv").hide();
+            $("#shareMethodDiv").show();
+        }else if(selectedValue=="1") { //有条件共享
             $("#shareConditionDiv").show();
+            $("#shareMethodDiv").show();
         }
-        if(selectedValue=="3"){
-            $("#share_method_div").hide();
-        }else{
-            $("#share_method_div").show();
-        }*/
     });
 }
 var tree=new Tree();
@@ -106,7 +106,7 @@ var Model = {
                     var html = '';
                     var cur = this;
 
-                    var pool=[];
+                    var pool=fieldIds;
                     var setCode=$('#set_code').val();//操作的对象
                     /*$.ajax({
                         url: basePathJS+"/admin/SysBus_getDirBusinessBySetCode",
@@ -354,7 +354,7 @@ $(document).on("click", "button#field_add", function(){
 
     $('#table_number').text(table_number.length);
     $('#link_number').text(table_number.length-1);
-
+    $('#tableNumber').val(table_number.length);
     //获取选中的数据项
     if(fieldIds.length>0){
         $.ajax({
@@ -523,7 +523,7 @@ $(document).on('click','#add_item',function () {
     $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'">' +
         '<td><input trNum='+thisTrNum+' data-rule="字段名:required;" type="text" class="form-control"></td>'+
         '<td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
-        '<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
+        '<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType")+'</select></td>'+
         '<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" min="1" type="text" class="form-control"></td>'+
         '<td></td>'+
         '<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
@@ -556,7 +556,7 @@ function buildItem(thisTrNum,data){
     var str='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
         +'<td><input value="'+(data.column_en_name?data.column_en_name:'')+'" data-rule="字段名:required;" type="text" class="form-control"></td>'
         +'<td><input value="'+(data.column_cn_name?data.column_cn_name:'')+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
-        +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.itemType?data.itemType:'')+'</select></td>'
+        +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.column_length?data.column_length:'')+'" min="1" type="text" class="form-control"></td>'
         +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.dept_id?data.dept_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_name?data.dept_name:'')+'" > </td>'
         +'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
@@ -570,7 +570,7 @@ function buildItem(thisTrNum,data){
         +'<td><input name="items['+thisTrNum+'].openCondition" type="text" class="form-control" value="'+(data.openCondition?data.openCondition:'')+'"></td>'
         +'<td><select name="items['+thisTrNum+'].storageLocation" data-rule="存储位置:required;" class="form-control">'+Dict.selectsDom("setItemStoreLocation",data.physicsStoreLocation?data.physicsStoreLocation:'')+'</select></td>'
         +'<td><select name="items['+thisTrNum+'].updateFrequency" data-rule="更新周期:required;" class="form-control">'+Dict.selectsDom("setItemFrequency",data.updateFrequency?data.updateFrequency:'')+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
+        +'<td><input type="hidden" name="sourceInfos['+thisTrNum+'].sourceObjId" value="'+data.id+'"><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
     $('#dataitemList').prepend(str)}
 function infoTableDel(thisTrNum){
     $('#tr_'+thisTrNum).remove();
@@ -621,4 +621,10 @@ $(document).on('click','#deleteItems',function(){
         var trNum=$(this).attr('trNum');
         infoTableDel(trNum);
     })
-})
+});
+$(document).on("change","#storeMedia",function(){
+    var selectedValue = $(this).children('option:selected').val();
+    if(selectedValue!=""){
+        Dict.cascadeSelects('dataSetStoreMedia', ['#format_type'], selectedValue);
+    }
+});

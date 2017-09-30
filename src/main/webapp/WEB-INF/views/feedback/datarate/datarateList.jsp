@@ -19,20 +19,22 @@
     <%@include file="/WEB-INF/views/common/menu.jsp" %>
 
     <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                <small>门户管理 > 评分管理</small>
+            </h1>
+        </section>
         <!-- Content Header (Page header) -->
         <section class="content" id="duMg">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-12 seventy-percent-height">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                        <form class="form-inline marginBot" method="post">
                             <div class="box-header">
-                                <div class="input-group">
-                                    评分管理
-                                </div>
                                 <div class="input-group pull-right">
                                     <input class="form-control" id="editListSearch" name="searchEdit" placeholder="资源名称" type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat" id="queryListBtnEdit" type="button">
+                                        <button class="btn btn-primary btn-flat btn_blue" id="queryListBtnEdit" type="button">
                                             <i class="fa fa-search">
                                             </i>  搜索
                                         </button>
@@ -43,7 +45,7 @@
                         </form>
                         <div class="box-body table-responsive no-padding">
                             <!-- 表格 -->
-                            <table class="layui-table" id="datarateListTable" lay-even="" lay-skin="row">
+                            <table class="table-striped" id="datarateListTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -53,17 +55,17 @@
         </section>
         <section class="content" id="duMg-dd" class="hidden">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-12 seventy-percent-height">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                        <form class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group">
-                                    <a class="btn btn-primary  btn-flat" onclick="javascript:retdcView()"> <i class="fa fa-reply">&#160;</i>返回评分管理列表</a>
+                                    <a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:retdcView()"> <i class="fa fa-reply">&#160;</i>返回评分管理列表</a>
                                 </div>
                                 <div class="input-group pull-right">
                                     <input class="form-control" id="editDetailSearch" name="searchEdit" placeholder="用户名称" type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat" id="queryDetailBtnEdit" type="button">
+                                        <button class="btn btn-primary btn-flat btn_blue" id="queryDetailBtnEdit" type="button">
                                             <i class="fa fa-search">
                                             </i>  搜索
                                         </button>
@@ -74,7 +76,7 @@
                         </form>
                         <div class="box-body table-responsive no-padding">
                             <!-- 表格 -->
-                            <table class="layui-table" id="datarateDetailTable" lay-even="" lay-skin="row">
+                            <table class="table-striped" id="datarateDetailTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -104,14 +106,14 @@
      * 初始化纠错列表
      * */
     $('#datarateListTable').bootstrapTable({
-        url: "/feedback/dirdatarate/list",
+        url:basePathJS + "/feedback/dirdatarate/list",
         method: 'get',
         responseHandler: function (res) {
             return res.rows;
         },
         pagination: true, //分页
         pageNum: 1,
-        pageSize: 15,
+        pageSize: 10,
         columns: [
             {
                 field: 'a', title: '序号', width: '5%',
@@ -179,14 +181,14 @@
      * */
     function dcViewTable(v) {
         $('#datarateDetailTable').bootstrapTable({
-            url: "/feedback/dirdatarate/detail?dcmId="+v,
+            url:basePathJS + "/feedback/dirdatarate/detail?dcmId="+v,
             method: 'get',
             responseHandler: function (res) {
                 return res.rows;
             },
             pagination: true, //分页
             pageNum: 1,
-            pageSize: 15,
+            pageSize: 10,
             columns: [
                 {
                     field: 'a', title: '序号', width: '5%',
@@ -195,6 +197,7 @@
                     }
                 },
                 {field: 'raterName', title: '评分用户'},
+                {field: 'datasetName', title: '资源名称'},
                 {field: 'rateScore', title: '评分值', width: '15%'},
                 {field: 'rateDate', title: '最后评分时间', width: '15%'}
             ]

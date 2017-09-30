@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -80,13 +80,13 @@ public class DirNewsController extends BaseController {
     @Log("创建新闻表")
     @RequestMapping("/doAdd")
     @ResponseBody
-    public HandleResult doAdd(DirNewsVo entity,@RequestParam(value="file",required=false) MultipartFile file,  
+    public HandleResult doAdd(DirNewsVo entity,@RequestParam(value="file",required=true)MultipartFile file,  
             HttpServletRequest request)
     {
 		HandleResult handleResult = new HandleResult();
 		try {
-			String rs = "samePic";
-//			String rs = picService.uploadPic(request, file, fileFileName);
+//			String rs = "samePic";
+			String rs = service.fileUpload(entity, file, request);
             if("samePic".equals(rs)){
             	handleResult.error("该图片已存在，请重新选择图片上传");
             }else{
@@ -120,7 +120,7 @@ public class DirNewsController extends BaseController {
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "XXX/XXX/XXXEdit";
+		return "dir/configure/news/newsEdit";
     }
 
 //    @RequiresPermissions("XXX:XXX:edit")
