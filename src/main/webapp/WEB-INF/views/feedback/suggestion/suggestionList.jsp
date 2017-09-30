@@ -27,7 +27,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-12 seventy-percent-height">
                     <div class="box">
                         <form class="form-inline marginBot" method="post">
                             <div class="box-header">
@@ -45,7 +45,7 @@
                         </form>
                         <div class="box-body table-responsive no-padding">
                             <!-- 表格 -->
-                            <table class="layui-table" id="usersuggestTable" lay-even="" lay-skin="row">
+                            <table class="table-striped" id="usersuggestTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -79,7 +79,7 @@
         },
         pagination: true, //分页
         pageNum: 1,
-        pageSize: 15,
+        pageSize: 10,
         columns: [
             {
                 field: 'a', title: '序号', width: '5%',

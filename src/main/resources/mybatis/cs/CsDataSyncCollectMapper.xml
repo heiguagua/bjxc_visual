@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.cs.CsDataSyncCollectMapper">
+    <!-- CsDataSyncCollect的resultMap,column是给数据库列起的别名,它对应property类的属性-->
+    <resultMap id="result_CsDataSyncCollect_Map" type="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollect">
+        <id column="id" property="id"/>
+        <result column="db_id" property="dbId"/>
+        <result column="table_name" property="tableName"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="source_name" property="sourceName"/>
+        <result column="project_name" property="projectName"/>
+    </resultMap>
+
+    <!-- 数据库中表名为:cs_data_sync_collect的列名,as前是数据库的列明,as后是列的别名用于映射成实体类中的属性,需要注意的是别名必须与resultMap中的column别名一致 -->
+    <sql id="cs_data_sync_collect_Column">
+        cs_data_sync_collect.id as id
+        ,cs_data_sync_collect.db_id as db_id
+        ,cs_data_sync_collect.table_name as table_name
+        ,cs_data_sync_collect.update_time as update_time
+        ,cs_data_sync_collect.source_name as source_name
+        ,cs_data_sync_collect.project_name as project_name
+    </sql>
+
+    <!-- 获得一个CsDataSyncCollect对象,以参数CsDataSyncCollect对象中不为空的属性作为条件进行查询-->
+    <select id="selectCsDataSyncCollectByObj"
+            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollect"
+            resultMap="result_CsDataSyncCollect_Map">
+        select
+        <include refid="cs_data_sync_collect_Column"/>
+        from cs_data_sync_collect
+        <where>
+            <if test="projectName != null ">and cs_data_sync_collect.project_name = #{projectName}</if>
+            <if test="sourceName != null ">and cs_data_sync_collect.source_name = #{sourceName}</if>
+            <if test="updateTime != null ">and cs_data_sync_collect.update_time = #{updateTime}</if>
+            <if test="tableName != null ">and cs_data_sync_collect.table_name = #{tableName}</if>
+            <if test="dbId != null ">and cs_data_sync_collect.db_id = #{dbId}</if>
+            <if test="id != null ">and cs_data_sync_collect.id = #{id}</if>
+        </where>
+    </select>
+
+    <!-- 通过CsDataSyncCollect的id获得对应数据库中表的数据对象-->
+    <select id="selectCsDataSyncCollectById" parameterType="java.lang.String" resultMap="result_CsDataSyncCollect_Map">
+        select
+        <include refid="cs_data_sync_collect_Column"/>
+        from cs_data_sync_collect
+        where cs_data_sync_collect.id = #{id}
+    </select>
+
+    <!-- 将CsDataSyncCollect插入到对应数据库的表中,包括属性值为null的数据-->
+
+    <insert id="insertCsDataSyncCollect" parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollect">
+        insert into cs_data_sync_collect(id,db_id,table_name,update_time,source_name,project_name) 
+        values(#{id},#{dbId},#{tableName},#{updateTime},#{sourceName},#{projectName})
+    </insert>
+
+    <!-- 将CsDataSyncCollect中属性值不为null的数据,插入到对应数据库的表中-->
+    <insert id="insertNonEmptyCsDataSyncCollect"
+            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollect">
+        insert into cs_data_sync_collect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="dbId != null">db_id,</if>
+            <if test="tableName != null">table_name,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="sourceName != null">source_name,</if>
+            <if test="projectName != null">project_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="dbId != null">#{dbId},</if>
+            <if test="tableName != null">#{tableName},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="sourceName != null">#{sourceName},</if>
+            <if test="projectName != null">#{projectName},</if>
+        </trim>
+    </insert>
+
+    <!-- 通过CsDataSyncCollect的id将CsDataSyncCollect的数据更新到数据库中对应的表,包括值null的数据-->
+    <update id="updateCsDataSyncCollectById"
+            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollect">
+        update cs_data_sync_collect set
+            db_id=#{dbId}
+            ,table_name=#{tableName}
+            ,update_time=#{updateTime}
+            ,source_name=#{sourceName}
+            ,project_name=#{projectName}
+        where id=#{id}
+    </update>
+
+    <!-- 通过CsDataSyncCollect的id将CsDataSyncCollect中属性值不为null的数据更新到数据库对应的表中-->
+    <update id="updateNonEmptyCsDataSyncCollectById"
+            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncCollect">
+        update cs_data_sync_collect
+        <set>
+            <if test="dbId != null">
+                db_id=#{dbId},
+            </if>
+            <if test="tableName != null">
+                table_name=#{tableName},
+            </if>
+            <if test="updateTime != null">
+                update_time=#{updateTime},
+            </if>
+            <if test="sourceName != null">
+                source_name=#{sourceName},
+            </if>
+            <if test="projectName != null">
+                project_name=#{projectName},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+</mapper>
