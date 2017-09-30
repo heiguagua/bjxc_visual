@@ -7,39 +7,42 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
-        <id column="id" property="id"/>
-        <result column="region_code" property="regionCode"/>
-        <result column="dataset_code" property="datasetCode"/>
-        <result column="dataset_name" property="datasetName"/>
-        <result column="alias" property="alias"/>
-        <result column="belong_dept_id" property="belongDeptId"/>
-        <result column="dataset_desc" property="datasetDesc"/>
-        <result column="share_type" property="shareType"/>
-        <result column="share_condition" property="shareCondition"/>
-        <result column="share_method" property="shareMethod"/>
-        <result column="share_method_desc" property="shareMethodDesc"/>
-        <result column="is_open" property="isOpen"/>
-        <result column="open_condition" property="openCondition"/>
-        <result column="update_frequency" property="updateFrequency"/>
-        <result column="rel_dataset_code" property="relDatasetCode"/>
-        <result column="storage_medium" property="storageMedium"/>
-        <result column="storage_location" property="storageLocation"/>
-        <result column="data_level" property="dataLevel"/>
-        <result column="data_index_system" property="dataIndexSystem"/>
-        <result column="is_secret" property="isSecret"/>
-        <result column="source_type" property="sourceType"/>
-        <result column="status" property="status"/>
-        <result column="create_user_id" property="createUserId"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_user_id" property="updateUserId"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="delete_flag" property="deleteFlag"/>
+        <id column="id" property="id" />
+        <result column="region_code" property="regionCode" />
+        <result column="dataset_code" property="datasetCode" />
+        <result column="dataset_name" property="datasetName" />
+        <result column="alias" property="alias" />
+        <result column="belong_dept_type" property="belongDeptType" />
+        <result column="belong_dept_id" property="belongDeptId" />
+        <result column="dataset_desc" property="datasetDesc" />
+        <result column="share_type" property="shareType" />
+        <result column="share_condition" property="shareCondition" />
+        <result column="share_method_category" property="shareMethodCategory" />
+        <result column="share_method" property="shareMethod" />
+        <result column="share_method_desc" property="shareMethodDesc" />
+        <result column="is_open" property="isOpen" />
+        <result column="open_condition" property="openCondition" />
+        <result column="update_frequency" property="updateFrequency" />
+        <result column="rel_dataset_code" property="relDatasetCode" />
+        <result column="storage_medium" property="storageMedium" />
+        <result column="storage_location" property="storageLocation" />
+        <result column="data_level" property="dataLevel" />
+        <result column="data_index_system" property="dataIndexSystem" />
+        <result column="secret_flag" property="secretFlag" />
+        <result column="source_type" property="sourceType" />
+        <result column="status" property="status" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="update_time" property="updateTime" />
+        <result column="delete_flag" property="deleteFlag" />
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo">
         <result column="classify_name" property="classifyName"/>
         <result column="classify_status" property="classifyStatus"/>
+        <result column="dept_name" property="deptName"/>
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -57,9 +60,10 @@
     </select>
 
     <select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,MAX(IFNULL(m.status,0)) AS classify_status,GROUP_CONCAT(c.classify_structure_name) AS classify_name FROM dir_dataset t
-        left join  dir_dataset_classify_map m ON t.id=m.dataset_id
-        left join dir_classify c ON m.classify_id=c.id
+        SELECT t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,MAX(IFNULL(m.status,0)) AS classify_status,GROUP_CONCAT(c.classify_structure_name) AS classify_name FROM dir_dataset t
+        left join  dir_dataset_classify_map m on t.id=m.dataset_id
+        left join dir_classify c on m.classify_id=c.id
+        left join sys_dept de on t.belong_dept_id=de.id
         <include refid="queryConditions"></include>
         group by t.id
     </select>
@@ -74,10 +78,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
-        insert into
-        dir_dataset(id,region_code,dataset_code,dataset_name,alias,belong_dept_id,dataset_desc,share_type,share_condition,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,is_secret,source_type,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
-        values(
-        #{id},#{regionCode},#{datasetCode},#{datasetName},#{alias},#{belongDeptId},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{isSecret},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag})
+        insert into dir_dataset(id,region_code,dataset_code,dataset_name,alias,belong_dept_type,belong_dept_id,dataset_desc,share_type,share_condition,share_method_category,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,secret_flag,source_type,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(
+        #{id},#{regionCode},#{datasetCode},#{datasetName},#{alias},#{belongDeptType},#{belongDeptId},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethodCategory},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{secretFlag},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag})
     </insert>
 
     <insert id="extInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
@@ -104,6 +106,9 @@
             <if test="alias != null">
                 alias = #{alias},
             </if>
+            <if test="belongDeptType != null">
+                belong_dept_type = #{belongDeptType},
+            </if>
             <if test="belongDeptId != null">
                 belong_dept_id = #{belongDeptId},
             </if>
@@ -115,6 +120,9 @@
             </if>
             <if test="shareCondition != null">
                 share_condition = #{shareCondition},
+            </if>
+            <if test="shareMethodCategory != null">
+                share_method_category = #{shareMethodCategory},
             </if>
             <if test="shareMethod != null">
                 share_method = #{shareMethod},
@@ -146,8 +154,8 @@
             <if test="dataIndexSystem != null">
                 data_index_system = #{dataIndexSystem},
             </if>
-            <if test="isSecret != null">
-                is_secret = #{isSecret},
+            <if test="secretFlag != null">
+                secret_flag = #{secretFlag},
             </if>
             <if test="sourceType != null">
                 source_type = #{sourceType},
@@ -182,7 +190,13 @@
     <sql id="deleteWhereCause">
         <where>
             <if test="id != null">
-                id = #{id}
+                and id = #{id}
+            </if>
+            <if test="ids != null and ids!='' ">
+                and id in
+                <foreach collection="ids" open="(" close=")" item="item" separator=",">
+                    #{item, jdbcType=VARCHAR}
+                </foreach>
             </if>
         </where>
     </sql>

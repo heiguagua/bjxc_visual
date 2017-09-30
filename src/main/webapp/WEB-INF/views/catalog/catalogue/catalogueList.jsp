@@ -13,7 +13,7 @@
         <div class="content-wrapper">
             <section class="content-header">
                 <h1>
-                    <small>返回上一级/目录管理 /目录编目</small>
+                    <small>目录管理 > 目录编目</small>
                 </h1>
                 <!-- <ul class="title_ul">
                 	<li class="active"><i class="fa fa-desktop" style="font-size:20px"></i>&nbsp;常规模式</li>
@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">
-                            <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                            <form class="form-inline" method="post">
                                 <div class="box-header">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
@@ -51,26 +51,32 @@
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
                                                 data-toggle="dropdown">
-                                            <!-- <i class="fa fa-plus"></i> -->导入<span class="caret"></span>
+                                            <!-- <i class="fa fa-plus"></i> -->导入
                                         </button>
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle btn-myself"
-                                                data-toggle="dropdown">
-                                            <!-- <i class="fa fa-plus"></i> -->删除<span class="caret"></span>
+                                                data-toggle="dropdown" id="catalogueDeleteButton">
+                                            <!-- <i class="fa fa-plus"></i> -->删除
                                         </button>
                                     </div>
                                     <div class="input-group" style="float:right">
-                                        <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称" type="text">
+                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
                                         <div class="input-group-btn">
-                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtnEdit" type="button">
+                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
                                                 <i class="fa fa-search"></i> 查询
                                             </button>
                                         </div>
                                         </input>
                                     </div>
                                     <div class="input-group" style="float:right;margin-right:4px;">
-                                        <input class="form-control" id="editSelect" name="selectEdit" placeholder="全部目录" type="text" />
+                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control">
+                                        <input type="hidden" id="searchClassifyId">
+                                        <div class="menu-wrap">
+                                            <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
+                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                            </div>
+                                        </div>
                                     </div>
                                     
                                 </div>

@@ -21,7 +21,24 @@ var dict = function () {
             var curThis = this;
             for (var itm in curThis.dicts[key]) {
                 var item = dicts[key][itm];
-                option += "<option value=" + item.dictCode + " name=" + item.dictName + ">" + item.dictName + "</option>"
+                if(item.parentCode == undefined){ //父级code查出来为空，代表他是一级字典，如果不该为空，则为联动字典
+                    option += "<option value=" + item.dictCode + " name=" + item.dictName + ">" + item.dictName + "</option>";
+                }
+            }
+            $.each(doms, function (idx, dom) {
+                $(dom).empty();
+                $(dom).append(option);
+            });
+        },
+        cascadeSelects: function (key, doms, parentCode) { //级联下拉框
+            //敏感标识
+            var option = "<option value=''>--请选择--</option>";
+            var curThis = this;
+            for (var itm in curThis.dicts[key]) {
+                var item = dicts[key][itm];
+                if(item.parentCode == parentCode){ //根据父级code,获取其子联动字典
+                    option += "<option value=" + item.dictCode + " name=" + item.dictName + ">" + item.dictName + "</option>";
+                }
             }
             $.each(doms, function (idx, dom) {
                 $(dom).empty();

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wuty
- * @since 2017-09-19
+ * @since 2017-09-29
  */
 @TableName("dir_dataset")
 public class DirDataset implements Serializable {
@@ -42,6 +42,11 @@ public class DirDataset implements Serializable {
      */
 	private String alias;
     /**
+     * 【国】信息资源提供方类型
+     */
+	@TableField("belong_dept_type")
+	private String belongDeptType;
+    /**
      * 【国】信息资源提供方ID
      */
 	@TableField("belong_dept_id")
@@ -62,12 +67,17 @@ public class DirDataset implements Serializable {
 	@TableField("share_condition")
 	private String shareCondition;
     /**
-     * 【国】信息资源共享方式
+     * 【国】信息资源共享方式分类
+     */
+	@TableField("share_method_category")
+	private String shareMethodCategory;
+    /**
+     * 【国】信息资源共享方式类型
      */
 	@TableField("share_method")
 	private String shareMethod;
     /**
-     * 【国】信息资源共享方式说明
+     * 信息资源共享方式说明
      */
 	@TableField("share_method_desc")
 	private String shareMethodDesc;
@@ -114,8 +124,8 @@ public class DirDataset implements Serializable {
     /**
      * 【川】信息资源涉密性
      */
-	@TableField("is_secret")
-	private String isSecret;
+	@TableField("secret_flag")
+	private String secretFlag;
     /**
      * 添加来源
      */
@@ -192,6 +202,14 @@ public class DirDataset implements Serializable {
 		this.alias = alias;
 	}
 
+	public String getBelongDeptType() {
+		return belongDeptType;
+	}
+
+	public void setBelongDeptType(String belongDeptType) {
+		this.belongDeptType = belongDeptType;
+	}
+
 	public String getBelongDeptId() {
 		return belongDeptId;
 	}
@@ -222,6 +240,14 @@ public class DirDataset implements Serializable {
 
 	public void setShareCondition(String shareCondition) {
 		this.shareCondition = shareCondition;
+	}
+
+	public String getShareMethodCategory() {
+		return shareMethodCategory;
+	}
+
+	public void setShareMethodCategory(String shareMethodCategory) {
+		this.shareMethodCategory = shareMethodCategory;
 	}
 
 	public String getShareMethod() {
@@ -304,15 +330,15 @@ public class DirDataset implements Serializable {
 		this.dataIndexSystem = dataIndexSystem;
 	}
 
-	public String getIsSecret() {
-		return isSecret;
-	}
+    public String getSecretFlag() {
+        return secretFlag;
+    }
 
-	public void setIsSecret(String isSecret) {
-		this.isSecret = isSecret;
-	}
+    public void setSecretFlag(String secretFlag) {
+        this.secretFlag = secretFlag;
+    }
 
-	public String getSourceType() {
+    public String getSourceType() {
 		return sourceType;
 	}
 

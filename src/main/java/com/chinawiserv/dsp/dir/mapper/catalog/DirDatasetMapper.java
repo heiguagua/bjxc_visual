@@ -35,7 +35,7 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
 
     int baseUpdate(DirDataset entity);
 
-    int baseDelete(String id);
+    int baseDelete(Map<String,Object> param);
 
     int extInsert(DirDatasetExtFormat entity);
 
