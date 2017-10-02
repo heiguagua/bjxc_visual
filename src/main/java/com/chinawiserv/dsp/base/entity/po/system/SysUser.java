@@ -106,7 +106,11 @@ public class SysUser implements Serializable {
      */
 	@TableField("delete_flag")
 	private Integer deleteFlag;
-
+	/**
+	 * 用户接口验证码
+	 * */
+	@TableField("token")
+	private String token;
 
 	public String getId() {
 		return id;
@@ -252,4 +256,11 @@ public class SysUser implements Serializable {
 		this.deleteFlag = deleteFlag;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 }

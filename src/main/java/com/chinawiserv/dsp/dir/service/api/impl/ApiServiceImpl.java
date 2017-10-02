@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.system.*;
+import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetServiceMap;
 import com.chinawiserv.dsp.dir.entity.po.service.DirServiceInfo;
@@ -21,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -46,6 +46,9 @@ public class ApiServiceImpl implements IApiService {
 
     @Autowired
     private DirDatasetServiceMapMapper dirDatasetServiceMapMapper;
+
+    @Autowired
+    private SysUserMapper sysUserMapper;
 
     @Override
     public List<Map<String, Object>> test(Map<String, Object> paramMap) {
@@ -380,6 +383,78 @@ public class ApiServiceImpl implements IApiService {
     @Override
     public List<Map<String, Object>> getSystemInfoByDeptId(Map<String, Object> paramMap) {
         return apiMapper.getSystemInfoByDeptId(paramMap);
+    }
+
+    @Override
+    public HandleResult serviceAuthority(Map<String, Object> paramMap) {
+        HandleResult handleResult = new HandleResult();
+        /**
+         * 获取token
+         * */
+        String token = (String)paramMap.get("token");
+
+        /**
+         * 获取数据集
+         * */
+        String datasetId = (String)paramMap.get("datasetId");
+        /**
+         * 对应目录的ID
+         * */
+        String classifyId = (String)paramMap.get("classifyId");
+
+        if(null == paramMap || StringUtils.isAnyBlank(token,datasetId,classifyId)){
+            handleResult.setMsg("未传入TOKEN或数据集ID或目录ID");
+            handleResult.setState(false);
+            return handleResult;
+        }
+
+        //查询Token对应的用户
+        SysUser sysUserParam = new SysUser();
+        sysUserParam.setToken(token);
+        SysUser sysUser = sysUserMapper.selectOne(sysUserParam);
+
+        if(null != sysUser){
+            String userName = sysUser.getUserName();
+            String userId = sysUser.getId();
+            paramMap.put("userName",userName);
+            paramMap.put("userId",userId);
+            Map<String,Object> userInfo = Maps.newHashMap();
+            userInfo.put("userId",userId);
+            userInfo.put("userName",userName);
+            userInfo.put("userRealName",sysUser.getRealName());
+            handleResult.put("userInfo",userInfo);
+            /**
+             * 查询用户字段权限
+             * */
+            Map<String,Object> dataseAuthorityMap = apiMapper.getDataAuthorityByUserId(paramMap);  //待完成
+            String dataApplyId = null;
+            if(null != dataseAuthorityMap && !dataseAuthorityMap.isEmpty()){
+                dataApplyId = (String)dataseAuthorityMap.get("dataApplyId");
+            }
+            boolean status;
+            try{
+                status = Boolean.valueOf((String)dataseAuthorityMap.get("status")).booleanValue();
+            }catch (Exception e){
+                logger.error(e.getMessage());
+                status = false;
+            }
+            paramMap.put("dataApplyId",dataApplyId);
+            handleResult.put("authorityDataset",dataseAuthorityMap);
+            handleResult.put("userDatasetAuthority",status);
+            handleResult.setState(true);
+            /**
+             * 查询数据集对应字段
+             * */
+            if(status){
+                List<Map<String,Object>> itemAuthorityList = apiMapper.getDataitemAuthorityByUserIdAndDatasetId(paramMap);
+                handleResult.put("authorityItems",itemAuthorityList);
+            }
+
+        }else{
+            handleResult.setMsg("对应用户不存在");
+            handleResult.setState(false);
+        }
+        return handleResult;
     }
 
 
