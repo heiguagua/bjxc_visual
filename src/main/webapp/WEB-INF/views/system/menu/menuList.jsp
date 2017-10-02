@@ -27,9 +27,9 @@
                             <div class="form-inline">
                                 <div class="box-header">
                                     <%--<#if permissions?seq_contains('addDept')>--%>
-                                        <div class="input-group">
-                                            <a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:addMenu()" > <i class="fa fa-plus"></i> 创建菜单</a>
-                                        </div>
+                                        <%--<div class="input-group">--%>
+                                            <%--<a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:addMenu()" > <i class="fa fa-plus"></i> 创建菜单</a>--%>
+                                        <%--</div>--%>
                                     <%--</#if>--%>
                                     <div class="input-group">
                                         <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="菜单名称">
