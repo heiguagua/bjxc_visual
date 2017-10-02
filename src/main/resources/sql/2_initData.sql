@@ -212,6 +212,7 @@ delete from sys_user_role;
   INSERT INTO `sys_dict_category` VALUES ('dataSetType', '业务数据集类型', null);
   INSERT INTO `sys_dict_category` VALUES ('dataSetStatus', '业务数据集流程状态', null);
   INSERT INTO `sys_dict_category` VALUES ('dataSetReleaseType', '业务数据集发布类型', null);
+  INSERT INTO `sys_dict_category` VALUES ('dataSetSourceType', '业务数据集来源类型', null);
   INSERT INTO `sys_dict_category` VALUES ('dbCategory', '数据库管理-数据库大分类', null);
   INSERT INTO `sys_dict_category` VALUES ('dbType', '数据库管理-数据库类型', null);
   INSERT INTO `sys_dict_category` VALUES ('goldProjecty', '十二金工程类型', null);
@@ -646,6 +647,16 @@ delete from sys_user_role;
   INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12c53b73-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '10', '整型I', '数据项数据类型', '10');
   INSERT INTO `sys_dict` (`id`, `category`, `parent_code`,`dict_code`, `dict_name`, `dict_desc`, `order_number`) VALUES ('12d4a85e-262c-11e6-a9e9-507b9d1b58bb', 'dataitemType', '0', '11', '浮动型F', '数据项数据类型', '11');
 
+  INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
+	  VALUES('170', '', 'dataSetSourceType', '1', '自定义', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
+	  VALUES('171', '', 'dataSetSourceType', '2', '系统梳理', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
+	  VALUES('172', '', 'dataSetSourceType', '3', '资源梳理', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
+	  VALUES('173', '', 'dataSetSourceType', '4', '爬虫系统', null, null, null, '1', null, now(), null, null, '0');
+  INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
+	  VALUES('174', '', 'dataSetSourceType', '5', '采集系统', null, null, null, '1', null, now(), null, null, '0');
 
   -- 行政区划相关初始化数据
   -- 行政区划版本表
