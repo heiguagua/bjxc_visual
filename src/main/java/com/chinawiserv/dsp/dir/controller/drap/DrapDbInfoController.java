@@ -150,13 +150,29 @@ public class DrapDbInfoController extends BaseController {
     }
 
     //@RequiresPermissions("XXX:XXX:edit")
-    @Log("编辑数据库信息")
-    @RequestMapping("/doEdit1")
+    @Log("接受审核数据")
+    @RequestMapping("/receiveDbInfo")
     @ResponseBody
     public HandleResult receiveDbInfo(@RequestBody List<DrapDbInfoVo> vos) {
         HandleResult handleResult = new HandleResult();
         try {
             service.receiveDbInfo(vos);
+            handleResult.success("接受审核数据成功");
+        } catch (Exception e) {
+            handleResult.error("接受审核数据失败");
+            logger.error("接受审核数据失败", e);
+        }
+        return handleResult;
+    }
+
+    //@RequiresPermissions("XXX:XXX:edit")
+    @Log("数据库表自动更新")
+    @RequestMapping("/receiveTableChange")
+    @ResponseBody
+    public HandleResult receiveTableChange(@RequestBody Map<String, Object> map) {
+        HandleResult handleResult = new HandleResult();
+        try {
+            service.receiveTableChange(map);
             handleResult.success("接受审核数据成功");
         } catch (Exception e) {
             handleResult.error("接受审核数据失败");

@@ -58,5 +58,6 @@ public interface IApiService {
 
     List<Map<String,Object>> getSystemInfoByDeptId(Map<String,Object> paramMap);
 
+    HandleResult serviceAuthority(Map<String,Object> paramMap);
 
 }

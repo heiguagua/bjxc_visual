@@ -1,5 +1,7 @@
 package com.chinawiserv.dsp.dir.entity.vo.drap;
 
+import java.util.List;
+
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDictTableInfo;
 
 /**
@@ -11,4 +13,15 @@ import com.chinawiserv.dsp.dir.entity.po.drap.DrapDictTableInfo;
  * @since 2017-09-27
  */
 public class DrapDictTableInfoVo extends DrapDictTableInfo{
+    
+    private List<DrapDictTableColumnVo> columnVos;
+
+    public List<DrapDictTableColumnVo> getColumnVos() {
+        return columnVos;
+    }
+
+    public void setColumnVos(List<DrapDictTableColumnVo> columnVos) {
+        this.columnVos = columnVos;
+    }
+    
 }

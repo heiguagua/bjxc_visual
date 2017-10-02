@@ -4,6 +4,7 @@ import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbInfoVo;
 
 import java.util.List;
+import java.util.Map;
 
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
@@ -18,5 +19,7 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
 public interface IDrapDbInfoService extends ICommonService<DrapDbInfo, DrapDbInfoVo> {
 
     void receiveDbInfo(List<DrapDbInfoVo> vos);
+
+    void receiveTableChange(Map<String, Object> map);
 	
 }

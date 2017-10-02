@@ -1,20 +1,7 @@
-  delete from sys_menu;
-  delete from sys_role;
-  delete from sys_role_menu;
-  delete from sys_user;
-  delete from sys_user_role;
-  delete from sys_setting;
 
-  delete from sys_region;
-  delete from sys_region_version;
-  delete from sys_region_level;
-  delete from sys_dept_category_template;
-  delete from sys_dept;
-  delete from sys_guid_dept;
-  delete from sys_dict_category;
-  delete from sys_dict;
-  delete from sys_user;
 -- 菜单表
+-- select id,menu_name,pid,url,icon,sort,menu_type,code,resource_name,status from sys_menu order by pid ;
+  delete from sys_menu;
   INSERT INTO `sys_menu` VALUES ('0818e1c76bbd44eba3a698547ec4e637', '查询系统设置', '10', null, null, '0', '3', '010600', 'system:setting:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('0c9b5fc8b44b41d1871a8fc8300247ec', '删除菜单', '4', null, null, '4', '3', '010303', 'system:menu:delete', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', null, 'fa fa-cogs', '10', '1', '01', 'system', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', null, null, '0');
@@ -106,18 +93,22 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
 
 
 -- 角色表
+delete from sys_role;
   INSERT INTO `sys_role`(id,role_name,role_desc,role_level,status) VALUES ('737933bffef640329a4f864c4e2746ba', '超级管理员', '超级管理员', -1,1);
   INSERT INTO `sys_role`(id,role_name,role_desc,role_level,status) VALUES ('dab7f9219c4611e78cf200ffe04ac734', '区域管理员', '区域管理员', 0,1);
 
 -- 用户表
+delete from sys_user;
   insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status)
     values ('09f4fef9249c457ca67b4a7a45823730','510000','','1','admin','超级管理员','96e79218965eb72c92a549dd5a330112','1');
 
 -- 角色菜单表
+delete from sys_role_menu;
   INSERT INTO `sys_role_menu` SELECT UUID() AS id,(SELECT id FROM sys_role WHERE role_name='超级管理员') AS role_id, id AS menu_id FROM sys_menu;
   INSERT INTO `sys_role_menu` SELECT UUID() AS id,(SELECT id FROM sys_role WHERE role_name='区域管理员') AS role_id, id AS menu_id FROM sys_menu;
 
 -- 用户角色表
+delete from sys_user_role;
   insert into sys_user_role(id,user_id,role_id)
     values (REPLACE(uuid(),'-',''),'09f4fef9249c457ca67b4a7a45823730','737933bffef640329a4f864c4e2746ba');
 
@@ -204,11 +195,10 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
   INSERT INTO `sys_setting` VALUES (REPLACE(uuid(),'-',''), '', '1', 'defaultIcon', '系统默认Icon图标', '', null, '1', null, null, null, null, 0);
   INSERT INTO `sys_setting` VALUES (REPLACE(uuid(),'-',''), '', '1', 'localRegion', '系统所属行政区划', '510100', null, '1', null, null, null, null, 0);
   INSERT INTO `sys_setting` VALUES (REPLACE(uuid(),'-',''), '', '1', 'bottomCopyright', '许可说明', 'Copyright © 2017 勤智数码. All rights reserved.', null, '1', null, null, null, null, 0);
-
-
-  INSERT INTO `sys_setting` VALUES ('4', '', '2', 'crawlerInterface', '爬虫接口地址', 'http://127.0.0.1:8080/crawler/wbsiteStore', '', '1', '549d321508db446e9bcaa477835fe5f1', '2017-06-27 10:46:53', null, null, '0');
+  INSERT INTO `sys_setting` VALUES (REPLACE(uuid(),'-',''), '', '2', 'crawlerInterface', '爬虫接口地址', 'http://127.0.0.1:8080/crawler/wbsiteStore', '', '1', '549d321508db446e9bcaa477835fe5f1', '2017-06-27 10:46:53', null, null, '0');
 
 -- 系统字典分类表
+  delete from sys_dict_category;
   INSERT INTO `sys_dict_category` VALUES ('001', '', null);
   INSERT INTO `sys_dict_category` VALUES ('appRequirementNameSource', '需求名称来源', null);
   INSERT INTO `sys_dict_category` VALUES ('belongSystem', '系统所属网络', null);
@@ -255,6 +245,7 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
 
 
 -- 系统字典表
+  delete from sys_dict;
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
 	VALUES('10', '', 'systemLevel', '0', '产生的', null, null, null, '1', null, '2017-06-27 17:28:28', null, null, '0');
   INSERT INTO `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
@@ -658,8 +649,10 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
 
   -- 行政区划相关初始化数据
   -- 行政区划版本表
+  delete from sys_region_version;
   insert into sys_region_version(id,version_code) values ('1','v1.0');
   -- 行政区划级别表
+  delete from sys_region_level;
   insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('10','国家级','1');
   insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('20','省、自治区、直辖市以及特别行政区级','2');
   insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('21','省','2');
@@ -685,6 +678,7 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
   insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('72','社区','7');
   -- 行政区划表
 
+  delete from sys_region;
   INSERT INTO `sys_region` (id,region_code,region_name,fcode,fname,first_charact,region_level_code,status,version_id)
 	values  ('9c0f822c-50cb-11e7-889e-00ffffff0000', '510000', '四川省', '', '四川省', null, '21', '1', '1');
   INSERT INTO `sys_region` (id,region_code,region_name,fcode,fname,first_charact,region_level_code,status,version_id)
@@ -732,6 +726,7 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
 
 
   -- 基础部门模板表
+  delete from sys_dept_category_template;
   INSERT INTO `sys_dept_category_template` (`ID`, `category_code`, `category_name`, `fullname_template`, `shortname_template`, `apply_min_level`, `apply_max_level`) VALUES ('39e27000-50d3-11e7-889e-00ffffff0000', 'A', '党委', '中国共产党XX委员会', 'XX党委', 6, 2);
   INSERT INTO `sys_dept_category_template` (`ID`, `category_code`, `category_name`, `fullname_template`, `shortname_template`, `apply_min_level`, `apply_max_level`) VALUES ('39fbde80-50d3-11e7-889e-00ffffff0000', 'B', '人大', 'XX人民代表大会常务委员会', 'XX人大', 5, 2);
   INSERT INTO `sys_dept_category_template` (`ID`, `category_code`, `category_name`, `fullname_template`, `shortname_template`, `apply_min_level`, `apply_max_level`) VALUES ('3a0f0d6f-50d3-11e7-889e-00ffffff0000', 'C', '政府', 'XX人民政府', 'XX政府', 6, 2);
@@ -740,6 +735,7 @@ INSERT INTO `sys_menu` VALUES ('222222a', '专题应用管理', 'ac760cad5be946a
   INSERT INTO `sys_dept_category_template` (`ID`, `category_code`, `category_name`, `fullname_template`, `shortname_template`, `apply_min_level`, `apply_max_level`) VALUES ('3a75d344-50d3-11e7-889e-00ffffff0000', 'F', '检察院', 'XX人民检察院', 'XX人民检察院', 5, 2);
 
   -- 导入基础顶级部门表
+  delete from sys_dept;
 insert into `sys_dept` (`id`, `region_code`, `dept_type`, `dept_code`, `dept_name`, `dept_short_name`, `dept_alias`, `dept_listing_name`, `dept_desc`, `function_keyword`, `dept_function`, `fid`, `fname`, `dept_structure_name`, `dept_level`, `dept_response_man`, `dept_response_phone`, `dept_response_email`, `dept_contact_man`, `dept_contact_dept`, `dept_contact_post`, `dept_contact_phone`, `dept_contact_fixed_phone`, `dept_contact_email`, `dept_address`, `org_longitude`, `org_latitude`, `icon`, `order_number`, `validate_from`, `validate_to`, `status`, `create_user_id`, `create_time`, `update_user_id`, `update_time`, `delete_flag`)
 	VALUES('96891c92-50d4-11e7-889e-00ffffff0000','100000','A','100000_A','中国共产党中央委员会','中共中央',NULL,NULL,NULL,NULL,'','root','root',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'','1',NULL,NULL,'1',NULL,NULL,NULL,NULL,'0');
 insert into `sys_dept` (`id`, `region_code`, `dept_type`, `dept_code`, `dept_name`, `dept_short_name`, `dept_alias`, `dept_listing_name`, `dept_desc`, `function_keyword`, `dept_function`, `fid`, `fname`, `dept_structure_name`, `dept_level`, `dept_response_man`, `dept_response_phone`, `dept_response_email`, `dept_contact_man`, `dept_contact_dept`, `dept_contact_post`, `dept_contact_phone`, `dept_contact_fixed_phone`, `dept_contact_email`, `dept_address`, `org_longitude`, `org_latitude`, `icon`, `order_number`, `validate_from`, `validate_to`, `status`, `create_user_id`, `create_time`, `update_user_id`, `update_time`, `delete_flag`)
@@ -1017,3 +1013,19 @@ insert into `sys_dept` (`id`, `region_code`, `dept_type`, `dept_code`, `dept_nam
 insert into `sys_dept` (`id`, `region_code`, `dept_type`, `dept_code`, `dept_name`, `dept_short_name`, `dept_alias`, `dept_listing_name`, `dept_desc`, `function_keyword`, `dept_function`, `fid`, `fname`, `dept_structure_name`, `dept_level`, `dept_response_man`, `dept_response_phone`, `dept_response_email`, `dept_contact_man`, `dept_contact_dept`, `dept_contact_post`, `dept_contact_phone`, `dept_contact_fixed_phone`, `dept_contact_email`, `dept_address`, `org_longitude`, `org_latitude`, `icon`, `order_number`, `validate_from`, `validate_to`, `status`, `create_user_id`, `create_time`, `update_user_id`, `update_time`, `delete_flag`)
 	VALUES('9ebc9be8-50d4-11e7-889e-00ffffff0000','510185','F','510185_F','简阳市人民检察院','简阳市人民检察院',NULL,NULL,NULL,NULL,'','root','root',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'','1',NULL,NULL,'1',NULL,NULL,NULL,NULL,'0');
 
+
+-- 导入基本目录分类表
+delete from dir_classify;
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+	VALUES ('1', '510100', '1', '政务基础信息资源目录', '', 'root', 'root', 1, 1, 0, NULL, NULL, '', '政务基础信息资源目录', 'Y', '1');
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+	VALUES ('2', '510100', '2', '政务主题信息资源目录', '', 'root', 'root', 1, 1, 0, NULL, NULL, '', '政务主题信息资源目录', 'Y', '2');
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+	VALUES ('3', '510100', '3', '政务部门信息资源目录', '', 'root', 'root', 1, 1, 0, NULL, NULL, '', '政务部门信息资源目录', 'Y', '3');
+
+
+
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+	VALUES ('301', '510100', '301', '省（自治区、直辖市）和计划单列市', '', '3', '政务部门信息资源目录', 1, 1, 0, NULL, NULL, '', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市', 'Y', '3;301');
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+	VALUES ('30101', '510100', '30101', '四川省成都市', '', '301', '省（自治区、直辖市）和计划单列市', 1, 1, 0, NULL, NULL, '3', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市', 'Y', '3;301;30101');

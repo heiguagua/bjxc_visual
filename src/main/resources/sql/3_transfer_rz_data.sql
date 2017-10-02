@@ -1,4 +1,32 @@
 
+-- 系统管理模块
+	-- 顶级组织机构表
+	delete from sys_dept;
+	delete from sys_guid_dept;
+	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname)
+		select uuid,region_code,SUBSTR(organs_code,8) ,organs_code,organs_fullname,organs_shortname,'','','','root','root'
+		from  rz_dir.ADMINI_ORGANS;
+
+	-- 普通组织机构表
+	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname,order_number)
+		select uuid,region_code,org_category_code,org_code,org_fullname,org_shortname,org_alias,'',org_function,
+		(select b.uuid from rz_dir.ADMINI_ORGANS b,rz_dir.ORGANS_ORGANIZE_MAP c where b.uuid=c.organs_id and t.uuid=c.organize_id) as old_fid,
+		(select b.organs_fullname from rz_dir.ADMINI_ORGANS b,rz_dir.ORGANS_ORGANIZE_MAP c where b.uuid=c.organs_id and t.uuid=c.organize_id) as old_fname,
+		order_number
+		from rz_dir.DIR_ORGANIZE t where t.org_fcode='root';
+	-- 普通组织机构子部门
+	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname,order_number)
+		select uuid,region_code,org_category_code,org_code,org_fullname,org_shortname,org_alias,'',org_function,
+		(select a.uuid from rz_dir.DIR_ORGANIZE a where a.org_code = t.org_fcode) as old_fid,org_fname,order_number
+		from rz_dir.DIR_ORGANIZE t where t.org_fcode <> 'root';
+
+	 update sys_dept set fid='root' where fid is null;
+	-- 业务指导部门
+	insert into sys_guid_dept(id,cur_dept_id,guid_dept_id)
+		select uuid,organize_id,director_organize_id from rz_dir.account_director ;
+
+
+
 -- 目录类型相关表
 	-- 先修改目标数据表结构,添加old_code,old_fcode,
 	--	 alter table dir_classify add column old_code varchar(64);
@@ -122,34 +150,17 @@
 		from rz_dir.user_register t;
 
 
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+	VALUES ('301', '510100', '301', '省（自治区、直辖市）和计划单列市', '', '3', '政务部门信息资源目录', 1, 1, 0, NULL, NULL, '', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市', 'Y', '3;301');
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+	VALUES ('30101', '510100', '30101', '四川省成都市', '', '301', '省（自治区、直辖市）和计划单列市', 1, 1, 0, NULL, NULL, '3', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市', 'Y', '3;301;30101');
 
--- 系统管理模块
-	-- 顶级组织机构表
-	delete from sys_dept;
-	delete from sys_guid_dept;
-	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname)
-		select uuid,region_code,SUBSTR(organs_code,8) ,organs_code,organs_fullname,organs_shortname,'','','','root','root'
-		from  rz_dir.ADMINI_ORGANS;
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+  select id,region_code,dept_code,dept_name,'','30101','四川省成都市','4',0,0,order_number,icon,'','','Y',''
+ from sys_dept where fid in (select id from sys_dept where fid = 'root');
 
-	-- 普通组织机构表
-	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname,order_number)
-		select uuid,region_code,org_category_code,org_code,org_fullname,org_shortname,org_alias,'',org_function,
-		(select b.uuid from rz_dir.ADMINI_ORGANS b,rz_dir.ORGANS_ORGANIZE_MAP c where b.uuid=c.organs_id and t.uuid=c.organize_id) as old_fid,
-		(select b.organs_fullname from rz_dir.ADMINI_ORGANS b,rz_dir.ORGANS_ORGANIZE_MAP c where b.uuid=c.organs_id and t.uuid=c.organize_id) as old_fname,
-		order_number
-		from rz_dir.DIR_ORGANIZE t where t.org_fcode='root';
-	-- 普通组织机构子部门
-	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname,order_number)
-		select uuid,region_code,org_category_code,org_code,org_fullname,org_shortname,org_alias,'',org_function,
-		(select a.uuid from rz_dir.DIR_ORGANIZE a where a.org_code = t.org_fcode) as old_fid,org_fname,order_number
-		from rz_dir.DIR_ORGANIZE t where t.org_fcode <> 'root';
-
-	 update sys_dept set fid='root' where fid is null;
-	-- 业务指导部门
-	insert into sys_guid_dept(id,cur_dept_id,guid_dept_id)
-		select uuid,organize_id,director_organize_id from rz_dir.account_director ;
-
-
+insert into dir_classify_dept_map (id,classify_id,dept_id)
+	select REPLACE(uuid(),'-',''),id,id from sys_dept where fid in (select id from sys_dept where fid = 'root');
 
 
 -- 梳理的表整理
@@ -167,8 +178,8 @@ delete from drap_system_use_dept;
 delete from drap_system_use_info;
 delete from drap_db_system_map;
 delete from drap_db_info;
--- delete from drap_db_table_info;
--- delete from drap_db_table_column;
+delete from drap_db_table_info;
+delete from drap_db_table_column;
 delete from drap_dict_table_info;
 delete from drap_dict_table_column;
 delete from drap_business_requirement;
