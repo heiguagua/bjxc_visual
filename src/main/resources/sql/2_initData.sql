@@ -47,7 +47,7 @@
   INSERT INTO `sys_menu` VALUES ('f899f3d3baec4571b1c786717f9906fd', '批量删除角色', '3', null, null, '5', '3', '010205', 'system:role:deleteBatch', '1', '549d321508db446e9bcaa477835fe5f1', '2017-05-17 14:03:42', '549d321508db446e9bcaa477835fe5f1', '2017-05-18 17:35:08', '0');
 
   INSERT INTO `sys_menu` VALUES ('201', '目录管理', '0', null, 'fa fa-cogs', '1', '1', '02', 'catalog', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
-  INSERT INTO `sys_menu` VALUES ('20101', '目录类别', '201', '/catalog/classify', 'fa-cog', '1', '2', '0201', 'catalog:classify', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('20101', '目录类别', '201', '/dirClassify', 'fa-cog', '1', '2', '0201', 'catalog:classify', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('2010101', '查看目录类别列表', '20101', null, null, '1', '3', '020101', 'catalog:classify:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('2010102', '新增目录类别', '20101', null, null, '2', '3', '020102', 'catalog:classify:add', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('2010103', '修改目录类别', '20101', null, null, '3', '3', '020103', 'catalog:classify:edit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
@@ -67,6 +67,7 @@
   INSERT INTO `sys_menu` VALUES ('20104', '目录审核', '201', '/catalog/audit', 'fa-cog', '4', '2', '0204', 'catalog:audit', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('2010401', '查看目录列表', '20104', null, null, '1', '3', '020401', 'catalog:audit:list', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('2010402', '审核', '20104', null, null, '2', '3', '020402', 'catalog:audit:save', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
+  INSERT INTO `sys_menu` VALUES ('333333a', '新闻图片管理', 'ac760cad5be946af907e456b28b85059', '/dirNews', 'fa-cog', '4', '2', null, null, '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
 
   INSERT INTO `sys_menu` VALUES ('20105', '目录发布', '201', '/catalog/release', 'fa-cog', '5', '2', '0205', 'catalog:release', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
   INSERT INTO `sys_menu` VALUES ('2010501', '查看待发布目录列表', '20105', null, null, '1', '3', '020501', 'catalog:release:unReleaseList', '1', '549d321508db446e9bcaa477835fe5f1', '2017-09-13 14:03:42', null, null, '0');
