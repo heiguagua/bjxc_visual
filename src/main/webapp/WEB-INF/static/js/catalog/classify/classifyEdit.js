@@ -7,6 +7,7 @@ jQuery(document).ready(function () {
 //    initUserTypeList();
 //    initDeptSelectDataList();
 //    initRoleNameList();
+    window.Dict=new dict();
     initFormerDate(classifyId);
 });
 
@@ -52,10 +53,8 @@ function initFormerDate(classifyId) {
                     }
                     $("#deptName").val(vo.deptName);
                     $("#deptId").val(vo.deptId);
-                    $("#Eicon").val(vo.icon);
-                    $("#Eclassify_desc").val(vo.classifyDesc);
-                                  
-
+                    $("#Eicon").append(Dict.selectsDom("classify_icon",vo.iconName?vo.iconName:''));
+                    $("#Eclassify_desc").val(vo.classifyDesc);              
                 }
             }
         }

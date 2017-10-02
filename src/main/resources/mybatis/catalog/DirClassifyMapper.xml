@@ -35,6 +35,7 @@
         <result column="has_leaf" property="hasLeaf"/>
         <result column="dept_id" property="DeptId"/>
         <result column="dept_name" property="DeptName"/>
+        <result column="icon_name" property="iconName"/>
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -119,9 +120,10 @@
     </update>
     
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.*, s.dept_name as dept_name,d.dept_id as dept_id FROM dir_classify t 
+        SELECT t.*, s.dept_name as dept_name,d.dept_id as dept_id,c.icon_name as icon_name FROM dir_classify t 
 			left join dir_classify_dept_map d on t.id = d.classify_id
 			left join sys_dept s on d.dept_id = s.id
+			left join sys_icon_lib c on c.icon_path = t.icon
 			WHERE t.id = #{id}
     </select>
 

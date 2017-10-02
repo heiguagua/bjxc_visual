@@ -6,6 +6,8 @@ import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysIconVo;
+import com.chinawiserv.dsp.base.service.system.ISysDictIcon;
 import com.chinawiserv.dsp.base.service.system.ISysDictService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -37,6 +39,9 @@ public class SysDictController extends BaseController {
 
     @Autowired
     private ISysDictService service;
+    
+    @Autowired
+    private ISysDictIcon service2;
 
 //    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
@@ -76,6 +81,23 @@ public class SysDictController extends BaseController {
         } catch (Exception e) {
             handleResult.error("查询系统字典表出错");
             logger.error("查询系统字典表出错", e);
+        }
+        return handleResult;
+    }
+        
+    /**
+     * 查询所有字典的数据，并转换成下拉框接受的数据格式
+     */
+    @RequestMapping("/dictIcon")
+    @ResponseBody
+    public HandleResult getDictIconForSelect(@RequestParam Map<String , Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String, Map<String, SysIconVo>> dictData = service2.getDictIconForSelect(paramMap);
+            handleResult.put("vo",dictData);
+        } catch (Exception e) {
+            handleResult.error("查询Icon字典表出错");
+            logger.error("查询Icon字典表出错", e);
         }
         return handleResult;
     }

@@ -19,7 +19,7 @@ public class DirClassifyVo extends DirClassify{
 	private String hasLeaf;
 	private String DeptId;
 	private String DeptName;
-    
+    private String iconName;
     
     public String getHasLeaf() {
         return hasLeaf;
@@ -43,6 +43,14 @@ public class DirClassifyVo extends DirClassify{
 
 	public void setDeptName(String deptName) {
 		DeptName = deptName;
+	}
+
+	public String getIconName() {
+		return iconName;
+	}
+
+	public void setIconName(String iconName) {
+		this.iconName = iconName;
 	}
 
 
