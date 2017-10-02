@@ -3,22 +3,23 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/catalogue/catalogueAdd.js"></script>
+    <script src="<%=basePath%>/js/catalog/catalogue/catalogueEdit.js"></script>
 </head>
 <body>
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd">
+            <form class="form-horizontal" id="editForm" action="<%=basePath%>/catalog/doEdit">
                 <div class="form-group">
                     <div class="row">
+                        <input type="hidden" id="id" name="id" value="${id}">
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源分类 :</label>
                             <div class="col-sm-9">
                                 <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
                                 <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
                                        placeholder="">
-                                <input type="hidden" id="classifyId" name="classifyIds">
+                                <input type="hidden" id="classifyId" name="classifyId">
                                 <div class="menu-wrap">
                                     <div id="menuContent" class="menuContent" style="display:none;">
                                         <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
@@ -30,7 +31,7 @@
                             <label for="relDatasetCode" class="col-sm-3 control-label">关联资源代码:</label>
                             <div class="col-sm-9">
                                 <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源代码" disabled>--%>
-                                <input type="text" id="relDatasetName" required="required" data-parsley-required-message="该项为必填" class="form-control">
+                                <input type="text" id="relDatasetName"  class="form-control">
                                 <input type="hidden" id="relDatasetCode" name="relDatasetCode">
                                 <div class="menu-wrap">
                                     <div id="relMenuContent" class="menuContent" style="display:none;">
