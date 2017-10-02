@@ -11,4 +11,15 @@ import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableColumn;
  * @since 2017-09-27
  */
 public class DrapDbTableColumnVo extends DrapDbTableColumn{
+    
+    private String updateChangeType;
+
+    public String getUpdateChangeType() {
+        return updateChangeType;
+    }
+
+    public void setUpdateChangeType(String updateChangeType) {
+        this.updateChangeType = updateChangeType;
+    }
+    
 }
