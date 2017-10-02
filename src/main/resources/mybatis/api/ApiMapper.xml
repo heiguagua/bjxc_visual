@@ -266,6 +266,49 @@
         </choose>
     </select>
 
+    <!-- 查询用户的数据集权限 -->
+    <select id="getDataAuthorityByUserId" parameterType="map" resultType="map">
+        SELECT
+          dda.`id` AS dataApplyId,
+          dda.`limit_visit_cnt` AS limitVisitCnt,
+          dda.`limit_visit_date_period` AS limitVisitDatePeriod,
+          CASE
+            dda.`status`
+            WHEN dda.`status` = '1'
+            THEN 'true'
+            ELSE 'false'
+          END AS 'status'
+        FROM
+          dir_data_apply dda
+          LEFT JOIN dir_dataset_classify_map dcm
+            ON dcm.`id` = dda.`dcm_id`
+        WHERE TRUE
+        AND dda.`applicant_id` = #{userId}
+        AND dcm.`classify_id` = #{classifyId}
+        AND dcm.`dataset_id` = #{datasetId}
+        LIMIT 0,1
+    </select>
+
+    <!-- 查询用户申请的数据集拥有的数据项 -->
+    <select id="getDataitemAuthorityByUserIdAndDatasetId" parameterType="map" resultType="map">
+        SELECT
+        dd.`id`AS itemId,
+        dd.`item_name` AS itemName
+        FROM
+        dir_data_item_apply dia
+        LEFT JOIN dir_dataitem dd
+        ON dd.`id` = dia.`item_id`
+        WHERE TRUE
+        <choose>
+            <when test="null != dataApplyId and '' != dataApplyId">
+                AND dia.`data_apply_id` = #{dataApplyId}
+            </when>
+            <otherwise>
+                AND dia.`data_apply_id` IS NULL
+            </otherwise>
+        </choose>
+        AND dia.`status` = '1'
+    </select>
 
     <sql id="datasetWhereClause">
         <choose>

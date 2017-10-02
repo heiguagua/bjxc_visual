@@ -60,4 +60,14 @@ public interface ApiMapper{
      * */
     boolean unReleaseService(Map<String, Object> paramMap);
 
+    /**
+     * 查询用户的数据集权限
+     * */
+    Map<String,Object> getDataAuthorityByUserId(Map<String,Object> paramMap);
+
+    /**
+     * 查询用户申请的数据集拥有的数据项
+     * */
+    List<Map<String,Object>> getDataitemAuthorityByUserIdAndDatasetId(Map<String,Object> paramMap);
+
 }

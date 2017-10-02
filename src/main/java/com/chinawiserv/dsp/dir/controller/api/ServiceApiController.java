@@ -1,21 +1,21 @@
 package com.chinawiserv.dsp.dir.controller.api;
 
-import com.chinawiserv.dsp.base.controller.common.BaseController;
-import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.system.SysDept;
-import com.chinawiserv.dsp.base.entity.po.system.SysUser;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
-import com.chinawiserv.dsp.dir.service.api.IApiService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+        import com.chinawiserv.dsp.base.controller.common.BaseController;
+        import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+        import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+        import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+        import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
+        import com.chinawiserv.dsp.dir.service.api.IApiService;
+        import org.slf4j.Logger;
+        import org.slf4j.LoggerFactory;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Controller;
+        import org.springframework.web.bind.annotation.RequestMapping;
+        import org.springframework.web.bind.annotation.RequestParam;
+        import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-import java.util.Map;
+        import java.util.List;
+        import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA
@@ -266,11 +266,12 @@ public class ServiceApiController extends BaseController {
     }
 
     /**
-     * 服务权限处理接口
+     * 服务权限处理接口,获取TOKEN对应的用户,查询用户的权限(数据集权限、字段权限、次数权限等)
      * */
-    @RequestMapping("serviceTokenAuthority")
+    @RequestMapping("serviceAuthority")
     @ResponseBody
-    public HandleResult serviceTokenAuthority(@RequestParam Map<String, Object> paramMap){
-        return service.unReleaseService(paramMap);
+    public HandleResult serviceAuthority(@RequestParam Map<String, Object> paramMap){
+        return service.serviceAuthority(paramMap);
+
     }
 }
