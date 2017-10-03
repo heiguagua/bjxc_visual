@@ -5,7 +5,6 @@ jQuery(document).ready(function () {
     var userId = $("#userId").val();
 
     initUserTypeList();
-    initDeptSelectDataList();
     initRoleNameList();
     initFormerDate(userId);
 });

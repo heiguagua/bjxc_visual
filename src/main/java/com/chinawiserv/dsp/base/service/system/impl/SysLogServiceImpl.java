@@ -59,12 +59,12 @@ public class SysLogServiceImpl extends CommonServiceImpl<SysLogMapper, SysLog , 
 			page.setAsc(false);
 		}
 
-		String dateRange = MapUtils.getString(paramMap , "dateRange");
+		String operateTimeRange = MapUtils.getString(paramMap , "operateTimeRange");
 		//日期查询
-		if(StringUtils.isNotBlank(dateRange)){
-			String[] dateRangeArr = StringUtils.split(dateRange, "~");
-			paramMap.put("create_time_begin" , dateRangeArr[0].trim());
-			paramMap.put("create_time_end" , dateRangeArr[1].trim());
+		if(StringUtils.isNotBlank(operateTimeRange)){
+			String[] dateRangeArr = StringUtils.split(operateTimeRange, "~");
+			paramMap.put("operateTimeStart" , dateRangeArr[0].trim());
+			paramMap.put("operateTimeEnd" , dateRangeArr[1].trim());
 		}
 		page.setRecords(sysLogMapper.selectVoPage(page, paramMap));
 

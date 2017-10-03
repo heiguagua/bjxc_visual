@@ -227,5 +227,12 @@
         </where>
     </sql>
 
+    <select id="selectClassifyByIds" resultType="java.lang.String">
+        SELECT tree_code FROM dir_classify WHERE id IN (
+          <foreach collection="arr" item="item" separator=",">
+              #{item}
+          </foreach>
+        )
+    </select>
 
 </mapper>

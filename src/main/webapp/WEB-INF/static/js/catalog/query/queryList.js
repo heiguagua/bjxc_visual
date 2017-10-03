@@ -111,4 +111,46 @@ function reloadTable() {
 }
 
 
+$(document).on("click","#downloadExcel",function(){
+    var classify_id=$('#searchClassifyId').val();
+    var dataset_name=$('#searchName').val();
+    var data={
+        classify_id:classify_id,
+        dataset_name:dataset_name
+    }
+    if(classify_id||dataset_name){
+        downloadExcel(data);
+    }else{
+        layer.confirm("未选择筛选条件时，会导致效率过低，建议增加筛选条件！确认导出？",{icon:3},function (index) {
+            downloadExcel(data);
+            layer.close(index);
+        })
+    }
+})
+function downloadExcel(data){
+    layer.load();
 
+    var form=$("<form>");//定义一个form表单
+    form.attr("style","display:none");
+    form.attr("target","");
+    form.attr("method","post");
+    form.attr("action",basePathJS + "/catalog/downloadDatasetExcel");
+    var input1=$("<input>");
+    input1.attr("type","hidden");
+    input1.attr("name","classify_id");
+    input1.attr("value",data.classify_id);
+
+    var input2=$("<input>");
+    input2.attr("type","hidden");
+    input2.attr("name","dataset_name");
+    input2.attr("value",data.dataset_name);
+    $("body").append(form);//将表单放置在web中
+    form.append(input1);
+    form.append(input2);
+    form.submit();//表单提交
+
+    window.setTimeout(function(){
+        layer.closeAll('loading');
+    },2000)
+
+}

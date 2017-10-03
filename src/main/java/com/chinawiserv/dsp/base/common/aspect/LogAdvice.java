@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.base.common.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.IpUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysLog;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
@@ -45,17 +46,17 @@ public class LogAdvice {
 	 */
 	@AfterReturning("controllerAspect()")
 	public void doBefore(JoinPoint joinPoint) {
-		
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 		Method method = methodSignature.getMethod();
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();  
-		Log log =  method.getAnnotation(Log.class);
+		Log log = method.getAnnotation(Log.class);
 		SysUser loginUser = ShiroUtils.getLoginUser();
 		if(log != null){
-			SysLog sysLog  =new SysLog();
+			SysLog sysLog = new SysLog();
 			sysLog.setOperatorId((loginUser != null )? loginUser.getId() : "systemUserId");
 			sysLog.setOperateTime(new Date());
-			//todo
+			sysLog.setRegionCode(loginUser.getRegionCode());
+			sysLog.setOperateIp(IpUtil.getIpAddr(request));
 			sysLog.setOperateType("1");
 			sysLog.setOperateDesc(log.value());
 			sysLog.setOperateDetail(JSON.toJSONString(request.getParameterMap()));

@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.base.controller.common;
 
 import com.chinawiserv.dsp.base.common.SystemConst;
+import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
@@ -73,6 +74,7 @@ public class LoginController extends BaseController {
     /**
      * 执行登录
      */
+    @Log("用户登录")
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
     public String doLogin(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model) {
         String userName = MapUtils.getString(paramMap, "userName");
@@ -105,10 +107,6 @@ public class LoginController extends BaseController {
 
             loginSuccess(paramMap);
 
-            /**
-             * 记录登录日志
-             */
-            sysLogService.insertLog("用户登录成功", ShiroUtils.getLoginUser(), request.getRequestURI(), ShiroUtils.getLoginUserId());
             if (StringUtils.isNotBlank(return_url)) {
                 return redirectTo(return_url);
             }
@@ -192,6 +190,7 @@ public class LoginController extends BaseController {
      * @return
      * @throws java.io.IOException
      */
+    @Log("用户注销登录")
     @RequestMapping(value = "/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SysUser sysUser = ShiroUtils.getLoginUser();

@@ -42,6 +42,11 @@ public class SysLog implements Serializable {
      */
 	@TableField("operate_type")
 	private String operateType;
+	/**
+	 * 操作IP
+     */
+	@TableField("operate_ip")
+	private String operateIp;
     /**
      * 操作描述
      */
@@ -92,6 +97,14 @@ public class SysLog implements Serializable {
 
 	public void setOperateType(String operateType) {
 		this.operateType = operateType;
+	}
+
+	public String getOperateIp() {
+		return operateIp;
+	}
+
+	public void setOperateIp(String operateIp) {
+		this.operateIp = operateIp;
 	}
 
 	public String getOperateDesc() {

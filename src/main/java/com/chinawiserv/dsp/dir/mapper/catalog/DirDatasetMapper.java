@@ -2,11 +2,8 @@ package com.chinawiserv.dsp.dir.mapper.catalog;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetExtFormat;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
+import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -55,4 +52,6 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
     List<DrapDatasetItem> selectDatasetItemByIds(@Param("list")List<String> list);
     //用户梳理系统的查询
     DrapDataset getDrapDatasetDetail(@Param("id") String id);
+
+    List<ExportDatasetExcel> selectExportLists(@Param("tree_codes")String [] tree_codes, @Param("dataset_name")String dataset_name,@Param("region_code")String region_code);
 }

@@ -43,6 +43,12 @@
                                     </div>
                                     </input>
                                 </div>
+                                <div class="input-group">
+                                    <button type="button" id="downloadExcel" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
+                                            data-toggle="dropdown">
+                                        <!-- <i class="fa fa-plus"></i> -->导出
+                                    </button>
+                                </div>
                             </div>
                         </form>
                         <div class="box-body table-responsive no-padding">

@@ -97,13 +97,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 classifyMapResult = dirDatasetClassifyMapMapper.insertListItem(classifyMapVoList);
             }
             //数据项来源
-            List<DirDataitemSourceInfo> sourceInfos = vo.getSourceInfos();
+            //List<DirDataitemSourceInfo> sourceInfos = vo.getSourceInfos();
             //数据集插入成功后，插入该数据集的数据项的数据
             List<DirDataitemVo> dirDataitemVoList = vo.getItems();
             if(!ObjectUtils.isEmpty(dirDataitemVoList)){
-                int i=0;
-                List<DirDataitemSourceInfo> insertSourceInfos=new ArrayList<>();
-                DirDataitemSourceInfo sourceInfo=null;
+                //int i=0;
+                //List<DirDataitemSourceInfo> insertSourceInfos=new ArrayList<>();
+                //DirDataitemSourceInfo sourceInfo=null;
                 for(DirDataitemVo item : dirDataitemVoList){
                     String itemId = UUID.randomUUID().toString();
                     item.setId(itemId);
@@ -112,18 +112,18 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     item.setCreateUserId(logionUser.getId());
                     item.setCreateTime(createTime);
                     //数据项来源
-                    if(!ObjectUtils.isEmpty(sourceInfos)){
+                    /*if(!ObjectUtils.isEmpty(sourceInfos)){
                         sourceInfo = sourceInfos.get(i);
                         sourceInfo.setId(itemId);
                         sourceInfo.setItemId(itemId);
                         insertSourceInfos.add(sourceInfo);
                         i++;
-                    }
+                    }*/
                 }
                 itemResult = itemMapper.insertListItem(dirDataitemVoList);
-                if(insertSourceInfos!=null&&insertSourceInfos.size()>0){
+                /*if(insertSourceInfos!=null&&insertSourceInfos.size()>0){
                     sourceInfoMapper.insertList(insertSourceInfos);
-                }
+                }*/
             }
 
         }
@@ -661,4 +661,8 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         return items;
     }
 
+    @Override
+    public List<ExportDatasetExcel> selectExportLists(String [] tree_code, String dataset_name, String region_code) {
+        return mapper.selectExportLists(tree_code,dataset_name,region_code);
+    }
 }
