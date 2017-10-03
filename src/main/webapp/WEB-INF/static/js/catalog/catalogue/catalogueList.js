@@ -19,9 +19,6 @@ function initTable(){
             valign: 'middle',
             sortable: false
         },{
-            field: 'id',
-            visible: false
-        },{
             field: 'deptName',
             title: '牵头部门',
             sortable: false,
@@ -67,7 +64,7 @@ function initTable(){
                 }
             }
         }, {
-            field: 'uuid',
+            field: 'id',
             title: '操作',
             width: '10%',
             align: 'center',
@@ -163,14 +160,12 @@ function addCustom() {
     add('新增信息资源',basePathJS + '/catalog/catalogue/add',1300,700);
 }
 
-function editDept(id) {
-    update('编辑组织机构',basePathJS + '/system/dept/edit' , id );
+function catalogueTableEdit(id) {
+    update('编辑信息资源',basePathJS + '/catalog/edit' , id ,1300,700);
 }
 
-function deleteDept(id) {
-    var url = basePathJS + "/system/dept/delete";
-    var parameter = {id: id};
-    delObj(url , parameter) ;
+function catalogueTableShow(id){
+
 }
 
 function quickAddDatasetUI() {

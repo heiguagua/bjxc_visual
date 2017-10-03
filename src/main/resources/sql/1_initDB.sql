@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/9/30 13:35:01                           */
+/* Created on:     2017/10/3 14:03:06                           */
 /*==============================================================*/
 
 
@@ -97,6 +97,8 @@ drop table if exists dir_develop_apis;
 drop table if exists dir_news;
 
 drop table if exists dir_policy;
+
+drop table if exists dir_portal_content_setting;
 
 drop table if exists dir_regist_user;
 
@@ -300,7 +302,7 @@ create table cs_data_sync_collect
    db_id                varchar(36) default NULL comment '数据库id',
    table_name           varchar(50) default NULL comment '表名',
    update_time          bigint(20) default NULL comment '更新时间',
-   source_name          varchar(10) default NULL comment '资源名称',
+   source_name          varchar(50) default NULL comment '资源名称',
    project_name         varchar(50) default NULL comment '项目名称',
    primary key (id)
 )
@@ -313,9 +315,9 @@ alter table cs_data_sync_collect comment '目录抓取数据同步';
 /*==============================================================*/
 create table cs_data_sync_collect_block
 (
-   id                   varchar(36) not null,
+   id                   varchar(36) not null comment 'id',
    block_name           varchar(50) default NULL comment '块名称',
-   block_url            varchar(50) default NULL comment '块URL',
+   block_url            varchar(100) default NULL comment '块URL',
    table_id             varchar(36) default NULL comment '对应表id',
    website_name         varchar(100) default NULL comment '网站名称',
    primary key (id)
@@ -329,7 +331,7 @@ alter table cs_data_sync_collect_block comment '目录抓取数据同步——�
 /*==============================================================*/
 create table cs_data_sync_collect_column
 (
-   id                   varchar(36) not null,
+   id                   varchar(36) not null comment 'id',
    cloumn_name          varchar(20) default NULL comment '列名',
    cloumn_chzn          varchar(30) default NULL comment '列描述',
    table_id             varchar(36) default NULL comment '表ID',
@@ -345,7 +347,7 @@ alter table cs_data_sync_collect_column comment '目录抓取数据同步---列�
 create table cs_data_sync_collect_db
 (
    id                   varchar(36) not null comment '数据库id',
-   db_ip                varchar(10) default NULL comment '数据库 IP',
+   db_ip                varchar(20) default NULL comment '数据库 IP',
    db_port              varchar(10) default NULL comment '数据库端口',
    db_user              varchar(20) default NULL comment '数据库用户',
    db_pass              varchar(20) default NULL comment '数据库密码',
@@ -365,7 +367,7 @@ create table cs_data_sync_mapping
 (
    id                   varchar(36) not null comment '配置id（可做唯一标识）',
    website_name         varchar(50) default NULL comment '网站名称',
-   block_url            varchar(20) default NULL comment '模块URL',
+   block_url            varchar(50) default NULL comment '模块URL',
    block_name           varchar(50) default NULL comment '模块名称',
    primary key (id)
 )
@@ -378,7 +380,7 @@ alter table cs_data_sync_mapping comment '目录映射数据同步';
 /*==============================================================*/
 create table cs_data_sync_mapping_property
 (
-   id                   varchar(36) not null,
+   id                   varchar(36) not null comment 'id',
    conf_id              varchar(36) default NULL comment '配置ID',
    cloumn_name          varchar(20) default NULL comment '列名',
    cloumn_chzn          varchar(50) default NULL comment '列描述',
@@ -754,7 +756,7 @@ create table dir_dataitem
    belong_dept_id       varchar(36) comment '责任部门',
    share_type           varchar(36) comment '共享类型',
    share_condition      varchar(500) comment '共享条件',
-   no_share_explain     varchar(500) comment '不予共享说明',
+   no_share_reason      varchar(500),
    share_method_category char(10) comment '共享方式分类',
    share_method         varchar(36) comment '共享方式',
    is_open              varchar(36) comment '是否向社会开放',
@@ -844,6 +846,7 @@ create table dir_dataset_classify_map
    status               varchar(36) comment '状态',
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
@@ -1012,6 +1015,7 @@ create table dir_develop_apis
    api_category         varchar(36) comment 'API种类',
    api_url              varchar(128) comment 'URL地址',
    api_desc             varchar(512) comment '描述',
+   visit_count          int(10) comment '浏览量',
    icon                 varchar(256) comment '图标',
    parent_id            varchar(36) comment '父节点ID',
    parent_name          varchar(128) comment '父节点名称',
@@ -1079,6 +1083,21 @@ create table dir_policy
 alter table dir_policy comment '政策表';
 
 /*==============================================================*/
+/* Table: dir_portal_content_setting                            */
+/*==============================================================*/
+create table dir_portal_content_setting
+(
+   id                   varchar(36) not null comment 'ID',
+   category             varchar(36) comment '内容类型',
+   content              text comment '发布内容',
+   publisher            varchar(36) comment '政策发布人',
+   publish_date         date comment '发布时间',
+   primary key (id)
+);
+
+alter table dir_portal_content_setting comment '网站门户内容设置';
+
+/*==============================================================*/
 /* Table: dir_regist_user                                       */
 /*==============================================================*/
 create table dir_regist_user
@@ -1103,7 +1122,7 @@ alter table dir_regist_user comment '用户注册表';
 create table dir_service_info
 (
    id                   varchar(36) not null comment 'ID',
-   service_name         varchar(36) comment '服务名称',
+   service_name         varchar(128) comment '服务名称',
    service_type         varchar(36) comment '服务类型',
    service_url          varchar(500) comment '服务URL',
    request_method       varchar(36) comment '服务请求方式',
@@ -1126,6 +1145,7 @@ create table dir_special_apps
    app_name             varchar(64) comment '应用名称',
    app_url              varchar(512) comment '应用URL',
    icon                 varchar(256) comment '图标',
+   visit_count          int(10) comment '浏览量',
    order_number         int(4) comment '排序',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
@@ -1408,6 +1428,7 @@ create table drap_dataset
    source_type          varchar(36) comment '添加类型',
    doc_id               varchar(36) comment '业务产生材料id',
    belong_activity_id   varchar(36) comment '所属业务',
+   belong_system_id     varchar(36) comment '所属系统',
    dataset_code         varchar(36) comment '数据集编号',
    dataset_name         varchar(64) comment '【国】信息资源名称',
    category             varchar(36) comment '业务数据类型',
@@ -1427,6 +1448,8 @@ create table drap_dataset
    data_level           varchar(36) comment '【川】信息资源最小分级单元',
    data_index_system    varchar(36) comment '【川】信息资源指标体系',
    is_secret            varchar(36) comment '【川】信息资源涉密性',
+   basic_classify       varchar(1000) comment '基础目录',
+   subject_classify     varchar(1000) comment '主题目录',
    store_media          varchar(36) comment '存储介质',
    physics_store_location varchar(128) comment '物理存储位置',
    extend_code          varchar(64) comment '扩展编码',
@@ -1860,15 +1883,15 @@ create table drap_requirement_resources
    require_combing_type int(3) comment '需求梳理数据来源(1业务需求梳理2应用需求梳理3门户需求梳理)',
    doc_id               varchar(36) comment '业务产生材料id',
    require_code         varchar(64) comment '需求编号',
-   require_name         varchar(64) comment '需求资源名称',
+   require_name         varchar(256) comment '需求资源名称',
    requirement_desc     varchar(1000) comment '需求资源描述',
    brace_activity_id    varchar(36) comment '支撑业务ID',
    is_get               varchar(36) comment '是否已获取',
    expect_get_type      varchar(36) comment '期望获取方式',
    source_type          varchar(36) comment '需求来源方式（选择、填写）',
    require_type         varchar(36) comment '需求类型(1.手动添加2.从信息资源添加3.从应用系统添加)',
-   require_remark       varchar(512) comment '需求资源备注',
-   other_info           varchar(512) comment '其他信息',
+   require_remark       varchar(4000) comment '需求资源备注',
+   other_info           varchar(4000) comment '其他信息',
    expect_update_frequence varchar(36) comment '期望更新频率',
    brace_app            varchar(512) comment '支撑应用',
    status               int(3) comment '状态',
@@ -2107,10 +2130,10 @@ alter table sys_dept_contacts comment '部门联系人';
 create table sys_dict
 (
    id                   varchar(36) not null comment 'ID',
-   region_code          varchar(6) not null comment '行政区划编号',
-   category             varchar(36) comment '类型',
-   dict_code            varchar(36) comment '字典编码',
-   dict_name            varchar(64) comment '字典名称',
+   region_code          varchar(6) comment '行政区划编号',
+   category             varchar(36) not null comment '类型',
+   dict_code            varchar(36) not null comment '字典编码',
+   dict_name            varchar(64) not null comment '字典名称',
    dict_desc            varchar(512) comment '字典描述',
    parent_code          varchar(36) comment '上级字典值',
    order_number         int(4) comment '显示顺序',
@@ -2353,6 +2376,7 @@ create table sys_user
    user_name            varchar(64) not null comment '用户名',
    real_name            varchar(36) comment '用户真实姓名',
    password             varchar(36) not null comment '密码',
+   token                varchar(64) comment '用户接口验证码',
    telephone_number     varchar(16) comment '电话号码',
    cell_phone_number    varchar(16) comment '手机号码',
    email                varchar(64) comment '邮箱',

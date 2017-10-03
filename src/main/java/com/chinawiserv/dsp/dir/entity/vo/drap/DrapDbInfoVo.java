@@ -1,5 +1,7 @@
 package com.chinawiserv.dsp.dir.entity.vo.drap;
 
+import java.util.List;
+
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo;
 
 /**
@@ -30,6 +32,10 @@ public class DrapDbInfoVo extends DrapDbInfo {
 
     private String statusValue;
 
+    private List<DrapDbTableInfoVo> tableInfoVos;
+    
+    private List<DrapDictTableInfoVo>dictTableInfoVos;
+    
     public String getConnStatus() {
         return connStatus;
     }
@@ -100,6 +106,22 @@ public class DrapDbInfoVo extends DrapDbInfo {
 
     public void setStatusValue(String statusValue) {
         this.statusValue = statusValue;
+    }
+
+    public List<DrapDbTableInfoVo> getTableInfoVos() {
+        return tableInfoVos;
+    }
+
+    public void setTableInfoVos(List<DrapDbTableInfoVo> tableInfoVos) {
+        this.tableInfoVos = tableInfoVos;
+    }
+
+    public List<DrapDictTableInfoVo> getDictTableInfoVos() {
+        return dictTableInfoVos;
+    }
+
+    public void setDictTableInfoVos(List<DrapDictTableInfoVo> dictTableInfoVos) {
+        this.dictTableInfoVos = dictTableInfoVos;
     }
 
 }

@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.mapper.api;
 
 import com.chinawiserv.dsp.base.entity.po.system.*;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -59,5 +60,17 @@ public interface ApiMapper{
      * 下架服务
      * */
     boolean unReleaseService(Map<String, Object> paramMap);
+
+    /**
+     * 查询用户的数据集权限
+     * */
+    Map<String,Object> getDataAuthorityByUserId(Map<String,Object> paramMap);
+
+    /**
+     * 查询用户申请的数据集拥有的数据项
+     * */
+    List<Map<String,Object>> getDataitemAuthorityByUserIdAndDatasetId(Map<String,Object> paramMap);
+
+    DrapDbTableInfo getTableInfoBySystemIdAndDbId(Map<String,Object> paramMap);
 
 }

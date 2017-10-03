@@ -43,13 +43,18 @@
         <result column="classify_name" property="classifyName"/>
         <result column="classify_status" property="classifyStatus"/>
         <result column="dept_name" property="deptName"/>
+        <result column="format_category" property="formatCategory"/>
+        <result column="format_type" property="formatType"/>
+        <result column="format_info" property="formatInfo"/>
     </resultMap>
+    
 
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
+            t.delete_flag =0
             <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
+                and t.id = #{id,jdbcType=VARCHAR}
             </if>
         </where>
     </sql>
@@ -69,7 +74,28 @@
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM dir_dataset t WHERE t.id = #{id}
+        SELECT t.*,f.format_category,f.format_type,f.format_info FROM dir_dataset t
+            left join dir_dataset_ext_format f on t.id=f.dataset_id WHERE t.delete_flag =0 and t.id = #{id}
+    </select>
+
+    <!--<select id="selectDatasetInfoById" parameterType="java.lang.String" resultMap="WithItemListMap">
+        select t.*,f.format_category,f.format_type,f.format_info,de.dept_name,i.id as item_id, i.item_code,i.item_name,i.item_desc,i.item_type,i.item_length,i.belong_dept_id as item_belong_dept_id,
+            i.share_type as item_share_type,i.share_method as item_share_method,i.share_condition as item_share_condition,
+            i.is_open as item_is_open,i.open_condition as item_open_condition,i.update_frequency as item_update_frequency,
+            i.storage_medium as item_storage_medium,i.storage_location as item_storage_location
+            from dir_dataset t
+            left join dir_dataset_ext_format f on t.id=f.dataset_id
+            left join sys_dept de on t.belong_dept_id=de.id
+            left join dir_dataitem i on t.id=i.dataset_id
+            where t.id = #{id}
+    </select>-->
+
+    <select id="selectDatasetInfoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        select t.*,f.format_category,f.format_type,f.format_info,de.dept_name
+        from dir_dataset t
+        left join dir_dataset_ext_format f on t.id=f.dataset_id
+        left join sys_dept de on t.belong_dept_id=de.id
+        where t.id = #{id}
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -78,14 +104,30 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
-        insert into dir_dataset(id,region_code,dataset_code,dataset_name,alias,belong_dept_type,belong_dept_id,dataset_desc,share_type,share_condition,share_method_category,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,secret_flag,source_type,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(
-        #{id},#{regionCode},#{datasetCode},#{datasetName},#{alias},#{belongDeptType},#{belongDeptId},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethodCategory},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{secretFlag},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag})
+        insert into dir_dataset(id,region_code,dataset_code,dataset_name,alias,belong_dept_type,belong_dept_id,dataset_desc,share_type,share_condition,share_method_category,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,secret_flag,source_type,status,create_user_id,create_time,update_user_id,update_time) values(
+        #{id},#{regionCode},#{datasetCode},#{datasetName},#{alias},#{belongDeptType},#{belongDeptId},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethodCategory},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{secretFlag},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime})
     </insert>
 
-    <insert id="extInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
+    <insert id="extInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetExtFormat">
         INSERT INTO dir_dataset_ext_format (id,dataset_id,format_category,format_type,format_info)
         VALUES
-            (#{id}, #{dataset_id}, #{format_category}, #{format_type}, #{format_info})
+            (#{id}, #{datasetId}, #{formatCategory}, #{formatType}, #{formatInfo})
+    </insert>
+
+    <insert id="extUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetExtFormat">
+        update dir_dataset_ext_format
+        <set>
+            <if test="formatCategory != null">
+                format_category = #{formatCategory},
+            </if>
+            <if test="formatType != null">
+                format_type = #{formatType},
+            </if>
+            <if test="formatInfo != null">
+                format_info = #{formatInfo},
+            </if>
+        </set>
+        where dataset_id = #{datasetId}
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
@@ -184,6 +226,11 @@
 
     <delete id="baseDelete" parameterType="java.util.Map">
         delete from dir_dataset
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <delete id="flagDelete" parameterType="java.util.Map">
+        update dir_dataset set delete_flag=1
         <include refid="deleteWhereCause"/>
     </delete>
 

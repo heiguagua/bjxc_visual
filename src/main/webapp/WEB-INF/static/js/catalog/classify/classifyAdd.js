@@ -7,9 +7,16 @@ jQuery(document).ready(function () {
 	 var fid = $("#fid").val();
      initSelectData();
      checkDep(fid);
-     
+     window.Dict=new dict();
+     initAllSelect();
      
 });
+
+function initAllSelect(){
+	
+    Dict.selects('classify_icon',['#icon']);
+    
+}
 	$(function(){
 		$(":radio").click(function(){
 		 	var val_depnode = $('#Dep input[name="depnode"]:checked').val();

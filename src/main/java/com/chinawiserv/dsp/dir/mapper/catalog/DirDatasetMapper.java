@@ -26,6 +26,8 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
 
     DirDatasetVo selectVoById(String id);
 
+    DirDatasetVo selectDatasetInfoById(String id);
+
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(DirDataset entity);
@@ -34,7 +36,11 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
 
     int baseDelete(Map<String,Object> param);
 
+    int flagDelete(Map<String,Object> param);
+
     int extInsert(DirDatasetExtFormat entity);
+
+    int extUpdate(DirDatasetExtFormat format);
 
     //用户梳理系统的查询
     List<Map<String,Object>> selectActivityByDeptId(@Param("dept_id")String dept_id);

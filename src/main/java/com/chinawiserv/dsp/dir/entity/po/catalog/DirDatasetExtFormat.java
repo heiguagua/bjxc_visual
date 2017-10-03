@@ -5,10 +5,10 @@ package com.chinawiserv.dsp.dir.entity.po.catalog;
  */
 public class DirDatasetExtFormat {
     private String id;
-    private String dataset_id;
-    private String format_category;
-    private String format_type;
-    private String format_info;
+    private String datasetId;
+    private String formatCategory;
+    private String formatType;
+    private String formatInfo;
 
     public String getId() {
         return id;
@@ -18,35 +18,35 @@ public class DirDatasetExtFormat {
         this.id = id;
     }
 
-    public String getDataset_id() {
-        return dataset_id;
+    public String getDatasetId() {
+        return datasetId;
     }
 
-    public void setDataset_id(String dataset_id) {
-        this.dataset_id = dataset_id;
+    public void setDatasetId(String datasetId) {
+        this.datasetId = datasetId;
     }
 
-    public String getFormat_category() {
-        return format_category;
+    public String getFormatCategory() {
+        return formatCategory;
     }
 
-    public void setFormat_category(String format_category) {
-        this.format_category = format_category;
+    public void setFormatCategory(String formatCategory) {
+        this.formatCategory = formatCategory;
     }
 
-    public String getFormat_type() {
-        return format_type;
+    public String getFormatType() {
+        return formatType;
     }
 
-    public void setFormat_type(String format_type) {
-        this.format_type = format_type;
+    public void setFormatType(String formatType) {
+        this.formatType = formatType;
     }
 
-    public String getFormat_info() {
-        return format_info;
+    public String getFormatInfo() {
+        return formatInfo;
     }
 
-    public void setFormat_info(String format_info) {
-        this.format_info = format_info;
+    public void setFormatInfo(String formatInfo) {
+        this.formatInfo = formatInfo;
     }
 }

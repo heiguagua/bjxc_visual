@@ -72,7 +72,7 @@ UPDATE  dir_classify t SET t.`classify_structure_name` = getDirClassifyStructure
 update dir_classify a INNER JOIN (
 	select max(rownum) as tree_index,pre_parent_id as fid from dir_classify_treeNum group by pre_parent_id) b
 	 on a.id=b.fid 
-	set a.tree_index = b.tree_index;
+	set a.classify_index = b.tree_index;
 	
 
 DROP TABLE if exists dir_classify_treeNum;

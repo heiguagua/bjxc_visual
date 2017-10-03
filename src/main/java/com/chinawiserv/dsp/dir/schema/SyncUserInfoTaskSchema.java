@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.dir.schema;
 
+import com.chinawiserv.dsp.base.common.util.DesUtil;
 import com.chinawiserv.dsp.base.common.util.Props;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
@@ -59,7 +60,10 @@ public class SyncUserInfoTaskSchema {
 
                     sysUser.setRealName(rsUser.getString("user_name"));
                     sysUser.setCreateTime(rsUser.getTimestamp("register_time"));
-                    sysUser.setUserName(rsUser.getString("login_name"));
+                    String userName = rsUser.getString("login_name");
+                    sysUser.setUserName(userName);
+                    String token = DesUtil.encrypt(userName);
+                    sysUser.setToken(token);
                     sysUser.setUpdateTime(rsUser.getTimestamp("updatetime"));
                     sysUser.setStatus(rsUser.getInt("status"));
                     sysUser.setEmail(rsUser.getString("email"));

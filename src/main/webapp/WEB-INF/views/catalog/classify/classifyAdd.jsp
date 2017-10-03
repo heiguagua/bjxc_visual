@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/js/catalog/classify/classifyAdd.js"></script>
- 
+ 	<script src="<%=basePath%>/js/system/dict/dictIcon.js"></script>
 </head>
 <body>
 <section class="content">
@@ -54,11 +54,11 @@
                             <div class="form-group">
                                 <label for="icon">选择图标</label>
                                 <select id="icon" name="icon" class="form-control select2" style="width: 100%;">             
-                                		  <option value =""></option>
+                                		  <<!-- option value =""></option>
                                 		  <option value ="volvo">Volvo</option>
 										  <option value ="saab">Saab</option>
 										  <option value="opel">Opel</option>
-										  <option value="audi">Audi</option>  
+										  <option value="audi">Audi</option> -->  
                                 </select>
                             </div>
                             
