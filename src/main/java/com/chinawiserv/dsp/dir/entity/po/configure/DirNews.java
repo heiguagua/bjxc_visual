@@ -51,6 +51,8 @@ public class DirNews implements Serializable {
 	@TableField("pic_size")
 	private String picSize;
 		
+	@TableField("pic_order")
+	private int picOrder;
 	
     /**
      * 发布人
@@ -220,7 +222,12 @@ public class DirNews implements Serializable {
 		this.picSize = picSize;
 	}
 
+	public int getPicOrder() {
+		return picOrder;
+	}
 
-	
+	public void setPicOrder(int picOrder) {
+		this.picOrder = picOrder;
+	}
 
 }

@@ -112,6 +112,28 @@ public class DirNewsController extends BaseController {
     	service.DeleteByFlag(id);
 		return new HandleResult().success("删除新闻表成功");
     }
+    
+    /**
+     * 更改启用状态
+     */
+//    @RequiresPermissions("XXX:XXX:delete")
+    @Log("更改启用状态")
+    @RequestMapping("/updateStatus")
+    @ResponseBody
+    public HandleResult updateStatus(@RequestParam String id,@RequestParam String status){
+		//todo 逻辑删除
+    	String message = null;
+    	if(status.equals("1")){
+    		service.updateStatus(id,status);
+    		 message = "图片禁用成功";    		
+    	}else if(status.equals("0")){
+    		service.updateStatus(id,status);
+    		 message = "图片启用成功";
+    	}
+		
+    	return new HandleResult().success(message);
+    }
+
 
     /**
      * 编辑新闻表
@@ -145,15 +167,22 @@ public class DirNewsController extends BaseController {
     @Log("编辑新闻表")
     @RequestMapping("/doEdit")
     @ResponseBody
-    public  HandleResult doEdit(DirNewsVo entity,Model model){
+    public  HandleResult doEdit(DirNewsVo entity,@RequestParam(value="file",required=false)MultipartFile file,  
+            HttpServletRequest request){
 		HandleResult handleResult = new HandleResult();
 		try {
-		    service.updateVO(entity);
-		    handleResult.success("编辑新闻表成功");
+			String rs = service.fileUpdate(entity, file, request);
+            if("samePic".equals(rs)){
+            	handleResult.error("该图片已存在，请重新选择图片上传");
+            }else{
+            	handleResult.success("更新新闻表成功");
+            }
+//		    service.insertVO(entity);		    
 		} catch (Exception e) {
-		    handleResult.error("编辑新闻表失败");
-		    logger.error("编辑新闻表失败", e);
+		    handleResult.error("更新新闻表失败");
+		    logger.error("更新新闻表失败", e);
 		}
+		
 		return handleResult;
     }
 }

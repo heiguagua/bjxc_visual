@@ -28,7 +28,11 @@ public interface DirNewsMapper extends BaseMapper<DirNews> {
     
   //逻辑删除
     void updateDeleteFlag(String id);
-
+    //禁用图片
+    void forbid(String id);
+    //启用图片
+    void lancer(String id);
+    
     int baseInsert(DirNews entity);
 
     int baseUpdate(DirNews entity);

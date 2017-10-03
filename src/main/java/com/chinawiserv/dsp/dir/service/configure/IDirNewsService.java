@@ -21,5 +21,6 @@ public interface IDirNewsService extends ICommonService<DirNews, DirNewsVo> {
 	
 	void DeleteByFlag(String id);	
 	String fileUpload(DirNewsVo entity, MultipartFile file,HttpServletRequest request) throws Exception;
-	
+	void updateStatus(String id,String status);
+	String fileUpdate(DirNewsVo entity, MultipartFile file,HttpServletRequest request) throws Exception;
 }
