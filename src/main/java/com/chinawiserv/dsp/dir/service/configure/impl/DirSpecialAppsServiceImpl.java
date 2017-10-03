@@ -72,6 +72,7 @@ public class DirSpecialAppsServiceImpl extends CommonServiceImpl<DirSpecialAppsM
         //按照创建时间排序
         page.setOrderByField("create_time");
         page.setAsc(false);
+        page.setTotal(mapper.selectVoCount(paramMap));
         page.setRecords(mapper.selectVoPage(page, paramMap));
         return page;
 		

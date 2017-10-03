@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/dirNews/doEdit">
-                        <input id="appId" type="hidden" value="${id}" name="Id" />
+                        <input id="newsId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                            <div class="form-group col-md-12">
                                 <label for="editChoosePic">图片<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
@@ -29,6 +29,11 @@
                             <div class="form-group col-md-12" style="display:none" align="center" id="editImgDiv">
                                 <img alt="" src="" id="editShowImg" name="showImg" width="200" height="200">
                             </div> 
+                            <div class="form-group col-md-12">
+                                <label for="edit_pic_title">顺序<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+                                <input type="text" class="form-control" id="edit_pic_order" name="picOrder" maxlength="5">
+                                <div id="editOrderDiv"></div>
+                            </div>
                            <div class="form-group col-md-12">
                                 <label for="edit_pic_title">标题<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
                                 <input type="text" class="form-control" id="edit_pic_title" name="title" maxlength="100">
@@ -36,7 +41,7 @@
                             </div> 
                             <div class="form-group col-md-12">
                                 <label for="edit_pic_content">内容</label>
-                                    <textarea rows="3" cols="20" class="form-control" id="pic_content" name="pic_content"></textarea>
+                                    <!-- <textarea rows="3" cols="20" class="form-control" id="pic_content" name="pic_content"></textarea> -->
                                 <script id="edit_pic_content" style="height:300px;display: block;"  name="picContent" type="text/plain"></script>
                             </div>   
                         </div><!-- /.box-body -->

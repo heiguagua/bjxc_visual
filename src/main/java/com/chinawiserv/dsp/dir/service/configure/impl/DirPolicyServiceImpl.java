@@ -81,6 +81,7 @@ public class DirPolicyServiceImpl extends CommonServiceImpl<DirPolicyMapper, Dir
         page.setOrderByField("create_time");
         page.setAsc(false);
         List<DirPolicyVo> voPage = mapper.selectVoPage(page, paramMap);
+        page.setTotal(mapper.selectVoCount(paramMap));
         page.setRecords(voPage);
         return page;
 	}

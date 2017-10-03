@@ -39,7 +39,7 @@
         </choose>
     </select>
 
-    <!-- 查询指定目录下面的的数据集 -->
+    <!-- 查询指定目录下面的的数据集/排除自定义 -->
     <select id="getDatasetByClassifyId" parameterType="map" resultType="map">
         SELECT
         t.*
@@ -49,7 +49,10 @@
         ON dcm.`dataset_id` = t.`id`
         LEFT JOIN dir_classify dc
         ON dc.`id` = dcm.`classify_id`
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = t.`id`
         WHERE TRUE
+        AND ddsi.`source_obj_type` != '1'
         <choose>
             <when test="null != classifyId and '' != classifyId">
                 AND dc.`id` = #{classifyId}
@@ -62,10 +65,41 @@
 
     <!-- 查询指定数据集下面的数据库信息 -->
     <select id="getDbInfoByDatasetId" parameterType="map" resultType="map">
+        <!--SELECT-->
+        <!--ddi.`id`,-->
+        <!--ddi.`db_name` AS dbName,-->
+        <!--ddi.`db_cn_name` AS DB_CN_NAME,-->
+        <!--ddi.`category` AS dbCategory,-->
+        <!--ddi.`db_type` AS dbType,-->
+        <!--ddi.`ip_address` AS ipAddress,-->
+        <!--ddi.`user_name` AS userName,-->
+        <!--ddi.`password`,-->
+        <!--ddi.`port`,-->
+        <!--ddi.`sid`,-->
+        <!--ddi.`service_name` AS serviceName,-->
+        <!--dd.`dataset_name` AS datasetName,-->
+        <!--dis.`system_name` AS systemName,-->
+        <!--dis.`build_dept` AS buildDept-->
+        <!--FROM-->
+        <!--drap_db_info ddi-->
+        <!--LEFT JOIN drap_db_system_map dsm-->
+        <!--ON dsm.`db_id` = ddi.`id`-->
+        <!--LEFT JOIN drap_info_system dis-->
+        <!--ON dis.`id` = dsm.`info_system_id`-->
+        <!--LEFT JOIN drap_dataset_system_map dst-->
+        <!--ON dst.`system_id` = dis.`id`-->
+        <!--LEFT JOIN dir_dataset dd-->
+        <!--ON dd.`id` = dst.`dataset_id`-->
+        <!--WHERE TRUE-->
+        <!--<include refid="datasetWhereClause"/>-->
+        <!--GROUP BY ddi.`id`-->
+
+        <!-- 系统梳理 -->
         SELECT
         ddi.`id`,
         ddi.`db_name` AS dbName,
         ddi.`db_cn_name` AS DB_CN_NAME,
+        ddi.`category` AS dbCategory,
         ddi.`db_type` AS dbType,
         ddi.`ip_address` AS ipAddress,
         ddi.`user_name` AS userName,
@@ -77,22 +111,156 @@
         dis.`system_name` AS systemName,
         dis.`build_dept` AS buildDept
         FROM
-        drap_db_info ddi
-        LEFT JOIN drap_db_system_map dsm
-        ON dsm.`db_id` = ddi.`id`
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN drap_db_table_info sourceddti
+        ON sourceddti.`id` = ddsi.`source_obj_id`
+        LEFT JOIN drap_db_info ddi
+        ON ddi.`id` = sourceddti.`db_id`
+        LEFT JOIN drap_db_system_map ddsm
+        ON ddsm.`db_id` = ddi.`id`
         LEFT JOIN drap_info_system dis
-        ON dis.`id` = dsm.`info_system_id`
-        LEFT JOIN drap_dataset_system_map dst
-        ON dst.`system_id` = dis.`id`
-        LEFT JOIN dir_dataset dd
-        ON dd.`id` = dst.`dataset_id`
+        ON dis.`id` = ddsm.`info_system_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = ddsi.`source_obj_type`
         WHERE TRUE
+        AND sd.`dict_code` = '2'
         <include refid="datasetWhereClause"/>
-        GROUP BY ddi.`id`
+        GROUP BY dd.`id`
+
+        UNION ALL
+
+        <!-- 资源梳理 -->
+        SELECT
+        ddi.`id`,
+        ddi.`db_name` AS dbName,
+        ddi.`db_cn_name` AS DB_CN_NAME,
+        ddi.`category` AS dbCategory,
+        ddi.`db_type` AS dbType,
+        ddi.`ip_address` AS ipAddress,
+        ddi.`user_name` AS userName,
+        ddi.`password`,
+        ddi.`port`,
+        ddi.`sid`,
+        ddi.`service_name` AS serviceName,
+        dd.`dataset_name` AS datasetName,
+        dis.`system_name` AS systemName,
+        dis.`build_dept` AS buildDept
+        FROM
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN drap_dataset sourceddti
+        ON sourceddti.`id` = ddsi.`source_obj_id`
+        LEFT JOIN drap_dataset_table_relation ddtr
+        ON ddtr.`dataset_id` = sourceddti.`id`
+        LEFT JOIN drap_db_table_info ddti
+        ON ddti.`id` = ddtr.`source_table`
+        LEFT JOIN drap_db_info ddi
+        ON ddi.`id` = ddti.`db_id`
+        LEFT JOIN drap_db_system_map ddsm
+        ON ddsm.`db_id` = ddi.`id`
+        LEFT JOIN drap_info_system dis
+        ON dis.`id` = ddsm.`info_system_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = ddsi.`source_obj_type`
+        WHERE TRUE
+        AND sd.`dict_code` = '3'
+        <include refid="datasetWhereClause"/>
+        GROUP BY dd.`id`
+
+        UNION ALL
+
+        <!-- 爬虫系统 -->
+        SELECT
+        ddi.`id`,
+        ddi.`db_name` AS dbName,
+        ddi.`db_name` AS DB_CN_NAME,
+        '1' AS dbCategory,
+        ddi.`db_type` AS dbType,
+        ddi.`db_ip` AS ipAddress,
+        ddi.`db_user` AS userName,
+        ddi.`db_pass` AS 'password',
+        ddi.`db_port` AS 'port',
+        ddi.`db_name` AS sid,
+        ddi.`db_name` AS serviceName,
+        dd.`dataset_name` AS datasetName,
+        '' AS systemName,
+        '' AS buildDept
+        FROM
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN cs_data_sync_collect sourceddti
+        ON sourceddti.`id` = ddsi.`source_obj_id`
+        LEFT JOIN cs_data_sync_collect_db ddi
+        ON ddi.`id` = sourceddti.`db_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = ddsi.`source_obj_type`
+        WHERE TRUE
+        AND sd.`dict_code` = '4'
+        <include refid="datasetWhereClause"/>
+        GROUP BY dd.`id`
+
+        UNION ALL
+
+        <!-- 采集系统 -->
+        SELECT
+        ddi.`id`,
+        ddi.`db_name` AS dbName,
+        ddi.`db_name` AS DB_CN_NAME,
+        '1' AS dbCategory,
+        '2' AS dbType,
+        ddi.`ip_addr` AS ipAddress,
+        ddi.`username` AS userName,
+        '' AS 'password',
+        ddi.`port`,
+        ddi.`sid`,
+        ddi.`connect_name` AS serviceName,
+        dd.`dataset_name` AS datasetName,
+        '' AS systemName,
+        '' AS buildDept
+        FROM
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN dcm_table_info sourceddti
+        ON sourceddti.`id` = ddsi.`source_obj_id`
+        LEFT JOIN dcm_pool_rmdb ddi
+        ON ddi.`id` IS NULL
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = ddsi.`source_obj_type`
+        WHERE TRUE
+        AND sd.`dict_code` = '5'
+        <include refid="datasetWhereClause"/>
+        GROUP BY dd.`id`
+
     </select>
 
     <!-- 查询指定数据集下面的数据表信息和字段关系 -->
     <select id="getTableInfoByDatasetId" parameterType="map" resultType="map">
+        <!-- 系统梳理 -->
         SELECT
         sourceddti.`table_name` AS sourceTableName,
         sourceddti.`id` AS sourceTableId,
@@ -130,7 +298,7 @@
         GROUP BY dd.`id`
 
         UNION ALL
-
+        <!-- 资源梳理 -->
         SELECT
         sourceddti.`table_name` AS sourceTableName,
         sourceddti.`id` AS sourceTableId,
@@ -168,6 +336,85 @@
         AND sd.`dict_code` = '3'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
+
+        UNION ALL
+
+        <!-- 爬虫系统 -->
+        SELECT
+        sourceddti.`table_name` AS sourceTableName,
+        sourceddti.`id` AS sourceTableId,
+        sourceddtc.`cloumn_name` AS sourceColumnName,
+        sourceddtc.`id` AS sourceColumnId,
+        targetddti.`table_name` AS targetTableName,
+        targetddti.`id` AS targetTableId,
+        targetddtc.`cloumn_name`AS targetColumnName,
+        targetddtc.`id` AS targetColumnId,
+        ddsr.`relation_type` AS relationType
+        FROM
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN dir_dataset_source_relation ddsr
+        ON ddsr.`dataset_id` = dd.`id`
+        LEFT JOIN cs_data_sync_collect sourceddti
+        ON sourceddti.`id` = ddsr.`source_table_id`
+        LEFT JOIN cs_data_sync_collect_column sourceddtc
+        ON sourceddtc.`id` = ddsr.`source_column_id`
+        LEFT JOIN cs_data_sync_collect targetddti
+        ON targetddti.`id` = ddsr.`target_table_id`
+        LEFT JOIN cs_data_sync_collect_column targetddtc
+        ON targetddtc.`id` = ddsr.`target_column_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = ddsi.`source_obj_type`
+        WHERE TRUE
+        AND sd.`dict_code` = '4'
+        <include refid="datasetWhereClause"/>
+        GROUP BY dd.`id`
+
+        UNION ALL
+
+        <!-- 采集系统 -->
+        SELECT
+        sourceddti.`target_obj_code` AS sourceTableName,
+        sourceddti.`id` AS sourceTableId,
+        sourceddtc.`target_column_name` AS sourceColumnName,
+        sourceddtc.`id` AS sourceColumnId,
+        targetddti.`target_obj_code` AS targetTableName,
+        targetddti.`id` AS targetTableId,
+        targetddtc.`target_column_name` AS targetColumnName,
+        targetddtc.`id` AS targetColumnId,
+        ddsr.`relation_type` AS relationType
+        FROM
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN dir_dataset_source_relation ddsr
+        ON ddsr.`dataset_id` = dd.`id`
+        LEFT JOIN dcm_table_info sourceddti
+        ON sourceddti.`id` = ddsr.`source_table_id`
+        LEFT JOIN dcm_table_column sourceddtc
+        ON sourceddtc.`id` = ddsr.`source_column_id`
+        LEFT JOIN dcm_table_info targetddti
+        ON targetddti.`id` = ddsr.`target_table_id`
+        LEFT JOIN dcm_table_column targetddtc
+        ON targetddtc.`id` = ddsr.`target_column_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = ddsi.`source_obj_type`
+        WHERE TRUE
+        AND sd.`dict_code` = '5'
+        <include refid="datasetWhereClause"/>
+        GROUP BY dd.`id`
+
 
     </select>
 
@@ -286,8 +533,8 @@
     <select id="getDataAuthorityByUserId" parameterType="map" resultType="map">
         SELECT
           dda.`id` AS dataApplyId,
-          dda.`limit_visit_cnt` AS limitVisitCnt,
-          dda.`limit_visit_date_period` AS limitVisitDatePeriod,
+          dda.`audit_visit_cnt` AS limitVisitCnt,
+          dda.`audit_visit_date_period` AS limitVisitDatePeriod,
           CASE
             dda.`status`
             WHEN dda.`status` = '1'
@@ -305,8 +552,9 @@
         LIMIT 0,1
     </select>
 
-    <!-- 查询用户申请的数据集拥有的数据项 -->
+    <!-- 查询用户申请的数据集拥有的数据字段 -->
     <select id="getDataitemAuthorityByUserIdAndDatasetId" parameterType="map" resultType="map">
+        <!-- 系统梳理 -->
         SELECT
         dti.`table_name` AS tableName,
         dtc.`column_en_name` AS columnName
@@ -330,9 +578,9 @@
         AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
 
-        UNION
-        ALL
+        UNION ALL
 
+        <!-- 资源梳理 -->
         SELECT
         dti.`table_name` AS tableName,
         dtc.`column_en_name` AS columnName
@@ -359,6 +607,59 @@
         AND sd.`dict_code` = '3'
         AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
+
+        UNION ALL
+
+        <!-- 爬虫系统 -->
+        SELECT
+        dti.`table_name` AS tableName,
+        dtc.`cloumn_name` AS columnName
+        FROM
+        dir_data_item_apply dia
+        LEFT JOIN dir_dataitem_source_info dsi
+        ON dsi.`item_id` = dia.`item_id`
+        LEFT JOIN cs_data_sync_collect_column dtc
+        ON dtc.`id` = dsi.`source_obj_id`
+        LEFT JOIN cs_data_sync_collect dti
+        ON dti.`id` = dtc.`table_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dsi.`source_obj_type`
+        WHERE TRUE
+        AND sd.`dict_code` = '4'
+        AND dia.`status` = '1'
+        <include refid = "datasetApplyWhereClause"/>
+
+        UNION ALL
+
+        <!-- 采集系统 -->
+        SELECT
+        dti.`target_obj_code`AS tableName,
+        dtc.`target_column_name` AS columnName
+        FROM
+        dir_data_item_apply dia
+        LEFT JOIN dir_dataitem_source_info dsi
+        ON dsi.`item_id` = dia.`item_id`
+        LEFT JOIN dcm_table_column dtc
+        ON dtc.`id` = dsi.`source_obj_id`
+        LEFT JOIN dcm_table_info dti
+        ON dti.`id` = dtc.`table_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dsi.`source_obj_type`
+        WHERE TRUE
+        AND sd.`dict_code` = '5'
+        AND dia.`status` = '1'
+        <include refid = "datasetApplyWhereClause"/>
+
     </select>
 
     <select id="getTableInfoBySystemIdAndDbId" parameterType="map" resultType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo">
