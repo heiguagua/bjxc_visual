@@ -94,17 +94,18 @@ jQuery(document).ready(function () {
                 title: '创建用户时间',
                 align: 'center',
                 valign: 'middle',
+                width: '160',
                 sortable: false
             }, {
                 field: 'id',
                 title: '操作',
                 align: 'center',
                 valign: 'middle',
-                width: '12%',
+                width: '220',
                 sortable: false,
                 formatter: function (value) {
-                    var allotBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dir\")'><i class='fa fa-chain'></i> 分配目录</a>";
-                    var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dept\")'><i class='fa fa-pencil-square-o'></i> 分配部门</a>";
+                    var allotBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dir\")'><i class='fa fa-chain'></i> 目录数据分配</a>";
+                    var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dept\")'><i class='fa fa-pencil-square-o'></i> 部门数据分配</a>";
                     return allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR   ;
                 }
             }]

@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.base.controller.system;
 
+import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
@@ -111,6 +112,7 @@ public class SysUserAuthorityController extends BaseController {
      * 执行编辑
      */
     @RequiresPermissions("system:userAuthority:edit")
+    @Log("编辑用户数据权限")
     @RequestMapping("/doEdit")
     @ResponseBody
     public  HandleResult doEdit(@RequestParam Map<String, Object> paramMap){

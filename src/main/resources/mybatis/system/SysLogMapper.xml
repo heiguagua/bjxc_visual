@@ -12,12 +12,14 @@
         <result column="operator_id" property="operatorId"/>
         <result column="operate_time" property="operateTime"/>
         <result column="operate_type" property="operateType"/>
+        <result column="operate_ip" property="operateIp"/>
         <result column="operate_desc" property="operateDesc"/>
         <result column="operate_detail" property="operateDetail"/>
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysLogVo">
-
+        <result column="user_name" property="userName"/>
+        <result column="real_name" property="realName"/>
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -26,16 +28,33 @@
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
+            <if test="operatorUserName != null">
+                AND u.user_name like '%${operatorUserName}%'
+            </if>
+            <if test="operatorRealName != null">
+                AND u.real_name like '%${operatorRealName}%'
+            </if>
+            <if test="operateTimeStart != null">
+                AND t.operate_time >= #{operateTimeStart,jdbcType=VARCHAR}
+            </if>
+            <if test="operateTimeEnd != null">
+                AND t.operate_time &lt;= #{operateTimeEnd,jdbcType=VARCHAR}
+            </if>
         </where>
     </sql>
 
+    <sql id="baseVoSelect">
+        SELECT t.*,u.user_name, u.real_name FROM sys_log t LEFT JOIN sys_user u ON t.operator_id = u.id
+    </sql>
+
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM sys_log t
+        <include refid="baseVoSelect"></include>
         <include refid="queryConditions"></include>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM sys_log t WHERE t.id = #{id}
+        <include refid="baseVoSelect"></include>
+        WHERE t.id = #{id}
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -65,6 +84,9 @@
             </if>
             <if test="operateType != null">
                 operate_type = #{operateType},
+            </if>
+            <if test="operateIp != null">
+                operate_ip = #{operateIp},
             </if>
             <if test="operateDesc != null">
                 operate_desc = #{operateDesc},

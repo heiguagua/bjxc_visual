@@ -10,7 +10,6 @@ function initSelectData() {
 
     $.initUserRegionTreeSelect('treeRegionDemo','regionName','regionCode', 'menuRegionContent'); //初始化区域机构下拉框
     initUserTypeList();
-    // initDeptSelectDataList();
     initRoleNameList();
 
 }

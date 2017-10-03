@@ -100,7 +100,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 
                 String excludeRoot = (String) paramMap.get("excludeRoot");
                 if(StringUtils.isBlank(excludeRoot)){
-                    excludeRoot = "1";
+                    excludeRoot = "0";
                 }
                 param.put("excludeRoot", excludeRoot);
             }
@@ -156,8 +156,19 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             if(deptLevel != null){
                 sysDeptVo.setDeptLevel(deptLevel + 1);
             }else{
-                sysDeptVo.setDeptLevel(1);
+                sysDeptVo.setDeptLevel(2);
             }
+            String treeCode = parent.getTreeCode();
+            if(treeCode == null){
+                treeCode = "";
+            }
+            Integer treeIndex = parent.getTreeIndex();
+            if(treeIndex == null){
+                treeIndex = 1;
+            }else {
+                treeIndex++;
+            }
+            sysDeptVo.setTreeCode(treeCode + ";" + treeIndex);
             Integer status = sysDeptVo.getStatus();
             if(status == null){
                 status = 1;
@@ -167,17 +178,12 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             }else{
                 sysDeptVo.setValidateFrom(new Date());
             }
+            sysDeptVo.setDeptType(parent.getDeptType());
             sysDeptVo.setId(CommonUtil.get32UUID());
             sysDeptVo.setTreeIndex(0);
             sysDeptVo.setCreateUserId(ShiroUtils.getLoginUserId());
             sysDeptVo.setCreateTime(new Date());
             if(insert(sysDeptVo)){
-                Integer treeIndex = parent.getTreeIndex();
-                if(treeIndex == null){
-                    treeIndex = 1;
-                }else {
-                    treeIndex++;
-                }
                 SysDept updateParent = new SysDept();
                 updateParent.setId(parent.getId());
                 updateParent.setTreeIndex(treeIndex);

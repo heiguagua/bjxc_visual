@@ -1541,9 +1541,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     url: basePathJS + "/system/dept/getDeptSelectDataList",
                     data:{
                         regionCode : dd,
-                        onlyRoot : "1",
-                        excludeRoot : "0",
-                        checkIsLeaf : "0"
+                        onlyRoot : "1"
                     },
                     success: function (result) {
                         if (result.state) {

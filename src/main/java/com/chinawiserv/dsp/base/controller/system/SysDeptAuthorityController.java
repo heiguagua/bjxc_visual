@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.base.controller.system;
 
+import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
@@ -92,6 +93,7 @@ public class SysDeptAuthorityController extends BaseController {
      * 执行编辑
      */
     @RequiresPermissions("system:deptAuthority:edit")
+    @Log("组织机构数据权限分配")
     @RequestMapping("/doEdit")
     @ResponseBody
     public  HandleResult doEdit(@RequestParam Map<String, Object> paramMap){
