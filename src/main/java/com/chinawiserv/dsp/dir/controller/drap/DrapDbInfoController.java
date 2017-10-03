@@ -173,10 +173,10 @@ public class DrapDbInfoController extends BaseController {
         HandleResult handleResult = new HandleResult();
         try {
             service.receiveTableChange(map);
-            handleResult.success("接受审核数据成功");
+            handleResult.success("数据库表自动更新成功");
         } catch (Exception e) {
-            handleResult.error("接受审核数据失败");
-            logger.error("接受审核数据失败", e);
+            handleResult.error("数据库表自动更新失败");
+            logger.error("数据库表自动更新失败", e);
         }
         return handleResult;
     }

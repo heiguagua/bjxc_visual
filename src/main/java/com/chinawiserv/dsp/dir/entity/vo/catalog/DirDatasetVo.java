@@ -27,6 +27,12 @@ public class DirDatasetVo extends DirDataset{
 
     private String deptName;
 
+    private String formatCategory;
+
+    private String formatType;
+
+    private String formatInfo;
+
     //数据集扩展属性
     private DirDatasetExtFormat ext;
 
@@ -74,6 +80,30 @@ public class DirDatasetVo extends DirDataset{
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
+    }
+
+    public String getFormatCategory() {
+        return formatCategory;
+    }
+
+    public void setFormatCategory(String formatCategory) {
+        this.formatCategory = formatCategory;
+    }
+
+    public String getFormatType() {
+        return formatType;
+    }
+
+    public void setFormatType(String formatType) {
+        this.formatType = formatType;
+    }
+
+    public String getFormatInfo() {
+        return formatInfo;
+    }
+
+    public void setFormatInfo(String formatInfo) {
+        this.formatInfo = formatInfo;
     }
 
     public DirDatasetExtFormat getExt() {

@@ -24,13 +24,19 @@ public interface DirDataitemMapper extends BaseMapper<DirDataitem> {
 
     DirDataitemVo selectVoById(String id);
 
+    List<DirDataitemVo> selectInfoList(Map<String, Object> paramMap);
+
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(DirDataitem entity);
 
     int baseUpdate(DirDataitem entity);
 
+    int batchUpdate(@Param("list") List<DirDataitemVo> list);
+
     int baseDelete(Map<String,Object> param);
+
+    int flagDelete(Map<String,Object> param);
 
     /**
      * 批量新增数据项

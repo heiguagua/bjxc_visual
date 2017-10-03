@@ -265,14 +265,14 @@ public class DirDatasetController extends BaseController {
     /**
      * 编辑数据集（信息资源）
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("catalog:catalogue:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "XXX/XXX/XXXEdit";
+		return "catalog/catalogue/catalogueEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("catalog:catalogue:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -290,7 +290,7 @@ public class DirDatasetController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("catalog:catalogue:edit")
     @Log("编辑数据集（信息资源）")
     @RequestMapping("/doEdit")
     @ResponseBody
@@ -298,7 +298,7 @@ public class DirDatasetController extends BaseController {
 		HandleResult handleResult = new HandleResult();
 		try {
 		    service.updateVO(entity);
-		    handleResult.success("编辑数据集（信息资源）成功");
+		    handleResult.success("编辑成功");
 		} catch (Exception e) {
 		    handleResult.error("编辑数据集（信息资源）失败");
 		    logger.error("编辑数据集（信息资源）失败", e);

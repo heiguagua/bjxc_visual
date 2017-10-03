@@ -136,7 +136,7 @@
 
                                 <div class="col-sm-6" style="padding:0">
                                     <select class="form-control" data-rule="所属资源格式:required;" id="storeMedia"
-                                            name="ext.format_category">
+                                            name="ext.formatCategory">
                                         <%--<option value="">--请选择--</option>
                                         <option value="1" name="电子文件">电子文件</option>
                                         <option value="2" name="电子表格">电子表格</option>
@@ -147,7 +147,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-6" style="padding:0">
-                                    <select class="form-control" id="format_type" name="ext.format_type">
+                                    <select class="form-control" id="format_type" name="ext.formatType">
                                         <%--<option value="">--请选择--</option>
                                         <option value="1" name="电子文件">电子文件</option>
                                         <option value="2" name="电子表格">电子表格</option>

@@ -51,6 +51,11 @@ public class DirDatasetClassifyMap implements Serializable {
      */
 	@TableField("update_time")
 	private Date updateTime;
+    /**
+     * 删除标识
+     */
+    @TableField("delete_flag")
+    private int deleteFlag;
 
 
 	public String getId() {
@@ -109,4 +114,11 @@ public class DirDatasetClassifyMap implements Serializable {
 		this.updateTime = updateTime;
 	}
 
+    public int getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(int deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
 }

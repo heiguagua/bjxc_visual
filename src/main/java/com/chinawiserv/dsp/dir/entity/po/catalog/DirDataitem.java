@@ -73,11 +73,6 @@ public class DirDataitem implements Serializable {
 	@TableField("share_condition")
 	private String shareCondition;
     /**
-     * 不予共享说明
-     */
-	@TableField("no_share_explain")
-	private String noShareExplain;
-    /**
      * 是否开放
      */
 	@TableField("is_open")
@@ -259,15 +254,7 @@ public class DirDataitem implements Serializable {
 		this.shareCondition = shareCondition;
 	}
 
-	public String getNoShareExplain() {
-		return noShareExplain;
-	}
-
-	public void setNoShareExplain(String noShareExplain) {
-		this.noShareExplain = noShareExplain;
-	}
-
-	public String getIsOpen() {
+    public String getIsOpen() {
 		return isOpen;
 	}
 

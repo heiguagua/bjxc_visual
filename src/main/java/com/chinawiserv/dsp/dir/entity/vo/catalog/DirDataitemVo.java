@@ -13,4 +13,6 @@ import java.util.List;
  * @since 2017-09-08
  */
 public class DirDataitemVo extends DirDataitem{
+
+    private String deptName;
 }
