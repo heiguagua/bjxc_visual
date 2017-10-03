@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -52,4 +55,6 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
     int baseUpdate(DirClassify entity);
 
     int baseDelete(String id);
+
+    Set<String> selectClassifyByIds(@Param("arr")String [] arr);
 }
