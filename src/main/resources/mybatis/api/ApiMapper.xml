@@ -117,7 +117,15 @@
         ON targetddti.`id` = ddsr.`target_table_id`
         LEFT JOIN drap_db_table_column targetddtc
         ON targetddtc.`id` = ddsr.`target_column_id`
-        WHERE ddsi.`source_mode` = 'table'
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = ddsi.`source_obj_type`
+        WHERE TRUE
+        AND sd.`dict_code` = '2'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
 
@@ -149,7 +157,15 @@
         ON sourceddtc.`id` = ddtr.`source_column`
         LEFT JOIN drap_db_table_column targetddtc
         ON targetddtc.`id` = ddtr.`target_column`
-        WHERE ddsi.`source_mode` = 'source'
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = ddsi.`source_obj_type`
+        WHERE TRUE
+        AND sd.`dict_code` = '3'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
 
@@ -292,13 +308,74 @@
     <!-- 查询用户申请的数据集拥有的数据项 -->
     <select id="getDataitemAuthorityByUserIdAndDatasetId" parameterType="map" resultType="map">
         SELECT
-        dd.`id`AS itemId,
-        dd.`item_name` AS itemName
+        dti.`table_name` AS tableName,
+        dtc.`column_en_name` AS columnName
         FROM
         dir_data_item_apply dia
-        LEFT JOIN dir_dataitem dd
-        ON dd.`id` = dia.`item_id`
+        LEFT JOIN dir_dataitem_source_info dsi
+        ON dsi.`item_id` = dia.`item_id`
+        LEFT JOIN drap_db_table_column dtc
+        ON dtc.`id` = dsi.`source_obj_id`
+        LEFT JOIN drap_db_table_info dti
+        ON dti.`id` = dtc.`table_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dsi.`source_obj_type`
         WHERE TRUE
+        AND sd.`dict_code` = '2'
+        AND dia.`status` = '1'
+        <include refid = "datasetApplyWhereClause"/>
+
+        UNION
+        ALL
+
+        SELECT
+        dti.`table_name` AS tableName,
+        dtc.`column_en_name` AS columnName
+        FROM
+        dir_data_item_apply dia
+        LEFT JOIN dir_dataitem_source_info dsi
+        ON dsi.`item_id` = dia.`item_id`
+        LEFT JOIN drap_dataset_item ddi
+        ON ddi.`id` = dsi.`source_obj_id`
+        LEFT JOIN drap_data_column_map dcm
+        ON dcm.`business_item_id` = ddi.`id`
+        LEFT JOIN drap_db_table_column dtc
+        ON dtc.`id` = dcm.`system_column_id`
+        LEFT JOIN drap_db_table_info dti
+        ON dti.`id` = dtc.`table_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dsi.`source_obj_type`
+        WHERE TRUE
+        AND sd.`dict_code` = '3'
+        AND dia.`status` = '1'
+        <include refid = "datasetApplyWhereClause"/>
+    </select>
+
+    <select id="getTableInfoBySystemIdAndDbId" parameterType="map" resultType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo">
+        SELECT
+          ddti.*
+        FROM
+          drap_db_table_info ddti
+          LEFT JOIN drap_db_system_map ddsm
+            ON ddsm.`db_id` = ddti.`db_id`
+        WHERE TRUE
+           AND ddti.`db_id` = #{dbId}
+           AND ddsm.`info_system_id` = #{systemId}
+           AND ddti.`table_name` = #{tableName}
+           OR ddti.`table_cn_name` = #{tableName}
+    </select>
+
+    <sql id="datasetApplyWhereClause">
         <choose>
             <when test="null != dataApplyId and '' != dataApplyId">
                 AND dia.`data_apply_id` = #{dataApplyId}
@@ -307,8 +384,7 @@
                 AND dia.`data_apply_id` IS NULL
             </otherwise>
         </choose>
-        AND dia.`status` = '1'
-    </select>
+    </sql>
 
     <sql id="datasetWhereClause">
         <choose>
