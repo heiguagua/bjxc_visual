@@ -144,9 +144,7 @@ public class ApiServiceImpl implements IApiService {
             return handleResult;
         }else{
             String serviceInfoStr = (String)paramMap.get("serviceInfo"); //获取服务信息的JSON字符串
-            String systemId = (String)paramMap.get("systemId"); //系统ID
-            String dbId = (String)paramMap.get("dbId");  //数据库ID
-            String dirStructure = (String)paramMap.get("dirStructure");  //数据表
+
             if(null != serviceInfoStr){
                 JSONArray serviceInfoArr = JSONArray.fromObject(serviceInfoStr);
                 //解析JSON字符串,获取服务相关信息
@@ -170,10 +168,16 @@ public class ApiServiceImpl implements IApiService {
                     String status = (String)serviceInfo.get("status");
                     String dirOrDrapType = (String)serviceInfo.get("dirType"); //目录梳理类型
                     String dirOrDrapTypeId = (String)serviceInfo.get("dirTypeId"); //目录数据集OR梳理数据表ID
+
+
+
                     /**
                      * 来自梳理的处理
                      * */
                     if("hackle".equalsIgnoreCase(dirOrDrapType)){
+                        String systemId = (String)serviceInfo.get("systemId"); //系统ID
+                        String dbId = (String)serviceInfo.get("dbId");  //数据库ID
+                        String dirStructure = (String)serviceInfo.get("dirStructure");  //数据表
                         /**
                          * 查询表对应的ID
                          * */
