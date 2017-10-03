@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/10/2 11:35:32                           */
+/* Created on:     2017/10/3 14:03:06                           */
 /*==============================================================*/
 
 
@@ -756,6 +756,7 @@ create table dir_dataitem
    belong_dept_id       varchar(36) comment '责任部门',
    share_type           varchar(36) comment '共享类型',
    share_condition      varchar(500) comment '共享条件',
+   no_share_reason      varchar(500),
    share_method_category char(10) comment '共享方式分类',
    share_method         varchar(36) comment '共享方式',
    is_open              varchar(36) comment '是否向社会开放',
@@ -1014,6 +1015,7 @@ create table dir_develop_apis
    api_category         varchar(36) comment 'API种类',
    api_url              varchar(128) comment 'URL地址',
    api_desc             varchar(512) comment '描述',
+   visit_count          int(10) comment '浏览量',
    icon                 varchar(256) comment '图标',
    parent_id            varchar(36) comment '父节点ID',
    parent_name          varchar(128) comment '父节点名称',
@@ -1120,7 +1122,7 @@ alter table dir_regist_user comment '用户注册表';
 create table dir_service_info
 (
    id                   varchar(36) not null comment 'ID',
-   service_name         varchar(36) comment '服务名称',
+   service_name         varchar(128) comment '服务名称',
    service_type         varchar(36) comment '服务类型',
    service_url          varchar(500) comment '服务URL',
    request_method       varchar(36) comment '服务请求方式',
@@ -1143,6 +1145,7 @@ create table dir_special_apps
    app_name             varchar(64) comment '应用名称',
    app_url              varchar(512) comment '应用URL',
    icon                 varchar(256) comment '图标',
+   visit_count          int(10) comment '浏览量',
    order_number         int(4) comment '排序',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
@@ -1425,6 +1428,7 @@ create table drap_dataset
    source_type          varchar(36) comment '添加类型',
    doc_id               varchar(36) comment '业务产生材料id',
    belong_activity_id   varchar(36) comment '所属业务',
+   belong_system_id     varchar(36) comment '所属系统',
    dataset_code         varchar(36) comment '数据集编号',
    dataset_name         varchar(64) comment '【国】信息资源名称',
    category             varchar(36) comment '业务数据类型',
@@ -1444,6 +1448,8 @@ create table drap_dataset
    data_level           varchar(36) comment '【川】信息资源最小分级单元',
    data_index_system    varchar(36) comment '【川】信息资源指标体系',
    is_secret            varchar(36) comment '【川】信息资源涉密性',
+   basic_classify       varchar(1000) comment '基础目录',
+   subject_classify     varchar(1000) comment '主题目录',
    store_media          varchar(36) comment '存储介质',
    physics_store_location varchar(128) comment '物理存储位置',
    extend_code          varchar(64) comment '扩展编码',
