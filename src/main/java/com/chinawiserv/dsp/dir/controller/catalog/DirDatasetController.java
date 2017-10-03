@@ -8,9 +8,11 @@ import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
+import com.chinawiserv.dsp.dir.entity.po.catalog.ExportDatasetExcel;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.schema.ExportExcelUtil;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
@@ -59,6 +61,9 @@ public class DirDatasetController extends BaseController {
 
     @Autowired
     private IDirDatasetSourceRelationService relationService;
+
+    @Autowired
+    private DirClassifyMapper classifyMapper;
 
     @RequestMapping("/catalogue")
     public  String init(@RequestParam Map<String , Object> paramMap){
@@ -649,16 +654,21 @@ public class DirDatasetController extends BaseController {
      * 导出完整模板excel
      */
     @RequestMapping("/downloadDatasetExcel")
-    public void downloadDatasetExcel(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void downloadDatasetExcel(String classify_id,String dataset_name,String region_id,HttpServletRequest request, HttpServletResponse response) throws IOException {
         OutputStream os=null;
         Workbook wb=null;
         try {
-
-
+            String [] tree_codes=null;
+            if(!StringUtils.isEmpty(classify_id)){
+                String[] split = classify_id.split(",");
+                Set<String> strings = classifyMapper.selectClassifyByIds(split);
+                tree_codes = (String[]) strings.toArray();
+            }
+            List<ExportDatasetExcel> list = service.selectExportLists(tree_codes, dataset_name, region_id);
             ExportExcelUtil util = new ExportExcelUtil();
             File file =util.getExcelDemoFile("excelTemplate/完整目录模板.xlsx");
             String sheetName="Sheet1";
-            wb = util.writeNewExcel(file, sheetName,null);
+            wb = util.writeNewExcel(file, sheetName,list);
 
             response.setContentType("application/vnd.ms-excel");
             response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode("完整目录模板.xlsx", "utf-8"));

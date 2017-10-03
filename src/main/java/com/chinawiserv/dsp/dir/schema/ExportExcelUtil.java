@@ -8,6 +8,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import com.chinawiserv.dsp.dir.entity.po.catalog.ExportDatasetExcel;
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -39,7 +41,7 @@ public class ExportExcelUtil {
         return file;
     }
 
-    public  Workbook writeNewExcel(File file,String sheetName,List lis) throws Exception{
+    public  Workbook writeNewExcel(File file,String sheetName,List<ExportDatasetExcel> list) throws Exception{
         Workbook wb = null;
         Row row = null;
         Cell cell = null;
@@ -50,47 +52,71 @@ public class ExportExcelUtil {
 
         //循环插入数据
         int lastRow = sheet.getLastRowNum()+1;    //插入数据的数据ROW
-        CellStyle cs = setSimpleCellStyle(wb);    //Excel单元格样式
-        for (int i = 0; i < 10; i++) {
+        //CellStyle cs = setSimpleCellStyle(wb);    //Excel单元格样式
+        int i=0;
+        for (ExportDatasetExcel info:list) {
             row = sheet.createRow(lastRow+i); //创建新的ROW，用于数据插入
 
             //按项目实际需求，在该处将对象数据插入到Excel中
-            /*InfoVo vo  = lis.get(i);
-            if(null==vo){
+            if(null==info){
                 break;
-            }*/
+            }
             //Cell赋值开始
-            cell = row.createCell(0);
-            cell.setCellValue(i);
-            //cell.setCellStyle(cs);
+            String structureName = info.getClassify_structure_name();
+            if(StringUtils.isNotEmpty(structureName)){
+                String[] split = structureName.split("->");
+                for (int j=0;j<split.length;j++){
+                    cell = row.createCell(j);
+                    cell.setCellValue(split[j]);
+                    //cell.setCellStyle(cs);
+                }
+            }
+            cell = row.createCell(26);//数据集名称
+            cell.setCellValue(info.getDataset_name());
 
-            cell = row.createCell(1);
-            cell.setCellValue(i);
-            //cell.setCellStyle(cs);
+            //cell = row.createCell(28);//信息资源提供方
+            ///cell.setCellValue(info.get);
+            cell = row.createCell(29);//资源提供方部门
+            cell.setCellValue(info.getDept_name());
 
-            cell = row.createCell(2);
-            cell.setCellValue(i);
-            //cell.setCellStyle(cs);
+            cell = row.createCell(31);//描述
+            cell.setCellValue(info.getDataset_desc());
 
-            cell = row.createCell(3);
-            cell.setCellValue(i);
-            //cell.setCellStyle(cs);
+            cell = row.createCell(32);//信息资源格式
+            cell.setCellValue(info.getFormat_category());
+            cell = row.createCell(33);
+            cell.setCellValue(info.getFormat_type());
 
-            cell = row.createCell(4);
-            cell.setCellValue(i);
-            //cell.setCellStyle(cs);
+            cell = row.createCell(41);
+            cell.setCellValue(info.getItem_name());
 
-            cell = row.createCell(5);
-            cell.setCellValue(i);
-            //cell.setCellStyle(cs);
+            cell = row.createCell(42);
+            cell.setCellValue(info.getItem_type());
 
-            cell = row.createCell(6);
-            cell.setCellValue(i);
-            //cell.setCellStyle(cs);
+            cell = row.createCell(43);
+            cell.setCellValue(info.getItem_length());
 
-            cell = row.createCell(7);
-            cell.setCellValue(i);
-            //cell.setCellStyle(cs);
+            cell = row.createCell(44);
+            cell.setCellValue(info.getShare_type());
+
+            cell = row.createCell(45);
+            cell.setCellValue(info.getShare_condition());
+
+            cell = row.createCell(46);
+            cell.setCellValue(info.getShare_method_category());
+
+            cell = row.createCell(47);
+            cell.setCellValue(info.getShare_method());
+
+            cell = row.createCell(48);
+            cell.setCellValue(info.getIs_open());
+
+            cell = row.createCell(49);
+            cell.setCellValue(info.getOpen_condition());
+
+            cell = row.createCell(50);
+            cell.setCellValue(info.getUpdate_frequency());
+            i++;
         }
         return wb;
     }

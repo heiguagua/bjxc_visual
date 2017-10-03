@@ -329,4 +329,124 @@
         WHERE
             dd.id = #{id}
     </select>
+
+    <resultMap id="ExcelMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.ExportDatasetExcel">
+        <result column="item_name" property="item_name"/>
+        <result column="item_type" property="item_type"/>
+        <result column="item_length" property="item_length"/>
+        <result column="share_type" property="share_type"/>
+        <result column="share_condition" property="share_condition"/>
+        <result column="share_method_category" property="share_method_category"/>
+        <result column="share_method" property="share_method"/>
+        <result column="is_open" property="is_open"/>
+        <result column="open_condition" property="open_condition"/>
+        <result column="update_frequency" property="update_frequency"/>
+        <result column="dataset_name" property="dataset_name"/>
+        <result column="dept_name" property="dept_name"/>
+        <result column="dataset_desc" property="dataset_desc"/>
+        <result column="format_category" property="format_category"/>
+        <result column="format_type" property="format_type"/>
+        <result column="classify_structure_name" property="classify_structure_name"/>
+    </resultMap>
+    <select id="selectExportLists" resultMap="ExcelMap">
+        SELECT
+            dd.item_name,
+            (
+                SELECT
+                    dict_name
+                FROM
+                    sys_dict
+                WHERE
+                    category = 'dataitemType'
+                AND dict_code = dd.item_type
+            ) AS item_type,
+            dd.item_length,
+            (
+                SELECT
+                    dict_name
+                FROM
+                    sys_dict
+                WHERE
+                    category = 'dataSetShareType'
+                AND dict_code = dd.share_type
+            ) AS share_type,
+            dd.share_condition,
+            (
+                SELECT
+                    dict_name
+                FROM
+                    sys_dict
+                WHERE
+                    category = 'requirementExpectGetType'
+                AND dict_code = dd.share_method_category
+            ) AS share_method_category,
+            (
+                SELECT
+                    dict_name
+                FROM
+                    sys_dict
+                WHERE
+                    category = 'requirementExpectGetType'
+                AND dict_code = dd.share_method
+            ) AS share_method,
+            (
+                CASE dd.is_open
+                WHEN 0 THEN
+                    '否'
+                WHEN 1 THEN
+                    '是'
+                END
+            ) AS is_open,
+            dd.open_condition,
+            (
+                SELECT
+                    dict_name
+                FROM
+                    sys_dict
+                WHERE
+                    category = 'requirementExpectUpdateFrequence'
+                AND dict_code = dd.update_frequency
+            ) AS update_frequency,
+            d.dataset_name,
+            sd.dept_name,
+            d.dataset_desc,
+            (
+                SELECT
+                    dict_name
+                FROM
+                    sys_dict,
+                    dir_dataset_ext_format ddef
+                WHERE
+                    category = 'setItemStoreMedia'
+                AND ddef.dataset_id = d.id
+                AND dict_code = ddef.format_category
+            ) AS format_category,
+            (
+                SELECT
+                    dict_name
+                FROM
+                    sys_dict,
+                    dir_dataset_ext_format ddef
+                WHERE
+                    category = 'setItemStoreMedia'
+                AND ddef.dataset_id = d.id
+                AND dict_code = ddef.format_type
+            ) AS format_type,
+            dc.classify_structure_name
+        FROM
+            dir_dataitem dd
+        LEFT JOIN dir_dataset d ON d.id = dd.dataset_id
+        LEFT JOIN sys_dept sd ON sd.id = d.belong_dept_id
+        LEFT JOIN dir_dataset_classify_map ddcm ON d.id = ddcm.dataset_id
+        LEFT JOIN dir_classify dc ON ddcm.classify_id = dc.id
+        WHERE TRUE
+        <if test="tree_codes != null">
+            <foreach collection="tree_codes" item="item" open="AND (" separator=" OR " close=")">
+                dc.tree_code LIKE  CONCAT(#{item},"%")
+            </foreach>
+        </if>
+        <if test="dataset_name != null and dataset_name != '' ">
+            AND d.dataset_name LIKE CONCAT("%",#{dataset_name},"%")
+        </if>
+    </select>
 </mapper>
