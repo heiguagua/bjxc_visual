@@ -108,6 +108,7 @@
         FROM dir_classify t
         LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
         <include refid="queryConditions"></include>and t.delete_flag = 0 
+        order by order_number
     </select>
 
 
@@ -125,6 +126,7 @@
 			left join sys_dept s on d.dept_id = s.id
 			left join sys_icon_lib c on c.icon_path = t.icon
 			WHERE t.id = #{id}
+			order by t.order_number
     </select>
 
 	
