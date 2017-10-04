@@ -5,7 +5,7 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/plugins/treeview/bootstrap-treeview.js"></script>
     <script src="<%=basePath%>/plugins/treeview/data.treeview.js"></script>
-    <script src="<%=basePath%>/js/catalog/catalogue/quickAddDatasetUI.js"></script>
+    <script src="<%=basePath%>/js/catalog/catalogue/quickCsAddDatasetUI.js"></script>
     <style type="text/css">
         .menu-wrap{
             position:relative;
@@ -55,7 +55,7 @@
 	                		<label class="col-sm-3"></label>
 	                		<div class="col-sm-9">
 	                			 <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas" data-toggle="modal" data-target="#myModal">
-             			      	配置数据集
+             			      	配置数据项
                 			</button>
 	                		</div>
 		                 	
@@ -84,9 +84,7 @@
 	                	<label  class="col-sm-3 control-label">信息资源提供方:</label>
 	                    <div class="col-sm-9">
 							<input type="text" class="form-control" id="belongDeptType" name="belongDeptType">
-
-
-	                    </div>
+						</div>
 	                	</div>
 	                	<div class="col-sm-6">
 		                	 <label  class="col-sm-3 control-label" style="padding-left:0px">信息资源提供方代码:</label>
@@ -115,7 +113,7 @@
 	                	<div class="col-sm-6">
 		                	 <label  class="col-sm-3 control-label" style="padding-left:0px">所属系统:</label>
 		                    <div class="col-sm-9">
-		                        <input type="text" class="form-control" id="system_name" placeholder="">
+		                        <input type="text" class="form-control" id="system_name" placeholder="成都市公民信息管理系统">
 		                    </div>
 	                	</div>
 	                </div>   
@@ -399,7 +397,7 @@
         </div>
     </div>
 
-    <%@include file="./selectDatasetModal.jsp" %>
+    <%@include file="./selectCsDatasetModal.jsp" %>
 </section><!-- /.content -->
 
 </body>
