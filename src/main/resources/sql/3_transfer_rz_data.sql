@@ -35,14 +35,32 @@
 	delete from dir_classify;
 	insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number, -- classify_structure_code,classify_structure_name,
 	status)
-		select uuid,'510100',dir_code,dir_name,description, -- fcode,
+		select uuid,'510100','',dir_name,description, -- fcode,
 			(select a.uuid from rz_dir.dir_lists a where a.dir_code = t.fcode) as old_fid,
 			fname,dir_level,0,0,dir_order,
 			-- (select a.dir_struct_codes from rz_dir.dir_lists_datasetmap a where a.dir_code = t.dir_code and a.dir_struct_codes is not null limit 0,1) as old_dir_struct_codes
 			-- (select a.dir_structure from rz_dir.dir_lists_datasetmap a where a.dir_code = t.dir_code and a.dir_structure is not null limit 0,1) as old_dir_structure
 			status
 		from rz_dir.dir_lists t ;
-	 update dir_classify set fid='root' where fid is null;
+-- 重置顶级目录分类的值
+	update dir_classify set classify_code='1',fid='root',order_number='1' where classify_name = '政务基础信息资源目录';
+	update dir_classify set classify_code='2',fid='root',order_number='2' where classify_name = '政务主题信息资源目录';
+
+INSERT INTO dir_classify (id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,icon,classify_structure_code,classify_structure_name,status,tree_code)
+	VALUES ('3','510100','3','政务部门信息资源目录','','root','root',1,1,0,3,NULL,'','政务部门信息资源目录','Y','3');
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+	VALUES ('301', '510100', '301', '省（自治区、直辖市）和计划单列市', '', '3', '政务部门信息资源目录', 1, 1, 0, NULL, NULL, '', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市', 'Y', '3;301');
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+	VALUES ('30101', '510100', '30101', '四川省成都市', '', '301', '省（自治区、直辖市）和计划单列市', 1, 1, 0, NULL, NULL, '3', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市', 'Y', '3;301;30101');
+
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+  select id,region_code,dept_code,dept_name,'','30101','四川省成都市','4',0,0,order_number,icon,'','','Y',''
+ from sys_dept where fid in (select id from sys_dept where fid = 'root');
+
+insert into dir_classify_dept_map (id,classify_id,dept_id)
+	select REPLACE(uuid(),'-',''),id,id from sys_dept where fid in (select id from sys_dept where fid = 'root');
+
+-- 以上为基础数据，以下为业务数据，需要转的
 
 	-- 目录系统的信息资源（数据集）
 	delete from dir_dataset;
@@ -149,18 +167,6 @@
 			status,create_time
 		from rz_dir.user_register t;
 
-
-INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
-	VALUES ('301', '510100', '301', '省（自治区、直辖市）和计划单列市', '', '3', '政务部门信息资源目录', 1, 1, 0, NULL, NULL, '', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市', 'Y', '3;301');
-INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
-	VALUES ('30101', '510100', '30101', '四川省成都市', '', '301', '省（自治区、直辖市）和计划单列市', 1, 1, 0, NULL, NULL, '3', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市', 'Y', '3;301;30101');
-
-INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
-  select id,region_code,dept_code,dept_name,'','30101','四川省成都市','4',0,0,order_number,icon,'','','Y',''
- from sys_dept where fid in (select id from sys_dept where fid = 'root');
-
-insert into dir_classify_dept_map (id,classify_id,dept_id)
-	select REPLACE(uuid(),'-',''),id,id from sys_dept where fid in (select id from sys_dept where fid = 'root');
 
 
 -- 梳理的表整理
