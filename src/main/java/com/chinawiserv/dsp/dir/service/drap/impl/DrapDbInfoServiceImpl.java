@@ -104,20 +104,25 @@ public class DrapDbInfoServiceImpl extends
             }
 
             //插入表信息
-
-            for (DrapDbTableInfoVo dbTableInfoVo : drapDbInfoVo.getTableInfoVos()) {
-                dbTableInfoMapper.insert(dbTableInfoVo);
-                for (DrapDbTableColumnVo columnVo : dbTableInfoVo.getColumnVos()) {
-                    dbTableColumnMapper.insert(columnVo);
+            
+            if (null!=drapDbInfoVo.getTableInfoVos()) {
+                for (DrapDbTableInfoVo dbTableInfoVo : drapDbInfoVo.getTableInfoVos()) {
+                    dbTableInfoMapper.insert(dbTableInfoVo);
+                    for (DrapDbTableColumnVo columnVo : dbTableInfoVo.getColumnVos()) {
+                        dbTableColumnMapper.insert(columnVo);
+                    }
                 }
             }
-
-            for (DrapDictTableInfoVo dictTableInfoVo : drapDbInfoVo.getDictTableInfoVos()) {
-                dictTableInfoMapper.insert(dictTableInfoVo);
-                for (DrapDictTableColumnVo columnVo : dictTableInfoVo.getColumnVos()) {
-                    dictTableColumnMapper.insert(columnVo);
+            
+            if (null!=drapDbInfoVo.getDictTableInfoVos()) {
+                for (DrapDictTableInfoVo dictTableInfoVo : drapDbInfoVo.getDictTableInfoVos()) {
+                    dictTableInfoMapper.insert(dictTableInfoVo);
+                    for (DrapDictTableColumnVo columnVo : dictTableInfoVo.getColumnVos()) {
+                        dictTableColumnMapper.insert(columnVo);
+                    }
                 }
             }
+           
 
         }
     }
