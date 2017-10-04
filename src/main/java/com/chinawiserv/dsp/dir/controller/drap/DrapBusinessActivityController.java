@@ -156,7 +156,7 @@ public class DrapBusinessActivityController extends BaseController {
      * 接收drap的业务数据
      */
 //    @RequiresPermissions("XXX:XXX:edit")
-    @Log("编辑业务活动表")
+//    @Log("接收drap的业务数据")
     @RequestMapping("/api/receiveBusinessData")
     @ResponseBody
     public  Object receiveBusinessData(@RequestParam Map<String,Object> paramMap){
@@ -171,6 +171,7 @@ public class DrapBusinessActivityController extends BaseController {
     		return "200";
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("接收drap的业务数据", e);
 //			result.put("status", "500");
 			return "500";
 		}
