@@ -174,3 +174,6 @@ function quickAddDatasetUI() {
 function quickSystemAddDatasetUI() {
     add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI',1300,800);
 }
+function quickCsAddDatasetUI() {
+    add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI',1300,800);
+}

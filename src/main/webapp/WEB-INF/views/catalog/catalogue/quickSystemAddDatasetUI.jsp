@@ -87,15 +87,15 @@
                         <div class="col-sm-6">
                             <label class="col-sm-3 control-label">信息资源提供方:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="dept_short_name" placeholder="信息资源提供方"
-                                       disabled>
-                                <input type="hidden" id="belongDeptId" name="belongDeptId">
+                                <input type="text" class="form-control" id="belongDeptType" name="belongDeptType">
+
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label class="col-sm-3 control-label" style="padding-left:0px">信息资源提供方代码:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="dept_code" placeholder="信息资源提供方代码" disabled>
+                                <input type="text" class="form-control" id="dept_short_name" disabled>
+                                <input type="hidden" id="belongDeptId" name="belongDeptId">
                             </div>
                         </div>
                     </div>
