@@ -62,7 +62,7 @@ AS SELECT
       (@pre_parent_id := t.`fid`) pre_parent_id 
     FROM
       `dir_classify` t 
-    ORDER BY t.`fid`;
+    ORDER BY t.`fid`,t.order_number,t.classify_code;
 -- 更新信息目录的TreeCode
 UPDATE  dir_classify t SET t.`tree_code` = getDirClassifyTreeCode(t.`id`);
 -- 更新信息目录的structure_name
@@ -80,3 +80,8 @@ end$$
 DELIMITER ;
 
 call pro_init_dir_classify_structure();
+
+
+
+select id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code
+	from dir_classify order by region_code, tree_code;

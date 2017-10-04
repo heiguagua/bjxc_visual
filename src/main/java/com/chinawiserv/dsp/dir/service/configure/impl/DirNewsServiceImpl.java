@@ -183,7 +183,9 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
         String picSize = String.valueOf(file.getSize());
         DirNewsVo dirNewsVo = mapper.selectVoById(entity.getId());
         if(file!= null && !StringUtils.isEmpty(fileName)){
-        	
+        	String exsitPicName = dirNewsVo.getPicName();
+            String exsitPicSize = dirNewsVo.getPicSize();
+            if(!exsitPicName.equals(picName) || !exsitPicSize.equals(picSize)){            
         	boolean isSamePic = hasThisPic(picName);
             if(isSamePic) {
                 return "samePic";
@@ -207,33 +209,37 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
                     file.transferTo(new File(newFileName));//上传文件到指定目录
                     //把所有表单数据保存到数据库表中
 //                    Pic picObj = new Pic();
-                    entity.setId(UUID.randomUUID().toString());
-                    entity.setPicName(picName);               
-                    entity.setPicType(file.getContentType());               
-                    entity.setNewsPic("/"+lunboDir+"/"+picName);
-                    entity.setPicSize(picSize);
-                    entity.setStatus("1");
+
+                    dirNewsVo.setPicName(picName);               
+                    dirNewsVo.setPicType(file.getContentType());               
+                    dirNewsVo.setNewsPic("/"+lunboDir+"/"+picName);
+                    dirNewsVo.setPicSize(picSize);
+//                    dirNewsVo.setStatus("1");
                     String loginUserId = ShiroUtils.getLoginUserId();
-                    entity.setCreateUserId(loginUserId);
-                    entity.setCreateTime(new Date());
-                    entity.setDeleteFlag(0);
-                    mapper.baseInsert(entity);
+                    dirNewsVo.setUpdateUserId(loginUserId);
+                    dirNewsVo.setUpdateTime(new Date());
+                    dirNewsVo.setDeleteFlag(0);
+                    dirNewsVo.setNewsContent(entity.getNewsContent());
+                    dirNewsVo.setPicOrder(entity.getPicOrder());
+                    dirNewsVo.setTitle(entity.getTitle());
+                    mapper.baseUpdate(dirNewsVo);
                 }else{
                     throw new Exception("请查看common.properties配置文件中，datastreet.upload.native.image_path以及" +
                             "datastreet.upload.native.image_path.lunboDir的值是否配置");
-                }
-        	
-        	
-        	
-        	
-        	
+                }        	
         }
-            
-        }else{
-        	
-        	
+        }  
+        }else{        	
+        	String loginUserId = ShiroUtils.getLoginUserId();
+            dirNewsVo.setUpdateUserId(loginUserId);
+            dirNewsVo.setUpdateTime(new Date());
+            dirNewsVo.setDeleteFlag(0);
+            dirNewsVo.setNewsContent(entity.getNewsContent());
+            dirNewsVo.setPicOrder(entity.getPicOrder());
+            dirNewsVo.setTitle(entity.getTitle());
+            mapper.baseUpdate(dirNewsVo);
         }
         
-		return null;
+		return resultStr;
 	}
 }

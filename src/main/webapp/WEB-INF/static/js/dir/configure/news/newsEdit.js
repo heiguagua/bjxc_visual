@@ -2,7 +2,7 @@
  * Created by zhanf on 2017/4/28.
  */
 jQuery(document).ready(function () {
-    var newsId = $("#appId").val();
+    var newsId = $("#newsId").val();
     
     initUserTypeList();
     initDeptSelectDataList();

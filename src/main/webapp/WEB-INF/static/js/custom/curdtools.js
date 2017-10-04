@@ -25,6 +25,11 @@ function add(title, addurl, width, height) {
     createWindow(options);
 }
 
+function addPolicy(title, addurl, width, height) {
+    var options = _getDefaultWinOptionsForPolicy(title , addurl , width, height) ;
+    createWindow(options);
+}
+
 function addNews(title, addurl, width, height) {
     var options = _getDefaultWinOptionsForNews(title , addurl , width, height) ;
     createWindow(options);
@@ -76,6 +81,45 @@ function update(title, url, id, width, height, isRestful) {
     }
 
     var options = _getDefaultWinOptions(title , url , width, height) ;
+
+    createWindow(options);
+}
+function updatePolicy(title, url, id, width, height, isRestful) {
+
+    if (id) {
+        if(isRestful!='undefined'&&isRestful){
+            url += '/'+id;
+        }else{
+            if (url.indexOf("?") == -1 ) {
+                url += '?id='+id;
+            } else {
+                url += '&id='+id;
+            }
+        }
+    }
+
+    var options = _getDefaultWinOptionsForPolicy(title , url , width, height) ;
+
+    createWindow(options);
+}
+
+
+
+function updateForNews(title, url, id, width, height, isRestful) {
+
+    if (id) {
+        if(isRestful!='undefined'&&isRestful){
+            url += '/'+id;
+        }else{
+            if (url.indexOf("?") == -1 ) {
+                url += '?id='+id;
+            } else {
+                url += '&id='+id;
+            }
+        }
+    }
+
+    var options = _getDefaultWinOptionsForNews(title , url , width, height) ;
 
     createWindow(options);
 }
@@ -412,6 +456,24 @@ function _getDefaultWinOptions(title , url , width, height) {
         success: _successLoad ,
         yes :function(index, layero){
             _submitForm(index , layero) ;
+         
+        }
+    };
+
+    return options ;
+}
+
+
+function _getDefaultWinOptionsForPolicy(title , url , width, height) {
+    var options = {
+        title:title,
+        width : width ,
+        height : height ,
+        content: url ,
+        btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
+        success: _successLoad ,
+        yes :function(index, layero){
+        	_submitFormForApi(index , layero) ;
          
         }
     };
