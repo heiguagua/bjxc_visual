@@ -28,6 +28,18 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false,           
         }, {
+            field: 'picOrder',
+            title: '播放顺序',
+            align: 'center',
+            valign: 'middle',
+            sortable: false,           
+        },{
+            field: 'status',
+            title: '启用状态',
+            align: 'center',
+            valign: 'middle',
+            sortable: false,           
+        },{
             field: 'createTime',
             title: '创建时间',
             align: 'center',
@@ -39,9 +51,13 @@ jQuery(document).ready(function () {
             align: 'center',
             valign: 'middle',
             sortable: false ,
-            formatter : function (value) {
-            	var statusBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:statusUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 禁用</a>";
-                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+            formatter : function (value,row) {
+            	if(row.status=="1"){
+            		var statusBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:statusUser(\"" + value + "\",\"" + row.status + "\")'><i class='fa fa-pencil-square-o'></i> 禁用</a>";
+            	}else if(row.status=="0"){
+            		var statusBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:statusUser(\"" + value + "\",\"" + row.status + "\")'><i class='fa fa-pencil-square-o'></i> 启用</a>";
+            	}
+            	var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                 var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteUser(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
 
                 return statusBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR + deleteBtn ;
@@ -74,8 +90,10 @@ function addUser() {
 	addNews('新增图片',basePathJS + '/dirNews/add');
 }
 
-function statusUser(id) {
-    update('禁用图片',basePathJS + '/dirSpecialApps/edit' , id);
+function statusUser(id,status) {
+	var url = basePathJS + "/dirNews/updateStatus";
+    var parameter = {id: id,status:status};
+    updateStatus(url , parameter) ;
 }
 
 function editUser(id) {

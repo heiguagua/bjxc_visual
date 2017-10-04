@@ -44,6 +44,12 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
+            field: 'fname',
+            title: '上级组织机构名称',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        }, {
             field: 'deptContactMan',
             title: '联系人',
             align: 'center',

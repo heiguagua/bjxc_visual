@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/10/3 14:03:06                           */
+/* Created on:     2017/10/3 17:26:38                           */
 /*==============================================================*/
 
 
@@ -543,6 +543,8 @@ create table dir_data_apply
    limit_visit_date_period varchar(256) comment '申请访问有效期范围',
    auditor_id           varchar(36) comment '审核人',
    status               varchar(36) comment '审核状态',
+   audit_visit_cnt      int comment '审核访问次数',
+   audit_visit_date_period varchar(256) comment '审核访问有效期范围',
    audit_opinion        varchar(512) comment '审核意见',
    audit_date           datetime comment '审核时间',
    primary key (id)
@@ -756,7 +758,7 @@ create table dir_dataitem
    belong_dept_id       varchar(36) comment '责任部门',
    share_type           varchar(36) comment '共享类型',
    share_condition      varchar(500) comment '共享条件',
-   no_share_reason      varchar(500),
+   no_share_reason      varchar(500) comment '不予共享条件',
    share_method_category char(10) comment '共享方式分类',
    share_method         varchar(36) comment '共享方式',
    is_open              varchar(36) comment '是否向社会开放',
@@ -1478,7 +1480,7 @@ create table drap_dataset_ext_format
    primary key (id)
 );
 
-alter table drap_dataset_ext_format comment '梳理数据集扩展信息（【国】资源格式）';
+alter table drap_dataset_ext_format comment '数据集扩展信息（【国】资源格式）2';
 
 /*==============================================================*/
 /* Table: drap_dataset_item                                     */
@@ -1548,7 +1550,7 @@ create table drap_dataset_survey
    primary key (id)
 );
 
-alter table drap_dataset_survey comment '梳理信息资源大普查信息表';
+alter table drap_dataset_survey comment '信息资源大普查信息表2';
 
 /*==============================================================*/
 /* Table: drap_dataset_system_map                               */

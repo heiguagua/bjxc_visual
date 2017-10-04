@@ -69,7 +69,7 @@ public class SysDeptController extends BaseController {
     public PageResult list(@RequestParam Map<String , Object> paramMap){
         PageResult pageResult = new PageResult();
         try {
-            paramMap.put("excludeRoot", true);
+            paramMap.put("excludeRoot", "1");
             Page<SysDeptVo> page = sysDeptService.selectVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
@@ -143,7 +143,7 @@ public class SysDeptController extends BaseController {
      */
     @RequiresPermissions("system:dept:edit")
     @RequestMapping("/edit")
-    public  String edit(@RequestParam String id, Model model){
+    public String edit(@RequestParam String id, Model model){
         model.addAttribute("id", id);
         return "system/dept/deptEdit";
     }
@@ -170,6 +170,7 @@ public class SysDeptController extends BaseController {
      * 执行编辑
      */
     @RequiresPermissions("system:dept:edit")
+    @Log("编辑组织机构")
     @RequestMapping("/doEdit")
     @ResponseBody
     public  HandleResult doEdit(SysDeptVo dept){

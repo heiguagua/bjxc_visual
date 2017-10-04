@@ -100,7 +100,9 @@ jQuery(document).ready(function () {
 				+"<li><a class='"+treeNode.fidforadd+"' id='addSibling'  data-pcode="+treeNode.fidforadd+" href='#'  >添加同级</a></li>"
 				+"<li><a class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"	
-				aObj.after(editStr3);
+				if(treeNode.fidforadd!='root'){
+					aObj.after(editStr3);
+				}				
 				aObj.after(editStr2);
 				aObj.after(editStr1);		
 		var btn = $("#diyBtn_"+treeNode.id);				

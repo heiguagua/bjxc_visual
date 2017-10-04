@@ -112,10 +112,12 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
             List<SysUserRole> userRoleList = sysUserRoleMapper.selectList(new EntityWrapper<SysUserRole>().addFilter("user_id={0} ",userId));//todo
             for(SysUserRole sysUserRole : userRoleList){
                 SysRole sysRole = sysRoleMapper.selectById(sysUserRole.getRoleId());
-                list.add(sysRole);
+                if(sysRole.getRoleLevel() > -1){
+                    list.add(sysRole);
+                }
             }
         }else{
-            list = sysRoleMapper.selectList(new EntityWrapper<SysRole>().addFilter("delete_flag = {0}", 0));
+            list = sysRoleMapper.selectList(new EntityWrapper<SysRole>().addFilter("delete_flag = {0}", 0).addFilter("role_level > -1"));
         }
         for(SysRole sysRole : list){
             JSONObject obj = new JSONObject();

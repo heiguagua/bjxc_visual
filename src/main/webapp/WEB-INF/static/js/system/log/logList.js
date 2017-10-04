@@ -16,13 +16,19 @@ $(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
-            field: 'realName',
-            title: '操作人',
+            field: 'userName',
+            title: '操作人用户名',
             align: 'center',
             valign: 'middle',
             sortable: false
         }, {
-            field: 'url',
+            field: 'realName',
+            title: '操作人真实姓名',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        }, {
+            field: 'operateIp',
             title: '地址',
             align: 'center',
             valign: 'middle',
@@ -46,7 +52,7 @@ $(document).ready(function () {
         }]
     });
 
-    $('#dateRangeId').customDateRangePicker();
+    $('#operateTimeRange').customDateRangePicker();
 
     $('#queryBtnId').click(function () {
         setParams();
@@ -54,9 +60,10 @@ $(document).ready(function () {
     });
 
     function setParams() {
-        var dateRangeVal = $('#dateRangeId').val();
-        var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {searchKey : searchKeyVal , dateRange : dateRangeVal};
+        var operatorUserName = $('#operatorUserName').val();
+        var operatorRealName = $('#operatorRealName').val();
+        var operateTimeRange = $('#operateTimeRange').val();
+        paramsObj = {operatorUserName : operatorUserName ,operatorRealName : operatorRealName, operateTimeRange : operateTimeRange};
     }
 
     function reloadTable() {
@@ -73,7 +80,7 @@ function queryLogDetail(id) {
         layer.open({
             type: 1,
             title : '查看参数',
-            area: ['500px', '300px'],
+            area: ['700px', '400px'],
             fixed: false, //不固定
             content: str //注意，如果str是object，那么需要字符拼接。
         });

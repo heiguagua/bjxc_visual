@@ -52,6 +52,7 @@ function initFormerDate(classifyId) {
                     	$("#Edep").removeClass('hidden');
                     }
                     $("#deptName").val(vo.deptName);
+                    $("#Eorder_number").val(vo.orderNumber);
                     $("#deptId").val(vo.deptId);
                     $("#Eicon").append(Dict.selectsDom("classify_icon",vo.iconName?vo.iconName:''));
                     $("#Eclassify_desc").val(vo.classifyDesc);              

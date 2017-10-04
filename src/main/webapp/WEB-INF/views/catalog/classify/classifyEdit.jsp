@@ -18,7 +18,7 @@
                         <input id="classifyId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                            <div class="form-group">
-                                <label for="apiName">目录名称</label>
+                                <label for="apiName">目录名称*</label>
                                 <input type="text" id="Eclassify_name" name="classifyName" class="form-control"
                                        placeholder="请输入目录名称" data-rule="api名称:required;classifyName;remote(<%=basePath%>/system/user/insertCheckName)">
                             </div>
@@ -38,7 +38,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="icon">选择图标</label>
+                                <label for="icon">选择图标*</label>
                                 <select id="Eicon" name="icon" class="form-control select2" style="width: 100%;">             
                                 		  <!-- <option value =""></option>
                                 		  <option value ="volvo">Volvo</option>
@@ -47,11 +47,16 @@
 										  <option value="audi">Audi</option>   -->
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="orderNumber">排序号*</label>
+                                 <input type="text" id="Eorder_number" name="orderNumber" class="form-control"
+                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber">
+                            </div>
                             
                             <div class="form-group">
                                 <label for="apiDesc">目录描述:</label>
                                 <textarea class="form-control" 
-									id="Eclassify_desc"  name="classifyDesc" data-rule="目录类别描述:required;classifyDesc;"></textarea>                                
+									id="Eclassify_desc"  name="classifyDesc" data-rule=""></textarea>                                
                             </div>   
                         </div><!-- /.box-body -->
                         <div class="box-footer">

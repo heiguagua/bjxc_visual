@@ -17,13 +17,17 @@
                           method="post" action="<%=basePath%>/dirClassify/doAdd">
                         <div class="box-body">
                         	<input id="fid" type="hidden" value="${fid}" name="fid" />
+                        	<div class="form-group">
+                                <label for="fname">父目录</label>
+                                <input type="text" id="fname" name="fname" readonly="readonly" class="form-control">
+                            </div>
                             <div class="form-group">
-                                <label for="classifyName">目录名称</label>
+                                <label for="classifyName">目录名称*</label>
                                 <input type="text" id="classify_name" name="classifyName" class="form-control"
                                        placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;remote(<%=basePath%>/system/user/insertCheckName)">
                             </div>
                             <div class="form-group" id="Dep">
-                            	<label for="classifyName">是否为部门节点</label>
+                            	<label for="classifyName">是否为部门节点*</label>
                             	<label><input name="depnode" type="radio" value="yes" />是</label>
 								<label><input name="depnode" type="radio" value="no" checked/>否 </label>
                             </div>
@@ -52,7 +56,7 @@
                                     </select>
                             </div> -->
                             <div class="form-group">
-                                <label for="icon">选择图标</label>
+                                <label for="icon">选择图标*</label>
                                 <select id="icon" name="icon" class="form-control select2" style="width: 100%;">             
                                 		  <<!-- option value =""></option>
                                 		  <option value ="volvo">Volvo</option>
@@ -61,11 +65,15 @@
 										  <option value="audi">Audi</option> -->  
                                 </select>
                             </div>
-                            
+                            <div class="form-group">
+                                <label for="orderNumber">排序号*</label>
+                                 <input type="text" id="order_number" name="orderNumber" class="form-control"
+                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber">
+                            </div>
                             <div class="form-group">
                                 <label for="classifyDesc">目录描述:</label>
                                 <textarea class="form-control" 
-									id="classify_desc"  name="classifyDesc" data-rule="目录类别描述:required;classifyDesc;"></textarea>                                
+									id="classify_desc"  name="classifyDesc" data-rule=""></textarea>                                
                             </div>                            
 
                         </div><!-- /.box-body -->
