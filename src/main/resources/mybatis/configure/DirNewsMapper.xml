@@ -100,6 +100,12 @@
                     <if test="title != null">
                 title = #{title},
             </if>
+             <if test="picName != null">
+                pic_name = #{picName},
+            </if>
+            <if test="picSize != null">
+                pic_size = #{picSize},
+            </if>
                     <if test="newsPic != null">
                 news_pic = #{newsPic},
             </if>
@@ -130,8 +136,12 @@
                     <if test="deleteFlag != null">
                 delete_flag = #{deleteFlag},
             </if>
+            <if test="picOrder != null">
+                pic_order = #{picOrder}
+            </if>
                 </set>
-        where  id = #{id}                              </update>
+        		where  id = #{id}                              
+        </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">
         delete from dir_news <include refid="deleteWhereCause"/>

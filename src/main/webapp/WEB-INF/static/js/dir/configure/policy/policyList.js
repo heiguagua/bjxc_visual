@@ -60,11 +60,11 @@ function reloadTable() {
 }
 
 function addUser() {
-    add('新增政策',basePathJS + '/dirPolicy/add');
+    addPolicy('新增政策',basePathJS + '/dirPolicy/add',900,600);
 }
 
 function editUser(id) {
-    update('编辑政策',basePathJS + '/dirPolicy/edit' , id);
+    updatePolicy('编辑政策',basePathJS + '/dirPolicy/edit' , id,900,600);
 }
 
 function deleteUser(id) {
