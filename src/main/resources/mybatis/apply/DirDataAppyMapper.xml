@@ -24,6 +24,9 @@
             <if test="searchKey != null">
                 AND d.dataset_name LIKE concat(concat('%', #{searchKey}), '%')
             </if>
+            <if test="isAudited != null and isAudited == '1'.toString()">
+                AND (t.status = '1' OR t.status = '2')
+            </if>
         </where>
     </sql>
 

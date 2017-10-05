@@ -33,6 +33,12 @@
                         <div class="form-inline">
                             <div class="box-header">
                                 <div class="input-group">
+                                    <select  class="form-control"  name="isAudited" id="isAudited">
+                                        <option value="0">待审核</option>
+                                        <option value="1">已审核</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
                                     <input id="searchKeyId" type="text" name="searchKey" class="form-control" placeholder="信息资源名称">
                                     <div class="input-group-btn">
                                         <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>

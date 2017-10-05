@@ -100,7 +100,8 @@ jQuery(document).ready(function () {
 
     function setParams() {
         var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {searchKey: searchKeyVal};
+        var isAudited = $('#isAudited').val();
+        paramsObj = {isAudited: isAudited, searchKey: searchKeyVal};
     }
 
 });
