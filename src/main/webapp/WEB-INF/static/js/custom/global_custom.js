@@ -1504,7 +1504,7 @@ function initGlobalCustom(tempUrlPrefix) {
                         return params;
                     }
                 },
-                check: {enable: true,chkStyle: chkStyle,chkboxType: { "Y":"ps","N":"ps"}},
+                check: {enable: true,chkStyle: "radio",chkboxType: { "Y":"s","N":"s"},radioType: "all"},
                 callback: {
                     beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
                         var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);

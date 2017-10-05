@@ -158,10 +158,11 @@ public class SysRegionController extends BaseController {
             String regionCode = (String)paramMap.get("regionCode");
             if(StringUtils.isEmpty(regionCode)){
                 regionCode = ShiroUtils.getLoginUser().getRegionCode();
+                paramMap.put("regionCode", regionCode);
             }else{
                 paramMap.remove("regionCode");
+                paramMap.put("fcode", regionCode);
             }
-            paramMap.put("fcode", regionCode);
             List<SysRegionVo> sysRegionVoList= service.getRegionSelectDataList(paramMap);
             handleResult.put("selectData", sysRegionVoList);
         } catch (Exception e) {
