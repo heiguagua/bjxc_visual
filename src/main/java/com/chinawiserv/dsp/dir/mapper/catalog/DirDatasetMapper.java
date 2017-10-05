@@ -38,6 +38,8 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
 
     int flagDelete(Map<String,Object> param);
 
+    List<Map<String,Object>> extSelect(@Param("datasetId")String datasetId);
+
     int extInsert(DirDatasetExtFormat entity);
 
     int extUpdate(DirDatasetExtFormat format);

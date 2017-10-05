@@ -141,9 +141,6 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Override
     public boolean updateVO(DirDatasetVo vo) throws Exception{
-        boolean insertResult = false;
-        int classifyMapResult = 0;
-        int itemResult = 0;
         String datasetId = vo.getId();
         SysUserVo logionUser = ShiroUtils.getLoginUser();
         Date updateTime = DateTimeUtils.stringToDate(DateTimeUtils.convertDateTime_YYYYMMDDHHMMSS(new Date()));
@@ -151,26 +148,23 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         vo.setUpdateUserId(updateUserId);
         vo.setUpdateTime(updateTime);
         int datasetResult = mapper.baseUpdate(vo);
-        if(datasetResult>0){
+        if(datasetResult>=0){
             //修改信息资源格式
             DirDatasetExtFormat ext = vo.getExt();
             ext.setDatasetId(datasetId);
-            mapper.extUpdate(ext);
+            List<Map<String,Object>> extList = mapper.extSelect(datasetId);
+            if(!ObjectUtils.isEmpty(extList)){
+                mapper.extUpdate(ext);
+            }else{
+                ext.setId(UUID.randomUUID().toString());
+                mapper.extInsert(ext);
+            }
             //修改数据集与目录类别中间表的数据
             updateDatasetClassifyMapInfo(vo, updateUserId, updateTime);
             //修改数据项的数据
             updateItemInfo(vo, updateUserId, updateTime);
         }
-        if(classifyMapResult > 0){
-            if(!ObjectUtils.isEmpty(vo.getItems())){
-                if(itemResult > 0){
-                    insertResult = true;
-                }
-            }else{
-                insertResult = true;
-            }
-        }
-        return insertResult;
+        return true;
 	}
 
     private void updateDatasetClassifyMapInfo(DirDatasetVo vo, String updateUserId, Date updateTime) throws Exception{
@@ -262,6 +256,10 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 for(DirDataitemVo newItemVo : newItemVoList){
                     boolean hasThisItem = false;
                     String newItemId = newItemVo.getId();
+                    if(StringUtils.isEmpty(newItemId)){
+                        newItemId = UUID.randomUUID().toString();
+                        newItemVo.setId(newItemId);
+                    }
                     for(DirDataitemVo oldItemVo : oldItemVoList){
                         String oldItemId = oldItemVo.getId();
                         if(newItemId.equals(oldItemId)){
@@ -303,6 +301,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 //修改已有的数据项
                 if(needUpdateItemList.size()>0){
                     for(DirDataitemVo updateItemVo : needUpdateItemList){
+                        updateItemVo.setDatasetId(datasetId);
                         updateItemVo.setUpdateUserId(updateUserId);
                         updateItemVo.setUpdateTime(updateTime);
                     }

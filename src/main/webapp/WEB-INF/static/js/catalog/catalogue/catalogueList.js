@@ -165,7 +165,7 @@ function catalogueTableEdit(id) {
 }
 
 function catalogueTableShow(id){
-
+    show('信息资源详情',basePathJS + '/catalog/show' , id ,1300,700);
 }
 
 function quickAddDatasetUI() {

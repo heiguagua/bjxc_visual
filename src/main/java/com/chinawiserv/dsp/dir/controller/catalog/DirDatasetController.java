@@ -101,6 +101,12 @@ public class DirDatasetController extends BaseController {
         return "catalog/query/queryList";
     }
 
+    @RequestMapping("/show")
+    public  String showInit(@RequestParam String id,Model model){
+        model.addAttribute("id", id);
+        return "catalog/catalogue/catalogueShow";
+    }
+
     /**
      * 分页查询信息资源列表（编目）
      */

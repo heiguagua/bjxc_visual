@@ -5,13 +5,12 @@
 jQuery(document).ready(function () {
     window.Dict=new dict();
     initAllSelect();  //初始化所有下拉框
-    initButtonClickEvent(); //初始化按钮点击事件
     initInputValue(); //初始化所有需要设值的输入框的值
 });
 
 function initAllSelect(){
-    $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化信息资源分类下拉框
-    $.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联信息资源分类下拉框
+    //$.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化信息资源分类下拉框
+    //$.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联信息资源分类下拉框
     //信息资源格式下拉框初始化
     Dict.selects('dataSetStoreMedia',['#formatCategory']);
     //共享类型
@@ -21,7 +20,7 @@ function initAllSelect(){
     //更新周期
     Dict.selects('setItemFrequency',['#updateFrequency']);
     $("#shareConditionDiv").hide();
-    $("#shareType").on("change",function(){
+    /*$("#shareType").on("change",function(){
         var selectedValue = $(this).children('option:selected').val();
         if(selectedValue=="2" || selectedValue==""){ //不予共享
             $("#shareConditionDiv").hide();
@@ -33,14 +32,14 @@ function initAllSelect(){
             $("#shareConditionDiv").show();
             $("#shareMethodDiv").show();
         }
-    });
+    });*/
 
-    $("#formatCategory").on("change",function(){
+    /*$("#formatCategory").on("change",function(){
         var selectedValue = $(this).children('option:selected').val();
         if(selectedValue!=""){
             Dict.cascadeSelects('dataSetStoreMedia', ['#formatType'], selectedValue);
         }
-    });
+    });*/
 }
 
 function initInputValue(){
@@ -52,7 +51,7 @@ function initInputValue(){
             if (result.state) {
                 var obj = result.content.vo;
                 $("#classifyName").val(obj.classifyName);
-                $("#classifyId").val(obj.classifyIds);
+                $("#classifyName").attr("title",obj.classifyName);
                 $("#datasetName").val(obj.datasetName);
                 $("#datasetCode").val(obj.datasetCode);
                 $("#belongDeptType").val(obj.belongDeptType);
@@ -79,39 +78,6 @@ function initInputValue(){
     });
 }
 
-function initButtonClickEvent(){
-    //点击添加信息项按钮，新增一行表格
-    $("#N_add_itemH").on("click",function(){
-        var thisTrNum=0;
-        var trNums=$('#dataitemList tr').length;
-        if(trNums>0){
-            $('#dataitemList tr').each(function(){
-                var maxTrNum=$(this).find('input:first').attr('trNum');
-                if(maxTrNum>thisTrNum){
-                    thisTrNum=maxTrNum;
-                }
-            });
-            thisTrNum++;
-        }
-        $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
-        +'<td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
-        +'<td><input name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
-        +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number"  min="1" type="text" class="form-control"></td>'
-        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" > <input class="form-control" type="text" disabled > </td>'
-        //+'<td><input class="form-control" type="text"  value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
-        //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
-        +'<td><select name="items['+thisTrNum+'].secretFlag" data-rule="涉密标识:required;" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
-        +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'
-        +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" ></td>'
-        +'<td><select name="items['+thisTrNum+'].shareMethod" data-rule="共享方式:required;" class="form-control">'+Dict.selectsDom("dataSetShareMethod")+'</select></td>'
-        +'<td><select name="items['+thisTrNum+'].isOpen" class="form-control"><option value="1" selected>是</option><option value="0" >否</option></select></td>'
-        +'<td><input name="items['+thisTrNum+'].openCondition" type="text" class="form-control" ></td>'
-        +'<td><select name="items['+thisTrNum+'].storageLocation" data-rule="存储位置:required;" class="form-control">'+Dict.selectsDom("setItemStoreLocation")+'</select></td>'
-        +'<td><select name="items['+thisTrNum+'].updateFrequency" data-rule="更新周期:required;" class="form-control">'+Dict.selectsDom("setItemFrequency")+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" ></td></tr>');
-    });
-}
 
 function getTrNum(){
     var thisTrNum=$('#dataitemList').find('tr').length;
@@ -129,9 +95,8 @@ function getTrNum(){
 }
 
 function buildItem(thisTrNum,data){
-    var str='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
-        +'<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control">'
-        +'<input type="hidden" name="items['+thisTrNum+'].id" value="'+data.id+'"></td>'
+    var str='<tr id="tr_'+thisTrNum+'">'
+        +'<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.itemType?data.itemType:'')+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control"></td>'
         +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_short_name?data.dept_short_name:'')+'" > </td>'

@@ -152,71 +152,71 @@
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             update dir_dataitem
             <set>
-                <if test="datasetId != null">
-                    dataset_id = #{datasetId},
+                <if test="item.datasetId != null">
+                    dataset_id = #{item.datasetId},
                 </if>
-                <if test="itemCode != null">
-                    item_code = #{itemCode},
+                <if test="item.itemCode != null">
+                    item_code = #{item.itemCode},
                 </if>
-                <if test="itemName != null">
-                    item_name = #{itemName},
+                <if test="item.itemName != null">
+                    item_name = #{item.itemName},
                 </if>
-                <if test="itemDesc != null">
-                    item_desc = #{itemDesc},
+                <if test="item.itemDesc != null">
+                    item_desc = #{item.itemDesc},
                 </if>
-                <if test="itemType != null">
-                    item_type = #{itemType},
+                <if test="item.itemType != null">
+                    item_type = #{item.itemType},
                 </if>
-                <if test="itemLength != null">
-                    item_length = #{itemLength},
+                <if test="item.itemLength != null">
+                    item_length = #{item.itemLength},
                 </if>
-                <if test="belongDeptId != null">
-                    belong_dept_id = #{belongDeptId},
+                <if test="item.belongDeptId != null">
+                    belong_dept_id = #{item.belongDeptId},
                 </if>
-                <if test="shareType != null">
-                    share_type = #{shareType},
+                <if test="item.shareType != null">
+                    share_type = #{item.shareType},
                 </if>
-                <if test="shareMethod != null">
-                    share_method = #{shareMethod},
+                <if test="item.shareMethod != null">
+                    share_method = #{item.shareMethod},
                 </if>
-                <if test="shareCondition != null">
-                    share_condition = #{shareCondition},
+                <if test="item.shareCondition != null">
+                    share_condition = #{item.shareCondition},
                 </if>
-                <if test="isOpen != null">
-                    is_open = #{isOpen},
+                <if test="item.isOpen != null">
+                    is_open = #{item.isOpen},
                 </if>
-                <if test="openCondition != null">
-                    open_condition = #{openCondition},
+                <if test="item.openCondition != null">
+                    open_condition = #{item.openCondition},
                 </if>
-                <if test="updateFrequency != null">
-                    update_frequency = #{updateFrequency},
+                <if test="item.updateFrequency != null">
+                    update_frequency = #{item.updateFrequency},
                 </if>
-                <if test="storageMedium != null">
-                    storage_medium = #{storageMedium},
+                <if test="item.storageMedium != null">
+                    storage_medium = #{item.storageMedium},
                 </if>
-                <if test="storageLocation != null">
-                    storage_location = #{storageLocation},
+                <if test="item.storageLocation != null">
+                    storage_location = #{item.storageLocation},
                 </if>
-                <if test="status != null">
-                    status = #{status},
+                <if test="item.status != null">
+                    status = #{item.status},
                 </if>
-                <if test="createUserId != null">
-                    create_user_id = #{createUserId},
+                <if test="item.createUserId != null">
+                    create_user_id = #{item.createUserId},
                 </if>
-                <if test="createTime != null">
-                    create_time = #{createTime},
+                <if test="item.createTime != null">
+                    create_time = #{item.createTime},
                 </if>
-                <if test="updateUserId != null">
-                    update_user_id = #{updateUserId},
+                <if test="item.updateUserId != null">
+                    update_user_id = #{item.updateUserId},
                 </if>
-                <if test="updateTime != null">
-                    update_time = #{updateTime},
+                <if test="item.updateTime != null">
+                    update_time = #{item.updateTime},
                 </if>
-                <if test="deleteFlag != null">
-                    delete_flag = #{deleteFlag},
+                <if test="item.deleteFlag != null">
+                    delete_flag = #{item.deleteFlag},
                 </if>
             </set>
-            where id = #{id}
+            where id = #{item.id}
         </foreach>
     </update>
 
