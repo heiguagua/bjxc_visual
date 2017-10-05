@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.apply.DirDataApplyMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!--&lt;!&ndash; 通用查询映射结果 &ndash;&gt;
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.apply.DirDataApply">
+
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataAuditVo">
+
+    </resultMap>-->
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="searchKey != null">
+                AND d.dataset_name LIKE concat(concat('%', #{searchKey}), '%')
+            </if>
+        </where>
+    </sql>
+
+    <sql id="baseSelectVo">
+        SELECT t.*,c.classify_structure_name,d.dataset_name,u.user_name,u.real_name,de.dept_name FROM dir_data_apply t
+        LEFT JOIN dir_dataset_classify_map dc ON t.dcm_id = dc.id
+        LEFT JOIN dir_classify c ON c.id = dc.classify_id
+        LEFT JOIN dir_dataset d ON d.id = dc.dataset_id
+        LEFT JOIN sys_user u ON u.id = t.applicant_id
+        LEFT JOIN sys_dept de ON de.id = u.dept_id
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.apply.DirDataApplyVo">
+        <include refid="baseSelectVo"></include>
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.dir.entity.vo.apply.DirDataApplyVo">
+        <include refid="baseSelectVo"></include> WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM dir_data_apply t
+        LEFT JOIN dir_dataset_classify_map dc ON t.dcm_id = dc.id
+        LEFT JOIN dir_classify c ON c.id = dc.classify_id
+        LEFT JOIN dir_dataset d ON d.id = dc.dataset_id
+        <include refid="queryConditions"></include>
+    </select>
+
+</mapper>

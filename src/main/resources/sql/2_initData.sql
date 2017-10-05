@@ -84,9 +84,9 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060101','0601','用户注册列表','','','2','3','060101','apply:registUser:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060102','0601','编辑用户注册','','','2','3','060102','apply:registUser:edit','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060103','0601','删除用户注册','','','2','3','060103','apply:registUser:delete','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0602','06','共享数据审核管理','/dirDataitemApply','fa fa-cogs','5','2','0602','apply:dirDataitemApply:list','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060201','0602','共享数据审核列表','','','2','3','060201','apply:dirDataitemApply:list','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060202','0602','审核共享数据','','','2','3','060202','apply:dirDataitemApply:edit','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0602','06','共享数据审核管理','/dirDataApply','fa fa-cogs','5','2','0602','apply:dirDataApply:list','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060201','0602','共享数据审核列表','','','2','3','060201','apply:dirDataApply:list','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060202','0602','审核共享数据','','','2','3','060202','apply:dirDataApply:edit','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0603','06','收藏管理','/feedback/dirdatacollection','fa-cog','0','2','0603','system','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0604','06','纠错管理','/feedback/dirdatacorrection','fa-cog','1','2','0604','system','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0605','06','评分管理','/feedback/dirdatarate','fa-cog','2','2','0605','system','1');

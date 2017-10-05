@@ -16,17 +16,14 @@ $(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
-            field: 'userName',
-            title: '操作人用户名',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        }, {
             field: 'realName',
-            title: '操作人真实姓名',
+            title: '操作人',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter : function (value, row) {
+                return value + '[' + row.userName + ']';
+            }
         }, {
             field: 'operateIp',
             title: '地址',
