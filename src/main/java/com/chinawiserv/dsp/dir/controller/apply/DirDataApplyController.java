@@ -6,11 +6,9 @@ import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.dir.entity.vo.apply.DirDataApplyVo;
-import com.chinawiserv.dsp.dir.entity.vo.apply.DirDataitemApplyVo;
-import com.chinawiserv.dsp.dir.enums.EnumTools;
-import com.chinawiserv.dsp.dir.enums.apply.DataItemStatus;
+import com.chinawiserv.dsp.dir.entity.vo.apply.DirDataItemApplyVo;
 import com.chinawiserv.dsp.dir.service.apply.IDirDataApplyService;
-import com.chinawiserv.dsp.dir.service.apply.IDirDataitemApplyService;
+import com.chinawiserv.dsp.dir.service.apply.IDirDataItemApplyService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -29,6 +27,9 @@ public class DirDataApplyController extends BaseController {
 
     @Autowired
     private IDirDataApplyService service;
+
+    @Autowired
+    private IDirDataItemApplyService dirDataItemApplyService;
 
     @RequiresPermissions("apply:dirDataApply:list")
     @RequestMapping("")
@@ -62,7 +63,7 @@ public class DirDataApplyController extends BaseController {
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id, Model model){
 		model.addAttribute("id",id);
-		return "apply/data/dirDataEdit";
+		return "apply/data/dirDataApplyEdit";
     }
 
     @RequiresPermissions("apply:dirDataApply:edit")
@@ -85,9 +86,9 @@ public class DirDataApplyController extends BaseController {
      */
     @RequiresPermissions("apply:dirDataApply:edit")
     @Log("编辑数据权限申请表")
-    @RequestMapping(value = "/doEdit",method = RequestMethod.PUT)
+    @RequestMapping(value = "/doEdit")
     @ResponseBody
-    public  HandleResult doEdit(@RequestBody DirDataApplyVo dirDataApplyVo){
+    public  HandleResult doEdit(DirDataApplyVo dirDataApplyVo){
 		HandleResult handleResult = new HandleResult();
 		try {
 
@@ -97,4 +98,23 @@ public class DirDataApplyController extends BaseController {
 		}
 		return handleResult;
     }
+
+    /**
+     * 分页查询共享审核数据项申请表
+     */
+    @RequiresPermissions("apply:dirDataApply:list")
+    @RequestMapping("/listItem")
+    @ResponseBody
+    public PageResult listItem(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            Page<DirDataItemApplyVo> page = dirDataItemApplyService.selectVoPage(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询共享审核数据项申请表出错");
+            logger.error("分页查询共享审核数据项申请表出错", e);
+        }
+        return pageResult;
+    }
+
 }

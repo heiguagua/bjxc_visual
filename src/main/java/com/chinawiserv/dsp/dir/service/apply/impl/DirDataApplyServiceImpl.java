@@ -4,13 +4,11 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.dir.entity.po.apply.DirDataApply;
 import com.chinawiserv.dsp.dir.entity.vo.apply.DirDataApplyVo;
-import com.chinawiserv.dsp.dir.entity.vo.apply.DirDataitemApplyVo;
 import com.chinawiserv.dsp.dir.mapper.apply.DirDataApplyMapper;
 import com.chinawiserv.dsp.dir.service.apply.IDirDataApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -36,7 +34,7 @@ public class DirDataApplyServiceImpl extends CommonServiceImpl<DirDataApplyMappe
 
     @Override
     public DirDataApplyVo selectVoById(String id) throws Exception {
-        return null;
+        return mapper.selectVoById(id);
     }
 
     @Override

@@ -35,7 +35,7 @@ jQuery(document).ready(function () {
             sortable: false
         }, {
             field: 'limitVisitDatePeriod',
-            title: '期望使用时间',
+            title: '期望使用时限',
             align: 'center',
             valign: 'middle',
             width: '300',
@@ -70,13 +70,13 @@ jQuery(document).ready(function () {
             width: '60',
             sortable: false,
             formatter : function (value) {
+                var result = "待审核";
                 if(value == "1"){
-                    return "审核通过";
-                }else if(value == "2"){
-                    return "审核不通过"
-                }else{
-                    return "待审核";
+                    result = "<font > 已同意</font>"
+                } else if (value == "2"){
+                    result = "<font > 未同意</font>"
                 }
+                return result;
             }
         }, {
                 field: 'id',
@@ -112,5 +112,5 @@ function reloadTable() {
 }
 
 function audit(id){
-    update('共享审核', basePathJS + '/dirDataApply/edit' , id );
+    update('共享审核', basePathJS + '/dirDataApply/edit' , id, 900, 700);
 }

@@ -33,7 +33,7 @@
                         <div class="form-inline">
                             <div class="box-header">
                                 <div class="input-group">
-                                    <select  class="form-control"  name="isAudited" id="isAudited">
+                                    <select class="form-control"  name="isAudited" id="isAudited">
                                         <option value="0">待审核</option>
                                         <option value="1">已审核</option>
                                     </select>

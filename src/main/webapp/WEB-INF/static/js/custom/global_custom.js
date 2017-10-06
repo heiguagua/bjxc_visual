@@ -2281,7 +2281,7 @@ function initGlobalCustom(tempUrlPrefix) {
             if ($(window).width() < 768) {
                 iconLineHeight = $(this).parent().height() / 2;
             }
-            $(this).after('<span class="fa fa-calendar form-control-feedback" style="line-height: ' + iconLineHeight + 'px" aria-hidden="true"></span>');
+            $(this).after('<span class="fa fa-calendar form-control-feedback" style="line-height: ' + iconLineHeight + 'px; position: relative; right: 30px" aria-hidden="true"></span>');
             if (options.singleDatePicker == false) $(this).addClass("daterangepicker_input_control");
 
             if (callback) {
