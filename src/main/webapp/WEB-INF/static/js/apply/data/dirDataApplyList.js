@@ -5,7 +5,9 @@ var tableSelector = '#dirDataApplyTableId';
 
 jQuery(document).ready(function () {
     "use strict";
-    var paramsObj = {};
+    var isAudited = '0';
+    $('#isAudited').val(isAudited);
+    var paramsObj = {isAudited: isAudited};
 
     jQuery(tableSelector).customTable({
         url: basePathJS + '/dirDataApply/list',
@@ -14,6 +16,14 @@ jQuery(document).ready(function () {
         },
         pagination: true, //分页
         pageSize: 15,
+        onRefresh: function(){
+            var isAudited = $('#isAudited').val();
+            if(isAudited == '0'){
+                $(tableSelector).data("bootstrap.table").showColumn('id');
+            }else{
+                $(tableSelector).data("bootstrap.table").hideColumn('id');
+            }
+        },
         columns: [{
             field: 'classifyStructureName',
             title: '所属目录分类',
@@ -46,7 +56,7 @@ jQuery(document).ready(function () {
             align: 'center',
             valign: 'middle',
             sortable: false,
-            formatter : function (value, row) {
+            formatter: function (value, row) {
                 return value + '[' + row.userName + ']';
             }
         }, {
@@ -69,27 +79,27 @@ jQuery(document).ready(function () {
             valign: 'middle',
             width: '60',
             sortable: false,
-            formatter : function (value) {
+            formatter: function (value) {
                 var result = "待审核";
-                if(value == "1"){
-                    result = "<font > 已同意</font>"
-                } else if (value == "2"){
-                    result = "<font > 未同意</font>"
+                if (value == "1") {
+                    result = "<font > 同意</font>"
+                } else if (value == "2") {
+                    result = "<font > 同意</font>"
                 }
                 return result;
             }
         }, {
-                field: 'id',
-                title: '操作',
-                align: 'center',
-                valign: 'middle',
-                width: '80',
-                sortable: false ,
-                formatter : function (value) {
-                    var auditBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:audit(\"" + value + "\")'><i class='fa fa-user'></i> 开始审核</a>";
-                    return auditBtn;
-                }
+            field: 'id',
+            title: '操作',
+            align: 'center',
+            valign: 'middle',
+            width: '80',
+            sortable: false,
+            formatter: function (value) {
+                var auditBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:audit(\"" + value + "\")'><i class='fa fa-user'></i> 开始审核</a>";
+                return auditBtn;
             }
+        }
         ]
     });
 
@@ -111,6 +121,6 @@ function reloadTable() {
     $(tableSelector).data("bootstrap.table").refresh();
 }
 
-function audit(id){
-    update('共享审核', basePathJS + '/dirDataApply/edit' , id, 900, 700);
+function audit(id) {
+    update('共享审核', basePathJS + '/dirDataApply/edit', id, 900, 700);
 }

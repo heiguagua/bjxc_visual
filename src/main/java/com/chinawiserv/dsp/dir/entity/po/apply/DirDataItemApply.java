@@ -1,10 +1,7 @@
 package com.chinawiserv.dsp.dir.entity.po.apply;
 
-import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
-@TableName("dir_data_item_apply")
 public class DirDataItemApply implements Serializable {
 
     private static final long serialVersionUID = 1L;

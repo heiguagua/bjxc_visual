@@ -91,7 +91,7 @@ public class DirDataApplyController extends BaseController {
     public  HandleResult doEdit(DirDataApplyVo dirDataApplyVo){
 		HandleResult handleResult = new HandleResult();
 		try {
-
+            service.updateVO(dirDataApplyVo);
 		} catch (Exception e) {
 		    handleResult.error("编辑数据权限申请表失败");
 		    logger.error("编辑数据权限申请表失败", e);

@@ -1,14 +1,20 @@
 package com.chinawiserv.dsp.dir.service.apply.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.dir.entity.po.apply.DirDataApply;
+import com.chinawiserv.dsp.dir.entity.po.apply.DirDataItemApply;
 import com.chinawiserv.dsp.dir.entity.vo.apply.DirDataApplyVo;
+import com.chinawiserv.dsp.dir.enums.apply.DataItemStatus;
 import com.chinawiserv.dsp.dir.mapper.apply.DirDataApplyMapper;
+import com.chinawiserv.dsp.dir.mapper.apply.DirDataItemApplyMapper;
 import com.chinawiserv.dsp.dir.service.apply.IDirDataApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -17,6 +23,9 @@ public class DirDataApplyServiceImpl extends CommonServiceImpl<DirDataApplyMappe
     @Autowired
     private DirDataApplyMapper mapper;
 
+    @Autowired
+    private DirDataItemApplyMapper dirDataItemApplyMapper;
+
     @Override
     public boolean insertVO(DirDataApplyVo dirDataApplyVo) throws Exception {
         return false;
@@ -24,7 +33,22 @@ public class DirDataApplyServiceImpl extends CommonServiceImpl<DirDataApplyMappe
 
     @Override
     public boolean updateVO(DirDataApplyVo dirDataApplyVo) throws Exception {
-        return false;
+        dirDataApplyVo.setAuditorId(ShiroUtils.getLoginUserId());
+        dirDataApplyVo.setAuditDate(new Date());
+        boolean result = updateById(dirDataApplyVo);
+        if(result){
+            String status = dirDataApplyVo.getStatus();
+            if(status.equals(DataItemStatus.DATA_1.getDbValue())){
+                List<DirDataItemApply> dirDataItemApplyList = dirDataApplyVo.getDirDataItemApplyList();
+                if(dirDataItemApplyList != null && !dirDataItemApplyList.isEmpty()){
+                    for(DirDataItemApply dirDataItemApply : dirDataItemApplyList){
+                        result &= dirDataItemApplyMapper.updateById(dirDataItemApply) > 0;
+                    }
+                }
+            }
+        }
+        if(!result) throw new Exception("编辑数据权限申请表失败");
+        return result;
     }
 
     @Override

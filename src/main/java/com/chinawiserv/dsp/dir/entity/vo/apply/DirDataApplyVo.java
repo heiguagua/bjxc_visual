@@ -1,6 +1,10 @@
 package com.chinawiserv.dsp.dir.entity.vo.apply;
 
 import com.chinawiserv.dsp.dir.entity.po.apply.DirDataApply;
+import com.chinawiserv.dsp.dir.entity.po.apply.DirDataItemApply;
+
+import java.util.List;
+import java.util.Map;
 
 public class DirDataApplyVo extends DirDataApply {
 
@@ -13,6 +17,8 @@ public class DirDataApplyVo extends DirDataApply {
     private String realName;
 
     private String deptName;
+
+    private List<DirDataItemApply> dirDataItemApplyList;
 
     public String getClassifyStructureName() {
         return classifyStructureName;
@@ -52,5 +58,13 @@ public class DirDataApplyVo extends DirDataApply {
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
+    }
+
+    public List<DirDataItemApply> getDirDataItemApplyList() {
+        return dirDataItemApplyList;
+    }
+
+    public void setDirDataItemApplyList(List<DirDataItemApply> dirDataItemApplyList) {
+        this.dirDataItemApplyList = dirDataItemApplyList;
     }
 }

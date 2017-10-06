@@ -39,11 +39,11 @@
         <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
               method="post" action="<%=basePath%>/dirDataApply/doEdit">
             <input type="hidden" id="dirDataApplyId" value="${id}" name="id"/>
+            <input type="hidden" id="dirDataItemApply" value="" name="dirDataItemApply"/>
             <div class="toolbar">
                 <div class="form-inline">
                     <label class="control-label">审核状态：</label>
                     <select class="form-control" name="status" style="width: 150px">
-                        <option value="0">请选择</option>
                         <option value="1">同意</option>
                         <option value="2">拒绝</option>
                     </select>
@@ -53,15 +53,15 @@
                 <table id="dirDataItemApplyTableId" class="table table-hover">
                 </table>
             </div>
-            <div class="form-inline form-group">
+            <div class="form-inline form-group" style="margin-bottom: 25px;">
                 <label class="control-label col-sm-2" style="text-align: left;padding-left:0">批复使用时间：</label>
                 <input id="auditVisitDatePeriod" type="text" name="auditVisitDatePeriod" class="form-control date" readonly
-                       placeholder="批复使用开始时间~批复使用结束时间" style="width: 320px;">
+                       placeholder="批复使用开始时间~批复使用结束时间" style="width: 330px;" data-rule="批复使用时间:required;">
             </div>
-            <div class="form-inline form-group">
+            <div class="form-inline form-group" style="margin-bottom: 25px;">
                 <label class="control-label col-sm-2" style="text-align: left;padding-left:0">批复使用次数：</label>
                 <input id="auditVisitCnt" type="text" name="auditVisitCnt" class="form-control" placeholder=""
-                       style="width: 120px;">
+                       style="width: 120px;" data-rule="批复使用次数:required:digits">
                 <span>次</span>
             </div>
             <div class="form-inline form-group">

@@ -26,11 +26,11 @@ function initEditPage(){
     });
     $("select[name='status']").change(function(){
         var status = $(this).val();
-        $("select[name='itemStatus']").val(status);
+        $(".dirDataItemApplyList").val(status);
         if(status == '1'){
-            $("select[name='itemStatus']").enable();
+            $(".dirDataItemApplyList").enable();
         }else{
-            $("select[name='itemStatus']").attr("disabled", true);
+            $(".dirDataItemApplyList").attr("disabled", true);
         }
     });
     $('#auditVisitDatePeriod').customDateRangePicker();
@@ -69,9 +69,9 @@ function initTable(){
             formatter : function (value) {
                 var result = "待审核";
                 if(value == "1"){
-                    result = "<font > 已同意</font>"
+                    result = "<font > 同意</font>"
                 } else if (value == "2"){
-                    result = "<font > 未同意</font>"
+                    result = "<font > 同意</font>"
                 }
                 return result;
             }
@@ -81,10 +81,11 @@ function initTable(){
             align: 'center',
             valign: 'middle',
             width: '150',
-            sortable: false ,
-            formatter : function (value) {
-                var select = '<select class="form-control" name="itemStatus" disabled><option value="0">请选择</option><option value="1">同意</option><option value="2">拒绝</option></select>';
-                return select;
+            sortable: false,
+            formatter : function (value, row, index) {
+                var id = '<input type="hidden" name="dirDataItemApplyList['+index+'].id" value="' + value + '">'
+                var status = '<select class="form-control dirDataItemApplyList" name="dirDataItemApplyList['+index+'].status"><option value="1">同意</option><option value="2">拒绝</option></select>';
+                return id + status;
             }
         }
         ]
