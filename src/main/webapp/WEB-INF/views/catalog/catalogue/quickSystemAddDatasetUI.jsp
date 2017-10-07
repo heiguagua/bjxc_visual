@@ -264,6 +264,54 @@
                 </div>
 
                 <div class="checkh1">
+                    <span class="checkspan">信息资源大普查</span>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">数据存储总量:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" name="survey.totalStorage">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">结构化信息记录总数:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.structureCount">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">已共享的数据存储量:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.sharedStorage">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">已共享的结构化记录数:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.sharedStructureCount">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">已开放的数据存储量:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.openedStorage">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">已开放的结构化记录数:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.openedStructureCount">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkh1">
                     <span class="checkspan">已选字段列表</span>
 
                     <input type="button" id="deleteItems" class="pull-right btn-del" value="删除">
@@ -322,6 +370,7 @@
                     </table>
                 </div>
                 <input id="tableNumber" type="hidden" name="tableNumber" value="">
+                <input type="hidden" name="sourceType" value="2">
             </form>
         </div>
     </div>
