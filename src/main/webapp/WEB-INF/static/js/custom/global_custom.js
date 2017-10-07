@@ -1504,7 +1504,7 @@ function initGlobalCustom(tempUrlPrefix) {
                         return params;
                     }
                 },
-                check: {enable: true,chkStyle: chkStyle,chkboxType: { "Y":"ps","N":"ps"}},
+                check: {enable: true,chkStyle: "radio",chkboxType: { "Y":"s","N":"s"},radioType: "all"},
                 callback: {
                     beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
                         var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
@@ -2281,7 +2281,7 @@ function initGlobalCustom(tempUrlPrefix) {
             if ($(window).width() < 768) {
                 iconLineHeight = $(this).parent().height() / 2;
             }
-            $(this).after('<span class="fa fa-calendar form-control-feedback" style="line-height: ' + iconLineHeight + 'px" aria-hidden="true"></span>');
+            $(this).after('<span class="fa fa-calendar form-control-feedback" style="line-height: ' + iconLineHeight + 'px; position: relative; right: 30px" aria-hidden="true"></span>');
             if (options.singleDatePicker == false) $(this).addClass("daterangepicker_input_control");
 
             if (callback) {

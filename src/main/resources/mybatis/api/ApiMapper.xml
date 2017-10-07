@@ -53,6 +53,7 @@
         ON ddsi.`dataset_id` = t.`id`
         WHERE TRUE
         AND ddsi.`source_obj_type` != '1'
+        OR ddsi.`source_obj_type` IS NULL
         <choose>
             <when test="null != classifyId and '' != classifyId">
                 AND dc.`id` = #{classifyId}
@@ -186,15 +187,15 @@
         SELECT
         ddi.`id`,
         ddi.`db_name` AS dbName,
-        ddi.`db_name` AS DB_CN_NAME,
+        '' AS DB_CN_NAME,
         '1' AS dbCategory,
         ddi.`db_type` AS dbType,
         ddi.`db_ip` AS ipAddress,
         ddi.`db_user` AS userName,
         ddi.`db_pass` AS 'password',
         ddi.`db_port` AS 'port',
-        ddi.`db_name` AS sid,
-        ddi.`db_name` AS serviceName,
+        '' AS sid,
+        '' AS serviceName,
         dd.`dataset_name` AS datasetName,
         '' AS systemName,
         '' AS buildDept
@@ -226,7 +227,7 @@
         ddi.`db_name` AS dbName,
         ddi.`db_name` AS DB_CN_NAME,
         '1' AS dbCategory,
-        '2' AS dbType,
+        '1' AS dbType,
         ddi.`ip_addr` AS ipAddress,
         ddi.`username` AS userName,
         '' AS 'password',

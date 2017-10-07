@@ -112,12 +112,6 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         }
         if(!param.isEmpty()){
             list.addAll(sysDeptMapper.selectVoListForTreeData(param));
-            /*String checkIsLeaf = (String) paramMap.get("checkIsLeaf");
-            if(StringUtils.isBlank(checkIsLeaf) || "1".equals(checkIsLeaf)){
-                for(SysDeptVo sysDeptVo : list){
-                    sysDeptVo.setIsLeaf(!this.isParentDept(sysDeptVo.getId()));
-                }
-            }*/
         }
         return list;
     }

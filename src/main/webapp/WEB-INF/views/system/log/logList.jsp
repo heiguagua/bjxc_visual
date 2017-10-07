@@ -28,12 +28,12 @@
                             <div class="box-header">
                                 <form class="form-inline">
                                     <div class="form-group">
-                                        <label class="sr-only" for="operatorUserName">operatorUserName</label>
-                                        <input id="operatorUserName" type="text" name="operatorUserName" class="form-control" placeholder="操作人用户名">
-                                    </div>
-                                    <div class="form-group">
                                         <label class="sr-only" for="operatorRealName">operatorRealName</label>
                                         <input id="operatorRealName" type="text" name="operatorRealName" class="form-control" placeholder="操作人真实姓名">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="operatorUserName">operatorUserName</label>
+                                        <input id="operatorUserName" type="text" name="operatorUserName" class="form-control" placeholder="操作人用户名">
                                     </div>
                                     <div class="form-group">
                                         <label class="sr-only" for="operateTimeRange">operateTimeRange</label>

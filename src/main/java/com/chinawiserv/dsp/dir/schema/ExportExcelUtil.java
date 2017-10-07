@@ -87,6 +87,19 @@ public class ExportExcelUtil {
             cell = row.createCell(33);
             cell.setCellValue(info.getFormat_type());
 
+            cell = row.createCell(35);
+            cell.setCellValue(info.getTotal_storage());
+            cell = row.createCell(36);
+            cell.setCellValue(info.getStructure_count());
+            cell = row.createCell(37);
+            cell.setCellValue(info.getShared_storage());
+            cell = row.createCell(38);
+            cell.setCellValue(info.getShared_structure_count());
+            cell = row.createCell(39);
+            cell.setCellValue(info.getOpened_storage());
+            cell = row.createCell(40);
+            cell.setCellValue(info.getOpened_structure_count());
+
             cell = row.createCell(41);
             cell.setCellValue(info.getItem_name());
 

@@ -64,7 +64,7 @@ drop PROCEDURE  IF EXISTS  pro_init_sys_dept_structure$$
 CREATE PROCEDURE `pro_init_sys_dept_structure`(in _region_code varchar(12))
 begin
 -- 更新信息目录的dept_level
-UPDATE  sys_dept t SET t.`dept_level` = getSysDeptLevel(t.`id`);
+UPDATE  sys_dept t SET t.`dept_level` = getSysDeptLevel(t.`id`) where region_code = _region_code;
 
 -- 创建临时表，用于生成部门Tree_index序号
 DROP TABLE if exists sys_dept_treeNum;
@@ -85,9 +85,9 @@ AS SELECT
     FROM
       `sys_dept` t 
 	  where t.region_code = _region_code
-    ORDER BY t.`fid`;
+    ORDER BY t.`fid`,t.order_number,t.dept_code;
 -- 更新信息目录的TreeCode
-UPDATE  sys_dept t SET t.`tree_code` = getSysDeptTreeCode(_region_code,t.`id`);
+UPDATE  sys_dept t SET t.`tree_code` = getSysDeptTreeCode(_region_code,t.`id`) where region_code = _region_code;
 -- 更新目录分类的tree_index
 update sys_dept a INNER JOIN (
 	select max(rownum) as tree_index,pre_parent_id as fid from sys_dept_treeNum group by pre_parent_id) b
@@ -95,9 +95,36 @@ update sys_dept a INNER JOIN (
 	set a.tree_index = b.tree_index;
 	
 -- 更新信息目录的structure_name
-UPDATE  sys_dept t SET t.`dept_structure_name` = getSysDeptStructureName(_region_code,t.`id`);
+UPDATE  sys_dept t SET t.`dept_structure_name` = getSysDeptStructureName(_region_code,t.`id`) where region_code = _region_code;
 DROP TABLE if exists sys_dept_treeNum;
 end$$
 DELIMITER ;
 
 call pro_init_sys_dept_structure('510100');
+call pro_init_sys_dept_structure('100000');
+call pro_init_sys_dept_structure('510000');
+call pro_init_sys_dept_structure('510104');
+call pro_init_sys_dept_structure('510105');
+call pro_init_sys_dept_structure('510106');
+call pro_init_sys_dept_structure('510107');
+call pro_init_sys_dept_structure('510108');
+call pro_init_sys_dept_structure('510112');
+call pro_init_sys_dept_structure('510113');
+call pro_init_sys_dept_structure('510114');
+call pro_init_sys_dept_structure('510115');
+call pro_init_sys_dept_structure('510116');
+call pro_init_sys_dept_structure('510121');
+call pro_init_sys_dept_structure('510124');
+call pro_init_sys_dept_structure('510129');
+call pro_init_sys_dept_structure('510131');
+call pro_init_sys_dept_structure('510132');
+call pro_init_sys_dept_structure('510181');
+call pro_init_sys_dept_structure('510182');
+call pro_init_sys_dept_structure('510183');
+call pro_init_sys_dept_structure('510184');
+call pro_init_sys_dept_structure('510185');
+
+
+select id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code
+ from sys_dept
+order by region_code,tree_code ;

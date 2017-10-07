@@ -101,6 +101,12 @@ public class DirDatasetController extends BaseController {
         return "catalog/query/queryList";
     }
 
+    @RequestMapping("/show")
+    public  String showInit(@RequestParam String id,Model model){
+        model.addAttribute("id", id);
+        return "catalog/catalogue/catalogueShow";
+    }
+
     /**
      * 分页查询信息资源列表（编目）
      */
@@ -668,7 +674,13 @@ public class DirDatasetController extends BaseController {
             if(!StringUtils.isEmpty(classify_id)){
                 String[] split = classify_id.split(",");
                 Set<String> strings = classifyMapper.selectClassifyByIds(split);
-                tree_codes = (String[]) strings.toArray();
+                tree_codes=new String[strings.size()];
+                int i=0;
+                for (String code:strings
+                     ) {
+                    tree_codes[i]=code;
+                    i++;
+                }
             }
             List<ExportDatasetExcel> list = service.selectExportLists(tree_codes, dataset_name, region_id);
             ExportExcelUtil util = new ExportExcelUtil();

@@ -49,7 +49,7 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false,
             formatter : function (value) {
-                var result = "通过";
+                var result = "同意";
                 if(value == "0"){
                     result = "<font > 待审核</font>"
                 } else if (value == "2"){

@@ -124,6 +124,31 @@ function updateForNews(title, url, id, width, height, isRestful) {
     createWindow(options);
 }
 
+/**
+ * 查看事件打开窗口
+ * @param title 标题
+ * @param url //目标页面地址
+ * @param id//主键字段
+ */
+function show(title, url, id, width, height, isRestful) {
+
+    if (id) {
+        if(isRestful!='undefined'&&isRestful){
+            url += '/'+id;
+        }else{
+            if (url.indexOf("?") == -1 ) {
+                url += '?id='+id;
+            } else {
+                url += '&id='+id;
+            }
+        }
+    }
+
+    var options = _getWinOptionsWithNoButton(title , url , width, height) ;
+
+    createWindow(options);
+}
+
 function addApi(title, url, parentId, width, height, isRestful) {
 
     if (parentId) {
@@ -476,6 +501,26 @@ function _getDefaultWinOptionsForPolicy(title , url , width, height) {
         	_submitFormForApi(index , layero) ;
          
         }
+    };
+
+    return options ;
+}
+
+/**
+ *
+ * @param title
+ * @param url
+ * @param width
+ * @param height
+ * @returns {{title: *, width: *, height: *, content: *, btn: [string,string], success: _successLoad, yes: yes}}
+ * @private
+ */
+function _getWinOptionsWithNoButton(title , url , width, height) {
+    var options = {
+        title:title,
+        width : width ,
+        height : height ,
+        content: url
     };
 
     return options ;

@@ -21,6 +21,62 @@ public class ExportDatasetExcel {
     private String format_type;
     private String classify_structure_name;
 
+    //大普查
+    private int total_storage;
+    private int structure_count;
+    private int shared_storage;
+    private int shared_structure_count;
+    private int opened_storage;
+    private int opened_structure_count;
+
+    public int getTotal_storage() {
+        return total_storage;
+    }
+
+    public void setTotal_storage(int total_storage) {
+        this.total_storage = total_storage;
+    }
+
+    public int getStructure_count() {
+        return structure_count;
+    }
+
+    public void setStructure_count(int structure_count) {
+        this.structure_count = structure_count;
+    }
+
+    public int getShared_storage() {
+        return shared_storage;
+    }
+
+    public void setShared_storage(int shared_storage) {
+        this.shared_storage = shared_storage;
+    }
+
+    public int getShared_structure_count() {
+        return shared_structure_count;
+    }
+
+    public void setShared_structure_count(int shared_structure_count) {
+        this.shared_structure_count = shared_structure_count;
+    }
+
+    public int getOpened_storage() {
+        return opened_storage;
+    }
+
+    public void setOpened_storage(int opened_storage) {
+        this.opened_storage = opened_storage;
+    }
+
+    public int getOpened_structure_count() {
+        return opened_structure_count;
+    }
+
+    public void setOpened_structure_count(int opened_structure_count) {
+        this.opened_structure_count = opened_structure_count;
+    }
+
     public String getItem_name() {
         return item_name;
     }
