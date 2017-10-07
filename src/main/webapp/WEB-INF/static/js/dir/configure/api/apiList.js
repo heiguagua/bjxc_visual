@@ -55,7 +55,7 @@ jQuery(document).ready(function () {
 //		        }
 //		    	 onClick: onClick
 		    	
-		      },
+		      }
 		      
 //		      zTreeObj:{
 //		    	  
@@ -193,14 +193,13 @@ jQuery(document).ready(function () {
 				$("#diyBtn_space3_" +treeNode.id).unbind().remove();
 				$("#diyBtn_space4_" +treeNode.id).unbind().remove();
 				
-		};  
-		     			
+		};
     $.ajax({
     async:false,//是否异步
     cache:false,//是否使用缓存
     type:'POST',//请求方式：post
     dataType:'json',//数据传输格式：json
-    url:'/dirDevelopApis/list',//请求的action路径
+    url:basePathJS + '/dirDevelopApis/list',//请求的action路径
     error:function(){
       //请求失败处理函数
       alert('亲，请求失败！');

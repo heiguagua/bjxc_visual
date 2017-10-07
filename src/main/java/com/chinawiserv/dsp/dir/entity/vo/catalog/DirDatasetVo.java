@@ -1,9 +1,6 @@
 package com.chinawiserv.dsp.dir.entity.vo.catalog;
 
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataitemSourceInfo;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetExtFormat;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation;
+import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 
 import java.util.List;
 
@@ -40,6 +37,17 @@ public class DirDatasetVo extends DirDataset{
 
     //表间关系
     private List<DirDatasetSourceRelation> relations;
+
+    //大普查
+    private DirDatasetSurvey survey;
+
+    public DirDatasetSurvey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(DirDatasetSurvey survey) {
+        this.survey = survey;
+    }
 
     public List<DirDatasetSourceRelation> getRelations() {
         return relations;
