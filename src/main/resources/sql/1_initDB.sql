@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/10/3 17:26:38                           */
+/* Created on:     2017/10/7 16:29:22                           */
 /*==============================================================*/
 
 
@@ -199,6 +199,8 @@ drop table if exists sys_log;
 drop table if exists sys_menu;
 
 drop table if exists sys_region;
+
+drop table if exists sys_region_dept;
 
 drop table if exists sys_region_level;
 
@@ -2259,6 +2261,25 @@ create table sys_region
 );
 
 alter table sys_region comment '行政区域表';
+
+/*==============================================================*/
+/* Table: sys_region_dept                                       */
+/*==============================================================*/
+create table sys_region_dept
+(
+   id                   varchar(36) not null comment '主键ID',
+   region_dept_code     varchar(36) not null comment '行政部门编号',
+   region_dept_name     varchar(64) comment '行政部门名称',
+   fcode                varchar(36) comment '上级行政部门编号',
+   fname                varchar(64) comment '上级行政部门名称',
+   region_dept_level    int(6) comment '行政部门级别',
+   structure_code       varchar(1000) comment '显示树编码',
+   structure_name       varchar(4000) comment '显示树名称',
+   status               varchar(36) default '1' comment '状态',
+   primary key (id)
+);
+
+alter table sys_region_dept comment '行政部门表';
 
 /*==============================================================*/
 /* Table: sys_region_level                                      */
