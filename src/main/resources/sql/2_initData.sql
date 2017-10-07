@@ -660,6 +660,12 @@ insert into sys_dict(id,region_code,category,dict_code,dict_name,dict_desc,paren
 insert into sys_dict(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) values (REPLACE(uuid(),'-',''),'','resourceProvider','510100-Z-008','成都市公共交通集团有限公司','','510100','170','','1');
 insert into sys_dict(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) values (REPLACE(uuid(),'-',''),'','resourceProvider','510100-Z-009','成都天府通金融服务股份有限公司','','510100','171','','1');
 
+insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '1', '自定义', null, null, null, '1', null, now(), null, null, '0');
+insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '2', '系统梳理', null, null, null, '1', null, now(), null, null, '0');
+insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '3', '资源梳理', null, null, null, '1', null, now(), null, null, '0');
+insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '4', '爬虫系统', null, null, null, '1', null, now(), null, null, '0');
+insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '5', '采集系统', null, null, null, '1', null, now(), null, null, '0');
+
 
   -- 行政区划相关初始化数据
   -- 行政区划版本表
