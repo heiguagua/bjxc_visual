@@ -33,22 +33,13 @@ public class DirDatasetVo extends DirDataset{
 
     private String formatInfo;
 
+    private String datasetSourceTypeName;
+
     //数据集扩展属性
     private DirDatasetExtFormat ext;
 
     //表间关系
     private List<DirDatasetSourceRelation> relations;
-
-    //数据项来源
-    private List<DirDataitemSourceInfo> sourceInfos;
-
-    public List<DirDataitemSourceInfo> getSourceInfos() {
-        return sourceInfos;
-    }
-
-    public void setSourceInfos(List<DirDataitemSourceInfo> sourceInfos) {
-        this.sourceInfos = sourceInfos;
-    }
 
     public List<DirDatasetSourceRelation> getRelations() {
         return relations;
@@ -128,5 +119,13 @@ public class DirDatasetVo extends DirDataset{
 
     public void setClassifyIds(String classifyIds) {
         this.classifyIds = classifyIds;
+    }
+
+    public String getDatasetSourceTypeName() {
+        return datasetSourceTypeName;
+    }
+
+    public void setDatasetSourceTypeName(String datasetSourceTypeName) {
+        this.datasetSourceTypeName = datasetSourceTypeName;
     }
 }
