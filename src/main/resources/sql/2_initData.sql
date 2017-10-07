@@ -753,3 +753,12 @@ insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,par
   INSERT INTO sys_dept_category_template (ID,category_code,category_name,fullname_template,shortname_template,apply_min_level,apply_max_level) VALUES ('3a442a08-50d3-11e7-889e-00ffffff0000','D','政协','中国人民政治协商会议XX委员会','XX政协',5,2);
   INSERT INTO sys_dept_category_template (ID,category_code,category_name,fullname_template,shortname_template,apply_min_level,apply_max_level) VALUES ('3a5c7e00-50d3-11e7-889e-00ffffff0000','E','法院','XX人民法院','XX人民法院',5,2);
   INSERT INTO sys_dept_category_template (ID,category_code,category_name,fullname_template,shortname_template,apply_min_level,apply_max_level) VALUES ('3a75d344-50d3-11e7-889e-00ffffff0000','F','检察院','XX人民检察院','XX人民检察院',5,2);
+
+
+delete from dir_develop_apis; -- SELECT id,region_code,api_name,api_category,api_url,parent_id,parent_name,order_number,`status` FROM `dir_develop_apis` where parent_id = 'root'
+INSERT INTO dir_develop_apis(id,region_code,api_name,api_category,api_url,parent_id,parent_name,order_number,status) VALUES ('69547e2dc7974d3d9e96d1a6beb31250','510100','服务封装','2','http://','root','root',5,'1');
+INSERT INTO dir_develop_apis(id,region_code,api_name,api_category,api_url,parent_id,parent_name,order_number,status) VALUES ('7398294e21644085aee30822cb360e34','510100','资源梳理','2','http://','root','root',3,'1');
+INSERT INTO dir_develop_apis(id,region_code,api_name,api_category,api_url,parent_id,parent_name,order_number,status) VALUES ('cde3eb957d7c11e782df000c29e0ca25','510100','数据采集','2','http://','root','root',0,'1');
+INSERT INTO dir_develop_apis(id,region_code,api_name,api_category,api_url,parent_id,parent_name,order_number,status) VALUES ('cde4d3be7d7c11e782df000c29e0ca25','510100','数据处理','2','http://','root','root',1,'1');
+INSERT INTO dir_develop_apis(id,region_code,api_name,api_category,api_url,parent_id,parent_name,order_number,status) VALUES ('cde5a67d7d7c11e782df000c29e0ca25','510100','数据分析','2','http://','root','root',2,'1');
+INSERT INTO dir_develop_apis(id,region_code,api_name,api_category,api_url,parent_id,parent_name,order_number,status) VALUES ('d206f66976bd45aa8790957d3a38f3c4','510100','目录管理','2','http://','root','root',4,'1');
