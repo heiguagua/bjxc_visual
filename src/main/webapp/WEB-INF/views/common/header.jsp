@@ -33,6 +33,9 @@
 		font-weight: bold;
 	}
 	.citytitle .innerul>li:hover{background:#56B4F8;color: #fff;}
+
+    .btn-group a:link{ color:#ffffff}/* 链接默认为白色 */
+    .btn-group a:hover{ color:#00a7d0}/* 鼠标悬停蓝色 */
 </style>
 
 <header class="main-header">
@@ -52,10 +55,10 @@
    
    <div class="btn-group">
    	<ul class="nav_uls">
-   		<li><i class="fa fa-institution (alias)"></i>&nbsp;资源梳理</li>
+        <li><i class="fa fa-institution (alias)"></i><a href="<%=basePath%>/jp:hk_drap">&nbsp;资源梳理</a></li>
    		<li class="active"><i class="fa fa-list-alt"></i>&nbsp;目录管理</li>
-   		<li><i class="fa fa-newspaper-o"></i>&nbsp;服务封装</li>
-   		<li><i class="fa  fa-database"></i>&nbsp;采集系统</li>
+        <li><i class="fa fa-newspaper-o"></i><a href="<%=basePath%>/jp:hk_service">&nbsp;服务封装</a></li>
+        <li><i class="fa  fa-database"></i><a href="<%=basePath%>/jp:hk_dcm">&nbsp;采集系统</a></li>
    	</ul>
    </div>
    
