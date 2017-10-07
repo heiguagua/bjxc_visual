@@ -2,9 +2,9 @@
 
 <html>
 <head>
-    <%@include file="/WEB-INF/views/common/head.jsp" %>   
-    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.all.js"></script>
+    <%@include file="/WEB-INF/views/common/head.jsp" %>  
+    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.all.js"></script> 
+    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.config.js"></script>   
     <script type="text/javascript" charset="utf-8" src="<%=basePath%>/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script src="<%=basePath%>/js/dir/configure/news/newsAdd.js"></script>    
 </head>
@@ -35,7 +35,7 @@
                             <div class="form-group col-md-12">
                                 <label>内容</label>
                                     <!-- <textarea rows="3" cols="20" class="form-control" id="pic_content" name="pic_content"></textarea> -->
-                                <script id="pic_content" style="height:300px;display: block;"  name="picContent" type="text/plain"></script>
+                                <script id="pic_content" style="height:300px;display: block;"  name="newsContent" type="text/plain"></script>
                             </div>          
                         </div><!-- /.box-body -->
                         <div class="box-footer">
