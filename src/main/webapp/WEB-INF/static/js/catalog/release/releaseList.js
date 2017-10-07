@@ -86,7 +86,7 @@ function initUnReleaseTable(){
                 }
             }
         }, {
-            field: 'uuid',
+            field: 'datasetId',
             title: '操作',
             width: '10%',
             align: 'center',
@@ -94,7 +94,7 @@ function initUnReleaseTable(){
             sortable: false,
             formatter: function(value) {
                 var editBtn = [
-                    "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看详情</a>"
+                    "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看详情</a>"
                 ].join('');
                 return editBtn;
             }
@@ -163,7 +163,7 @@ function initReleasedTable(){
                 return typeHtml;
             }
         }, {
-            field: 'uuid',
+            field: 'datasetId',
             title: '操作',
             width: '10%',
             align: 'center',
@@ -171,7 +171,7 @@ function initReleasedTable(){
             sortable: false,
             formatter: function(value) {
                 var editBtn = [
-                    "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看详情</a>"
+                    "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看详情</a>"
                 ].join('');
                 return editBtn;
             }
@@ -181,9 +181,9 @@ function initReleasedTable(){
 
 function initAllSelect(){
     //未发布目录类别下拉查询框
-    $.initClassifyTreeSelect('unReleaseSearchClassifyTreeDemo','unReleaseSearchClassifyName','unReleaseSearchClassifyId','unReleaseSearchClassifyMenuContent');
+    $.initQueryClassifyTreeSelect('unReleaseSearchClassifyTreeDemo','unReleaseSearchClassifyName','unReleaseSearchClassifyId','unReleaseSearchClassifyMenuContent');
     //已发布目录类别下拉查询框
-    $.initClassifyTreeSelect('releasedSearchClassifyTreeDemo','releasedSearchClassifyName','releasedSearchClassifyId','releasedSearchClassifyMenuContent');
+    $.initQueryClassifyTreeSelect('releasedSearchClassifyTreeDemo','releasedSearchClassifyName','releasedSearchClassifyId','releasedSearchClassifyMenuContent');
 }
 
 
@@ -240,6 +240,10 @@ function invokeButton(buttonId, url, msg){
             errorMsgTip("请先选择要"+msg+"的信息资源");
         }
     });
+}
+
+function catalogueTableShow(id){
+    show('信息资源详情',basePathJS + '/catalog/show' , id ,1300,700);
 }
 
 function setUnReleaseParams(){
