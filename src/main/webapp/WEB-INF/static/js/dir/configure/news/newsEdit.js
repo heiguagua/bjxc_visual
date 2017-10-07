@@ -58,8 +58,12 @@ function initFormerDate(newsId) {
                 	$("#editPicName").html(vo.picName);                	
                     $("#edit_pic_order").val(vo.picOrder);
                     $("#edit_pic_title").val(vo.title);
-                    $("#pic_content").val(vo.picContent);                                               
-                    UE.getEditor('edit_pic_content').setContent(vo.content);
+//                    $("#pic_content").val(vo.picContent);   
+                    var ue = UE.getEditor('edit_pic_content');
+                    ue.addListener("ready", function () { 
+                    	 ue.setContent(vo.newsContent);
+                    });
+                   
                 }
             }
         }

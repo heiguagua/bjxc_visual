@@ -39,7 +39,7 @@
                             
                             <div class="form-group">
                                 <label for="icon">选择图标*</label>
-                                <select id="Eicon" name="icon" class="form-control select2" style="width: 100%;">             
+                                <select id="Eicon" name="icon" class="form-control select2" style="width: 100%;" data-rule="选择图标:required">             
                                 		  <!-- <option value =""></option>
                                 		  <option value ="volvo">Volvo</option>
 										  <option value ="saab">Saab</option>
@@ -50,7 +50,7 @@
                             <div class="form-group">
                                 <label for="orderNumber">排序号*</label>
                                  <input type="text" id="Eorder_number" name="orderNumber" class="form-control"
-                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber">
+                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=basePath%>/dirClassify/CheckOrderNumber)">
                             </div>
                             
                             <div class="form-group">

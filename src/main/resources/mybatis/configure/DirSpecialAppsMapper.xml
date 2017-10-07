@@ -46,6 +46,14 @@
              t.app_name LIKE CONCAT('%',#{searchKey},'%')
         </if>                                                                                                                                                                                                                                </where>
     </sql>
+    
+    <select id="selectVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
+        FROM dir_classify t
+        LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
+        <include refid="queryConditions"></include>and t.delete_flag = 0 
+        order by order_number
+    </select>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
     		SELECT t.* FROM dir_special_apps t 
@@ -62,7 +70,12 @@
     </select>
 
     <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
-    	SELECT count(1) FROM dir_special_apps t <include refid="queryConditions"></include>
+    	SELECT count(1) FROM dir_special_apps t 
+    	WHERE t.delete_flag = #{deleteFlag,jdbcType=INTEGER}             
+        	
+        	<if test="searchKey != null  and searchKey!='' ">
+           		and t.app_name LIKE CONCAT('%',#{searchKey},'%')
+        	</if>
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirSpecialApps">
