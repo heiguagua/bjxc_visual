@@ -39,7 +39,7 @@ import java.util.Map;
  * @since 2017-09-27
  */
 @Controller
-@RequestMapping("/drapInfoSystem")
+@RequestMapping("/drap/drapInfoSystem")
 //todo 将所有的XXX修改为真实值
 public class DrapInfoSystemController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
