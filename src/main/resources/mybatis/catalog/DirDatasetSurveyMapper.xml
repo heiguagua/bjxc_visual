@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetSurveyMapper">
+    <resultMap id="result_DirDatasetSurvey_Map" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
+        <id column="id" property="id" />
+        <result column="dataset_id" property="datasetId" />
+        <result column="total_storage" property="totalStorage" />
+        <result column="structure_count" property="structureCount" />
+        <result column="shared_storage" property="sharedStorage" />
+        <result column="shared_structure_count" property="sharedStructureCount" />
+        <result column="opened_storage" property="openedStorage" />
+        <result column="opened_structure_count" property="openedStructureCount" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
+        insert into dir_dataset_survey(id,dataset_id,total_storage,structure_count,shared_storage,shared_structure_count,opened_storage,opened_structure_count) 
+        values(#{id},#{datasetId},#{totalStorage},#{structureCount},#{sharedStorage},#{sharedStructureCount},#{openedStorage},#{openedStructureCount})
+    </insert>
+</mapper>
