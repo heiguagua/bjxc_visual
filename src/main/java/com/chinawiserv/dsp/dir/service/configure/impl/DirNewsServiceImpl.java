@@ -106,7 +106,10 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
             return "samePic";
         }else{
             //上传图片
-            Properties properties = PropertiesLoaderUtils.loadAllProperties("/conf/common.properties");
+
+            Properties properties = new Properties();
+            properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+//            Properties properties = PropertiesLoaderUtils.loadProperties(this.getClass().getClassLoader().getResource("conf/common.properties"));
             String mapUrl = properties.getProperty("datastreet.upload.native.image_path");
             String lunboDir = properties.getProperty("datastreet.upload.native.image_path.lunboDir");
             if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
@@ -193,7 +196,10 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
                 return "samePic";
             }else{
                 //上传图片
-                Properties properties = PropertiesLoaderUtils.loadAllProperties("/conf/common.properties");
+
+                Properties properties = new Properties();
+                properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+//                Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
                 String mapUrl = properties.getProperty("datastreet.upload.native.image_path");
                 String lunboDir = properties.getProperty("datastreet.upload.native.image_path.lunboDir");
                 if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
