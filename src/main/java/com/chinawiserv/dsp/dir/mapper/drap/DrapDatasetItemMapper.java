@@ -29,4 +29,6 @@ public interface DrapDatasetItemMapper extends BaseMapper<DrapDatasetItem> {
     int baseUpdate(DrapDatasetItem entity);
 
     int baseDelete(String id);
+
+    void batchInsert(List<DrapDatasetItem> drapDatasetItemList);
 }
