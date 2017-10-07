@@ -6,7 +6,8 @@
 
 <%
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-    String context_path=request.getContextPath();
+    System.out.println(basePath);
+String context_path=request.getContextPath();
 %>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
