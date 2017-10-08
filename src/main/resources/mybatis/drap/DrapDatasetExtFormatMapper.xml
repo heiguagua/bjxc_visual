@@ -47,6 +47,13 @@
         #{id},#{datasetId},#{formatCategory},#{formatType},#{formatInfo})
     </insert>
 
+    <insert id="batchInsert" parameterType="java.util.Map">
+        insert into drap_dataset_ext_format(id,dataset_id,format_category,format_type,format_info) values
+        <foreach collection="list" item="item" separator=",">
+        (#{item.id},#{item.datasetId},#{item.formatCategory},#{item.formatType},#{item.formatInfo})
+        </foreach>
+    </insert>
+
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetExtFormat">
         update drap_dataset_ext_format
         <set>

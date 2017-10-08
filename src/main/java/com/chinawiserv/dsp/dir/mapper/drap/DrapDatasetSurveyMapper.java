@@ -29,4 +29,6 @@ public interface DrapDatasetSurveyMapper extends BaseMapper<DrapDatasetSurvey> {
     int baseUpdate(DrapDatasetSurvey entity);
 
     int baseDelete(String id);
+
+    void batchInsert(List<DrapDatasetSurvey> drapDatasetSurveyList);
 }

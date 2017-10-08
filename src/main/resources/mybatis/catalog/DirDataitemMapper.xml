@@ -226,7 +226,7 @@
     </delete>
 
     <delete id="flagDelete" parameterType="java.util.Map">
-        update dir_dataset set delete_flag=1
+        update dir_dataitem set delete_flag=1
         <include refid="deleteWhereCause"/>
     </delete>
 

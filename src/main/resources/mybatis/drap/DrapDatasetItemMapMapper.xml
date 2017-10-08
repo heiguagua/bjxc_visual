@@ -45,6 +45,13 @@
         #{id},#{datasetId},#{itemId})
     </insert>
 
+    <insert id="batchInsert" parameterType="java.util.Map">
+        insert into drap_dataset_item_map(id,dataset_id,item_id) values
+        <foreach collection="list" item="item" separator=",">
+        (#{item.id},#{item.datasetId},#{item.itemId})
+        </foreach>
+    </insert>
+
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetItemMap">
         update drap_dataset_item_map
         <set>
