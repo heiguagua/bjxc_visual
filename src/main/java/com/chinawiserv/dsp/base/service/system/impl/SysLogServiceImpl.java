@@ -53,12 +53,8 @@ public class SysLogServiceImpl extends CommonServiceImpl<SysLogMapper, SysLog , 
 	@Override
 	public Page<SysLogVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
 		Page<SysLogVo> page = getPage(paramMap) ;
-
-		if (!paramMap.containsKey("sortName")) {
-			page.setOrderByField("operate_time");
-			page.setAsc(false);
-		}
-
+		page.setOrderByField("operate_time");
+		page.setAsc(false);
 		String operateTimeRange = MapUtils.getString(paramMap , "operateTimeRange");
 		//日期查询
 		if(StringUtils.isNotBlank(operateTimeRange)){
@@ -67,7 +63,7 @@ public class SysLogServiceImpl extends CommonServiceImpl<SysLogMapper, SysLog , 
 			paramMap.put("operateTimeEnd" , dateRangeArr[1].trim());
 		}
 		page.setRecords(sysLogMapper.selectVoPage(page, paramMap));
-
+		page.setTotal(sysLogMapper.selectVoCount(paramMap));
 		return page;
 	}
 
