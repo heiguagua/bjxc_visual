@@ -2,22 +2,28 @@ package com.chinawiserv.dsp.dir.controller.catalog;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
-import com.chinawiserv.dsp.dir.entity.po.catalog.ExportDatasetExcel;
+import com.chinawiserv.dsp.base.service.system.ISysDictService;
+import com.chinawiserv.dsp.dir.entity.po.catalog.*;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
 import com.chinawiserv.dsp.dir.schema.ExportExcelUtil;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetSourceRelationService;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +42,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -64,6 +73,12 @@ public class DirDatasetController extends BaseController {
 
     @Autowired
     private DirClassifyMapper classifyMapper;
+
+    @Autowired
+    private ISysDictService sysDictService;
+
+    @Autowired
+    private DirDatasetClassifyMapMapper dirDatasetClassifyMapMapper;
 
     @RequestMapping("/catalogue")
     public  String init(@RequestParam Map<String , Object> paramMap){
@@ -701,5 +716,173 @@ public class DirDatasetController extends BaseController {
             os.close();
             wb.close();
         }
+    }
+
+
+
+    private boolean addDirDataset(Sheet sheet){
+        //存放数据集
+        List<DirDataset> lists=new ArrayList<DirDataset>();
+        //存放数据项
+        List<DirDataitemVo> items=new ArrayList<DirDataitemVo>();
+        //存放数据集-目录中间关系
+        List<DirDatasetClassifyMapVo> datamapList = new ArrayList<DirDatasetClassifyMapVo>();
+        //存放新增数据集
+        List<DirDataset> datasetList = new ArrayList<DirDataset>();
+        DirDataset dataset=null;
+        DirDataitemVo item=null;
+        Map<String, String> hashMap = new HashMap<String,String>();
+        for(int i=3;i<=sheet.getLastRowNum();i++){
+            item=new DirDataitemVo();
+            Row row = sheet.getRow(i);
+            String classifyId = getClassifyId(row, hashMap);
+            String datasetName = row.getCell(26).getStringCellValue();
+            boolean b=true;
+            for (DirDataset dirDataset : lists) {
+                if(dirDataset.getDatasetName().equals(datasetName)){
+                    item.setId(UUID.randomUUID().toString().replace("-", ""));
+                    item.setItemCode(UUID.randomUUID().toString().replace("-", ""));
+                    item.setDatasetId(dirDataset.getId());
+                    item.setCreateUserId(ShiroUtils.getLoginUserId());
+                    item.setItemName(row.getCell(41).getStringCellValue());
+                    item.setItemType(sysDictService.selectDictcodeByCategoryAndName(row.getCell(42).getStringCellValue(),"dataitemType"));
+                    row.getCell(43).setCellType(CellType.STRING);
+                    item.setItemLength(Integer.parseInt(row.getCell(43).getStringCellValue()));
+                    //共享类型
+                    item.setShareType(sysDictService.selectDictcodeByCategoryAndName(row.getCell(44).getStringCellValue(),"dataSetShareType"));
+                    //共享条件
+                    item.setShareCondition(row.getCell(45).getStringCellValue());
+                    //共享方式
+                    item.setShareMethodCategory(sysDictService.selectDictcodeByCategoryAndName(row.getCell(46).getStringCellValue(),"requirementExpectGetType"));
+                    item.setShareMethod(sysDictService.selectDictcodeByCategoryAndName(row.getCell(47).getStringCellValue(),"requirementExpectGetType"));
+                    //开放属性
+                    item.setIsOpen(row.getCell(48).getStringCellValue().trim().equals("是")?"1":"0");
+                    try {
+                        item.setOpenCondition(row.getCell(49).getStringCellValue());
+                    } catch (Exception e) {}
+                    item.setCreateTime(dirDataset.getCreateTime());
+                    items.add(item);
+                    b=false;
+                    break;
+                }
+            }
+            if(b){
+                //查询数据集是否存在
+                DirDataset tempDirDataset =service.selectDatasetByNameAndClassifyId(datasetName,classifyId);
+                if(tempDirDataset!=null){
+                    dataset=tempDirDataset;
+                    dataitemService.deleteByDatasetId(dataset.getId());
+                }else{
+                    dataset=new DirDataset();
+                    dataset.setDatasetName(datasetName);
+                    dataset.setId(UUID.randomUUID().toString().replace("-", ""));
+                    dataset.setDatasetCode(dataset.getId());
+                    //信息资源提供方代码
+                    String region = row.getCell(28).getStringCellValue();
+                    String name = row.getCell(29).getStringCellValue();
+                    String organization_code = null;//dirOrganizeMapper.selectByRegionAndName(region,name);
+                    dataset.setBelongDeptType(organization_code);
+                    dataset.setBelongDeptId(organization_code);
+                    //摘要
+                    dataset.setDatasetDesc(row.getCell(31).getStringCellValue());
+                    //信息资源格式
+                    dataset.setStorageMedium(sysDictService.selectDictcodeByCategoryAndName(row.getCell(32).getStringCellValue(),"setItemStoreMedia"));
+                    dataset.setShareMethodCategory(sysDictService.selectDictcodeByCategoryAndName(row.getCell(33).getStringCellValue(),"setItemStoreMedia"));
+                    //发布日期
+                    try {
+                        dataset.setCreateTime(row.getCell(51).getDateCellValue());
+                    } catch (Exception e) {
+                        String str=row.getCell(51).getStringCellValue();
+                        Date d=null;
+                        try {
+                            d=new SimpleDateFormat("yyyy/MM/dd").parse(str);
+                            dataset.setCreateTime(d);
+                        } catch (ParseException e1) {
+                        }
+                    }
+                    //数据集目录中间表
+                    DirDatasetClassifyMapVo datasetmap = new DirDatasetClassifyMapVo();
+                    datasetmap.setClassifyId(classifyId);
+                    datasetmap.setDatasetId(dataset.getId());
+                    datasetmap.setId(UUID.randomUUID().toString());
+                    datasetmap.setStatus("0");
+                    datasetmap.setDeleteFlag(0);
+                    datasetmap.setUpdateTime(new Date());
+                    datamapList.add(datasetmap);
+
+                    //存放需要新增的数据集
+                    datasetList.add(dataset);
+                }
+                lists.add(dataset);
+		    	/*数据项*/
+                item.setId(UUID.randomUUID().toString().replace("-", ""));
+                item.setItemCode(UUID.randomUUID().toString().replace("-", ""));
+                item.setDatasetId(dataset.getId());
+                item.setCreateUserId(ShiroUtils.getLoginUserId());
+                item.setItemName(row.getCell(41).getStringCellValue());
+                item.setItemType(sysDictService.selectDictcodeByCategoryAndName(row.getCell(42).getStringCellValue(),"dataitemType"));
+                row.getCell(43).setCellType(CellType.STRING);
+                item.setItemLength(Integer.parseInt(row.getCell(43).getStringCellValue()));
+                //共享类型
+                item.setShareType(sysDictService.selectDictcodeByCategoryAndName(row.getCell(44).getStringCellValue(),"dataSetShareType"));
+                //共享条件
+                item.setShareCondition(row.getCell(45).getStringCellValue());
+                //共享方式
+                item.setShareMethodCategory(sysDictService.selectDictcodeByCategoryAndName(row.getCell(46).getStringCellValue(),"requirementExpectGetType"));
+                item.setShareMethod(sysDictService.selectDictcodeByCategoryAndName(row.getCell(47).getStringCellValue(),"requirementExpectGetType"));
+                //开放属性
+                item.setIsOpen(row.getCell(48).getStringCellValue().trim().equals("是")?"1":"0");
+                try {
+                    item.setOpenCondition(row.getCell(49).getStringCellValue());
+                } catch (Exception e) {}
+                item.setCreateTime(new Date());
+                items.add(item);
+            }
+        }
+
+
+        //数据集
+        service.insertListDataset(datasetList);
+        //数据集-目录
+        if(datamapList!=null&&datamapList.size()>0){
+            dirDatasetClassifyMapMapper.insertListItem(datamapList);
+        }
+        //数据项
+        dataitemService.insertListItem(items);
+
+        return true;
+    }
+
+    private String getClassifyId(Row row, Map<String, String> hashMap) {
+        String classifyId=null;
+        String string1 = row.getCell(0).getStringCellValue().trim();
+        String string2 = row.getCell(1).getStringCellValue().trim();
+        String string3 = row.getCell(2).getStringCellValue().trim();
+        String string4 = row.getCell(3).getStringCellValue().trim();
+        String strc=string1+"->"+string2+"->"+string3+"->"+string4;
+        if(hashMap.containsKey(strc)){
+            classifyId= hashMap.get(strc);
+        }else{
+            classifyId= classifyMapper.selectClassifyByStructrue(strc);
+            hashMap.put(strc,classifyId);
+        }
+        return classifyId;
+    }
+
+    /**
+     * 创建poi工作簿
+     * @param is 文件流
+     * @param excelFileFileName 文件完整名称
+     * @return 工作簿对象
+     * @throws IOException
+     */
+    private Workbook createWorkbook(InputStream is,String excelFileFileName) throws IOException{
+        if(excelFileFileName.toLowerCase().endsWith("xls")){
+            return new HSSFWorkbook(is);
+        }
+        if(excelFileFileName.toLowerCase().endsWith("xlsx")){
+            return new XSSFWorkbook(is);
+        }
+        return null;
     }
 }

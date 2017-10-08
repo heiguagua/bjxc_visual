@@ -71,7 +71,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Date createTime = DateTimeUtils.stringToDate(DateTimeUtils.convertDateTime_YYYYMMDDHHMMSS(new Date()));
         vo.setId(datasetId);
         vo.setRegionCode(logionUser.getRegionCode());
-        vo.setSourceType(SourceTypeEnum.DATA_1.getDbValue());
+        //vo.setSourceType(SourceTypeEnum.DATA_1.getDbValue());
         vo.setStatus("0");
         vo.setCreateUserId(logionUser.getId());
         vo.setCreateTime(createTime);
@@ -674,5 +674,14 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     @Override
     public List<ExportDatasetExcel> selectExportLists(String [] tree_code, String dataset_name, String region_code) {
         return mapper.selectExportLists(tree_code,dataset_name,region_code);
+    }
+
+    @Override
+    public int insertListDataset(List<DirDataset> list) {
+        int i=0;
+        if(list==null&&list.size()>0){
+           i=mapper.insertListDataset(list);
+        }
+        return i;
     }
 }

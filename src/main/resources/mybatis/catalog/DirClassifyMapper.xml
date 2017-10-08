@@ -236,5 +236,14 @@
           </foreach>
         )
     </select>
+    
+    <select id="selectClassifyByStructrue" resultType="java.lang.String">
+        SELECT
+            id
+        FROM
+            dir_classify
+        WHERE
+            classify_structure_name = #{structure}
+    </select>
 
 </mapper>

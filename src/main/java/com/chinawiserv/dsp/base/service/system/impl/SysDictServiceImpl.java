@@ -10,6 +10,7 @@ import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -88,4 +89,13 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
 
         return dicts;
     }
+    @Override
+    public String selectDictcodeByCategoryAndName(String dict_name,String category){
+        String dictCode=null;
+        if(!StringUtils.isEmpty(dict_name)&&!StringUtils.isEmpty(category)){
+            dictCode= mapper.selectDictcodeByCategoryAndName(dict_name, category);
+        }
+        return dictCode;
+    };
+
 }

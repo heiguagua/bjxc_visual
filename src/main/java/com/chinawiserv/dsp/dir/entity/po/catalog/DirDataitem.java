@@ -67,6 +67,9 @@ public class DirDataitem implements Serializable {
      */
 	@TableField("share_method")
 	private String shareMethod;
+
+	@TableField("share_method_category")
+	private String shareMethodCategory;
     /**
      * 共享条件
      */
@@ -342,4 +345,11 @@ public class DirDataitem implements Serializable {
 		this.deleteFlag = deleteFlag;
 	}
 
+	public String getShareMethodCategory() {
+		return shareMethodCategory;
+	}
+
+	public void setShareMethodCategory(String shareMethodCategory) {
+		this.shareMethodCategory = shareMethodCategory;
+	}
 }

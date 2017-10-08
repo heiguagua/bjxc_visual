@@ -56,4 +56,6 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
     DrapDataset getDrapDatasetDetail(@Param("id") String id);
 
     List<ExportDatasetExcel> selectExportLists(@Param("tree_codes")String [] tree_codes, @Param("dataset_name")String dataset_name,@Param("region_code")String region_code);
+
+    int insertListDataset(@Param("list") List<DirDataset> list);
 }
