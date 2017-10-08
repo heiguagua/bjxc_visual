@@ -88,4 +88,9 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
 
         return dicts;
     }
+
+    @Override
+	public List<SysDictVo> selectVoCategoryList(Map<String, Object> paramMap) {
+		return mapper.selectVoListForTreeData(paramMap);
+	}
 }

@@ -22,6 +22,8 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
 
     List<SysDictVo> selectDictList(Map<String, Object> paramMap);
 
+    
+    List<SysDictVo> selectVoListForTreeData(Map<String, Object> paramMap);
     SysDictVo selectVoById(String id);
 
     int selectVoCount(Map<String, Object> paramMap);

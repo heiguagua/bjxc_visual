@@ -2,7 +2,9 @@ package com.chinawiserv.dsp.dir.mapper.configure;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
 import com.chinawiserv.dsp.dir.entity.po.configure.DirSpecialApps;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirSpecialAppsVo;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,9 @@ public interface DirSpecialAppsMapper extends BaseMapper<DirSpecialApps> {
     List<DirSpecialAppsVo> selectVoPage(Page<DirSpecialAppsVo> page, Map<String, Object> paramMap);
 
     DirSpecialAppsVo selectVoById(String id);
+    
+    SysDictVo selectVoCategoryApp(String dictCode);
+    
     
     //逻辑删除
     void updateDeleteFlag(String id);
