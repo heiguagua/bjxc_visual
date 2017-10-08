@@ -2,10 +2,12 @@ package com.chinawiserv.dsp.base.controller.system;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -156,6 +159,28 @@ public class SysRegionController extends BaseController {
         } catch (Exception e) {
             handleResult.error("获取区域列表失败");
             logger.error("获取区域列表失败", e);
+        }
+        return handleResult;
+    }
+
+    @RequestMapping("/getRegionListForLoginUser")
+    @ResponseBody
+    public  HandleResult getRegionListForLoginUser(@RequestParam Map<String , Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        try {
+            SysUserVo loginUser = ShiroUtils.getLoginUser();
+            String regionCode = loginUser.getRegionCode();
+            if(!StringUtils.isEmpty(regionCode)){
+                List<SysRegionVo> sysRegionVoList= service.selectAllRegionByRegionCode(regionCode);
+                SysRegionVo userRegion = service.getRegionDataByCode(regionCode);
+                handleResult.put("selectData", sysRegionVoList);
+                handleResult.put("userRegion", userRegion);
+            }else{
+                handleResult.error("当前登录用户的区域编码为空");
+            }
+        } catch (Exception e) {
+            handleResult.error("获取登录用户的区域列表失败");
+            logger.error("获取登录用户的区域列表失败", e);
         }
         return handleResult;
     }
