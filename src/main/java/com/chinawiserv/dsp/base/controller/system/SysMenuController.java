@@ -11,6 +11,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.ListResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysMenu;
+import com.chinawiserv.dsp.base.entity.vo.system.SysIconVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysMenuVo;
 import com.chinawiserv.dsp.base.enums.system.Menu;
 import com.chinawiserv.dsp.base.service.system.ISysMenuService;
@@ -200,6 +201,25 @@ public class SysMenuController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             result.error("获取菜单下拉框的信息列表出错");
+        }
+        return result;
+    }
+
+    /**
+     * 获取菜单图标下拉框内容(封装成json数组的格式)
+     */
+    @RequiresPermissions("system:menu:list")
+    @RequestMapping("/menuIconSelect")
+    @ResponseBody
+    public HandleResult getMenuIconSelectData(@RequestParam Map<String, Object> paramMap){
+        HandleResult result = new HandleResult();
+        List<SysIconVo> selectDataList;
+        try {
+            selectDataList = sysMenuService.selectMenuIcon();
+            result.put("selectData",selectDataList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.error("获取菜单图标的信息列表出错");
         }
         return result;
     }

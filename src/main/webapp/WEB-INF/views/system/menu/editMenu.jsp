@@ -44,9 +44,12 @@
                                        data-rule="排序:required;integer[+0]">
                             </div>
                             <div class="form-group">
-                                <label for="icon">图标</label>
-                                <input type="text" id="icon" name="icon" class="form-control"
-                                       placeholder="请输入图标,如fa-menu">
+                                <label for="iconName">图标</label>
+                                <select id="iconName" name="iconName" class="form-control">
+                                </select>
+                                <input type="hidden" id="icon" name="icon">
+                                <%--<input type="text" id="icon" name="icon" class="form-control"
+                                       placeholder="请输入图标,如fa-menu">--%>
                             </div>
 
                         </div>
