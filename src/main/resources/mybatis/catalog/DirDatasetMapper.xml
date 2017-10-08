@@ -72,8 +72,11 @@
             <if test="id != null">
                 and t.id = #{id,jdbcType=VARCHAR}
             </if>
-            <if test="datasetName != null">
+            <if test="datasetName != null and datasetName !='' ">
                 and t.dataset_name like concat('%',#{datasetName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="allRegionCode!= null and allRegionCode !='' ">
+                and t.region_code in (${allRegionCode})
             </if>
         </where>
     </sql>
@@ -81,7 +84,7 @@
     <!--编目列表目录类别查询条件过滤 -->
     <sql id="classifyConditions">
         <where>
-            <if test="classifyId!= null">
+            <if test="classifyId!= null and classifyId !='' ">
                 and m.classify_id in (select id from dir_classify where tree_code like concat((select tree_code from dir_classify where id=#{classifyId, jdbcType=VARCHAR}),'%'))
             </if>
         </where>

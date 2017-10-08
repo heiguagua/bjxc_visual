@@ -152,9 +152,9 @@
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             update dir_dataitem
             <set>
-                <if test="item.datasetId != null">
+                <!--<if test="item.datasetId != null">
                     dataset_id = #{item.datasetId},
-                </if>
+                </if>-->
                 <if test="item.itemCode != null">
                     item_code = #{item.itemCode},
                 </if>

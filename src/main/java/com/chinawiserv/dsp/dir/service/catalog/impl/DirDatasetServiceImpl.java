@@ -3,7 +3,9 @@ package com.chinawiserv.dsp.dir.service.catalog.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.*;
 import com.chinawiserv.dsp.dir.enums.apply.SourceTypeEnum;
@@ -53,13 +55,16 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     private DirDataOfflineMapper offlineMapper;
 
     @Autowired
-    private IDirClassifyService dirClassifyService;
-
-    @Autowired
     private DirDataitemSourceInfoMapper sourceInfoMapper;
 
     @Autowired
     private DirDatasetSurveyMapper surveyMapper;
+
+    @Autowired
+    private IDirClassifyService dirClassifyService;
+
+    @Autowired
+    private ISysRegionService sysRegionService;
 
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
@@ -177,7 +182,11 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             surveyParam.put("datasetId",datasetId);
             List<DirDatasetSurveyVo> surveyVoList= surveyMapper.baseSelect(surveyParam);
             if(!ObjectUtils.isEmpty(surveyVoList)){
-                surveyMapper.baseUpdate(survey);
+                if(survey.getOpenedStorage()!=null || survey.getOpenedStructureCount()!=null
+                        || survey.getSharedStorage()!=null || survey.getSharedStructureCount()!=null
+                        || survey.getStructureCount()!=null || survey.getTotalStorage()!=null){
+                    surveyMapper.baseUpdate(survey);
+                }
             }else{
                 survey.setId(UUID.randomUUID().toString());
                 surveyMapper.baseInsert(survey);
@@ -327,8 +336,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                         updateItemVo.setDatasetId(datasetId);
                         updateItemVo.setUpdateUserId(updateUserId);
                         updateItemVo.setUpdateTime(updateTime);
+                        itemMapper.baseUpdate(updateItemVo);
                     }
-                    itemMapper.batchUpdate(needUpdateItemList);
+//                    itemMapper.batchUpdate(needUpdateItemList);
                 }
                 //将该删除的中间表的数据的删除标识改为1
                 if(needDeleteItemList.size()>0){
@@ -336,8 +346,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                         deleteItemVo.setDeleteFlag(1);
                         deleteItemVo.setUpdateUserId(updateUserId);
                         deleteItemVo.setUpdateTime(updateTime);
+                        itemMapper.baseUpdate(deleteItemVo);
                     }
-                    itemMapper.batchUpdate(needDeleteItemList);
+//                    itemMapper.batchUpdate(needDeleteItemList);
                 }
             }else{//如果表里该数据集没有任何数据项，则全部新增
                 for(DirDataitemVo addItemVo : newItemVoList){
@@ -355,8 +366,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     deleteItemVo.setDeleteFlag(1);
                     deleteItemVo.setUpdateUserId(updateUserId);
                     deleteItemVo.setUpdateTime(updateTime);
+                    itemMapper.baseUpdate(deleteItemVo);
                 }
-                itemMapper.batchUpdate(oldItemVoList);
+//                itemMapper.batchUpdate(oldItemVoList);
             }
         }
     }
@@ -416,6 +428,22 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetVo> page = getPage(paramMap);
         page.setOrderByField("create_time");
         page.setAsc(false);
+        String regionCode = (String)paramMap.get("regionCode");
+        if(!StringUtils.isEmpty(regionCode)){
+            StringBuffer allRegionCodeBuffer = new StringBuffer();
+            List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
+            if(!ObjectUtils.isEmpty(SysRegionVoList)){
+                for(SysRegionVo vo : SysRegionVoList){
+                    String subRegionCode = vo.getRegionCode();
+                    allRegionCodeBuffer.append("'").append(subRegionCode).append("',");
+                }
+                if(allRegionCodeBuffer.length()>0){
+                    String allRegionCode = allRegionCodeBuffer.toString();
+                    allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
+                    paramMap.put("allRegionCode",allRegionCode);
+                }
+            }
+        }
         List<DirDatasetVo> dirDatasetClassifyMapVoList = mapper.selectInfoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
@@ -427,6 +455,22 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
         page.setOrderByField("update_time");
         page.setAsc(false);
+        String regionCode = (String)paramMap.get("regionCode");
+        if(!StringUtils.isEmpty(regionCode)){
+            StringBuffer allRegionCodeBuffer = new StringBuffer();
+            List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
+            if(!ObjectUtils.isEmpty(SysRegionVoList)){
+                for(SysRegionVo vo : SysRegionVoList){
+                    String subRegionCode = vo.getRegionCode();
+                    allRegionCodeBuffer.append("'").append(subRegionCode).append("',");
+                }
+                if(allRegionCodeBuffer.length()>0){
+                    String allRegionCode = allRegionCodeBuffer.toString();
+                    allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
+                    paramMap.put("allRegionCode",allRegionCode);
+                }
+            }
+        }
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));

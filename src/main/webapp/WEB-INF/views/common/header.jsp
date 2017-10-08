@@ -13,10 +13,12 @@
 		color: #fff;
 		text-align: center;
 		font-size:14px;
-		cursor: pointer;
 		opacity: 0.45;
 		font-family: PingFangSC-Regular;
 	}
+    .citytitle .defaultcity img.changeAdress{
+        cursor: pointer;
+    }
 	.citytitle .innerul{width: 427px;
 	/* height: 400px; */
 	list-style: none;background: #fff; z-index: 999;
@@ -37,7 +39,7 @@
     .btn-group a:link{ color:#ffffff}/* 链接默认为白色 */
     .btn-group a:hover{ color:#00a7d0}/* 鼠标悬停蓝色 */
 </style>
-
+<script src="<%=basePath%>/js/system/region/region_switch.js"></script>
 <header class="main-header">
  <!-- Logo -->
  <a href="<%=basePath%>/data/collectJob" class="logo">
@@ -92,7 +94,7 @@
         <li>
          <!-- Menu Toggle Button -->
           <a class="citytitle">
-			<span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span">chengdu</span>&emsp;<img class="changeAdress" src="<%=basePath%>/images/userImg/changeAdress.png" /></span>
+			<span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span">成都</span>&emsp;<img class="changeAdress" src="<%=basePath%>/images/userImg/changeAdress.png" /></span>
 			<ul class="innerul" id="box1">
 			</ul>
 		  </a>
@@ -121,25 +123,22 @@
 <script type="text/javascript">
 
 $(".citytitle .defaultcity img.changeAdress").click(function(){
-	$(".citytitle .innerul").stop().toggle(500);
+//	$(".citytitle .innerul").stop().toggle(500);
+    $(".citytitle .innerul").toggle(500);
 })
 $(".citytitle .innerul").delegate("li",'click',function(event){
-		var k =$(this).index();
-		$(".citytitle .defaultcity").text($(this).text())
-		event.stopPropagation();
-		$(".citytitle .innerul").stop().slideUp();
-		/* var click_region_code = $(this).attr("region_code");
-		var regionObj = JSON.parse(window.localStorage.getItem("regionObj"));
-		if(regionObj.code != click_region_code){
-			for(var i = 0 ;i < regions.length; i++){
-				if(regions[i].regionCode == click_region_code){
-					var regionObj = {name:regions[i].regionName , code : regions[i].regionCode};
-					var regionsi_str = JSON.stringify(regionObj);
-					window.localStorage.setItem("regionObj", regionsi_str);
-				}
-			}
-			console.log(JSON.parse(window.localStorage.getItem("regionObj")));
-		} */
+    $(".citytitle .defaultcity span.Defaultcity_span").text($(this).text())
+    event.stopPropagation();
+    $(".citytitle .innerul").stop().slideUp();
+    var selectedRegionObj = {name:$(this).text() , code : $(this).attr("region_code")};
+    var selectedRegionObj_str = JSON.stringify(selectedRegionObj);
+    window.localStorage.setItem("regionObj", selectedRegionObj_str);
+    if($(tableSelector)){
+        setParams();
+        reloadTable();
+//        $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
+//        $(tableSelector).data("bootstrap.table").refresh();
+    }
 })
 
 </script>
