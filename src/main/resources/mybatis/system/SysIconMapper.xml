@@ -24,6 +24,9 @@
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
+            <if test="iconType != null">
+                AND t.icon_type = #{iconType,jdbcType=VARCHAR}
+            </if>
         </where>
     </sql>
 

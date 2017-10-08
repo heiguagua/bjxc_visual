@@ -30,5 +30,5 @@ public interface DrapDatasetMapper extends BaseMapper<DrapDataset> {
 
     int baseDelete(String id);
 
-    void batchInsert(List<DrapDataset> drapDatasetList);
+    void batchInsert(List<DrapDatasetVo> drapDatasetList);
 }

@@ -57,4 +57,7 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
     int baseDelete(String id);
 
     Set<String> selectClassifyByIds(@Param("arr")String [] arr);
+
+    public String selectClassifyByStructrue(@Param("structure") String structure);
+
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wuty
- * @since 2017-09-27
+ * @since 2017-10-08
  */
 @TableName("drap_dataset")
 public class DrapDataset implements Serializable {
@@ -27,6 +27,11 @@ public class DrapDataset implements Serializable {
      */
 	@TableField("region_code")
 	private String regionCode;
+    /**
+     * 【国】信息资源提供方类型
+     */
+	@TableField("belong_dept_type")
+	private String belongDeptType;
     /**
      * 【国】信息资源提供方ID
      */
@@ -47,6 +52,11 @@ public class DrapDataset implements Serializable {
      */
 	@TableField("belong_activity_id")
 	private String belongActivityId;
+    /**
+     * 所属系统
+     */
+	@TableField("belong_system_id")
+	private String belongSystemId;
     /**
      * 数据集编号
      */
@@ -87,7 +97,12 @@ public class DrapDataset implements Serializable {
 	@TableField("share_condition_desc")
 	private String shareConditionDesc;
     /**
-     * 【国】信息资源共享方式
+     * 【国】信息资源共享方式分类
+     */
+	@TableField("share_method_category")
+	private String shareMethodCategory;
+    /**
+     * 【国】信息资源共享方式类型
      */
 	@TableField("share_method")
 	private String shareMethod;
@@ -136,6 +151,16 @@ public class DrapDataset implements Serializable {
      */
 	@TableField("is_secret")
 	private String isSecret;
+    /**
+     * 基础目录
+     */
+	@TableField("basic_classify")
+	private String basicClassify;
+    /**
+     * 主题目录
+     */
+	@TableField("subject_classify")
+	private String subjectClassify;
     /**
      * 存储介质
      */
@@ -203,6 +228,14 @@ public class DrapDataset implements Serializable {
 		this.regionCode = regionCode;
 	}
 
+	public String getBelongDeptType() {
+		return belongDeptType;
+	}
+
+	public void setBelongDeptType(String belongDeptType) {
+		this.belongDeptType = belongDeptType;
+	}
+
 	public String getBelongDeptId() {
 		return belongDeptId;
 	}
@@ -233,6 +266,14 @@ public class DrapDataset implements Serializable {
 
 	public void setBelongActivityId(String belongActivityId) {
 		this.belongActivityId = belongActivityId;
+	}
+
+	public String getBelongSystemId() {
+		return belongSystemId;
+	}
+
+	public void setBelongSystemId(String belongSystemId) {
+		this.belongSystemId = belongSystemId;
 	}
 
 	public String getDatasetCode() {
@@ -297,6 +338,14 @@ public class DrapDataset implements Serializable {
 
 	public void setShareConditionDesc(String shareConditionDesc) {
 		this.shareConditionDesc = shareConditionDesc;
+	}
+
+	public String getShareMethodCategory() {
+		return shareMethodCategory;
+	}
+
+	public void setShareMethodCategory(String shareMethodCategory) {
+		this.shareMethodCategory = shareMethodCategory;
 	}
 
 	public String getShareMethod() {
@@ -377,6 +426,22 @@ public class DrapDataset implements Serializable {
 
 	public void setIsSecret(String isSecret) {
 		this.isSecret = isSecret;
+	}
+
+	public String getBasicClassify() {
+		return basicClassify;
+	}
+
+	public void setBasicClassify(String basicClassify) {
+		this.basicClassify = basicClassify;
+	}
+
+	public String getSubjectClassify() {
+		return subjectClassify;
+	}
+
+	public void setSubjectClassify(String subjectClassify) {
+		this.subjectClassify = subjectClassify;
 	}
 
 	public String getStoreMedia() {

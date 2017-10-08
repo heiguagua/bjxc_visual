@@ -8,6 +8,8 @@ jQuery(document).ready(function () {
 });
 
 function initTable(){
+    var regionCode = $.getSelectedRegionCode();
+    paramsObj["regionCode"] = regionCode;
     jQuery(tableSelector).customTable({
         url: basePathJS + '/catalog/catalogue/list',
         queryParams: function (params) {
@@ -161,7 +163,8 @@ function initButtonClickEvent(){
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    var regionCode = $.getSelectedRegionCode();
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
 }
 
 function reloadTable() {
@@ -189,4 +192,7 @@ function quickSystemAddDatasetUI() {
 }
 function quickCsAddDatasetUI() {
     add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI',1300,800);
+}
+function excelImportUI() {
+    addNews('导入',basePathJS +'/catalog/catalogue/excelImportUI',900,600);
 }

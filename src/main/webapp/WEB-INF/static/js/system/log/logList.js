@@ -35,7 +35,7 @@ $(document).ready(function () {
             title: '操作时间',
             align: 'center',
             valign: 'middle',
-            sortable: true
+            sortable: false
         }, {
             field: 'id',
             title: '操作',

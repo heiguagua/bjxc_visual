@@ -72,8 +72,11 @@
             <if test="id != null">
                 and t.id = #{id,jdbcType=VARCHAR}
             </if>
-            <if test="datasetName != null">
+            <if test="datasetName != null and datasetName !='' ">
                 and t.dataset_name like concat('%',#{datasetName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="allRegionCode!= null and allRegionCode !='' ">
+                and t.region_code in (${allRegionCode})
             </if>
         </where>
     </sql>
@@ -81,7 +84,7 @@
     <!--编目列表目录类别查询条件过滤 -->
     <sql id="classifyConditions">
         <where>
-            <if test="classifyId!= null">
+            <if test="classifyId!= null and classifyId !='' ">
                 and m.classify_id in (select id from dir_classify where tree_code like concat((select tree_code from dir_classify where id=#{classifyId, jdbcType=VARCHAR}),'%'))
             </if>
         </where>
@@ -539,5 +542,20 @@
             AND d.dataset_name LIKE CONCAT("%",#{dataset_name},"%")
         </if>
         GROUP BY dd.id
+    </select>
+
+    <insert id="insertListDataset">
+        insert into dir_dataset(id,region_code,dataset_code,dataset_name,alias,belong_dept_type,belong_dept_id,dataset_desc,share_type,share_condition,share_method_category,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,secret_flag,source_type,status,create_user_id,create_time,update_user_id,update_time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.regionCode},#{item.datasetCode},#{item.datasetName},#{item.alias},#{item.belongDeptType},#{item.belongDeptId},#{item.datasetDesc},#{item.shareType},#{item.shareCondition},#{item.shareMethodCategory},#{item.shareMethod},#{item.shareMethodDesc},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},#{item.relDatasetCode},#{item.storageMedium},#{item.storageLocation},#{item.dataLevel},#{item.dataIndexSystem},#{item.secretFlag},#{item.sourceType},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},#{item.updateTime})
+        </foreach>
+    </insert>
+
+    <select id="selectDatasetByNameAndClassifyId" resultMap="BaseResultMap">
+        SELECT dd.*
+        FROM dir_dataset dd
+        LEFT JOIN dir_dataset_classify_map ddcm ON dd.id=ddcm.dataset_id
+        WHERE dd.dataset_name=#{datasetName} AND ddcm.classify_id=#{classifyId}
     </select>
 </mapper>

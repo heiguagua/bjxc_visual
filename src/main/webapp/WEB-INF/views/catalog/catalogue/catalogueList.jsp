@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
-                                                data-toggle="dropdown">
+                                                data-toggle="dropdown" onclick="javascript:excelImportUI()">
                                             <!-- <i class="fa fa-plus"></i> -->导入
                                         </button>
                                     </div>

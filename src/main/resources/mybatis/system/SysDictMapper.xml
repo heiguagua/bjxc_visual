@@ -132,5 +132,10 @@
         </where>
     </sql>
 
+    <select id="selectDictcodeByCategoryAndName" resultType="java.lang.String">
+        SELECT dict_code
+        FROM sys_dict WHERE dict_name=#{dict_name} AND category =#{category}
+        LIMIT 1
+    </select>
 
 </mapper>

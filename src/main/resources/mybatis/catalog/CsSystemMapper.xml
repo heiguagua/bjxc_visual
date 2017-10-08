@@ -3,7 +3,7 @@
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.CsSystemMapper">
 
     <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <select id="selectProjectList" resultType="java.lang.String">
         SELECT DISTINCT(project_name) FROM cs_data_sync_collect

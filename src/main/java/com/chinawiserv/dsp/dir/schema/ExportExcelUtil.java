@@ -152,12 +152,12 @@ public class ExportExcelUtil {
     public  CellStyle setSimpleCellStyle(Workbook wb){
         CellStyle cs = wb.createCellStyle();
 
-        cs.setBorderBottom(CellStyle.BORDER_THIN); //下边框
+        /*cs.setBorderBottom(CellStyle.BORDER_THIN); //下边框
         cs.setBorderLeft(CellStyle.BORDER_THIN);//左边框
         cs.setBorderTop(CellStyle.BORDER_THIN);//上边框
         cs.setBorderRight(CellStyle.BORDER_THIN);//右边框
 
-        cs.setAlignment(CellStyle.ALIGN_CENTER); // 居中
+        cs.setAlignment(CellStyle.ALIGN_CENTER); // 居中*/
 
         return cs;
     }
