@@ -9536,151 +9536,151 @@ INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,c
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
 	VALUES ('3','510100','3','政务部门信息资源目录','root','root',1,1,3,NULL,'政务部门信息资源目录','Y','3');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('301','510100','301','省（自治区、直辖市）和计划单列市','3','政务部门信息资源目录',1,1,NULL,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市','Y','3;1');
+	VALUES ('301','510100','301','省（自治区、直辖市）和计划单列市','3','政务部门信息资源目录',2,1,NULL,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市','Y','3;1');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('30101','510100','30101','四川省成都市','301','省（自治区、直辖市）和计划单列市',1,71,NULL,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市','Y','3;1;1');
+	VALUES ('301001','510100','301001','四川省成都市','301','省（自治区、直辖市）和计划单列市',3,71,NULL,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市','Y','3;1;1');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('BD-ccWE4Eee_CbtX-XgMXQ','510100','510100-C-001-022','市人民政府应急管理办公室','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民政府应急管理办公室','Y','3;1;1;1');
+	VALUES ('BD-ccWE4Eee_CbtX-XgMXQ','510100','510100-C-001-022','市人民政府应急管理办公室','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民政府应急管理办公室','Y','3;1;1;1');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('f9HMgWB3Eeej3o9rntVaEg','510100','510100-C-010','市司法局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市司法局','Y','3;1;1;10');
+	VALUES ('f9HMgWB3Eeej3o9rntVaEg','510100','510100-C-010','市司法局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市司法局','Y','3;1;1;10');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('OUgeYWE4Eeeaca8UnmfB7g','510100','510100-C-011','市财政局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市财政局','Y','3;1;1;11');
+	VALUES ('OUgeYWE4Eeeaca8UnmfB7g','510100','510100-C-011','市财政局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市财政局','Y','3;1;1;11');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('QbgAEGE4EeeFD_GHreZ8qw','510100','510100-C-012','市人力资源和社会保障局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人力资源和社会保障局','Y','3;1;1;12');
+	VALUES ('QbgAEGE4EeeFD_GHreZ8qw','510100','510100-C-012','市人力资源和社会保障局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人力资源和社会保障局','Y','3;1;1;12');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('PX0VgWE4EeeRTvLasocMog','510100','510100-C-013','市国土资源局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市国土资源局','Y','3;1;1;13');
+	VALUES ('PX0VgWE4EeeRTvLasocMog','510100','510100-C-013','市国土资源局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市国土资源局','Y','3;1;1;13');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('UoZeUWE4Eee62JvpUZfL_w','510100','510100-C-014','市环境保护局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市环境保护局','Y','3;1;1;14');
+	VALUES ('UoZeUWE4Eee62JvpUZfL_w','510100','510100-C-014','市环境保护局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市环境保护局','Y','3;1;1;14');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('Qx4fwWE4EeeviatwtPPjAQ','510100','510100-C-015','市城乡建设委员会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市城乡建设委员会','Y','3;1;1;15');
+	VALUES ('Qx4fwWE4EeeviatwtPPjAQ','510100','510100-C-015','市城乡建设委员会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市城乡建设委员会','Y','3;1;1;15');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('gUNd4WB3Eeep7rXfne5KxA','510100','510100-C-016','市规划管理局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市规划管理局','Y','3;1;1;16');
+	VALUES ('gUNd4WB3Eeep7rXfne5KxA','510100','510100-C-016','市规划管理局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市规划管理局','Y','3;1;1;16');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('8gLMAWE1EeeXaO7AA5-TWg','510100','510100-C-017','市城乡房产管理局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市城乡房产管理局','Y','3;1;1;17');
+	VALUES ('8gLMAWE1EeeXaO7AA5-TWg','510100','510100-C-017','市城乡房产管理局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市城乡房产管理局','Y','3;1;1;17');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('2iNYwWE1EeeCBJyU7F4I7Q','510100','510100-C-018','市城市管理委员会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市城市管理委员会','Y','3;1;1;18');
+	VALUES ('2iNYwWE1EeeCBJyU7F4I7Q','510100','510100-C-018','市城市管理委员会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市城市管理委员会','Y','3;1;1;18');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('iBJg0WB3Eee9rNDYTU5vSQ','510100','510100-C-019','市交通运输委员会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市交通运输委员会','Y','3;1;1;19');
+	VALUES ('iBJg0WB3Eee9rNDYTU5vSQ','510100','510100-C-019','市交通运输委员会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市交通运输委员会','Y','3;1;1;19');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('XVFicV-VEeeHXP9idg4wQQ','510100','510100-C-002','市发展和改革委员会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市发展和改革委员会','Y','3;1;1;2');
+	VALUES ('XVFicV-VEeeHXP9idg4wQQ','510100','510100-C-002','市发展和改革委员会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市发展和改革委员会','Y','3;1;1;2');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('sV2yIWE4Eee59K3H8rpR4w','510100','510100-C-020','市口岸与物流办公室','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市口岸与物流办公室','Y','3;1;1;20');
+	VALUES ('sV2yIWE4Eee59K3H8rpR4w','510100','510100-C-020','市口岸与物流办公室','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市口岸与物流办公室','Y','3;1;1;20');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('RmhBsWE4EeesV5q5NCG0kg','510100','510100-C-021','市水务局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市水务局','Y','3;1;1;21');
+	VALUES ('RmhBsWE4EeesV5q5NCG0kg','510100','510100-C-021','市水务局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市水务局','Y','3;1;1;21');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('f9dSEWE4EeeWp6eeyMWx5A','510100','510100-C-022','市农业委员会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市农业委员会','Y','3;1;1;22');
+	VALUES ('f9dSEWE4EeeWp6eeyMWx5A','510100','510100-C-022','市农业委员会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市农业委员会','Y','3;1;1;22');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('kgi7cWB3EeeyM9k5IiUfMQ','510100','510100-C-023','市林业和园林管理局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市林业和园林管理局','Y','3;1;1;23');
+	VALUES ('kgi7cWB3EeeyM9k5IiUfMQ','510100','510100-C-023','市林业和园林管理局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市林业和园林管理局','Y','3;1;1;23');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('STMhgWE4EeeQ-beUCC2FSA','510100','510100-C-024','市商务委员会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市商务委员会','Y','3;1;1;24');
+	VALUES ('STMhgWE4EeeQ-beUCC2FSA','510100','510100-C-024','市商务委员会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市商务委员会','Y','3;1;1;24');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('mRD-IWE4EeeImJzLxMRZbg','510100','510100-C-025','市投资促进委员会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市投资促进委员会','Y','3;1;1;25');
+	VALUES ('mRD-IWE4EeeImJzLxMRZbg','510100','510100-C-025','市投资促进委员会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市投资促进委员会','Y','3;1;1;25');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('TKsKMGE4EeeJx4C88s_2hA','510100','510100-C-026','市文化广电新闻出版局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市文化广电新闻出版局','Y','3;1;1;26');
+	VALUES ('TKsKMGE4EeeJx4C88s_2hA','510100','510100-C-026','市文化广电新闻出版局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市文化广电新闻出版局','Y','3;1;1;26');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('T6J4QWE4Eeeh8a2TIuTVDw','510100','510100-C-027','市卫生和计划生育委员会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市卫生和计划生育委员会','Y','3;1;1;27');
+	VALUES ('T6J4QWE4Eeeh8a2TIuTVDw','510100','510100-C-027','市卫生和计划生育委员会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市卫生和计划生育委员会','Y','3;1;1;27');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('cIdWcWE4EeeqD7pgwUFHzg','510100','510100-C-028','市审计局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市审计局','Y','3;1;1;28');
+	VALUES ('cIdWcWE4EeeqD7pgwUFHzg','510100','510100-C-028','市审计局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市审计局','Y','3;1;1;28');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('kB5-8WE4Eeea37ZhYMeGVQ','510100','510100-C-029','市人民政府外事侨务办公室','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民政府外事侨务办公室','Y','3;1;1;29');
+	VALUES ('kB5-8WE4Eeea37ZhYMeGVQ','510100','510100-C-029','市人民政府外事侨务办公室','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民政府外事侨务办公室','Y','3;1;1;29');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('yk8mAV-VEeeyLJLOpCkbrw','510100','510100-C-003','市经济和信息化委员会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市经济和信息化委员会','Y','3;1;1;3');
+	VALUES ('yk8mAV-VEeeyLJLOpCkbrw','510100','510100-C-003','市经济和信息化委员会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市经济和信息化委员会','Y','3;1;1;3');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('HSopAWE2Eee686EaYo4qZQ','510100','510100-C-030','市国有资产监督管理委员会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市国有资产监督管理委员会','Y','3;1;1;30');
+	VALUES ('HSopAWE2Eee686EaYo4qZQ','510100','510100-C-030','市国有资产监督管理委员会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市国有资产监督管理委员会','Y','3;1;1;30');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('mOCYAWB3Eee_qdPB29ZTEQ','510100','510100-C-031','市工商行政管理局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市工商行政管理局','Y','3;1;1;31');
+	VALUES ('mOCYAWB3Eee_qdPB29ZTEQ','510100','510100-C-031','市工商行政管理局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市工商行政管理局','Y','3;1;1;31');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('oDPmIWB3Eee85efG844CHA','510100','510100-C-032','市质量技术监督局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市质量技术监督局','Y','3;1;1;32');
+	VALUES ('oDPmIWB3Eee85efG844CHA','510100','510100-C-032','市质量技术监督局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市质量技术监督局','Y','3;1;1;32');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('WF6lMWE4Eee4Tf8LRguxaA','510100','510100-C-033','市食品药品监督管理局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市食品药品监督管理局','Y','3;1;1;33');
+	VALUES ('WF6lMWE4Eee4Tf8LRguxaA','510100','510100-C-033','市食品药品监督管理局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市食品药品监督管理局','Y','3;1;1;33');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('g3EaoWE4EeewIfWW9xjUIw','510100','510100-C-034','市体育局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市体育局','Y','3;1;1;34');
+	VALUES ('g3EaoWE4EeewIfWW9xjUIw','510100','510100-C-034','市体育局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市体育局','Y','3;1;1;34');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('YQto0WE4EeeKsoZnMB0apA','510100','510100-C-035','市安全生产监督管理局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市安全生产监督管理局','Y','3;1;1;35');
+	VALUES ('YQto0WE4EeeKsoZnMB0apA','510100','510100-C-035','市安全生产监督管理局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市安全生产监督管理局','Y','3;1;1;35');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('VYjv8WE4EeeeXdWbnoRTOw','510100','510100-C-036','市统计局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市统计局','Y','3;1;1;36');
+	VALUES ('VYjv8WE4EeeeXdWbnoRTOw','510100','510100-C-036','市统计局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市统计局','Y','3;1;1;36');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('paVU4WB3EeeGzYXnXo01Ow','510100','510100-C-037','市旅游局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市旅游局','Y','3;1;1;37');
+	VALUES ('paVU4WB3EeeGzYXnXo01Ow','510100','510100-C-037','市旅游局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市旅游局','Y','3;1;1;37');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('c15rQWE4Eee7mNVhsCqaxg','510100','510100-C-038','市人民政府法制办公室','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民政府法制办公室','Y','3;1;1;38');
+	VALUES ('c15rQWE4Eee7mNVhsCqaxg','510100','510100-C-038','市人民政府法制办公室','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民政府法制办公室','Y','3;1;1;38');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('ayx88WE4Eeewct6VRld9rw','510100','510100-C-039','市金融工作办公室','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市金融工作办公室','Y','3;1;1;39');
+	VALUES ('ayx88WE4Eeewct6VRld9rw','510100','510100-C-039','市金融工作办公室','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市金融工作办公室','Y','3;1;1;39');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('MbnDEWE4EeeB6cbqj67bXw','510100','510100-C-004','市教育局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市教育局','Y','3;1;1;4');
+	VALUES ('MbnDEWE4EeeB6cbqj67bXw','510100','510100-C-004','市教育局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市教育局','Y','3;1;1;4');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('hTpo8GE4Eee5c8jarXTb3A','510100','510100-C-040','市机关事务管理局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市机关事务管理局','Y','3;1;1;40');
+	VALUES ('hTpo8GE4Eee5c8jarXTb3A','510100','510100-C-040','市机关事务管理局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市机关事务管理局','Y','3;1;1;40');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('lawoQWE4EeeSUK4HWCO_kw','510100','510100-C-041','市人民防空办公室','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民防空办公室','Y','3;1;1;41');
+	VALUES ('lawoQWE4EeeSUK4HWCO_kw','510100','510100-C-041','市人民防空办公室','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民防空办公室','Y','3;1;1;41');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('vlz8cWE3Eee5gqWuUrLjew','510100','510100-C-043','市人民政府政务服务中心','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民政府政务服务中心','Y','3;1;1;42');
+	VALUES ('vlz8cWE3Eee5gqWuUrLjew','510100','510100-C-043','市人民政府政务服务中心','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民政府政务服务中心','Y','3;1;1;42');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('Wu6e4WE4EeeBbv1cK5rXhQ','510100','510100-D-001','市国家税务局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市国家税务局','Y','3;1;1;43');
+	VALUES ('Wu6e4WE4EeeBbv1cK5rXhQ','510100','510100-D-001','市国家税务局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市国家税务局','Y','3;1;1;43');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('XbG2gWE4Eeei_9R7HK6MnA','510100','510100-D-002','市地方税务局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市地方税务局','Y','3;1;1;44');
+	VALUES ('XbG2gWE4Eeei_9R7HK6MnA','510100','510100-D-002','市地方税务局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市地方税务局','Y','3;1;1;44');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('tjr3MWE4EeefJ8QtoQBaCw','510100','510100-F-001','市人民检察院','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民检察院','Y','3;1;1;45');
+	VALUES ('tjr3MWE4EeefJ8QtoQBaCw','510100','510100-F-001','市人民检察院','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民检察院','Y','3;1;1;45');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('s95CgWE4EeecXqQwa7BOXA','510100','510100-G-001','市中级人民法院','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市中级人民法院','Y','3;1;1;46');
+	VALUES ('s95CgWE4EeecXqQwa7BOXA','510100','510100-G-001','市中级人民法院','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市中级人民法院','Y','3;1;1;46');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('xhSVMWE4EeeiJJGjxmadyg','510100','510100-H-008','市工商业联合会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市工商业联合会','Y','3;1;1;47');
+	VALUES ('xhSVMWE4EeeiJJGjxmadyg','510100','510100-H-008','市工商业联合会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市工商业联合会','Y','3;1;1;47');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('wTpdYWE4Eeeu9OshKI36Tw','510100','510100-I-004','市妇女联合会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市妇女联合会','Y','3;1;1;48');
+	VALUES ('wTpdYWE4Eeeu9OshKI36Tw','510100','510100-I-004','市妇女联合会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市妇女联合会','Y','3;1;1;48');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('vpiwcWE4EeehyJodrn2uXw','510100','510100-I-005','共青团成都市委','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->共青团成都市委','Y','3;1;1;49');
+	VALUES ('vpiwcWE4EeehyJodrn2uXw','510100','510100-I-005','共青团成都市委','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->共青团成都市委','Y','3;1;1;49');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('NW8C4WE4Eeeuvckp8Ch7wQ','510100','510100-C-005','市科学技术局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市科学技术局','Y','3;1;1;5');
+	VALUES ('NW8C4WE4Eeeuvckp8Ch7wQ','510100','510100-C-005','市科学技术局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市科学技术局','Y','3;1;1;5');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('vEwoYWE4EeeiPo8Fokfhfw','510100','510100-I-006','成都市总工会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都市总工会','Y','3;1;1;50');
+	VALUES ('vEwoYWE4EeeiPo8Fokfhfw','510100','510100-I-006','成都市总工会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都市总工会','Y','3;1;1;50');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('FPAScWE4Eeeu1cO_lpRbOg','510100','510100-I-007','市残疾人联合会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市残疾人联合会','Y','3;1;1;51');
+	VALUES ('FPAScWE4Eeeu1cO_lpRbOg','510100','510100-I-007','市残疾人联合会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市残疾人联合会','Y','3;1;1;51');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('w8_8YWE4EeeNbKRmOUYeqQ','510100','510100-I-011','市文学艺术界联合会','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市文学艺术界联合会','Y','3;1;1;52');
+	VALUES ('w8_8YWE4EeeNbKRmOUYeqQ','510100','510100-I-011','市文学艺术界联合会','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市文学艺术界联合会','Y','3;1;1;52');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('m9hbgWE4Eee3o9piEyKbjw','510100','510100-I-012','市博览局（中国国际贸易促进委员会成都市分会）','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市博览局（中国国际贸易促进委员会成都市分会）','Y','3;1;1;53');
+	VALUES ('m9hbgWE4Eee3o9piEyKbjw','510100','510100-I-012','市博览局（中国国际贸易促进委员会成都市分会）','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市博览局（中国国际贸易促进委员会成都市分会）','Y','3;1;1;53');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('rvsKAWE4Eeedp68wdhoRgw','510100','510100-J-001','市公共资源交易服务中心','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市公共资源交易服务中心','Y','3;1;1;54');
+	VALUES ('rvsKAWE4Eeedp68wdhoRgw','510100','510100-J-001','市公共资源交易服务中心','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市公共资源交易服务中心','Y','3;1;1;54');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('rEt6YWE4EeeJJP4mMey5KQ','510100','510100-J-002','市气象局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市气象局','Y','3;1;1;55');
+	VALUES ('rEt6YWE4EeeJJP4mMey5KQ','510100','510100-J-002','市气象局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市气象局','Y','3;1;1;55');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('uZ3RQWE4EeeV7sG1rLYuGQ','510100','510100-J-004','中共成都市委党校','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->中共成都市委党校','Y','3;1;1;56');
+	VALUES ('uZ3RQWE4EeeV7sG1rLYuGQ','510100','510100-J-004','中共成都市委党校','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->中共成都市委党校','Y','3;1;1;56');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('Hzj54WE4EeeVqsglfKXgwA','510100','510100-J-006','市防震减灾局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市防震减灾局','Y','3;1;1;57');
+	VALUES ('Hzj54WE4EeeVqsglfKXgwA','510100','510100-J-006','市防震减灾局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市防震减灾局','Y','3;1;1;57');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('qZsncWE4EeebXYjtf6L_lQ','510100','510100-J-012','市地方志编纂委员会办公室','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市地方志编纂委员会办公室','Y','3;1;1;58');
+	VALUES ('qZsncWE4EeebXYjtf6L_lQ','510100','510100-J-012','市地方志编纂委员会办公室','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市地方志编纂委员会办公室','Y','3;1;1;58');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('puDpcWE4EeeYjvq6vocp6A','510100','510100-J-013','市档案局（馆）','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市档案局（馆）','Y','3;1;1;59');
+	VALUES ('puDpcWE4EeeYjvq6vocp6A','510100','510100-J-013','市档案局（馆）','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市档案局（馆）','Y','3;1;1;59');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('d1FQUWE4Eee1ophhRVULMw','510100','510100-C-006','市民族宗教事务局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市民族宗教事务局','Y','3;1;1;6');
+	VALUES ('d1FQUWE4Eee1ophhRVULMw','510100','510100-C-006','市民族宗教事务局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市民族宗教事务局','Y','3;1;1;6');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('aJ4w8WE4EeekGspN7OFrfA','510100','510100-J-014','市住房公积金管理中心','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市住房公积金管理中心','Y','3;1;1;60');
+	VALUES ('aJ4w8WE4EeekGspN7OFrfA','510100','510100-J-014','市住房公积金管理中心','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市住房公积金管理中心','Y','3;1;1;60');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('yI_OYWE4EeeNisrHNENMFw','510100','510100-J-015','市老龄工作委员会办公室','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市老龄工作委员会办公室','Y','3;1;1;61');
+	VALUES ('yI_OYWE4EeeNisrHNENMFw','510100','510100-J-015','市老龄工作委员会办公室','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市老龄工作委员会办公室','Y','3;1;1;61');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('y4IMUWE4EeeRcoGmSiJL4A','510100','510100-J-018','市邮政管理局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市邮政管理局','Y','3;1;1;62');
+	VALUES ('y4IMUWE4EeeRcoGmSiJL4A','510100','510100-J-018','市邮政管理局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市邮政管理局','Y','3;1;1;62');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('0R-7MWE4EeeOgbHGC0iMEw','510100','510100-Z-001','成都市自来水有限责任公司','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都市自来水有限责任公司','Y','3;1;1;63');
+	VALUES ('0R-7MWE4EeeOgbHGC0iMEw','510100','510100-Z-001','成都市自来水有限责任公司','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都市自来水有限责任公司','Y','3;1;1;63');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('2YZOEWE4EeeOIrfZKQVjmA','510100','510100-Z-002','国网成都供电公司','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->国网成都供电公司','Y','3;1;1;64');
+	VALUES ('2YZOEWE4EeeOIrfZKQVjmA','510100','510100-Z-002','国网成都供电公司','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->国网成都供电公司','Y','3;1;1;64');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('9jWY4WE4EeeoDdUjWdya1w','510100','510100-Z-003','成都市城市燃气有限责任公司','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都市城市燃气有限责任公司','Y','3;1;1;65');
+	VALUES ('9jWY4WE4EeeoDdUjWdya1w','510100','510100-Z-003','成都市城市燃气有限责任公司','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都市城市燃气有限责任公司','Y','3;1;1;65');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('_MdrwWE4EeeeXpgpZdk3rw','510100','510100-Z-004','中国电信成都分公司','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->中国电信成都分公司','Y','3;1;1;66');
+	VALUES ('_MdrwWE4EeeeXpgpZdk3rw','510100','510100-Z-004','中国电信成都分公司','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->中国电信成都分公司','Y','3;1;1;66');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('_1yVkWE4Eee9Lr9oAAPAog','510100','510100-Z-005','中国移动成都分公司','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->中国移动成都分公司','Y','3;1;1;67');
+	VALUES ('_1yVkWE4Eee9Lr9oAAPAog','510100','510100-Z-005','中国移动成都分公司','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->中国移动成都分公司','Y','3;1;1;67');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('AcvA0WE5Eee7q7aUm8m-ng','510100','510100-Z-006','中国联通成都分公司','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->中国联通成都分公司','Y','3;1;1;68');
+	VALUES ('AcvA0WE5Eee7q7aUm8m-ng','510100','510100-Z-006','中国联通成都分公司','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->中国联通成都分公司','Y','3;1;1;68');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('BJR9wWE5EeevE_4mfsyYWg','510100','510100-Z-007','成都轨道交通集团有限公司','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都轨道交通集团有限公司','Y','3;1;1;69');
+	VALUES ('BJR9wWE5EeevE_4mfsyYWg','510100','510100-Z-007','成都轨道交通集团有限公司','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都轨道交通集团有限公司','Y','3;1;1;69');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('S96yMWB3Eeefr6tquJMX6w','510100','510100-C-007','市公安局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市公安局','Y','3;1;1;7');
+	VALUES ('S96yMWB3Eeefr6tquJMX6w','510100','510100-C-007','市公安局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市公安局','Y','3;1;1;7');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('BuMosWE5EeeW5YVMFdSHjw','510100','510100-Z-008','成都市公共交通集团有限公司','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都市公共交通集团有限公司','Y','3;1;1;70');
+	VALUES ('BuMosWE5EeeW5YVMFdSHjw','510100','510100-Z-008','成都市公共交通集团有限公司','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都市公共交通集团有限公司','Y','3;1;1;70');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('CaKW0WE5EeeC9_toojW0_Q','510100','510100-Z-009','成都天府通金融服务股份有限公司','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都天府通金融服务股份有限公司','Y','3;1;1;71');
+	VALUES ('CaKW0WE5EeeC9_toojW0_Q','510100','510100-Z-009','成都天府通金融服务股份有限公司','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->成都天府通金融服务股份有限公司','Y','3;1;1;71');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('bf-aIWE4EeetZoQ1757d5Q','510100','510100-C-008','市监察局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市监察局','Y','3;1;1;8');
+	VALUES ('bf-aIWE4EeetZoQ1757d5Q','510100','510100-C-008','市监察局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市监察局','Y','3;1;1;8');
 INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,classify_level,classify_index,order_number,icon,classify_structure_name,status,tree_code)
-	VALUES ('etxEgWB3EeeJffK72LpRDw','510100','510100-C-009','市民政局','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市民政局','Y','3;1;1;9');
+	VALUES ('etxEgWB3EeeJffK72LpRDw','510100','510100-C-009','市民政局','301001','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市民政局','Y','3;1;1;9');
 
 
 delete from dir_classify_dept_map;
