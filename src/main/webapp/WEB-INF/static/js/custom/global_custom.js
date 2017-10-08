@@ -1263,6 +1263,18 @@ function initGlobalCustom(tempUrlPrefix) {
         //     }
         // }
 
+
+        /**
+         * 获取当前选中的区域的编码
+         */
+        getSelectedRegionCode:function(){
+            var regionCode = "";
+            var regionObj = JSON.parse(window.localStorage.getItem("regionObj"));
+            if(regionObj){
+                regionCode = regionObj.code;
+            }
+            return regionCode;
+        },
         /**
          * 获取目录类别的下拉树对象
          * @param treeDomId         ztree对象的id
