@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapDatasetSurveyMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetSurvey">
+        <id column="id" property="id"/>
+        <result column="dataset_id" property="datasetId"/>
+        <result column="total_storage" property="totalStorage"/>
+        <result column="structure_count" property="structureCount"/>
+        <result column="shared_storage" property="sharedStorage"/>
+        <result column="shared_structure_count" property="sharedStructureCount"/>
+        <result column="opened_storage" property="openedStorage"/>
+        <result column="opened_structure_count" property="openedStructureCount"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetSurveyVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_dataset_survey t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM drap_dataset_survey t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM drap_dataset_survey t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetSurvey">
+        insert into
+        drap_dataset_survey(id,dataset_id,total_storage,structure_count,shared_storage,shared_structure_count,opened_storage,opened_structure_count)
+        values(
+        #{id},#{datasetId},#{totalStorage},#{structureCount},#{sharedStorage},#{sharedStructureCount},#{openedStorage},#{openedStructureCount})
+    </insert>
+
+    <insert id="batchInsert" parameterType="java.util.Map">
+        insert into
+        drap_dataset_survey(id,dataset_id,total_storage,structure_count,shared_storage,shared_structure_count,opened_storage,opened_structure_count)
+        values
+        <foreach collection="list" item="item" separator=",">
+        (#{item.id},#{item.datasetId},#{item.totalStorage},#{item.structureCount},#{item.sharedStorage},#{item.sharedStructureCount},
+            #{item.openedStorage},#{item.openedStructureCount})
+        </foreach>
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetSurvey">
+        update drap_dataset_survey
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="datasetId != null">
+                dataset_id = #{datasetId},
+            </if>
+            <if test="totalStorage != null">
+                total_storage = #{totalStorage},
+            </if>
+            <if test="structureCount != null">
+                structure_count = #{structureCount},
+            </if>
+            <if test="sharedStorage != null">
+                shared_storage = #{sharedStorage},
+            </if>
+            <if test="sharedStructureCount != null">
+                shared_structure_count = #{sharedStructureCount},
+            </if>
+            <if test="openedStorage != null">
+                opened_storage = #{openedStorage},
+            </if>
+            <if test="openedStructureCount != null">
+                opened_structure_count = #{openedStructureCount},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from drap_dataset_survey
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

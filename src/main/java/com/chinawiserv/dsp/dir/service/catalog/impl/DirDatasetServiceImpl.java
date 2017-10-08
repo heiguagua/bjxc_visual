@@ -58,6 +58,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     @Autowired
     private DirDataitemSourceInfoMapper sourceInfoMapper;
 
+    @Autowired
+    private DirDatasetSurveyMapper surveyMapper;
+
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
         boolean insertResult = false;
@@ -79,6 +82,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             ext.setId(UUID.randomUUID().toString());
             ext.setDatasetId(vo.getId());
             mapper.extInsert(ext);
+            //大普查
+            DirDatasetSurvey survey = vo.getSurvey();
+            if(survey!=null){
+                survey.setId(UUID.randomUUID().toString());
+                survey.setDatasetId(datasetId);
+                surveyMapper.baseInsert(survey);
+            }
             //数据集插入成功后，插入数据集与目录类别中间表的数据
             String classifyIds = vo.getClassifyIds();
             if(!StringUtils.isEmpty(classifyIds)){
@@ -97,7 +107,8 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 classifyMapResult = dirDatasetClassifyMapMapper.insertListItem(classifyMapVoList);
             }
             //数据项来源
-            //List<DirDataitemSourceInfo> sourceInfos = vo.getSourceInfos();
+            //List<DirDataitemSourceInfo> sourceInf
+            // os = vo.getSourceInfos();
             //数据集插入成功后，插入该数据集的数据项的数据
             List<DirDataitemVo> dirDataitemVoList = vo.getItems();
             if(!ObjectUtils.isEmpty(dirDataitemVoList)){
@@ -158,6 +169,18 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             }else{
                 ext.setId(UUID.randomUUID().toString());
                 mapper.extInsert(ext);
+            }
+            //修改大普查信息
+            DirDatasetSurvey survey = vo.getSurvey();
+            survey.setDatasetId(datasetId);
+            Map<String,Object> surveyParam = new HashMap<>();
+            surveyParam.put("datasetId",datasetId);
+            List<DirDatasetSurveyVo> surveyVoList= surveyMapper.baseSelect(surveyParam);
+            if(!ObjectUtils.isEmpty(surveyVoList)){
+                surveyMapper.baseUpdate(survey);
+            }else{
+                survey.setId(UUID.randomUUID().toString());
+                surveyMapper.baseInsert(survey);
             }
             //修改数据集与目录类别中间表的数据
             updateDatasetClassifyMapInfo(vo, updateUserId, updateTime);
@@ -369,7 +392,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Map<String,Object> mapParam = new HashMap<>();
         mapParam.put("datasetId",id);
         List<DirDataitemVo> itemVoList = itemMapper.selectInfoList(mapParam);
-        dirDatasetVo.setItems(itemVoList);
+        if(!ObjectUtils.isEmpty(itemVoList)){
+            dirDatasetVo.setItems(itemVoList);
+        }
         List<DirDatasetClassifyMapVo> classifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(new Page<>(), mapParam);
         if(!ObjectUtils.isEmpty(classifyMapVoList)){
             String classifyIds = "";

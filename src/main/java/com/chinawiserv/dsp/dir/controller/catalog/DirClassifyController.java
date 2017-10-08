@@ -1,9 +1,12 @@
 package com.chinawiserv.dsp.dir.controller.catalog;
 
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -95,6 +99,7 @@ public class DirClassifyController extends BaseController {
 	@ResponseBody
 	public HandleResult doAdd(DirClassifyVo entity) {
 		HandleResult handleResult = new HandleResult();
+		
 		try {
 			if(!entity.getFid().equals("root")){
 				service.insertVO(entity);
@@ -117,6 +122,23 @@ public class DirClassifyController extends BaseController {
 		}
 		return handleResult;
 	}
+	
+	/**
+     * 验证ordernumber为数字
+     */
+    @RequestMapping("/CheckOrderNumber")
+    @ResponseBody
+    public JSONObject insertCheckName(String orderNumber){
+        JSONObject resultJson = new JSONObject();
+        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");		
+		Boolean b = pattern.matcher(orderNumber).matches(); 
+        if(!b){
+            resultJson.put("error" , "排序号必须为数字，请重新输入" );
+        } else {
+            resultJson.put("ok" , "");
+        }
+        return resultJson;
+    }
 
 	/**
 	 * 删除目录分类表

@@ -11,290 +11,355 @@ import java.io.Serializable;
  * 信息系统表 Po对象
  * </p>
  *
- * @author wuty
- * @since 2017-09-27
+ * @author Mi
+ * @since 2017-10-07
  */
 @TableName("drap_info_system")
 public class DrapInfoSystem implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * ID
-     */
+	/**
+	 * ID
+	 */
 	private String id;
-    /**
-     * 所属行政区划
-     */
+	/**
+	 * 所属行政区划
+	 */
 	@TableField("region_code")
 	private String regionCode;
-    /**
-     * 添加类型
-     */
+	/**
+	 * 【国】所属组织
+	 */
+	@TableField("belong_dept")
+	private String belongDept;
+	/**
+	 * 添加类型
+	 */
 	@TableField("source_type")
 	private String sourceType;
-    /**
-     * 业务系统编码
-     */
+	/**
+	 * 【国】业务系统编码
+	 */
 	@TableField("system_code")
 	private String systemCode;
-    /**
-     * 业务系统名称
-     */
+	/**
+	 * 【国】业务系统名称
+	 */
 	@TableField("system_name")
 	private String systemName;
-    /**
-     * 系统阶段
-     */
+	/**
+	 * 系统阶段
+	 */
 	@TableField("system_phase")
 	private String systemPhase;
-    /**
-     * 系统阶段补充说明
-     */
+	/**
+	 * 系统阶段补充说明
+	 */
 	@TableField("system_phase_desc")
 	private String systemPhaseDesc;
-    /**
-     * 主要功能
-     */
+	/**
+	 * 【国】信息系统安全等级定级情况
+	 */
+	@TableField("security_level")
+	private String securityLevel;
+	/**
+	 * 【国】项目建设资金来源
+	 */
+	@TableField("project_fund_source")
+	private String projectFundSource;
+	/**
+	 * 【国】预算项目名称
+	 */
+	@TableField("project_name")
+	private String projectName;
+	/**
+	 * 【国】项目立项审批部门
+	 */
+	@TableField("project_audit_dept")
+	private String projectAuditDept;
+	/**
+	 * 【国】项目立项审批日期
+	 */
+	@TableField("project_audit_date")
+	private Date projectAuditDate;
+	/**
+	 * 【国】项目预算批复总金额（万元）
+	 */
+	@TableField("project_budget_money")
+	private String projectBudgetMoney;
+	/**
+	 * 【国】运维费用总支出
+	 */
+	@TableField("maintain_money")
+	private String maintainMoney;
+	/**
+	 * 【国】清理后情况
+	 */
+	@TableField("cleaned_situation")
+	private String cleanedSituation;
+	/**
+	 * 【国】数据状态
+	 */
+	@TableField("data_status")
+	private String dataStatus;
+	/**
+	 * 主要功能
+	 */
 	@TableField("main_feature")
 	private String mainFeature;
-    /**
-     * 主要数据
-     */
+	/**
+	 * 主要数据
+	 */
 	@TableField("main_data")
 	private String mainData;
-    /**
-     * 启用时间
-     */
+	/**
+	 * 【国】启用时间
+	 */
 	@TableField("enable_time")
 	private Date enableTime;
-    /**
-     * 停用时间
-     */
+	/**
+	 * 停用时间
+	 */
 	@TableField("disable_time")
 	private Date disableTime;
-    /**
-     * 系统归属级别(建设性质)
-     */
+	/**
+	 * 系统归属级别(建设性质)
+	 */
 	@TableField("system_level")
 	private String systemLevel;
-    /**
-     * 系统所属网络
-     */
+	/**
+	 * 【国】承载网络
+	 */
 	@TableField("belong_network")
 	private String belongNetwork;
-    /**
-     * 系统物理位置
-     */
+	/**
+	 * 系统物理位置
+	 */
 	@TableField("phisical_location")
 	private String phisicalLocation;
-    /**
-     * 录入单位
-     */
+	/**
+	 * 录入单位
+	 */
 	@TableField("create_dept")
 	private String createDept;
-    /**
-     * 是否本地部门建设
-     */
+	/**
+	 * 是否本地部门建设
+	 */
 	@TableField("self_build_flag")
 	private String selfBuildFlag;
-    /**
-     * 系统建设单位
-     */
+	/**
+	 * 系统建设单位
+	 */
 	@TableField("build_dept")
 	private String buildDept;
-    /**
-     * 系统架构
-     */
+	/**
+	 * 系统架构
+	 */
 	@TableField("system_structure")
 	private String systemStructure;
-    /**
-     * 系统登录方式
-     */
+	/**
+	 * 系统登录方式
+	 */
 	@TableField("login_type")
 	private String loginType;
-    /**
-     * 系统应用情况
-     */
+	/**
+	 * 系统应用情况
+	 */
 	@TableField("system_usage_info")
 	private String systemUsageInfo;
-    /**
-     * 系统应用情况说明
-     */
+	/**
+	 * 【国】主管单位
+	 */
+	@TableField("charge_dept")
+	private String chargeDept;
+	/**
+	 * 【国】主管单位联系人
+	 */
+	@TableField("charge_contacts")
+	private String chargeContacts;
+	/**
+	 * 【国】主管单位联系电话
+	 */
+	@TableField("charge_contacts_phone")
+	private String chargeContactsPhone;
+	/**
+	 * 系统应用情况说明
+	 */
 	@TableField("system_usage_desc")
 	private String systemUsageDesc;
-    /**
-     * 系统开发商
-     */
+	/**
+	 * 系统开发商
+	 */
 	@TableField("support_company")
 	private String supportCompany;
-    /**
-     * 系统开发商联系人
-     */
+	/**
+	 * 系统开发商联系人
+	 */
 	@TableField("support_contacts")
 	private String supportContacts;
-    /**
-     * 系统开发商联系人电话
-     */
+	/**
+	 * 系统开发商联系人电话
+	 */
 	@TableField("support_contacts_phone")
 	private String supportContactsPhone;
-    /**
-     * 系统开发商联系人邮箱
-     */
+	/**
+	 * 系统开发商联系人邮箱
+	 */
 	@TableField("support_contacts_email")
 	private String supportContactsEmail;
-    /**
-     * 系统开发商其他联系方式
-     */
+	/**
+	 * 系统开发商其他联系方式
+	 */
 	@TableField("support_other_contacts")
 	private String supportOtherContacts;
-    /**
-     * 运维单位
-     */
+	/**
+	 * 【国】运维单位
+	 */
 	@TableField("maintain_dept")
 	private String maintainDept;
-    /**
-     * 运维单位联系人
-     */
+	/**
+	 * 运维单位联系人
+	 */
 	@TableField("maintain_contacts")
 	private String maintainContacts;
-    /**
-     * 运维单位联系人电话
-     */
+	/**
+	 * 运维单位联系人电话
+	 */
 	@TableField("maintain_contacts_phone")
 	private String maintainContactsPhone;
-    /**
-     * 运维单位联系人邮箱
-     */
+	/**
+	 * 运维单位联系人邮箱
+	 */
 	@TableField("maintain_contacts_email")
 	private String maintainContactsEmail;
-    /**
-     * 运维单位其他联系方式
-     */
+	/**
+	 * 运维单位其他联系方式
+	 */
 	@TableField("maintain_other_contacts")
 	private String maintainOtherContacts;
-    /**
-     * 系统售后支持情况
-     */
+	/**
+	 * 系统售后支持情况
+	 */
 	@TableField("customer_service_info")
 	private String customerServiceInfo;
-    /**
-     * 数据跨度起
-     */
+	/**
+	 * 数据跨度起
+	 */
 	@TableField("data_range_begin")
 	private String dataRangeBegin;
-    /**
-     * 数据跨度止
-     */
+	/**
+	 * 数据跨度止
+	 */
 	@TableField("data_range_end")
 	private String dataRangeEnd;
-    /**
-     * 存储量统计截止时间
-     */
+	/**
+	 * 存储量统计截止时间
+	 */
 	@TableField("calculate_date")
 	private Date calculateDate;
-    /**
-     * 数据存储量
-     */
+	/**
+	 * 数据存储量
+	 */
 	@TableField("data_storage")
 	private BigDecimal dataStorage;
-    /**
-     * 数据年增长量
-     */
+	/**
+	 * 数据年增长量
+	 */
 	@TableField("year_increment")
 	private BigDecimal yearIncrement;
-    /**
-     * 通用访问地址
-     */
+	/**
+	 * 通用访问地址
+	 */
 	@TableField("visit_url")
 	private String visitUrl;
-    /**
-     * 通用访问账号
-     */
+	/**
+	 * 通用访问账号
+	 */
 	@TableField("visit_username")
 	private String visitUsername;
-    /**
-     * 通用访问密码
-     */
+	/**
+	 * 通用访问密码
+	 */
 	@TableField("visit_password")
 	private String visitPassword;
-    /**
-     * 是否提供服务接口
-     */
+	/**
+	 * 是否提供服务接口
+	 */
 	@TableField("has_interface")
 	private String hasInterface;
-    /**
-     * 是否有在线对外业务
-     */
+	/**
+	 * 是否有在线对外业务
+	 */
 	@TableField("is_online_external")
 	private String isOnlineExternal;
-    /**
-     * 是否提供服务调用
-     */
+	/**
+	 * 是否提供服务调用
+	 */
 	@TableField("is_service_called")
 	private String isServiceCalled;
-    /**
-     * 是否提供服务调用规范说明
-     */
+	/**
+	 * 是否提供服务调用规范说明
+	 */
 	@TableField("is_service_standard")
 	private String isServiceStandard;
-    /**
-     * 是否有导出功能
-     */
+	/**
+	 * 是否有导出功能
+	 */
 	@TableField("is_export")
 	private String isExport;
-    /**
-     * 是否有旧系统
-     */
+	/**
+	 * 是否有旧系统
+	 */
 	@TableField("has_old_system")
 	private String hasOldSystem;
-    /**
-     * 旧系统名称
-     */
+	/**
+	 * 旧系统名称
+	 */
 	@TableField("old_system_name")
 	private String oldSystemName;
-    /**
-     * 旧系统补充说明
-     */
+	/**
+	 * 旧系统补充说明
+	 */
 	@TableField("old_system_desc")
 	private String oldSystemDesc;
-    /**
-     * 系统功能描述
-     */
+	/**
+	 * 【国】系统描述
+	 */
 	@TableField("system_desc")
 	private String systemDesc;
-    /**
-     * 编码序号
-     */
+	/**
+	 * 编码序号
+	 */
 	@TableField("code_index")
 	private Integer codeIndex;
-    /**
-     * 状态
-     */
+	/**
+	 * 状态
+	 */
 	private Integer status;
-    /**
-     * 创建人
-     */
+	/**
+	 * 创建人
+	 */
 	@TableField("create_user")
 	private String createUser;
-    /**
-     * 创建时间
-     */
+	/**
+	 * 创建时间
+	 */
 	@TableField("create_time")
 	private Date createTime;
-    /**
-     * 更新人
-     */
+	/**
+	 * 更新人
+	 */
 	@TableField("update_user")
 	private String updateUser;
-    /**
-     * 更新时间
-     */
+	/**
+	 * 更新时间
+	 */
 	@TableField("update_time")
 	private Date updateTime;
-    /**
-     * 逻辑删除标识
-     */
+	/**
+	 * 逻辑删除标识
+	 */
 	@TableField("delete_flag")
 	private Integer deleteFlag;
 
@@ -313,6 +378,14 @@ public class DrapInfoSystem implements Serializable {
 
 	public void setRegionCode(String regionCode) {
 		this.regionCode = regionCode;
+	}
+
+	public String getBelongDept() {
+		return belongDept;
+	}
+
+	public void setBelongDept(String belongDept) {
+		this.belongDept = belongDept;
 	}
 
 	public String getSourceType() {
@@ -353,6 +426,78 @@ public class DrapInfoSystem implements Serializable {
 
 	public void setSystemPhaseDesc(String systemPhaseDesc) {
 		this.systemPhaseDesc = systemPhaseDesc;
+	}
+
+	public String getSecurityLevel() {
+		return securityLevel;
+	}
+
+	public void setSecurityLevel(String securityLevel) {
+		this.securityLevel = securityLevel;
+	}
+
+	public String getProjectFundSource() {
+		return projectFundSource;
+	}
+
+	public void setProjectFundSource(String projectFundSource) {
+		this.projectFundSource = projectFundSource;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public String getProjectAuditDept() {
+		return projectAuditDept;
+	}
+
+	public void setProjectAuditDept(String projectAuditDept) {
+		this.projectAuditDept = projectAuditDept;
+	}
+
+	public Date getProjectAuditDate() {
+		return projectAuditDate;
+	}
+
+	public void setProjectAuditDate(Date projectAuditDate) {
+		this.projectAuditDate = projectAuditDate;
+	}
+
+	public String getProjectBudgetMoney() {
+		return projectBudgetMoney;
+	}
+
+	public void setProjectBudgetMoney(String projectBudgetMoney) {
+		this.projectBudgetMoney = projectBudgetMoney;
+	}
+
+	public String getMaintainMoney() {
+		return maintainMoney;
+	}
+
+	public void setMaintainMoney(String maintainMoney) {
+		this.maintainMoney = maintainMoney;
+	}
+
+	public String getCleanedSituation() {
+		return cleanedSituation;
+	}
+
+	public void setCleanedSituation(String cleanedSituation) {
+		this.cleanedSituation = cleanedSituation;
+	}
+
+	public String getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(String dataStatus) {
+		this.dataStatus = dataStatus;
 	}
 
 	public String getMainFeature() {
@@ -457,6 +602,30 @@ public class DrapInfoSystem implements Serializable {
 
 	public void setSystemUsageInfo(String systemUsageInfo) {
 		this.systemUsageInfo = systemUsageInfo;
+	}
+
+	public String getChargeDept() {
+		return chargeDept;
+	}
+
+	public void setChargeDept(String chargeDept) {
+		this.chargeDept = chargeDept;
+	}
+
+	public String getChargeContacts() {
+		return chargeContacts;
+	}
+
+	public void setChargeContacts(String chargeContacts) {
+		this.chargeContacts = chargeContacts;
+	}
+
+	public String getChargeContactsPhone() {
+		return chargeContactsPhone;
+	}
+
+	public void setChargeContactsPhone(String chargeContactsPhone) {
+		this.chargeContactsPhone = chargeContactsPhone;
 	}
 
 	public String getSystemUsageDesc() {

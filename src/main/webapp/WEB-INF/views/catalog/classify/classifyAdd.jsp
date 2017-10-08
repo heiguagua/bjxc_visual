@@ -16,7 +16,7 @@
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/dirClassify/doAdd">
                         <div class="box-body">
-                        	<input id="fid" type="hidden" value="${fid}" name="fid" />
+                        	<input id=fid type="hidden" value="${fid}" name="fid" />
                         	<div class="form-group">
                                 <label for="fname">父目录</label>
                                 <input type="text" id="fname" name="fname" readonly="readonly" class="form-control">
@@ -57,7 +57,7 @@
                             </div> -->
                             <div class="form-group">
                                 <label for="icon">选择图标*</label>
-                                <select id="icon" name="icon" class="form-control select2" style="width: 100%;">             
+                                <select id="icon" name="icon" class="form-control select2" style="width: 100%;" data-rule="选择图标:required">             
                                 		  <<!-- option value =""></option>
                                 		  <option value ="volvo">Volvo</option>
 										  <option value ="saab">Saab</option>
@@ -68,7 +68,7 @@
                             <div class="form-group">
                                 <label for="orderNumber">排序号*</label>
                                  <input type="text" id="order_number" name="orderNumber" class="form-control"
-                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber">
+                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=basePath%>/dirClassify/CheckOrderNumber)">
                             </div>
                             <div class="form-group">
                                 <label for="classifyDesc">目录描述:</label>

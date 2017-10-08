@@ -3,9 +3,10 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.config.js"></script>  
     <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.all.js"></script>
-    <script type="text/javascript" charset="utf-8" src="<%=basePath%>/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+      
+    <%-- <script type="text/javascript" charset="utf-8" src="<%=basePath%>/plugins/ueditor/lang/zh-cn/zh-cn.js"></script> --%>
     <script src="<%=basePath%>/js/dir/configure/policy/policyAdd.js"></script>
 </head>
 <body>

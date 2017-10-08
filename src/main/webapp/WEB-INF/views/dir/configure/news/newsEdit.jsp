@@ -42,7 +42,7 @@
                             <div class="form-group col-md-12">
                                 <label for="edit_pic_content">内容</label>
                                     <!-- <textarea rows="3" cols="20" class="form-control" id="pic_content" name="pic_content"></textarea> -->
-                                <script id="edit_pic_content" style="height:300px;display: block;"  name="picContent" type="text/plain"></script>
+                                <script id="edit_pic_content" style="height:300px;display: block;"  name="newsContent" type="text/plain"></script>
                             </div>   
                         </div><!-- /.box-body -->
                         <div class="box-footer">

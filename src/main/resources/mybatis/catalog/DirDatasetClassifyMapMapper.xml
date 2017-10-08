@@ -48,6 +48,9 @@
             <if test="datasetName!= null">
                 and d.dataset_name like concat('%',#{datasetName,jdbcType=VARCHAR},'%')
             </if>
+            <if test="classifyId!= null">
+                and t.classify_id in (select id from dir_classify where tree_code like concat((select tree_code from dir_classify where id=#{classifyId, jdbcType=VARCHAR}),'%'))
+            </if>
         </where>
     </sql>
 

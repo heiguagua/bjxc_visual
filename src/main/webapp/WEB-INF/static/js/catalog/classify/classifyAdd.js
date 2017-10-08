@@ -65,7 +65,10 @@ function checkDep(fid){
 						 $("#Dep").addClass('hidden');
 						 $("#fname").val(vo.classifyName);
 						 
+					}else{
+						$("#fname").val(vo.classifyName);
 					}
+					
                 }
             }
         }

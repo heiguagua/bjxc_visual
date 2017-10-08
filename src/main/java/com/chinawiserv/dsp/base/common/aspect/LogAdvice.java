@@ -55,7 +55,7 @@ public class LogAdvice {
 			SysLog sysLog = new SysLog();
 			sysLog.setOperatorId((loginUser != null )? loginUser.getId() : "systemUserId");
 			sysLog.setOperateTime(new Date());
-			sysLog.setRegionCode(loginUser.getRegionCode());
+			sysLog.setRegionCode(loginUser == null ? "" : loginUser.getRegionCode());
 			sysLog.setOperateIp(IpUtil.getIpAddr(request));
 			sysLog.setOperateType("1");
 			sysLog.setOperateDesc(log.value());

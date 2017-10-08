@@ -27,6 +27,13 @@ function initTable(){
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
+            field: 'classifyName',
+            title: '所属目录分类',
+            sortable: false,
+            formatter:function(value, row, index){
+                return '<p title="'+value+'">'+value+'</p>';
+            }
+        },{
             field: 'datasetName',
             title: '信息资源名称',
             sortable: false,
@@ -34,14 +41,20 @@ function initTable(){
             formatter:function(value, row, index){
                 return '<p title="'+value+'">'+value+'</p>';
             }
-        }, {
-            field: 'classifyName',
-            title: '所属目录类别',
+        },{
+            field: 'itemNums',
+            title: '数据项数',
             sortable: false,
+            width: '10%'
+        },{
+            field: 'datasetSourceTypeName',
+            title: '添加方式',
+            sortable: false,
+            width: '10%',
             formatter:function(value, row, index){
                 return '<p title="'+value+'">'+value+'</p>';
             }
-        }, {
+        },{
             field: 'classifyStatus',
             title: '状态',
             width: '5%',
@@ -92,7 +105,7 @@ function initTable(){
 
 function initAllSelect(){
     //目录类别下拉查询框
-    $.initClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
+    $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
 }
 
 

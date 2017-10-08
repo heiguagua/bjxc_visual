@@ -126,13 +126,22 @@
 			left join sys_dept s on d.dept_id = s.id
 			left join sys_icon_lib c on c.icon_path = t.icon
 			WHERE t.id = #{id}
-			order by t.order_number
+			
+    </select>
+    
+    <select id="selectVoById12" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.*, s.dept_name as dept_name,d.dept_id as dept_id,c.icon_name as icon_name FROM dir_classify t 
+			left join dir_classify_dept_map d on t.id = d.classify_id
+			left join sys_dept s on d.dept_id = s.id
+			left join sys_icon_lib c on c.icon_path = t.icon
+			WHERE t.id = #{id}
+			
     </select>
 
 	
 	<select id="getCatelogByParentCode" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
 	
-		select * from dir_classify where fid = #{id}
+		select * from dir_classify where fid = #{id} and delete_flag = 0
 	
 	</select>
 

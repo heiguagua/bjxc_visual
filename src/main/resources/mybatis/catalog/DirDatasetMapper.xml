@@ -43,9 +43,25 @@
         <result column="classify_name" property="classifyName"/>
         <result column="classify_status" property="classifyStatus"/>
         <result column="dept_name" property="deptName"/>
-        <result column="format_category" property="formatCategory"/>
-        <result column="format_type" property="formatType"/>
-        <result column="format_info" property="formatInfo"/>
+        <result column="source_type_name" property="datasetSourceTypeName" />
+        <result column="item_nums" property="itemNums"/>
+    </resultMap>
+
+    <resultMap id="ExtResultVoMap" extends="BaseResultVoMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo">
+        <association property="ext" javaType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetExtFormat">
+            <result column="format_category" property="formatCategory"/>
+            <result column="format_type" property="formatType"/>
+            <result column="format_info" property="formatInfo"/>
+        </association>
+        <association property="survey" javaType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
+            <result column="total_storage" property="totalStorage" />
+            <result column="structure_count" property="structureCount" />
+            <result column="shared_storage" property="sharedStorage" />
+            <result column="shared_structure_count" property="sharedStructureCount" />
+            <result column="opened_storage" property="openedStorage" />
+            <result column="opened_structure_count" property="openedStructureCount" />
+        </association>
     </resultMap>
     
 
@@ -56,6 +72,18 @@
             <if test="id != null">
                 and t.id = #{id,jdbcType=VARCHAR}
             </if>
+            <if test="datasetName != null">
+                and t.dataset_name like concat('%',#{datasetName,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </sql>
+
+    <!--编目列表目录类别查询条件过滤 -->
+    <sql id="classifyConditions">
+        <where>
+            <if test="classifyId!= null">
+                and m.classify_id in (select id from dir_classify where tree_code like concat((select tree_code from dir_classify where id=#{classifyId, jdbcType=VARCHAR}),'%'))
+            </if>
         </where>
     </sql>
 
@@ -65,36 +93,35 @@
     </select>
 
     <select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,MAX(IFNULL(m.status,0)) AS classify_status,GROUP_CONCAT(c.classify_structure_name) AS classify_name FROM dir_dataset t
-        left join  dir_dataset_classify_map m on t.id=m.dataset_id
-        left join dir_classify c on m.classify_id=c.id
+        select sub.*,MAX(IFNULL(m.status,0)) AS classify_status,GROUP_CONCAT(c.classify_structure_name) AS classify_name from(
+        select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
+        di.dict_name as source_type_name,count(it.dataset_id) as item_nums FROM dir_dataset t
         left join sys_dept de on t.belong_dept_id=de.id
+        left join sys_dict di on t.source_type=di.dict_code and di.category='datasetSourceType'
+        left join dir_dataitem it on t.id=it.dataset_id
         <include refid="queryConditions"></include>
-        group by t.id
+        group by t.id ) sub
+        left join  dir_dataset_classify_map m on sub.id=m.dataset_id
+        left join dir_classify c on m.classify_id=c.id
+        <include refid="classifyConditions"></include>
+        group by sub.id
     </select>
 
-    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.*,f.format_category,f.format_type,f.format_info FROM dir_dataset t
-            left join dir_dataset_ext_format f on t.id=f.dataset_id WHERE t.delete_flag =0 and t.id = #{id}
-    </select>
-
-    <!--<select id="selectDatasetInfoById" parameterType="java.lang.String" resultMap="WithItemListMap">
-        select t.*,f.format_category,f.format_type,f.format_info,de.dept_name,i.id as item_id, i.item_code,i.item_name,i.item_desc,i.item_type,i.item_length,i.belong_dept_id as item_belong_dept_id,
-            i.share_type as item_share_type,i.share_method as item_share_method,i.share_condition as item_share_condition,
-            i.is_open as item_is_open,i.open_condition as item_open_condition,i.update_frequency as item_update_frequency,
-            i.storage_medium as item_storage_medium,i.storage_location as item_storage_location
-            from dir_dataset t
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="ExtResultVoMap">
+        SELECT t.*,f.format_category,f.format_type,f.format_info,su.total_storage,su.structure_count,
+            su.shared_storage,su.shared_structure_count,su.opened_storage,su.opened_structure_count FROM dir_dataset t
             left join dir_dataset_ext_format f on t.id=f.dataset_id
-            left join sys_dept de on t.belong_dept_id=de.id
-            left join dir_dataitem i on t.id=i.dataset_id
-            where t.id = #{id}
-    </select>-->
+            left join dir_dataset_survey su on t.id=su.dataset_id
+            WHERE t.delete_flag =0 and t.id = #{id}
+    </select>
 
-    <select id="selectDatasetInfoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        select t.*,f.format_category,f.format_type,f.format_info,de.dept_name
+    <select id="selectDatasetInfoById" parameterType="java.lang.String" resultMap="ExtResultVoMap">
+        select t.*,f.format_category,f.format_type,f.format_info,de.dept_name,su.total_storage,su.structure_count,
+        su.shared_storage,su.shared_structure_count,su.opened_storage,su.opened_structure_count
         from dir_dataset t
         left join dir_dataset_ext_format f on t.id=f.dataset_id
         left join sys_dept de on t.belong_dept_id=de.id
+        left join dir_dataset_survey su on t.id=su.dataset_id
         where t.id = #{id}
     </select>
 
@@ -113,9 +140,8 @@
     </select>
 
     <insert id="extInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetExtFormat">
-        INSERT INTO dir_dataset_ext_format (id,dataset_id,format_category,format_type,format_info)
-        VALUES
-            (#{id}, #{datasetId}, #{formatCategory}, #{formatType}, #{formatInfo})
+        insert into dir_dataset_ext_format (id,dataset_id,format_category,format_type,format_info)
+        values(#{id}, #{datasetId}, #{formatCategory}, #{formatType}, #{formatInfo})
     </insert>
 
     <insert id="extUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetExtFormat">
@@ -304,7 +330,6 @@
         <result column="dataset_name" property="dataset_name" />
         <result column="system_name" property="system_name" />
         <result column="system_id" property="system_id" />
-
     </resultMap>
     <select id="selectDatasetItemByDatasetId" resultMap="result_DrapDatasetItem_Map">
         SELECT

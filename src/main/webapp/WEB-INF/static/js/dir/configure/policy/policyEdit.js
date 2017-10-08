@@ -55,8 +55,11 @@ function initFormerDate(policyId) {
                     }else if(l=='C'){                    	
                     	$("#Etype-group").append('<input type="radio" name="policyLevel" value="G">国家级</input><input type="radio" name="policyLevel" value="S">省级</input><input type="radio" checked name="policyLevel" value="C">市级</input>')
                     }
-                    
-                    UE.getEditor('Eeditor').setContent(vo.content);                                              
+                    var ue = UE.getEditor('Eeditor');
+                    ue.addListener("ready", function () { 
+                    	 ue.setContent(vo.content);
+                    });
+                                                            
 
                 }
             }

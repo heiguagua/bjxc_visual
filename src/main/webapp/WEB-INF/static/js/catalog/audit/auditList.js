@@ -68,7 +68,7 @@ function initTable(){
                 }
             }
         }, {
-            field: 'uuid',
+            field: 'datasetId',
             title: '操作',
             width: '10%',
             align: 'center',
@@ -76,7 +76,7 @@ function initTable(){
             sortable: false,
             formatter: function(value) {
                 var editBtn = [
-                    "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看详情</a>"
+                    "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看详情</a>"
                 ].join('');
                 return editBtn;
             }
@@ -86,7 +86,7 @@ function initTable(){
 
 function initAllSelect(){
     //目录类别下拉查询框
-    $.initClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
+    $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
 }
 
 
@@ -135,6 +135,11 @@ function initButtonClickEvent(){
         setParams();
         reloadTable();
     });
+}
+
+
+function catalogueTableShow(id){
+    show('信息资源详情',basePathJS + '/catalog/show' , id ,1300,700);
 }
 
 function setParams() {

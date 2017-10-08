@@ -5,6 +5,7 @@ import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirSpecialAppsVo;
 import com.chinawiserv.dsp.dir.service.configure.IDirSpecialAppsService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -13,11 +14,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -147,4 +150,27 @@ public class DirSpecialAppsController extends BaseController {
 		}
 		return handleResult;
     }
+    
+    
+    /**
+	 * category树形添加
+	 */
+//	@RequiresPermissions("")
+//	@RequestMapping("/categoryTree")
+//	@ResponseBody
+//	public HandleResult getCategoryListForLoginUser(@RequestParam Map<String, Object> paramMap) {
+//		HandleResult handleResult = new HandleResult();
+//		try {
+//			String fid = (String) paramMap.get("parent_code");
+//			if (StringUtils.isEmpty(fid)) {
+//				paramMap.put("parent_code", "root");
+//			}
+//			List<DirClassifyVo> dirClassifyVoList = service.selectVoList(paramMap);
+//			handleResult.put("vo", dirClassifyVoList);
+//		} catch (Exception e) {
+//			handleResult.error("根据登录用户的权限获取目录分类表信息失败");
+//			logger.error("根据登录用户的权限获取目录分类表信息失败", e);
+//		}
+//		return handleResult;
+//	}
 }

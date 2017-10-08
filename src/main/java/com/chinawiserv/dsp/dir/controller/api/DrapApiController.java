@@ -5,6 +5,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.system.*;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,36 +39,28 @@ public class DrapApiController extends BaseController{
      * */
     @RequestMapping("syncUserData")
     @ResponseBody
-    public HandleResult syncUserData(@RequestParam Map<String,Object> paramMap){
-        HandleResult handleResult = new HandleResult();
+    public List<SysUser> syncUserData(@RequestParam Map<String,Object> paramMap){
+        List<SysUser> result  = Lists.newArrayList();
         try{
-            List<SysUser> result = service.syncUserData();
-            handleResult.put("rows",result);
-            handleResult.setState(true);
+            result = service.syncUserData();
         }catch (Exception e){
             logger.error(e.getMessage());
-            handleResult.setMsg(e.getMessage());
-            handleResult.setState(false);
         }
-        return handleResult;
+        return result;
     }
     /**
      * 推送部门数据的接口
      * */
     @RequestMapping("syncDeptData")
     @ResponseBody
-    public HandleResult syncDeptData(){
-        HandleResult handleResult = new HandleResult();
+    public List<SysDept> syncDeptData(){
+        List<SysDept> result = Lists.newArrayList();
         try{
-            List<SysDept> result = service.syncDeptData();
-            handleResult.put("rows",result);
-            handleResult.setState(true);
+            result = service.syncDeptData();
         }catch (Exception e){
             logger.error(e.getMessage());
-            handleResult.setMsg(e.getMessage());
-            handleResult.setState(false);
         }
-        return handleResult;
+        return result;
     }
 
     /**
