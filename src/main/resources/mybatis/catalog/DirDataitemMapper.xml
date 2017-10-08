@@ -257,4 +257,7 @@
         </foreach>
     </insert>
 
+    <delete id="deleteByDatasetId">
+        DELETE FROM dir_dataitem WHERE dataset_id=#{id}
+    </delete>
 </mapper>

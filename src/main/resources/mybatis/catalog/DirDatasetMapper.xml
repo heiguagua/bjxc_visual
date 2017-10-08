@@ -548,4 +548,11 @@
             (#{item.id},#{item.regionCode},#{item.datasetCode},#{item.datasetName},#{item.alias},#{item.belongDeptType},#{item.belongDeptId},#{item.datasetDesc},#{item.shareType},#{item.shareCondition},#{item.shareMethodCategory},#{item.shareMethod},#{item.shareMethodDesc},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},#{item.relDatasetCode},#{item.storageMedium},#{item.storageLocation},#{item.dataLevel},#{item.dataIndexSystem},#{item.secretFlag},#{item.sourceType},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},#{item.updateTime})
         </foreach>
     </insert>
+
+    <select id="selectDatasetByNameAndClassifyId" resultMap="BaseResultMap">
+        SELECT dd.*
+        FROM dir_dataset dd
+        LEFT JOIN dir_dataset_classify_map ddcm ON dd.id=ddcm.dataset_id
+        WHERE dd.dataset_name=#{datasetName} AND ddcm.classify_id=#{classifyId}
+    </select>
 </mapper>

@@ -8,6 +8,7 @@ import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,13 @@ public class DirDataitemServiceImpl extends CommonServiceImpl<DirDataitemMapper,
             return i;
         }else{
             return 0;
+        }
+    }
+
+    @Override
+    public void deleteByDatasetId(String id) {
+        if(!StringUtils.isEmpty(id)){
+            mapper.deleteByDatasetId(id);
         }
     }
 }

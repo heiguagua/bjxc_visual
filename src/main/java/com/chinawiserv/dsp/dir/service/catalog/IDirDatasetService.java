@@ -52,4 +52,6 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
     List<ExportDatasetExcel> selectExportLists(String [] tree_code, String dataset_name, String region_code);
 
     int insertListDataset(List<DirDataset> list);
+
+    DirDataset selectDatasetByNameAndClassifyId(String datasetName, String classifyId);
 }
