@@ -1,18 +1,17 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
+import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRegionMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +31,8 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
     @Autowired
     private SysRegionMapper mapper;
 
+    @Autowired
+    private SysDeptMapper deptMapper;
 
     @Override
     public boolean insertVO(SysRegionVo vo) throws Exception {
@@ -83,18 +84,24 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
 
     @Override
     public List<SysRegionVo> getRegionSelectDataList(Map<String, Object> paramMap) {
+        String regionCode = (String)paramMap.get("regionCode");
+        if(StringUtils.isBlank(regionCode)){
+            String deptId = ShiroUtils.getLoginUserDeptId();
+            if(StringUtils.isNotBlank(deptId)){
+                SysDeptVo sysDeptVo = deptMapper.selectVoById(deptId);
+                if(sysDeptVo != null){
+                    regionCode = sysDeptVo.getRegionCode();
+                }
+            }
+            if(StringUtils.isBlank(regionCode)){
+                regionCode = ShiroUtils.getLoginUser().getRegionCode();
+            }
+            paramMap.put("regionCode", regionCode);
+        }else{
+            paramMap.remove("regionCode");
+            paramMap.put("fcode", regionCode);
+        }
         return mapper.selectVoListForTreeData(paramMap);
-
-        /* JSONArray jsonArray = new JSONArray();
-        List<SysRegionVo> list = this.selectAllRegionByRegionCode(ShiroUtils.getLoginUser().getRegionCode());
-        for (SysRegionVo sysRegionVo : list) {
-            JSONObject obj = new JSONObject();
-            obj.put("id", sysRegionVo.getRegionCode());
-            obj.put("text", sysRegionVo.getRegionName());
-            jsonArray.add(obj);
-        }*/
-
-//        return jsonArray;
     }
 
 }
