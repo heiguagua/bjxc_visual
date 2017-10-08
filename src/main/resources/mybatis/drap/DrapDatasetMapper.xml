@@ -74,8 +74,28 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset">
-        insert into drap_dataset(id,region_code,belong_dept_type,belong_dept_id,source_type,doc_id,belong_activity_id,belong_system_id,dataset_code,dataset_name,category,sensitive_remark,update_frequency,dataset_desc,share_type,share_condition_desc,share_method_category,share_method,share_method_desc,share_range,no_share_reason,is_open,open_condition,rel_dataset_code,data_level,data_index_system,is_secret,basic_classify,subject_classify,store_media,physics_store_location,extend_code,code_index,status,create_user,create_time,update_user,update_time,delete_flag,) values(
-            #{id},#{regionCode},#{belongDeptType},#{belongDeptId},#{sourceType},#{docId},#{belongActivityId},#{belongSystemId},#{datasetCode},#{datasetName},#{category},#{sensitiveRemark},#{updateFrequency},#{datasetDesc},#{shareType},#{shareConditionDesc},#{shareMethodCategory},#{shareMethod},#{shareMethodDesc},#{shareRange},#{noShareReason},#{isOpen},#{openCondition},#{relDatasetCode},#{dataLevel},#{dataIndexSystem},#{isSecret},#{basicClassify},#{subjectClassify},#{storeMedia},#{physicsStoreLocation},#{extendCode},#{codeIndex},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag},        )
+        insert into drap_dataset(id,region_code,belong_dept_type,belong_dept_id,source_type,doc_id,belong_activity_id,belong_system_id,dataset_code,dataset_name,category,sensitive_remark,update_frequency,dataset_desc,share_type,share_condition_desc,share_method_category,share_method,share_method_desc,share_range,no_share_reason,is_open,open_condition,rel_dataset_code,data_level,data_index_system,is_secret,basic_classify,subject_classify,store_media,physics_store_location,extend_code,code_index,status,create_user,create_time,update_user,update_time,delete_flag) values(
+            #{id},#{regionCode},#{belongDeptType},#{belongDeptId},#{sourceType},#{docId},#{belongActivityId},#{belongSystemId},#{datasetCode},#{datasetName},#{category},#{sensitiveRemark},#{updateFrequency},#{datasetDesc},#{shareType},#{shareConditionDesc},#{shareMethodCategory},#{shareMethod},#{shareMethodDesc},#{shareRange},#{noShareReason},#{isOpen},#{openCondition},#{relDatasetCode},#{dataLevel},#{dataIndexSystem},#{isSecret},#{basicClassify},#{subjectClassify},#{storeMedia},#{physicsStoreLocation},#{extendCode},#{codeIndex},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag})
+    </insert>
+
+    <insert id="batchInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset">
+        insert into drap_dataset(id,region_code,belong_dept_type,belong_dept_id,source_type,doc_id,belong_activity_id,
+        belong_system_id,dataset_code,dataset_name,category,sensitive_remark,update_frequency,dataset_desc,share_type,
+        share_condition_desc,share_method_category,share_method,share_method_desc,share_range,no_share_reason,is_open,
+        open_condition,rel_dataset_code,data_level,data_index_system,is_secret,basic_classify,subject_classify,store_media,
+        physics_store_location,extend_code,code_index,status,create_user,create_time,update_user,update_time,delete_flag) values
+        <foreach collection="list" item="item" separator=",">
+        (
+            #{item.id},#{item.regionCode},#{item.belongDeptType},#{item.belongDeptId},#{item.sourceType},#{item.docId},
+            #{item.belongActivityId},#{item.belongSystemId},#{item.datasetCode},#{item.datasetName},#{item.category},
+            #{item.sensitiveRemark},#{item.updateFrequency},#{item.datasetDesc},#{item.shareType},#{item.shareConditionDesc},
+            #{item.shareMethodCategory},#{item.shareMethod},#{item.shareMethodDesc},#{item.shareRange},#{item.noShareReason},
+            #{item.isOpen},#{item.openCondition},#{item.relDatasetCode},#{item.dataLevel},#{item.dataIndexSystem},#{item.isSecret},
+            #{item.basicClassify},#{item.subjectClassify},#{item.storeMedia},#{item.physicsStoreLocation},#{item.extendCode},
+            #{item.codeIndex},#{item.status},#{item.createUser},#{item.createTime},#{item.updateUser},#{item.updateTime},
+            #{item.deleteFlag}
+        )
+        </foreach>
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset">

@@ -138,6 +138,20 @@
         #{id},#{regionCode},#{datasetCode},#{datasetName},#{alias},#{belongDeptType},#{belongDeptId},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethodCategory},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{secretFlag},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime})
     </insert>
 
+    <insert id="batchInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
+        insert into dir_dataset(id,region_code,dataset_code,dataset_name,alias,belong_dept_type,belong_dept_id,dataset_desc,share_type,share_condition,share_method_category,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,secret_flag,source_type,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values
+        <foreach collection="list" item="item" separator=",">
+        (
+            #{item.id},#{item.regionCode},#{item.datasetCode},#{item.datasetName},#{item.alias},#{item.belongDeptType},
+            #{item.belongDeptId},#{item.datasetDesc},#{item.shareType},#{item.shareCondition},#{item.shareMethodCategory},
+            #{item.shareMethod},#{item.shareMethodDesc},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},
+            #{item.relDatasetCode},#{item.storageMedium},#{item.storageLocation},#{item.dataLevel},#{item.dataIndexSystem},
+            #{item.secretFlag},#{item.sourceType},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},
+            #{item.updateTime},#{item.deleteFlag}
+        )
+        </foreach>
+    </insert>
+
     <select id="extSelect" parameterType="java.lang.String" resultType="java.util.Map">
         select * from dir_dataset_ext_format where dataset_id = #{datasetId}
     </select>

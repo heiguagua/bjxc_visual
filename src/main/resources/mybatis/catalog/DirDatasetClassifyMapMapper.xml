@@ -102,7 +102,7 @@
         insert into
         dir_dataset_classify_map(id,dataset_id,classify_id,info_resource_code,status,update_user_id,update_time)
         values(
-        #{id},#{datasetId},#{classifyId},#{infoResourceCode},#{registerId},#{registeDate},#{status},#{updateUserId},#{updateTime}
+        #{id},#{datasetId},#{classifyId},#{infoResourceCode},#{status},#{updateUserId},#{updateTime}
         )
     </insert>
 
