@@ -6,7 +6,9 @@ import com.chinawiserv.dsp.dir.entity.po.drap.*;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetVo;
 import com.chinawiserv.dsp.dir.mapper.drap.*;
 import com.chinawiserv.dsp.dir.service.drap.IDrapDatasetService;
+import com.chinawiserv.dsp.dir.service.drap.IDrapDatasetTableRelationService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +48,8 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 	@Autowired
 	private DrapDatasetItemMapMapper drapDatasetItemMapMapper;
 
+    @Autowired
+    private IDrapDatasetTableRelationService service;
     @Override
     public boolean insertVO(DrapDatasetVo vo) throws Exception {
 		//todo
@@ -85,8 +89,10 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 	public void insertDataset(Map<String, Object> dataObj) {
 		if(dataObj.containsKey("datasetVoList")){
 			String drapDatasetPosStr = MapUtils.getString(dataObj, "datasetVoList");
-			List<DrapDataset> drapDatasetList = JSON.parseArray(drapDatasetPosStr, DrapDataset.class);
+			List<DrapDatasetVo> drapDatasetList = JSON.parseArray(drapDatasetPosStr, DrapDatasetVo.class);
 			this.drapDatasetMapper.batchInsert(drapDatasetList);
+			//更新关系
+			service.insertTableRelation(drapDatasetList);
 		}
 		if(dataObj.containsKey("datasetSystemMapList")){
 			String datasetSystemMapPosStr = MapUtils.getString(dataObj, "datasetSystemMapList");
