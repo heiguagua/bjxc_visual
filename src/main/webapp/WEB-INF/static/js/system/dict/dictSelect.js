@@ -21,7 +21,7 @@ var dict = function () {
             var curThis = this;
             for (var itm in curThis.dicts[key]) {
                 var item = dicts[key][itm];
-                if(item.parentCode == undefined){ //父级code查出来为空，代表他是一级字典，如果不该为空，则为联动字典
+                if(item.parentCode == undefined || item.parentCode == ""){ //父级code查出来为空，代表他是一级字典，如果不该为空，则为联动字典
                     option += "<option value=" + item.dictCode + " name=" + item.dictName + ">" + item.dictName + "</option>";
                 }
             }

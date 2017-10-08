@@ -1,9 +1,7 @@
 package com.chinawiserv.dsp.base.controller.system;
 
-import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
-import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
@@ -15,9 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -155,14 +151,6 @@ public class SysRegionController extends BaseController {
     public  HandleResult getRegionSelectDataList(@RequestParam Map<String , Object> paramMap){
         HandleResult handleResult = new HandleResult();
         try {
-            String regionCode = (String)paramMap.get("regionCode");
-            if(StringUtils.isEmpty(regionCode)){
-                regionCode = ShiroUtils.getLoginUser().getRegionCode();
-                paramMap.put("regionCode", regionCode);
-            }else{
-                paramMap.remove("regionCode");
-                paramMap.put("fcode", regionCode);
-            }
             List<SysRegionVo> sysRegionVoList= service.getRegionSelectDataList(paramMap);
             handleResult.put("selectData", sysRegionVoList);
         } catch (Exception e) {

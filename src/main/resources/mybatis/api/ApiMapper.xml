@@ -53,6 +53,7 @@
         ON ddsi.`dataset_id` = t.`id`
         WHERE TRUE
         AND ddsi.`source_obj_type` != '1'
+        OR ddsi.`source_obj_type` IS NULL
         <choose>
             <when test="null != classifyId and '' != classifyId">
                 AND dc.`id` = #{classifyId}

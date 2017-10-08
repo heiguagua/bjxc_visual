@@ -65,7 +65,10 @@
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         SELECT count(1) FROM dir_policy t
-        <include refid="queryConditions"></include>
+        where t.delete_flag = #{deleteFlag,jdbcType=INTEGER}
+        <if test="searchKey != null and searchKey !='' ">
+           and t.title LIKE CONCAT('%',#{searchKey},'%')
+        </if>
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirPolicy">

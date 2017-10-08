@@ -69,6 +69,20 @@
         )
     </insert>
 
+    <insert id="batchInsert" parameterType="java.util.Map">
+        insert into
+        drap_dataset_item(id,item_code,item_name,item_type,item_desc,belong_dept,sensitive_remark,update_frequency,share_type,share_range,share_method,share_condition_desc,share_method_desc,no_share_reason,is_open,open_condition,store_media,physics_store_location,code_index,create_user,create_time,update_user,update_time,delete_flag)
+        values
+        <foreach collection="list" item="item" separator=",">
+        (
+        #{item.id},#{item.itemCode},#{item.itemName},#{item.itemType},#{item.itemDesc},#{item.belongDept},#{item.sensitiveRemark},
+        #{item.updateFrequency},#{item.shareType},#{item.shareRange},#{item.shareMethod},#{item.shareConditionDesc},#{item.shareMethodDesc},
+        #{item.noShareReason},#{item.isOpen},#{item.openCondition},#{item.storeMedia},#{item.physicsStoreLocation},#{item.codeIndex},
+        #{item.createUser},#{item.createTime},#{item.updateUser},#{item.updateTime},#{item.deleteFlag}
+        )
+        </foreach>
+    </insert>
+
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetItem">
         update drap_dataset_item
         <set>

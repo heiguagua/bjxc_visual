@@ -25,30 +25,30 @@
                             <form class="form-inline" method="post">
                                 <div class="box-header">
                                     <div class="input-group">
-                                        <a class="btn btn-primary btn-flat" id="registeButton">
+                                        <a class="btn btn-primary btn-flat btn-myself" id="registeButton">
                                             <i class="fa fa-plus">
                                             </i>
                                             注册
                                         </a>
                                     </div>
-                                    <div class="input-group">
-                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control">
+                                    <div class="input-group pull-right">
+                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-primary btn-flat btn_blue" id="registeQueryBtn" type="button">
+                                                <i class="fa fa-search">
+                                                </i> 查询
+                                            </button>
+                                        </div>
+                                        </input>
+                                    </div>
+                                    <div class="input-group pull-right" style="margin-right:4px;width: 30%">
+                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                         <input type="hidden" id="searchClassifyId">
                                         <div class="menu-wrap">
                                             <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
                                                 <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="input-group">
-                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-primary btn-flat" id="registeQueryBtn" type="button">
-                                                <i class="fa fa-search">
-                                                </i> 查询
-                                            </button>
-                                        </div>
-                                        </input>
                                     </div>
                                 </div>
                             </form>

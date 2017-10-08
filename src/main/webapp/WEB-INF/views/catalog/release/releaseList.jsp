@@ -57,8 +57,8 @@
                                     </div>
                                     </input>
                                 </div>
-                                <div class="input-group pull-right" style="margin-right:4px;">
-                                    <input type="text" id="unReleaseSearchClassifyName" placeholder="请选择目录类别" class="form-control">
+                                <div class="input-group pull-right" style="margin-right:4px;width: 30%">
+                                    <input type="text" id="unReleaseSearchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                     <input type="hidden" id="unReleaseSearchClassifyId">
                                     <div class="menu-wrap">
                                         <div id="unReleaseSearchClassifyMenuContent" class="menuContent" style="display:none;">
@@ -88,8 +88,8 @@
                                     </div>
                                     </input>
                                 </div>
-                                <div class="input-group pull-right" style="margin-right:4px;">
-                                    <input type="text" id="releasedSearchClassifyName" placeholder="请选择目录类别" class="form-control">
+                                <div class="input-group pull-right" style="margin-right:4px;width: 30%">
+                                    <input type="text" id="releasedSearchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                     <input type="hidden" id="releasedSearchClassifyId">
                                     <div class="menu-wrap">
                                         <div id="releasedSearchClassifyMenuContent" class="menuContent" style="display:none;">
