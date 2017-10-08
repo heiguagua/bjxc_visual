@@ -38,7 +38,7 @@
                                 <div class="col-sm-10">
                                     <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
                                     <input type="text" id="regionName" required="required"
-                                           data-parsley-required-message="该项为必填" class="form-control" readonly>
+                                           data-parsley-required-message="该项为必填" class="form-control" readonly style="background-color:#fff">
                                     <input type="hidden" id="regionCode" name="regionCode">
                                     <div class="menu-wrap">
                                         <div id="menuContent" class="menuContent" style="display:none;">
