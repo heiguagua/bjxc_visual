@@ -81,7 +81,7 @@
                                 <div class="col-sm-7">
                                     <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="组织机构名称" disabled> -->
                                     <input type="text" class="form-control" id="deptName" name="deptName"
-                                           placeholder="组织机构名称">
+                                           placeholder="组织机构名称" data-rule="组织机构名称:required;deptName;remote(<%=basePath%>/system/dept/checkDeptName, fid:#fid)">
                                 </div>
                             </div>
                             <div class="form-group">
