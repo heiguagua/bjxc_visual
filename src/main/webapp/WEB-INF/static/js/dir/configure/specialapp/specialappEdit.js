@@ -5,18 +5,18 @@ jQuery(document).ready(function () {
     var appId = $("#appId").val();
 
     initUserTypeList();
-    initAllSelect();
+//    initAllSelect();
     initDeptSelectDataList();
     initRoleNameList();
     initFormerDate(appId);
     
 });
 
-function initAllSelect(){
-	
-	$.initCategoryAppTreeSelect('treeDemo','appCategory','dictCode','menuContent');
-	
-}
+//function initAllSelect(){
+//	
+//	$.initCategoryAppTreeSelect('treeDemo','appCategory','dictCode','menuContent');
+//	
+//}
 
 function initUserTypeList(){
     $.commonAjax({
@@ -51,9 +51,10 @@ function initFormerDate(appId) {
             if (result.state) {
                 var vo = result.content.vo;
                 if(vo){
-
+                	$.initCategoryAppTreeSelect('treeDemo','appCategory','dictCode','menuContent');
                     $("#Eapp_name").val(vo.appName);
-                    $("#Eapp_category").val(vo.dictName);
+                    $("#appCategory").val(vo.dictName);
+                    $("#dictCode").val(vo.appCategory);
                     $("#Eapp_url").val(vo.appUrl);
                     $("#Eorder_number").val(vo.orderNumber);                             
 
