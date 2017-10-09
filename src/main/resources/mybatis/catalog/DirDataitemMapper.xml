@@ -46,8 +46,7 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-            /*t.delete_flag =0*/
-            TRUE
+            t.delete_flag =0
             <if test="id != null">
                 and t.id = #{id,jdbcType=VARCHAR}
             </if>
@@ -64,12 +63,12 @@
 
     <select id="selectInfoList" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.*,de.dept_name FROM dir_dataitem t
-        left join sys_dept de on t.belong_dept_id=de.id
+        left join sys_dept de on t.belong_dept_id=de.id and de.delete_flag=0
         <include refid="queryConditions"></include>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM dir_dataitem t WHERE t.id = #{id}
+        SELECT t.* FROM dir_dataitem t WHERE t.id = #{id} and t.delete_flag=0
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -293,10 +292,10 @@
         </where>
     </sql>
     <insert id="insertListItem">
-        insert into dir_dataitem(id,dataset_id,item_code,item_name,item_desc,item_type,item_length,belong_dept_id,share_type,share_method,share_condition,is_open,open_condition,update_frequency,storage_medium,storage_location,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
+        insert into dir_dataitem(id,dataset_id,item_code,item_name,item_desc,item_type,item_length,belong_dept_id,share_type,share_method,share_condition,is_open,open_condition,update_frequency,storage_medium,storage_location,status,create_user_id,create_time,update_user_id,update_time)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.datasetId},#{item.itemCode},#{item.itemName},#{item.itemDesc},#{item.itemType},#{item.itemLength},#{item.belongDeptId},#{item.shareType},#{item.shareMethod},#{item.shareCondition},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},#{item.storageMedium},#{item.storageLocation},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},#{item.updateTime},#{item.deleteFlag})
+            (#{item.id},#{item.datasetId},#{item.itemCode},#{item.itemName},#{item.itemDesc},#{item.itemType},#{item.itemLength},#{item.belongDeptId},#{item.shareType},#{item.shareMethod},#{item.shareCondition},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},#{item.storageMedium},#{item.storageLocation},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},#{item.updateTime})
         </foreach>
     </insert>
 

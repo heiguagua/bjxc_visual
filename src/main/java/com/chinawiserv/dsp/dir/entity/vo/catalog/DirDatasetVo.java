@@ -28,6 +28,10 @@ public class DirDatasetVo extends DirDataset{
 
     private int itemNums;
 
+    private String regionDeptCode;
+
+    private String regionDeptName;
+
     //数据集扩展属性
     private DirDatasetExtFormat ext;
 
@@ -75,6 +79,22 @@ public class DirDatasetVo extends DirDataset{
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
+    }
+
+    public String getRegionDeptCode() {
+        return regionDeptCode;
+    }
+
+    public void setRegionDeptCode(String regionDeptCode) {
+        this.regionDeptCode = regionDeptCode;
+    }
+
+    public String getRegionDeptName() {
+        return regionDeptName;
+    }
+
+    public void setRegionDeptName(String regionDeptName) {
+        this.regionDeptName = regionDeptName;
     }
 
     public DirDatasetExtFormat getExt() {
