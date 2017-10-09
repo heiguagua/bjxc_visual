@@ -62,16 +62,23 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label">信息资源提供方:</label>
+                            <label for="classifyName" class="col-sm-3 control-label">信息资源提供方 :</label>
                             <div class="col-sm-9">
-                                <%--<select class="form-control" data-rule="所属资源格式:required;" id="belongDeptType" name="belongDeptType"></select>--%>
-                                <input type="text" class="form-control" id="belongDeptType" name="belongDeptType">
+                                <input type="text" id="belongDeptTypeName" data-rule="信息资源分类:required;" class="form-control"
+                                       placeholder="">
+                                <input type="hidden" id="belongDeptType" name="belongDeptType">
+                                <input type="hidden" id="belongDeptTypeCode">
+                                <div class="menu-wrap">
+                                    <div id="belongDeptTypeMenuContent" class="menuContent" style="display:none;">
+                                        <ul id="belongDeptTypeTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label  class="col-sm-3 control-label">信息资源提供方代码:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="belongDeptName" disabled>
+                                <input type="text" class="form-control" id="belongDeptCode" disabled>
                             </div>
                         </div>
                     </div>

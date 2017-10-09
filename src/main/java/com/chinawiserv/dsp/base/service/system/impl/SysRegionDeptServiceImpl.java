@@ -6,8 +6,11 @@ import com.chinawiserv.dsp.base.entity.vo.system.SysRegionDeptVo;
 import com.chinawiserv.dsp.base.mapper.system.SysRegionDeptMapper;
 import com.chinawiserv.dsp.base.service.system.ISysRegionDeptService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,4 +62,9 @@ public class SysRegionDeptServiceImpl extends CommonServiceImpl<SysRegionDeptMap
 		//todo
 		return 0;
 	}
+
+    @Override
+    public List<SysRegionDeptVo> selectVoList(Map<String, Object> paramMap) throws Exception {
+        return mapper.selectVoListForTreeData(paramMap);
+    }
 }
