@@ -57,10 +57,10 @@
                         <div class="col-sm-5">
                             <label class="col-sm-3"></label>
                             <div class="col-sm-9">
-                                <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas"
+                                <a id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas"
                                         data-toggle="modal" data-target="#myModal">
                                     配置数据项
-                                </button>
+                                </a>
                             </div>
 
                         </div>
@@ -173,11 +173,11 @@
                                    </div> -->
 
                                 <div class="redio-box">
-                                    <input type="radio" name="radiobutton" value="1"><span></span>
+                                    <input type="radio" name="secretFlag" value="1"><span></span>
                                 </div>
                                 <label style="display:inline-block">涉密</label>
                                 <div class="redio-box">
-                                    <input type="radio" name="radiobutton" checked value="0"><span></span>
+                                    <input type="radio" name="secretFlag" checked value="0"><span></span>
                                 </div>
                                 <label style="display:inline-block">非涉密</label>
                                 <span class="updatedate">更新周期：</span>
@@ -230,7 +230,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6 shareType3" id="shareConditionDiv">
-                            <label for="shareConditionDesc" class="col-sm-3 control-label">共享条件:</label>
+                            <label for="shareConditionDesc" class="col-sm-3 control-label" id="shareConditionLabel">共享条件:</label>
                             <div class="col-sm-9">
                                 <textarea class="form-control" rows="3" id="shareConditionDesc"
                                           name="shareCondition"></textarea>

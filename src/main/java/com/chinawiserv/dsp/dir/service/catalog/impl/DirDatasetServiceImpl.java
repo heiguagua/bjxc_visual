@@ -56,10 +56,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     private IDirClassifyService dirClassifyService;
 
     @Autowired
-    private DirDataitemSourceInfoMapper sourceInfoMapper;
+    private DirDataitemSourceInfoMapper dataitemSourceInfoMapper;
 
     @Autowired
     private DirDatasetSurveyMapper surveyMapper;
+
+    @Autowired
+    private DirDatasetSourceInfoMapper datasetSourceInfoMapper;
 
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
@@ -77,6 +80,14 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         vo.setCreateTime(createTime);
         int datasetResult = mapper.baseInsert(vo);
         if(datasetResult>0){
+            //数据集来源
+            if(!StringUtils.isEmpty(vo.getDrapDatasetId())){
+                DirDatasetSourceInfo sourceInfo = new DirDatasetSourceInfo();
+                sourceInfo.setId(UUID.randomUUID().toString());
+                sourceInfo.setDatasetId(datasetId);
+                sourceInfo.setSourceObjId(vo.getDrapDatasetId());
+                datasetSourceInfoMapper.baseInsert(sourceInfo);
+            }
             //插入信息资源格式
             DirDatasetExtFormat ext = vo.getExt();
             ext.setId(UUID.randomUUID().toString());
@@ -133,7 +144,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
                 itemResult = itemMapper.insertListItem(dirDataitemVoList);
                 /*if(insertSourceInfos!=null&&insertSourceInfos.size()>0){
-                    sourceInfoMapper.insertList(insertSourceInfos);
+                    dataitemSourceInfoMapper.insertList(insertSourceInfos);
                 }*/
             }
 
@@ -470,6 +481,15 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         return mapper.getDrapDatasetDetail(id);
     }
 
+    /**
+     * 获取梳理大普查
+     * @param id
+     * @return
+     */
+    @Override
+    public DirDatasetSurvey selectDrapSurveyByDatasetId(String id) {
+        return surveyMapper.selectDrapSurveyByDatasetId(id);
+    }
     @Override
     public boolean checkDatasetName(String datasetName, String classifyIds){
         boolean hasThisName = false;

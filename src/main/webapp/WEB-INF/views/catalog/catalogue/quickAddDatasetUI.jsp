@@ -54,9 +54,9 @@
 	                	<div class="col-sm-5">
 	                		<label class="col-sm-3"></label>
 	                		<div class="col-sm-9">
-	                			 <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas" data-toggle="modal" data-target="#myModal">
+	                			 <a id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas" data-toggle="modal" data-target="#myModal">
              			      	配置数据集
-                			</button>
+                			</a>
 	                		</div>
 		                 	
 		                 </div>   
@@ -68,6 +68,7 @@
 			                    <label  class="col-sm-3 control-label">信息资源名称:</label>
 			                    <div class="col-sm-9">
 			                        <input type="text" class="form-control" id="datasetName" name="datasetName">
+									<input type="hidden" id="drapDatasetId" name="drapDatasetId">
 			                    </div>
 	                    </div>
                			<div class="col-sm-6">
@@ -163,11 +164,11 @@
 				                    </div> -->
 				                    
 				                     		<div class="redio-box">
-				                        		<input type="radio" name="radiobutton" value="1" checked><span></span>
+				                        		<input type="radio" name="secretFlag" value="1" checked><span></span>
 				                        	 </div>
 				                        	 <label style="display:inline-block">涉密</label>
 				                     		<div class="redio-box">
-				                        		<input type="radio" name="radiobutton" value="0"><span></span>
+				                        		<input type="radio" name="secretFlag" value="0"><span></span>
 				                        	 </div>
 										    <label style="display:inline-block">非涉密</label>
 				                        	<span class="updatedate">更新周期：</span>
@@ -198,13 +199,14 @@
 				                		 <label  class="col-sm-3 control-label">是否向社会开放:</label>
 				                    <div class="col-sm-9">
 				                    		<div class="redio-box">
-				                        		<input type="radio" name="isOpen"  value="0" checked><span></span>
-				                        	 </div>
+												<input type="radio" name="isOpen"  value="1"><span></span>
+				                        		</div>
 				                        	 <label style="display:inline-block">否</label>
 				                     		<div class="redio-box">
-				                        		<input type="radio" name="isOpen"  value="1"><span></span>
-				                        		
-				                        	 </div>
+												<input type="radio" name="isOpen"  value="0" checked><span></span>
+
+
+											</div>
 				                        	 <label style="display:inline-block">是</label>
 				                    </div>
 			                	</div>
@@ -219,7 +221,7 @@
                 <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-6 shareType3" id="shareConditionDiv">
-		                	<label for="shareConditionDesc" class="col-sm-3 control-label">共享条件:</label>
+		                	<label for="shareConditionDesc" class="col-sm-3 control-label" id="shareConditionLabel">共享条件:</label>
 		                    <div class="col-sm-9">
 		                    	<textarea class="form-control" rows="3" id="shareConditionDesc" name="shareCondition"></textarea>
 		                    </div>
@@ -259,19 +261,19 @@
 					<div class="col-sm-4">
 						<label  class="col-sm-6 control-label">数据存储总量:</label>
 						<div class="col-sm-6">
-							<input type="number" class="form-control" data-rule="integer(+0);" min="0" name="survey.totalStorage">
+							<input type="number" id="totalStorage" class="form-control" data-rule="integer(+0);" min="0" name="survey.totalStorage">
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<label  class="col-sm-6 control-label">结构化信息记录总数:</label>
 						<div class="col-sm-6">
-							<input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.structureCount">
+							<input type="number" id="structureCount" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.structureCount">
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<label  class="col-sm-6 control-label">已共享的数据存储量:</label>
 						<div class="col-sm-6">
-							<input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.sharedStorage">
+							<input type="number" id="sharedStorage" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.sharedStorage">
 						</div>
 					</div>
 				</div>
@@ -281,19 +283,19 @@
 						<div class="col-sm-4">
 							<label  class="col-sm-6 control-label">已共享的结构化记录数:</label>
 							<div class="col-sm-6">
-								<input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.sharedStructureCount">
+								<input type="number" id="sharedStructureCount" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.sharedStructureCount">
 							</div>
 						</div>
 						<div class="col-sm-4">
 							<label  class="col-sm-6 control-label">已开放的数据存储量:</label>
 							<div class="col-sm-6">
-								<input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.openedStorage">
+								<input type="number" id="openedStorage" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.openedStorage">
 							</div>
 						</div>
 						<div class="col-sm-4">
 							<label  class="col-sm-6 control-label">已开放的结构化记录数:</label>
 							<div class="col-sm-6">
-								<input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.openedStructureCount">
+								<input type="number" id="openedStructureCount" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.openedStructureCount">
 							</div>
 						</div>
 					</div>

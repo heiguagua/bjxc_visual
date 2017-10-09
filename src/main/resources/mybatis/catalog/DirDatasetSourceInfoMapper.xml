@@ -40,8 +40,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceInfo">
-        insert into dir_dataset_source_info(id,dataset_id,source_mode,source_obj_type,source_obj_id,) values(
-            #{id},#{datasetId},#{sourceMode},#{sourceObjType},#{sourceObjId},        )
+        insert into dir_dataset_source_info(id,dataset_id,source_mode,source_obj_type,source_obj_id) values(
+            #{id},#{datasetId},#{sourceMode},#{sourceObjType},#{sourceObjId})
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceInfo">

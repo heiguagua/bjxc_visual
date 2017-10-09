@@ -520,7 +520,9 @@ public class DirDatasetController extends BaseController {
             result.error("参数不能为空");
         }else{
             DrapDataset drapdataset = service.getDrapDatasetDetail(id);
+            DirDatasetSurvey survey = service.selectDrapSurveyByDatasetId(id);
             result.put("result",drapdataset);
+            result.put("survey",survey);
         }
         return result;
     }
