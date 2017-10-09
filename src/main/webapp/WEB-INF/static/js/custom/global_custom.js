@@ -1575,7 +1575,7 @@ function initGlobalCustom(tempUrlPrefix) {
                         for (var i in nodeObjs) {
                             params[i] = {
                                 'id': nodeObjs[i].id,
-                                'name': nodeObjs[i].classifyStructureName,
+                                'name': nodeObjs[i].classifyName,
                                 'fid': nodeObjs[i].id,
                                 'pid': nodeObjs[i].fid,
                                 'checked': selects.indexOf(nodeObjs[i].id) >= 0,
