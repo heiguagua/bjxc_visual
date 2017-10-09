@@ -29,6 +29,9 @@
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
+            <if test="fcode !=null and fcode !='' ">
+                t.fcode = #{fcode,jdbcType=VARCHAR}
+            </if>
         </where>
     </sql>
 
@@ -36,6 +39,7 @@
         SELECT t.* FROM sys_region_dept t
         <include refid="queryConditions"></include>
     </select>
+
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
         SELECT t.* FROM sys_region_dept t WHERE t.id = #{id}

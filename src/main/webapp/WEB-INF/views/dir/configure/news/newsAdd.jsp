@@ -29,7 +29,7 @@
                             </div> 
                            <div class="form-group col-md-12">
                                 <label for="pic_title">标题<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
-                                <input type="text" class="form-control" id="pic_title" name="title" maxlength="100">
+                                <input type="text" class="form-control" id="pic_title" name="title" maxlength="100" data-rule="标题:required;title">
                                 <div id="addTitleDiv"></div>
                             </div> 
                             <div class="form-group col-md-12">

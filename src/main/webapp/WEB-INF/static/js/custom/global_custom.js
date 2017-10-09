@@ -1718,6 +1718,7 @@ function initGlobalCustom(tempUrlPrefix) {
                         $('#' + nameInputDomId).val(treeNode.structureName);
                         $('#' + codeInputDomId).val(treeNode.id);
                         $('#' + showCodeInputDomId).val(treeNode.fcode);
+                        $('#' + nameInputDomId).change();
                     }
                 }
             };
