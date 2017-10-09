@@ -6,7 +6,7 @@ jQuery(document).ready(function () {
     $(window).load(function(){
         $("#userName").val("")
         $("#password").val("");
-    })
+    });
     initSelectData();
 });
 

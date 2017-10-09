@@ -11,6 +11,7 @@ function runBeforeSubmit(form) {
 
 function runAfterSubmitSuccess(response) {
     console.log("runAfterSubmitSuccess");
+    window.top.location.href = basePathJS + "/login/logout"
 }
 
 function runAfterSubmit(response) {
