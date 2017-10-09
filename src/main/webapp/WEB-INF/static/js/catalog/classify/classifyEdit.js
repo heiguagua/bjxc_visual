@@ -55,7 +55,8 @@ function initFormerDate(classifyId) {
                     $("#Eorder_number").val(vo.orderNumber);
                     $("#deptId").val(vo.deptId);
                     $("#Eicon").append(Dict.selectsDom("classify_icon",vo.iconName?vo.iconName:''));
-                    $("#Eclassify_desc").val(vo.classifyDesc);              
+                    $("#Eclassify_desc").val(vo.classifyDesc);   
+                    $("#EclassifyCode").val(vo.classifyCode);
                 }
             }
         }

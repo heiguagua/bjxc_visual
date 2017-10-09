@@ -14,6 +14,7 @@
 		text-align: center;
 		font-size:14px;
 		opacity: 0.45;
+		cursor: context-menu;
 		font-family: PingFangSC-Regular;
 	}
     .citytitle .defaultcity img.changeAdress{
