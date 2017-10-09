@@ -114,6 +114,6 @@ function reloadTable() {
 }
 
 function authorityAudit(id) {
-    update('审核部门权限',basePathJS + '/system/deptAuthorityAudit/edit',id);
+    update('审核组织机构数据权限',basePathJS + '/system/deptAuthorityAudit/edit',id);
 }
 
