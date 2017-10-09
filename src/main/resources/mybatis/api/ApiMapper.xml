@@ -4,10 +4,6 @@
 
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.api.ApiMapper">
 
-    <select id="test" parameterType="map" resultType="map">
-        SELECT REPLACE(UUID(),'-','') AS uuid;
-    </select>
-
     <!-- 根据上级目录的ID查询子目录的数据 -->
     <select id="getSubDirectoryById" parameterType="map" resultType="map">
         SELECT * FROM dir_classify t
@@ -50,6 +46,7 @@
         LEFT JOIN dir_classify dc
         ON dc.`id` = dcm.`classify_id`
         WHERE TRUE
+        AND t.`delete_flag` = 0
         AND t.`source_type` = '2'
         OR t.`source_type` = '3'
         <choose>
@@ -129,6 +126,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '2'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -175,6 +173,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '3'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -213,6 +212,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '4'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -251,6 +251,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '5'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -292,6 +293,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '2'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -332,6 +334,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '3'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -371,6 +374,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '4'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -410,6 +414,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '5'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -498,6 +503,7 @@
         LEFT JOIN drap_info_system dis
         ON dis.`id` = dsm.`info_system_id`
         WHERE TRUE
+        AND ddi.`delete_flag` = 0
         <choose>
             <when test="null != systemId and '' != systemId">
                AND dis.`id` = #{systemId}
@@ -518,6 +524,7 @@
         LEFT JOIN drap_system_use_dept dsud ON dsud.`system_id` = dis.`id`
         LEFT JOIN sys_dept sd ON sd.`id` = dsud.`dept_id`
         WHERE TRUE
+        AND dis.`delete_flag` = 0
         <choose>
             <when test="null != deptId and '' != deptId">
                AND dsud.`dept_id` = #{deptId}
@@ -575,6 +582,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '2'
         AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
@@ -607,6 +615,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '3'
         AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
@@ -635,6 +644,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '4'
         AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
@@ -663,6 +673,7 @@
         WHERE category = 'dataSetSourceType') sd
         ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '5'
         AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
@@ -677,6 +688,7 @@
           LEFT JOIN drap_db_system_map ddsm
             ON ddsm.`db_id` = ddti.`db_id`
         WHERE TRUE
+           AND ddti.`delete_flag` = 0
            AND ddti.`db_id` = #{dbId}
            AND ddsm.`info_system_id` = #{systemId}
            AND ddti.`table_name` = #{tableName}
