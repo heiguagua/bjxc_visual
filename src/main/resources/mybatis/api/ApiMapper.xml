@@ -49,11 +49,9 @@
         ON dcm.`dataset_id` = t.`id`
         LEFT JOIN dir_classify dc
         ON dc.`id` = dcm.`classify_id`
-        LEFT JOIN dir_dataset_source_info ddsi
-        ON ddsi.`dataset_id` = t.`id`
         WHERE TRUE
-        AND ddsi.`source_obj_type` != '1'
-        OR ddsi.`source_obj_type` IS NULL
+        AND t.`source_type` = '2'
+        OR t.`source_type` = '3'
         <choose>
             <when test="null != classifyId and '' != classifyId">
                 AND dc.`id` = #{classifyId}
@@ -129,7 +127,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '2'
         <include refid="datasetWhereClause"/>
@@ -175,7 +173,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '3'
         <include refid="datasetWhereClause"/>
@@ -213,7 +211,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '4'
         <include refid="datasetWhereClause"/>
@@ -251,7 +249,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '5'
         <include refid="datasetWhereClause"/>
@@ -292,7 +290,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '2'
         <include refid="datasetWhereClause"/>
@@ -332,7 +330,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '3'
         <include refid="datasetWhereClause"/>
@@ -371,7 +369,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '4'
         <include refid="datasetWhereClause"/>
@@ -410,7 +408,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '5'
         <include refid="datasetWhereClause"/>
@@ -561,6 +559,8 @@
         dtc.`column_en_name` AS columnName
         FROM
         dir_data_item_apply dia
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = dia.`data_apply_id`
         LEFT JOIN dir_dataitem_source_info dsi
         ON dsi.`item_id` = dia.`item_id`
         LEFT JOIN drap_db_table_column dtc
@@ -573,7 +573,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = dsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '2'
         AND dia.`status` = '1'
@@ -587,6 +587,8 @@
         dtc.`column_en_name` AS columnName
         FROM
         dir_data_item_apply dia
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = dia.`data_apply_id`
         LEFT JOIN dir_dataitem_source_info dsi
         ON dsi.`item_id` = dia.`item_id`
         LEFT JOIN drap_dataset_item ddi
@@ -603,7 +605,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = dsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '3'
         AND dia.`status` = '1'
@@ -617,6 +619,8 @@
         dtc.`cloumn_name` AS columnName
         FROM
         dir_data_item_apply dia
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = dia.`data_apply_id`
         LEFT JOIN dir_dataitem_source_info dsi
         ON dsi.`item_id` = dia.`item_id`
         LEFT JOIN cs_data_sync_collect_column dtc
@@ -629,7 +633,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = dsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '4'
         AND dia.`status` = '1'
@@ -643,6 +647,8 @@
         dtc.`target_column_name` AS columnName
         FROM
         dir_data_item_apply dia
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = dia.`data_apply_id`
         LEFT JOIN dir_dataitem_source_info dsi
         ON dsi.`item_id` = dia.`item_id`
         LEFT JOIN dcm_table_column dtc
@@ -655,7 +661,7 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = dsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
         AND sd.`dict_code` = '5'
         AND dia.`status` = '1'

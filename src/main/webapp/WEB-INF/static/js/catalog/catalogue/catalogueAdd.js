@@ -63,8 +63,7 @@ function initInputValue(){
         success: function (result) {
             if (result.state) {
                 var deptObj = result.content.vo;
-                $("#belongDeptName").val(deptObj.deptName);
-                $("#belongDepId").val(deptObj.id);
+                $("#belongDeptId").val(deptObj.id);
             }
         }
     });
