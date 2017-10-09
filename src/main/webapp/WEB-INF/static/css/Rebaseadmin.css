@@ -92,8 +92,12 @@
 	opacity: 1;
 	border-bottom:3px solid #4197F4;
 }
-
-
+.nav_uls>li a{
+	color:#fff;
+}
+.nav_uls>li a:hover{
+	color:#fff;
+}
 
 
 

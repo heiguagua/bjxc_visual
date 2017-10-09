@@ -33,4 +33,6 @@ public interface DirDataitemSourceInfoMapper extends BaseMapper<DirDataitemSourc
     int baseDelete(String id);
 
     int insertList(@Param("list") List<DirDataitemSourceInfo> list);
+
+    void batchInsert(List<DirDataitemSourceInfo> dirDataitemSourceInfoList);
 }

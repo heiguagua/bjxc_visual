@@ -31,7 +31,7 @@ import com.chinawiserv.dsp.dir.service.drap.IDrapDbInfoService;
  * @since 2017-09-27
  */
 @Controller
-@RequestMapping("/drapDbInfo")
+@RequestMapping("/drap/drapDbInfo")
 //todo 将所有的XXX修改为真实值
 public class DrapDbInfoController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());

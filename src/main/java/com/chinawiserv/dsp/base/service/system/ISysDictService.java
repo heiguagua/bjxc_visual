@@ -18,6 +18,6 @@ import java.util.Map;
 public interface ISysDictService extends ICommonService<SysDict, SysDictVo> {
 
     public Map<String, Map<String, SysDictVo>> getDictDataForSelect(Map<String, Object> paramMap) throws Exception;
-
+    List<SysDictVo> selectVoCategoryList(Map<String, Object> paramMap);
     String selectDictcodeByCategoryAndName(String dict_name, String category);
 }

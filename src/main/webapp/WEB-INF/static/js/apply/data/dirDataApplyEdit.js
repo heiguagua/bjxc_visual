@@ -29,8 +29,10 @@ function initEditPage(){
         $(".dirDataItemApplyList").val(status);
         if(status == '1'){
             $(".dirDataItemApplyList").enable();
+            $("#auditVisit").show();
         }else{
             $(".dirDataItemApplyList").attr("disabled", true);
+            $("#auditVisit").hide();
         }
     });
     $('#auditVisitDatePeriod').customDateRangePicker();
@@ -38,7 +40,7 @@ function initEditPage(){
 
 function initTable(){
     var tableSelector = '#dirDataItemApplyTableId';
-    var paramsObj = {};
+    var paramsObj = {dataApplyId : $("#dirDataApplyId").val()};
     jQuery(tableSelector).customTable({
         url: basePathJS + '/dirDataApply/listItem',
         queryParams: function (params) {

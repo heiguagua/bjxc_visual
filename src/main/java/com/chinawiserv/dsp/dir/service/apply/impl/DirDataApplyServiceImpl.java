@@ -10,6 +10,7 @@ import com.chinawiserv.dsp.dir.enums.apply.DataItemStatus;
 import com.chinawiserv.dsp.dir.mapper.apply.DirDataApplyMapper;
 import com.chinawiserv.dsp.dir.mapper.apply.DirDataItemApplyMapper;
 import com.chinawiserv.dsp.dir.service.apply.IDirDataApplyService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,13 +38,14 @@ public class DirDataApplyServiceImpl extends CommonServiceImpl<DirDataApplyMappe
         dirDataApplyVo.setAuditDate(new Date());
         boolean result = updateById(dirDataApplyVo);
         if(result){
-            String status = dirDataApplyVo.getStatus();
-            if(status.equals(DataItemStatus.DATA_1.getDbValue())){
-                List<DirDataItemApply> dirDataItemApplyList = dirDataApplyVo.getDirDataItemApplyList();
-                if(dirDataItemApplyList != null && !dirDataItemApplyList.isEmpty()){
-                    for(DirDataItemApply dirDataItemApply : dirDataItemApplyList){
-                        result &= dirDataItemApplyMapper.updateById(dirDataItemApply) > 0;
+            List<DirDataItemApply> dirDataItemApplyList = dirDataApplyVo.getDirDataItemApplyList();
+            if(dirDataItemApplyList != null && !dirDataItemApplyList.isEmpty()){
+                for(DirDataItemApply dirDataItemApply : dirDataItemApplyList){
+                    String status = dirDataItemApply.getStatus();
+                    if(StringUtils.isBlank(status)){
+                        dirDataItemApply.setStatus(dirDataApplyVo.getStatus());
                     }
+                    result &= dirDataItemApplyMapper.updateById(dirDataItemApply) > 0;
                 }
             }
         }

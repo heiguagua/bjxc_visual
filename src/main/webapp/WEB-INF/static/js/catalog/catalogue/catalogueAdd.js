@@ -12,6 +12,7 @@ jQuery(document).ready(function () {
 function initAllSelect(){
     $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化信息资源分类下拉框
     $.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联信息资源分类下拉框
+    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent','belongDeptTypeCode')//初始化资源提供方下拉框;
     //信息资源格式下拉框初始化
     Dict.selects('resourceFormat',['#formatCategory']);
     //共享类型
@@ -49,6 +50,10 @@ function initAllSelect(){
             Dict.cascadeSelects('resourceFormat', ['#formatType'], selectedValue);
         }
     });
+
+    $("#belongDeptTypeName").on("change",function(){
+        $("#belongDeptCode").val($("#belongDeptTypeCode").val());
+    });
 }
 
 function initInputValue(){
@@ -58,8 +63,7 @@ function initInputValue(){
         success: function (result) {
             if (result.state) {
                 var deptObj = result.content.vo;
-                $("#belongDeptName").val(deptObj.deptName);
-                $("#belongDepId").val(deptObj.id);
+                $("#belongDeptId").val(deptObj.id);
             }
         }
     });
@@ -81,9 +85,9 @@ function initButtonClickEvent(){
         }
         $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
         +'<td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
-        +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number"  min="1" class="form-control"></td>'
-        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" > <input class="form-control" type="text" disabled > </td>'
+        +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType")+'</select></td>'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number"  min="1" class="form-control">'
+        +'<input type="hidden" name="items['+thisTrNum+'].belongDeptId" > </td>'
         //+'<td><input class="form-control" type="text"  value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
         +'<td><select name="items['+thisTrNum+'].secretFlag" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
@@ -95,6 +99,15 @@ function initButtonClickEvent(){
         +'<td><select name="items['+thisTrNum+'].storageLocation" class="form-control">'+Dict.selectsDom("setItemStoreLocation")+'</select></td>'
         +'<td><select name="items['+thisTrNum+'].updateFrequency" class="form-control">'+Dict.selectsDom("setItemFrequency")+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" ></td></tr>');
+
+        //数据集与数据项共有的属性,如果数据集已经设值了,那新增一行时,就把这些值带入数据项
+        $("select[name='items["+thisTrNum+"].secretFlag']").val($("input[name='secretFlag']:checked").val());
+        $("select[name='items["+thisTrNum+"].shareType']").val($("#shareType").val());
+        $("select[name='items["+thisTrNum+"].shareMethod']").val($("#shareMethod").val());
+        $("select[name='items["+thisTrNum+"].isOpen']").val($("input[name='isOpen']:checked").val());
+        $("select[name='items["+thisTrNum+"].updateFrequency']").val($("#updateFrequency").val());
+        $("input[name='items["+thisTrNum+"].shareCondition']").val($("#shareCondition").val());
+        $("input[name='items["+thisTrNum+"].openCondition']").val($("#openCondition").val());
     });
 
     //点击信息项的删除按钮

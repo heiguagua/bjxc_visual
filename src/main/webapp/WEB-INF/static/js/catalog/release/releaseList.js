@@ -24,7 +24,8 @@ jQuery(document).ready(function () {
 function initUnReleaseTable(){
     var searchName = $("#unReleaseSearchName").val();
     var searchClassify = $("#unReleaseSearchClassifyId").val();
-    paramsObj = {datasetName:searchName,classifyId:searchClassify};
+    var regionCode = $.getSelectedRegionCode();
+    paramsObj = {datasetName:searchName,classifyId:searchClassify,regionCode:regionCode};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/unRelease/list',
@@ -106,7 +107,8 @@ function initUnReleaseTable(){
 function initReleasedTable(){
     var searchName = $("#releasedSearchName").val();
     var searchClassify = $("#releasedSearchClassifyId").val();
-    paramsObj = {datasetName:searchName,classifyId:searchClassify};
+    var regionCode = $.getSelectedRegionCode();
+    paramsObj = {datasetName:searchName,classifyId:searchClassify,regionCode:regionCode};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/released/list',
@@ -248,14 +250,16 @@ function catalogueTableShow(id){
 
 function setUnReleaseParams(){
     var searchName = $("#unReleaseSearchName").val();
-    var searchClassify = $("#unReleaseSearchClassifyId").val();
-    paramsObj = {classifyId:searchClassify,datasetName:searchName};
+    var searchClassifyId = $("#unReleaseSearchClassifyId").val();
+    var regionCode = $.getSelectedRegionCode();
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
 }
 
 function setReleasedParams() {
     var searchName = $("#releasedSearchName").val();
-    var searchClassify = $("#releasedSearchClassifyId").val();
-    paramsObj = {classifyId:searchClassify,datasetName:searchName};
+    var searchClassifyId = $("#releasedSearchClassifyId").val();
+    var regionCode = $.getSelectedRegionCode();
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
 }
 
 function reloadTable() {

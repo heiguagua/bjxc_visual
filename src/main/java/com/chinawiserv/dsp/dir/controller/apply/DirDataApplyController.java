@@ -85,7 +85,7 @@ public class DirDataApplyController extends BaseController {
      * 执行编辑
      */
     @RequiresPermissions("apply:dirDataApply:edit")
-    @Log("编辑数据权限申请表")
+    @Log("审核数据权限")
     @RequestMapping(value = "/doEdit")
     @ResponseBody
     public  HandleResult doEdit(DirDataApplyVo dirDataApplyVo){
@@ -93,10 +93,10 @@ public class DirDataApplyController extends BaseController {
 		try {
             service.updateVO(dirDataApplyVo);
 		} catch (Exception e) {
-		    handleResult.error("编辑数据权限申请表失败");
-		    logger.error("编辑数据权限申请表失败", e);
+		    handleResult.error("审核数据权限失败");
+		    logger.error("审核数据权限失败", e);
 		}
-		return handleResult;
+		return handleResult.success("审核数据权限成功");
     }
 
     /**

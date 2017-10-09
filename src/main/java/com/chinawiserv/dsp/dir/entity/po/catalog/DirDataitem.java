@@ -16,158 +16,152 @@ import java.io.Serializable;
 @TableName("dir_dataitem")
 public class DirDataitem implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * id
-     */
+	/**
+	 * id
+	 */
 	private String id;
-    /**
-     * 数据集ID
-     */
+	/**
+	 * 数据集ID
+	 */
 	@TableField("dataset_id")
 	private String datasetId;
-    /**
-     * 数据项编号
-     */
+	/**
+	 * 数据项编号
+	 */
 	@TableField("item_code")
 	private String itemCode;
-    /**
-     * 【国】数据项名称
-     */
+	/**
+	 * 【国】数据项名称
+	 */
 	@TableField("item_name")
 	private String itemName;
-    /**
-     * 数据项描述
-     */
+	/**
+	 * 数据项描述
+	 */
 	@TableField("item_desc")
 	private String itemDesc;
-    /**
-     * 【国】数据项类型
-     */
+	/**
+	 * 【国】数据项类型
+	 */
 	@TableField("item_type")
 	private String itemType;
-    /**
-     * 【国】数据长度
-     */
+	/**
+	 * 【国】数据项长度
+	 */
 	@TableField("item_length")
 	private Integer itemLength;
-    /**
-     * 责任部门
-     */
+	/**
+	 * 责任部门
+	 */
 	@TableField("belong_dept_id")
 	private String belongDeptId;
-    /**
-     * 共享类型
-     */
+	/**
+	 * 共享类型
+	 */
 	@TableField("share_type")
 	private String shareType;
-    /**
-     * 共享方式
-     */
-	@TableField("share_method")
-	private String shareMethod;
-
-	@TableField("share_method_category")
-	private String shareMethodCategory;
-    /**
-     * 共享条件
-     */
+	/**
+	 * 共享条件
+	 */
 	@TableField("share_condition")
 	private String shareCondition;
-    /**
-     * 是否开放
-     */
+	/**
+	 * 不予共享条件
+	 */
+	@TableField("no_share_reason")
+	private String noShareReason;
+	/**
+	 * 共享方式分类
+	 */
+	@TableField("share_method_category")
+	private String shareMethodCategory;
+	/**
+	 * 共享方式
+	 */
+	@TableField("share_method")
+	private String shareMethod;
+	/**
+	 * 是否向社会开放
+	 */
 	@TableField("is_open")
 	private String isOpen;
-    /**
-     * 开放条件
-     */
+	/**
+	 * 开放条件
+	 */
 	@TableField("open_condition")
 	private String openCondition;
-    /**
-     * 更新周期
-     */
+	/**
+	 * 更新周期
+	 */
 	@TableField("update_frequency")
 	private String updateFrequency;
-    /**
-     * 存储介质
-     */
+	/**
+	 * 资源格式分类
+	 */
+	@TableField("format_category")
+	private String formatCategory;
+	/**
+	 * 资源格式类型
+	 */
+	@TableField("format_type")
+	private String formatType;
+	/**
+	 * 资源格式说明
+	 */
+	@TableField("format_info")
+	private String formatInfo;
+	/**
+	 * 存储介质
+	 */
 	@TableField("storage_medium")
 	private String storageMedium;
-    /**
-     * 存储位置
-     */
+	/**
+	 * 存储位置
+	 */
 	@TableField("storage_location")
 	private String storageLocation;
-    /**
-     * 状态
-     */
-	private String status;
-    /**
-     * 创建人
-     */
-	@TableField("create_user_id")
-	private String createUserId;
-    /**
-     * 创建时间
-     */
-	@TableField("create_time")
-	private Date createTime;
-    /**
-     * 更新人
-     */
-	@TableField("update_user_id")
-	private String updateUserId;
-    /**
-     * 更新时间
-     */
-	@TableField("update_time")
-	private Date updateTime;
-    /**
-     * 逻辑删除标识
-     */
-	@TableField("delete_flag")
-	private Integer deleteFlag;
 	/**
-     * 所属系统
-     */
+	 * 所属系统
+	 */
 	@TableField("belong_system_id")
 	private String belongSystemId;
 	/**
 	 * 是否涉密
 	 */
-	@TableField("item_format")
-	private int secretFlag;
+	@TableField("secret_flag")
+	private Integer secretFlag;
 	/**
-	 * 所属信息资源格式
+	 * 状态
 	 */
-	@TableField("item_format")
-	private int itemFormat;
+	private String status;
+	/**
+	 * 创建人
+	 */
+	@TableField("create_user_id")
+	private String createUserId;
+	/**
+	 * 创建时间
+	 */
+	@TableField("create_time")
+	private Date createTime;
+	/**
+	 * 更新人
+	 */
+	@TableField("update_user_id")
+	private String updateUserId;
+	/**
+	 * 更新时间
+	 */
+	@TableField("update_time")
+	private Date updateTime;
+	/**
+	 * 逻辑删除标识
+	 */
+	@TableField("delete_flag")
+	private Integer deleteFlag;
 
-	public int getItemFormat() {
-		return itemFormat;
-	}
-
-	public void setItemFormat(int itemFormat) {
-		this.itemFormat = itemFormat;
-	}
-
-	public int getSecretFlag() {
-		return secretFlag;
-	}
-
-	public void setSecretFlag(int secretFlag) {
-		this.secretFlag = secretFlag;
-	}
-
-	public String getBelongSystemId() {
-		return belongSystemId;
-	}
-
-	public void setBelongSystemId(String belongSystemId) {
-		this.belongSystemId = belongSystemId;
-	}
 
 	public String getId() {
 		return id;
@@ -241,14 +235,6 @@ public class DirDataitem implements Serializable {
 		this.shareType = shareType;
 	}
 
-	public String getShareMethod() {
-		return shareMethod;
-	}
-
-	public void setShareMethod(String shareMethod) {
-		this.shareMethod = shareMethod;
-	}
-
 	public String getShareCondition() {
 		return shareCondition;
 	}
@@ -257,7 +243,31 @@ public class DirDataitem implements Serializable {
 		this.shareCondition = shareCondition;
 	}
 
-    public String getIsOpen() {
+	public String getNoShareReason() {
+		return noShareReason;
+	}
+
+	public void setNoShareReason(String noShareReason) {
+		this.noShareReason = noShareReason;
+	}
+
+	public String getShareMethodCategory() {
+		return shareMethodCategory;
+	}
+
+	public void setShareMethodCategory(String shareMethodCategory) {
+		this.shareMethodCategory = shareMethodCategory;
+	}
+
+	public String getShareMethod() {
+		return shareMethod;
+	}
+
+	public void setShareMethod(String shareMethod) {
+		this.shareMethod = shareMethod;
+	}
+
+	public String getIsOpen() {
 		return isOpen;
 	}
 
@@ -281,6 +291,30 @@ public class DirDataitem implements Serializable {
 		this.updateFrequency = updateFrequency;
 	}
 
+	public String getFormatCategory() {
+		return formatCategory;
+	}
+
+	public void setFormatCategory(String formatCategory) {
+		this.formatCategory = formatCategory;
+	}
+
+	public String getFormatType() {
+		return formatType;
+	}
+
+	public void setFormatType(String formatType) {
+		this.formatType = formatType;
+	}
+
+	public String getFormatInfo() {
+		return formatInfo;
+	}
+
+	public void setFormatInfo(String formatInfo) {
+		this.formatInfo = formatInfo;
+	}
+
 	public String getStorageMedium() {
 		return storageMedium;
 	}
@@ -295,6 +329,22 @@ public class DirDataitem implements Serializable {
 
 	public void setStorageLocation(String storageLocation) {
 		this.storageLocation = storageLocation;
+	}
+
+	public String getBelongSystemId() {
+		return belongSystemId;
+	}
+
+	public void setBelongSystemId(String belongSystemId) {
+		this.belongSystemId = belongSystemId;
+	}
+
+	public Integer getSecretFlag() {
+		return secretFlag;
+	}
+
+	public void setSecretFlag(Integer secretFlag) {
+		this.secretFlag = secretFlag;
 	}
 
 	public String getStatus() {
@@ -345,11 +395,4 @@ public class DirDataitem implements Serializable {
 		this.deleteFlag = deleteFlag;
 	}
 
-	public String getShareMethodCategory() {
-		return shareMethodCategory;
-	}
-
-	public void setShareMethodCategory(String shareMethodCategory) {
-		this.shareMethodCategory = shareMethodCategory;
-	}
 }

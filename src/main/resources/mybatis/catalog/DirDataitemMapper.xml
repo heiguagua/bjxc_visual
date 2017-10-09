@@ -8,27 +8,34 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataitem">
         <id column="id" property="id"/>
-        <result column="dataset_id" property="datasetId"/>
-        <result column="item_code" property="itemCode"/>
-        <result column="item_name" property="itemName"/>
-        <result column="item_desc" property="itemDesc"/>
-        <result column="item_type" property="itemType"/>
-        <result column="item_length" property="itemLength"/>
-        <result column="belong_dept_id" property="belongDeptId"/>
-        <result column="share_type" property="shareType"/>
-        <result column="share_method" property="shareMethod"/>
-        <result column="share_condition" property="shareCondition"/>
-        <result column="is_open" property="isOpen"/>
-        <result column="open_condition" property="openCondition"/>
-        <result column="update_frequency" property="updateFrequency"/>
-        <result column="storage_medium" property="storageMedium"/>
-        <result column="storage_location" property="storageLocation"/>
-        <result column="status" property="status"/>
-        <result column="create_user_id" property="createUserId"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_user_id" property="updateUserId"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="delete_flag" property="deleteFlag"/>
+        <result column="dataset_id" property="datasetId" />
+        <result column="item_code" property="itemCode" />
+        <result column="item_name" property="itemName" />
+        <result column="item_desc" property="itemDesc" />
+        <result column="item_type" property="itemType" />
+        <result column="item_length" property="itemLength" />
+        <result column="belong_dept_id" property="belongDeptId" />
+        <result column="share_type" property="shareType" />
+        <result column="share_condition" property="shareCondition" />
+        <result column="no_share_reason" property="noShareReason" />
+        <result column="share_method_category" property="shareMethodCategory" />
+        <result column="share_method" property="shareMethod" />
+        <result column="is_open" property="isOpen" />
+        <result column="open_condition" property="openCondition" />
+        <result column="update_frequency" property="updateFrequency" />
+        <result column="format_category" property="formatCategory" />
+        <result column="format_type" property="formatType" />
+        <result column="format_info" property="formatInfo" />
+        <result column="storage_medium" property="storageMedium" />
+        <result column="storage_location" property="storageLocation" />
+        <result column="belong_system_id" property="belongSystemId" />
+        <result column="secret_flag" property="secretFlag" />
+        <result column="status" property="status" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="update_time" property="updateTime" />
+        <result column="delete_flag" property="deleteFlag" />
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
@@ -39,8 +46,7 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-            /*t.delete_flag =0*/
-            TRUE
+            t.delete_flag =0
             <if test="id != null">
                 and t.id = #{id,jdbcType=VARCHAR}
             </if>
@@ -57,12 +63,12 @@
 
     <select id="selectInfoList" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.*,de.dept_name FROM dir_dataitem t
-        left join sys_dept de on t.belong_dept_id=de.id
+        left join sys_dept de on t.belong_dept_id=de.id and de.delete_flag=0
         <include refid="queryConditions"></include>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM dir_dataitem t WHERE t.id = #{id}
+        SELECT t.* FROM dir_dataitem t WHERE t.id = #{id} and t.delete_flag=0
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -70,12 +76,27 @@
         <include refid="queryConditions"></include>
     </select>
 
+
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataitem">
-        insert into
-        dir_dataitem(id,dataset_id,item_code,item_name,item_desc,item_type,item_length,belong_dept_id,share_type,share_method,share_condition,is_open,open_condition,update_frequency,storage_medium,storage_location,status,create_user_id,create_time,update_user_id,update_time)
-        values(
-        #{id},#{datasetId},#{itemCode},#{itemName},#{itemDesc},#{itemType},#{itemLength},#{belongDeptId},#{shareType},#{shareMethod},#{shareCondition},#{isOpen},#{openCondition},#{updateFrequency},#{storageMedium},#{storageLocation},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime}}
+        insert into dir_dataitem(id,dataset_id,item_code,item_name,item_desc,item_type,item_length,belong_dept_id,share_type,share_condition,no_share_reason,share_method_category,share_method,is_open,open_condition,update_frequency,format_category,format_type,format_info,storage_medium,storage_location,belong_system_id,secret_flag,status,create_user_id,create_time,update_user_id,update_time) values(
+            #{id},#{datasetId},#{itemCode},#{itemName},#{itemDesc},#{itemType},#{itemLength},#{belongDeptId},#{shareType},#{shareCondition},#{noShareReason},#{shareMethodCategory},#{shareMethod},#{isOpen},#{openCondition},#{updateFrequency},#{formatCategory},#{formatType},#{formatInfo},#{storageMedium},#{storageLocation},#{belongSystemId},#{secretFlag},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime})
+    </insert>
+
+    <insert id="batchInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataitem">
+        insert into dir_dataitem(id,dataset_id,item_code,item_name,item_desc,item_type,item_length,belong_dept_id,
+        share_type,share_condition,no_share_reason,share_method_category,share_method,is_open,open_condition,
+        update_frequency,format_category,format_type,format_info,storage_medium,storage_location,belong_system_id,
+        secret_flag,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values
+        <foreach collection="list" item="item" separator=",">
+        (
+        #{item.id},#{item.datasetId},#{item.itemCode},#{item.itemName},#{item.itemDesc},#{item.itemType},#{item.itemLength},
+        #{item.belongDeptId},#{item.shareType},#{item.shareCondition},#{item.noShareReason},#{item.shareMethodCategory},
+        #{item.shareMethod},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},#{item.formatCategory},
+        #{item.formatType},#{item.formatInfo},#{item.storageMedium},#{item.storageLocation},#{item.belongSystemId},
+        #{item.secretFlag},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},#{item.updateTime},
+        #{item.deleteFlag}
         )
+        </foreach>
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataitem">
@@ -105,11 +126,17 @@
             <if test="shareType != null">
                 share_type = #{shareType},
             </if>
-            <if test="shareMethod != null">
-                share_method = #{shareMethod},
-            </if>
             <if test="shareCondition != null">
                 share_condition = #{shareCondition},
+            </if>
+            <if test="noShareReason != null">
+                no_share_reason = #{noShareReason},
+            </if>
+            <if test="shareMethodCategory != null">
+                share_method_category = #{shareMethodCategory},
+            </if>
+            <if test="shareMethod != null">
+                share_method = #{shareMethod},
             </if>
             <if test="isOpen != null">
                 is_open = #{isOpen},
@@ -120,11 +147,26 @@
             <if test="updateFrequency != null">
                 update_frequency = #{updateFrequency},
             </if>
+            <if test="formatCategory != null">
+                format_category = #{formatCategory},
+            </if>
+            <if test="formatType != null">
+                format_type = #{formatType},
+            </if>
+            <if test="formatInfo != null">
+                format_info = #{formatInfo},
+            </if>
             <if test="storageMedium != null">
                 storage_medium = #{storageMedium},
             </if>
             <if test="storageLocation != null">
                 storage_location = #{storageLocation},
+            </if>
+            <if test="belongSystemId != null">
+                belong_system_id = #{belongSystemId},
+            </if>
+            <if test="secretFlag != null">
+                secret_flag = #{secretFlag},
             </if>
             <if test="status != null">
                 status = #{status},
@@ -152,9 +194,9 @@
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             update dir_dataitem
             <set>
-                <if test="item.datasetId != null">
+                <!--<if test="item.datasetId != null">
                     dataset_id = #{item.datasetId},
-                </if>
+                </if>-->
                 <if test="item.itemCode != null">
                     item_code = #{item.itemCode},
                 </if>
@@ -250,10 +292,10 @@
         </where>
     </sql>
     <insert id="insertListItem">
-        insert into dir_dataitem(id,dataset_id,item_code,item_name,item_desc,item_type,item_length,belong_dept_id,share_type,share_method,share_condition,is_open,open_condition,update_frequency,storage_medium,storage_location,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
+        insert into dir_dataitem(id,dataset_id,item_code,item_name,item_desc,item_type,item_length,belong_dept_id,share_type,share_method,share_condition,is_open,open_condition,update_frequency,storage_medium,storage_location,status,create_user_id,create_time,update_user_id,update_time)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.datasetId},#{item.itemCode},#{item.itemName},#{item.itemDesc},#{item.itemType},#{item.itemLength},#{item.belongDeptId},#{item.shareType},#{item.shareMethod},#{item.shareCondition},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},#{item.storageMedium},#{item.storageLocation},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},#{item.updateTime},#{item.deleteFlag})
+            (#{item.id},#{item.datasetId},#{item.itemCode},#{item.itemName},#{item.itemDesc},#{item.itemType},#{item.itemLength},#{item.belongDeptId},#{item.shareType},#{item.shareMethod},#{item.shareCondition},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},#{item.storageMedium},#{item.storageLocation},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},#{item.updateTime})
         </foreach>
     </insert>
 

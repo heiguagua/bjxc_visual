@@ -17,28 +17,32 @@
 <div class="wrapper">
     <%@include file="/WEB-INF/views/common/header.jsp" %>
     <%@include file="/WEB-INF/views/common/menu.jsp" %>
+
     <div class="content-wrapper">
-        <section class="content" id="userRegBox">
+        <section class="content-header">
+            <h1>
+                <small>门户数据管理 > 用户注册申请</small>
+            </h1>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <!-- Your Page Content Here -->
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form action="http://localhost:8123/Dataset_getDatasetList" class="form-inline" method="post">
+                        <form class="form-inline" method="post">
                             <div class="box-header">
-                                <div class="input-group">
-                                    用户注册申请
-                                </div>
-                                <div class="input-group pull-right">
+                                <div class="input-group" style="float:right">
                                     <input class="form-control" id="editSearch" name="searchEdit" placeholder="资源名称"
                                            type="text">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat" id="queryBtnEdit" type="button">
-                                            <i class="fa fa-search">
-                                            </i> 搜索
+                                        <button class="btn btn-primary btn-flat btn_blue" id="queryBtnEdit" type="button">
+                                            <i class="fa fa-search"></i> 查询
                                         </button>
                                     </div>
                                     </input>
                                 </div>
-                                <div class="input-group  pull-right">
+                                <div class="input-group  pull-right mgr15 ">
                                     <select class="form-control" id="ugChangeSearch">
                                         <option value="login_name" selected>用户名</option>
                                         <option value="real_name">姓名</option>
@@ -52,9 +56,10 @@
                                         <option value="2">已拒绝</option>
                                     </select>
                                 </div>
+
                             </div>
                         </form>
-                        <div class="box-body table-responsive no-padding" id="userregisterBox">
+                        <div class="box-body table-responsive no-padding " id="userregisterBox"  style="margin-top: 20px">
                             <!-- 表格 -->
                             <table class="layui-table" id="userregisterTable" lay-even="" lay-skin="row"></table>
                             <!-- 表格 end-->
@@ -62,8 +67,11 @@
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+
+    <%@include file="/WEB-INF/views/common/footer.jsp" %>
+    <div class="control-sidebar-bg"></div>
 </div>
 <script type="text/javascript">
     /**

@@ -23,8 +23,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="appCategory">应用种类</label>
-                                <input type="text" id="app_category" name="appCategory" class="form-control"
-                                       placeholder="请输入应用种类" data-rule="应用种类:required;appCategory;">
+                                <input type="text" id="appCategory" data-rule="应用分类:required;" class="form-control"
+		                         placeholder="">
+		                        <input type="hidden" id="dictCode" name="appCategory">
+		                        <div class="menu-wrap">
+		                            <div id="menuContent" class="menuContent" style="display:none;">
+		                                <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+		                            </div>
+		                        </div>
                             </div>
                             <div class="form-group">
                                 <label for="appUrl">url地址</label>
