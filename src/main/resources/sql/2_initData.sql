@@ -105,8 +105,8 @@ delete from sys_role;
 
 -- 用户表
 delete from sys_user;
-  insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status)
-    values ('09f4fef9249c457ca67b4a7a45823730','510100','','1','admin','超级管理员','96e79218965eb72c92a549dd5a330112','1');
+  insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status,user_img)
+    values ('09f4fef9249c457ca67b4a7a45823730','510100','','1','admin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/images/userImg/avatar5.png');
 
 -- 角色菜单表
 delete from sys_role_menu;
