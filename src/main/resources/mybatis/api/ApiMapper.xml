@@ -49,11 +49,9 @@
         ON dcm.`dataset_id` = t.`id`
         LEFT JOIN dir_classify dc
         ON dc.`id` = dcm.`classify_id`
-        LEFT JOIN dir_dataset_source_info ddsi
-        ON ddsi.`dataset_id` = t.`id`
         WHERE TRUE
-        AND ddsi.`source_obj_type` != '1'
-        OR ddsi.`source_obj_type` IS NULL
+        AND t.`source_type` = '2'
+        OR t.`source_type` = '3'
         <choose>
             <when test="null != classifyId and '' != classifyId">
                 AND dc.`id` = #{classifyId}
