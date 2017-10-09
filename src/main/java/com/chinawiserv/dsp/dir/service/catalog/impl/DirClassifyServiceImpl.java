@@ -63,14 +63,14 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     		 if(fclassifyIndex<9){
     			 
     			vo.setClassifyCode(fcode.substring(0,1)+0+(fclassifyIndex+1));
-    			vo.setTreeCode(ftreecode.substring(0,1)+";"+0+(fclassifyIndex+1));
+    			vo.setTreeCode(ftreecode+";"+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
     			mapper.updateClassifyIndexbyFid(vo.getFid());
     			mapper.baseInsert(vo);
     		 }else{
     			 
     			vo.setClassifyCode(fcode.substring(0,1)+(fclassifyIndex+1));
-    			vo.setTreeCode(ftreecode.substring(0,1)+";"+(fclassifyIndex+1));
+    			vo.setTreeCode(ftreecode+";"+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
     			mapper.updateClassifyIndexbyFid(vo.getFid());
     			mapper.baseInsert(vo);
@@ -82,14 +82,14 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     		if(fclassifyIndex<9){
    			 
     			vo.setClassifyCode(fcode.substring(0,3)+0+0+(fclassifyIndex+1));
-    			vo.setTreeCode(ftreecode.substring(0,4)+";"+0+0+(fclassifyIndex+1));
+    			vo.setTreeCode(ftreecode+";"+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
     			mapper.updateClassifyIndexbyFid(vo.getFid());
     			mapper.baseInsert(vo);
     		 }else if(fclassifyIndex < 99 && fclassifyIndex >= 9 ){
     			 
     			 vo.setClassifyCode(fcode.substring(0,3)+0+(fclassifyIndex+1));
-    			 vo.setTreeCode(ftreecode.substring(0,4)+";"+0+(fclassifyIndex+1));
+    			 vo.setTreeCode(ftreecode+";"+(fclassifyIndex+1));
     			 vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
     			 mapper.updateClassifyIndexbyFid(vo.getFid());
     			 mapper.baseInsert(vo);
@@ -98,7 +98,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     			 
     			vo.setClassifyLevel(flevel+1); 
     			vo.setClassifyCode(fcode.substring(0,3)+(fclassifyIndex+1));
-    			vo.setTreeCode(ftreecode.substring(0,3)+";"+(fclassifyIndex+1));
+    			vo.setTreeCode(ftreecode+";"+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
     			mapper.updateClassifyIndexbyFid(vo.getFid());
     			mapper.baseInsert(vo);

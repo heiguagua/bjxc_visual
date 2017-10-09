@@ -29,4 +29,6 @@ public interface DirDatasetSourceInfoMapper extends BaseMapper<DirDatasetSourceI
     int baseUpdate(DirDatasetSourceInfo entity);
 
     int baseDelete(String id);
+
+    void batchInsert(List<DirDatasetSourceInfo> dirDatasetSourceInfoList);
 }

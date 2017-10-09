@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.system.SysDict;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,8 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
 
     List<SysDictVo> selectDictList(Map<String, Object> paramMap);
 
+    
+    List<SysDictVo> selectVoListForTreeData(Map<String, Object> paramMap);
     SysDictVo selectVoById(String id);
 
     int selectVoCount(Map<String, Object> paramMap);
@@ -31,4 +35,6 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
     int baseUpdate(SysDict entity);
 
     int baseDelete(String id);
+
+    String selectDictcodeByCategoryAndName(@Param("dict_name") String dict_name,@Param("category") String category);
 }

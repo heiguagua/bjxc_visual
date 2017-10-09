@@ -2,27 +2,32 @@ package com.chinawiserv.dsp.dir.controller.catalog;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceRelation;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
-import com.chinawiserv.dsp.dir.entity.po.catalog.ExportDatasetExcel;
+import com.chinawiserv.dsp.base.service.system.ISysDictService;
+import com.chinawiserv.dsp.dir.entity.po.catalog.*;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
 import com.chinawiserv.dsp.dir.schema.ExportExcelUtil;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetSourceRelationService;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -30,14 +35,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -64,6 +72,17 @@ public class DirDatasetController extends BaseController {
 
     @Autowired
     private DirClassifyMapper classifyMapper;
+
+    @Autowired
+    private ISysDictService sysDictService;
+
+    @Autowired
+    private DirDatasetClassifyMapMapper dirDatasetClassifyMapMapper;
+
+    @RequestMapping("/catalogue/excelImportUI")
+    public  String excelImportUI(){
+        return "catalog/catalogue/excelImportUI";
+    }
 
     @RequestMapping("/catalogue")
     public  String init(@RequestParam Map<String , Object> paramMap){
@@ -701,5 +720,237 @@ public class DirDatasetController extends BaseController {
             os.close();
             wb.close();
         }
+    }
+
+    //excel导入
+    @RequestMapping("/excelImport")
+    @ResponseBody
+    public HandleResult excelImport(@RequestParam(value="file",required=false)MultipartFile file,HttpServletRequest request, HttpServletResponse response){
+        HandleResult handleResult = new HandleResult();
+        if(file==null){
+            handleResult.error("文件不能为空");
+        }else{
+            String originalFilename = file.getOriginalFilename();
+            try {
+
+                Workbook workbook = createWorkbook(file.getInputStream(), originalFilename);
+                boolean b = addDirDataset(workbook.getSheetAt(0));
+                if(b){
+                    handleResult.setMsg("导入成功！");
+                }else{
+                    handleResult.error("导入失败!");
+                }
+            } catch (IOException e) {
+                handleResult.error("文件不能为空");
+            }
+        }
+        return handleResult;
+    }
+
+    private boolean addDirDataset(Sheet sheet){
+        //存放数据集
+        List<DirDataset> lists=new ArrayList<DirDataset>();
+        //存放数据项
+        List<DirDataitemVo> items=new ArrayList<DirDataitemVo>();
+        //存放数据集-目录中间关系
+        List<DirDatasetClassifyMapVo> datamapList = new ArrayList<DirDatasetClassifyMapVo>();
+        //存放新增数据集
+        List<DirDataset> datasetList = new ArrayList<DirDataset>();
+        DirDataset dataset=null;
+        DirDataitemVo item=null;
+        Map<String, String> hashMap = new HashMap<String,String>();
+        for(int i=3;i<=sheet.getLastRowNum();i++){
+            item=new DirDataitemVo();
+            Row row = sheet.getRow(i);
+            String classifyId = getClassifyId(row, hashMap);
+            String datasetName = row.getCell(26).getStringCellValue();
+            boolean b=true;
+            for (DirDataset dirDataset : lists) {
+                if(dirDataset.getDatasetName().equals(datasetName)){
+                    setItem(item,row,dirDataset);
+                    items.add(item);
+                    b=false;
+                    break;
+                }
+            }
+            if(b){
+                //查询数据集是否存在
+                DirDataset tempDirDataset =service.selectDatasetByNameAndClassifyId(datasetName,classifyId);
+                if(tempDirDataset!=null){
+                    dataset=tempDirDataset;
+                    dataitemService.deleteByDatasetId(dataset.getId());
+                }else{
+                    dataset=new DirDataset();
+                    dataset.setDatasetName(datasetName);
+                    dataset.setId(UUID.randomUUID().toString().replace("-", ""));
+                    dataset.setDatasetCode(dataset.getId());
+                    //信息资源提供方代码
+                    String region=null,name=null;
+                    try {
+                        region= row.getCell(28).getStringCellValue();
+                        name= row.getCell(29).getStringCellValue();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    String organization_code = null;//dirOrganizeMapper.selectByRegionAndName(region,name);
+                    dataset.setBelongDeptType(organization_code);
+                    dataset.setBelongDeptId(organization_code);
+                    //摘要
+                    try {
+                        dataset.setDatasetDesc(row.getCell(31).getStringCellValue());
+                    } catch (Exception e) {
+                        dataset.setDatasetDesc(null);
+                    }
+                    //信息资源格式
+                    try {
+                        dataset.setStorageMedium(sysDictService.selectDictcodeByCategoryAndName(row.getCell(32).getStringCellValue(),"setItemStoreMedia"));
+                    } catch (Exception e) {
+                        dataset.setStorageMedium(null);
+                    }
+                    try {
+                        dataset.setShareMethodCategory(sysDictService.selectDictcodeByCategoryAndName(row.getCell(33).getStringCellValue(),"setItemStoreMedia"));
+                    } catch (Exception e) {
+                        dataset.setShareMethodCategory(null);
+                    }
+                    //发布日期
+                    try {
+                        dataset.setCreateTime(row.getCell(51).getDateCellValue());
+                    } catch (Exception e) {
+                        String str=row.getCell(51).getStringCellValue();
+                        Date d=null;
+                        try {
+                            d=new SimpleDateFormat("yyyy/MM/dd").parse(str);
+                            dataset.setCreateTime(d);
+                        } catch (ParseException e1) {
+                        }
+                    }
+                    //数据集目录中间表
+                    DirDatasetClassifyMapVo datasetmap = new DirDatasetClassifyMapVo();
+                    datasetmap.setClassifyId(classifyId);
+                    datasetmap.setDatasetId(dataset.getId());
+                    datasetmap.setId(UUID.randomUUID().toString());
+                    datasetmap.setStatus("0");
+                    datasetmap.setDeleteFlag(0);
+                    datasetmap.setUpdateTime(new Date());
+                    datamapList.add(datasetmap);
+
+                    //存放需要新增的数据集
+                    datasetList.add(dataset);
+                }
+                lists.add(dataset);
+		    	/*数据项*/
+                setItem(item,row,dataset);
+                items.add(item);
+            }
+        }
+
+
+        //数据集
+        service.insertListDataset(datasetList);
+        //数据集-目录
+        if(datamapList!=null&&datamapList.size()>0){
+            dirDatasetClassifyMapMapper.insertListItem(datamapList);
+        }
+        //数据项
+        dataitemService.insertListItem(items);
+
+        return true;
+    }
+
+    /**
+     * 设置数据项
+     * @param item 数据项
+     * @param row Row
+     * @param dataset 数据集
+     */
+    private void setItem(DirDataitemVo item,Row row,DirDataset dataset){
+        item.setId(UUID.randomUUID().toString().replace("-", ""));
+        item.setItemCode(UUID.randomUUID().toString().replace("-", ""));
+        item.setDatasetId(dataset.getId());
+        item.setCreateUserId(ShiroUtils.getLoginUserId());
+        try {
+            item.setItemName(row.getCell(41).getStringCellValue());
+        } catch (Exception e) {
+            item.setItemName(null);
+        }
+        try {
+            item.setItemType(sysDictService.selectDictcodeByCategoryAndName(row.getCell(42).getStringCellValue(),"dataitemType"));
+        } catch (Exception e) {
+            item.setItemType(null);
+        }
+        try {
+            row.getCell(43).setCellType(CellType.STRING);
+            item.setItemLength(Integer.parseInt(row.getCell(43).getStringCellValue()));
+        } catch (NumberFormatException e) {
+            item.setItemLength(null);
+        }
+        //共享类型
+        try {
+            item.setShareType(sysDictService.selectDictcodeByCategoryAndName(row.getCell(44).getStringCellValue(),"dataSetShareType"));
+        } catch (Exception e) {
+            item.setShareType(null);
+        }
+        //共享条件
+        try {
+            item.setShareCondition(row.getCell(45).getStringCellValue());
+        } catch (Exception e) {
+            item.setShareCondition(null);
+        }
+        //共享方式
+        try {
+            item.setShareMethodCategory(sysDictService.selectDictcodeByCategoryAndName(row.getCell(46).getStringCellValue(),"requirementExpectGetType"));
+        } catch (Exception e) {
+            item.setShareMethodCategory(null);
+        }
+        try {
+            item.setShareMethod(sysDictService.selectDictcodeByCategoryAndName(row.getCell(47).getStringCellValue(),"requirementExpectGetType"));
+        } catch (Exception e) {
+            item.setShareMethod(null);
+        }
+        //开放属性
+        try {
+            item.setIsOpen(row.getCell(48).getStringCellValue().trim().equals("是")?"1":"0");
+        } catch (Exception e) {
+            item.setIsOpen(null);
+        }
+        try {
+            item.setOpenCondition(row.getCell(49).getStringCellValue());
+        } catch (Exception e) {}
+        try {
+            item.setUpdateFrequency(sysDictService.selectDictcodeByCategoryAndName(row.getCell(50).getStringCellValue(),"requirementExpectUpdateFrequence"));
+        } catch (Exception e) {}
+        item.setCreateTime(dataset.getCreateTime());
+    }
+    private String getClassifyId(Row row, Map<String, String> hashMap) {
+        String classifyId=null;
+        String string1 = row.getCell(0).getStringCellValue().trim();
+        String string2 = row.getCell(1).getStringCellValue().trim();
+        String string3 = row.getCell(2).getStringCellValue().trim();
+        String string4 = row.getCell(3).getStringCellValue().trim();
+        String strc=string1+"->"+string2+"->"+string3+"->"+string4;
+        if(hashMap.containsKey(strc)){
+            classifyId= hashMap.get(strc);
+        }else{
+            classifyId= classifyMapper.selectClassifyByStructrue(strc);
+            hashMap.put(strc,classifyId);
+        }
+        return classifyId;
+    }
+
+    /**
+     * 创建poi工作簿
+     * @param is 文件流
+     * @param excelFileFileName 文件完整名称
+     * @return 工作簿对象
+     * @throws IOException
+     */
+    private Workbook createWorkbook(InputStream is,String excelFileFileName) throws IOException{
+        if(excelFileFileName.toLowerCase().endsWith("xls")){
+            return new HSSFWorkbook(is);
+        }
+        if(excelFileFileName.toLowerCase().endsWith("xlsx")){
+            return new XSSFWorkbook(is);
+        }
+        return null;
     }
 }

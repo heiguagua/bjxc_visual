@@ -5,10 +5,18 @@ jQuery(document).ready(function () {
     var appId = $("#appId").val();
 
     initUserTypeList();
+    initAllSelect();
     initDeptSelectDataList();
     initRoleNameList();
     initFormerDate(appId);
+    
 });
+
+function initAllSelect(){
+	
+	$.initCategoryAppTreeSelect('treeDemo','appCategory','dictCode','menuContent');
+	
+}
 
 function initUserTypeList(){
     $.commonAjax({
@@ -45,7 +53,7 @@ function initFormerDate(appId) {
                 if(vo){
 
                     $("#Eapp_name").val(vo.appName);
-                    $("#Eapp_category").val(vo.appCategory);
+                    $("#Eapp_category").val(vo.dictName);
                     $("#Eapp_url").val(vo.appUrl);
                     $("#Eorder_number").val(vo.orderNumber);                             
 

@@ -44,4 +44,8 @@ public interface DirDataitemMapper extends BaseMapper<DirDataitem> {
      * @return
      */
     int insertListItem(@Param("list") List<DirDataitemVo> list);
+
+    void batchInsert(List<DirDataitem> dirDataitemList);
+
+    void deleteByDatasetId(String id);
 }

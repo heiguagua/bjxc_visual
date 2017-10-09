@@ -104,4 +104,10 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
         return mapper.selectVoListForTreeData(paramMap);
     }
 
+    @Override
+    public SysRegionVo getRegionDataByCode(String regionCode) throws Exception {
+        return mapper.selectVoByCode(regionCode);
+    }
+
+
 }

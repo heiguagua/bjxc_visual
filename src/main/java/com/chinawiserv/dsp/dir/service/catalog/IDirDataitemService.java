@@ -17,4 +17,6 @@ import java.util.List;
  */
 public interface IDirDataitemService extends ICommonService<DirDataitem, DirDataitemVo> {
     int insertListItem(List<DirDataitemVo> list);
+
+    void deleteByDatasetId(String id);
 }

@@ -1263,6 +1263,18 @@ function initGlobalCustom(tempUrlPrefix) {
         //     }
         // }
 
+
+        /**
+         * 获取当前选中的区域的编码
+         */
+        getSelectedRegionCode:function(){
+            var regionCode = "";
+            var regionObj = JSON.parse(window.localStorage.getItem("regionObj"));
+            if(regionObj){
+                regionCode = regionObj.code;
+            }
+            return regionCode;
+        },
         /**
          * 获取目录类别的下拉树对象
          * @param treeDomId         ztree对象的id
@@ -1345,6 +1357,121 @@ function initGlobalCustom(tempUrlPrefix) {
             })
 
         },
+        
+        /**
+         * 获取目录类别的下拉树对象
+         * @param treeDomId         ztree对象的id
+         * @param nameInputDomId    显示选中目录类别的名称的input框的id
+         * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
+         * @param treeDivDomId      树形展开区域的DIV的id
+         */
+        initCategoryAppTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId) {
+//            var selectIds = "";
+            var setting = {
+            		check: {
+                        enable: true,
+                        chkStyle: "radio",  //单选框
+                        radioType: "all",   //对所有节点设置单选
+                        chkboxType:  { "Y": "", "N": "" } //取消父子关联
+                    }, 
+                    
+                    async: {
+                    enable: true,
+                    url: basePathJS + "/dirSpecialApps/categoryTree",
+                    autoParam: ["parentCode"],
+                    dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
+                        var params = [];
+                        var nodeObjs = childNodes.content.vo;
+                        if (!nodeObjs) {
+                            return null;
+                        }
+                        for (var i in nodeObjs) {
+                            params[i] = {
+                                'id': nodeObjs[i].id,
+                                'name': nodeObjs[i].dictName,
+                                'parentCode': nodeObjs[i].dictCode,
+                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)                               
+                                
+                            }
+                        }
+                        return params;
+                    }
+                },
+                callback: {
+                    onClick: function (e, treeId, treeNode) { //点击节点，选中并触发oncheck事件
+                        var zTree = $.fn.zTree.getZTreeObj(treeId);
+                        zTree.checkNode(treeNode,true,true,true);
+                    },
+                    onCheck: function (e, treeId, treeNode) { //点击radio，获取目录类别的全名称，显示到输入框中
+//                        $.commonAjax({
+//                            url: basePathJS + "/dirSpecialApps/loadCategory",
+//                            data: {dictCode: treeNode.dictCode},
+//                            success: function (result) {
+//                                if (result.state) {
+//                                    var classifyObj = result.content.vo;
+//                                    $('#' + nameInputDomId).val(classifyObj.dictName);
+//                                    $('#' + codeInputDomId).val(treeNode.dictCode);
+//                                }
+//                            }
+//                        });
+                    	 $('#' + nameInputDomId).val(treeNode.name);
+                    	 $('#' + codeInputDomId).val(treeNode.parentCode);
+                    }
+                }
+//                callback: {
+//                    beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+//                        var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
+//                        if (treeNode.isParent) {
+//                            if (treeNode.open) {
+//                                zTreeObj.expandNode(treeNode, false);
+//                            } else {
+//                                zTreeObj.expandNode(treeNode, true);
+//                            }
+//                            return false;
+//                        } else {
+//                            return true;
+//                        }
+//                    },
+//                    onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+//                        $.commonAjax({
+//                            url: basePathJS + "/dirSpecialApps/loadCategory",
+//                            data: {dictCode: treeNode.dictCode},
+//                            success: function (result) {
+//                                if (result.state) {
+//                                    var classifyObj = result.content.vo;
+//                                    $('#' + nameInputDomId).val(classifyObj.dictName);
+//                                    if (selectIds == "") {
+//                                        selectIds = treeNode.dictCode;
+//                                    } else {
+//                                        selectIds += "," + treeNode.dictCode;
+//                                    }
+//                                    $('#' + codeInputDomId).val(selectIds);
+//                                }
+//                            }
+//                        });
+//                    }
+//                }
+            };
+
+            $('#' + nameInputDomId).click(function () {
+                $.fn.zTree.init($("#" + treeDomId), setting);
+                var cityOffset = $("#" + nameInputDomId).offset();
+                $("#" + treeDivDomId).css({
+                    left: cityOffset.left + "px",
+                    top: cityOffset.top + $("#" + nameInputDomId).outerHeight() + "px"
+                }).slideDown("fast");
+                $("body").bind("mousedown", function (event) {
+                    if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#" + treeDivDomId).length > 0)) {
+                        $("#" + treeDivDomId).fadeOut("fast");
+                        $("body").unbind("mousedown");
+                    }
+                });
+            })
+
+        },
+        
+        
+        
         /**
          * 获取目录类别查询框的下拉树对象(单选,可以选择父级节点)
          * @param treeDomId         ztree对象的id

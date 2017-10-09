@@ -45,11 +45,14 @@
                     #{item, jdbcType=VARCHAR}
                 </foreach>
             </if>
-            <if test="datasetName!= null">
+            <if test="datasetName!= null and datasetName !='' ">
                 and d.dataset_name like concat('%',#{datasetName,jdbcType=VARCHAR},'%')
             </if>
-            <if test="classifyId!= null">
+            <if test="classifyId!= null and classifyId !='' ">
                 and t.classify_id in (select id from dir_classify where tree_code like concat((select tree_code from dir_classify where id=#{classifyId, jdbcType=VARCHAR}),'%'))
+            </if>
+            <if test="allRegionCode!= null and allRegionCode !='' ">
+                and t.dataset_id in (select id from dir_dataset where region_code in (${allRegionCode}))
             </if>
         </where>
     </sql>
@@ -99,7 +102,7 @@
         insert into
         dir_dataset_classify_map(id,dataset_id,classify_id,info_resource_code,status,update_user_id,update_time)
         values(
-        #{id},#{datasetId},#{classifyId},#{infoResourceCode},#{registerId},#{registeDate},#{status},#{updateUserId},#{updateTime}
+        #{id},#{datasetId},#{classifyId},#{infoResourceCode},#{status},#{updateUserId},#{updateTime}
         )
     </insert>
 

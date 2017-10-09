@@ -3,8 +3,17 @@
  */
 
 jQuery(document).ready(function () {
+	
     initSelectData();
+    initAllSelect();
 });
+
+
+function initAllSelect(){
+	
+	$.initCategoryAppTreeSelect('treeDemo','appCategory','dictCode','menuContent');
+	
+}
 
 function initSelectData() {
     initUserTypeList();

@@ -8,6 +8,8 @@ jQuery(document).ready(function () {
 });
 
 function initTable(){
+    var regionCode = $.getSelectedRegionCode();
+    paramsObj["regionCode"] = regionCode;
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/audit/list',
         queryParams: function (params) {
@@ -145,7 +147,8 @@ function catalogueTableShow(id){
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    var regionCode = $.getSelectedRegionCode();
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
 }
 
 function reloadTable() {
