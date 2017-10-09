@@ -9683,6 +9683,31 @@ INSERT INTO dir_classify (id,region_code,classify_code,classify_name,fid,fname,c
 	VALUES ('BD-ccWE4Eee_CbtX-XgMXQ','510100','3010010009','市人民政府应急管理办公室','30101','四川省成都市',4,0,0,NULL,'政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市->市人民政府应急管理办公室','Y','3;1;1;9');
 
 
+-- 更改默认图标
+update dir_classify set icon = '/images/index/base1.png' where classify_name = '人口' and fname = '政务基础信息资源目录';
+update dir_classify set icon = '/images/index/base2.png' where classify_name = '法人' and fname = '政务基础信息资源目录';
+update dir_classify set icon = '/images/index/base4.png' where classify_name = '自然资源和空间地理' and fname = '政务基础信息资源目录';
+update dir_classify set icon = '/images/index/base3.png' where classify_name = '社会信用' and fname = '政务基础信息资源目录';
+update dir_classify set icon = '/images/index/base6.png' where classify_name = '电子证照' and fname = '政务基础信息资源目录';
+
+
+update dir_classify set icon = '/images/index/topic13.png' where classify_name = '安全监管' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic6.png' where classify_name = '食品药品安全' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic12.png' where classify_name = '社区管理' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic4.png' where classify_name = '文化服务' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic5.png' where classify_name = '学校教育' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic1.png' where classify_name = '应急指挥' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic11.png' where classify_name = '医疗卫生' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic10.png' where classify_name = '城乡建设' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic14.png' where classify_name = '宏观经济' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic8.png' where classify_name = '环境保护' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic8.png' where classify_name = '信息化基础设施' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic3.png' where classify_name = '价格监管' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic9.png' where classify_name = '交通运输' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic7.png' where classify_name = '旅游休闲' and fname = '政务主题信息资源目录';
+update dir_classify set icon = '/images/index/topic2.png' where classify_name = '社会保障' and fname = '政务主题信息资源目录';
+
+
 delete from dir_classify_dept_map;
 insert into dir_classify_dept_map (id,classify_id,dept_id)
 	select REPLACE(uuid(),'-',''),id,id from sys_dept where fid in (select id from sys_dept where fid = 'root');
