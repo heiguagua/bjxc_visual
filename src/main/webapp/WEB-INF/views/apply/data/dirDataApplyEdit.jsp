@@ -56,7 +56,7 @@
             <div class="form-inline form-group" style="margin-bottom: 25px;">
                 <label class="control-label col-sm-2" style="text-align: left;padding-left:0">批复使用时间：</label>
                 <input id="auditVisitDatePeriod" type="text" name="auditVisitDatePeriod" class="form-control date" readonly
-                       placeholder="批复使用开始时间~批复使用结束时间" style="width: 330px;" data-rule="批复使用时间:required;">
+                       placeholder="批复使用开始时间~批复使用结束时间" style="width: 330px;background-color: #fff" data-rule="批复使用时间:required;">
             </div>
             <div class="form-inline form-group" style="margin-bottom: 25px;">
                 <label class="control-label col-sm-2" style="text-align: left;padding-left:0">批复使用次数：</label>

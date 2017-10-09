@@ -59,7 +59,7 @@
     		SELECT t.*, s.dict_name as dict_name FROM dir_special_apps t 
     		left join sys_dict s on s.dict_code = t.app_category
     		WHERE t.delete_flag = #{deleteFlag,jdbcType=INTEGER}             
-        	and s.category = 'categoryApp'
+        <!-- 	and s.category = 'categoryApp' -->
         	<if test="searchKey != null  and searchKey!='' ">
            		and t.app_name LIKE CONCAT('%',#{searchKey},'%')
         	</if>
@@ -68,12 +68,14 @@
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
     	SELECT t.* , s.dict_name as dict_name FROM dir_special_apps t 
     	left join sys_dict s on s.dict_code = t.app_category   	
-    	WHERE t.id = #{id} and s.category = 'categoryApp'
+    	WHERE t.id = #{id} <!-- and s.category = 'categoryApp' -->
     </select>
 
     <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
     	SELECT count(1) FROM dir_special_apps t 
-    	WHERE t.delete_flag = #{deleteFlag,jdbcType=INTEGER}             
+    	left join sys_dict s on s.dict_code = t.app_category
+    		WHERE t.delete_flag = #{deleteFlag,jdbcType=INTEGER}             
+        	<!-- and s.category = 'categoryApp' -->            
         	
         	<if test="searchKey != null  and searchKey!='' ">
            		and t.app_name LIKE CONCAT('%',#{searchKey},'%')

@@ -95,14 +95,8 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             if(StringUtils.isNotBlank(id)){
                 param.put("fid", id);
             }else {
-                param.put("topLevelDept", "1");
+                param.put("hasChildrenTopDept", "1");
                 param.putAll(getDeptCondition(regionCode));
-
-                String excludeRoot = (String) paramMap.get("excludeRoot");
-                if(StringUtils.isBlank(excludeRoot)){
-                    excludeRoot = "0";
-                }
-                param.put("excludeRoot", excludeRoot);
             }
         }
         String withoutAuthDept = (String) paramMap.get("withoutAuthDept");

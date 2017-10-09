@@ -87,7 +87,7 @@ public class LoginController extends BaseController {
 			return "login";
 		}
 
-		/*String sessionCaptcha = new KaptchaExtend().getGeneratedKey(request);
+		String sessionCaptcha = new KaptchaExtend().getGeneratedKey(request);
 		if(StringUtils.isBlank(sessionCaptcha)){
 			model.addAttribute("error", "验证码已过期,请重新输入.");
 			return "login";
@@ -95,7 +95,7 @@ public class LoginController extends BaseController {
 		if(!captcha.toLowerCase().equals(sessionCaptcha.toLowerCase())){
 			model.addAttribute("error", "验证码错误.");
 			return "login";
-		}*/
+		}
 
         try {
             Subject subject = ShiroUtils.getSubject();
