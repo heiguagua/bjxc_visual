@@ -16,7 +16,7 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
-            field: 'appCategory',
+            field: 'dictName',
             title: '所属类别',
             align: 'center',
             valign: 'middle',

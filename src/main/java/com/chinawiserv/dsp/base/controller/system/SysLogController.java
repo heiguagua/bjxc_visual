@@ -1,11 +1,15 @@
 package com.chinawiserv.dsp.base.controller.system;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysLog;
 import com.chinawiserv.dsp.base.entity.vo.system.SysLogVo;
 import com.chinawiserv.dsp.base.service.system.ISysLogService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -37,7 +42,7 @@ public class SysLogController extends BaseController {
 
     @RequiresPermissions("system:log:list")
     @RequestMapping("")
-    public  String init(@RequestParam Map<String , Object> paramMap){
+    public String init(@RequestParam Map<String, Object> paramMap) {
         setCurrentMenuInfo(paramMap);
         return "system/log/logList";
     }
@@ -48,7 +53,7 @@ public class SysLogController extends BaseController {
     @RequiresPermissions("system:log:list")
     @RequestMapping("/list")
     @ResponseBody
-    public PageResult list(@RequestParam Map<String , Object> paramMap){
+    public PageResult list(@RequestParam Map<String, Object> paramMap) {
         PageResult pageResult = new PageResult();
         try {
             Page<SysLogVo> sysLogVoPage = sysLogService.selectVoPage(paramMap);
@@ -66,8 +71,23 @@ public class SysLogController extends BaseController {
      */
     @RequestMapping("/params")
     @ResponseBody
-    public String params(@RequestParam String id){
+    public String params(@RequestParam String id) {
         SysLog sysLog = sysLogService.selectById(id);
-        return sysLog.getOperateDetail();
+        String operateDetail = sysLog.getOperateDetail();
+        if (StringUtils.isNotBlank(operateDetail)) {
+            try{
+                Map operateDetailMap = (Map) JSON.parse(operateDetail);
+                Object password = operateDetailMap.get("password");
+                if (password != null) {
+                    operateDetailMap.put("password", new String[]{"******"});
+                }
+                Object password2 =  operateDetailMap.get("password2");
+                if (password2 != null) {
+                    operateDetailMap.put("password2", new String[]{"******"});
+                }
+                operateDetail = JSON.toJSONString(operateDetailMap);
+            }catch (Exception e){}
+        }
+        return operateDetail;
     }
 }

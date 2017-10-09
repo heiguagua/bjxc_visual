@@ -59,6 +59,12 @@
         WHERE t.id = #{id}
     </select>
 
+    <select id="selectVoByCode" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT <include refid="baseVoColumn"></include>
+        FROM <include refid="baseVoTable"></include>
+        WHERE t.region_code = #{regionCode}
+    </select>
+
     <select id="selectVoByRegionCode" parameterType="java.lang.String" resultMap="BaseResultVoMap">
         SELECT <include refid="baseVoColumn"></include>
         FROM <include refid="baseVoTable"></include>

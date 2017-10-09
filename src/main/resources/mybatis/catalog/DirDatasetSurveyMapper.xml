@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetSurveyMapper">
-    <resultMap id="result_DirDatasetSurvey_Map" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
         <id column="id" property="id" />
         <result column="dataset_id" property="datasetId" />
         <result column="total_storage" property="totalStorage" />
@@ -12,8 +12,53 @@
         <result column="opened_structure_count" property="openedStructureCount" />
     </resultMap>
 
-    <insert id="insert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
-        insert into dir_dataset_survey(id,dataset_id,total_storage,structure_count,shared_storage,shared_structure_count,opened_storage,opened_structure_count) 
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetSurveyVo">
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="datasetId != null">
+                and t.dataset_id = #{datasetId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="baseSelect" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM dir_dataset_survey t
+        <include refid="queryConditions"></include>
+    </select>
+
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
+        insert into dir_dataset_survey(id,dataset_id,total_storage,structure_count,shared_storage,shared_structure_count,opened_storage,opened_structure_count)
         values(#{id},#{datasetId},#{totalStorage},#{structureCount},#{sharedStorage},#{sharedStructureCount},#{openedStorage},#{openedStructureCount})
     </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
+        update dir_dataset_survey
+        <set>
+            <if test="totalStorage != null">
+                total_storage = #{totalStorage},
+            </if>
+            <if test="structureCount != null">
+                structure_count = #{structureCount},
+            </if>
+            <if test="sharedStorage != null">
+                shared_storage = #{sharedStorage},
+            </if>
+            <if test="sharedStructureCount != null">
+                shared_structure_count = #{sharedStructureCount},
+            </if>
+            <if test="openedStorage != null">
+                opened_storage = #{openedStorage},
+            </if>
+            <if test="openedStructureCount != null">
+                opened_structure_count = #{openedStructureCount},
+            </if>
+        </set>
+        where  id = #{id}
+    </update>
+
 </mapper>

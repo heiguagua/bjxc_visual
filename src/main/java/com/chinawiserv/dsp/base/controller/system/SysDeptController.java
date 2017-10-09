@@ -187,13 +187,13 @@ public class SysDeptController extends BaseController {
 
     @RequestMapping("/checkDeptName")
     @ResponseBody
-    public JSONObject checkRoleName(@RequestParam String deptName, String deptId){
+    public JSONObject checkDeptName(@RequestParam String deptName, String fid){
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject = sysDeptService.checkDeptName(deptName, deptId);
+            jsonObject = sysDeptService.checkDeptName(deptName, fid);
         } catch (Exception e) {
-            jsonObject.put("error", "角色名验证失败");
-            logger.error("角色名验证失败", e);
+            jsonObject.put("error", "组织机构名验证失败");
+            logger.error("组织机构名称验资失败", e);
         }
         return jsonObject;
     }

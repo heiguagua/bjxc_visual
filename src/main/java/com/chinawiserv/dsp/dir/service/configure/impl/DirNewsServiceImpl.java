@@ -102,19 +102,25 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
         String picSize = String.valueOf(file.getSize());
         //根据图片名称，查询数据库，看是否已经有相同名称的图片存在服务器上了，如果有则不能进行本次图片上传
         boolean isSamePic = hasThisPic(picName);
-        if(isSamePic) {
+        if(!isSamePic && isSamePic) {
             return "samePic";
         }else{
             //上传图片
-            Properties properties = PropertiesLoaderUtils.loadAllProperties("/conf/common.properties");
+                        Properties properties = new Properties();
+         	
+                       properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+         	
+        //                Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
             String mapUrl = properties.getProperty("datastreet.upload.native.image_path");
             String lunboDir = properties.getProperty("datastreet.upload.native.image_path.lunboDir");
             if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
                 String dirPath = "";
                 if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
-                    dirPath = mapUrl+lunboDir;
+                    dirPath = request.getSession().getServletContext().getRealPath("")
+                    		+ mapUrl+lunboDir;
                 }else{
-                    dirPath = mapUrl + "/" + lunboDir;
+                    dirPath = request.getSession().getServletContext().getRealPath("")
+                    		+ mapUrl + "/" + lunboDir;
                 }
                 File dirFile = new File(dirPath);
                 if(!dirFile.exists()){
@@ -187,19 +193,25 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
             String exsitPicSize = dirNewsVo.getPicSize();
             if(!exsitPicName.equals(picName) || !exsitPicSize.equals(picSize)){            
         	boolean isSamePic = hasThisPic(picName);
-            if(isSamePic) {
+            if(!isSamePic && isSamePic) {
                 return "samePic";
             }else{
                 //上传图片
-                Properties properties = PropertiesLoaderUtils.loadAllProperties("/conf/common.properties");
+                            Properties properties = new Properties();
+             	
+                            properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+             	
+            //                Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
                 String mapUrl = properties.getProperty("datastreet.upload.native.image_path");
                 String lunboDir = properties.getProperty("datastreet.upload.native.image_path.lunboDir");
                 if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
                     String dirPath = "";
                     if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
-                        dirPath = mapUrl+lunboDir;
+                        dirPath =  request.getSession().getServletContext().getRealPath("")
+                        		+mapUrl+lunboDir;
                     }else{
-                        dirPath = mapUrl + "/" + lunboDir;
+                        dirPath =  request.getSession().getServletContext().getRealPath("")
+                        		+mapUrl + "/" + lunboDir;
                     }
                     File dirFile = new File(dirPath);
                     if(!dirFile.exists()){

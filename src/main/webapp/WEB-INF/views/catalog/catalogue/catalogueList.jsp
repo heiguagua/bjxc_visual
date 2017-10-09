@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
-                                                data-toggle="dropdown">
+                                                data-toggle="dropdown" onclick="javascript:excelImportUI()">
                                             <!-- <i class="fa fa-plus"></i> -->导入
                                         </button>
                                     </div>
@@ -72,8 +72,8 @@
                                         </div>
                                         </input>
                                     </div>
-                                    <div class="input-group" style="float:right;margin-right:4px;">
-                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control">
+                                    <div class="input-group" style="float:right;margin-right:4px;width: 30%">
+                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                         <input type="hidden" id="searchClassifyId">
                                         <div class="menu-wrap">
                                             <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">

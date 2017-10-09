@@ -161,7 +161,6 @@ public class DirDataset implements Serializable {
 	@TableField("delete_flag")
 	private Integer deleteFlag;
 
-
 	public String getId() {
 		return id;
 	}

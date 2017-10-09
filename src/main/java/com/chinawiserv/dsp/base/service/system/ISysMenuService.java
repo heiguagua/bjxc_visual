@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.system.SysMenu;
 import com.chinawiserv.dsp.base.entity.po.common.ztree.ZTreeNode;
+import com.chinawiserv.dsp.base.entity.vo.system.SysIconVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysMenuVo;
 import com.chinawiserv.dsp.base.entity.vo.system.TreeMenu;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
@@ -67,4 +68,10 @@ public interface ISysMenuService extends ICommonService<SysMenu, SysMenuVo> {
      * @param  pid 菜单父ID
      */
     List<ZTreeNode> selectTreeMenuAllowAccessByMenuIdsAndPid(List<String> menuIds, String pid);
+
+    /**
+     * 获取菜单图标
+     * @return
+     */
+    List<SysIconVo> selectMenuIcon();
 }

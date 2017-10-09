@@ -9,8 +9,10 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.common.ztree.ZTreeNode;
 import com.chinawiserv.dsp.base.entity.po.system.SysMenu;
 import com.chinawiserv.dsp.base.entity.po.system.SysRoleMenu;
+import com.chinawiserv.dsp.base.entity.vo.system.SysIconVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysMenuVo;
 import com.chinawiserv.dsp.base.entity.vo.system.TreeMenu;
+import com.chinawiserv.dsp.base.mapper.system.SysIconMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysMenuMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRoleMenuMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
@@ -51,6 +53,9 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
 	 */
 	@Autowired
 	private SysRoleMenuMapper sysRoleMenuMapper;
+
+    @Autowired
+    private SysIconMapper iconMapper;
 
 
 
@@ -240,7 +245,14 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
 		return zTreeNodeList;
 	}
 
-	private ZTreeNode generateBasicNode(String nodeName,boolean isOpen){
+    @Override
+    public List<SysIconVo> selectMenuIcon() {
+        Map paramMap = new HashMap();
+        paramMap.put("iconType", "menu_icon");
+        return iconMapper.selectIconList(paramMap);
+    }
+
+    private ZTreeNode generateBasicNode(String nodeName,boolean isOpen){
 		ZTreeNode basicNode = new ZTreeNode();
 		basicNode.setId("0");
 		basicNode.setCode("0");

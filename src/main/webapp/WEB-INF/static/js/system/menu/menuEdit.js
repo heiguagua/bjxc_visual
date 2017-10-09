@@ -18,19 +18,43 @@ function initFormData(menuId){
                     $("#menuName").val(menu.menuName);
                     $("#code").val(menu.code);
                     $("#sort").val(menu.sort);
-                    if(menuType == 1){
-                        $("#icon").val(menu.icon);
-                    }else if(menuType == 2){
-                        $("#url").val(menu.url);
-                        $("#icon").val(menu.icon);
-                        initCatalogSelect(menuId);
+                    if(menuType == 1 || menuType == 2){
+                        if(menuType == 2){
+                            $("#url").val(menu.url);
+                            initCatalogSelect(menuId);
+                        }
+                        $.commonAjax({
+                            url: basePathJS + "/system/menu/menuIconSelect",
+                            success: function(json){
+                                var selectData = json.content.selectData;
+                                var data = [];
+                                if(selectData && selectData.length > 0){
+                                    for(var i in selectData){
+                                        var id = selectData[i].iconCssClass;
+                                        var text = selectData[i].iconName;
+                                        if(id && text){
+                                            data.push({id: id, text: text})
+                                        }
+                                    }
+                                }
+                                $("#iconName").html("")
+                                $("#iconName").select2({
+                                    data: data,
+                                    placeholder : '',
+                                    allowClear: true
+                                });
+                                $("#iconName").change(function(){
+                                    $("#icon").val('fa ' + $("#select2-fid-container").attr("title"))
+                                })
+                                $("#iconName").val(menu.icon).trigger("change");
+                            }
+                        });
                     }else if(menuType == 3){
                         $("#resourceName").val(menu.resourceName);
                         initCatalogSelect(menuId);
                         initMenuSelect(menuId);
                         bindChangeEvent();
                     }
-
                 }
             }
         }

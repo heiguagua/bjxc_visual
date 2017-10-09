@@ -16,125 +16,150 @@ import java.io.Serializable;
 @TableName("drap_dataset_item")
 public class DrapDatasetItem implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * ID
-     */
+	/**
+	 * ID
+	 */
 	private String id;
-    /**
-     * 数据项编码
-     */
+	/**
+	 * 数据项编码
+	 */
 	@TableField("item_code")
 	private String itemCode;
-    /**
-     * 【国】数据项名称
-     */
+	/**
+	 * 【国】数据项名称
+	 */
 	@TableField("item_name")
 	private String itemName;
-    /**
-     * 【国】数据项类型
-     */
+	/**
+	 * 【国】数据项类型
+	 */
 	@TableField("item_type")
 	private String itemType;
-    /**
-     * 数据项描述
-     */
+	/**
+	 * 【国】数据项长度
+	 */
+	@TableField("item_length")
+	private Integer itemLength;
+	/**
+	 * 数据项描述
+	 */
 	@TableField("item_desc")
 	private String itemDesc;
-    /**
-     * 所属组织
-     */
+	/**
+	 * 所属组织
+	 */
 	@TableField("belong_dept")
 	private String belongDept;
-    /**
-     * 敏感标识
-     */
+	/**
+	 * 敏感标识
+	 */
 	@TableField("sensitive_remark")
 	private String sensitiveRemark;
-    /**
-     * 更新频率
-     */
+	/**
+	 * 【国】更新频率
+	 */
 	@TableField("update_frequency")
 	private String updateFrequency;
-    /**
-     * 共享类型
-     */
+	/**
+	 * 【国】共享类型
+	 */
 	@TableField("share_type")
 	private String shareType;
-    /**
-     * 共享范围
-     */
-	@TableField("share_range")
-	private String shareRange;
-    /**
-     * 共享方式
-     */
-	@TableField("share_method")
-	private String shareMethod;
-    /**
-     * 共享条件说明
-     */
+	/**
+	 * 【国】共享条件
+	 */
 	@TableField("share_condition_desc")
 	private String shareConditionDesc;
-    /**
-     * 共享方式说明
-     */
-	@TableField("share_method_desc")
-	private String shareMethodDesc;
-    /**
-     * 不予共享依据
-     */
+	/**
+	 * 不予共享依据
+	 */
 	@TableField("no_share_reason")
 	private String noShareReason;
-    /**
-     * 是否开放
-     */
+	/**
+	 * 共享范围
+	 */
+	@TableField("share_range")
+	private String shareRange;
+	/**
+	 * 【国】共享方式分类
+	 */
+	@TableField("share_method_category")
+	private String shareMethodCategory;
+	/**
+	 * 【国】共享方式类型
+	 */
+	@TableField("share_method")
+	private String shareMethod;
+	/**
+	 * 共享方式说明
+	 */
+	@TableField("share_method_desc")
+	private String shareMethodDesc;
+	/**
+	 * 【国】是否开放
+	 */
 	@TableField("is_open")
 	private String isOpen;
-    /**
-     * 开放条件
-     */
+	/**
+	 * 【国】开放条件
+	 */
 	@TableField("open_condition")
 	private String openCondition;
-    /**
-     * 存储介质
-     */
+	/**
+	 * 存储介质
+	 */
 	@TableField("store_media")
 	private String storeMedia;
-    /**
-     * 物理存储位置
-     */
+	/**
+	 * 物理存储位置
+	 */
 	@TableField("physics_store_location")
 	private String physicsStoreLocation;
-    /**
-     * 编码序号
-     */
+	/**
+	 * 资源格式分类
+	 */
+	@TableField("format_category")
+	private String formatCategory;
+	/**
+	 * 资源格式类型
+	 */
+	@TableField("format_type")
+	private String formatType;
+	/**
+	 * 资源格式说明
+	 */
+	@TableField("format_info")
+	private String formatInfo;
+	/**
+	 * 编码序号
+	 */
 	@TableField("code_index")
 	private Integer codeIndex;
-    /**
-     * 创建人
-     */
+	/**
+	 * 创建人
+	 */
 	@TableField("create_user")
 	private String createUser;
-    /**
-     * 创建时间
-     */
+	/**
+	 * 创建时间
+	 */
 	@TableField("create_time")
 	private Date createTime;
-    /**
-     * 更新人
-     */
+	/**
+	 * 更新人
+	 */
 	@TableField("update_user")
 	private String updateUser;
-    /**
-     * 更新时间
-     */
+	/**
+	 * 更新时间
+	 */
 	@TableField("update_time")
 	private Date updateTime;
-    /**
-     * 逻辑删除标识
-     */
+	/**
+	 * 逻辑删除标识
+	 */
 	@TableField("delete_flag")
 	private Integer deleteFlag;
 
@@ -169,6 +194,14 @@ public class DrapDatasetItem implements Serializable {
 
 	public void setItemType(String itemType) {
 		this.itemType = itemType;
+	}
+
+	public Integer getItemLength() {
+		return itemLength;
+	}
+
+	public void setItemLength(Integer itemLength) {
+		this.itemLength = itemLength;
 	}
 
 	public String getItemDesc() {
@@ -211,12 +244,36 @@ public class DrapDatasetItem implements Serializable {
 		this.shareType = shareType;
 	}
 
+	public String getShareConditionDesc() {
+		return shareConditionDesc;
+	}
+
+	public void setShareConditionDesc(String shareConditionDesc) {
+		this.shareConditionDesc = shareConditionDesc;
+	}
+
+	public String getNoShareReason() {
+		return noShareReason;
+	}
+
+	public void setNoShareReason(String noShareReason) {
+		this.noShareReason = noShareReason;
+	}
+
 	public String getShareRange() {
 		return shareRange;
 	}
 
 	public void setShareRange(String shareRange) {
 		this.shareRange = shareRange;
+	}
+
+	public String getShareMethodCategory() {
+		return shareMethodCategory;
+	}
+
+	public void setShareMethodCategory(String shareMethodCategory) {
+		this.shareMethodCategory = shareMethodCategory;
 	}
 
 	public String getShareMethod() {
@@ -227,28 +284,12 @@ public class DrapDatasetItem implements Serializable {
 		this.shareMethod = shareMethod;
 	}
 
-	public String getShareConditionDesc() {
-		return shareConditionDesc;
-	}
-
-	public void setShareConditionDesc(String shareConditionDesc) {
-		this.shareConditionDesc = shareConditionDesc;
-	}
-
 	public String getShareMethodDesc() {
 		return shareMethodDesc;
 	}
 
 	public void setShareMethodDesc(String shareMethodDesc) {
 		this.shareMethodDesc = shareMethodDesc;
-	}
-
-	public String getNoShareReason() {
-		return noShareReason;
-	}
-
-	public void setNoShareReason(String noShareReason) {
-		this.noShareReason = noShareReason;
 	}
 
 	public String getIsOpen() {
@@ -281,6 +322,30 @@ public class DrapDatasetItem implements Serializable {
 
 	public void setPhysicsStoreLocation(String physicsStoreLocation) {
 		this.physicsStoreLocation = physicsStoreLocation;
+	}
+
+	public String getFormatCategory() {
+		return formatCategory;
+	}
+
+	public void setFormatCategory(String formatCategory) {
+		this.formatCategory = formatCategory;
+	}
+
+	public String getFormatType() {
+		return formatType;
+	}
+
+	public void setFormatType(String formatType) {
+		this.formatType = formatType;
+	}
+
+	public String getFormatInfo() {
+		return formatInfo;
+	}
+
+	public void setFormatInfo(String formatInfo) {
+		this.formatInfo = formatInfo;
 	}
 
 	public Integer getCodeIndex() {

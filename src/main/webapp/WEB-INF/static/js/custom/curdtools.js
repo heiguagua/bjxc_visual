@@ -871,6 +871,7 @@ function _submitFormForNews(index, layero , options){
             var method = form.attr("method") || 'post';
 
             var uploadFormData = new FormData($(form)[0]);
+            layer.load();
             $.ajax({
                 url: action,
                 processData: false,
@@ -879,6 +880,7 @@ function _submitFormForNews(index, layero , options){
                 data: uploadFormData,
                 type: method,
                 success: function(response) {
+                    layer.closeAll('loading');
                     /**
                      *  response : ajax请求的后台响应数据
                      *  options ：弹窗的配置信息
@@ -905,6 +907,10 @@ function _submitFormForNews(index, layero , options){
 
                     // 提交表单成功后，释放hold
                     // me.holdSubmit(false);
+                },
+                error:function(){
+                    layer.closeAll('loading');
+                    errorMsgTip("数据错误", parentWin);
                 }
             });
 

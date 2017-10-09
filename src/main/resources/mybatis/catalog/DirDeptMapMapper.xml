@@ -148,5 +148,8 @@
         </where>
     </sql>
 
+    <select id="selectByDeptId" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT classify_id FROM dir_classify_dept_map WHERE dept_id = #{deptId,jdbcType=VARCHAR}
+    </select>
 
 </mapper>

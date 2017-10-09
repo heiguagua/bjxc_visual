@@ -12,6 +12,8 @@
             <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd">
                 <div class="form-group">
                     <div class="row">
+                        <input type="hidden" id="belongDeptId" name="belongDeptId">
+                        <input type="hidden" name="sourceType" value="1">
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源分类 :</label>
                             <div class="col-sm-9">
@@ -60,17 +62,23 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label">信息资源提供方:</label>
+                            <label for="classifyName" class="col-sm-3 control-label">信息资源提供方 :</label>
                             <div class="col-sm-9">
-                                <%--<select class="form-control" data-rule="所属资源格式:required;" id="belongDeptType" name="belongDeptType"></select>--%>
-                                <input type="text" class="form-control" id="belongDeptType" name="belongDeptType">
+                                <input type="text" id="belongDeptTypeName" data-rule="信息资源分类:required;" class="form-control"
+                                       placeholder="">
+                                <input type="hidden" id="belongDeptType" name="belongDeptType">
+                                <input type="hidden" id="belongDeptTypeCode">
+                                <div class="menu-wrap">
+                                    <div id="belongDeptTypeMenuContent" class="menuContent" style="display:none;">
+                                        <ul id="belongDeptTypeTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label  class="col-sm-3 control-label">信息资源提供方代码:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="belongDeptName" disabled>
-                                <input type="hidden" id="belongDeptId" name="belongDeptId">
+                                <input type="text" class="form-control" id="belongDeptCode" disabled>
                             </div>
                         </div>
                     </div>
@@ -123,7 +131,7 @@
                                 </div>
                                 <label style="display:inline-block">涉密</label>
                                 <div class="redio-box">
-                                    <input type="radio" name="secretFlag" value="0"><span></span>
+                                    <input type="radio" name="secretFlag" value="0" checked><span></span>
                                 </div>
                                 <label style="display:inline-block">非涉密</label>
                                 <span class="updatedate">更新周期：</span>
@@ -148,7 +156,6 @@
                                         </select>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -172,7 +179,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6 shareType3" id="shareConditionDiv">
-                            <label for="shareCondition" class="col-sm-3 control-label">共享条件:</label>
+                            <label for="shareCondition" class="col-sm-3 control-label" id="shareConditionLabel">共享条件:</label>
                             <div class="col-sm-9">
                                 <textarea class="form-control" rows="2" id="shareCondition" name="shareCondition"></textarea>
                             </div>
@@ -199,12 +206,64 @@
                     </div>
                 </div>
 
+                <%--大普查--%>
+                <div class="checkh1">
+                    <span class="checkspan">信息资源大普查</span>
+                </div>
                 <div class="form-group">
-                    <label for="N_add_itemH" class="col-sm-2 control-label">信息项列表</label>
-                    <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">数据存储总量:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" name="survey.totalStorage">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">结构化信息记录总数:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.structureCount">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">已共享的数据存储量:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.sharedStorage">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">已共享的结构化记录数:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.sharedStructureCount">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">已开放的数据存储量:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.openedStorage">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label  class="col-sm-6 control-label">已开放的结构化记录数:</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.openedStructureCount">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%-- 信息大普查结束 --%>
+
+                <div class="checkh1">
+                    <span class="checkspan">信息项列表</span>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
                         <p>
-                            <a class="btn btn-primary btn-flat pull-right" id="N_add_itemH"><i class="fa fa-plus"></i> 添加信息项</a>
-                            <a class="btn btn-primary btn-flat pull-right" id="N_delete_itemH" style="margin-right: 10px;"><i class="fa fa-plus"></i> 删除</a>
+                            <a class="btn btn-primary btn-flat pull-right" id="addItem"><i class="fa fa-plus"></i> 添加信息项</a>
+                            <a class="btn btn-primary btn-flat pull-right" id="deleteItems" style="margin-right: 10px;"><i class="fa fa-plus"></i> 删除</a>
                         </p>
                     </div>
                 </div>
@@ -216,7 +275,7 @@
                             <th>信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>
-                            <th>责任部门</th>
+                            <%--<th>责任部门</th>--%>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>涉密标识</th>

@@ -8,29 +8,34 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetItem">
         <id column="id" property="id"/>
-        <result column="item_code" property="itemCode"/>
-        <result column="item_name" property="itemName"/>
-        <result column="item_type" property="itemType"/>
-        <result column="item_desc" property="itemDesc"/>
-        <result column="belong_dept" property="belongDept"/>
-        <result column="sensitive_remark" property="sensitiveRemark"/>
-        <result column="update_frequency" property="updateFrequency"/>
-        <result column="share_type" property="shareType"/>
-        <result column="share_range" property="shareRange"/>
-        <result column="share_method" property="shareMethod"/>
-        <result column="share_condition_desc" property="shareConditionDesc"/>
-        <result column="share_method_desc" property="shareMethodDesc"/>
-        <result column="no_share_reason" property="noShareReason"/>
-        <result column="is_open" property="isOpen"/>
-        <result column="open_condition" property="openCondition"/>
-        <result column="store_media" property="storeMedia"/>
-        <result column="physics_store_location" property="physicsStoreLocation"/>
-        <result column="code_index" property="codeIndex"/>
-        <result column="create_user" property="createUser"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_user" property="updateUser"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="delete_flag" property="deleteFlag"/>
+        <result column="item_code" property="itemCode" />
+        <result column="item_name" property="itemName" />
+        <result column="item_type" property="itemType" />
+        <result column="item_length" property="itemLength" />
+        <result column="item_desc" property="itemDesc" />
+        <result column="belong_dept" property="belongDept" />
+        <result column="sensitive_remark" property="sensitiveRemark" />
+        <result column="update_frequency" property="updateFrequency" />
+        <result column="share_type" property="shareType" />
+        <result column="share_condition_desc" property="shareConditionDesc" />
+        <result column="no_share_reason" property="noShareReason" />
+        <result column="share_range" property="shareRange" />
+        <result column="share_method_category" property="shareMethodCategory" />
+        <result column="share_method" property="shareMethod" />
+        <result column="share_method_desc" property="shareMethodDesc" />
+        <result column="is_open" property="isOpen" />
+        <result column="open_condition" property="openCondition" />
+        <result column="store_media" property="storeMedia" />
+        <result column="physics_store_location" property="physicsStoreLocation" />
+        <result column="format_category" property="formatCategory" />
+        <result column="format_type" property="formatType" />
+        <result column="format_info" property="formatInfo" />
+        <result column="code_index" property="codeIndex" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="delete_flag" property="deleteFlag" />
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
@@ -62,19 +67,25 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetItem">
-        insert into
-        drap_dataset_item(id,item_code,item_name,item_type,item_desc,belong_dept,sensitive_remark,update_frequency,share_type,share_range,share_method,share_condition_desc,share_method_desc,no_share_reason,is_open,open_condition,store_media,physics_store_location,code_index,create_user,create_time,update_user,update_time,delete_flag)
-        values(
-        #{id},#{itemCode},#{itemName},#{itemType},#{itemDesc},#{belongDept},#{sensitiveRemark},#{updateFrequency},#{shareType},#{shareRange},#{shareMethod},#{shareConditionDesc},#{shareMethodDesc},#{noShareReason},#{isOpen},#{openCondition},#{storeMedia},#{physicsStoreLocation},#{codeIndex},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag}
-        )
+        insert into drap_dataset_item(id,item_code,item_name,item_type,item_length,item_desc,belong_dept,sensitive_remark,update_frequency,share_type,share_condition_desc,no_share_reason,share_range,share_method_category,share_method,share_method_desc,is_open,open_condition,store_media,physics_store_location,format_category,format_type,format_info,code_index,create_user,create_time,update_user,update_time,delete_flag) values(
+            #{id},#{itemCode},#{itemName},#{itemType},#{itemLength},#{itemDesc},#{belongDept},#{sensitiveRemark},#{updateFrequency},#{shareType},#{shareConditionDesc},#{noShareReason},#{shareRange},#{shareMethodCategory},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{storeMedia},#{physicsStoreLocation},#{formatCategory},#{formatType},#{formatInfo},#{codeIndex},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag})
+    </insert>
+
+    <insert id="batchInsert" parameterType="java.util.Map">
+        insert into drap_dataset_item(id,item_code,item_name,item_type,item_length,item_desc,belong_dept,sensitive_remark,update_frequency,share_type,share_condition_desc,no_share_reason,share_range,share_method_category,share_method,share_method_desc,is_open,open_condition,store_media,physics_store_location,format_category,format_type,format_info,code_index,create_user,create_time,update_user,update_time,delete_flag) values
+        <foreach collection="list" item="item" separator=",">
+        (#{item.id},#{item.itemCode},#{item.itemName},#{item.itemType},#{item.itemLength},#{item.itemDesc},#{item.belongDept},
+            #{item.sensitiveRemark},#{item.updateFrequency},#{item.shareType},#{item.shareConditionDesc},#{item.noShareReason},
+            #{item.shareRange},#{item.shareMethodCategory},#{item.shareMethod},#{item.shareMethodDesc},#{item.isOpen},
+            #{item.openCondition},#{item.storeMedia},#{item.physicsStoreLocation},#{item.formatCategory},#{item.formatType},
+            #{item.formatInfo},#{item.codeIndex},#{item.createUser},#{item.createTime},#{item.updateUser},#{item.updateTime},
+            #{item.deleteFlag})
+        </foreach>
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetItem">
         update drap_dataset_item
         <set>
-            <if test="id != null">
-                id = #{id},
-            </if>
             <if test="itemCode != null">
                 item_code = #{itemCode},
             </if>
@@ -83,6 +94,9 @@
             </if>
             <if test="itemType != null">
                 item_type = #{itemType},
+            </if>
+            <if test="itemLength != null">
+                item_length = #{itemLength},
             </if>
             <if test="itemDesc != null">
                 item_desc = #{itemDesc},
@@ -99,20 +113,23 @@
             <if test="shareType != null">
                 share_type = #{shareType},
             </if>
+            <if test="shareConditionDesc != null">
+                share_condition_desc = #{shareConditionDesc},
+            </if>
+            <if test="noShareReason != null">
+                no_share_reason = #{noShareReason},
+            </if>
             <if test="shareRange != null">
                 share_range = #{shareRange},
+            </if>
+            <if test="shareMethodCategory != null">
+                share_method_category = #{shareMethodCategory},
             </if>
             <if test="shareMethod != null">
                 share_method = #{shareMethod},
             </if>
-            <if test="shareConditionDesc != null">
-                share_condition_desc = #{shareConditionDesc},
-            </if>
             <if test="shareMethodDesc != null">
                 share_method_desc = #{shareMethodDesc},
-            </if>
-            <if test="noShareReason != null">
-                no_share_reason = #{noShareReason},
             </if>
             <if test="isOpen != null">
                 is_open = #{isOpen},
@@ -125,6 +142,15 @@
             </if>
             <if test="physicsStoreLocation != null">
                 physics_store_location = #{physicsStoreLocation},
+            </if>
+            <if test="formatCategory != null">
+                format_category = #{formatCategory},
+            </if>
+            <if test="formatType != null">
+                format_type = #{formatType},
+            </if>
+            <if test="formatInfo != null">
+                format_info = #{formatInfo},
             </if>
             <if test="codeIndex != null">
                 code_index = #{codeIndex},
@@ -145,7 +171,7 @@
                 delete_flag = #{deleteFlag},
             </if>
         </set>
-        where id = #{id}
+        where  id = #{id}
     </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">

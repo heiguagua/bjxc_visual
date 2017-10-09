@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +25,8 @@ public interface SysRegionMapper extends BaseMapper<SysRegion> {
 
     SysRegionVo selectVoById(String id);
 
+    SysRegionVo selectVoByCode(String regionCode);
+
     SysRegionVo selectVoByRegionCode(String regionCode);
 
     int selectVoCount(Map<String, Object> paramMap);
@@ -33,7 +37,7 @@ public interface SysRegionMapper extends BaseMapper<SysRegion> {
 
     int baseDelete(String id);
 
-    List<SysRegionVo> selectAllRegionByRegionCode(String regionCode);
+    List<SysRegionVo> selectAllRegionByRegionCode(@Param("regionCodeCondition") String regionCode);
 
     List<SysRegionVo> selectVoListForTreeData(Map<String, Object> paramMap);
 }

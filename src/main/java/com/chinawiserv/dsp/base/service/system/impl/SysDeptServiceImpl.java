@@ -63,11 +63,11 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
-    public JSONObject checkDeptName(String deptName, String deptId){
+    public JSONObject checkDeptName(String deptName, String fid){
         List<SysDept> list;
         JSONObject result = new JSONObject();
-        if (StringUtils.isNotBlank(deptId)) {
-            list = selectList(new EntityWrapper<SysDept>().where("dept_name = {0}", deptName).and("id != {0}", deptId).and("delete_flag = {0}", "0"));
+        if (StringUtils.isNotBlank(fid)) {
+            list = selectList(new EntityWrapper<SysDept>().where("dept_name = {0}", deptName).and("fid = {0}", fid).and("delete_flag = {0}", "0"));
         } else {
             list = selectList(new EntityWrapper<SysDept>().addFilter("dept_name = {0}", deptName).and("delete_flag = {0}", "0"));
         }

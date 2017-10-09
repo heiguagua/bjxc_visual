@@ -5,8 +5,11 @@ import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
+import com.chinawiserv.dsp.base.service.system.ISysDictService;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirSpecialAppsVo;
+import com.chinawiserv.dsp.dir.mapper.configure.DirSpecialAppsMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirSpecialAppsService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -39,6 +42,12 @@ public class DirSpecialAppsController extends BaseController {
 
     @Autowired
     private IDirSpecialAppsService service;
+    
+    @Autowired
+    private DirSpecialAppsMapper mapper;
+    
+    @Autowired
+    private ISysDictService service2;
 
 //    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
@@ -156,21 +165,36 @@ public class DirSpecialAppsController extends BaseController {
 	 * category树形添加
 	 */
 //	@RequiresPermissions("")
-//	@RequestMapping("/categoryTree")
-//	@ResponseBody
-//	public HandleResult getCategoryListForLoginUser(@RequestParam Map<String, Object> paramMap) {
-//		HandleResult handleResult = new HandleResult();
-//		try {
-//			String fid = (String) paramMap.get("parent_code");
-//			if (StringUtils.isEmpty(fid)) {
-//				paramMap.put("parent_code", "root");
-//			}
-//			List<DirClassifyVo> dirClassifyVoList = service.selectVoList(paramMap);
-//			handleResult.put("vo", dirClassifyVoList);
-//		} catch (Exception e) {
-//			handleResult.error("根据登录用户的权限获取目录分类表信息失败");
-//			logger.error("根据登录用户的权限获取目录分类表信息失败", e);
-//		}
-//		return handleResult;
-//	}
+	@RequestMapping("/categoryTree")
+	@ResponseBody
+	public HandleResult getCategoryListForLoginUser(@RequestParam Map<String, Object> paramMap) {
+		HandleResult handleResult = new HandleResult();
+		try {
+			String parentCode = (String) paramMap.get("parentCode");
+			if (StringUtils.isEmpty(parentCode)) {
+				paramMap.put("parentCode", "root");
+			}
+			List<SysDictVo> sysDictVoList = service2.selectVoCategoryList(paramMap);
+			handleResult.put("vo", sysDictVoList);
+		} catch (Exception e) {
+			handleResult.error("根据登录用户的权限获取应用分类信息失败");
+			logger.error("根据登录用户的权限获取应用分类表信息失败", e);
+		}
+		return handleResult;
+	}
+	@RequestMapping("/loadCategory")
+    @ResponseBody
+    public  HandleResult loadCategory(@RequestParam String dictCode){
+		HandleResult handleResult = new HandleResult();
+		try {
+            SysDictVo vo = mapper.selectVoCategoryApp(dictCode);
+		    handleResult.put("vo", vo);
+		} catch (Exception e) {
+		    handleResult.error("获取专题应用类别信息失败");
+		    logger.error("获取专题应用类别信息失败", e);
+		}
+		return handleResult;
+		}
+	
+	
 }

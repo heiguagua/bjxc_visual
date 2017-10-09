@@ -2,203 +2,237 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapDatasetMapper">
 
-    <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset">
-        <id column="id" property="id"/>
-        <result column="region_code" property="regionCode"/>
-        <result column="belong_dept_id" property="belongDeptId"/>
-        <result column="source_type" property="sourceType"/>
-        <result column="doc_id" property="docId"/>
-        <result column="belong_activity_id" property="belongActivityId"/>
-        <result column="dataset_code" property="datasetCode"/>
-        <result column="dataset_name" property="datasetName"/>
-        <result column="category" property="category"/>
-        <result column="sensitive_remark" property="sensitiveRemark"/>
-        <result column="update_frequency" property="updateFrequency"/>
-        <result column="dataset_desc" property="datasetDesc"/>
-        <result column="share_type" property="shareType"/>
-        <result column="share_condition_desc" property="shareConditionDesc"/>
-        <result column="share_method" property="shareMethod"/>
-        <result column="share_method_desc" property="shareMethodDesc"/>
-        <result column="share_range" property="shareRange"/>
-        <result column="no_share_reason" property="noShareReason"/>
-        <result column="is_open" property="isOpen"/>
-        <result column="open_condition" property="openCondition"/>
-        <result column="rel_dataset_code" property="relDatasetCode"/>
-        <result column="data_level" property="dataLevel"/>
-        <result column="data_index_system" property="dataIndexSystem"/>
-        <result column="is_secret" property="isSecret"/>
-        <result column="store_media" property="storeMedia"/>
-        <result column="physics_store_location" property="physicsStoreLocation"/>
-        <result column="extend_code" property="extendCode"/>
-        <result column="code_index" property="codeIndex"/>
-        <result column="status" property="status"/>
-        <result column="create_user" property="createUser"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_user" property="updateUser"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="delete_flag" property="deleteFlag"/>
-    </resultMap>
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset">
+                    <id column="id" property="id" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <result column="region_code" property="regionCode" />
+                            <result column="belong_dept_type" property="belongDeptType" />
+                            <result column="belong_dept_id" property="belongDeptId" />
+                            <result column="source_type" property="sourceType" />
+                            <result column="doc_id" property="docId" />
+                            <result column="belong_activity_id" property="belongActivityId" />
+                            <result column="belong_system_id" property="belongSystemId" />
+                            <result column="dataset_code" property="datasetCode" />
+                            <result column="dataset_name" property="datasetName" />
+                            <result column="category" property="category" />
+                            <result column="sensitive_remark" property="sensitiveRemark" />
+                            <result column="update_frequency" property="updateFrequency" />
+                            <result column="dataset_desc" property="datasetDesc" />
+                            <result column="share_type" property="shareType" />
+                            <result column="share_condition_desc" property="shareConditionDesc" />
+                            <result column="share_method_category" property="shareMethodCategory" />
+                            <result column="share_method" property="shareMethod" />
+                            <result column="share_method_desc" property="shareMethodDesc" />
+                            <result column="share_range" property="shareRange" />
+                            <result column="no_share_reason" property="noShareReason" />
+                            <result column="is_open" property="isOpen" />
+                            <result column="open_condition" property="openCondition" />
+                            <result column="rel_dataset_code" property="relDatasetCode" />
+                            <result column="data_level" property="dataLevel" />
+                            <result column="data_index_system" property="dataIndexSystem" />
+                            <result column="is_secret" property="isSecret" />
+                            <result column="basic_classify" property="basicClassify" />
+                            <result column="subject_classify" property="subjectClassify" />
+                            <result column="store_media" property="storeMedia" />
+                            <result column="physics_store_location" property="physicsStoreLocation" />
+                            <result column="extend_code" property="extendCode" />
+                            <result column="code_index" property="codeIndex" />
+                            <result column="status" property="status" />
+                            <result column="create_user" property="createUser" />
+                            <result column="create_time" property="createTime" />
+                            <result column="update_user" property="updateUser" />
+                            <result column="update_time" property="updateTime" />
+                            <result column="delete_flag" property="deleteFlag" />
+            	</resultMap>
 
-    <resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetVo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetVo">
 
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-            <if test="id != null">
+                                <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
-        </where>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </where>
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM drap_dataset t
-        <include refid="queryConditions"></include>
+    		SELECT t.* FROM drap_dataset t <include refid="queryConditions"></include>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM drap_dataset t WHERE t.id = #{id}
+    	SELECT t.* FROM drap_dataset t WHERE t.id = #{id}
     </select>
 
-    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM drap_dataset t
-        <include refid="queryConditions"></include>
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM drap_dataset t <include refid="queryConditions"></include>
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset">
-        insert into
-        drap_dataset(id,region_code,belong_dept_id,source_type,doc_id,belong_activity_id,dataset_code,dataset_name,category,sensitive_remark,update_frequency,dataset_desc,share_type,share_condition_desc,share_method,share_method_desc,share_range,no_share_reason,is_open,open_condition,rel_dataset_code,data_level,data_index_system,is_secret,store_media,physics_store_location,extend_code,code_index,status,create_user,create_time,update_user,update_time,delete_flag)
-        values(
-        #{id},#{regionCode},#{belongDeptId},#{sourceType},#{docId},#{belongActivityId},#{datasetCode},#{datasetName},#{category},#{sensitiveRemark},#{updateFrequency},#{datasetDesc},#{shareType},#{shareConditionDesc},#{shareMethod},#{shareMethodDesc},#{shareRange},#{noShareReason},#{isOpen},#{openCondition},#{relDatasetCode},#{dataLevel},#{dataIndexSystem},#{isSecret},#{storeMedia},#{physicsStoreLocation},#{extendCode},#{codeIndex},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag}
+        insert into drap_dataset(id,region_code,belong_dept_type,belong_dept_id,source_type,doc_id,belong_activity_id,belong_system_id,dataset_code,dataset_name,category,sensitive_remark,update_frequency,dataset_desc,share_type,share_condition_desc,share_method_category,share_method,share_method_desc,share_range,no_share_reason,is_open,open_condition,rel_dataset_code,data_level,data_index_system,is_secret,basic_classify,subject_classify,store_media,physics_store_location,extend_code,code_index,status,create_user,create_time,update_user,update_time,delete_flag) values(
+            #{id},#{regionCode},#{belongDeptType},#{belongDeptId},#{sourceType},#{docId},#{belongActivityId},#{belongSystemId},#{datasetCode},#{datasetName},#{category},#{sensitiveRemark},#{updateFrequency},#{datasetDesc},#{shareType},#{shareConditionDesc},#{shareMethodCategory},#{shareMethod},#{shareMethodDesc},#{shareRange},#{noShareReason},#{isOpen},#{openCondition},#{relDatasetCode},#{dataLevel},#{dataIndexSystem},#{isSecret},#{basicClassify},#{subjectClassify},#{storeMedia},#{physicsStoreLocation},#{extendCode},#{codeIndex},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag})
+    </insert>
+
+    <insert id="batchInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset">
+        insert into drap_dataset(id,region_code,belong_dept_type,belong_dept_id,source_type,doc_id,belong_activity_id,
+        belong_system_id,dataset_code,dataset_name,category,sensitive_remark,update_frequency,dataset_desc,share_type,
+        share_condition_desc,share_method_category,share_method,share_method_desc,share_range,no_share_reason,is_open,
+        open_condition,rel_dataset_code,data_level,data_index_system,is_secret,basic_classify,subject_classify,store_media,
+        physics_store_location,extend_code,code_index,status,create_user,create_time,update_user,update_time,delete_flag) values
+        <foreach collection="list" item="item" separator=",">
+        (
+            #{item.id},#{item.regionCode},#{item.belongDeptType},#{item.belongDeptId},#{item.sourceType},#{item.docId},
+            #{item.belongActivityId},#{item.belongSystemId},#{item.datasetCode},#{item.datasetName},#{item.category},
+            #{item.sensitiveRemark},#{item.updateFrequency},#{item.datasetDesc},#{item.shareType},#{item.shareConditionDesc},
+            #{item.shareMethodCategory},#{item.shareMethod},#{item.shareMethodDesc},#{item.shareRange},#{item.noShareReason},
+            #{item.isOpen},#{item.openCondition},#{item.relDatasetCode},#{item.dataLevel},#{item.dataIndexSystem},#{item.isSecret},
+            #{item.basicClassify},#{item.subjectClassify},#{item.storeMedia},#{item.physicsStoreLocation},#{item.extendCode},
+            #{item.codeIndex},#{item.status},#{item.createUser},#{item.createTime},#{item.updateUser},#{item.updateTime},
+            #{item.deleteFlag}
         )
+        </foreach>
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset">
         update drap_dataset
         <set>
-            <if test="id != null">
+                    <if test="id != null">
                 id = #{id},
             </if>
-            <if test="regionCode != null">
+                    <if test="regionCode != null">
                 region_code = #{regionCode},
             </if>
-            <if test="belongDeptId != null">
+                    <if test="belongDeptType != null">
+                belong_dept_type = #{belongDeptType},
+            </if>
+                    <if test="belongDeptId != null">
                 belong_dept_id = #{belongDeptId},
             </if>
-            <if test="sourceType != null">
+                    <if test="sourceType != null">
                 source_type = #{sourceType},
             </if>
-            <if test="docId != null">
+                    <if test="docId != null">
                 doc_id = #{docId},
             </if>
-            <if test="belongActivityId != null">
+                    <if test="belongActivityId != null">
                 belong_activity_id = #{belongActivityId},
             </if>
-            <if test="datasetCode != null">
+                    <if test="belongSystemId != null">
+                belong_system_id = #{belongSystemId},
+            </if>
+                    <if test="datasetCode != null">
                 dataset_code = #{datasetCode},
             </if>
-            <if test="datasetName != null">
+                    <if test="datasetName != null">
                 dataset_name = #{datasetName},
             </if>
-            <if test="category != null">
+                    <if test="category != null">
                 category = #{category},
             </if>
-            <if test="sensitiveRemark != null">
+                    <if test="sensitiveRemark != null">
                 sensitive_remark = #{sensitiveRemark},
             </if>
-            <if test="updateFrequency != null">
+                    <if test="updateFrequency != null">
                 update_frequency = #{updateFrequency},
             </if>
-            <if test="datasetDesc != null">
+                    <if test="datasetDesc != null">
                 dataset_desc = #{datasetDesc},
             </if>
-            <if test="shareType != null">
+                    <if test="shareType != null">
                 share_type = #{shareType},
             </if>
-            <if test="shareConditionDesc != null">
+                    <if test="shareConditionDesc != null">
                 share_condition_desc = #{shareConditionDesc},
             </if>
-            <if test="shareMethod != null">
+                    <if test="shareMethodCategory != null">
+                share_method_category = #{shareMethodCategory},
+            </if>
+                    <if test="shareMethod != null">
                 share_method = #{shareMethod},
             </if>
-            <if test="shareMethodDesc != null">
+                    <if test="shareMethodDesc != null">
                 share_method_desc = #{shareMethodDesc},
             </if>
-            <if test="shareRange != null">
+                    <if test="shareRange != null">
                 share_range = #{shareRange},
             </if>
-            <if test="noShareReason != null">
+                    <if test="noShareReason != null">
                 no_share_reason = #{noShareReason},
             </if>
-            <if test="isOpen != null">
+                    <if test="isOpen != null">
                 is_open = #{isOpen},
             </if>
-            <if test="openCondition != null">
+                    <if test="openCondition != null">
                 open_condition = #{openCondition},
             </if>
-            <if test="relDatasetCode != null">
+                    <if test="relDatasetCode != null">
                 rel_dataset_code = #{relDatasetCode},
             </if>
-            <if test="dataLevel != null">
+                    <if test="dataLevel != null">
                 data_level = #{dataLevel},
             </if>
-            <if test="dataIndexSystem != null">
+                    <if test="dataIndexSystem != null">
                 data_index_system = #{dataIndexSystem},
             </if>
-            <if test="isSecret != null">
+                    <if test="isSecret != null">
                 is_secret = #{isSecret},
             </if>
-            <if test="storeMedia != null">
+                    <if test="basicClassify != null">
+                basic_classify = #{basicClassify},
+            </if>
+                    <if test="subjectClassify != null">
+                subject_classify = #{subjectClassify},
+            </if>
+                    <if test="storeMedia != null">
                 store_media = #{storeMedia},
             </if>
-            <if test="physicsStoreLocation != null">
+                    <if test="physicsStoreLocation != null">
                 physics_store_location = #{physicsStoreLocation},
             </if>
-            <if test="extendCode != null">
+                    <if test="extendCode != null">
                 extend_code = #{extendCode},
             </if>
-            <if test="codeIndex != null">
+                    <if test="codeIndex != null">
                 code_index = #{codeIndex},
             </if>
-            <if test="status != null">
+                    <if test="status != null">
                 status = #{status},
             </if>
-            <if test="createUser != null">
+                    <if test="createUser != null">
                 create_user = #{createUser},
             </if>
-            <if test="createTime != null">
+                    <if test="createTime != null">
                 create_time = #{createTime},
             </if>
-            <if test="updateUser != null">
+                    <if test="updateUser != null">
                 update_user = #{updateUser},
             </if>
-            <if test="updateTime != null">
+                    <if test="updateTime != null">
                 update_time = #{updateTime},
             </if>
-            <if test="deleteFlag != null">
+                    <if test="deleteFlag != null">
                 delete_flag = #{deleteFlag},
             </if>
-        </set>
-        where id = #{id}
-    </update>
+                </set>
+        where  id = #{id}                                                                                  </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">
-        delete from drap_dataset
-        <include refid="deleteWhereCause"/>
+        delete from drap_dataset <include refid="deleteWhereCause"/>
     </delete>
 
     <sql id="deleteWhereCause">
         <where>
-            <if test="id != null">
+                                <if test="id != null">
                 id = #{id}
             </if>
-        </where>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </where>
     </sql>
+
 
 
 </mapper>

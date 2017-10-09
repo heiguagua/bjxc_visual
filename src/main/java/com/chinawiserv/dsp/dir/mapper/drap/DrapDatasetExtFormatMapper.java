@@ -29,4 +29,6 @@ public interface DrapDatasetExtFormatMapper extends BaseMapper<DrapDatasetExtFor
     int baseUpdate(DrapDatasetExtFormat entity);
 
     int baseDelete(String id);
+
+    void batchInsert(List<DrapDatasetExtFormat> drapDatasetExtFormatList);
 }

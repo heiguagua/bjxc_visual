@@ -11,4 +11,17 @@ import com.chinawiserv.dsp.base.entity.po.system.SysDict;
  * @since 2017-09-19
  */
 public class SysDictVo extends SysDict{
+	
+	private String hasLeaf;
+
+	public String getHasLeaf() {
+		return hasLeaf;
+	}
+
+	public void setHasLeaf(String hasLeaf) {
+		this.hasLeaf = hasLeaf;
+	}
+	
+	
+	
 }
