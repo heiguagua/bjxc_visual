@@ -22,6 +22,8 @@ public interface SysRegionDeptMapper extends BaseMapper<SysRegionDept> {
 
     SysRegionDeptVo selectVoById(String id);
 
+    List<SysRegionDeptVo> selectVoListForTreeData(Map<String,Object> param);
+
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(SysRegionDept entity);

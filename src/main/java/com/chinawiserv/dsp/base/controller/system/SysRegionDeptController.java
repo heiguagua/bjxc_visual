@@ -7,17 +7,20 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionDeptVo;
 import com.chinawiserv.dsp.base.service.system.ISysRegionDeptService;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +33,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/sysRegionDept")
-//todo 将所有的XXX修改为真实值
+
 public class SysRegionDeptController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -145,5 +148,27 @@ public class SysRegionDeptController extends BaseController {
 		    logger.error("编辑行政部门表失败", e);
 		}
 		return handleResult;
+    }
+
+    /**
+     * 根据登录用户的权限获取资源提供方树结构的数据
+     */
+//    @RequiresPermissions("catalog:classify:list")
+    @RequestMapping("/authorityList")
+    @ResponseBody
+    public HandleResult getClassifyListForLoginUser(@RequestParam Map<String, Object> paramMap) {
+        HandleResult handleResult = new HandleResult();
+        try {
+            String fid = (String) paramMap.get("fcode");
+            if (StringUtils.isEmpty(fid)) {
+                paramMap.put("fcode", "000000");
+            }
+            List<SysRegionDeptVo> dirClassifyVoList = service.selectVoList(paramMap);
+            handleResult.put("vo", dirClassifyVoList);
+        } catch (Exception e) {
+            handleResult.error("根据登录用户的权限获取资源提供方信息失败");
+            logger.error("根据登录用户的权限获取资源提供方信息失败", e);
+        }
+        return handleResult;
     }
 }

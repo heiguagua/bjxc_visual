@@ -11,4 +11,14 @@ import com.chinawiserv.dsp.base.entity.po.system.SysRegionDept;
  * @since 2017-10-08
  */
 public class SysRegionDeptVo extends SysRegionDept{
+
+    private String hasLeaf;
+
+    public String getHasLeaf() {
+        return hasLeaf;
+    }
+
+    public void setHasLeaf(String hasLeaf) {
+        this.hasLeaf = hasLeaf;
+    }
 }
