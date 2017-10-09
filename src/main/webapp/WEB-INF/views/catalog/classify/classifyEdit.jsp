@@ -17,6 +17,10 @@
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/dirClassify/doEdit">
                         <input id="classifyId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
+                        	<div class="form-group">
+                                <label for="classifyCode">目录编码</label>
+                                <input type="text" id="EclassifyCode" name="classifyCode" readonly="readonly" class="form-control">
+                            </div>
                            <div class="form-group">
                                 <label for="apiName">目录名称*</label>
                                 <input type="text" id="Eclassify_name" name="classifyName" class="form-control"

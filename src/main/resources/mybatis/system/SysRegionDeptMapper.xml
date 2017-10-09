@@ -20,7 +20,7 @@
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.base.entity.vo.system.SysRegionDeptVo">
-
+        <result column="has_leaf" property="hasLeaf"/>
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -100,6 +100,13 @@
             </if>
         </where>
     </sql>
+
+    <select id="selectVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
+        FROM sys_region_dept t
+        LEFT JOIN (SELECT DISTINCT(fcode) AS dcode FROM sys_region_dept) b ON t.region_dept_code=b.dcode
+        <include refid="queryConditions"></include>
+    </select>
 
 
 </mapper>

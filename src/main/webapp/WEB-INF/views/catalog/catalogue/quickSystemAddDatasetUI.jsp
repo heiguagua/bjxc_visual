@@ -173,11 +173,11 @@
                                    </div> -->
 
                                 <div class="redio-box">
-                                    <input type="radio" name="radiobutton" value="1"><span></span>
+                                    <input type="radio" name="secretFlag" value="1"><span></span>
                                 </div>
                                 <label style="display:inline-block">涉密</label>
                                 <div class="redio-box">
-                                    <input type="radio" name="radiobutton" checked value="0"><span></span>
+                                    <input type="radio" name="secretFlag" checked value="0"><span></span>
                                 </div>
                                 <label style="display:inline-block">非涉密</label>
                                 <span class="updatedate">更新周期：</span>

@@ -66,7 +66,9 @@
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-    	SELECT t.* FROM dir_special_apps t WHERE t.id = #{id}
+    	SELECT t.* , s.dict_name as dict_name FROM dir_special_apps t 
+    	left join sys_dict s on s.dict_code = t.app_category   	
+    	WHERE t.id = #{id} and s.category = 'categoryApp'
     </select>
 
     <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
