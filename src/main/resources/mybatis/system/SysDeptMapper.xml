@@ -52,8 +52,12 @@
 			<if test="searchKey != null">
 				AND t.dept_name LIKE concat(concat('%', #{searchKey}), '%')
 			</if>
-			<if test="topLevelDept != null and topLevelDept == '1'.toString()">
-				AND (t.dept_level = '1' or t.dept_level is null or t.dept_level = '')
+			<if test="deptLevel != null">
+				AND t.dept_level = #{deptLevel}
+			</if>
+			<if test="hasChildrenTopDept != null and hasChildrenTopDept == '1'.toString()">
+				AND t.dept_level = '1'
+				AND t.isLeaf = '0'
 			</if>
 			<if test="deptTreeCodeCondition != null">
 				AND t.tree_code like '${deptTreeCodeCondition}%'
@@ -95,10 +99,12 @@
 	</select>
 
 	<select id="selectVoListForTreeData" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo" useCache="false">
-		SELECT t.*,r.region_name,CASE WHEN b.dcode IS NULL THEN '1' ELSE '0' END AS isLeaf
-		FROM sys_dept t
-		LEFT JOIN sys_region r ON t.region_code = r.region_code
-		LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM sys_dept where delete_flag = '0') b ON t.id=b.dcode
+		SELECT t.* FROM (
+			SELECT t.*,r.region_name,CASE WHEN dcode IS NULL THEN '1' ELSE '0' END AS isLeaf
+			FROM sys_dept t
+			LEFT JOIN sys_region r ON t.region_code = r.region_code
+			LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM sys_dept where delete_flag = '0') b ON t.id=b.dcode
+		) t
 		<include refid="queryConditions"></include>
 	</select>
 
