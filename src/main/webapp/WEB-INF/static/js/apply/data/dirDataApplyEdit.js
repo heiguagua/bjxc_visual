@@ -38,7 +38,7 @@ function initEditPage(){
 
 function initTable(){
     var tableSelector = '#dirDataItemApplyTableId';
-    var paramsObj = {};
+    var paramsObj = {dataApplyId : $("#dirDataApplyId").val()};
     jQuery(tableSelector).customTable({
         url: basePathJS + '/dirDataApply/listItem',
         queryParams: function (params) {
