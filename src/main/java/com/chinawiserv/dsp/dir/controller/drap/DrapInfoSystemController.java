@@ -27,8 +27,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * <p>
@@ -165,8 +169,7 @@ public class DrapInfoSystemController extends BaseController {
 
     @RequestMapping("/api/receiveDate")
     public void receiveMessega(@RequestParam String  data, HttpServletResponse response){
-
-        System.out.println(data);
+        
         updateReceiveDate(data);
         response.setStatus(200);
 
@@ -174,15 +177,15 @@ public class DrapInfoSystemController extends BaseController {
 
     public void updateReceiveDate(String data){
 
-        Map<String,Object> paraMap = JSON.parseObject(data, new TypeReference<Map<String,Object>>(){});
+        Map<String,String> paraMap = JSON.parseObject(data, new TypeReference<Map<String,String>>(){});
 
-        List<DrapInfoSystem> systems= (List<DrapInfoSystem>) paraMap.get("infoSystems");
+        List<DrapInfoSystem> systems = JSON.parseObject(paraMap.get("infoSystems"), new TypeReference<List<DrapInfoSystem>>(){});
         service.insertBatch(systems);
 
-        List<DrapSystemUseInfo> useInfos = (List<DrapSystemUseInfo>) paraMap.get("systemUseInfos");
+        List<DrapSystemUseInfo> useInfos =  JSON.parseObject(paraMap.get("systemUseInfos"), new TypeReference<List<DrapSystemUseInfo>>(){});
         useInfoService.insertBatch(useInfos);
 
-        List<DrapSystemUseDept> systemUseDepts = (List<DrapSystemUseDept>) paraMap.get("systemUseDepts");
+        List<DrapSystemUseDept> systemUseDepts = JSON.parseObject(paraMap.get("systemUseDepts"), new TypeReference<List<DrapSystemUseDept>>(){});
         useDeptService.insertBatch(systemUseDepts);
 
     }
