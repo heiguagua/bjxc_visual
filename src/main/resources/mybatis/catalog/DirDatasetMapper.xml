@@ -45,6 +45,8 @@
         <result column="dept_name" property="deptName"/>
         <result column="source_type_name" property="datasetSourceTypeName" />
         <result column="item_nums" property="itemNums"/>
+        <result column="region_dept_code" property="regionDeptCode"/>
+        <result column="region_dept_name" property="regionDeptName"/>
     </resultMap>
 
     <resultMap id="ExtResultVoMap" extends="BaseResultVoMap"
@@ -99,13 +101,13 @@
         select sub.*,MAX(IFNULL(m.status,0)) AS classify_status,GROUP_CONCAT(c.classify_structure_name) AS classify_name from(
         select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
         di.dict_name as source_type_name,count(it.dataset_id) as item_nums FROM dir_dataset t
-        left join sys_dept de on t.belong_dept_id=de.id
+        left join sys_dept de on t.belong_dept_id=de.id and de.delete_flag=0
         left join sys_dict di on t.source_type=di.dict_code and di.category='datasetSourceType'
-        left join dir_dataitem it on t.id=it.dataset_id
+        left join dir_dataitem it on t.id=it.dataset_id and it.delete_flag=0
         <include refid="queryConditions"></include>
         group by t.id ) sub
-        left join  dir_dataset_classify_map m on sub.id=m.dataset_id
-        left join dir_classify c on m.classify_id=c.id
+        left join  dir_dataset_classify_map m on sub.id=m.dataset_id and m.delete_flag=0
+        left join dir_classify c on m.classify_id=c.id and c.delete_flag=0
         <include refid="classifyConditions"></include>
         group by sub.id
     </select>
@@ -120,11 +122,13 @@
 
     <select id="selectDatasetInfoById" parameterType="java.lang.String" resultMap="ExtResultVoMap">
         select t.*,f.format_category,f.format_type,f.format_info,de.dept_name,su.total_storage,su.structure_count,
-        su.shared_storage,su.shared_structure_count,su.opened_storage,su.opened_structure_count
+        su.shared_storage,su.shared_structure_count,su.opened_storage,su.opened_structure_count,
+        rd.region_dept_code,rd.region_dept_name
         from dir_dataset t
         left join dir_dataset_ext_format f on t.id=f.dataset_id
-        left join sys_dept de on t.belong_dept_id=de.id
+        left join sys_dept de on t.belong_dept_id=de.id and de.delete_flag=0
         left join dir_dataset_survey su on t.id=su.dataset_id
+        left join sys_region_dept rd on t.belong_dept_type=rd.id
         where t.id = #{id}
     </select>
 
@@ -301,7 +305,7 @@
         dba.activity_name
         FROM
         drap_business_activity dba
-        LEFT JOIN sys_dept sd ON dba.belong_dept = sd.id
+        LEFT JOIN sys_dept sd ON dba.belong_dept = sd.id and sd.delete_flag=0
         WHERE TRUE AND sd.id=#{dept_id}
     </select>
 
@@ -410,15 +414,19 @@
         <result column="dept_code" property="dept_code" />
         <result column="system_name" property="system_name" />
         <result column="system_id" property="system_id" />
+
+        <result column="format_category" property="format_category" />
+        <result column="format_type" property="format_type" />
     </resultMap>
     <select id="getDrapDatasetDetail" resultMap="result_DrapDataset_Map">
         SELECT
-            dd.*,sd.dept_short_name,sd.dept_code,dis.system_name,dis.id AS system_id
+            dd.*,sd.dept_short_name,sd.dept_code,dis.system_name,dis.id AS system_id,ddef.format_category,ddef.format_type
         FROM
             drap_dataset dd
         LEFT JOIN sys_dept sd ON dd.belong_dept_id = sd.id
         LEFT JOIN drap_dataset_system_map ddsm ON dd.id = ddsm.dataset_id
         LEFT JOIN drap_info_system dis ON ddsm.system_id = dis.id
+        LEFT JOIN drap_dataset_ext_format ddef ON ddef.dataset_id=dd.id
         WHERE
             dd.id = #{id}
     </select>

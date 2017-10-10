@@ -28,6 +28,13 @@ public class DirDatasetVo extends DirDataset{
 
     private int itemNums;
 
+    private String regionDeptCode;
+
+    private String regionDeptName;
+
+    //梳理系统数据集id
+    private String drapDatasetId;
+
     //数据集扩展属性
     private DirDatasetExtFormat ext;
 
@@ -77,6 +84,22 @@ public class DirDatasetVo extends DirDataset{
         this.deptName = deptName;
     }
 
+    public String getRegionDeptCode() {
+        return regionDeptCode;
+    }
+
+    public void setRegionDeptCode(String regionDeptCode) {
+        this.regionDeptCode = regionDeptCode;
+    }
+
+    public String getRegionDeptName() {
+        return regionDeptName;
+    }
+
+    public void setRegionDeptName(String regionDeptName) {
+        this.regionDeptName = regionDeptName;
+    }
+
     public DirDatasetExtFormat getExt() {
         return ext;
     }
@@ -115,5 +138,13 @@ public class DirDatasetVo extends DirDataset{
 
     public void setItemNums(int itemNums) {
         this.itemNums = itemNums;
+    }
+
+    public String getDrapDatasetId() {
+        return drapDatasetId;
+    }
+
+    public void setDrapDatasetId(String drapDatasetId) {
+        this.drapDatasetId = drapDatasetId;
     }
 }

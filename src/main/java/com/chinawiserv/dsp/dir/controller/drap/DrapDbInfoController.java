@@ -31,7 +31,7 @@ import com.chinawiserv.dsp.dir.service.drap.IDrapDbInfoService;
  * @since 2017-09-27
  */
 @Controller
-@RequestMapping("/drapDbInfo")
+@RequestMapping("/drap/drapDbInfo")
 //todo 将所有的XXX修改为真实值
 public class DrapDbInfoController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -161,6 +161,7 @@ public class DrapDbInfoController extends BaseController {
         } catch (Exception e) {
             handleResult.error("接受审核数据失败");
             logger.error("接受审核数据失败", e);
+            
         }
         return handleResult;
     }

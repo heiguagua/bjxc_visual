@@ -4,10 +4,6 @@
 
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.api.ApiMapper">
 
-    <select id="test" parameterType="map" resultType="map">
-        SELECT REPLACE(UUID(),'-','') AS uuid;
-    </select>
-
     <!-- 根据上级目录的ID查询子目录的数据 -->
     <select id="getSubDirectoryById" parameterType="map" resultType="map">
         SELECT * FROM dir_classify t
@@ -49,11 +45,10 @@
         ON dcm.`dataset_id` = t.`id`
         LEFT JOIN dir_classify dc
         ON dc.`id` = dcm.`classify_id`
-        LEFT JOIN dir_dataset_source_info ddsi
-        ON ddsi.`dataset_id` = t.`id`
         WHERE TRUE
-        AND ddsi.`source_obj_type` != '1'
-        OR ddsi.`source_obj_type` IS NULL
+        AND t.`delete_flag` = 0
+        AND t.`source_type` = '2'
+        OR t.`source_type` = '3'
         <choose>
             <when test="null != classifyId and '' != classifyId">
                 AND dc.`id` = #{classifyId}
@@ -129,8 +124,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '2'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -175,8 +171,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '3'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -213,8 +210,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '4'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -251,8 +249,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '5'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -271,7 +270,8 @@
         targetddti.`id` AS targetTableId,
         targetddtc.`column_en_name` AS targetColumnName,
         targetddtc.`id` AS targetColumnId,
-        ddsr.`relation_type` AS relationType
+        CASE WHEN ddsr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
+        AS relationType
         FROM
         dir_dataset dd
         LEFT JOIN dir_dataset_source_info ddsi
@@ -292,8 +292,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '2'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -309,7 +310,8 @@
         targetddti.`id` AS targetTableId,
         targetddtc.`column_en_name` AS targetColumnName,
         targetddtc.`id` AS targetColumnId,
-        ddtr.`relation_type` AS relationType
+        CASE WHEN ddtr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
+        AS relationType
         FROM
         dir_dataset dd
         LEFT JOIN dir_dataset_source_info ddsi
@@ -332,8 +334,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '3'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -350,7 +353,8 @@
         targetddti.`id` AS targetTableId,
         targetddtc.`cloumn_name`AS targetColumnName,
         targetddtc.`id` AS targetColumnId,
-        ddsr.`relation_type` AS relationType
+        CASE WHEN ddsr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
+        AS relationType
         FROM
         dir_dataset dd
         LEFT JOIN dir_dataset_source_info ddsi
@@ -371,8 +375,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '4'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -389,7 +394,8 @@
         targetddti.`id` AS targetTableId,
         targetddtc.`target_column_name` AS targetColumnName,
         targetddtc.`id` AS targetColumnId,
-        ddsr.`relation_type` AS relationType
+        CASE WHEN ddsr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
+        AS relationType
         FROM
         dir_dataset dd
         LEFT JOIN dir_dataset_source_info ddsi
@@ -410,8 +416,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = ddsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '5'
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
@@ -500,6 +507,7 @@
         LEFT JOIN drap_info_system dis
         ON dis.`id` = dsm.`info_system_id`
         WHERE TRUE
+        AND ddi.`delete_flag` = 0
         <choose>
             <when test="null != systemId and '' != systemId">
                AND dis.`id` = #{systemId}
@@ -520,6 +528,7 @@
         LEFT JOIN drap_system_use_dept dsud ON dsud.`system_id` = dis.`id`
         LEFT JOIN sys_dept sd ON sd.`id` = dsud.`dept_id`
         WHERE TRUE
+        AND dis.`delete_flag` = 0
         <choose>
             <when test="null != deptId and '' != deptId">
                AND dsud.`dept_id` = #{deptId}
@@ -533,24 +542,23 @@
     <!-- 查询用户的数据集权限 -->
     <select id="getDataAuthorityByUserId" parameterType="map" resultType="map">
         SELECT
-          dda.`id` AS dataApplyId,
-          dda.`audit_visit_cnt` AS limitVisitCnt,
-          dda.`audit_visit_date_period` AS limitVisitDatePeriod,
-          CASE
-            dda.`status`
-            WHEN dda.`status` = '1'
-            THEN 'true'
-            ELSE 'false'
-          END AS 'status'
+        dda.`id` AS dataApplyId,
+        dda.`audit_visit_cnt` AS limitVisitCnt,
+        dda.`audit_visit_date_period` AS limitVisitDatePeriod,
+        CASE
+        WHEN dda.`status` = '1'
+        THEN 'true'
+        ELSE 'false'
+        END AS 'status'
         FROM
-          dir_data_apply dda
-          LEFT JOIN dir_dataset_classify_map dcm
-            ON dcm.`id` = dda.`dcm_id`
+        dir_data_apply dda
+        LEFT JOIN dir_dataset_classify_map dcm
+        ON dcm.`id` = dda.`dcm_id`
         WHERE TRUE
         AND dda.`applicant_id` = #{userId}
         AND dcm.`classify_id` = #{classifyId}
         AND dcm.`dataset_id` = #{datasetId}
-        LIMIT 0,1
+        LIMIT 0, 1
     </select>
 
     <!-- 查询用户申请的数据集拥有的数据字段 -->
@@ -561,6 +569,8 @@
         dtc.`column_en_name` AS columnName
         FROM
         dir_data_item_apply dia
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = dia.`data_apply_id`
         LEFT JOIN dir_dataitem_source_info dsi
         ON dsi.`item_id` = dia.`item_id`
         LEFT JOIN drap_db_table_column dtc
@@ -573,8 +583,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = dsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '2'
         AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
@@ -587,6 +598,8 @@
         dtc.`column_en_name` AS columnName
         FROM
         dir_data_item_apply dia
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = dia.`data_apply_id`
         LEFT JOIN dir_dataitem_source_info dsi
         ON dsi.`item_id` = dia.`item_id`
         LEFT JOIN drap_dataset_item ddi
@@ -603,8 +616,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = dsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '3'
         AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
@@ -617,6 +631,8 @@
         dtc.`cloumn_name` AS columnName
         FROM
         dir_data_item_apply dia
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = dia.`data_apply_id`
         LEFT JOIN dir_dataitem_source_info dsi
         ON dsi.`item_id` = dia.`item_id`
         LEFT JOIN cs_data_sync_collect_column dtc
@@ -629,8 +645,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = dsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '4'
         AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
@@ -643,6 +660,8 @@
         dtc.`target_column_name` AS columnName
         FROM
         dir_data_item_apply dia
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = dia.`data_apply_id`
         LEFT JOIN dir_dataitem_source_info dsi
         ON dsi.`item_id` = dia.`item_id`
         LEFT JOIN dcm_table_column dtc
@@ -655,8 +674,9 @@
         FROM
         sys_dict
         WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = dsi.`source_obj_type`
+        ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
+        AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '5'
         AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
@@ -671,6 +691,7 @@
           LEFT JOIN drap_db_system_map ddsm
             ON ddsm.`db_id` = ddti.`db_id`
         WHERE TRUE
+           AND ddti.`delete_flag` = 0
            AND ddti.`db_id` = #{dbId}
            AND ddsm.`info_system_id` = #{systemId}
            AND ddti.`table_name` = #{tableName}

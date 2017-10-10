@@ -78,6 +78,7 @@ String context_path=request.getContextPath();
 <script src="<%=basePath%>/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <!-- layer -->
 <script src="<%=basePath%>/plugins/layer/layer.js"></script>
+<%-- <script src="<%=basePath%>/plugins/layui/layui.js"></script> --%>
 <!-- ztree -->
 <script src="<%=basePath%>/plugins/zTree/js/jquery.ztree.all.min.js"></script>
 

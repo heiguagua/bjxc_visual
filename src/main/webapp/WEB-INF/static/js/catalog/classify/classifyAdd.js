@@ -60,8 +60,8 @@ function checkDep(fid){
             if (result.state) {
                 var vo = result.content.vo;
                 if(vo){                	
-                	var ss = vo.classifyStructureName;
-					if(ss.substr(0,10)!='政务部门信息资源目录'){
+                	var ss = vo.classifyCode;
+					if(ss.substr(0,1)!='3'){
 						 $("#Dep").addClass('hidden');
 						 $("#fname").val(vo.classifyName);
 						 

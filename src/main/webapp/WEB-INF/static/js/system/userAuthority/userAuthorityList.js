@@ -111,6 +111,11 @@ jQuery(document).ready(function () {
             }]
     });
 
+    $('#defaultAuth').change(function () {
+        setParams();
+        reloadTable();
+    });
+
     jQuery('#queryBtnId').click(function () {
         setParams();
         reloadTable();

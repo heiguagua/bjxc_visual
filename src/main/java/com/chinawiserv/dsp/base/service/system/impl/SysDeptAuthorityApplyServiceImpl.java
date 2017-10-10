@@ -7,6 +7,7 @@ import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthorityApply;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityApplyVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityApplyMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
@@ -115,7 +116,8 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
 
     @Override
     public Page<SysDeptAuthorityApplyVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-        paramMap.putAll(sysDeptService.getDeptCondition(null));
+        SysUserVo loginUser = ShiroUtils.getLoginUser();
+        paramMap.put("applicant", loginUser.getId());
         Page<SysDeptAuthorityApplyVo> page = getPage(paramMap);
         page.setOrderByField("apply_time");
         page.setAsc(false);

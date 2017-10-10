@@ -163,16 +163,18 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		final List<DirDatasetSourceInfo> dirDatasetSourceInfoList = new ArrayList<>();
 		for (DrapDatasetVo drapDatasetVo :drapDatasetList){
 			final String classifyId = dirClassifyDeptMapMapper.selectByDeptId(drapDatasetVo.getBelongDeptId());
-			final DirClassify dirClassify = dirClassifyMapper.selectFclassify(classifyId);
-			DirDatasetClassifyMap dirDatasetClassifyMap = new DirDatasetClassifyMap();
-			dirDatasetClassifyMap.setId(CommonUtil.get32UUID());
-			dirDatasetClassifyMap.setDatasetId(drapDatasetVo.getId());
-			dirDatasetClassifyMap.setClassifyId(classifyId);
-			dirDatasetClassifyMap.setInfoResourceCode(dirClassify.getClassifyCode() + "/" + (dirClassify.getDcmIndex() + 1));
-			dirDatasetClassifyMap.setStatus(Dataset.DatasetStatus.UnRegister.getKey());
-			dirDatasetClassifyMap.setDeleteFlag(0);
-			dirDatasetClassifyMapMapper.baseInsert(dirDatasetClassifyMap);
-			dirClassifyMapper.updateClassifyIndexbyFid(classifyId);
+			if(classifyId != null && !"".equals(classifyId)) {
+				final DirClassify dirClassify = dirClassifyMapper.selectFclassify(classifyId);
+				DirDatasetClassifyMap dirDatasetClassifyMap = new DirDatasetClassifyMap();
+				dirDatasetClassifyMap.setId(CommonUtil.get32UUID());
+				dirDatasetClassifyMap.setDatasetId(drapDatasetVo.getId());
+				dirDatasetClassifyMap.setClassifyId(classifyId);
+				dirDatasetClassifyMap.setInfoResourceCode(dirClassify.getClassifyCode() + "/" + (dirClassify.getDcmIndex() + 1));
+				dirDatasetClassifyMap.setStatus(Dataset.DatasetStatus.UnRegister.getKey());
+				dirDatasetClassifyMap.setDeleteFlag(0);
+				dirDatasetClassifyMapMapper.baseInsert(dirDatasetClassifyMap);
+				dirClassifyMapper.updateClassifyIndexbyFid(classifyId);
+			}
 
 			final DirDataset dirDataset = getDirDataset(drapDatasetVo);
 			dirDatasetList.add(dirDataset);

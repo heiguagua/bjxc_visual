@@ -29,8 +29,10 @@ function initEditPage(){
         $(".dirDataItemApplyList").val(status);
         if(status == '1'){
             $(".dirDataItemApplyList").enable();
+            $("#auditVisit").show();
         }else{
             $(".dirDataItemApplyList").attr("disabled", true);
+            $("#auditVisit").hide();
         }
     });
     $('#auditVisitDatePeriod').customDateRangePicker();

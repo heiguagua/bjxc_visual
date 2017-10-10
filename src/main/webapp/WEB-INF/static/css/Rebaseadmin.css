@@ -5,9 +5,8 @@
 	padding-top:70px;
 }
 .skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a{
-	background: #F2F8FF;
-	color: #4197F4;
-	
+	color: #595959;
+	background:#f4f6f9;
 	border-left:none;
 }
 .skin-blue .sidebar-menu > li > .treeview-menu{
@@ -17,6 +16,9 @@
 }
 .skin-blue .treeview-menu > li > a{
 	color: #595959;
+    font-size: 14px;
+    line-height: 21px;
+    font-family: PingFangSC-Medium;
 }
 .skin-blue .treeview-menu > li.active > a, .skin-blue .treeview-menu > li > a:hover{
 	color: #595959;
@@ -24,14 +26,20 @@
 .skin-blue .sidebar a{
 	color: #595959;
 }
-.skin-blue .treeview-menu > li.active > a, .skin-blue .treeview-menu > li > a:hover{
-	    background: #F2F8FF;
+.skin-blue .treeview-menu > li > a:hover{
+	background: #f4f6f9;
     color: #4197F4;
     border-right: 3px solid transparent;
     border-right-color: #4197F4;
     border-left: none;
 }
-
+.skin-blue .treeview-menu > li.active > a{
+	background: #F2F8FF;
+	color: #4197F4;
+    border-right: 3px solid transparent;
+    border-right-color: #4197F4;
+    border-left: none;
+}
 
 
 .main-header .navbar{
@@ -74,7 +82,9 @@
 
 
 /* 导航另外加*/
-
+a{
+	color:#fff;
+}	
  .nav_uls{
 	color: #FFFFFF;
 	font-size: 14px;
@@ -92,8 +102,12 @@
 	opacity: 1;
 	border-bottom:3px solid #4197F4;
 }
-
-
+.nav_uls>li a{
+	color:#fff !important;
+}
+.nav_uls>li a:hover,.nav_uls>li a:link{
+	color:#fff;
+}
 
 
 
@@ -188,3 +202,9 @@ input.input_test{
     height: 50px !important;
     margin-bottom:0 !important;
 }
+
+/* 管理员登录下拉样式 */
+.adminDeltimg{
+	padding:4px;
+}
+

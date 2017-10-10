@@ -21,7 +21,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <small>系统管理 > 部门权限申请管理</small>
+                <small>系统管理 > 组织机构权限申请管理</small>
             </h1>
         </section>
         <!-- Main content -->
@@ -36,7 +36,7 @@
                                     <a class="btn btn-primary  btn-flat" onclick="javascript:authorityApply()" > <i class="fa fa-plus"></i>申请部门数据权限</a>
                                 </div>
                                 <div class="input-group">
-                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="部门数据权限申请名称">
+                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="组织机构数据权限申请名称" style="width: 200px">
                                     <div class="input-group-btn">
                                         <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
                                     </div>

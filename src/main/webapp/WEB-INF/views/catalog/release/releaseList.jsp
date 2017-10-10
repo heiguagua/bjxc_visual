@@ -17,11 +17,18 @@
             </h1>
         </section>
         <!-- Main content -->
+      
        <div class="btn-group btn_develop">
-		   	<ul class="nav_ulss" id="releaseTab">
+       		
+       	 <ul class="title_ul" id="releaseTab">
+                	<li class="active" id="unReleaseTab"><i class="fa fa-desktop" style="font-size:20px"></i>&nbsp;待发布</li>
+                	<li id="releasedTab"><i class="fa fa-crop" aria-hidden="true"></i>&nbsp;已发布</li>
+                	
+                </ul>
+		   	<!-- <ul class="nav_ulss" id="releaseTab">
 		   		<li class="active" id="unReleaseTab"><i class="fa "></i>&nbsp;待发布</li>
 		   		<li id="releasedTab"><i class="fa fa-list-alt"></i>&nbsp;已发布</li>
-		   	</ul>
+		   	</ul> -->
 		   </div>
         <section class="content">
             <!-- Your Page Content Here -->
@@ -32,8 +39,8 @@
                             <div class="box-header">
                                 <div class="input-group">
                                     <a class="btn btn-primary btn-flat btn-myself" id="auditRejectButton">
-                                        <i class="fa fa-plus">
-                                        </i>
+                                        <!-- <i class="fa fa-plus">
+                                        </i> -->
                                       审核驳回
                                     </a>
                                 </div>
@@ -57,7 +64,7 @@
                                     </div>
                                     </input>
                                 </div>
-                                <div class="input-group pull-right" style="margin-right:4px;width: 30%">
+                                <div class="input-group pull-right" style="margin-right:4px;width: 240px">
                                     <input type="text" id="unReleaseSearchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                     <input type="hidden" id="unReleaseSearchClassifyId">
                                     <div class="menu-wrap">

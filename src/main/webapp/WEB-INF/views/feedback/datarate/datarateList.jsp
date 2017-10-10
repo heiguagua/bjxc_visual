@@ -100,7 +100,7 @@
                 searchKey:searchKey
             }
         }
-        $('#datacollectionListTable').bootstrapTable('refresh', params);
+        $('#datarateListTable').bootstrapTable('refresh', params);
     });
     /**
      * 初始化纠错列表

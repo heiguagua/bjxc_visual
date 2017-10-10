@@ -21,15 +21,13 @@ function initSelectData() {
                 }
             }
         }
+        if(authType === 'dept'){
+            $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, {onlyParentAuthDept: authObjId, withoutDept: authObjId}, selects); //初始化组织机构下拉框
+        }else if(authType === 'dir'){
+            $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects);
+        }
     });
-    if(authType === 'dept'){
-        $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, null, selects); //初始化组织机构下拉框
-    }else if(authType === 'dir'){
-        $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects);
-    }
 }
-
-
 
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");

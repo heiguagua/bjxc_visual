@@ -103,6 +103,11 @@ jQuery(document).ready(function () {
         ]
     });
 
+    $('#isAudited').change(function(){
+        setParams();
+        reloadTable();
+    });
+
     jQuery('#queryBtnId').click(function () {
         setParams();
         reloadTable();

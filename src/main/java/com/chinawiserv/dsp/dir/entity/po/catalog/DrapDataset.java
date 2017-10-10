@@ -37,6 +37,10 @@ public class DrapDataset {
     private String system_name;
     private String system_id;
 
+    //所属资源格式
+    private String format_category;
+    private String format_type;
+
     public String getDept_short_name() {
         return dept_short_name;
     }
@@ -309,4 +313,19 @@ public class DrapDataset {
         this.updateTime = updateTime;
     }
 
+    public String getFormat_category() {
+        return format_category;
+    }
+
+    public void setFormat_category(String format_category) {
+        this.format_category = format_category;
+    }
+
+    public String getFormat_type() {
+        return format_type;
+    }
+
+    public void setFormat_type(String format_type) {
+        this.format_type = format_type;
+    }
 }

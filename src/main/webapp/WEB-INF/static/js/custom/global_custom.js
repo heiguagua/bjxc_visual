@@ -1718,6 +1718,7 @@ function initGlobalCustom(tempUrlPrefix) {
                         $('#' + nameInputDomId).val(treeNode.structureName);
                         $('#' + codeInputDomId).val(treeNode.id);
                         $('#' + showCodeInputDomId).val(treeNode.fcode);
+                        $('#' + nameInputDomId).change();
                     }
                 }
             };
@@ -1888,7 +1889,8 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'name': nodeObjs[i].deptName,
                                 'fid': nodeObjs[i].fid,
                                 'checked': selects.indexOf(nodeObjs[i].id) >= 0,
-                                'isParent': (nodeObjs[i].isLeaf ? false : true)
+                                'isParent': (nodeObjs[i].isLeaf ? false : true),
+                                'nocheck': nodeObjs[i].deptLevel == 1
                             }
                         }
                         return params;
@@ -2087,7 +2089,8 @@ function initGlobalCustom(tempUrlPrefix) {
                                 params[i] = {
                                     'id': nodeObjs[i].id,
                                     'name': nodeObjs[i].deptName,
-                                    'isParent': (nodeObjs[i].isLeaf ? false : true)
+                                    'isParent': (nodeObjs[i].isLeaf ? false : true),
+                                    'nocheck': nodeObjs[i].deptLevel == 1
                                 }
                             }
                             return params;
