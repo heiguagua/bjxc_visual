@@ -270,7 +270,8 @@
         targetddti.`id` AS targetTableId,
         targetddtc.`column_en_name` AS targetColumnName,
         targetddtc.`id` AS targetColumnId,
-        ddsr.`relation_type` AS relationType
+        CASE WHEN ddsr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
+        AS relationType
         FROM
         dir_dataset dd
         LEFT JOIN dir_dataset_source_info ddsi
@@ -309,7 +310,8 @@
         targetddti.`id` AS targetTableId,
         targetddtc.`column_en_name` AS targetColumnName,
         targetddtc.`id` AS targetColumnId,
-        ddtr.`relation_type` AS relationType
+        CASE WHEN ddtr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
+        AS relationType
         FROM
         dir_dataset dd
         LEFT JOIN dir_dataset_source_info ddsi
@@ -351,7 +353,8 @@
         targetddti.`id` AS targetTableId,
         targetddtc.`cloumn_name`AS targetColumnName,
         targetddtc.`id` AS targetColumnId,
-        ddsr.`relation_type` AS relationType
+        CASE WHEN ddsr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
+        AS relationType
         FROM
         dir_dataset dd
         LEFT JOIN dir_dataset_source_info ddsi
@@ -391,7 +394,8 @@
         targetddti.`id` AS targetTableId,
         targetddtc.`target_column_name` AS targetColumnName,
         targetddtc.`id` AS targetColumnId,
-        ddsr.`relation_type` AS relationType
+        CASE WHEN ddsr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
+        AS relationType
         FROM
         dir_dataset dd
         LEFT JOIN dir_dataset_source_info ddsi
@@ -538,24 +542,23 @@
     <!-- 查询用户的数据集权限 -->
     <select id="getDataAuthorityByUserId" parameterType="map" resultType="map">
         SELECT
-          dda.`id` AS dataApplyId,
-          dda.`audit_visit_cnt` AS limitVisitCnt,
-          dda.`audit_visit_date_period` AS limitVisitDatePeriod,
-          CASE
-            dda.`status`
-            WHEN dda.`status` = '1'
-            THEN 'true'
-            ELSE 'false'
-          END AS 'status'
+        dda.`id` AS dataApplyId,
+        dda.`audit_visit_cnt` AS limitVisitCnt,
+        dda.`audit_visit_date_period` AS limitVisitDatePeriod,
+        CASE
+        WHEN dda.`status` = '1'
+        THEN 'true'
+        ELSE 'false'
+        END AS 'status'
         FROM
-          dir_data_apply dda
-          LEFT JOIN dir_dataset_classify_map dcm
-            ON dcm.`id` = dda.`dcm_id`
+        dir_data_apply dda
+        LEFT JOIN dir_dataset_classify_map dcm
+        ON dcm.`id` = dda.`dcm_id`
         WHERE TRUE
         AND dda.`applicant_id` = #{userId}
         AND dcm.`classify_id` = #{classifyId}
         AND dcm.`dataset_id` = #{datasetId}
-        LIMIT 0,1
+        LIMIT 0, 1
     </select>
 
     <!-- 查询用户申请的数据集拥有的数据字段 -->
