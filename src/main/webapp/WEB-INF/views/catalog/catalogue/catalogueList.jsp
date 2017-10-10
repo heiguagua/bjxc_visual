@@ -15,11 +15,11 @@
                 <h1>
                     <small>目录管理 > 目录编目</small>
                 </h1>
-                <!-- <ul class="title_ul">
-                	<li class="active"><i class="fa fa-desktop" style="font-size:20px"></i>&nbsp;常规模式</li>
-                	<li>引导模式</li>
+              <!-- <ul class="title_ul">
+                	<li class="active"><i class="fa fa-television" style="font-size:20px"></i>&nbsp;常规模式</li>
+                	<li><i class="fa fa-crop" aria-hidden="true"></i>&nbsp;引导模式</li>
                 	<li>图谱</li>
-                </ul> -->
+                </ul>  --> 
             </section>
             <!-- Main content -->
             <section class="content">
