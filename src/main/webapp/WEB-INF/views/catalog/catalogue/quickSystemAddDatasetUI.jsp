@@ -57,10 +57,10 @@
                         <div class="col-sm-5">
                             <label class="col-sm-3"></label>
                             <div class="col-sm-9">
-                                <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas"
+                                <a id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas"
                                         data-toggle="modal" data-target="#myModal">
                                     配置数据项
-                                </button>
+                                </a>
                             </div>
 
                         </div>
@@ -230,7 +230,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6 shareType3" id="shareConditionDiv">
-                            <label for="shareConditionDesc" class="col-sm-3 control-label">共享条件:</label>
+                            <label for="shareConditionDesc" class="col-sm-3 control-label" id="shareConditionLabel">共享条件:</label>
                             <div class="col-sm-9">
                                 <textarea class="form-control" rows="3" id="shareConditionDesc"
                                           name="shareCondition"></textarea>

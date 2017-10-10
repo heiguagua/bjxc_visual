@@ -2,12 +2,9 @@ package com.chinawiserv.dsp.dir.service.catalog;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem;
-import com.chinawiserv.dsp.dir.entity.po.catalog.ExportDatasetExcel;
+import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDataset;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +31,8 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
     Page<DirDatasetClassifyMapVo> selectReleasedClassifyMapVoPage(Map<String, Object> paramMap);
 
     public DrapDataset getDrapDatasetDetail(String id);
+
+    DirDatasetSurvey selectDrapSurveyByDatasetId(String id);
 
     boolean checkDatasetName(String datasetName, String classifyIds);
 

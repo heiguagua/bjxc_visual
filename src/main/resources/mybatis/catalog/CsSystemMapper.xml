@@ -19,7 +19,7 @@
         FROM cs_data_sync_collect WHERE source_name=#{source_name}
     </select>
     
-    <select id="selectColumnsByTableId" resultType="java.lang.String">
-        SELECT cloumn_name FROM cs_data_sync_collect_column WHERE table_id=#{table_id}
+    <select id="selectColumnsByTableId" resultType="java.util.Map">
+        SELECT * FROM cs_data_sync_collect_column WHERE table_id=#{table_id}
     </select>
 </mapper>

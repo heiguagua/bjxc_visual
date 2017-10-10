@@ -16,7 +16,7 @@ function initAllSelect(){
     //共享方式
     Dict.selects('dataSetShareMethod',['#shareMethod']);
     Dict.selects('setItemFrequency',['#updateFrequency']);
-    Dict.selects('setItemStoreMedia',['#storeMedia']);
+    Dict.selects('resourceFormat',['#storeMedia']);
     //是否向社会开放
     //Dict.selects('14',['#social_open_flag']);
     //信息资源主要来源
@@ -27,18 +27,26 @@ function initAllSelect(){
     //Dict.selects('26',['#service_provice']);
     //信息资源最小分级单元
     //Dict.selects('27',['#info_min_unit']);
-    $("#shareConditionDiv").hide();
     $("#shareType").on("change",function(){
         var selectedValue = $(this).children('option:selected').val();
         if(selectedValue=="2" || selectedValue==""){ //不予共享
-            $("#shareConditionDiv").hide();
-            $("#shareMethodDiv").hide();
+            $("#shareConditionLabel").html("不予共享说明");
+            $("#shareConditionDesc").removeAttr("disabled");
+            $("#shareMethod").attr("disabled","disabled");
+            $("#shareMethod").css("background-color","#EEEEEE");
         }else if(selectedValue=="0"){ //无条件共享
-            $("#shareConditionDiv").hide();
-            $("#shareMethodDiv").show();
+            $("#shareConditionLabel").html("共享条件");
+            $("#shareConditionDesc").attr("disabled","disabled");
+            $("#shareConditionDesc").css("background-color","#EEEEEE");
+            $("#shareMethod").removeAttr("disabled");
+            $("#shareMethod").removeAttr("style");
+
         }else if(selectedValue=="1") { //有条件共享
-            $("#shareConditionDiv").show();
-            $("#shareMethodDiv").show();
+            $("#shareConditionLabel").html("共享条件");
+            $("#shareConditionDesc").removeAttr("disabled");
+            $("#shareConditionDesc").removeAttr("style");
+            $("#shareMethod").removeAttr("disabled");
+            $("#shareMethod").removeAttr("style");
         }
     });
 }
@@ -127,12 +135,12 @@ var Model = {
                     $.each(cur.datas, function(idx, itm){
                         try {
                             if(cur.existed(itm.ID,pool)){
-                                html += '<a class="list-group-item no-border disabled" data-id="'+itm.id+'">'+itm+'</a>';
+                                html += '<a class="list-group-item no-border disabled" data-id="'+itm.id+'">'+itm.cloumn_name+'</a>';
                             }else{
-                                html += '<a class="list-group-item no-border" data-id="'+itm.id+'">'+itm+'</a>';
+                                html += '<a class="list-group-item no-border" data-id="'+itm.id+'">'+itm.cloumn_name+'</a>';
                             }
                         } catch (e) {
-                            html += '<a class="list-group-item no-border" data-id="'+itm.id+'" >'+itm+'</a>';
+                            html += '<a class="list-group-item no-border" data-id="'+itm.id+'" >'+itm.cloumn_name+'</a>';
                         }
 
                     });
@@ -302,8 +310,29 @@ $(document).on("click", "#field_tree>a", function(){
     }
 });
 $(document).on("click", "button#field_add", function(){
+    var id=$("#dataset_item_container>a.active").attr('data-id');
+    $.ajax({
+        url: basePathJS+"/csSystem/selectColumnsByTableId",
+        type: "post",
+        data: {
+            table_id: id
+        },
+        dataType: "json",
+        success: function (data) {
+            if(data.state && data.content){
+                var datas = data.content.list;
+                $('#dataitemList').empty();
+                for(var i in datas){
+                    var thisTrNum = getTrNum();
+                    buildItem(thisTrNum,{id:datas[i].id,itemName:datas[i].cloumn_name});
+                }
+            }
+        },
+        error: function(xhr, c){
+        }
+    });
     //提交
-    var arr=[];
+    /*var arr=[];
     $.each($("#field_tree>a.active"), function(idx, itm){
         //var id = $(itm).attr("data-id");
         var name = $(itm).text();
@@ -316,63 +345,8 @@ $(document).on("click", "button#field_add", function(){
             var thisTrNum = getTrNum();
             buildItem(thisTrNum,arr[i]);
         }
-    }
+    }*/
     $('#myModal').modal('hide');
-    //var dataset_id=$("#dataset_item_container>a.active").attr('data-id');
-
-    //获取选中的数据集
-    /*if(dataset_id){
-        $.ajax({
-            url: basePathJS+"/catalog/getDrapDatasetDetail",
-            type:"get",
-            data:{
-                id:dataset_id
-            },
-            dataType:"json",
-            success:function(data){
-                if(data.state){
-                    buildDataset(data.content.result);
-                    $('#myModal').modal('hide');
-                }else{
-                    $.bootstrapDialog.failure(data.message);
-                }
-            },
-            error: function(xhr, c){
-
-            }
-        });
-    }*/
-    //获取选中的数据项
-    /*if(ids){
-        $.ajax({
-            url: basePathJS+"/catalog/selectDatasetItemByIds",
-            type:"get",
-            data:{
-                ids:ids.toString()
-            },
-            dataType:"json",
-            success:function(data){
-                if(data.state){
-                    /!*for(var i in ids){
-                        $('a[column-id='+ids[i]+']').removeClass('active');
-                        $('a[column-id='+ids[i]+']').addClass('disabled');
-                    }*!/
-                    if(data.content.list){
-                        var arr=data.content.list;
-                        for (var i in arr){
-                           var thisTrNum = getTrNum();
-                           buildItem(thisTrNum,arr[i]);
-                        }
-                    }
-                }else{
-                    $.bootstrapDialog.failure(data.message);
-                }
-            },
-            error: function(xhr, c){
-
-            }
-        });
-    }*/
 });
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
@@ -513,3 +487,9 @@ function initInputValue(){
         }
     });
 }
+$(document).on("change","#storeMedia",function(){
+    var selectedValue = $(this).children('option:selected').val();
+    if(selectedValue!=""){
+        Dict.cascadeSelects('resourceFormat', ['#format_type'], selectedValue);
+    }
+});
