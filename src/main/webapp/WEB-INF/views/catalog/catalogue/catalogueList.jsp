@@ -80,7 +80,8 @@
                                         <input type="hidden" id="searchClassifyId">
                                         <div class="menu-wrap">
                                             <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
-                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                                <ul id="searchClassifyTreeDemo" c
+                                                lass="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                             </div>
                                         </div>
                                     </div>
