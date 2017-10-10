@@ -2,226 +2,238 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.drap.DrapDbInfoMapper">
 
-    <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo">
-        <id column="id" property="id"/>
-        <result column="region_code" property="regionCode"/>
-        <result column="belong_dept" property="belongDept"/>
-        <result column="db_code" property="dbCode"/>
-        <result column="db_cn_name" property="dbCnName"/>
-        <result column="category" property="category"/>
-        <result column="db_type" property="dbType"/>
-        <result column="db_name" property="dbName"/>
-        <result column="version" property="version"/>
-        <result column="ip_address" property="ipAddress"/>
-        <result column="port" property="port"/>
-        <result column="sid" property="sid"/>
-        <result column="service_name" property="serviceName"/>
-        <result column="param1" property="param1"/>
-        <result column="param2" property="param2"/>
-        <result column="param3" property="param3"/>
-        <result column="param4" property="param4"/>
-        <result column="param5" property="param5"/>
-        <result column="cur_storage" property="curStorage"/>
-        <result column="month_increment" property="monthIncrement"/>
-        <result column="year_increment" property="yearIncrement"/>
-        <result column="is_backup" property="isBackup"/>
-        <result column="backup_desc" property="backupDesc"/>
-        <result column="network" property="network"/>
-        <result column="room_addr" property="roomAddr"/>
-        <result column="user_name" property="userName"/>
-        <result column="password" property="password"/>
-        <result column="order_by" property="orderBy"/>
-        <result column="is_show" property="isShow"/>
-        <result column="code_index" property="codeIndex"/>
-        <result column="cur_connect_status" property="curConnectStatus"/>
-        <result column="cur_update_status" property="curUpdateStatus"/>
-        <result column="cur_monitor_time" property="curMonitorTime"/>
-        <result column="status" property="status"/>
-        <result column="create_user" property="createUser"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_user" property="updateUser"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="delete_flag" property="deleteFlag"/>
-    </resultMap>
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo">
+		<id column="id" property="id" />
+		<result column="region_code" property="regionCode" />
+		<result column="belong_dept" property="belongDept" />
+		<result column="db_code" property="dbCode" />
+		<result column="db_cn_name" property="dbCnName" />
+		<result column="category" property="category" />
+		<result column="db_type" property="dbType" />
+		<result column="db_name" property="dbName" />
+		<result column="version" property="version" />
+		<result column="ip_address" property="ipAddress" />
+		<result column="port" property="port" />
+		<result column="sid" property="sid" />
+		<result column="service_name" property="serviceName" />
+		<result column="param1" property="param1" />
+		<result column="param2" property="param2" />
+		<result column="param3" property="param3" />
+		<result column="param4" property="param4" />
+		<result column="param5" property="param5" />
+		<result column="cur_storage" property="curStorage" />
+		<result column="month_increment" property="monthIncrement" />
+		<result column="year_increment" property="yearIncrement" />
+		<result column="is_backup" property="isBackup" />
+		<result column="backup_desc" property="backupDesc" />
+		<result column="network" property="network" />
+		<result column="room_addr" property="roomAddr" />
+		<result column="user_name" property="userName" />
+		<result column="password" property="password" />
+		<result column="order_by" property="orderBy" />
+		<result column="is_show" property="isShow" />
+		<result column="code_index" property="codeIndex" />
+		<result column="cur_connect_status" property="curConnectStatus" />
+		<result column="cur_update_status" property="curUpdateStatus" />
+		<result column="cur_monitor_time" property="curMonitorTime" />
+		<result column="status" property="status" />
+		<result column="create_user" property="createUser" />
+		<result column="create_time" property="createTime" />
+		<result column="update_user" property="updateUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="delete_flag" property="deleteFlag" />
+	</resultMap>
 
-    <resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbInfoVo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
+		type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbInfoVo">
 
-    </resultMap>
+	</resultMap>
 
-    <!-- 通用查询过滤条件 -->
-    <sql id="queryConditions">
-        <where>
-            <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
-            </if>
-        </where>
-    </sql>
+	<!-- 通用查询过滤条件 -->
+	<sql id="queryConditions">
+		<where>
+			<if test="id != null">
+				t.id = #{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM drap_db_info t
-        <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoPage" parameterType="java.util.Map"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM drap_db_info t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM drap_db_info t WHERE t.id = #{id}
-    </select>
+	<select id="selectVoById" parameterType="java.lang.String"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM drap_db_info t WHERE t.id = #{id}
+	</select>
 
-    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM drap_db_info t
-        <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT count(1) FROM drap_db_info t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo">
-        insert into
-        drap_db_info(id,region_code,belong_dept,db_code,db_cn_name,category,db_type,db_name,version,ip_address,port,sid,service_name,param1,param2,param3,param4,param5,cur_storage,month_increment,year_increment,is_backup,backup_desc,network,room_addr,user_name,password,order_by,is_show,code_index,cur_connect_status,cur_update_status,cur_monitor_time,status,create_user,create_time,update_user,update_time,delete_flag)
-        values(
-        #{id},#{regionCode},#{belongDept},#{dbCode},#{dbCnName},#{category},#{dbType},#{dbName},#{version},#{ipAddress},#{port},#{sid},#{serviceName},#{param1},#{param2},#{param3},#{param4},#{param5},#{curStorage},#{monthIncrement},#{yearIncrement},#{isBackup},#{backupDesc},#{network},#{roomAddr},#{userName},#{password},#{orderBy},#{isShow},#{codeIndex},#{curConnectStatus},#{curUpdateStatus},#{curMonitorTime},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag}
-        )
-    </insert>
-
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo">
-        update drap_db_info
-        <set>
-            <if test="id != null">
-                id = #{id},
-            </if>
-            <if test="regionCode != null">
-                region_code = #{regionCode},
-            </if>
-            <if test="belongDept != null">
-                belong_dept = #{belongDept},
-            </if>
-            <if test="dbCode != null">
-                db_code = #{dbCode},
-            </if>
-            <if test="dbCnName != null">
-                db_cn_name = #{dbCnName},
-            </if>
-            <if test="category != null">
-                category = #{category},
-            </if>
-            <if test="dbType != null">
-                db_type = #{dbType},
-            </if>
-            <if test="dbName != null">
-                db_name = #{dbName},
-            </if>
-            <if test="version != null">
-                version = #{version},
-            </if>
-            <if test="ipAddress != null">
-                ip_address = #{ipAddress},
-            </if>
-            <if test="port != null">
-                port = #{port},
-            </if>
-            <if test="sid != null">
-                sid = #{sid},
-            </if>
-            <if test="serviceName != null">
-                service_name = #{serviceName},
-            </if>
-            <if test="param1 != null">
-                param1 = #{param1},
-            </if>
-            <if test="param2 != null">
-                param2 = #{param2},
-            </if>
-            <if test="param3 != null">
-                param3 = #{param3},
-            </if>
-            <if test="param4 != null">
-                param4 = #{param4},
-            </if>
-            <if test="param5 != null">
-                param5 = #{param5},
-            </if>
-            <if test="curStorage != null">
-                cur_storage = #{curStorage},
-            </if>
-            <if test="monthIncrement != null">
-                month_increment = #{monthIncrement},
-            </if>
-            <if test="yearIncrement != null">
-                year_increment = #{yearIncrement},
-            </if>
-            <if test="isBackup != null">
-                is_backup = #{isBackup},
-            </if>
-            <if test="backupDesc != null">
-                backup_desc = #{backupDesc},
-            </if>
-            <if test="network != null">
-                network = #{network},
-            </if>
-            <if test="roomAddr != null">
-                room_addr = #{roomAddr},
-            </if>
-            <if test="userName != null">
-                user_name = #{userName},
-            </if>
-            <if test="password != null">
-                password = #{password},
-            </if>
-            <if test="orderBy != null">
-                order_by = #{orderBy},
-            </if>
-            <if test="isShow != null">
-                is_show = #{isShow},
-            </if>
-            <if test="codeIndex != null">
-                code_index = #{codeIndex},
-            </if>
-            <if test="curConnectStatus != null">
-                cur_connect_status = #{curConnectStatus},
-            </if>
-            <if test="curUpdateStatus != null">
-                cur_update_status = #{curUpdateStatus},
-            </if>
-            <if test="curMonitorTime != null">
-                cur_monitor_time = #{curMonitorTime},
-            </if>
-            <if test="status != null">
-                status = #{status},
-            </if>
-            <if test="createUser != null">
-                create_user = #{createUser},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
-            </if>
-            <if test="updateUser != null">
-                update_user = #{updateUser},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime},
-            </if>
-            <if test="deleteFlag != null">
-                delete_flag = #{deleteFlag},
-            </if>
-        </set>
-        where id = #{id}
-    </update>
-
-    <delete id="baseDelete" parameterType="java.util.Map">
-        delete from drap_db_info
-        <include refid="deleteWhereCause"/>
-    </delete>
-
-    <sql id="deleteWhereCause">
-        <where>
-            <if test="id != null">
-                id = #{id}
-            </if>
-        </where>
-    </sql>
-
-	<insert id="insertSysMap"   >
-		INSERT INTO drap_db_system_map (id, db_id, info_system_id) VALUES (#{id}, #{dbId}, #{sysId});
+	<insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo">
+		insert into
+		drap_db_info(id,region_code,belong_dept,db_code,db_cn_name,category,db_type,db_name,version,ip_address,port,sid,service_name,param1,param2,param3,param4,param5,cur_storage,month_increment,year_increment,is_backup,backup_desc,network,room_addr,user_name,password,order_by,is_show,code_index,cur_connect_status,cur_update_status,cur_monitor_time,status,create_user,create_time,update_user,update_time,delete_flag)
+		values(
+		#{id},#{regionCode},#{belongDept},#{dbCode},#{dbCnName},#{category},#{dbType},#{dbName},#{version},#{ipAddress},#{port},#{sid},#{serviceName},#{param1},#{param2},#{param3},#{param4},#{param5},#{curStorage},#{monthIncrement},#{yearIncrement},#{isBackup},#{backupDesc},#{network},#{roomAddr},#{userName},#{password},#{orderBy},#{isShow},#{codeIndex},#{curConnectStatus},#{curUpdateStatus},#{curMonitorTime},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag}
+		)
 	</insert>
+
+	<update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo">
+		update drap_db_info
+		<set>
+			<if test="id != null">
+				id = #{id},
+			</if>
+			<if test="regionCode != null">
+				region_code = #{regionCode},
+			</if>
+			<if test="belongDept != null">
+				belong_dept = #{belongDept},
+			</if>
+			<if test="dbCode != null">
+				db_code = #{dbCode},
+			</if>
+			<if test="dbCnName != null">
+				db_cn_name = #{dbCnName},
+			</if>
+			<if test="category != null">
+				category = #{category},
+			</if>
+			<if test="dbType != null">
+				db_type = #{dbType},
+			</if>
+			<if test="dbName != null">
+				db_name = #{dbName},
+			</if>
+			<if test="version != null">
+				version = #{version},
+			</if>
+			<if test="ipAddress != null">
+				ip_address = #{ipAddress},
+			</if>
+			<if test="port != null">
+				port = #{port},
+			</if>
+			<if test="sid != null">
+				sid = #{sid},
+			</if>
+			<if test="serviceName != null">
+				service_name = #{serviceName},
+			</if>
+			<if test="param1 != null">
+				param1 = #{param1},
+			</if>
+			<if test="param2 != null">
+				param2 = #{param2},
+			</if>
+			<if test="param3 != null">
+				param3 = #{param3},
+			</if>
+			<if test="param4 != null">
+				param4 = #{param4},
+			</if>
+			<if test="param5 != null">
+				param5 = #{param5},
+			</if>
+			<if test="curStorage != null">
+				cur_storage = #{curStorage},
+			</if>
+			<if test="monthIncrement != null">
+				month_increment = #{monthIncrement},
+			</if>
+			<if test="yearIncrement != null">
+				year_increment = #{yearIncrement},
+			</if>
+			<if test="isBackup != null">
+				is_backup = #{isBackup},
+			</if>
+			<if test="backupDesc != null">
+				backup_desc = #{backupDesc},
+			</if>
+			<if test="network != null">
+				network = #{network},
+			</if>
+			<if test="roomAddr != null">
+				room_addr = #{roomAddr},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>
+			<if test="password != null">
+				password = #{password},
+			</if>
+			<if test="orderBy != null">
+				order_by = #{orderBy},
+			</if>
+			<if test="isShow != null">
+				is_show = #{isShow},
+			</if>
+			<if test="codeIndex != null">
+				code_index = #{codeIndex},
+			</if>
+			<if test="curConnectStatus != null">
+				cur_connect_status = #{curConnectStatus},
+			</if>
+			<if test="curUpdateStatus != null">
+				cur_update_status = #{curUpdateStatus},
+			</if>
+			<if test="curMonitorTime != null">
+				cur_monitor_time = #{curMonitorTime},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag = #{deleteFlag},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="baseDelete" parameterType="map">
+		delete from drap_db_info
+		<include refid="deleteWhereCause" />
+	</delete>
 	
+	<!-- 删除系统 -->
+	<delete id="deleteSysMap" parameterType="map">
+		<if test="id!=null and id!=''">
+			DELETE FROM drap_db_system_map WHERE db_id=#{id};
+		</if>
+	</delete>
+	<sql id="deleteWhereCause">
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insertSysMap">
+		INSERT INTO drap_db_system_map (id,
+		db_id, info_system_id) VALUES (#{id}, #{dbId}, #{sysId});
+	</insert>
+
 </mapper>

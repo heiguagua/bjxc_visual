@@ -58,10 +58,17 @@
    
    <div class="btn-group">
    	<ul class="nav_uls">
-        <li><i class="fa fa-institution (alias)"></i><a href="<%=basePath%>/jp:hk_drap" style="color: #FFFFFF;">&nbsp;资源梳理</a></li>
-   		<li class="active"><i class="fa fa-list-alt"></i>&nbsp;目录管理</li>
-        <li><i class="fa fa-newspaper-o"></i><a href="<%=basePath%>/jp:hk_service" style="color: #FFFFFF;">&nbsp;服务封装</a></li>
-        <li><i class="fa  fa-database"></i><a href="<%=basePath%>/jp:hk_dcm" style="color: #FFFFFF;">&nbsp;门户</a></li>
+        <li>
+        <img src="<%=basePath%>/images/userImg/sourceimgicon2.png"/>
+        <a href="<%=basePath%>/jp:hk_drap" style="color: #FFFFFF;">&nbsp;资源梳理</a></li>
+   		<li class="active">
+   		<img src="<%=basePath%>/images/userImg/directimgicon1.png"/>&nbsp;目录管理</li>
+        <li>
+        <img src="<%=basePath%>/images/userImg/serverimgicon1.png"/>
+        <a href="<%=basePath%>/jp:hk_service" style="color: #FFFFFF;">&nbsp;服务封装</a></li>
+        <li>
+        <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
+        <a href="<%=basePath%>/jp:hk_dcm" style="color: #FFFFFF;">&nbsp;门户</a></li>
    	</ul>
    </div>
    
@@ -110,7 +117,7 @@
        </li>
        <li>
          <a href="<%=basePath%>/login/logout" class="dropdown-toggle" data-toggle="tooltip" title="退出" data-placement="bottom">
-           <i class="fa fa-chevron-circle-down"></i>
+           <img src="<%=basePath%>/images/userImg/adminDeltimg.png" class="adminDeltimg"/>
          </a>
        </li>
        <li style="width: 30px;">
