@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.base.mapper.system;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.system.SysDict;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDictCategoryVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,13 +25,19 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
 
     List<SysDictVo> selectDictList(Map<String, Object> paramMap);
 
+    List<SysDictVo> selectDictDetailList(Page<SysDictVo> page, Map<String, Object> paramMap);
     
     List<SysDictVo> selectVoListForTreeData(Map<String, Object> paramMap);
-    SysDictVo selectVoById(String id);
+
+    SysDictCategoryVo selectVoById(String categoryCode);
+
+    SysDictVo selectDetailVoById(String id);
 
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(SysDict entity);
+
+    int dictInsert(SysDict entity);
 
     int baseUpdate(SysDict entity);
 

@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.base.service.system;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.system.SysDict;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
@@ -17,7 +18,12 @@ import java.util.Map;
  */
 public interface ISysDictService extends ICommonService<SysDict, SysDictVo> {
 
-    public Map<String, Map<String, SysDictVo>> getDictDataForSelect(Map<String, Object> paramMap) throws Exception;
+    Map<String, Map<String, SysDictVo>> getDictDataForSelect(Map<String, Object> paramMap) throws Exception;
     List<SysDictVo> selectVoCategoryList(Map<String, Object> paramMap);
     String selectDictcodeByCategoryAndName(String dict_name, String category);
+    boolean updateDetailVO(SysDictVo vo) throws Exception;
+    SysDictVo selectVoDetailById(String id) throws Exception;
+    boolean deleteDictById(String id) throws Exception;
+
+
 }

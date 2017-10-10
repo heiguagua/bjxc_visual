@@ -11,15 +11,16 @@ $(document).ready(function(){
 
 //初始化编辑界面
 function initEditPage(){
-    var params = {id : $("#roleId").val()};
-    $.post(basePathJS + "/sysDict/editLoad",
-        params,
+    var params = {id : $("#dictId").val()};
+    $.get(basePathJS + "/sysDict/detailEditLoad?id="+params.id,
         function(data){
             if(data && data.content && data.content.vo){
                 var vo = data.content.vo;
-                $("#roleName").val(vo.roleName);
-                $("#roleDesc").text(vo.roleDesc);
-                $("#roleLevel").val(vo.roleLevel).trigger("change");
+                $("#dictCode").val(vo.dictCode);
+                $("#dictName").val(vo.dictName);
+                $("#regionName").val(vo.regionName);
+                $("#orderNumber").val(vo.orderNumber);
+                $("#dictDesc").val(vo.dictDesc);
                 var status_selector = $("input[name='status']");
                 vo.status == 1 ? status_selector.get(0).checked=true : status_selector.get(1).checked=true;
             }
