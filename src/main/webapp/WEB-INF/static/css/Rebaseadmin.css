@@ -74,7 +74,9 @@
 
 
 /* 导航另外加*/
-
+a{
+	color:#fff;
+}	
  .nav_uls{
 	color: #FFFFFF;
 	font-size: 14px;
@@ -93,9 +95,9 @@
 	border-bottom:3px solid #4197F4;
 }
 .nav_uls>li a{
-	color:#fff;
+	color:#fff !important;
 }
-.nav_uls>li a:hover{
+.nav_uls>li a:hover,.nav_uls>li a:link{
 	color:#fff;
 }
 
