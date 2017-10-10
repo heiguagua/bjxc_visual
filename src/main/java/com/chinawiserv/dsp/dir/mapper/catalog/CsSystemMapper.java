@@ -15,5 +15,5 @@ public interface CsSystemMapper {
 
     List<Map<String,Object>> selectTablesBySourceName(@Param("source_name")String source_name);
 
-    List<String> selectColumnsByTableId(@Param("table_id")String table_id);
+    List<Map<String,Object>> selectColumnsByTableId(@Param("table_id")String table_id);
 }

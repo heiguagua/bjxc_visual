@@ -16,7 +16,7 @@ function initAllSelect(){
     //共享方式
     Dict.selects('dataSetShareMethod',['#shareMethod']);
     Dict.selects('setItemFrequency',['#updateFrequency']);
-    Dict.selects('resourceFormat',['#storeMedia']);
+    Dict.selects('resourceFormat',['#format_category']);
     //是否向社会开放
     //Dict.selects('14',['#social_open_flag']);
     //信息资源主要来源
@@ -513,7 +513,7 @@ $(document).on('click','#deleteItems',function(){
         infoTableDel(trNum);
     })
 });
-$(document).on("change","#storeMedia",function(){
+$(document).on("change","#format_category",function(){
     var selectedValue = $(this).children('option:selected').val();
     if(selectedValue!=""){
         Dict.cascadeSelects('resourceFormat', ['#format_type'], selectedValue);

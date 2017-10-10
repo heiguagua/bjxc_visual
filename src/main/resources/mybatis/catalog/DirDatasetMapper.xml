@@ -414,15 +414,19 @@
         <result column="dept_code" property="dept_code" />
         <result column="system_name" property="system_name" />
         <result column="system_id" property="system_id" />
+
+        <result column="format_category" property="format_category" />
+        <result column="format_type" property="format_type" />
     </resultMap>
     <select id="getDrapDatasetDetail" resultMap="result_DrapDataset_Map">
         SELECT
-            dd.*,sd.dept_short_name,sd.dept_code,dis.system_name,dis.id AS system_id
+            dd.*,sd.dept_short_name,sd.dept_code,dis.system_name,dis.id AS system_id,ddef.format_category,ddef.format_type
         FROM
             drap_dataset dd
         LEFT JOIN sys_dept sd ON dd.belong_dept_id = sd.id
         LEFT JOIN drap_dataset_system_map ddsm ON dd.id = ddsm.dataset_id
         LEFT JOIN drap_info_system dis ON ddsm.system_id = dis.id
+        LEFT JOIN drap_dataset_ext_format ddef ON ddef.dataset_id=dd.id
         WHERE
             dd.id = #{id}
     </select>
