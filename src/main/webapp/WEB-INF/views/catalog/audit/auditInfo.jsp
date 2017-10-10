@@ -34,8 +34,6 @@
                                     <label class="checkbox-inline i-checks "> <input
                                         type="radio" value="2" name="status" class=""><i></i>不通过
                                     </label>  -->
-                                
-                                    
                                 </div>
                             </div>
                             <div class="form-group">
