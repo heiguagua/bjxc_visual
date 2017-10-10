@@ -22,7 +22,7 @@ function initSelectData() {
             }
         }
         if(authType === 'dept'){
-            $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, null, selects); //初始化组织机构下拉框
+            $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, {withoutDept: authObjId}, selects); //初始化组织机构下拉框
         }else if(authType === 'dir'){
             $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects);
         }

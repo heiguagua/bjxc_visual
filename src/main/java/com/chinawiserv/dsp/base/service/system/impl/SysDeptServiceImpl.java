@@ -99,6 +99,28 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
                 param.putAll(getDeptCondition(regionCode));
             }
         }
+        String withoutLoginUserDept = (String) paramMap.get("withoutLoginUserDept");
+        if("1".equals(withoutLoginUserDept)){
+            String loginUserDeptId = ShiroUtils.getLoginUserDeptId();
+            if(StringUtils.isNotBlank(loginUserDeptId)){
+                param.put("withoutDept", loginUserDeptId);
+            }
+        }
+        String withoutDept = (String) paramMap.get("withoutDept");
+        if(StringUtils.isBlank(withoutDept)){
+            String withoutUserDept = (String) paramMap.get("withoutUserDept");
+            if(StringUtils.isNotBlank(withoutUserDept)){
+                SysUserVo sysUserVo = sysUserMapper.selectVoById(withoutUserDept);
+                if(sysUserVo != null){
+                    String userDeptId = sysUserVo.getDeptId();
+                    if(StringUtils.isNotBlank(userDeptId)){
+                        param.put("withoutDept", userDeptId);
+                    }
+                }
+            }
+        }else{
+            param.put("withoutDept", withoutDept);
+        }
         String withoutAuthDept = (String) paramMap.get("withoutAuthDept");
         if("1".equals(withoutAuthDept)){
             param.put("withoutAuthDept", withoutAuthDept);
