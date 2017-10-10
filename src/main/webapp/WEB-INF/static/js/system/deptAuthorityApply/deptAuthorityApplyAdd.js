@@ -6,7 +6,7 @@ jQuery(document).ready(function () {
 });
 
 function initSelectData() {
-    $.initDeptTreeSelect('treeDemo','toDeptNames','toDeptIds', 'menuContent', true, {withoutLoginUserDept: "1", withoutAuthDept: "1"}); //初始化组织机构下拉框
+    $.initDeptTreeSelect('treeDemo','toDeptNames','toDeptIds', 'menuContent', true, {excludeTreeCodeCondition: "1", withoutLoginUserDept: "1", withoutAuthDept: "1"}); //初始化组织机构下拉框
 }
 
 

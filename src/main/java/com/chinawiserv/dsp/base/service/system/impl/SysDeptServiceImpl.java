@@ -6,9 +6,12 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
+import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRegionMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -41,14 +45,17 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Autowired
     private SysRegionMapper sysRegionMapper;
 
+    @Autowired
+    private SysDeptAuthorityMapper sysDeptAuthorityMapper;
+
     @Override
     public Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
         Map<String, Object> param = this.getDeptCondition(null);
-        if(!param.isEmpty()){
+        if (!param.isEmpty()) {
             paramMap.putAll(param);
             Page<SysDeptVo> page = getPage(paramMap);
-            page.setOrderByField("tree_code");
-            page.setAsc(true);
+            page.setOrderByField("update_time");
+            page.setAsc(false);
             List<SysDeptVo> sysDeptVos = sysDeptMapper.selectVoPage(page, paramMap);
             page.setTotal(sysDeptMapper.selectVoCount(paramMap));
             page.setRecords(sysDeptVos);
@@ -63,7 +70,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
-    public JSONObject checkDeptName(String deptName, String fid){
+    public JSONObject checkDeptName(String deptName, String fid) {
         List<SysDept> list;
         JSONObject result = new JSONObject();
         if (StringUtils.isNotBlank(fid)) {
@@ -79,54 +86,76 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 
     @Override
     public List<SysDeptVo> getDeptSelectDataList(Map<String, Object> paramMap) throws Exception {
-        if(paramMap == null) paramMap = new HashMap();
+        if (paramMap == null) paramMap = new HashMap();
         String onlyRoot = (String) paramMap.get("onlyRoot");
         String regionCode = (String) paramMap.get("regionCode");
-        if(StringUtils.isBlank(onlyRoot)){
+        if (StringUtils.isBlank(onlyRoot)) {
             onlyRoot = "0";
         }
         List<SysDeptVo> list = new ArrayList();
         Map<String, Object> param = new HashMap();
-        if("1".equals(onlyRoot)){
+        if ("1".equals(onlyRoot)) {
             param.put("onlyRoot", onlyRoot);
             param.put("regionCode", regionCode);
-        }else {
+        } else {
             String id = (String) paramMap.get("id");
-            if(StringUtils.isNotBlank(id)){
+            if (StringUtils.isNotBlank(id)) {
                 param.put("fid", id);
-            }else {
+                String onlyParentAuthDept = (String) paramMap.get("onlyParentAuthDept");
+                if (StringUtils.isNotBlank(onlyParentAuthDept)) {
+                    SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(onlyParentAuthDept);
+                    Integer deptLevel = sysDeptVo.getDeptLevel();
+                    if (deptLevel != null && deptLevel >= 3) {
+                        String parentDeptId = sysDeptVo.getFid();
+                        List<String> deptIds = null;
+                        if (StringUtils.isNotBlank(parentDeptId)) {
+                            Map map = new HashMap();
+                            map.put("authObjId", parentDeptId);
+                            map.put("authObjType", AuthObjTypeEnum.DEPT.getKey());
+                            List<SysDeptAuthorityVo> parentDeptAuths = sysDeptAuthorityMapper.selectVoList(map);
+                            deptIds = parentDeptAuths.stream().map(parentDeptAuth -> parentDeptAuth.getDeptId()).collect(Collectors.toList());
+                        }
+                        if (deptIds == null || deptIds.isEmpty()) {
+                            return list;
+                        } else {
+                            param.put("ids", deptIds);
+                        }
+                    }
+                }
+            } else {
                 param.put("hasChildrenTopDept", "1");
-                param.putAll(getDeptCondition(regionCode));
+                String excludeTreeCodeCondition = (String) paramMap.get("excludeTreeCodeCondition");
+                param.putAll(getDeptCondition(regionCode, "1".equals(excludeTreeCodeCondition)));
             }
         }
         String withoutLoginUserDept = (String) paramMap.get("withoutLoginUserDept");
-        if("1".equals(withoutLoginUserDept)){
+        if ("1".equals(withoutLoginUserDept)) {
             String loginUserDeptId = ShiroUtils.getLoginUserDeptId();
-            if(StringUtils.isNotBlank(loginUserDeptId)){
+            if (StringUtils.isNotBlank(loginUserDeptId)) {
                 param.put("withoutDept", loginUserDeptId);
             }
         }
         String withoutDept = (String) paramMap.get("withoutDept");
-        if(StringUtils.isBlank(withoutDept)){
+        if (StringUtils.isBlank(withoutDept)) {
             String withoutUserDept = (String) paramMap.get("withoutUserDept");
-            if(StringUtils.isNotBlank(withoutUserDept)){
+            if (StringUtils.isNotBlank(withoutUserDept)) {
                 SysUserVo sysUserVo = sysUserMapper.selectVoById(withoutUserDept);
-                if(sysUserVo != null){
+                if (sysUserVo != null) {
                     String userDeptId = sysUserVo.getDeptId();
-                    if(StringUtils.isNotBlank(userDeptId)){
+                    if (StringUtils.isNotBlank(userDeptId)) {
                         param.put("withoutDept", userDeptId);
                     }
                 }
             }
-        }else{
+        } else {
             param.put("withoutDept", withoutDept);
         }
         String withoutAuthDept = (String) paramMap.get("withoutAuthDept");
-        if("1".equals(withoutAuthDept)){
+        if ("1".equals(withoutAuthDept)) {
             param.put("withoutAuthDept", withoutAuthDept);
             param.put("applicant", ShiroUtils.getLoginUserId());
         }
-        if(!param.isEmpty()){
+        if (!param.isEmpty()) {
             list.addAll(sysDeptMapper.selectVoListForTreeData(param));
         }
         return list;
@@ -135,10 +164,10 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public boolean deleteDeptById(String id) throws Exception {
         SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(id);
-        if(sysDeptVo != null){
-            if(!sysDeptMapper.isParentDept(sysDeptVo.getDeptCode())){
+        if (sysDeptVo != null) {
+            if (!sysDeptMapper.isParentDept(sysDeptVo.getDeptCode())) {
                 int count = sysUserMapper.selectUsersCountByDeptId(id);
-                if(count == 0){
+                if (count == 0) {
                     SysDept sysDept = new SysDept();
                     sysDept.setId(id);
                     sysDept.setDeleteFlag(1);
@@ -157,52 +186,56 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public boolean insertVO(SysDeptVo sysDeptVo) throws Exception {
         String fid = sysDeptVo.getFid();
-        if(StringUtils.isBlank(fid)){
+        if (StringUtils.isBlank(fid)) {
             throw new Exception("未能找到父节点id");
         }
         SysDeptVo parent = sysDeptMapper.selectVoById(fid);
-        if(parent != null){
+        if (parent != null) {
             Integer deptLevel = parent.getDeptLevel();
-            if(deptLevel != null){
+            if (deptLevel != null) {
                 sysDeptVo.setDeptLevel(deptLevel + 1);
-            }else{
+            } else {
                 sysDeptVo.setDeptLevel(2);
             }
             String treeCode = parent.getTreeCode();
-            if(treeCode == null){
+            if (treeCode == null) {
                 treeCode = "";
             }
             Integer treeIndex = parent.getTreeIndex();
-            if(treeIndex == null){
+            if (treeIndex == null) {
                 treeIndex = 1;
-            }else {
+            } else {
                 treeIndex++;
             }
             sysDeptVo.setTreeCode(treeCode + ";" + treeIndex);
             Integer status = sysDeptVo.getStatus();
-            if(status == null){
+            if (status == null) {
                 status = 1;
             }
-            if(status == 0){
+            if (status == 0) {
                 sysDeptVo.setValidateTo(new Date());
-            }else{
+            } else {
                 sysDeptVo.setValidateFrom(new Date());
             }
             sysDeptVo.setDeptType(parent.getDeptType());
             sysDeptVo.setId(CommonUtil.get32UUID());
             sysDeptVo.setTreeIndex(0);
-            sysDeptVo.setCreateUserId(ShiroUtils.getLoginUserId());
-            sysDeptVo.setCreateTime(new Date());
-            if(insert(sysDeptVo)){
+            String userId = ShiroUtils.getLoginUserId();
+            Date time = new Date();
+            sysDeptVo.setCreateUserId(userId);
+            sysDeptVo.setCreateTime(time);
+            sysDeptVo.setUpdateUserId(userId);
+            sysDeptVo.setUpdateTime(time);
+            if (insert(sysDeptVo)) {
                 SysDept updateParent = new SysDept();
                 updateParent.setId(parent.getId());
                 updateParent.setTreeIndex(treeIndex);
-                if(sysDeptMapper.updateById(updateParent) == 1){
+                if (sysDeptMapper.updateById(updateParent) == 1) {
                     return true;
                 }
             }
             throw new Exception("添加组织机构失败");
-        }else{
+        } else {
             throw new Exception("未能找到父节点");
         }
     }
@@ -210,12 +243,12 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public boolean updateVO(SysDeptVo sysDeptVo) throws Exception {
         Integer status = sysDeptVo.getStatus();
-        if(status == null){
+        if (status == null) {
             status = 1;
         }
-        if(status == 0){
+        if (status == 0) {
             sysDeptVo.setValidateTo(new Date());
-        }else{
+        } else {
             sysDeptVo.setValidateFrom(new Date());
         }
         sysDeptVo.setUpdateUserId(ShiroUtils.getLoginUserId());
@@ -234,18 +267,25 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
-    public Map<String, Object> getDeptCondition(String regionCode){
+    public Map<String, Object> getDeptCondition(String regionCode) {
+        return getDeptCondition(regionCode, false);
+    }
+
+    @Override
+    public Map<String, Object> getDeptCondition(String regionCode, boolean excludeTreeCodeCondition) {
         Map<String, Object> paramMap = new HashMap();
         SysUserVo loginUser = ShiroUtils.getLoginUser();
-        String deptTreeCode = loginUser.getDeptTreeCode();
-        if (StringUtils.isNotBlank(deptTreeCode)) {
-            paramMap.put("deptTreeCodeCondition", deptTreeCode);
+        if (!excludeTreeCodeCondition) {
+            String deptTreeCode = loginUser.getDeptTreeCode();
+            if (StringUtils.isNotBlank(deptTreeCode)) {
+                paramMap.put("deptTreeCodeCondition", deptTreeCode);
+            }
         }
-        if(StringUtils.isBlank(regionCode)){
+        if (StringUtils.isBlank(regionCode)) {
             regionCode = ShiroUtils.getLoginUser().getRegionCode();
         }
         SysRegionVo sysRegionVo = sysRegionMapper.selectVoByRegionCode(regionCode);
-        if(sysRegionVo != null){
+        if (sysRegionVo != null) {
             paramMap.put("regionCodeCondition", this.getRegionCodeCondition(regionCode, sysRegionVo.getRegionLevel()));
         }
         return paramMap;
@@ -253,20 +293,20 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 
     @Override
     public boolean isParentDept(String id) {
-        if(StringUtils.isBlank(id)){
+        if (StringUtils.isBlank(id)) {
             return true;
-        }else{
+        } else {
             return sysDeptMapper.isParentDept(id);
         }
     }
 
     @Override
     public List<SysDeptVo> selectDeptListLikeTreeCode(List<String> list) {
-        List<SysDeptVo> depts=null;
-        if (list!=null && list.size()>0){
-            depts= sysDeptMapper.selectDeptListLikeTreeCode(list);
-        }else{
-            depts= sysDeptMapper.selectDeptListLikeTreeCode(null);
+        List<SysDeptVo> depts = null;
+        if (list != null && list.size() > 0) {
+            depts = sysDeptMapper.selectDeptListLikeTreeCode(list);
+        } else {
+            depts = sysDeptMapper.selectDeptListLikeTreeCode(null);
         }
         return depts;
     }
