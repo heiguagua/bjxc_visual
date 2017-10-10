@@ -32,8 +32,8 @@
                             <div class="box-header">
                                 <div class="input-group">
                                     <a class="btn btn-primary btn-flat btn-myself" id="auditRejectButton">
-                                        <i class="fa fa-plus">
-                                        </i>
+                                        <!-- <i class="fa fa-plus">
+                                        </i> -->
                                       审核驳回
                                     </a>
                                 </div>
@@ -57,7 +57,7 @@
                                     </div>
                                     </input>
                                 </div>
-                                <div class="input-group pull-right" style="margin-right:4px;width: 30%">
+                                <div class="input-group pull-right" style="margin-right:4px;width: 240px">
                                     <input type="text" id="unReleaseSearchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                     <input type="hidden" id="unReleaseSearchClassifyId">
                                     <div class="menu-wrap">

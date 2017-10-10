@@ -31,7 +31,7 @@
                                 <div class="box-header">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
-                                                data-toggle="dropdown">
+                                                data-toggle="dropdown"><img src="<%=basePath%>/images/userImg/addimg.png"/>
                                            <!--  <i class="fa fa-plus"></i> -->快速添加<span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
@@ -48,19 +48,22 @@
                                     </div>
                                     <div class="input-group">
                                         <a class="btn btn-default btn-flat  btn-myself" onclick="javascript:addCustom()">
+                                        <img src="<%=basePath%>/images/userImg/addimg.png"/>
                                             <!-- <i class="fa fa-plus-circle"></i> -->自定义添加
                                         </a>
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
                                                 data-toggle="dropdown" onclick="javascript:excelImportUI()">
+                                                <img src="<%=basePath%>/images/userImg/importimg.png"/>
                                             <!-- <i class="fa fa-plus"></i> -->导入
                                         </button>
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle btn-myself"
                                                 data-toggle="dropdown" id="catalogueDeleteButton">
-                                            <!-- <i class="fa fa-plus"></i> -->删除
+                                                <img src="<%=basePath%>/images/userImg/delImg.png"/>
+                                            <!-- <i class="fa fa-plus"></i> -->批量删除
                                         </button>
                                     </div>
                                     <div class="input-group" style="float:right">
@@ -72,12 +75,13 @@
                                         </div>
                                         </input>
                                     </div>
-                                    <div class="input-group" style="float:right;margin-right:4px;width: 30%">
+                                    <div class="input-group" style="float:right;margin-right:4px;width:240px">
                                         <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                         <input type="hidden" id="searchClassifyId">
                                         <div class="menu-wrap">
                                             <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
-                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                                <ul id="searchClassifyTreeDemo" c
+                                                lass="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                             </div>
                                         </div>
                                     </div>
