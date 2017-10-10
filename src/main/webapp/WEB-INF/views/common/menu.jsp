@@ -57,13 +57,13 @@
         $(document).on('expanded.pushMenu',function(){
         	setTimeout(function(){
         		$("#smallImg").prop("src",basePathJS+"/images/userImg/sectionBack.png")
-        		$("#smallImg").parent().css("right","-15px")
+        		$("#smallImg").parent().css("right","-14px")
         	},200);
         })
         $(document).on('collapsed.pushMenu',function(){
         	setTimeout(function(){
-        		$("#smallImg").prop("src",basePathJS+"/images/userImg/BigsectionBack.png")
-        		$("#smallImg").parent().css("right","-29px")
+        		$("#smallImg").prop("src",basePathJS+"/images/userImg/BigsectionBackSmall.png")
+        		$("#smallImg").parent().css("right","-14px")
         	},200);
         	
         })

@@ -28,7 +28,8 @@ public interface DrapDbInfoMapper extends BaseMapper<DrapDbInfo> {
 
     int baseUpdate(DrapDbInfo entity);
 
-    int baseDelete(String id);
+    int baseDelete(Map<String,Object> paramMap);
 
+    void deleteSysMap(Map<String,Object> paramMap);
     int insertSysMap(String id, String dbId, String sysId);
 }

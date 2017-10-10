@@ -161,6 +161,7 @@ public class DrapDbInfoController extends BaseController {
         } catch (Exception e) {
             handleResult.error("接受审核数据失败");
             logger.error("接受审核数据失败", e);
+            
         }
         return handleResult;
     }
