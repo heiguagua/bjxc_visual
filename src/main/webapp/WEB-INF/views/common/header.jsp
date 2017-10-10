@@ -117,7 +117,7 @@
        </li>
        <li>
          <a href="<%=basePath%>/login/logout" class="dropdown-toggle" data-toggle="tooltip" title="退出" data-placement="bottom">
-           <i class="fa fa-chevron-circle-down"></i>
+           <img src="<%=basePath%>/images/userImg/adminDeltimg.png" class="adminDeltimg"/>
          </a>
        </li>
        <li style="width: 30px;">

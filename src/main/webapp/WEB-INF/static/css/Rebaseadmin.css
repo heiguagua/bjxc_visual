@@ -202,3 +202,9 @@ input.input_test{
     height: 50px !important;
     margin-bottom:0 !important;
 }
+
+/* 管理员登录下拉样式 */
+.adminDeltimg{
+	padding:4px;
+}
+
