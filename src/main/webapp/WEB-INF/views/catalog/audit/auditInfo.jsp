@@ -19,12 +19,23 @@
                             <div class="form-group">
                                 <label class="control-label control-Reslabel">审核意见：</label>
                                 <div class="m-l-n-xxl">
-                                    <label class="checkbox-inline i-checks"> <input
+                                
+                                <div class="redio-box">
+                                    <input type="radio" name="status" value="3"><span></span>
+                                </div>
+                                <label style="display: inline-block;" >通过</label>
+                                <div class="redio-box">
+                                    <input type="radio" name="status" checked value="2"><span></span>
+                                </div>
+                                <label style="display: inline-block;">不通过</label> 
+                                <!--  <label class="checkbox-inline i-checks"> <input
                                             type="radio" value="3" name="status" checked><i></i>通过
                                     </label>
                                     <label class="checkbox-inline i-checks "> <input
                                         type="radio" value="2" name="status" class=""><i></i>不通过
-                                    </label>
+                                    </label>  -->
+                                
+                                    
                                 </div>
                             </div>
                             <div class="form-group">
