@@ -5,8 +5,10 @@ var tableSelector = '#deptAuthorityAuditTableId';
 
 jQuery(document).ready(function () {
     "use strict";
-    var paramsObj = {};
 
+    var audited = '0';
+    $('#audited').val(audited);
+    var paramsObj = {audited: audited};
 
     jQuery(tableSelector).customTable({
         url: basePathJS + '/system/deptAuthorityAudit/list',
@@ -15,8 +17,16 @@ jQuery(document).ready(function () {
         },
         pagination: true, //分页
         pageSize: 15,
+        onRefresh: function(){
+            var audited = $('#audited').val();
+            if(audited == '0'){
+                $(tableSelector).data("bootstrap.table").showColumn('id');
+            }else{
+                $(tableSelector).data("bootstrap.table").hideColumn('id');
+            }
+        },
         columns: [{
-            field: 'id', title: '序号', width: '5%', align: 'center', formatter: function (value, row, index) {
+            title: '序号', width: '5%', align: 'center', formatter: function (value, row, index) {
                 return index + 1;
             }
         }, {
@@ -91,11 +101,12 @@ jQuery(document).ready(function () {
         ]
     });
 
-    jQuery('#queryBtnId').click(function () {
+    $("#audited").change(function(){
         setParams();
         reloadTable();
     });
-    $("#audited").change(function(){
+
+    jQuery('#queryBtnId').click(function () {
         setParams();
         reloadTable();
     });
