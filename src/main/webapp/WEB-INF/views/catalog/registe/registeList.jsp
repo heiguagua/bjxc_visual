@@ -26,8 +26,9 @@
                                 <div class="box-header">
                                     <div class="input-group">
                                         <a class="btn btn-primary btn-flat btn-myself" id="registeButton">
-                                            <i class="fa fa-plus">
-                                            </i>
+                                           <!--  <i class="fa fa-plus">
+                                            </i> -->
+                                            <img src="<%=basePath%>/images/userImg/addimg.png"/>
                                             注册
                                         </a>
                                     </div>
@@ -41,7 +42,7 @@
                                         </div>
                                         </input>
                                     </div>
-                                    <div class="input-group pull-right" style="margin-right:4px;width: 30%">
+                                    <div class="input-group pull-right" style="margin-right:4px;width: 240px">
                                         <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                         <input type="hidden" id="searchClassifyId">
                                         <div class="menu-wrap">
