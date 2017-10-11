@@ -112,7 +112,8 @@
 	color: #FFFFFF;
 	font-size: 14px;
 	opacity: 0.45;
-	min-height:70px;
+	 min-height: 67px;
+    line-height: 67px;
 	line-height:70px;
 	margin-right:30px;
 	cursor:pointer;
