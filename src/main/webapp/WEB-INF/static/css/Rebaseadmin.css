@@ -82,7 +82,7 @@
 
 
 /* 导航另外加*/
-a{
+ a{
 	color:#fff;
 }	
  .nav_uls{
@@ -108,7 +108,7 @@ a{
 .nav_uls>li a:hover,.nav_uls>li a:link{
 	color:#fff;
 }
-
+ 
 
 
 .content-header > h1 > small{
