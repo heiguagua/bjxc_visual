@@ -114,7 +114,6 @@
 	opacity: 0.45;
 	 min-height: 67px;
     line-height: 67px;
-	line-height:70px;
 	margin-right:30px;
 	cursor:pointer;
 }
@@ -214,6 +213,11 @@ section .sidebar{
 }
 
 
+
+
+
+
+
 /*登录验证的样式*/
 div.mg_right{
 	float:right;
@@ -236,4 +240,8 @@ input.input_test{
 /* 翻页记录字体默认色加强 */
 .dropdown-menu > li > a{
 	    color: #777 !important;
+}
+/* 每页显示记录 变色问题*/
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{
+	background:none;
 }
