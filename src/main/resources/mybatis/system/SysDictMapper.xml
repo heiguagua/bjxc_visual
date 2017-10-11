@@ -24,7 +24,6 @@
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysDictVo">
-
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -35,9 +34,19 @@
             </if>
         </where>
     </sql>
-
+    <select id="selectCategoryVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDictCategoryVo">
+      SELECT t.* FROM sys_dict_category t
+        <include refid="queryConditions"></include>
+    </select>
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM sys_dict t
+        SELECT
+        t1.*, IfNULL(t2.region_name, '通用') AS region_name
+        FROM
+        sys_dict t1
+        LEFT JOIN sys_dict_category t ON t1.category = t.category_code
+        LEFT JOIN sys_region t2 ON t2.region_code = t1.region_code
+        WHERE
+        t.category_code = #{categoryCode} AND t1.delete_flag=0
         <include refid="queryConditions"></include>
     </select>
 
@@ -46,12 +55,23 @@
         <include refid="queryConditions"></include>
     </select>
 
+    <!--查询字典列表 -->
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_dict_category t WHERE t.category_code = #{categoryCode}
+    </select>
+
+    <!--查询字典明细列表 -->
+    <select id="selectDetailVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
         SELECT t.* FROM sys_dict t WHERE t.id = #{id}
     </select>
 
+    <select id="selectCategoryVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM sys_dict_category
+        <include refid="queryConditions"></include>
+    </select>
+
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM sys_dict t
+        SELECT count(1) FROM sys_dict
         <include refid="queryConditions"></include>
     </select>
     
@@ -63,6 +83,14 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDict">
+        insert into
+        sys_dict_category(category_code,category_name,category_desc,)
+        values(
+        #{categoryCode},#{categoryName},#{categoryDesc},
+        )
+    </insert>
+
+    <insert id="dictInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDict">
         insert into
         sys_dict(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag,)
         values(

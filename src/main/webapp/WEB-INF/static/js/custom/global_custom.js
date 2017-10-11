@@ -1866,11 +1866,13 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param multiple          复选还是单选
          * @param param             异步加载url参数
          * @param selects           初始化选中值
+         * @param canSelectIds      指定节点可选择
          */
-        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects) {
+        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects, canSelectIds) {
             var chkStyle = multiple ? "checkbox" : "radio";
             if(!param || typeof param != 'object') param = {};
             if(!selects || !$.isArray(selects)) selects = [];
+            if(!canSelectIds || !$.isArray(canSelectIds)) canSelectIds = [];
             var setting = {
                 async: {
                     enable: true,
@@ -1890,7 +1892,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'fid': nodeObjs[i].fid,
                                 'checked': selects.indexOf(nodeObjs[i].id) >= 0,
                                 'isParent': (nodeObjs[i].isLeaf ? false : true),
-                                'nocheck': nodeObjs[i].deptLevel == 1
+                                'nocheck': (nodeObjs[i].deptLevel == 1 || (canSelectIds.length > 0 && canSelectIds.indexOf(nodeObjs[i].id) < 0 && canSelectIds.indexOf(nodeObjs[i].fid) < 0))
                             }
                         }
                         return params;

@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.dir.entity.vo.drap;
 import java.util.List;
 
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbSystemMap;
 
 /**
  * <p>
@@ -35,7 +36,7 @@ public class DrapDbInfoVo extends DrapDbInfo {
     private List<DrapDbTableInfoVo> tableInfoVos;
     
     private List<DrapDictTableInfoVo>dictTableInfoVos;
-    
+    private List<DrapDbSystemMap> dbSystemMapLst;
     public String getConnStatus() {
         return connStatus;
     }
@@ -123,5 +124,13 @@ public class DrapDbInfoVo extends DrapDbInfo {
     public void setDictTableInfoVos(List<DrapDictTableInfoVo> dictTableInfoVos) {
         this.dictTableInfoVos = dictTableInfoVos;
     }
+
+	public List<DrapDbSystemMap> getDbSystemMapLst() {
+		return dbSystemMapLst;
+	}
+
+	public void setDbSystemMapLst(List<DrapDbSystemMap> dbSystemMapLst) {
+		this.dbSystemMapLst = dbSystemMapLst;
+	}
 
 }

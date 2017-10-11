@@ -90,6 +90,29 @@ public class SysDeptAuthorityController extends BaseController {
     }
 
     /**
+     * 编辑组织机构权限
+     */
+    @RequiresPermissions("system:deptAuthority:edit")
+    @RequestMapping("/selectParentDeptAuthIds")
+    @ResponseBody
+    public  HandleResult selectParentDeptAuthIds(@RequestParam String deptId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String, Object> paramMap = new HashMap();
+            if(StringUtils.isBlank(deptId)){
+                throw new Exception("被分配的部门不能为空！");
+            }
+            paramMap.put("deptId", deptId);
+            List result = service.selectParentDeptAuthIds(paramMap);
+            handleResult.put("authDeptIds", result);
+        } catch (Exception e) {
+            handleResult.error("获取部门数据权限信息失败");
+            logger.error("获取部门数据权限失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
      * 执行编辑
      */
     @RequiresPermissions("system:deptAuthority:edit")

@@ -52,13 +52,13 @@
                 </style>
                 <p style="margin-bottom:15px;">选择数据项</p>
                 <div class="col-md-12" style="/*height: 100%;*/padding: 0px;">
-                    <div class="col-md-3 col_container">
+                    <div class="col-md-4 col_container">
                         <div class="header_title">选择项目</div>
                         <div class="content_scroll_item list-group">
                             <div id="group_tree" class=""></div>
                         </div>
                     </div>
-                    <div class="col-md-3 col_container">
+                    <div class="col-md-4 col_container">
                         <div class="header_title">选择资源</div>
                         <div class="content_scroll_item list-group">
                             <div id="bus_tree" class="" style="text-align:center">
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col_container">
+                    <div class="col-md-4 col_container">
                         <div class="header_title">选择表</div>
                         <div id="dataset_item_container" class="content_scroll_item list-group">
                         
@@ -78,7 +78,7 @@
                          
                         </div>
                     </div>
-                    <div class="col-md-3 col_container">
+                    <div class="col-md-3 col_container hide">
                         <div class="header_title">选择字段</div>
                         <div id="field_tree" class="content_scroll_item list-group">
 	                        <div style="text-align:center">

@@ -19,5 +19,7 @@ import java.util.Map;
 public interface ISysDeptAuthorityService extends ICommonService<SysDeptAuthority, SysDeptAuthorityVo> {
 
     List<SysDeptAuthorityVo> selectVoList(Map<String, Object> paramMap);
-	
+
+    List<String> selectParentDeptAuthIds(Map<String, Object> paramMap);
+
 }

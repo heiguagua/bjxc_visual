@@ -61,4 +61,8 @@
         where  id = #{id}
     </update>
 
+    <!--梳理-->
+    <select id="selectDrapSurveyByDatasetId" resultMap="BaseResultMap">
+        SELECT * FROM drap_dataset_survey WHERE dataset_id=#{dataset_id} LIMIT 1
+    </select>
 </mapper>

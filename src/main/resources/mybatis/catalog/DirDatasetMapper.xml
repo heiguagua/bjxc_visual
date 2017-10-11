@@ -89,6 +89,21 @@
             <if test="classifyId!= null and classifyId !='' ">
                 and m.classify_id in (select id from dir_classify where tree_code like concat((select tree_code from dir_classify where id=#{classifyId, jdbcType=VARCHAR}),'%'))
             </if>
+            <if test="loginUserIdForAuthority != null and loginUserIdForAuthority!='' ">
+                and m.classify_id in(
+                    select id  from dir_classify t,
+                    (select dc.tree_code from dir_classify_authority dca
+                    left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
+                    where dca.auth_obj_type ='2' and dca.auth_obj_id = #{loginUserIdForAuthority,jdbcType=VARCHAR}
+                    ) a where t.tree_code like CONCAT(a.tree_code, '%')
+                    union
+                    select id  from dir_classify c,
+                    (select dc.tree_code from dir_classify_authority dca
+                    left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
+                    where dca.auth_obj_type ='1' and dca.auth_obj_id =  (select su.dept_id from sys_user su where su.id = #{loginUserIdForAuthority,jdbcType=VARCHAR})
+                    )b where c.tree_code like CONCAT(b.tree_code, '%')
+                )
+            </if>
         </where>
     </sql>
 
@@ -414,15 +429,19 @@
         <result column="dept_code" property="dept_code" />
         <result column="system_name" property="system_name" />
         <result column="system_id" property="system_id" />
+
+        <result column="format_category" property="format_category" />
+        <result column="format_type" property="format_type" />
     </resultMap>
     <select id="getDrapDatasetDetail" resultMap="result_DrapDataset_Map">
         SELECT
-            dd.*,sd.dept_short_name,sd.dept_code,dis.system_name,dis.id AS system_id
+            dd.*,sd.dept_short_name,sd.dept_code,dis.system_name,dis.id AS system_id,ddef.format_category,ddef.format_type
         FROM
             drap_dataset dd
         LEFT JOIN sys_dept sd ON dd.belong_dept_id = sd.id
         LEFT JOIN drap_dataset_system_map ddsm ON dd.id = ddsm.dataset_id
         LEFT JOIN drap_info_system dis ON ddsm.system_id = dis.id
+        LEFT JOIN drap_dataset_ext_format ddef ON ddef.dataset_id=dd.id
         WHERE
             dd.id = #{id}
     </select>

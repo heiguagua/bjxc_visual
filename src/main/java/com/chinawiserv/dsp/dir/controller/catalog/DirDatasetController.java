@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.controller.catalog;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
@@ -520,7 +521,9 @@ public class DirDatasetController extends BaseController {
             result.error("参数不能为空");
         }else{
             DrapDataset drapdataset = service.getDrapDatasetDetail(id);
+            DirDatasetSurvey survey = service.selectDrapSurveyByDatasetId(id);
             result.put("result",drapdataset);
+            result.put("survey",survey);
         }
         return result;
     }
@@ -571,7 +574,7 @@ public class DirDatasetController extends BaseController {
 
     public boolean verifyRelations(List<DirDatasetSourceRelation> relations,Integer tableNumber){
         boolean b=true;
-        if(relations!=null||tableNumber!=null){
+        if(relations!=null||(tableNumber!=null&&tableNumber!=1)){
             try {
                 if(tableNumber-1 > relations.size()){
                     b=false;
@@ -707,8 +710,9 @@ public class DirDatasetController extends BaseController {
             String sheetName="Sheet1";
             wb = util.writeNewExcel(file, sheetName,list);
 
+            String time = DateTimeUtils.convertDateTime_YYYYMMDDHHMMSS(new Date());
             response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode("完整目录模板.xlsx", "utf-8"));
+            response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode("政务信息资源-"+time+".xlsx", "utf-8"));
             os = response.getOutputStream();
             wb.write(os);
         } catch (IOException e) {
