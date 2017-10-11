@@ -95,7 +95,7 @@
                                     </div>
                                     </input>
                                 </div>
-                                <div class="input-group pull-right" style="margin-right:4px;width: 30%">
+                                <div class="input-group pull-right" style="margin-right:4px;width: 240px">
                                     <input type="text" id="releasedSearchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                     <input type="hidden" id="releasedSearchClassifyId">
                                     <div class="menu-wrap">
