@@ -364,25 +364,33 @@ public class ApiServiceImpl implements IApiService {
             handleResult.setState(false);
             return handleResult;
         }else{
-             DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
-             String status = (String)paramMap.get("status");
-             String serviceId = (String)paramMap.get("serviceNo");
-             dirDatasetServiceMapParam.setServiceId(serviceId);
-             Wrapper wrapper = new EntityWrapper();
-             wrapper.eq("service_id",serviceId);
-             List<DirDatasetServiceMap> mapList = dirDatasetServiceMapMapper.selectList(wrapper);
-             if(null != mapList && !mapList.isEmpty()){
-                 for (DirDatasetServiceMap map:mapList) {
-                     map.setStatus(status);
-                     map.setOperateTime(new Date());
-                     dirDatasetServiceMapMapper.updateById(map);
+             String serviceInfoStr = (String)paramMap.get("serviceInfo");
+             if(null != serviceInfoStr && serviceInfoStr.startsWith("[")){
+                 JSONArray serviceInfoArr = JSONArray.fromObject(serviceInfoStr);
+                 //解析JSON字符串,获取服务相关信息
+                 for (int i = 0; i < serviceInfoArr.size(); i++) {
+                     DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
+                     JSONObject serviceInfo = serviceInfoArr.getJSONObject(i);
+                     String status = (String)serviceInfo.get("status");
+                     String serviceId = (String)serviceInfo.get("serviceNo");
+                     dirDatasetServiceMapParam.setServiceId(serviceId);
+                     Wrapper wrapper = new EntityWrapper();
+                     wrapper.eq("service_id",serviceId);
+                     List<DirDatasetServiceMap> mapList = dirDatasetServiceMapMapper.selectList(wrapper);
+                     if(null != mapList && !mapList.isEmpty()){
+                         for (DirDatasetServiceMap map:mapList) {
+                             map.setStatus(status);
+                             map.setOperateTime(new Date());
+                             dirDatasetServiceMapMapper.updateById(map);
+                         }
+                         handleResult.setState(true);
+                         handleResult.setMsg("下架成功");
+                     }else{
+                         logger.error(serviceId+"的服务不存在");
+                         handleResult.setState(false);
+                         handleResult.setMsg(serviceId+"的服务不存在");
+                     }
                  }
-                 handleResult.setState(true);
-                 handleResult.setMsg("下架成功");
-             }else{
-                 logger.error(serviceId+"的服务不存在");
-                 handleResult.setState(false);
-                 handleResult.setMsg(serviceId+"的服务不存在");
              }
 
         }

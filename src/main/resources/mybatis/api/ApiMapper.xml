@@ -155,12 +155,10 @@
         ON ddsi.`dataset_id` = dd.`id`
         LEFT JOIN drap_dataset sourceddti
         ON sourceddti.`id` = ddsi.`source_obj_id`
-        LEFT JOIN drap_dataset_table_relation ddtr
+        LEFT JOIN drap_data_column_map ddtr
         ON ddtr.`dataset_id` = sourceddti.`id`
-        LEFT JOIN drap_db_table_info ddti
-        ON ddti.`id` = ddtr.`source_table`
         LEFT JOIN drap_db_info ddi
-        ON ddi.`id` = ddti.`db_id`
+        ON ddi.`id` = ddtr.`db_id`
         LEFT JOIN drap_db_system_map ddsm
         ON ddsm.`db_id` = ddi.`id`
         LEFT JOIN drap_info_system dis
@@ -310,7 +308,7 @@
         targetddti.`id` AS targetTableId,
         targetddtc.`column_en_name` AS targetColumnName,
         targetddtc.`id` AS targetColumnId,
-        CASE WHEN ddtr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
+        CASE WHEN ddtr.`relation_type` IS NULL THEN '=' ELSE ddtr.`relation_type` END
         AS relationType
         FROM
         dir_dataset dd
@@ -388,11 +386,11 @@
         SELECT
         sourceddti.`target_obj_code` AS sourceTableName,
         sourceddti.`id` AS sourceTableId,
-        sourceddtc.`target_column_name` AS sourceColumnName,
+        sourceddtc.`column_name` AS sourceColumnName,
         sourceddtc.`id` AS sourceColumnId,
         targetddti.`target_obj_code` AS targetTableName,
         targetddti.`id` AS targetTableId,
-        targetddtc.`target_column_name` AS targetColumnName,
+        targetddtc.`column_name` AS targetColumnName,
         targetddtc.`id` AS targetColumnId,
         CASE WHEN ddsr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
         AS relationType
@@ -492,6 +490,7 @@
         ddi.`id`,
         ddi.`db_name` AS dbName,
         ddi.`db_cn_name` AS DB_CN_NAME,
+        ddi.`category` AS category,
         ddi.`db_type` AS dbType,
         ddi.`ip_address` AS ipAddress,
         ddi.`user_name` AS userName,
