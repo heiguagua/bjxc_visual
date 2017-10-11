@@ -13,9 +13,29 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class SysDeptAuthorityVo extends SysDeptAuthority{
 
+    private String fid;
+
+    private String deptName;
+
     private String deptIds;
 
     private String[] deptIdArray;
+
+    public String getFid() {
+        return fid;
+    }
+
+    public void setFid(String fid) {
+        this.fid = fid;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
 
     public String getDeptIds() {
         return deptIds;

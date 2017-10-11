@@ -1560,6 +1560,15 @@ function initGlobalCustom(tempUrlPrefix) {
             var chkStyle = multiple ? "checkbox" : "radio";
             if(!param || typeof param != 'object') param = {};
             if(!selects || !$.isArray(selects)) selects = [];
+            var selectIds = [];
+            if(selects.length > 0){
+                for(var i in selects){
+                    var select = selects[i];
+                    if(select.id){
+                        selectIds.push(select.id);
+                    }
+                }
+            }
             var setting = {
                 async: {
                     enable: true,
@@ -1578,7 +1587,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'name': nodeObjs[i].classifyName,
                                 'fid': nodeObjs[i].id,
                                 'pid': nodeObjs[i].fid,
-                                'checked': selects.indexOf(nodeObjs[i].id) >= 0,
+                                'checked': selectIds.indexOf(nodeObjs[i].id) >= 0,
                                 'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
                             }
                         }
@@ -1605,11 +1614,23 @@ function initGlobalCustom(tempUrlPrefix) {
                         if(multiple){
                             var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId), selectNodes = zTreeObj.getCheckedNodes(true);
                             var resultList = [];
-                            var tempList = [];
+                            if(!treeNode.checked){
+                                for(var i in selects){
+                                    if(treeNode.id == selects[i].id){
+                                        delete selects[i];
+                                        var selectIdIndex = selectIds.indexOf(treeNode.id);
+                                        if(selectIdIndex >= 0){
+                                            delete selectIds[selectIdIndex];
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            var tempList = selects.slice();
                             for(var i in selectNodes){
                                 var node = selectNodes[i];
-                                if(node.check_Child_State!=1){
-                                    tempList.push(node);
+                                if(node.check_Child_State!=1 && selectIds.indexOf(node.id) < 0){
+                                    tempList.push({id: node.id, fid: node.pid, name: node.name})
                                 }
                             }
                             if(tempList.length > 0){
@@ -1617,7 +1638,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                     var flag = false;
                                     var tempNode = tempList[i];
                                     for(var j in tempList){
-                                        if(tempNode.pid == tempList[j].id){
+                                        if(tempNode.fid == tempList[j].id){
                                             flag = true;
                                             break;
                                         }
@@ -1873,6 +1894,15 @@ function initGlobalCustom(tempUrlPrefix) {
             if(!param || typeof param != 'object') param = {};
             if(!selects || !$.isArray(selects)) selects = [];
             if(!canSelectIds || !$.isArray(canSelectIds)) canSelectIds = [];
+            var selectIds = [];
+            if(selects.length > 0){
+                for(var i in selects){
+                    var select = selects[i];
+                    if(select.id){
+                        selectIds.push(select.id);
+                    }
+                }
+            }
             var setting = {
                 async: {
                     enable: true,
@@ -1890,7 +1920,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].deptName,
                                 'fid': nodeObjs[i].fid,
-                                'checked': selects.indexOf(nodeObjs[i].id) >= 0,
+                                'checked': selectIds.indexOf(nodeObjs[i].id) >= 0,
                                 'isParent': (nodeObjs[i].isLeaf ? false : true),
                                 'nocheck': (nodeObjs[i].deptLevel == 1 || (canSelectIds.length > 0 && canSelectIds.indexOf(nodeObjs[i].id) < 0 && canSelectIds.indexOf(nodeObjs[i].fid) < 0))
                             }
@@ -1918,11 +1948,23 @@ function initGlobalCustom(tempUrlPrefix) {
                         if(multiple){
                             var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId), selectNodes = zTreeObj.getCheckedNodes(true)
                             var resultList = [];
-                            var tempList = [];
+                            if(!treeNode.checked){
+                                for(var i in selects){
+                                    if(treeNode.id == selects[i].id){
+                                        delete selects[i];
+                                        var selectIdIndex = selectIds.indexOf(treeNode.id);
+                                        if(selectIdIndex >= 0){
+                                            delete selectIds[selectIdIndex];
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            var tempList = selects.slice();
                             for(var i in selectNodes){
                                 var node = selectNodes[i];
-                                if(node.check_Child_State!=1){
-                                    tempList.push(node);
+                                if(node.check_Child_State!=1 && selectIds.indexOf(node.id) < 0){
+                                    tempList.push({id: node.id, fid: node.fid, name: node.name})
                                 }
                             }
                             if(tempList.length > 0){
