@@ -455,11 +455,21 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
         }
-        //查找当前用户拥有权限的目录类别
-        paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String depId = ShiroUtils.getLoginUserDeptId();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(depId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
         List<DirDatasetVo> dirDatasetClassifyMapVoList = mapper.selectInfoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
-        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+//        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
         return page;
 	}
 
@@ -485,9 +495,18 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
         }
-        //查找当前用户拥有权限的目录类别
-        paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
-
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String depId = ShiroUtils.getLoginUserDeptId();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(depId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
@@ -516,8 +535,18 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
         }
-        //查找当前用户拥有权限的目录类别
-        paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String depId = ShiroUtils.getLoginUserDeptId();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(depId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForReleased(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
