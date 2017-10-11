@@ -176,7 +176,7 @@ jQuery(document).ready(function () {
 	    	var curThis=this;
 			var fid=$(curThis).attr('data-id');
 //			$('#parent_id').val(api_fcode);
-			addDir('新增目录--子级',basePathJS + '/dirClassify/add',fid);
+			addDir('新增目录--子级',basePathJS + '/dirClassify/add',fid,1300,800);
 //	    	$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');

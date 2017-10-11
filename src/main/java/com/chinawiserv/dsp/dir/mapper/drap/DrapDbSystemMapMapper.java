@@ -28,5 +28,5 @@ public interface DrapDbSystemMapMapper extends BaseMapper<DrapDbSystemMap> {
 
     int baseUpdate(DrapDbSystemMap entity);
 
-    int baseDelete(String id);
+    int baseDelete(Map<String,Object> paramMap);
 }

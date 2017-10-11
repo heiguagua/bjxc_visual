@@ -197,8 +197,8 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            <label for="datasetDesc" class="col-sm-2 control-label" style="width:12%">信息资源摘要:</label>
-                            <div class="col-sm-10"  style="width:88%">
+                            <label for="datasetDesc" class="col-sm-2 control-label" style="width:12.2%">信息资源摘要:</label>
+                            <div class="col-sm-10"  style="width:87.8%">
                                 <textarea class="form-control" rows="2" id="datasetDesc" name="datasetDesc" placeholder="(最多256个汉字)"></textarea>
                                 <%--<p><span class="pull-right">(最多256个汉字)</span></p>--%>
                             </div>
