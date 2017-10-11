@@ -58,7 +58,9 @@
         <property name="plugins">
             <array>
                 <!-- 分页插件配置 -->
-                <bean id="paginationInterceptor" class="com.baomidou.mybatisplus.plugins.PaginationInterceptor">
+                <!--<bean id="paginationInterceptor" class="com.baomidou.mybatisplus.plugins.
+                ">-->
+                <bean id="paginationInterceptor" class="com.baomidou.mybatisplus.plugins.CachePaginationInterceptor">
                     <!-- 指定数据库方言 -->
                     <property name="dialectType" value="mysql"/>
                 </bean>

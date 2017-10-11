@@ -413,7 +413,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     public DirDatasetVo selectVoById(String id) throws Exception {
         DirDatasetVo dirDatasetVo = mapper.selectDatasetInfoById(id);
         Map<String,Object> mapParam = new HashMap<>();
-        mapParam.put("datasetId",id);
+        mapParam.put("datasetId", id);
         List<DirDataitemVo> itemVoList = itemMapper.selectInfoList(mapParam);
         if(!ObjectUtils.isEmpty(itemVoList)){
             dirDatasetVo.setItems(itemVoList);
@@ -455,9 +455,21 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
         }
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String depId = ShiroUtils.getLoginUserDeptId();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(depId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
         List<DirDatasetVo> dirDatasetClassifyMapVoList = mapper.selectInfoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
-        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+//        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
         return page;
 	}
 
@@ -466,6 +478,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
         page.setOrderByField("update_time");
         page.setAsc(false);
+        //查找出当前区域及所有子区域的code，用于过滤数据集
         String regionCode = (String)paramMap.get("regionCode");
         if(!StringUtils.isEmpty(regionCode)){
             StringBuffer allRegionCodeBuffer = new StringBuffer();
@@ -482,6 +495,18 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
         }
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String depId = ShiroUtils.getLoginUserDeptId();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(depId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
@@ -493,6 +518,35 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
         page.setOrderByField("update_time");
         page.setAsc(false);
+        //查找出当前区域及所有子区域的code，用于过滤数据集
+        String regionCode = (String)paramMap.get("regionCode");
+        if(!StringUtils.isEmpty(regionCode)){
+            StringBuffer allRegionCodeBuffer = new StringBuffer();
+            List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
+            if(!ObjectUtils.isEmpty(SysRegionVoList)){
+                for(SysRegionVo vo : SysRegionVoList){
+                    String subRegionCode = vo.getRegionCode();
+                    allRegionCodeBuffer.append("'").append(subRegionCode).append("',");
+                }
+                if(allRegionCodeBuffer.length()>0){
+                    String allRegionCode = allRegionCodeBuffer.toString();
+                    allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
+                    paramMap.put("allRegionCode",allRegionCode);
+                }
+            }
+        }
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String depId = ShiroUtils.getLoginUserDeptId();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(depId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForReleased(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));

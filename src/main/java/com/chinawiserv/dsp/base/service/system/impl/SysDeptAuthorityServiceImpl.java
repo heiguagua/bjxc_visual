@@ -7,18 +7,18 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
 import com.chinawiserv.dsp.base.entity.po.system.SysUserRole;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
+import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -33,6 +33,9 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
 
     @Autowired
     private SysDeptAuthorityMapper mapper;
+
+    @Autowired
+    private SysDeptMapper sysDeptMapper;
 
     @Override
     public boolean insertVO(SysDeptAuthorityVo vo) throws Exception {
@@ -90,5 +93,26 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
     @Override
     public List<SysDeptAuthorityVo> selectVoList(Map<String, Object> paramMap) {
         return mapper.selectVoList(paramMap);
+    }
+
+    @Override
+    public List<String> selectParentDeptAuthIds(Map<String, Object> paramMap) {
+        List<String> deptIds = new ArrayList();
+        String deptId = (String) paramMap.get("deptId");
+        if (StringUtils.isNotBlank(deptId)) {
+            SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(deptId);
+            Integer deptLevel = sysDeptVo.getDeptLevel();
+            if (deptLevel != null && deptLevel >= 3) {
+                String parentDeptId = sysDeptVo.getFid();
+                if (StringUtils.isNotBlank(parentDeptId)) {
+                    Map map = new HashMap();
+                    map.put("authObjId", parentDeptId);
+                    map.put("authObjType", AuthObjTypeEnum.DEPT.getKey());
+                    List<SysDeptAuthorityVo> parentDeptAuths = mapper.selectVoList(map);
+                    deptIds = parentDeptAuths.stream().map(parentDeptAuth -> parentDeptAuth.getDeptId()).collect(Collectors.toList());
+                }
+            }
+        }
+        return deptIds;
     }
 }
