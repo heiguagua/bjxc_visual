@@ -54,6 +54,21 @@
             <if test="allRegionCode!= null and allRegionCode !='' ">
                 and t.dataset_id in (select id from dir_dataset where region_code in (${allRegionCode}))
             </if>
+            <if test="loginUserIdForAuthority != null and loginUserIdForAuthority!='' ">
+                and t.classify_id in(
+                    select id  from dir_classify t,
+                    (select dc.tree_code from dir_classify_authority dca
+                    left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
+                    where dca.auth_obj_type ='2' and dca.auth_obj_id = #{loginUserIdForAuthority,jdbcType=VARCHAR}
+                    ) a where t.tree_code like CONCAT(a.tree_code, '%')
+                    union
+                    select id  from dir_classify c,
+                    (select dc.tree_code from dir_classify_authority dca
+                    left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
+                    where dca.auth_obj_type ='1' and dca.auth_obj_id =  (select su.dept_id from sys_user su where su.id = #{loginUserIdForAuthority,jdbcType=VARCHAR})
+                    )b where c.tree_code like CONCAT(b.tree_code, '%')
+                )
+            </if>
         </where>
     </sql>
 
