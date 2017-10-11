@@ -1,20 +1,21 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDict;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
+import com.chinawiserv.dsp.base.enums.system.DictEnum;
 import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
 import com.chinawiserv.dsp.base.service.system.ISysDictService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
-import com.google.common.collect.Maps;
+import com.chinawiserv.dsp.dir.enums.EnumTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -25,7 +26,7 @@ import java.util.Map;
  * @since 2017-09-19
  */
 @Service
-public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict , SysDictVo> implements ISysDictService {
+public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict, SysDictVo> implements ISysDictService {
 
     @Autowired
     private SysDictMapper mapper;
@@ -33,14 +34,22 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
 
     @Override
     public boolean insertVO(SysDictVo vo) throws Exception {
-		//todo
-		return false;
+        vo.setId(CommonUtil.get32UUID());
+        vo.setCreateUserId(ShiroUtils.getLoginUserId());
+        vo.setCreateTime(new Date());
+		return insert(vo);
     }
 
     @Override
     public boolean updateVO(SysDictVo vo) throws Exception {
-		//todo
-		return false;
+        return false;
+    }
+
+    @Override
+    public boolean updateDetailVO(SysDictVo vo) throws Exception {
+        vo.setUpdateUserId(ShiroUtils.getLoginUserId());
+        vo.setUpdateTime(new Date());
+        return updateById(vo);
 	}
 
     @Override
@@ -51,18 +60,40 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
 
     @Override
     public SysDictVo selectVoById(String id) throws Exception {
-		return null;
-	}
+        return null;
+    }
+
+    @Override
+    public SysDictVo selectVoDetailById(String id) throws Exception {
+        return mapper.selectDetailVoById(id);
+    }
 
     @Override
     public Page<SysDictVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
+        List<SysDictVo> rows;
         Page<SysDictVo> page = getPage(paramMap);
-        page.setOrderByField("create_time");
         List<SysDictVo> dictVos = mapper.selectVoPage(page,paramMap);
-        page.setRecords(dictVos);
-		return page;
+        if (dictVos != null && !dictVos.isEmpty()){
+            rows = new ArrayList(dictVos.size());
+            for (SysDictVo vo : dictVos){
+                String status = vo.getStatus().toString();
+                vo.setStateName(DictEnum.valueOf(EnumTools.getName(status)).getChValue());
+                rows.add(vo);
+            }
+        }else {
+            rows = new ArrayList(0);
+        }
+        page.setRecords(rows);
+        return page;
 	}
+    @Override
+    public boolean deleteDictById(String id) throws Exception {
+            SysDict sysDict = new SysDict();
+            sysDict.setId(id);
+            sysDict.setDeleteFlag(1);
+            return updateById(sysDict);
+
+    }
 
     @Override
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {

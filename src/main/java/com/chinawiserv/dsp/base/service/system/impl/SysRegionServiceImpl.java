@@ -41,7 +41,7 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
     }
 
     @Override
-    public boolean updateVO(SysRegionVo vo) throws Exception {
+    public boolean  updateVO(SysRegionVo vo) throws Exception {
 		//todo
 		return false;
 	}

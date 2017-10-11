@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysDictCategoryMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="categoryode != null">
+                t.category_code = #{categoryCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    <select id="selectCategoryVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDictCategoryVo">
+      SELECT t.* FROM sys_dict_category t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <!--查询字典列表 -->
+    <select id="selectVoById" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDictCategoryVo">
+        SELECT t.* FROM sys_dict_category t WHERE t.category_code = #{categoryCode}
+    </select>
+
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDictCategory">
+        update sys_dict_category
+        <set>
+            <if test="categoryName != null">
+                category_name = #{categoryName},
+            </if>
+            <if test="categoryDesc != null">
+                category_desc = #{categoryDesc},
+            </if>
+
+        </set>
+        where category_code = #{categoryCode}
+    </update>
+
+    <delete id="deleteByCategory" parameterType="java.util.Map">
+        delete from sys_dict_category
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="categoryCode != null">
+                category_code = #{categoryCode}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

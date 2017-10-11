@@ -262,8 +262,8 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <p>
-                            <a class="btn btn-primary btn-flat pull-right" id="addItem"><i class="fa fa-plus"></i> 添加信息项</a>
-                            <a class="btn btn-primary btn-flat pull-right" id="deleteItems" style="margin-right: 10px;"><i class="fa fa-plus"></i> 删除</a>
+                            <a class="btn btn-primary btn-flat pull-right btn-datas" id="addItem"><i class="fa fa-plus"></i> 添加信息项</a>
+                            <a class="btn btn-primary btn-flat pull-right btn-datas" id="deleteItems" style="margin-right: 10px;"><i class="fa fa-plus"></i> 删除</a>
                         </p>
                     </div>
                 </div>

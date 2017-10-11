@@ -413,7 +413,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     public DirDatasetVo selectVoById(String id) throws Exception {
         DirDatasetVo dirDatasetVo = mapper.selectDatasetInfoById(id);
         Map<String,Object> mapParam = new HashMap<>();
-        mapParam.put("datasetId",id);
+        mapParam.put("datasetId", id);
         List<DirDataitemVo> itemVoList = itemMapper.selectInfoList(mapParam);
         if(!ObjectUtils.isEmpty(itemVoList)){
             dirDatasetVo.setItems(itemVoList);
@@ -455,6 +455,8 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
         }
+        //查找当前用户拥有权限的目录类别
+        paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
         List<DirDatasetVo> dirDatasetClassifyMapVoList = mapper.selectInfoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
@@ -466,6 +468,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
         page.setOrderByField("update_time");
         page.setAsc(false);
+        //查找出当前区域及所有子区域的code，用于过滤数据集
         String regionCode = (String)paramMap.get("regionCode");
         if(!StringUtils.isEmpty(regionCode)){
             StringBuffer allRegionCodeBuffer = new StringBuffer();
@@ -482,6 +485,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
         }
+        //查找当前用户拥有权限的目录类别
+        paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
@@ -493,6 +499,25 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
         page.setOrderByField("update_time");
         page.setAsc(false);
+        //查找出当前区域及所有子区域的code，用于过滤数据集
+        String regionCode = (String)paramMap.get("regionCode");
+        if(!StringUtils.isEmpty(regionCode)){
+            StringBuffer allRegionCodeBuffer = new StringBuffer();
+            List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
+            if(!ObjectUtils.isEmpty(SysRegionVoList)){
+                for(SysRegionVo vo : SysRegionVoList){
+                    String subRegionCode = vo.getRegionCode();
+                    allRegionCodeBuffer.append("'").append(subRegionCode).append("',");
+                }
+                if(allRegionCodeBuffer.length()>0){
+                    String allRegionCode = allRegionCodeBuffer.toString();
+                    allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
+                    paramMap.put("allRegionCode",allRegionCode);
+                }
+            }
+        }
+        //查找当前用户拥有权限的目录类别
+        paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForReleased(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));

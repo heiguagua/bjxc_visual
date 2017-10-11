@@ -27,6 +27,22 @@
                         <div class="form-inline">
                             <div class="box-header">
                                 <div class="input-group">
+                                    <a class="btn btn-default btn-flat  btn-myself" id="addDict1" onclick="javascript:addDict()">
+                                        <!-- <i class="fa fa-plus-circle"></i> -->新增
+                                    </a>
+                                </div>
+                                <div class="input-group">
+                                    <a class="btn btn-default btn-flat  btn-myself  hidden" id="back" onclick="javascript:intDict()">
+                                        <!-- <i class="fa fa-plus-circle"></i> -->返回
+                                    </a>
+                                </div>
+                                <div class="input-group">
+                                    <a class="btn btn-default btn-flat  btn-myself hidden" id="addDict2"  onclick="javascript:addDetailDict()">
+                                        <!-- <i class="fa fa-plus-circle"></i> -->新增
+                                    </a>
+                                </div>
+
+                                <div class="input-group  pull-right">
                                     <input id="searchKeyId" type="text" name="search" class="form-control"
                                            placeholder="数据字典名称">
                                     <div class="input-group-btn">
@@ -39,7 +55,7 @@
                             </div><!-- /.box-header -->
                         </div>
 
-                        <div class="box-body table-responsive no-padding">
+                        <div class="box-body table-responsive no-padding" id="tableList">
                             <table id="systemDataDictTableId" class="table table-hover">
 
                             </table>
