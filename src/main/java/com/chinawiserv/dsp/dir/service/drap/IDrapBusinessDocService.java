@@ -1,5 +1,7 @@
 package com.chinawiserv.dsp.dir.service.drap;
 
+import java.util.Map;
+
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessDoc;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessDocVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
@@ -13,5 +15,7 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  * @since 2017-09-27
  */
 public interface IDrapBusinessDocService extends ICommonService<DrapBusinessDoc, DrapBusinessDocVo> {
+
+	void updateBusinessDocData(Map<String, Object> dataObj) throws Exception;
 	
 }
