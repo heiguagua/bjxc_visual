@@ -208,3 +208,7 @@ input.input_test{
 	padding:4px;
 }
 
+/* 翻页记录字体默认色加强 */
+.dropdown-menu > li > a{
+	    color: #777 !important;
+}
