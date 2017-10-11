@@ -1747,9 +1747,10 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
          * @param treeDivDomId      树形展开区域的DIV的id
          */
-        initRegionTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId , multiple) {
+        initRegionTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId , multiple, selectRegions) {
             var selectRegionCodes = "";
             var chkStyle = multiple ? "checkbox" : "radio";
+            if(!selectRegions || !$.isArray(selectRegions)) selectRegions = [];
             var setting = {
                 async: {
                     enable: true,
@@ -1766,6 +1767,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].regionName,
                                 'regionCode': nodeObjs[i].regionCode,
+                                'checked': selectRegions.indexOf(nodeObjs[i].regionCode) >= 0,
                                 'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
                             }
                         }
