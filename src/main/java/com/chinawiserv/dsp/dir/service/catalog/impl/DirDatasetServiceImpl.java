@@ -413,7 +413,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     public DirDatasetVo selectVoById(String id) throws Exception {
         DirDatasetVo dirDatasetVo = mapper.selectDatasetInfoById(id);
         Map<String,Object> mapParam = new HashMap<>();
-        mapParam.put("datasetId",id);
+        mapParam.put("datasetId", id);
         List<DirDataitemVo> itemVoList = itemMapper.selectInfoList(mapParam);
         if(!ObjectUtils.isEmpty(itemVoList)){
             dirDatasetVo.setItems(itemVoList);
@@ -455,6 +455,8 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
         }
+        //查找当前用户拥有权限的目录类别
+        paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
         List<DirDatasetVo> dirDatasetClassifyMapVoList = mapper.selectInfoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
