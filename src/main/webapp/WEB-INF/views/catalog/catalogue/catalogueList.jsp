@@ -32,7 +32,9 @@
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
                                                 data-toggle="dropdown"><img src="<%=basePath%>/images/userImg/addimg.png"/>
-                                           <!--  <i class="fa fa-plus"></i> -->快速添加<span class="caret"></span>
+                                           <!--  <i class="fa fa-plus"></i> -->快速添加&nbsp;
+                                           <img src="<%=basePath%>/images/userImg/Seciton_img@2x.png"/>
+                                           <!-- <span class="caret"></span> -->
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li>

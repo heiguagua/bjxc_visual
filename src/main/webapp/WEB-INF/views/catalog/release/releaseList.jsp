@@ -46,7 +46,9 @@
                                 </div>
                                   <div class="input-group">
                                         <button class="btn btn-default btn-flat  btn-myself dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="releaseButton">
-                                            <!-- <i class="fa fa-plus-circle"></i> -->&emsp;发布&emsp;<span class="caret"></span>
+                                            <!-- <i class="fa fa-plus-circle"></i> -->发布
+                                            <img src="<%=basePath%>/images/userImg/Seciton_img@2x.png"/>
+                                            <!-- <span class="caret"></span> -->
                                         </button>
                                         <ul class="dropdown-menu" role="menu" style="left:-21px;text-align:center;">
                                             <li><a id="releaseAll" href="#">同时发布</a></li>
