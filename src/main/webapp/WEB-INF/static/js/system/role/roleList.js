@@ -62,6 +62,7 @@ jQuery(document).ready(function () {
             title: '操作',
             align: 'center',
             valign: 'middle',
+            width: '18%',
             sortable: false ,
             formatter : function (value) {
                 var authBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:authRole(\"" + value + "\")'><i class='fa fa-user'></i> 授权</a>";

@@ -29,8 +29,15 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
+            t.delete_flag = '0'
             <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
+               AND t.id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="category != null">
+               AND t.category = #{category,jdbcType=VARCHAR}
+            </if>
+            <if test="searchKey != null">
+               AND t.dict_code LIKE concat('%', #{searchKey,jdbcType=VARCHAR}, '%')
             </if>
         </where>
     </sql>
@@ -41,13 +48,11 @@
     </select>
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT
-        t1.*, IfNULL(t2.region_name, '通用') AS region_name
+        t.*, IfNULL(t2.region_name, '通用') AS region_name
         FROM
-        sys_dict t1
-        LEFT JOIN sys_dict_category t ON t1.category = t.category_code
-        LEFT JOIN sys_region t2 ON t2.region_code = t1.region_code
-        WHERE
-        t.category_code = #{categoryCode} AND t1.delete_flag=0
+        sys_dict t
+        LEFT JOIN sys_dict_category t1 ON t.category = t1.category_code
+        LEFT JOIN sys_region t2 ON t.region_code = t2.region_code
         <include refid="queryConditions"></include>
     </select>
 

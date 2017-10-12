@@ -8,14 +8,16 @@ jQuery(document).ready(function () {
 
 });
 
-function intDict() {
+function intDict(param) {
     $("#tableList").html('<table id="systemDataDictTableId" class="table table-hover"></table>');
 
     $("#addDict2").addClass("hidden")
     $("#addDict1").removeClass("hidden")
     $("#back").addClass("hidden")
+    $("#search").removeClass("hidden")
+    $("#searchDetail").addClass("hidden")
     "use strict";
-    var paramsObj = {};
+    var paramsObj = param||{};
 
     jQuery("#systemDataDictTableId").customTable({
         url: basePathJS + '/sysDict/list',
@@ -93,15 +95,23 @@ function deleteDict(categoryCode) {
     var parameter = {categoryCode: categoryCode};
     delObj(url , parameter) ;
 }
-function getDictDetails(categoryCode,dd) {
+function getDictDetails(categoryCode,dd,searchKey) {
     $("#addDict1").addClass("hidden")
     $("#addDict2").removeClass("hidden")
     $("#back").removeClass("hidden")
+
+    $("#search").addClass("hidden")
+    $("#searchDetail").removeClass("hidden")
     $("#category").val(categoryCode);
+    $("#dd").val(dd);
 
     $("#tableList").html('<table id="systemDataDictTableId" class="table table-hover"></table>');
+    var url = basePathJS + '/sysDict/detailsList?category=' + categoryCode;
+    if(typeof searchKey!="undefined"){
+        url = url +"&searchKey=" + searchKey;
+    }
     jQuery("#systemDataDictTableId").customTable({
-        url: basePathJS + '/sysDict/detailsList?categoryCode=' + categoryCode,
+        url:url,
         pagination: true, //分页
         pageSize: 15,
         columns: [
@@ -176,6 +186,15 @@ function getDictDetails(categoryCode,dd) {
                 }
             }]
     });
+    jQuery('#queryBtnId1').click(function () {
+        var searchKeyVal = $('#searchKeyId1').val();
+        // paramsObj = {searchKey : searchKeyVal};
+      var  category =  $("#category").val();
+       var dd = $("#dd").val();
+        getDictDetails(categoryCode,dd,searchKeyVal)
+        // reloadTable();
+    });
+
 }
 
 function addDetailDict() {
