@@ -1,3 +1,4 @@
+<%@ page import="com.chinawiserv.dsp.base.entity.vo.system.SysUserVo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -7,7 +8,8 @@
 <%
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     System.out.println(basePath);
-String context_path=request.getContextPath();
+    String regionCode = (String)request.getSession().getAttribute("regionCode");
+    String context_path=request.getContextPath();
 %>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -104,5 +106,6 @@ String context_path=request.getContextPath();
 
 <script type="text/javascript">
     var basePathJS = "<%=basePath%>";
+    var newRegionCode = "<%=regionCode%>";
     initGlobalCustom(basePathJS);
 </script>

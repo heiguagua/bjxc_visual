@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.base.controller.system;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
@@ -181,6 +182,19 @@ public class SysRegionController extends BaseController {
         } catch (Exception e) {
             handleResult.error("获取登录用户的区域列表失败");
             logger.error("获取登录用户的区域列表失败", e);
+        }
+        return handleResult;
+    }
+
+    @RequestMapping("/changeSessionRegionValue")
+    @ResponseBody
+    public HandleResult changeSessionRegionValue(@RequestParam String regionCode){
+        HandleResult handleResult = new HandleResult();
+        try {
+            ShiroUtils.setSessionAttribute(SystemConst.REGION,regionCode);
+        } catch (Exception e) {
+            handleResult.error("设值区域的session值失败");
+            logger.error("设值区域的session值失败", e);
         }
         return handleResult;
     }
