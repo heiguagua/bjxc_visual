@@ -1889,13 +1889,15 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param multiple          复选还是单选
          * @param param             异步加载url参数
          * @param selects           初始化选中值
-         * @param canSelectIds      指定节点可选择
+         * @param canOrNotSelectIds 指定节点可选择
+         * @param canNotSelectIds   指定节点不可选择
          */
-        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects, canSelectIds) {
+        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects, canSelectIds, canNotSelectIds) {
             var chkStyle = multiple ? "checkbox" : "radio";
             if(!param || typeof param != 'object') param = {};
             if(!selects || !$.isArray(selects)) selects = [];
             if(!canSelectIds || !$.isArray(canSelectIds)) canSelectIds = [];
+            if(!canNotSelectIds || !$.isArray(canNotSelectIds)) canNotSelectIds = [];
             var selectIds = [];
             if(selects.length > 0){
                 for(var i in selects){
@@ -1918,13 +1920,36 @@ function initGlobalCustom(tempUrlPrefix) {
                             return null;
                         }
                         for (var i in nodeObjs) {
+                            var nocheck = nodeObjs[i].deptLevel == 1;
+                            if(!nocheck){
+                                if(canSelectIds.length > 0){
+                                    if(nodeObjs[i].deptLevel == 2){
+                                        nocheck = canSelectIds.indexOf(nodeObjs[i].id) < 0;
+                                    }else if(nodeObjs[i].deptLevel > 2){
+                                        nocheck = canSelectIds.indexOf(nodeObjs[i].fid) < 0;
+                                        if(nocheck){
+                                            nocheck = canSelectIds.indexOf(nodeObjs[i].id) < 0;
+                                        }
+                                    }
+                                }
+                                if(canNotSelectIds.length > 0){
+                                    if(nodeObjs[i].deptLevel == 2){
+                                        nocheck = canNotSelectIds.indexOf(nodeObjs[i].id) >= 0;
+                                    }else if(nodeObjs[i].deptLevel > 2){
+                                        nocheck = canNotSelectIds.indexOf(nodeObjs[i].fid) >= 0;
+                                        if(!nocheck){
+                                            nocheck = canNotSelectIds.indexOf(nodeObjs[i].id) >= 0;
+                                        }
+                                    }
+                                }
+                            }
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].deptName,
                                 'fid': nodeObjs[i].fid,
                                 'checked': selectIds.indexOf(nodeObjs[i].id) >= 0,
                                 'isParent': (nodeObjs[i].isLeaf ? false : true),
-                                'nocheck': (nodeObjs[i].deptLevel == 1 || (canSelectIds.length > 0 && canSelectIds.indexOf(nodeObjs[i].id) < 0 && canSelectIds.indexOf(nodeObjs[i].fid) < 0))
+                                'nocheck': nocheck
                             }
                         }
                         return params;
