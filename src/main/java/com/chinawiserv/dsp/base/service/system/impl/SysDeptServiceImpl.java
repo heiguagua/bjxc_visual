@@ -51,7 +51,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
         Map<String, Object> param = this.getDeptCondition(null);
-        if (!param.isEmpty()) {
+        if (param != null && !param.isEmpty()) {
             paramMap.putAll(param);
             Page<SysDeptVo> page = getPage(paramMap);
             page.setOrderByField("update_time");
@@ -104,7 +104,12 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             } else {
                 param.put("hasChildrenTopDept", "1");
                 String excludeTreeCodeCondition = (String) paramMap.get("excludeTreeCodeCondition");
-                param.putAll(getDeptCondition(regionCode, "1".equals(excludeTreeCodeCondition)));
+                Map deptConditionMap = getDeptCondition(regionCode, "1".equals(excludeTreeCodeCondition));
+                if(deptConditionMap != null && !deptConditionMap.isEmpty()){
+                    param.putAll(deptConditionMap);
+                }else{
+                    return list;
+                }
             }
         }
         String withoutLoginUserDept = (String) paramMap.get("withoutLoginUserDept");
@@ -254,20 +259,23 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public Map<String, Object> getDeptCondition(String regionCode, boolean excludeTreeCodeCondition) {
         Map<String, Object> paramMap = new HashMap();
         SysUserVo loginUser = ShiroUtils.getLoginUser();
-        if (!excludeTreeCodeCondition) {
-            String deptTreeCode = loginUser.getDeptTreeCode();
-            if (StringUtils.isNotBlank(deptTreeCode)) {
+        String deptTreeCode = loginUser.getDeptTreeCode();
+        int minRoleLevel = loginUser.getMinRoleLevel();
+        if(minRoleLevel > 0 && StringUtils.isBlank(deptTreeCode)){
+            return null;
+        }else{
+            if(!excludeTreeCodeCondition && StringUtils.isNotBlank(deptTreeCode)){
                 paramMap.put("deptTreeCodeCondition", deptTreeCode);
             }
+            if (StringUtils.isBlank(regionCode)) {
+                regionCode = ShiroUtils.getLoginUser().getRegionCode();
+            }
+            SysRegionVo sysRegionVo = sysRegionMapper.selectVoByRegionCode(regionCode);
+            if (sysRegionVo != null) {
+                paramMap.put("regionCodeCondition", this.getRegionCodeCondition(regionCode, sysRegionVo.getRegionLevel()));
+            }
+            return paramMap;
         }
-        if (StringUtils.isBlank(regionCode)) {
-            regionCode = ShiroUtils.getLoginUser().getRegionCode();
-        }
-        SysRegionVo sysRegionVo = sysRegionMapper.selectVoByRegionCode(regionCode);
-        if (sysRegionVo != null) {
-            paramMap.put("regionCodeCondition", this.getRegionCodeCondition(regionCode, sysRegionVo.getRegionLevel()));
-        }
-        return paramMap;
     }
 
     @Override

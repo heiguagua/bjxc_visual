@@ -143,14 +143,18 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
             orderField = "apply_time";
             paramMap.put("audited", "0");
         }
-        paramMap.putAll(sysDeptService.getDeptCondition(null));
-        Page<SysDeptAuthorityApplyVo> page = getPage(paramMap);
-        page.setOrderByField(orderField);
-        page.setAsc(false);
-        List<SysDeptAuthorityApplyVo> sysDeptAuthorityApplyVos = mapper.selectVoPage(page, paramMap);
-        page.setRecords(sysDeptAuthorityApplyVos);
-        page.setTotal(mapper.selectVoCount(paramMap));
-        return page;
+        Map deptConditionMap = sysDeptService.getDeptCondition(null);
+        if(deptConditionMap != null && !deptConditionMap.isEmpty()){
+            paramMap.putAll(deptConditionMap);
+            Page<SysDeptAuthorityApplyVo> page = getPage(paramMap);
+            page.setOrderByField(orderField);
+            page.setAsc(false);
+            List<SysDeptAuthorityApplyVo> sysDeptAuthorityApplyVos = mapper.selectVoPage(page, paramMap);
+            page.setRecords(sysDeptAuthorityApplyVos);
+            page.setTotal(mapper.selectVoCount(paramMap));
+            return page;
+        }
+        return getPage(paramMap);
     }
 
 }

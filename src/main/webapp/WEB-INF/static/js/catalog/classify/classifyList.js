@@ -163,7 +163,7 @@ jQuery(document).ready(function () {
 				 tip("无权限添加初始目录类别，请联系管理员。" );
 				 return false;
 			 }
-			addDir('新增目录--同级',basePathJS + '/dirClassify/add' , fid);
+			addDir('新增目录--同级',basePathJS + '/dirClassify/add' , fid,1300,800);
 //			$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');

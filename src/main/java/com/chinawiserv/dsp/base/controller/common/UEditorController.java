@@ -18,12 +18,12 @@ import java.util.Date;
  * Created by lianrongfa on 2017/9/13.
  */
 @Controller
-@RequestMapping(value = "/UEditorUploadAction")
+@RequestMapping(value = "/")
 public class UEditorController {
     protected static  String UPLOAD_PATH;
     protected static  String UPLOAD_NATIVE_READ;
     protected static  String UPLOAD_NATIVE;
-    @RequestMapping(value = "/upload")
+    @RequestMapping(value = "static/ueditor/ued.naah")
     public void config(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
         String rootPath = request.getSession().getServletContext().getRealPath("/");
@@ -59,4 +59,8 @@ public class UEditorController {
 
 
     }
+   
+    
+    
+    
 }

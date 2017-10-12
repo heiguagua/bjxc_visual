@@ -61,7 +61,7 @@
                         </form>
                         <div class="box-body table-responsive no-padding " id="userregisterBox"  style="margin-top: 20px">
                             <!-- 表格 -->
-                            <table class="layui-table" id="userregisterTable" lay-even="" lay-skin="row"></table>
+                            <table class="layui-tables" id="userregisterTable" lay-even="" lay-skin="row"></table>
                             <!-- 表格 end-->
                         </div>
                     </div>
@@ -88,7 +88,7 @@
         }
     }
     function getuserregisterTable(dd) {
-        $("#userRegBox .box-body").html(' <table class="layui-table" id="userregisterTable" lay-even="" lay-skin="row"></table>');
+        $("#userRegBox .box-body").html(' <table class="layui-tables" id="userregisterTable" lay-even="" lay-skin="row"></table>');
         $('#userregisterTable').bootstrapTable({
             pagination: true, //分页
             pageSize: 15,
@@ -181,7 +181,9 @@
 </script>
 <script>
     //默认show
-    getData()
+    $(function(){
+        getData()
+    })
     /**
      * 获取表格数据
      * @param num 类型
@@ -192,9 +194,9 @@
             url = "/dir/dirRegistUser/list?status=" + num;
         }
         $.get(url, function (d) {
-            if (d.rows.length) {
+//            if (d.rows.length) {
                 getuserregisterTable(d.rows)
-            }
+//            }
         })
     }
 
