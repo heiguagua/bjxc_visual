@@ -6,6 +6,16 @@
  */
 
 $(document).ready(function(){
+    $("#regionCodes").change(function(){
+        var value = $(this).val();
+        if(value == '0'){
+            $("#regionName").hide();
+        }else if(value == '1'){
+            $("#regionName").show();
+        }
+        $("#regionName").val("");
+        $("#regionCode").val("");
+    });
     initEditPage();
 });
 
@@ -18,14 +28,25 @@ function initEditPage(){
                 var vo = data.content.vo;
                 $("#dictCode").val(vo.dictCode);
                 $("#dictName").val(vo.dictName);
+                var regionCode = vo.regionCode;
+                if(regionCode){
+                    $("#regionCodes").val("1");
+                    $("#regionCodes").change();
+                }
                 $("#regionName").val(vo.regionName);
                 $("#orderNumber").val(vo.orderNumber);
                 $("#dictDesc").val(vo.dictDesc);
                 var status_selector = $("input[name='status']");
                 vo.status == 1 ? status_selector.get(0).checked=true : status_selector.get(1).checked=true;
+                var selectRegions = [vo.regionCode];
+                initRegionSelect(selectRegions);
             }
         }
     );
+}
+
+function initRegionSelect(selectRegions) {
+    $.initRegionTreeSelect('treeDemo','regionName','regionCode','menuContent', false, selectRegions); //初始化区域分类下拉框
 }
 
 function runBeforeSubmit(form) {

@@ -111,7 +111,8 @@ public class SysDictController extends BaseController {
      */
 //    @RequiresPermissions("XXX:XXX:add")
     @RequestMapping("/detailAdd")
-    public  String add(){
+    public  String add(@RequestParam String category,Model model){
+        model.addAttribute("category",category);
 		return "system/dataDict/dataDictDetailAdd";
     }
 
@@ -125,8 +126,8 @@ public class SysDictController extends BaseController {
     public HandleResult detailDoAdd(SysDictVo entity){
 		HandleResult handleResult = new HandleResult();
 		try {
-		    service.insertVO(entity);
-		    handleResult.success("创建系统字典明细表成功");
+            service.insertVO(entity);
+            handleResult.success("创建系统字典明细表成功");
 		} catch (Exception e) {
 		    handleResult.error("创建系统字典明细表失败");
 		    logger.error("创建系统字典明细表失败", e);

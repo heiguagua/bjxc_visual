@@ -21,7 +21,8 @@
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo">
-
+        <result column="fid" property="fid"/>
+        <result column="dept_name" property="deptName"/>
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -39,13 +40,18 @@
         </where>
     </sql>
 
+    <sql id="baseSelectVo">
+        SELECT t.*,d.fid,d.dept_name FROM sys_dept_authority t
+        LEFT JOIN sys_dept d ON t.dept_id = d.id
+    </sql>
+
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM sys_dept_authority t
+        <include refid="baseSelectVo"></include>
         <include refid="queryConditions"></include>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM sys_dept_authority t WHERE t.id = #{id}
+        <include refid="baseSelectVo"></include> WHERE t.id = #{id}
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -54,7 +60,7 @@
     </select>
 
     <select id="selectVoList" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM sys_dept_authority t
+        <include refid="baseSelectVo"></include>
         <include refid="queryConditions"></include>
     </select>
 

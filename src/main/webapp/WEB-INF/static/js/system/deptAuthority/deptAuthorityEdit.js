@@ -13,11 +13,12 @@ function initSelectData() {
         var dd = data.content.selected;
         if(dd.length){
             for(var i= 0;i < dd.length;i++){
+                var obj = dd[i];
                 if(authType === "dir"){
-                    selects.push(dd[i].classifyId);
+                    selects.push({id: obj.classifyId, fid: obj.fid, name: obj.classifyName});
                 }
                 if(authType === "dept"){
-                    selects.push(dd[i].deptId);
+                    selects.push({id: obj.deptId, fid: obj.fid, name: obj.deptName});
                 }
             }
         }
