@@ -6,11 +6,13 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.system.*;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetClassifyMap;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetServiceMap;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo;
 import com.chinawiserv.dsp.dir.entity.po.service.DirServiceInfo;
 import com.chinawiserv.dsp.dir.mapper.api.ApiMapper;
 import com.chinawiserv.dsp.dir.mapper.api.DirServiceInfoMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetServiceMapMapper;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
 import com.google.common.collect.Lists;
@@ -50,6 +52,9 @@ public class ApiServiceImpl implements IApiService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private DirDatasetClassifyMapMapper dirDatasetClassifyMapMapper;
 
     @Override
     public List<Map<String, Object>> test(Map<String, Object> paramMap) {
@@ -158,6 +163,7 @@ public class ApiServiceImpl implements IApiService {
                     String serviceUrl = (String)serviceInfo.get("serviceUrl");
                     String requestType = (String)serviceInfo.get("requestType");
                     String dataStyle = (String)serviceInfo.get("dataStyle");
+                    String classifyId = (String)serviceInfo.get("classifyId");
                     String serviceInfoParams = "";
                     try{
                         serviceInfoParams = serviceInfo.get("serviceInfoParams").toString();
@@ -167,9 +173,7 @@ public class ApiServiceImpl implements IApiService {
                     String serviceId = (String)serviceInfo.get("serviceNo");
                     String status = (String)serviceInfo.get("status");
                     String dirOrDrapType = (String)serviceInfo.get("dirType"); //目录梳理类型
-                    String dirOrDrapTypeId = (String)serviceInfo.get("dirTypeId"); //目录数据集OR梳理数据表ID
-
-
+                    String dirOrDrapTypeId = (String)serviceInfo.get("dirTypeId"); //目录数据集 OR 梳理数据表ID OR mongoDB数据集ID
 
                     /**
                      * 来自梳理的处理
@@ -210,6 +214,7 @@ public class ApiServiceImpl implements IApiService {
                             }
                         }
                     }
+                    DirDatasetClassifyMap dirDatasetClassifyMap = new DirDatasetClassifyMap();
                     /**
                      * 多个源，对ID进行拆分
                      * */
@@ -258,6 +263,12 @@ public class ApiServiceImpl implements IApiService {
 
                     if(null != idList){
                         for (int j = 0; j < idList.length; j++) {
+                            dirDatasetClassifyMap.setDatasetId(idList[j]);
+                            dirDatasetClassifyMap.setClassifyId(classifyId);
+                            DirDatasetClassifyMap dirDatasetClassifyMapIf = dirDatasetClassifyMapMapper.selectOne(dirDatasetClassifyMap);
+                            if(null != dirDatasetClassifyMapIf){
+                                idList[j] = dirDatasetClassifyMapIf.getId();
+                            }
                             DirDatasetServiceMap dirDatasetServiceMapEntity = new DirDatasetServiceMap();
                             dirDatasetServiceMapEntity.setId(UUID.randomUUID().toString().replaceAll("-",""));
                             dirDatasetServiceMapEntity.setServiceId(serviceId);
@@ -294,6 +305,16 @@ public class ApiServiceImpl implements IApiService {
 
                         DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
                         dirDatasetServiceMapParam.setServiceId(serviceId);
+                        /**
+                         * 查询dcmId
+                         * */
+
+                        dirDatasetClassifyMap.setClassifyId(classifyId);
+                        dirDatasetClassifyMap.setDatasetId(dirOrDrapTypeId);
+                        DirDatasetClassifyMap dirDatasetClassifyMapIf = dirDatasetClassifyMapMapper.selectOne(dirDatasetClassifyMap);
+                        if(null != dirDatasetClassifyMapIf){
+                            dirOrDrapTypeId = dirDatasetClassifyMapIf.getId();
+                        }
                         dirDatasetServiceMapParam.setObjId(dirOrDrapTypeId);
                         DirDatasetServiceMap dirDatasetServiceMapIf = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
                         if (null != dirDatasetServiceMapIf){
@@ -343,25 +364,33 @@ public class ApiServiceImpl implements IApiService {
             handleResult.setState(false);
             return handleResult;
         }else{
-             DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
-             String status = (String)paramMap.get("status");
-             String serviceId = (String)paramMap.get("serviceNo");
-             dirDatasetServiceMapParam.setServiceId(serviceId);
-             Wrapper wrapper = new EntityWrapper();
-             wrapper.eq("service_id",serviceId);
-             List<DirDatasetServiceMap> mapList = dirDatasetServiceMapMapper.selectList(wrapper);
-             if(null != mapList && !mapList.isEmpty()){
-                 for (DirDatasetServiceMap map:mapList) {
-                     map.setStatus(status);
-                     map.setOperateTime(new Date());
-                     dirDatasetServiceMapMapper.updateById(map);
+             String serviceInfoStr = (String)paramMap.get("serviceInfo");
+             if(null != serviceInfoStr && serviceInfoStr.startsWith("[")){
+                 JSONArray serviceInfoArr = JSONArray.fromObject(serviceInfoStr);
+                 //解析JSON字符串,获取服务相关信息
+                 for (int i = 0; i < serviceInfoArr.size(); i++) {
+                     DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
+                     JSONObject serviceInfo = serviceInfoArr.getJSONObject(i);
+                     String status = (String)serviceInfo.get("status");
+                     String serviceId = (String)serviceInfo.get("serviceNo");
+                     dirDatasetServiceMapParam.setServiceId(serviceId);
+                     Wrapper wrapper = new EntityWrapper();
+                     wrapper.eq("service_id",serviceId);
+                     List<DirDatasetServiceMap> mapList = dirDatasetServiceMapMapper.selectList(wrapper);
+                     if(null != mapList && !mapList.isEmpty()){
+                         for (DirDatasetServiceMap map:mapList) {
+                             map.setStatus(status);
+                             map.setOperateTime(new Date());
+                             dirDatasetServiceMapMapper.updateById(map);
+                         }
+                         handleResult.setState(true);
+                         handleResult.setMsg("下架成功");
+                     }else{
+                         logger.error(serviceId+"的服务不存在");
+                         handleResult.setState(false);
+                         handleResult.setMsg(serviceId+"的服务不存在");
+                     }
                  }
-                 handleResult.setState(true);
-                 handleResult.setMsg("下架成功");
-             }else{
-                 logger.error(serviceId+"的服务不存在");
-                 handleResult.setState(false);
-                 handleResult.setMsg(serviceId+"的服务不存在");
              }
 
         }

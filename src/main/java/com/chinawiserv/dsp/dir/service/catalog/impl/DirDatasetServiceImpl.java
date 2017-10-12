@@ -55,7 +55,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     private DirDataOfflineMapper offlineMapper;
 
     @Autowired
-    private DirDataitemSourceInfoMapper sourceInfoMapper;
+    private DirDataitemSourceInfoMapper dataitemSourceInfoMapper;
 
     @Autowired
     private DirDatasetSurveyMapper surveyMapper;
@@ -65,6 +65,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Autowired
     private ISysRegionService sysRegionService;
+
+    @Autowired
+    private DirDatasetSourceInfoMapper datasetSourceInfoMapper;
 
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
@@ -82,6 +85,14 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         vo.setCreateTime(createTime);
         int datasetResult = mapper.baseInsert(vo);
         if(datasetResult>0){
+            //数据集来源
+            if(!StringUtils.isEmpty(vo.getDrapDatasetId())){
+                DirDatasetSourceInfo sourceInfo = new DirDatasetSourceInfo();
+                sourceInfo.setId(UUID.randomUUID().toString());
+                sourceInfo.setDatasetId(datasetId);
+                sourceInfo.setSourceObjId(vo.getDrapDatasetId());
+                datasetSourceInfoMapper.baseInsert(sourceInfo);
+            }
             //插入信息资源格式
             DirDatasetExtFormat ext = vo.getExt();
             ext.setId(UUID.randomUUID().toString());
@@ -120,25 +131,31 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 //int i=0;
                 //List<DirDataitemSourceInfo> insertSourceInfos=new ArrayList<>();
                 //DirDataitemSourceInfo sourceInfo=null;
+                List<DirDataitemVo> needInsertVoList = new ArrayList<>(); //用于去除空行数据
                 for(DirDataitemVo item : dirDataitemVoList){
-                    String itemId = UUID.randomUUID().toString();
-                    item.setId(itemId);
-                    item.setDatasetId(datasetId);
-                    item.setStatus("0");
-                    item.setCreateUserId(logionUser.getId());
-                    item.setCreateTime(createTime);
-                    //数据项来源
-                    /*if(!ObjectUtils.isEmpty(sourceInfos)){
-                        sourceInfo = sourceInfos.get(i);
-                        sourceInfo.setId(itemId);
-                        sourceInfo.setItemId(itemId);
-                        insertSourceInfos.add(sourceInfo);
-                        i++;
-                    }*/
+                    String itemName = item.getItemName();//用必填项名称,来验证是否是空行数据
+                    if(!StringUtils.isEmpty(itemName)){
+                        String itemId = UUID.randomUUID().toString();
+                        item.setId(itemId);
+                        item.setDatasetId(datasetId);
+                        item.setStatus("0");
+                        item.setCreateUserId(logionUser.getId());
+                        item.setCreateTime(createTime);
+                        needInsertVoList.add(item);
+                        //数据项来源
+                        /*if(!ObjectUtils.isEmpty(sourceInfos)){
+                            sourceInfo = sourceInfos.get(i);
+                            sourceInfo.setId(itemId);
+                            sourceInfo.setItemId(itemId);
+                            insertSourceInfos.add(sourceInfo);
+                            i++;
+                        }*/
+                    }
+
                 }
-                itemResult = itemMapper.insertListItem(dirDataitemVoList);
+                itemResult = itemMapper.insertListItem(needInsertVoList);
                 /*if(insertSourceInfos!=null&&insertSourceInfos.size()>0){
-                    sourceInfoMapper.insertList(insertSourceInfos);
+                    dataitemSourceInfoMapper.insertList(insertSourceInfos);
                 }*/
             }
 
@@ -288,20 +305,24 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 for(DirDataitemVo newItemVo : newItemVoList){
                     boolean hasThisItem = false;
                     String newItemId = newItemVo.getId();
-                    if(StringUtils.isEmpty(newItemId)){
-                        newItemId = UUID.randomUUID().toString();
-                        newItemVo.setId(newItemId);
-                    }
-                    for(DirDataitemVo oldItemVo : oldItemVoList){
-                        String oldItemId = oldItemVo.getId();
-                        if(newItemId.equals(oldItemId)){
-                            hasThisItem = true;
-                            needUpdateItemList.add(newItemVo);
-                            break;
+                    String newItemName = newItemVo.getItemName();
+                    //用必填项名称来验证，是否是新增后又删除了的行数据，这种数据所有值都是空
+                    if(!StringUtils.isEmpty(newItemName)){
+                        if(StringUtils.isEmpty(newItemId)){
+                            newItemId = UUID.randomUUID().toString();
+                            newItemVo.setId(newItemId);
                         }
-                    }
-                    if(!hasThisItem){
-                        needAddItemList.add(newItemVo);
+                        for(DirDataitemVo oldItemVo : oldItemVoList){
+                            String oldItemId = oldItemVo.getId();
+                            if(newItemId.equals(oldItemId)){
+                                hasThisItem = true;
+                                needUpdateItemList.add(newItemVo);
+                                break;
+                            }
+                        }
+                        if(!hasThisItem){
+                            needAddItemList.add(newItemVo);
+                        }
                     }
                 }
                 //反过来比较哪些是删除的目录类别
@@ -310,7 +331,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     String oldItemId = oldItemVo.getId();
                     for(DirDataitemVo newItemVo : newItemVoList){
                         String newItemId = newItemVo.getId();
-                        if(newItemId.equals(oldItemId)){
+                        if(!StringUtils.isEmpty(newItemId) && newItemId.equals(oldItemId)){
                             hasThisItem = true;
                             break;
                         }
@@ -350,13 +371,16 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     }
 //                    itemMapper.batchUpdate(needDeleteItemList);
                 }
-            }else{//如果表里该数据集没有任何数据项，则全部新增
+            }else{//如果表里该数据集没有任何数据项，则全部新增(排除掉为空的数据)
                 for(DirDataitemVo addItemVo : newItemVoList){
-                    addItemVo.setId(UUID.randomUUID().toString());
-                    addItemVo.setDatasetId(datasetId);
-                    addItemVo.setStatus("0");
-                    addItemVo.setCreateUserId(updateUserId);
-                    addItemVo.setCreateTime(updateTime);
+                    String itemName = addItemVo.getItemName();
+                    if(!StringUtils.isEmpty(itemName)){
+                        addItemVo.setId(UUID.randomUUID().toString());
+                        addItemVo.setDatasetId(datasetId);
+                        addItemVo.setStatus("0");
+                        addItemVo.setCreateUserId(updateUserId);
+                        addItemVo.setCreateTime(updateTime);
+                    }
                 }
                 itemMapper.insertListItem(newItemVoList);
             }
@@ -402,7 +426,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     public DirDatasetVo selectVoById(String id) throws Exception {
         DirDatasetVo dirDatasetVo = mapper.selectDatasetInfoById(id);
         Map<String,Object> mapParam = new HashMap<>();
-        mapParam.put("datasetId",id);
+        mapParam.put("datasetId", id);
         List<DirDataitemVo> itemVoList = itemMapper.selectInfoList(mapParam);
         if(!ObjectUtils.isEmpty(itemVoList)){
             dirDatasetVo.setItems(itemVoList);
@@ -444,9 +468,21 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
         }
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String depId = ShiroUtils.getLoginUserDeptId();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(depId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
         List<DirDatasetVo> dirDatasetClassifyMapVoList = mapper.selectInfoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
-        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+//        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
         return page;
 	}
 
@@ -455,6 +491,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
         page.setOrderByField("update_time");
         page.setAsc(false);
+        //查找出当前区域及所有子区域的code，用于过滤数据集
         String regionCode = (String)paramMap.get("regionCode");
         if(!StringUtils.isEmpty(regionCode)){
             StringBuffer allRegionCodeBuffer = new StringBuffer();
@@ -471,6 +508,18 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
         }
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String depId = ShiroUtils.getLoginUserDeptId();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(depId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
@@ -482,6 +531,35 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
         page.setOrderByField("update_time");
         page.setAsc(false);
+        //查找出当前区域及所有子区域的code，用于过滤数据集
+        String regionCode = (String)paramMap.get("regionCode");
+        if(!StringUtils.isEmpty(regionCode)){
+            StringBuffer allRegionCodeBuffer = new StringBuffer();
+            List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
+            if(!ObjectUtils.isEmpty(SysRegionVoList)){
+                for(SysRegionVo vo : SysRegionVoList){
+                    String subRegionCode = vo.getRegionCode();
+                    allRegionCodeBuffer.append("'").append(subRegionCode).append("',");
+                }
+                if(allRegionCodeBuffer.length()>0){
+                    String allRegionCode = allRegionCodeBuffer.toString();
+                    allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
+                    paramMap.put("allRegionCode",allRegionCode);
+                }
+            }
+        }
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String depId = ShiroUtils.getLoginUserDeptId();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(depId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForReleased(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
@@ -514,6 +592,15 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         return mapper.getDrapDatasetDetail(id);
     }
 
+    /**
+     * 获取梳理大普查
+     * @param id
+     * @return
+     */
+    @Override
+    public DirDatasetSurvey selectDrapSurveyByDatasetId(String id) {
+        return surveyMapper.selectDrapSurveyByDatasetId(id);
+    }
     @Override
     public boolean checkDatasetName(String datasetName, String classifyIds){
         boolean hasThisName = false;

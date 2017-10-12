@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/10/7 16:29:22                           */
+/* Created on:     17/10/11 17:16:21                            */
 /*==============================================================*/
 
 
@@ -25,6 +25,8 @@ drop table if exists cs_data_sync_collect_db;
 drop table if exists cs_data_sync_mapping;
 
 drop table if exists cs_data_sync_mapping_property;
+
+drop table if exists dcm_pool_nosql;
 
 drop table if exists dcm_pool_rmdb;
 
@@ -397,18 +399,51 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='目录同步映射数据-------网�
 alter table cs_data_sync_mapping_property comment '目录同步映射数据-------网站属性';
 
 /*==============================================================*/
+/* Table: dcm_pool_nosql                                        */
+/*==============================================================*/
+create table dcm_pool_nosql
+(
+   id                   varchar(36) not null comment 'id',
+   belong_dept_id       varchar(36) comment '所属部门ID',
+   connect_name         varchar(64) comment '连接名称',
+   ip_addr              varchar(36) comment 'IP地址',
+   port                 varchar(36) comment '端口号',
+   db_name              varchar(64) comment '数据库名称',
+   username             varchar(64) comment '登录名称',
+   password             varchar(64) comment '登录密码',
+   remark               varchar(512) comment '备注',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table dcm_pool_nosql comment '非关系型数据库连接池表';
+
+/*==============================================================*/
 /* Table: dcm_pool_rmdb                                         */
 /*==============================================================*/
 create table dcm_pool_rmdb
 (
    id                   varchar(36) not null comment 'id',
+   belong_dept_id       varchar(36) comment '所属部门ID',
    connect_name         varchar(64) comment '连接名称',
    ip_addr              varchar(36) comment 'IP地址',
    port                 varchar(36) comment '端口号',
    sid                  varchar(64) comment '服务名称（SID）',
    db_name              varchar(64) comment '数据库名称',
    username             varchar(64) comment '登录名称',
+   password             varchar(64) comment '登录密码',
    remark               varchar(512) comment '备注',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 )
 ENGINE = InnoDB
@@ -423,15 +458,15 @@ create table dcm_table_column
 (
    id                   varchar(36) not null comment 'ID',
    table_id             varchar(36) comment '表ID',
-   target_column_name   varchar(64) comment '生成字段名',
-   target_column_type   varchar(36) comment '生成字段类型',
-   target_column_length varchar(36) comment '生成字段长度',
-   target_emptyf_flag   varchar(36) comment '生成字段是否为空',
-   target_pk_flag       varchar(36) comment '生成字段是否为主键',
-   target_ref_flag      varchar(36) comment '生成字段是否外部路径',
-   target_default_value varchar(256) comment '生成字段默认值',
-   target_column_remark varchar(256) comment '生成字段备注',
-   target_column_detail varchar(1024) comment '生成字段详细描述',
+   column_name          varchar(64) comment '字段名',
+   column_type          varchar(36) comment '字段类型',
+   column_length        varchar(36) comment '字段长度',
+   emptyf_flag          varchar(36) comment '字段是否为空',
+   pk_flag              varchar(36) comment '字段是否为主键',
+   ref_flag             varchar(36) comment '字段是否外部路径',
+   default_value        varchar(256) comment '字段默认值',
+   column_remark        varchar(256) comment '字段备注',
+   column_detail        varchar(1024) comment '字段详细描述',
    column_order         int(3) comment '列顺序',
    status               int(3) comment '状态',
    create_user_id       varchar(36) comment '创建人',
@@ -452,6 +487,8 @@ alter table dcm_table_column comment '结构化数据作业字段配置表';
 create table dcm_table_info
 (
    id                   varchar(36) not null comment 'ID',
+   table_category       varchar(36) comment '表类型',
+   belong_db_id         varchar(36) comment '所属数据库ID',
    belong_dep_id        varchar(36) comment '所属单位',
    target_obj_code      varchar(64) comment '表英文名',
    target_obj_name      varchar(64) comment '表中文名',
@@ -756,7 +793,7 @@ create table dir_dataitem
    item_name            varchar(128) comment '【国】数据项名称',
    item_desc            varchar(500) comment '数据项描述',
    item_type            varchar(36) comment '【国】数据项类型',
-   item_length          int(6) comment '【国】数据项长度',
+   item_length          int(12) comment '【国】数据项长度',
    belong_dept_id       varchar(36) comment '责任部门',
    share_type           varchar(36) comment '共享类型',
    share_condition      varchar(500) comment '共享条件',
@@ -1656,7 +1693,7 @@ create table drap_db_table_column
    column_code          varchar(64) comment '字段编码',
    column_cn_name       varchar(64) comment '字段中文名',
    default_value        varchar(64) comment '默认值',
-   column_length        numeric(6) comment '字段长度',
+   column_length        numeric(12) comment '字段长度',
    column_en_name       varchar(64) comment '字段英文名',
    is_business_data     int comment '是否业务数据',
    is_pk                int comment '是否为主键',
@@ -1705,7 +1742,7 @@ create table drap_dict_table_column
    column_code          varchar(64) comment '字段编码',
    column_cn_name       varchar(64) comment '字段中文名',
    default_value        varchar(64) comment '默认值',
-   column_length        numeric(6) comment '字段长度',
+   column_length        numeric(12) comment '字段长度',
    column_en_name       varchar(64) comment '字段英文名',
    is_business_data     int comment '是否业务数据',
    is_pk                int comment '是否为主键',
@@ -2276,6 +2313,7 @@ create table sys_region_dept
    structure_code       varchar(1000) comment '显示树编码',
    structure_name       varchar(4000) comment '显示树名称',
    status               varchar(36) default '1' comment '状态',
+   order_number         int(4) comment '排序',
    primary key (id)
 );
 

@@ -12,9 +12,29 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassifyAuthority;
  */
 public class DirClassifyAuthorityVo extends DirClassifyAuthority{
 
+    private String fid;
+
+    private String classifyName;
+
     private String classifyIds;
 
     private String[] classifyIdArray;
+
+    public String getFid() {
+        return fid;
+    }
+
+    public void setFid(String fid) {
+        this.fid = fid;
+    }
+
+    public String getClassifyName() {
+        return classifyName;
+    }
+
+    public void setClassifyName(String classifyName) {
+        this.classifyName = classifyName;
+    }
 
     public String getClassifyIds() {
         return classifyIds;

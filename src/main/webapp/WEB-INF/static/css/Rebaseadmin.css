@@ -5,9 +5,8 @@
 	padding-top:70px;
 }
 .skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a{
-	background: #F2F8FF;
-	color: #4197F4;
-	
+	color: #595959;
+	background:#f4f6f9;
 	border-left:none;
 }
 .skin-blue .sidebar-menu > li > .treeview-menu{
@@ -17,6 +16,9 @@
 }
 .skin-blue .treeview-menu > li > a{
 	color: #595959;
+    font-size: 14px;
+    line-height: 21px;
+    font-family: PingFangSC-Medium;
 }
 .skin-blue .treeview-menu > li.active > a, .skin-blue .treeview-menu > li > a:hover{
 	color: #595959;
@@ -24,14 +26,20 @@
 .skin-blue .sidebar a{
 	color: #595959;
 }
-.skin-blue .treeview-menu > li.active > a, .skin-blue .treeview-menu > li > a:hover{
-	    background: #F2F8FF;
+.skin-blue .treeview-menu > li > a:hover{
+	background: #f4f6f9;
     color: #4197F4;
     border-right: 3px solid transparent;
     border-right-color: #4197F4;
     border-left: none;
 }
-
+.skin-blue .treeview-menu > li.active > a{
+	background: #F2F8FF;
+	color: #4197F4;
+    border-right: 3px solid transparent;
+    border-right-color: #4197F4;
+    border-left: none;
+}
 
 
 .main-header .navbar{
@@ -69,12 +77,31 @@
 	color: #7d8698;
 }
 
+/* 表格整体布局 */
+
+.box-body{
+	    padding: 0 30px !important;
+}
+.box-header{
+	    padding: 10px 30px;
+}
+.content-header > h1{
+	    padding: 0 40px;
+}
+.navbar-static-top .btn-group{
+	    padding: 0 60px;
+}
 
 
+.content-wrapper .content div.row{
+	  margin-left: 0px;
+}
 
 
 /* 导航另外加*/
-
+ a{
+	color:#fff;
+}	
  .nav_uls{
 	color: #FFFFFF;
 	font-size: 14px;
@@ -85,7 +112,9 @@
 	color: #FFFFFF;
 	font-size: 14px;
 	opacity: 0.45;
-	padding: 24px;
+	 min-height: 67px;
+    line-height: 67px;
+	margin-right:30px;
 	cursor:pointer;
 }
 .nav_uls>li.active{
@@ -93,11 +122,16 @@
 	border-bottom:3px solid #4197F4;
 }
 .nav_uls>li a{
+	color:#fff !important;
+}
+.nav_uls>li a:hover,.nav_uls>li a:link{
 	color:#fff;
 }
-.nav_uls>li a:hover{
-	color:#fff;
+ 
+.col-xs-12 div.box{
+	    padding-bottom: 30px;
 }
+
 
 
 
@@ -179,6 +213,11 @@ section .sidebar{
 }
 
 
+
+
+
+
+
 /*登录验证的样式*/
 div.mg_right{
 	float:right;
@@ -191,4 +230,18 @@ input.input_test{
 	    width: 135px !important;
     height: 50px !important;
     margin-bottom:0 !important;
+}
+
+/* 管理员登录下拉样式 */
+.adminDeltimg{
+	padding:4px;
+}
+
+/* 翻页记录字体默认色加强 */
+.dropdown-menu > li > a{
+	    color: #777 !important;
+}
+/* 每页显示记录 变色问题*/
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{
+	background:none;
 }

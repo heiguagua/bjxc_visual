@@ -18,7 +18,7 @@ function initAllSelect(){
     //共享方式
     Dict.selects('dataSetShareMethod',['#shareMethod']);
     Dict.selects('setItemFrequency',['#updateFrequency']);
-    Dict.selects('setItemStoreMedia',['#storeMedia']);
+    Dict.selects('resourceFormat',['#storeMedia']);
     //是否向社会开放
     //Dict.selects('14',['#social_open_flag']);
     //信息资源主要来源
@@ -29,18 +29,26 @@ function initAllSelect(){
     //Dict.selects('26',['#service_provice']);
     //信息资源最小分级单元
     //Dict.selects('27',['#info_min_unit']);
-    $("#shareConditionDiv").hide();
     $("#shareType").on("change",function(){
         var selectedValue = $(this).children('option:selected').val();
         if(selectedValue=="2" || selectedValue==""){ //不予共享
-            $("#shareConditionDiv").hide();
-            $("#shareMethodDiv").hide();
+            $("#shareConditionLabel").html("不予共享说明");
+            $("#shareConditionDesc").removeAttr("disabled");
+            $("#shareMethod").attr("disabled","disabled");
+            $("#shareMethod").css("background-color","#EEEEEE");
         }else if(selectedValue=="0"){ //无条件共享
-            $("#shareConditionDiv").hide();
-            $("#shareMethodDiv").show();
+            $("#shareConditionLabel").html("共享条件");
+            $("#shareConditionDesc").attr("disabled","disabled");
+            $("#shareConditionDesc").css("background-color","#EEEEEE");
+            $("#shareMethod").removeAttr("disabled");
+            $("#shareMethod").removeAttr("style");
+
         }else if(selectedValue=="1") { //有条件共享
-            $("#shareConditionDiv").show();
-            $("#shareMethodDiv").show();
+            $("#shareConditionLabel").html("共享条件");
+            $("#shareConditionDesc").removeAttr("disabled");
+            $("#shareConditionDesc").removeAttr("style");
+            $("#shareMethod").removeAttr("disabled");
+            $("#shareMethod").removeAttr("style");
         }
     });
 }
@@ -643,3 +651,9 @@ function initInputValue(){
         }
     });
 }
+$(document).on("change","#storeMedia",function(){
+    var selectedValue = $(this).children('option:selected').val();
+    if(selectedValue!=""){
+        Dict.cascadeSelects('resourceFormat', ['#format_type'], selectedValue);
+    }
+});

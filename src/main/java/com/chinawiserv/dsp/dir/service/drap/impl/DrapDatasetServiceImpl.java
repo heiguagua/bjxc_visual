@@ -198,8 +198,12 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 			dirDataitemSourceInfo.setSourceObjId(drapDatasetItem.getId());
 			dirDataitemSourceInfoList.add(dirDataitemSourceInfo);
 		}
-		dirDataitemMapper.batchInsert(dirDataitemList);
-		dirDataitemSourceInfoMapper.batchInsert(dirDataitemSourceInfoList);
+		if(!dirDataitemList.isEmpty()) {
+			dirDataitemMapper.batchInsert(dirDataitemList);
+		}
+		if(!dirDataitemSourceInfoList.isEmpty()) {
+			dirDataitemSourceInfoMapper.batchInsert(dirDataitemSourceInfoList);
+		}
 	}
 	
 	private static DirDataset getDirDataset(DrapDatasetVo drapDatasetVo){

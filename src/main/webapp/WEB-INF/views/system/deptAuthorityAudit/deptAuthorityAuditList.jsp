@@ -21,7 +21,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <small>系统管理 > 部门权限审核管理</small>
+                <small>系统管理 > 组织机构权限审核管理</small>
             </h1>
         </section>
         <!-- Main content -->
@@ -40,7 +40,7 @@
                                         </select>
                                 </div>
                                 <div class="input-group">
-                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="部门数据权限审核名称">
+                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="组织机构数据权限审核名称" style="width: 200px">
                                     <div class="input-group-btn">
                                         <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
                                     </div>

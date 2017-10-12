@@ -27,8 +27,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
+
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 /**
  * <p>
@@ -166,7 +173,6 @@ public class DrapInfoSystemController extends BaseController {
     @RequestMapping("/api/receiveDate")
     public void receiveMessega(@RequestParam String  data, HttpServletResponse response){
 
-        System.out.println(data);
         updateReceiveDate(data);
         response.setStatus(200);
 
@@ -174,16 +180,28 @@ public class DrapInfoSystemController extends BaseController {
 
     public void updateReceiveDate(String data){
 
-        Map<String,Object> paraMap = JSON.parseObject(data, new TypeReference<Map<String,Object>>(){});
+        final Map<String,String> paraMap = JSON.parseObject(data, new TypeReference<Map<String,String>>(){});
 
-        List<DrapInfoSystem> systems= (List<DrapInfoSystem>) paraMap.get("infoSystems");
-        service.insertBatch(systems);
+        List<DrapInfoSystem> systems = JSON.parseObject(paraMap.get("infoSystems"), new TypeReference<List<DrapInfoSystem>>(){});
+        systems = systems.stream().filter(a->a.getId()!=null).collect(toList());
 
-        List<DrapSystemUseInfo> useInfos = (List<DrapSystemUseInfo>) paraMap.get("systemUseInfos");
-        useInfoService.insertBatch(useInfos);
+        if (systems.size()!=0){
+            service.insertBatch(systems);
+        }
 
-        List<DrapSystemUseDept> systemUseDepts = (List<DrapSystemUseDept>) paraMap.get("systemUseDepts");
-        useDeptService.insertBatch(systemUseDepts);
+        List<DrapSystemUseInfo> useInfos =  JSON.parseObject(paraMap.get("systemUseInfos"), new TypeReference<List<DrapSystemUseInfo>>(){});
+        useInfos = useInfos.stream().filter(a->a.getId()!=null).collect(toList());
+
+        if (useInfos.size()!=0){
+            useInfoService.insertBatch(useInfos);
+        }
+
+        List<DrapSystemUseDept> systemUseDepts = JSON.parseObject(paraMap.get("systemUseDepts"), new TypeReference<List<DrapSystemUseDept>>(){});
+        systemUseDepts = systemUseDepts.stream().filter(a->a.getId()!=null).collect(toList());
+
+        if (systemUseDepts.size()!=0){
+            useDeptService.insertBatch(systemUseDepts);
+        }
 
     }
 }

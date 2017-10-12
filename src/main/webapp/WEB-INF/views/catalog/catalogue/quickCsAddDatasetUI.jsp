@@ -38,7 +38,7 @@
                 <div class="form-group">
                 	<div class="row">
 	                	<div class="col-sm-7">
-		                    <label for="classifyName" class="col-sm-3 control-label" style="width: 21%;">信息资源分类 :</label>
+		                    <label for="classifyName" class="col-sm-3 control-label" style="width: 21.3%;">信息资源分类 :</label>
 		                    <div class="col-sm-9">
 		                        <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
 		                        <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
@@ -54,9 +54,9 @@
 	                	<div class="col-sm-5">
 	                		<label class="col-sm-3"></label>
 	                		<div class="col-sm-9">
-	                			 <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas" data-toggle="modal" data-target="#myModal">
-             			      	配置数据项
-                			</button>
+	                			 <a id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas" data-toggle="modal" data-target="#myModal">
+									 配置数据项
+								 </a>
 	                		</div>
 		                 	
 		                 </div>   
@@ -217,7 +217,7 @@
                 <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-6 shareType3" id="shareConditionDiv">
-		                	<label for="shareConditionDesc" class="col-sm-3 control-label">共享条件:</label>
+		                	<label for="shareConditionDesc" class="col-sm-3 control-label" id="shareConditionLabel">共享条件:</label>
 		                    <div class="col-sm-9">
 		                    	<textarea class="form-control" rows="3" id="shareConditionDesc" name="shareCondition"></textarea>
 		                    </div>
@@ -236,8 +236,8 @@
                 <div class="form-group">
                 	<div class="row">
                 		<div class="col-sm-12">
-	                	<label for="datasetDesc" class="col-sm-2 control-label" style="width:12%">信息资源摘要:</label>
-		                    <div class="col-sm-10"  style="width:88%">
+	                	<label for="datasetDesc" class="col-sm-2 control-label" style="width:12.2%">信息资源摘要:</label>
+		                    <div class="col-sm-10"  style="width:87.8%">
 		                        <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="信息资源摘要*" value="无"> -->
 		                        <textarea class="form-control" rows="3" id="datasetDesc" name="datasetDesc">无</textarea>
 		                        <p><span class="pull-right">(最多256个汉字)</span></p>

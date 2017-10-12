@@ -65,11 +65,23 @@
 			<if test="regionCodeCondition != null">
 				AND t.region_code like '${regionCodeCondition}%'
 			</if>
+			<if test="withoutDept != null">
+				AND t.id != #{withoutDept}
+			</if>
 			<if test="withoutAuthDept != null and withoutAuthDept == '1'.toString() and applicant != null">
 				AND t.id NOT IN
 				(
 					SELECT da.to_dept_id FROM sys_dept_authority_apply da
 					WHERE da.applicant = #{applicant} AND da.audit_status != '2'
+				)
+			</if>
+			<if test="ids != null">
+				AND
+				(
+					t.id IN
+					<foreach collection="ids" open="(" close=")" item="item" separator=",">
+						#{item, jdbcType=VARCHAR}
+					</foreach>
 				)
 			</if>
 		</where>
@@ -106,6 +118,8 @@
 			LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM sys_dept where delete_flag = '0') b ON t.id=b.dcode
 		) t
 		<include refid="queryConditions"></include>
+		ORDER BY
+		t.order_number,t.dept_code
 	</select>
 
 	<select id="isParentDept" parameterType="java.lang.String" resultType="java.lang.Boolean">

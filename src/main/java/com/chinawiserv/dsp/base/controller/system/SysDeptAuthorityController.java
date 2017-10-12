@@ -131,4 +131,27 @@ public class SysDeptAuthorityController extends BaseController {
 		}
 		return handleResult;
     }
+
+    /**
+     * 查询指定组织机构的父级数据权限部门
+     */
+    @RequiresPermissions("system:deptAuthority:edit")
+    @RequestMapping("/selectParentDeptAuthIds")
+    @ResponseBody
+    public  HandleResult selectParentDeptAuthIds(@RequestParam String deptId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String, Object> paramMap = new HashMap();
+            if(StringUtils.isBlank(deptId)){
+                throw new Exception("查询的部门不能为空！");
+            }
+            paramMap.put("deptId", deptId);
+            List result = service.selectParentDeptAuthIds(paramMap);
+            handleResult.put("authDeptIds", result);
+        } catch (Exception e) {
+            handleResult.error("获取部门数据权限信息失败");
+            logger.error("获取部门数据权限失败", e);
+        }
+        return handleResult;
+    }
 }

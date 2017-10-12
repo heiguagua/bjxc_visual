@@ -47,12 +47,12 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('010908','0109','1','','fa-folder','1','1','010908','','0');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0110','01','用户数据权限管理','/system/userAuthority','fa-cogs','6','2','0110','system:userAuthority:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('011001','0110','编辑用户数据权限','','','2','3','011001','system:userAuthority:edit','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0111','01','部门权限申请管理','/system/deptAuthorityApply','fa-cogs','7','2','0111','apply:dirDataitemApply:list','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('011101','0111','部门权限申请列表','','','2','3','011101','system:deptAuthorityApply:list','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('011102','0111','申请部门权限','','','2','3','011102','system:deptAuthorityApply:add','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0112','01','部门权限审核管理','/system/deptAuthorityAudit','fa-cogs','8','2','0112','system:deptAuthorityAudit:list','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('011201','0112','部门权限审核列表','','','2','3','011201','system:deptAuthorityAudit:list','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('011202','0112','审核部门权限','','','2','3','011202','system:deptAuthorityAudit:edit','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0111','01','组织机构数据权限申请管理','/system/deptAuthorityApply','fa-cogs','7','2','0111','apply:dirDataitemApply:list','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('011101','0111','组织机构数据权限申请列表','','','2','3','011101','system:deptAuthorityApply:list','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('011102','0111','申请组织机构数据权限','','','2','3','011102','system:deptAuthorityApply:add','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0112','01','组织机构数据权限审核管理','/system/deptAuthorityAudit','fa-cogs','8','2','0112','system:deptAuthorityAudit:list','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('011201','0112','组织机构数据权限审核列表','','','2','3','011201','system:deptAuthorityAudit:list','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('011202','0112','审核组织机构数据权限','','','2','3','011202','system:deptAuthorityAudit:edit','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('03','0','目录类别','/dirClassify','fa-cog','1','2','03','catalog:classify','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0301','03','查看目录类别列表','','','1','3','0301','catalog:classify:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0302','03','新增目录类别','','','2','3','0302','catalog:classify:add','1');
@@ -484,7 +484,8 @@ insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,par
 insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '2', '系统梳理添加', null, null, null, '1', null, now(), null, null, '0');
 insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '3', '资源梳理添加', null, null, null, '1', null, now(), null, null, '0');
 insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '4', '爬虫系统添加', null, null, null, '1', null, now(), null, null, '0');
-insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '5', '采集系统添加', null, null, null, '1', null, now(), null, null, '0');
+insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '5', '关系型采集添加', null, null, null, '1', null, now(), null, null, '0');
+insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '6', '非关系型采集添加', null, null, null, '1', null, now(), null, null, '0');
 
 
   -- 行政区划相关初始化数据

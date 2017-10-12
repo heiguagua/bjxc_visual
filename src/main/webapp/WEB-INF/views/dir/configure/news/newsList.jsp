@@ -28,7 +28,10 @@
                             <div class="box-header">
                                 <%--<#if permissions?seq_contains('addDept')>--%>
                                 <div class="input-group">
-                                    <a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:addUser()" > <i class="fa fa-plus"></i> 新增</a>
+                                    <a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:addUser()" > 
+                                    <!-- <i class="fa fa-plus"></i>  -->
+                                    <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                    	新增</a>
                                 </div>
                                 <%--</#if>--%>
                                 <div class="input-group pull-right">

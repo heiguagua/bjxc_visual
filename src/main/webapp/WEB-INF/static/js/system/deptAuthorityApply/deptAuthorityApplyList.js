@@ -85,6 +85,6 @@ function reloadTable() {
 }
 
 function authorityApply() {
-    add('申请部门权限',basePathJS + '/system/deptAuthorityApply/add');
+    add('申请组织机构数据权限',basePathJS + '/system/deptAuthorityApply/add');
 }
 

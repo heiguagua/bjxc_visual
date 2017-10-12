@@ -10,6 +10,7 @@ jQuery(document).ready(function () {
     jQuery(tableSelector).customTable({
         url: basePathJS + '/sysDict/list',
         queryParams: function (params) {
+
             return $.extend(params, paramsObj);
         },
         pagination: true, //分页

@@ -86,7 +86,7 @@ public class CsSystemController {
         if (StringUtils.isEmpty(table_id)) {
             handleResult.error("参数不能为空!");
         } else {
-            List<String> strings = mapper.selectColumnsByTableId(table_id);
+            List<Map<String, Object>> strings = mapper.selectColumnsByTableId(table_id);
             handleResult.put("list",strings);
         }
         return handleResult;

@@ -15,11 +15,11 @@
                 <h1>
                     <small>目录管理 > 目录编目</small>
                 </h1>
-                <!-- <ul class="title_ul">
-                	<li class="active"><i class="fa fa-desktop" style="font-size:20px"></i>&nbsp;常规模式</li>
-                	<li>引导模式</li>
+              <!-- <ul class="title_ul">
+                	<li class="active"><i class="fa fa-television" style="font-size:20px"></i>&nbsp;常规模式</li>
+                	<li><i class="fa fa-crop" aria-hidden="true"></i>&nbsp;引导模式</li>
                 	<li>图谱</li>
-                </ul> -->
+                </ul>  --> 
             </section>
             <!-- Main content -->
             <section class="content">
@@ -31,8 +31,10 @@
                                 <div class="box-header">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
-                                                data-toggle="dropdown">
-                                           <!--  <i class="fa fa-plus"></i> -->快速添加<span class="caret"></span>
+                                                data-toggle="dropdown"><img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                           <!--  <i class="fa fa-plus"></i> -->快速添加&nbsp;
+                                           <img src="<%=basePath%>/images/userImg/Seciton_img@2x.png"/>
+                                           <!-- <span class="caret"></span> -->
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li>
@@ -48,19 +50,22 @@
                                     </div>
                                     <div class="input-group">
                                         <a class="btn btn-default btn-flat  btn-myself" onclick="javascript:addCustom()">
+                                        <img src="<%=basePath%>/images/userImg/addimg.png"/>
                                             <!-- <i class="fa fa-plus-circle"></i> -->自定义添加
                                         </a>
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
                                                 data-toggle="dropdown" onclick="javascript:excelImportUI()">
+                                                <img src="<%=basePath%>/images/userImg/importimg.png"/>
                                             <!-- <i class="fa fa-plus"></i> -->导入
                                         </button>
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle btn-myself"
                                                 data-toggle="dropdown" id="catalogueDeleteButton">
-                                            <!-- <i class="fa fa-plus"></i> -->删除
+                                                <img src="<%=basePath%>/images/userImg/delImg.png"/>
+                                            <!-- <i class="fa fa-plus"></i> -->批量删除
                                         </button>
                                     </div>
                                     <div class="input-group" style="float:right">
@@ -72,12 +77,13 @@
                                         </div>
                                         </input>
                                     </div>
-                                    <div class="input-group" style="float:right;margin-right:4px;width: 30%">
+                                    <div class="input-group" style="float:right;margin-right:4px;width:240px">
                                         <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                         <input type="hidden" id="searchClassifyId">
                                         <div class="menu-wrap">
                                             <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
-                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                                <ul id="searchClassifyTreeDemo" c
+                                                lass="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                             </div>
                                         </div>
                                     </div>

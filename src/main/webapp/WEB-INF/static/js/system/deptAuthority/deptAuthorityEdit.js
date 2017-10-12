@@ -13,23 +13,25 @@ function initSelectData() {
         var dd = data.content.selected;
         if(dd.length){
             for(var i= 0;i < dd.length;i++){
+                var obj = dd[i];
                 if(authType === "dir"){
-                    selects.push(dd[i].classifyId);
+                    selects.push({id: obj.classifyId, fid: obj.fid, name: obj.classifyName});
                 }
                 if(authType === "dept"){
-                    selects.push(dd[i].deptId);
+                    selects.push({id: obj.deptId, fid: obj.fid, name: obj.deptName});
                 }
             }
         }
+        if(authType === 'dept'){
+            $.get(basePathJS + "/system/deptAuthority/selectParentDeptAuthIds?deptId=" + authObjId,function(data){
+                var authDeptIds = data.content.authDeptIds;
+                $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, {withoutDept: authObjId}, selects, authDeptIds); //初始化组织机构下拉框
+            });
+        }else if(authType === 'dir'){
+            $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects);
+        }
     });
-    if(authType === 'dept'){
-        $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, null, selects); //初始化组织机构下拉框
-    }else if(authType === 'dir'){
-        $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects);
-    }
 }
-
-
 
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
