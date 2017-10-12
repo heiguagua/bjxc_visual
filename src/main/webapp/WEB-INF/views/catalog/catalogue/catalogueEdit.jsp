@@ -63,7 +63,7 @@
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源提供方 :</label>
                             <div class="col-sm-9">
-                                <input type="text" id="belongDeptTypeName" data-rule="信息资源分类:required;" class="form-control"
+                                <input type="text" id="belongDeptTypeName" data-rule="信息资源提供方:required;" class="form-control"
                                        placeholder="">
                                 <input type="hidden" id="belongDeptType" name="belongDeptType">
                                 <input type="hidden" id="belongDeptTypeCode">
