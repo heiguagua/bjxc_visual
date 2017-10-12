@@ -193,6 +193,9 @@ function quickSystemAddDatasetUI() {
 function quickCsAddDatasetUI() {
     add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI',1300,800);
 }
+function quickDcmAddDatasetUI() {
+    add('从关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmAddDatasetUI',1300,800);
+}
 function excelImportUI() {
     addNews('导入',basePathJS +'/catalog/catalogue/excelImportUI',900,200);
 }

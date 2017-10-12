@@ -201,7 +201,7 @@ var Model = {
         loadBusiness: function(success){
             this.cache.bus.tree = tree;
             var cur = this;
-            $.get(basePathJS+'/DrapDb/selectDbByDeptId?dept_id='+(cur.cache.group.select?cur.cache.group.select.dir_code:""),null, function (data) {
+            $.get(basePathJS+'/DcmDb/selectDbByDeptId?dept_id='+(cur.cache.group.select?cur.cache.group.select.dir_code:""),null, function (data) {
                 var d = data.content;
                 if(d.list!=null){
                     $('#bus_tree').treeview({
@@ -244,7 +244,7 @@ var Model = {
             var cur = this;
             if(cur.cache.bus.select){
                 $.ajax({
-                    url: basePathJS+"/DrapDb/selectTableByDbId",
+                    url: basePathJS+"/DcmDb/selectTableByDbId",
                     type: "post",
                     data: {
                         db_id: cur.cache.bus.select.dir_code
@@ -266,7 +266,7 @@ var Model = {
             var cur = this;
             if(cur.cache.data.select){
                 $.ajax({
-                    url: basePathJS+"/DrapDb/selectFieldByTableId",
+                    url: basePathJS+"/DcmDb/selectFieldByTableId",
                     type: "post",
                     data: {
                         table_id: cur.cache.data.select.id
@@ -366,7 +366,7 @@ $(document).on("click", "button#field_add", function(){
     //获取选中的数据项
     if(fieldIds.length>0){
         $.ajax({
-            url: basePathJS+"/DrapDb/selectFieldByIds",
+            url: basePathJS+"/DcmDb/selectFieldByIds",
             type:"get",
             data:{
                 list:fieldIds.toString()
@@ -446,7 +446,7 @@ $(document).on("change", "select#sys_select", function(){
     var option=[];
     var options='';
     $.ajax({
-        url: basePathJS+"/DrapDb/selectFieldByTableId",
+        url: basePathJS+"/DcmDb/selectFieldByTableId",
         type: "post",
         data: {
             table_id:str
@@ -477,7 +477,7 @@ $(document).on("change", "select#sys_select_f", function(){
     var option=[];
     var options='';
     $.ajax({
-        url: basePathJS+"/DrapDb/selectFieldByTableId",
+        url: basePathJS+"/DcmDb/selectFieldByTableId",
         type: "post",
         data: {
             table_id:str
@@ -562,10 +562,10 @@ function getTrNum(){
 
 function buildItem(thisTrNum,data){
     var str='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
-        +'<td><input value="'+(data.column_en_name?data.column_en_name:'')+'" data-rule="字段名:required;" type="text" class="form-control"></td>'
-        +'<td><input value="'+(data.column_cn_name?data.column_cn_name:'')+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
+        +'<td><input value="'+(data.columnName?data.columnName:'')+'" data-rule="字段名:required;" type="text" class="form-control"></td>'
+        +'<td><input value="'+(data.columnRemark?data.columnRemark:'')+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.column_length?data.column_length:'')+'" min="1" type="text" class="form-control"></td>'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.columnLength?data.columnLength:'')+'" min="1" type="text" class="form-control"></td>'
         +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.dept_id?data.dept_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_name?data.dept_name:'')+'" > </td>'
         +'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         +'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'

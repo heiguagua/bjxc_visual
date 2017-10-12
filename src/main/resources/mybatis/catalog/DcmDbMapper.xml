@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DcmDbMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <select id="selectDbByDeptId" resultType="map">
+        SELECT
+            dpr.id,dpr.db_name
+        FROM
+            dcm_pool_rmdb dpr
+        WHERE dpr.belong_dept_id=#{dept_id}
+    </select>
+
+    <select id="selectTableByDbId" resultType="map">
+        SELECT
+            dti.id,dti.target_obj_code as table_name
+        FROM
+            dcm_table_info dti
+        LEFT JOIN dcm_pool_rmdb dpr ON dti.belong_db_id = dpr.id
+        WHERE dpr.id=#{db_id}
+    </select>
+
+    <select id="selectFieldByTableId" resultType="map">
+        SELECT
+            dtc.id,
+            dtc.column_name AS column_en_name
+        FROM
+            dcm_table_column dtc
+        WHERE
+            dtc.table_id = #{table_id}
+    </select>
+
+    <resultMap id="result_DcmTableColumn_Map" type="com.chinawiserv.dsp.dir.entity.po.catalog.DcmDbTableColumn">
+        <id column="id" property="id" />
+        <result column="table_id" property="tableId" />
+        <result column="column_name" property="columnName" />
+        <result column="column_type" property="columnType" />
+        <result column="column_length" property="columnLength" />
+        <result column="emptyf_flag" property="emptyfFlag" />
+        <result column="pk_flag" property="pkFlag" />
+        <result column="ref_flag" property="refFlag" />
+        <result column="default_value" property="defaultValue" />
+        <result column="column_remark" property="columnRemark" />
+        <result column="column_detail" property="columnDetail" />
+        <result column="column_order" property="columnOrder" />
+        <result column="status" property="status" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="update_time" property="updateTime" />
+        <result column="delete_flag" property="deleteFlag" />
+
+        <result column="table_cn_name" property="table_cn_name" />
+        <result column="table_name" property="table_name" />
+        <result column="dept_name" property="dept_name" />
+        <result column="dept_id" property="dept_id" />
+    </resultMap>
+
+    <select id="selectFieldByIds" resultMap="result_DcmTableColumn_Map">
+        SELECT
+        dtc.*, dti.target_obj_code AS table_name,
+        dti.target_obj_name AS table_cn_name,
+        sd.dept_name,
+        sd.id AS dept_id
+        FROM
+        dcm_table_column dtc
+        LEFT JOIN dcm_table_info dti ON dtc.table_id = dti.id
+        LEFT JOIN sys_dept sd ON dti.belong_dep_id = sd.id
+        WHERE
+        TRUE
+        <foreach collection="list" item="item" open=" AND dtc.id IN (" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY dtc.id
+    </select>
+</mapper>

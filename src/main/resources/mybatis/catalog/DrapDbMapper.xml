@@ -3,7 +3,7 @@
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DrapDbMapper">
 
     <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <select id="selectDbByDeptId" resultType="map">
         SELECT
