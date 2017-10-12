@@ -18,13 +18,26 @@
     <div class="row">
         <div class="col-md-12">
             <!-- form start -->
+            <style>
+                .box-body .pdl0{
+                    padding-left: 0;
+                }
+                .box-bodyx label{
+                    width: 120px;
+                    float: left;
+                }
+                .box-bodyx .form-group>.form-group{
+                    width: 70%;
+                    float: left;}
+            </style>
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
+                    <form  class="form-inline"  role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/system/deptAuthorityApply/doAdd">
+                        <div class="box-body box-bodyx">
                         <div class="form-group">
                             <label for="toDeptNames" style='float:left;'>所属组织机构 *</label>
-                            <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
+                            <div class="form-group">
                             <input type="text" id="toDeptNames" required="required"
                                    data-parsley-required-message="该项为必填" class="form-control">
                             <input type="hidden" id="toDeptIds" name="toDeptIds">
@@ -34,11 +47,15 @@
                                         style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                 </div>
                             </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>申请理由</label>
+                            <div class="form-group">
                             <textarea class="form-control" id="applyReason"  name="applyReason" rows="4"
                                       placeholder="请输入描述，最多300个字符 ..."></textarea>
+                            </div>
+                        </div>
                         </div>
                        <!-- /.box-body -->
                         <div class="box-footer">
