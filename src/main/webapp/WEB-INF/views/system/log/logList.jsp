@@ -27,21 +27,24 @@
                         <div class="box">
                             <div class="box-header">
                                 <form class="form-inline">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="operatorRealName">operatorRealName</label>
-                                        <input id="operatorRealName" type="text" name="operatorRealName" class="form-control" placeholder="操作人真实姓名">
+                                    <div class="form-group pull-right">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="operatorRealName">operatorRealName</label>
+                                            <input id="operatorRealName" type="text" name="operatorRealName" class="form-control" placeholder="操作人真实姓名">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="operatorUserName">operatorUserName</label>
+                                            <input id="operatorUserName" type="text" name="operatorUserName" class="form-control" placeholder="操作人用户名">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="operateTimeRange">operateTimeRange</label>
+                                            <input id="operateTimeRange" type="text" name="operateTimeRange" class="form-control date" readonly placeholder="操作开始日期 ~ 操作结束日期" style="width: 320px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i> 查询</button>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="sr-only" for="operatorUserName">operatorUserName</label>
-                                        <input id="operatorUserName" type="text" name="operatorUserName" class="form-control" placeholder="操作人用户名">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="sr-only" for="operateTimeRange">operateTimeRange</label>
-                                        <input id="operateTimeRange" type="text" name="operateTimeRange" class="form-control date" readonly placeholder="操作开始日期 ~ 操作结束日期" style="width: 320px;">
-                                    </div>
-                                    <div class="form-group">
-	                                    <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i> 查询</button>
-	                                    </div>
+
                                 </form>
                             </div>
 

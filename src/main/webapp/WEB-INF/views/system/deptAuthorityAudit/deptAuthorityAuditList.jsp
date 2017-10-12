@@ -21,7 +21,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <small>系统管理 > 组织机构权限审核管理</small>
+                <small>系统管理 > 组织机构数据权限审核管理</small>
             </h1>
         </section>
         <!-- Main content -->
@@ -32,19 +32,20 @@
                     <div class="box">
                         <div class="form-inline">
                             <div class="box-header">
-                               <div class="input-group">
+                                <div class="input-group" style="float:right;margin-right:4px;width:240px">
+                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="组织机构数据权限审核名称" style="width: 200px">
+                                    <div class="input-group-btn">
+                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i> 查询</button>
+                                    </div>
+                                </div>
+                               <div class="input-group"  style="float:right">
                                     <%--<a class="btn btn-primary  btn-flat" onclick="javascript:authorityAudit()" > <i class="fa fa-plus"></i>审核部门数据权限</a>--%>
                                         <select  class="form-control"  name="audited" id="audited">
                                             <option value="0">待审核</option>
                                             <option value="1">已审核</option>
                                         </select>
                                 </div>
-                                <div class="input-group">
-                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="组织机构数据权限审核名称" style="width: 200px">
-                                    <div class="input-group-btn">
-                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
-                                    </div>
-                                </div>
+
 
                             </div><!-- /.box-header -->
                         </div>

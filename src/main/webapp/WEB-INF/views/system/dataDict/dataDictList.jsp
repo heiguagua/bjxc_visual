@@ -29,18 +29,20 @@
                                 <input id="category" type="hidden" value="${category}" name="category" />
                                 <input id="dd" type="hidden"  name="dd" />
                                 <div class="input-group">
-                                    <a class="btn btn-default btn-flat  btn-myself" id="addDict1" onclick="javascript:addDict()">
-                                        <!-- <i class="fa fa-plus-circle"></i> -->新增
+                                    <a class="btn btn-primary btn-flat btn-myself" id="addDict1" onclick="javascript:addDict()">
+                                        <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                        新增
                                     </a>
                                 </div>
                                 <div class="input-group">
                                     <a class="btn btn-default btn-flat  btn-myself  hidden" id="back" onclick="javascript:intDict()">
-                                        <!-- <i class="fa fa-plus-circle"></i> -->返回
+                                       < 返回
                                     </a>
                                 </div>
                                 <div class="input-group">
                                     <a class="btn btn-default btn-flat  btn-myself hidden" id="addDict2"  onclick="javascript:addDetailDict()">
-                                        <!-- <i class="fa fa-plus-circle"></i> -->新增
+                                        <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                       新增
                                     </a>
                                 </div>
 
@@ -48,7 +50,7 @@
                                     <input id="searchKeyId" type="text" name="search" class="form-control"
                                            placeholder="类型编码">
                                     <div class="input-group-btn">
-                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat"><i
+                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue"><i
                                                 class="fa fa-search"></i> 查询
                                         </button>
                                     </div>
@@ -57,7 +59,7 @@
                                     <input id="searchKeyId1" type="text" name="search" class="form-control"
                                            placeholder="配置项编码">
                                     <div class="input-group-btn">
-                                        <button id="queryBtnId1" type="button" class="btn btn-primary btn-flat"><i
+                                        <button id="queryBtnId1" type="button" class="btn btn-primary btn-flat btn_blue"><i
                                                 class="fa fa-search"></i> 查询
                                         </button>
                                     </div>
