@@ -83,6 +83,9 @@
 	<mvc:resources location="/WEB-INF/static/plugins/"
 				   mapping="/plugins/**" />
 
+
+<!-- 	<mvc:view-controller path="/UEditorUploadAction/upload" view-name="/ueditor/jsp/controller"/>
+ -->	
 	<!-- 定义文件上传解析器 -->
 	<bean id="multipartResolver"
 		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -116,6 +119,7 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+ 
 
 	<bean id="fastJsonConfig" class="com.alibaba.fastjson.support.config.FastJsonConfig">
 		<!-- Default charset -->
