@@ -152,4 +152,8 @@
         SELECT classify_id FROM dir_classify_dept_map WHERE dept_id = #{deptId,jdbcType=VARCHAR}
     </select>
 
+    <select id="selectByDeptFId" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT classify_id FROM dir_classify_dept_map WHERE dept_id = (SELECT fid FROM sys_dept WHERE id = #{deptId,jdbcType=VARCHAR})
+    </select>
+
 </mapper>
