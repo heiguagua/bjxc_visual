@@ -11,6 +11,7 @@ jQuery(document).ready(function () {
 function initAllSelect(){
     //$.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化信息资源分类下拉框
     //$.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联信息资源分类下拉框
+    //$.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent','belongDeptTypeCode')//初始化资源提供方下拉框;
     //信息资源格式下拉框初始化
     Dict.selects('resourceFormat',['#formatCategory']);
     //共享类型
@@ -19,6 +20,13 @@ function initAllSelect(){
     Dict.selects('dataSetShareMethod',['#shareMethod']);
     //更新周期
     Dict.selects('setItemFrequency',['#updateFrequency']);
+
+    $("#formatCategory").on("change",function(){
+        var selectedValue = $(this).children('option:selected').val();
+        if(selectedValue!=""){
+            Dict.cascadeSelects('resourceFormat', ['#formatType'], selectedValue);
+        }
+    });
 }
 
 function initInputValue(){
@@ -33,11 +41,12 @@ function initInputValue(){
                 $("#classifyName").attr("title",obj.classifyName);
                 $("#datasetName").val(obj.datasetName);
                 $("#datasetCode").val(obj.datasetCode);
-                $("#belongDeptType").val(obj.belongDeptType);
-                $("#belongDeptName").val(obj.deptName);
-                $("#belongDeptId").val(obj.belongDeptId);
+                $("#belongDeptTypeName").val(obj.regionDeptName);
+                $("#belongDeptCode").val(obj.regionDeptCode);
+                //$("#belongDeptId").val(obj.belongDeptId);
                 if(obj.ext != undefined && obj.ext !=""){
                     $("#formatCategory").val(obj.ext.formatCategory);
+                    $("#formatCategory").change();
                     $("#formatType").val(obj.ext.formatType);
                 }
                 $("input[name='secretFlag'][value="+obj.secretFlag+"]").attr("checked",true);
@@ -86,21 +95,21 @@ function getTrNum(){
 
 function buildItem(thisTrNum,data){
     var str='<tr id="tr_'+thisTrNum+'">'
-        +'<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" type="text" class="form-control"></td>'
-        +'<td><select name="items['+thisTrNum+'].itemType"  class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength"  type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control">'
+        +'<td><input readonly value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" type="text" class="form-control"></td>'
+        +'<td><select readonly name="items['+thisTrNum+'].itemType"  class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
+        +'<td><input readonly name="items['+thisTrNum+'].itemLength"  type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control">'
         +'<input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"></td>'
         //+'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
-        +'<td><select name="items['+thisTrNum+'].secretFlag" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
-        +'<td><select name="items['+thisTrNum+'].shareType" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
-        +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" value="'+(data.shareCondition?data.shareCondition:'')+'"></td>'
-        +'<td><select name="items['+thisTrNum+'].shareMethod"  class="form-control">'+Dict.selectsDom("dataSetShareMethod",data.shareMethod?data.shareMethod:'')+'</select></td>'
-        +'<td><select name="items['+thisTrNum+'].isOpen" class="form-control"><option value="1" selected>是</option><option value="0" >否</option></select></td>'
-        +'<td><input name="items['+thisTrNum+'].openCondition" type="text" class="form-control" value="'+(data.openCondition?data.openCondition:'')+'"></td>'
-        +'<td><select name="items['+thisTrNum+'].storageLocation"  class="form-control">'+Dict.selectsDom("setItemStoreLocation",data.storageLocation?data.storageLocation:'')+'</select></td>'
-        +'<td><select name="items['+thisTrNum+'].updateFrequency"  class="form-control">'+Dict.selectsDom("setItemFrequency",data.updateFrequency?data.updateFrequency:'')+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
+        +'<td><select readonly name="items['+thisTrNum+'].secretFlag" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
+        +'<td><select readonly name="items['+thisTrNum+'].shareType" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
+        +'<td><input readonly class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" value="'+(data.shareCondition?data.shareCondition:'')+'"></td>'
+        +'<td><select readonly name="items['+thisTrNum+'].shareMethod"  class="form-control">'+Dict.selectsDom("dataSetShareMethod",data.shareMethod?data.shareMethod:'')+'</select></td>'
+        +'<td><select readonly name="items['+thisTrNum+'].isOpen" class="form-control"><option value="1" selected>是</option><option value="0" >否</option></select></td>'
+        +'<td><input readonly name="items['+thisTrNum+'].openCondition" type="text" class="form-control" value="'+(data.openCondition?data.openCondition:'')+'"></td>'
+        +'<td><select readonly name="items['+thisTrNum+'].storageLocation"  class="form-control">'+Dict.selectsDom("setItemStoreLocation",data.storageLocation?data.storageLocation:'')+'</select></td>'
+        +'<td><select readonly name="items['+thisTrNum+'].updateFrequency"  class="form-control">'+Dict.selectsDom("setItemFrequency",data.updateFrequency?data.updateFrequency:'')+'</select></td>'
+        +'<td><input  readonly name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
     $('#dataitemList').prepend(str)
 }
 

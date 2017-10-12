@@ -26,17 +26,19 @@
                     <div class="box">
                         <div class="form-inline">
                             <div class="box-header">
-                                <div class="input-group">
+
+                                <div class="input-group" style="float:right;margin-right:4px;width:240px">
+                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="用户名称">
+                                    <div class="input-group-btn">
+                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i> 查询</button>
+                                    </div>
+                                </div>
+
+                                <div class="input-group" style="float:right">
                                     <select  class="form-control"  name="defaultAuth" id="defaultAuth">
                                         <option value="1">默认数据权限用户</option>
                                         <option value="0">自定义数据权限用户</option>
                                     </select>
-                                </div>
-                                <div class="input-group">
-                                    <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="用户名称">
-                                    <div class="input-group-btn">
-                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
-                                    </div>
                                 </div>
 
                             </div><!-- /.box-header -->

@@ -34,6 +34,9 @@
 	<sql id="queryConditions">
 		<where>
 			t.delete_flag = '0'
+			<if test="id != null">
+				AND t.id = #{id}
+			</if>
 			<if test="fid != null">
 				AND t.fid = #{fid}
 			</if>
@@ -87,6 +90,22 @@
 		</where>
 	</sql>
 
+	<sql id="queryConditions1">
+		<where>
+			t.delete_flag = '0'
+			<if test="withoutDept != null">
+				AND t.id != #{withoutDept}
+			</if>
+			<if test="withoutAuthDept != null and withoutAuthDept == '1'.toString() and applicant != null">
+				AND t.id NOT IN
+				(
+				SELECT da.to_dept_id FROM sys_dept_authority_apply da
+				WHERE da.applicant = #{applicant} AND da.audit_status != '2'
+				)
+			</if>
+		</where>
+	</sql>
+
 	<sql id="baseSelectVo">
 		SELECT t.*,r.region_name FROM sys_dept t LEFT JOIN sys_region r ON t.region_code = r.region_code
 	</sql>
@@ -115,7 +134,7 @@
 			SELECT t.*,r.region_name,CASE WHEN dcode IS NULL THEN '1' ELSE '0' END AS isLeaf
 			FROM sys_dept t
 			LEFT JOIN sys_region r ON t.region_code = r.region_code
-			LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM sys_dept where delete_flag = '0') b ON t.id=b.dcode
+			LEFT JOIN (SELECT DISTINCT(t.fid) AS dcode FROM sys_dept t <include refid="queryConditions1"></include>) b ON t.id=b.dcode
 		) t
 		<include refid="queryConditions"></include>
 		ORDER BY

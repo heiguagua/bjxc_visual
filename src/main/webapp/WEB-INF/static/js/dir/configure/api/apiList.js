@@ -75,8 +75,8 @@ jQuery(document).ready(function () {
 			   +	"添加 <span class='caret'></span></button>"
 			   +	"<ul id='diyBtn_space3_" +treeNode.id+ "' class='dropdown-menu' role='menu'>"
 
-				+"<li><a class='s1' id='addSibling' data-id ="+treeNode.id+" data-pcode="+treeNode.parentId+" href='#'  >添加同级</a></li>"
-				+"<li><a class='s2' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
+				+"<li><a class='"+treeNode.parentId+"' id='addSibling' data-id ="+treeNode.id+" data-pcode="+treeNode.parentId+" href='#'  >添加同级</a></li>"
+				+"<li><a class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"	
 				aObj.after(editStr3);
 				aObj.after(editStr2);
@@ -131,7 +131,7 @@ jQuery(document).ready(function () {
 			
 		});
 		//添加同级
-		$(".s1").on("click", function () {
+		$("."+treeNode.parentId+"").on("click", function () {
 			var curThis=this;
 			var parentId=$(curThis).attr('data-pcode');
 //			$('#parent_id').val(api_fcode);	
@@ -144,7 +144,7 @@ jQuery(document).ready(function () {
 							
 		});
 		//添加子级
-	    $(".s2").on("click", function () {
+	    $("."+treeNode.id+"").on("click", function () {
 	    	var curThis=this;
 			var parentId=$(curThis).attr('data-id');
 //			$('#parent_id').val(api_fcode);

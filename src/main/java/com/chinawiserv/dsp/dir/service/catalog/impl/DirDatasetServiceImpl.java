@@ -202,6 +202,8 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 if(survey.getOpenedStorage()!=null || survey.getOpenedStructureCount()!=null
                         || survey.getSharedStorage()!=null || survey.getSharedStructureCount()!=null
                         || survey.getStructureCount()!=null || survey.getTotalStorage()!=null){
+                    DirDatasetSurvey surveyObj = surveyVoList.get(0);
+                    survey.setId(surveyObj.getId());
                     surveyMapper.baseUpdate(survey);
                 }
             }else{

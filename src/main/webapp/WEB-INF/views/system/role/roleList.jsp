@@ -34,16 +34,20 @@
                             <div class="box-header">
                                 <%--<#if permissions?seq_contains('addRole')>--%>
                                 <div class="input-group">
-                                    <a class="btn btn-primary  btn-flat" onclick="javascript:addRole()" > <i class="fa fa-plus"></i> 创建角色</a>
+                                    <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:addRole()" >
+                                        <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                        创建角色</a>
                                 </div>
                                 <div class="input-group">
-                                    <a class="btn btn-danger  btn-flat"  onclick="javascript:deleteBatchRole()" ><i class="fa fa-remove"></i> 批量删除选中</a>
+                                    <a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchRole()" >
+                                        <img src="<%=basePath%>/images/userImg/delImg.png"/>
+                                        批量删除</a>
                                 </div>
                                 <%--</#if>--%>
-                                <div class="input-group">
+                                <div class="input-group  pull-right">
                                     <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="角色名称">
                                     <div class="input-group-btn">
-                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
+                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i> 查询</button>
                                         </div>
                                 </div>
 
