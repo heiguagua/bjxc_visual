@@ -105,7 +105,7 @@
         ddi.`service_name` AS serviceName,
         dd.`dataset_name` AS datasetName,
         dis.`system_name` AS systemName,
-        dis.`build_dept` AS buildDept
+        dis.`create_dept` AS buildDept
         FROM
         dir_dataset dd
         LEFT JOIN dir_dataset_source_info ddsi
@@ -148,7 +148,7 @@
         ddi.`service_name` AS serviceName,
         dd.`dataset_name` AS datasetName,
         dis.`system_name` AS systemName,
-        dis.`build_dept` AS buildDept
+        dis.`create_dept` AS buildDept
         FROM
         dir_dataset dd
         LEFT JOIN dir_dataset_source_info ddsi
