@@ -66,7 +66,7 @@ public class LoginController extends BaseController {
      */
     @RequestMapping(value = {"", "/", "/index"})
     public String login(String return_url, Model model) throws UnsupportedEncodingException {
-        String index = "/system/menu";//返回采集作业配置界面
+        String index = "/catalog/catalogue";
         model.addAttribute("return_url", StringUtils.isNotBlank(return_url) ? URLDecoder.decode(return_url, "UTF-8") : index);
         return "login";
     }
@@ -129,7 +129,7 @@ public class LoginController extends BaseController {
             return "login";
         }
 
-        return redirectTo("/system/menu");
+        return redirectTo("/catalog/catalogue");
     }
 
     /**
