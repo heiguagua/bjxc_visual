@@ -41,11 +41,11 @@
 			                            <label  class="col-sm-3 control-label" for="classifyName">是否为部门节点*</label>
 			                            <div class="col-sm-9">
 				                            <div class="redio-box">
-			                                    <input type="radio" name="depnode"  value="no"><span></span>
+			                                    <input type="radio" name="depnode"  value="no" checked><span></span>
 			                                </div>
 			                                <label style="display:inline-block">否</label>
 			                                <div class="redio-box">
-			                                    <input type="radio" name="depnode"  value="yes"  checked><span></span>
+			                                    <input type="radio" name="depnode"  value="yes"  ><span></span>
 			
 			                                </div>
 			                                <label style="display:inline-block">是</label>
@@ -54,7 +54,7 @@
 											<label><input name="depnode" type="radio" value="no" checked/>否 </label> -->
 			                            </div>
 			                        </div>
-			                        <div class="col-sm-6">
+			                        <div class="col-sm-6 hidden" id="deptGroup">
 			                            <label  class="col-sm-3 control-label" for="deptName">所属组织机构 *</label>
 			                            <div class="col-sm-9">
 			                                <input type="text" id="deptName" required="required"
