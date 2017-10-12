@@ -136,13 +136,13 @@ var Model = {
 
                     $.each(cur.datas, function(idx, itm){
                         try {
-                            if(cur.existed(itm.ID,pool)){
-                                html += '<a class="list-group-item no-border disabled" data-id="'+itm.id+'">'+itm.cloumn_name+'</a>';
+                            if(cur.existed(itm.id,pool)){
+                                html += '<a class="list-group-item no-border disabled" data-id="'+itm.id+'">'+itm.column_en_name+'</a>';
                             }else{
-                                html += '<a class="list-group-item no-border" data-id="'+itm.id+'">'+itm.cloumn_name+'</a>';
+                                html += '<a class="list-group-item no-border" data-id="'+itm.id+'">'+itm.column_en_name+'</a>';
                             }
                         } catch (e) {
-                            html += '<a class="list-group-item no-border" data-id="'+itm.id+'" >'+itm.cloumn_name+'</a>';
+                            html += '<a class="list-group-item no-border" data-id="'+itm.id+'" >'+itm.column_en_name+'</a>';
                         }
 
                     });
@@ -173,11 +173,11 @@ var Model = {
         loadGroups: function(success){
             this.cache.group.tree = tree;
             var cur = this;
-            $.get(basePathJS+'/csSystem/selectProjectList',null, function (data) {
+            $.get(basePathJS+'/system/dept/getDeptByPrivilege',null, function (data) {
                 var d=data.content;
-                if(d.list!=null){
+                if(d.result!=null){
                     $('#group_tree').treeview({
-                        data: formatOrg(d.list),
+                        data: formatOrg(d.result.childs),
                         color: "#428bca",
                         nodeIcon: 'fa fa-tag',
                         showBorder: false,
@@ -201,7 +201,7 @@ var Model = {
         loadBusiness: function(success){
             this.cache.bus.tree = tree;
             var cur = this;
-            $.get(basePathJS+'/csSystem/selectSourceByProName?project_name='+(cur.cache.group.select?cur.cache.group.select.text:""),null, function (data) {
+            $.get(basePathJS+'/DcmDb/selectDbByDeptId?dept_id='+(cur.cache.group.select?cur.cache.group.select.dir_code:""),null, function (data) {
                 var d = data.content;
                 if(d.list!=null){
                     $('#bus_tree').treeview({
@@ -244,10 +244,10 @@ var Model = {
             var cur = this;
             if(cur.cache.bus.select){
                 $.ajax({
-                    url: basePathJS+"/csSystem/selectTablesBySourceName",
+                    url: basePathJS+"/DcmDb/selectTableByDbId",
                     type: "post",
                     data: {
-                        source_name: cur.cache.bus.select.text
+                        db_id: cur.cache.bus.select.dir_code
                     },
                     dataType: "json",
                     success: function (data) {
@@ -266,7 +266,7 @@ var Model = {
             var cur = this;
             if(cur.cache.data.select){
                 $.ajax({
-                    url: basePathJS+"/csSystem/selectColumnsByTableId",
+                    url: basePathJS+"/DcmDb/selectFieldByTableId",
                     type: "post",
                     data: {
                         table_id: cur.cache.data.select.id
@@ -313,8 +313,9 @@ $(document).on("click", "#field_tree>a", function(){
 });
 $(document).on("click", "button#field_add", function(){
     var id=$("#dataset_item_container>a.active").attr('data-id');
+    var table_name=$("#dataset_item_container>a.active").text();
     $.ajax({
-        url: basePathJS+"/csSystem/selectColumnsByTableId",
+        url: basePathJS+"/DcmDb/selectFieldByTableId",
         type: "post",
         data: {
             table_id: id
@@ -326,7 +327,7 @@ $(document).on("click", "button#field_add", function(){
                 $('#dataitemList').empty();
                 for(var i in datas){
                     var thisTrNum = getTrNum();
-                    buildItem(thisTrNum,{id:datas[i].id,itemName:datas[i].cloumn_name});
+                    buildItem(thisTrNum,{id:datas[i].id,columnName:datas[i].column_en_name,table_name:table_name});
                 }
             }
         },
@@ -412,12 +413,14 @@ function buildDataset(data){
 }
 function buildItem(thisTrNum,data){
     var str='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
-        +'<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
+        +'<td><input value="'+(data.columnName?data.columnName:'')+'" data-rule="字段名:required;" type="text" class="form-control"></td>'
+        +'<td><input value="'+(data.columnRemark?data.columnRemark:'')+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.Length?data.Length:'')+'" min="1" type="text" class="form-control"></td>'
-        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_short_name?data.dept_short_name:'')+'" > </td>'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.columnLength?data.columnLength:'')+'" min="1" type="text" class="form-control"></td>'
+        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.dept_id?data.dept_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_name?data.dept_name:'')+'" > </td>'
         +'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         +'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
+        +'<td><input type="hidden" value="'+(data.table_id?data.table_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.table_name?data.table_name:'')+'" > </td>'
         +'<td><select name="items['+thisTrNum+'].secretFlag" data-rule="涉密标识:required;" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
         +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" value="'+(data.shareConditionDesc?data.shareConditionDesc:'')+'"></td>'
@@ -436,11 +439,20 @@ function formatOrg(aaData) {
     if (aaData.length == 0) return null;
     var objArr = [];
     aaData.forEach(function (v, n) {
+
         var temp_json = {};
-        temp_json.text = v;
-        temp_json.dir_code = 0;
-        temp_json.nodes=null;
+        temp_json.text = v.deptShortName;
+        temp_json.dir_code = v.id;
+        try {
+            temp_json.nodes = formatOrg(v.childs);
+        } catch (e) {
+            temp_json.nodes = formatOrg([]);
+        }
+        if (temp_json.nodes) {
+            temp_json.selectable = false;
+        }
         objArr.push(temp_json);
+
     });
     return objArr;
 }
@@ -449,8 +461,8 @@ function formatTable(aaData) {
     var objArr = [];
     aaData.forEach(function (v, n) {
         var temp_json = {};
-        temp_json.text = v;
-        temp_json.dir_code = 0;
+        temp_json.text = v.db_name;
+        temp_json.dir_code = v.id;
         temp_json.nodes=null;
         objArr.push(temp_json);
     });
