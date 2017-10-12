@@ -49,6 +49,9 @@
                                             <li>
                                                 <button type="button" style="width: 100%;" onclick="quickDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从关系型采集系统添加</button>
                                             </li>
+                                            <li>
+                                                <button type="button" style="width: 100%;" onclick="quickNosqlDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从非关系型采集系统添加</button>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="input-group">

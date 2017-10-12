@@ -16,4 +16,6 @@ public interface DcmDbMapper {
     List<Map<String,Object>>selectFieldByTableId(@Param("table_id")String table_id);
 
     List<DcmDbTableColumn> selectFieldByIds(@Param("list") String [] list );
+
+    List<Map<String,Object>> selectNosqlDbByDeptId(@Param("dept_id")String dept_id);
 }

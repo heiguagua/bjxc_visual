@@ -23,7 +23,7 @@ public class DcmDbController {
     private DcmDbMapper dcmDbMapper;
 
     /**
-     * 根据部门获取数据库
+     * 根据部门获取数据库-关系型
      *
      * @param dept_id
      * @return
@@ -41,6 +41,24 @@ public class DcmDbController {
         return handleResult;
     }
 
+    /**
+     * 根据部门获取数据库-非关系型
+     *
+     * @param dept_id
+     * @return
+     */
+    @RequestMapping("/selectNosqlDbByDeptId")
+    @ResponseBody
+    public HandleResult selectNosqlDbByDeptId(@RequestParam String dept_id) {
+        HandleResult handleResult = new HandleResult();
+        if (StringUtils.isEmpty(dept_id)) {
+            handleResult.error("参数不能为空!");
+        } else {
+            List<Map<String, Object>> maps = dcmDbMapper.selectNosqlDbByDeptId(dept_id);
+            handleResult.put("list",maps);
+        }
+        return handleResult;
+    }
     /**
      * 根据数据库获取表
      *

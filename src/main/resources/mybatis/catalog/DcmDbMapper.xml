@@ -13,6 +13,10 @@
         WHERE dpr.belong_dept_id=#{dept_id}
     </select>
 
+    <select id="selectNosqlDbByDeptId" resultType="map">
+      SELECT id,db_name FROM dcm_pool_nosql WHERE belong_dept_id = #{dept_id}
+    </select>
+
     <select id="selectTableByDbId" resultType="map">
         SELECT
             dti.id,dti.target_obj_code as table_name
@@ -25,7 +29,8 @@
     <select id="selectFieldByTableId" resultType="map">
         SELECT
             dtc.id,
-            dtc.column_name AS column_en_name
+            dtc.column_name AS column_en_name,
+            dtc.column_name
         FROM
             dcm_table_column dtc
         WHERE

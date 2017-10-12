@@ -556,6 +556,13 @@ public class DirDatasetController extends BaseController {
         return "catalog/catalogue/quickDcmAddDatasetUI";
     }
     /**
+     * 从非关系型添加数据集-快速添加页面
+     */
+    @RequestMapping("/catalogue/quickDcmNosqlAddDatasetUI")
+    public  String quickDcmNosqlAddDatasetUI(){
+        return "catalog/catalogue/quickDcmNosqlAddDatasetUI";
+    }
+    /**
      * 从资源/系统添加数据集-快速添加
      * @param entity
      * @param model
