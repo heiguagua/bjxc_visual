@@ -26,6 +26,7 @@
                     <div class="box">
                         <div class="form-inline">
                             <div class="box-header">
+                                <input id="category" type="hidden" value="${category}" name="category" />
                                 <div class="input-group">
                                     <a class="btn btn-default btn-flat  btn-myself" id="addDict1" onclick="javascript:addDict()">
                                         <!-- <i class="fa fa-plus-circle"></i> -->新增

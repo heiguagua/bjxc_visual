@@ -484,7 +484,8 @@ insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,par
 insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '2', '系统梳理添加', null, null, null, '1', null, now(), null, null, '0');
 insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '3', '资源梳理添加', null, null, null, '1', null, now(), null, null, '0');
 insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '4', '爬虫系统添加', null, null, null, '1', null, now(), null, null, '0');
-insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '5', '采集系统添加', null, null, null, '1', null, now(), null, null, '0');
+insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '5', '关系型采集添加', null, null, null, '1', null, now(), null, null, '0');
+insert into `sys_dict`(id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(REPLACE(uuid(),'-',''), '', 'dataSetSourceType', '6', '非关系型采集添加', null, null, null, '1', null, now(), null, null, '0');
 
 
   -- 行政区划相关初始化数据
