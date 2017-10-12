@@ -74,6 +74,7 @@ function initInputValue(){
                 $("#belongDeptId").val(obj.belongDeptId);
                 if(obj.ext != undefined && obj.ext !=""){
                     $("#formatCategory").val(obj.ext.formatCategory);
+                    $("#formatCategory").change();
                     $("#formatType").val(obj.ext.formatType);
                 }
                 $("input[name='secretFlag'][value="+obj.secretFlag+"]").attr("checked",true);
