@@ -25,7 +25,7 @@ function initSelectData() {
         if(authType === 'dept'){
             $.get(basePathJS + "/system/deptAuthority/selectParentDeptAuthIds?deptId=" + authObjId,function(data){
                 var authDeptIds = data.content.authDeptIds;
-                $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, {}, selects, authDeptIds, [authObjId]); //初始化组织机构下拉框
+                $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, {withoutDept: authObjId}, selects, authDeptIds); //初始化组织机构下拉框
             });
         }else if(authType === 'dir'){
             $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects);

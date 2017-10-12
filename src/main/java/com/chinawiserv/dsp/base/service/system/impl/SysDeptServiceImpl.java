@@ -98,17 +98,35 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             param.put("onlyRoot", onlyRoot);
             param.put("regionCode", regionCode);
         } else {
-            String id = (String) paramMap.get("id");
-            if (StringUtils.isNotBlank(id)) {
-                param.put("fid", id);
-            } else {
-                param.put("hasChildrenTopDept", "1");
-                String excludeTreeCodeCondition = (String) paramMap.get("excludeTreeCodeCondition");
-                Map deptConditionMap = getDeptCondition(regionCode, "1".equals(excludeTreeCodeCondition));
-                if(deptConditionMap != null && !deptConditionMap.isEmpty()){
-                    param.putAll(deptConditionMap);
-                }else{
-                    return list;
+            boolean onlyLoginUserDept = "1".equals(paramMap.get("onlyLoginUserDept"));
+            boolean showCurrDeptChildren = !onlyLoginUserDept;
+            if(onlyLoginUserDept){
+                Integer minRoleLevel = ShiroUtils.getLoginUser().getMinRoleLevel();
+                if(minRoleLevel > 0){
+                    String deptId = ShiroUtils.getLoginUserDeptId();
+                    if(StringUtils.isNotBlank(deptId)){
+                        String deptLevel = (String) paramMap.get("deptLevel");
+                        if(StringUtils.isBlank(deptLevel)){
+                            deptLevel = "0";
+                        }
+                        String topDeptId = findParentDeptId(Integer.valueOf(deptLevel) + 1, deptId);
+                        showCurrDeptChildren = StringUtils.isBlank(topDeptId);
+                        if(!showCurrDeptChildren){
+                            param.put("id", topDeptId);
+                        }
+                    }else return list;
+                }else showCurrDeptChildren = true;
+            }
+            if(showCurrDeptChildren){
+                String id = (String) paramMap.get("id");
+                if (StringUtils.isNotBlank(id)) {
+                    param.put("fid", id);
+                } else {
+                    Map deptConditionMap = getDeptCondition(regionCode, true);
+                    if (deptConditionMap != null && !deptConditionMap.isEmpty()) {
+                        param.put("hasChildrenTopDept", "1");
+                        param.putAll(deptConditionMap);
+                    } else return list;
                 }
             }
         }
@@ -143,6 +161,23 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             list.addAll(sysDeptMapper.selectVoListForTreeData(param));
         }
         return list;
+    }
+
+    private String findParentDeptId(int parentDeptLevel, String deptId){
+        String parentDeptId = deptId;
+        SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(deptId);
+        if(sysDeptVo != null){
+            int deptLevel = sysDeptVo.getDeptLevel();
+            if(deptLevel < parentDeptLevel){
+                parentDeptId = null;
+            }else if(deptLevel > parentDeptLevel){
+                String fid = sysDeptVo.getFid();
+                if(StringUtils.isNotBlank(fid)){
+                    parentDeptId = findParentDeptId(parentDeptLevel, fid);
+                }
+            }
+        }
+        return parentDeptId;
     }
 
     @Override

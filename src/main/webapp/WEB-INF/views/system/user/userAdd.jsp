@@ -35,8 +35,7 @@
                         <div class="form-group">
                             <label for="regionName" style='float:left;'>所属区域 *</label>
                             <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
-                            <input type="text" id="regionName" required="required"
-                                   data-parsley-required-message="该项为必填" class="form-control" readonly style="background-color:#fff">
+                            <input type="text" id="regionName" data-rule="所属区域:required;regionName;" class="form-control" readonly style="background-color:#fff">
                             <input type="hidden" id="regionCode" name="regionCode">
                             <div class="menu-wrap">
                                 <div id="menuRegionContent" class="menuRegionContent" style="display:none;">
@@ -48,8 +47,7 @@
                         <div class="form-group">
                             <label for="deptName" style='float:left;'>所属组织机构 *</label>
                             <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
-                            <input type="text" id="deptName" required="required"
-                                   data-parsley-required-message="该项为必填" class="form-control" readonly style="background-color:#fff">
+                            <input type="text" id="deptName" data-rule="所属组织机构:required;deptId;" class="form-control" readonly style="background-color:#fff">
                             <input type="hidden" id="deptId" name="deptId">
                             <div class="menu-wrap">
                                 <div id="menuContent" class="menuContent" style="display:none;">
