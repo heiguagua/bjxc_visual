@@ -76,6 +76,7 @@
 	</bean>
 
 	<!-- 资源映射 -->
+	<mvc:resources location="/images/" mapping="/img/**" />
 	<mvc:resources location="/WEB-INF/static/app/" mapping="/app/**" />
 	<mvc:resources location="/WEB-INF/static/js/" mapping="/js/**" />
 	<mvc:resources location="/WEB-INF/static/css/" mapping="/css/**" />
