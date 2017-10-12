@@ -130,7 +130,7 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     @Override
     public Page<SysUserVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
         Map<String, Object> param = sysDeptService.getDeptCondition(null);
-        if(!param.isEmpty()){
+        if(param != null && !param.isEmpty()){
             List<SysRole> roles = ShiroUtils.getLoginUser().getSysRoleList();
             int roleLevel = -1;
             if(roles != null){
