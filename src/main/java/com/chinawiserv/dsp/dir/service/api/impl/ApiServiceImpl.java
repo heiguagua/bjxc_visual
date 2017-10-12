@@ -189,7 +189,7 @@ public class ApiServiceImpl implements IApiService {
                         tableParamMap.put("systemId",systemId);
                         tableParamMap.put("dbId",dbId);
                         if(null != dirStructure && !dirStructure.contains(",")){
-                            tableParamMap.put("tableName",dirStructure);
+                            tableParamMap.put("tableName",serviceName);
                             DrapDbTableInfo drapDbTableInfo = apiMapper.getTableInfoBySystemIdAndDbId(tableParamMap);
                             if(null != drapDbTableInfo){
                                 String tableId = drapDbTableInfo.getId();

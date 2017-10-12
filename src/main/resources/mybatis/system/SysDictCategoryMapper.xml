@@ -9,8 +9,9 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-            <if test="categoryode != null">
-                t.category_code = #{categoryCode,jdbcType=VARCHAR}
+            1 = 1
+            <if test="searchKey != null">
+                AND t.category_code LIKE concat('%', #{searchKey,jdbcType=VARCHAR}, '%')
             </if>
         </where>
     </sql>

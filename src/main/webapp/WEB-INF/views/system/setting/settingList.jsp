@@ -30,11 +30,11 @@
                                     <a class="btn btn-primary  btn-flat" onclick="javascript:addSetting()"> <i
                                             class="fa fa-plus"></i> 创建系统配置</a>
                                 </div>--%>
-                                <div class="input-group">
+                                <div class="input-group pull-right">
                                     <input id="searchKeyId" type="text" name="search" class="form-control"
                                            placeholder="系统配置名称">
                                     <div class="input-group-btn">
-                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat"><i
+                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue"><i
                                                 class="fa fa-search"></i> 查询
                                         </button>
                                     </div>
