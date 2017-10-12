@@ -131,23 +131,29 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 //int i=0;
                 //List<DirDataitemSourceInfo> insertSourceInfos=new ArrayList<>();
                 //DirDataitemSourceInfo sourceInfo=null;
+                List<DirDataitemVo> needInsertVoList = new ArrayList<>(); //用于去除空行数据
                 for(DirDataitemVo item : dirDataitemVoList){
-                    String itemId = UUID.randomUUID().toString();
-                    item.setId(itemId);
-                    item.setDatasetId(datasetId);
-                    item.setStatus("0");
-                    item.setCreateUserId(logionUser.getId());
-                    item.setCreateTime(createTime);
-                    //数据项来源
-                    /*if(!ObjectUtils.isEmpty(sourceInfos)){
-                        sourceInfo = sourceInfos.get(i);
-                        sourceInfo.setId(itemId);
-                        sourceInfo.setItemId(itemId);
-                        insertSourceInfos.add(sourceInfo);
-                        i++;
-                    }*/
+                    String itemName = item.getItemName();//用必填项名称,来验证是否是空行数据
+                    if(!StringUtils.isEmpty(itemName)){
+                        String itemId = UUID.randomUUID().toString();
+                        item.setId(itemId);
+                        item.setDatasetId(datasetId);
+                        item.setStatus("0");
+                        item.setCreateUserId(logionUser.getId());
+                        item.setCreateTime(createTime);
+                        needInsertVoList.add(item);
+                        //数据项来源
+                        /*if(!ObjectUtils.isEmpty(sourceInfos)){
+                            sourceInfo = sourceInfos.get(i);
+                            sourceInfo.setId(itemId);
+                            sourceInfo.setItemId(itemId);
+                            insertSourceInfos.add(sourceInfo);
+                            i++;
+                        }*/
+                    }
+
                 }
-                itemResult = itemMapper.insertListItem(dirDataitemVoList);
+                itemResult = itemMapper.insertListItem(needInsertVoList);
                 /*if(insertSourceInfos!=null&&insertSourceInfos.size()>0){
                     dataitemSourceInfoMapper.insertList(insertSourceInfos);
                 }*/
@@ -299,20 +305,24 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 for(DirDataitemVo newItemVo : newItemVoList){
                     boolean hasThisItem = false;
                     String newItemId = newItemVo.getId();
-                    if(StringUtils.isEmpty(newItemId)){
-                        newItemId = UUID.randomUUID().toString();
-                        newItemVo.setId(newItemId);
-                    }
-                    for(DirDataitemVo oldItemVo : oldItemVoList){
-                        String oldItemId = oldItemVo.getId();
-                        if(newItemId.equals(oldItemId)){
-                            hasThisItem = true;
-                            needUpdateItemList.add(newItemVo);
-                            break;
+                    String newItemName = newItemVo.getItemName();
+                    //用必填项名称来验证，是否是新增后又删除了的行数据，这种数据所有值都是空
+                    if(!StringUtils.isEmpty(newItemName)){
+                        if(StringUtils.isEmpty(newItemId)){
+                            newItemId = UUID.randomUUID().toString();
+                            newItemVo.setId(newItemId);
                         }
-                    }
-                    if(!hasThisItem){
-                        needAddItemList.add(newItemVo);
+                        for(DirDataitemVo oldItemVo : oldItemVoList){
+                            String oldItemId = oldItemVo.getId();
+                            if(newItemId.equals(oldItemId)){
+                                hasThisItem = true;
+                                needUpdateItemList.add(newItemVo);
+                                break;
+                            }
+                        }
+                        if(!hasThisItem){
+                            needAddItemList.add(newItemVo);
+                        }
                     }
                 }
                 //反过来比较哪些是删除的目录类别
@@ -321,7 +331,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     String oldItemId = oldItemVo.getId();
                     for(DirDataitemVo newItemVo : newItemVoList){
                         String newItemId = newItemVo.getId();
-                        if(newItemId.equals(oldItemId)){
+                        if(!StringUtils.isEmpty(newItemId) && newItemId.equals(oldItemId)){
                             hasThisItem = true;
                             break;
                         }
@@ -361,13 +371,16 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     }
 //                    itemMapper.batchUpdate(needDeleteItemList);
                 }
-            }else{//如果表里该数据集没有任何数据项，则全部新增
+            }else{//如果表里该数据集没有任何数据项，则全部新增(排除掉为空的数据)
                 for(DirDataitemVo addItemVo : newItemVoList){
-                    addItemVo.setId(UUID.randomUUID().toString());
-                    addItemVo.setDatasetId(datasetId);
-                    addItemVo.setStatus("0");
-                    addItemVo.setCreateUserId(updateUserId);
-                    addItemVo.setCreateTime(updateTime);
+                    String itemName = addItemVo.getItemName();
+                    if(!StringUtils.isEmpty(itemName)){
+                        addItemVo.setId(UUID.randomUUID().toString());
+                        addItemVo.setDatasetId(datasetId);
+                        addItemVo.setStatus("0");
+                        addItemVo.setCreateUserId(updateUserId);
+                        addItemVo.setCreateTime(updateTime);
+                    }
                 }
                 itemMapper.insertListItem(newItemVoList);
             }

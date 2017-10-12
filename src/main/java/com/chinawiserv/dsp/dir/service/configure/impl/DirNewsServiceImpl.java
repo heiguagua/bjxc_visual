@@ -98,7 +98,7 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 //        String picContent = request.getParameter("pic_content");
         //由于ie中上传文件时是以图片的绝对路径全称作为文件名所以必需截取后面的文件名
 		String fileName = file.getOriginalFilename();
-        String picName =fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
+        String picName =((new Date()).getTime())+fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
         String picSize = String.valueOf(file.getSize());
         //根据图片名称，查询数据库，看是否已经有相同名称的图片存在服务器上了，如果有则不能进行本次图片上传
         boolean isSamePic = hasThisPic(picName);
@@ -125,6 +125,13 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
                 File dirFile = new File(dirPath);
                 if(!dirFile.exists()){
                     dirFile.mkdirs();
+                }
+                int index = 0;
+                for(int i = 0; i < picName.length(); i++){
+                    if (!Character.isDigit(picName.charAt(i))){
+                        index = i;
+                        break;
+                    }
                 }
                 String newFileName = dirPath + "/" + picName;
                 file.transferTo(new File(newFileName));//上传文件到指定目录
@@ -185,7 +192,7 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 	public String fileUpdate(DirNewsVo entity, MultipartFile file, HttpServletRequest request) throws Exception {
 		String resultStr = "";
 		String fileName = file.getOriginalFilename();
-        String picName =fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
+        String picName =((new Date()).getTime())+fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
         String picSize = String.valueOf(file.getSize());
         DirNewsVo dirNewsVo = mapper.selectVoById(entity.getId());
         if(file!= null && !StringUtils.isEmpty(fileName)){
