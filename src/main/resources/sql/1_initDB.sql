@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/10/10 17:24:19                            */
+/* Created on:     17/10/11 17:16:21                            */
 /*==============================================================*/
 
 
@@ -404,6 +404,7 @@ alter table cs_data_sync_mapping_property comment '目录同步映射数据-----
 create table dcm_pool_nosql
 (
    id                   varchar(36) not null comment 'id',
+   belong_dept_id       varchar(36) comment '所属部门ID',
    connect_name         varchar(64) comment '连接名称',
    ip_addr              varchar(36) comment 'IP地址',
    port                 varchar(36) comment '端口号',
@@ -429,6 +430,7 @@ alter table dcm_pool_nosql comment '非关系型数据库连接池表';
 create table dcm_pool_rmdb
 (
    id                   varchar(36) not null comment 'id',
+   belong_dept_id       varchar(36) comment '所属部门ID',
    connect_name         varchar(64) comment '连接名称',
    ip_addr              varchar(36) comment 'IP地址',
    port                 varchar(36) comment '端口号',

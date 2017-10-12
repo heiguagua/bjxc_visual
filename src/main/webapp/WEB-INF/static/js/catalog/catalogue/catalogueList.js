@@ -173,7 +173,7 @@ function reloadTable() {
 }
 
 function addCustom() {
-    add('新增信息资源',basePathJS + '/catalog/catalogue/add',1300,700);
+    add('新增信息资源',basePathJS + '/catalog/catalogue/add',1300,800);
 }
 
 function catalogueTableEdit(id) {
@@ -187,6 +187,7 @@ function catalogueTableShow(id){
 function quickAddDatasetUI() {
     add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI',1300,800);
 }
+
 function quickSystemAddDatasetUI() {
     add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI',1300,800);
 }

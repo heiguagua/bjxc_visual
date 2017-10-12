@@ -30,9 +30,27 @@
                                 <label for="dictName">配置项名称</label>
                                 <input type="text" id="dictName" name="dictName" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <label for="regionName">适用范围</label>
-                                <input type="text" id="regionName" name="regionName" class="form-control">
+                            <div class="form-inline">
+                                <label for="regionCode">适用范围</label>
+                                <div class="form-group" style="width: 290px">
+                                    <select id="regionCodes" class="form-control" style="width:110px;">
+                                        <option  value="0">通用</option>
+                                        <option  value="1">指定区域</option>
+                                    </select>
+                                    <div class="form-group" style="float: right">
+                                        <input type="text" id="regionName" placeholder="选择所属区域" class="form-control"
+                                               style="background-color:#fff;display: none" readonly>
+                                        <input type="hidden" id="regionCode" name="regionCode">
+                                        <div class="menu-wrap">
+                                            <div id="menuContent" class="menuContent" style="display:none;">
+                                                <ul id="treeDemo" class="ztree"
+                                                    style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                             </div>
                             <div class="form-group">
                                 <label for="orderNumber">顺序</label>

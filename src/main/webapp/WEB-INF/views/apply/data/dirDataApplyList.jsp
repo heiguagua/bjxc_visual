@@ -32,18 +32,19 @@
                     <div class="box">
                         <div class="form-inline">
                             <div class="box-header">
-                                <div class="input-group">
+                            	<div class="input-group pull-right">
+                                    <input id="searchKeyId" type="text" name="searchKey" class="form-control" placeholder="信息资源名称">
+                                    <div class="input-group-btn">
+                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i> 查询</button>
+                                    </div>
+                                </div>
+                                <div class="input-group pull-right" style="margin-right:4px;">
                                     <select class="form-control"  name="isAudited" id="isAudited">
                                         <option value="0">待审核</option>
                                         <option value="1">已审核</option>
                                     </select>
                                 </div>
-                                <div class="input-group">
-                                    <input id="searchKeyId" type="text" name="searchKey" class="form-control" placeholder="信息资源名称">
-                                    <div class="input-group-btn">
-                                        <button id="queryBtnId" type="button" class="btn btn-primary btn-flat" ><i class="fa fa-search"></i> 查询</button>
-                                    </div>
-                                </div>
+                                
 
                             </div><!-- /.box-header -->
                         </div>

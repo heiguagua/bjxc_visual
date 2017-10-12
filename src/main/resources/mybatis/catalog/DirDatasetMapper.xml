@@ -80,6 +80,26 @@
             <if test="allRegionCode!= null and allRegionCode !='' ">
                 and t.region_code in (${allRegionCode})
             </if>
+            <if test="loginUserIdForAuthority != null and loginUserIdForAuthority!='' ">
+                and t.belong_dept_id in(
+                    select id from sys_dept sd1,(
+                    select de.tree_code from sys_dept de
+                    where de.delete_flag=0 and de.id=(select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR} )
+                    ) a where sd1.delete_flag=0 and sd1.tree_code like concat(a.tree_code, '%')
+                    union
+                    select id from sys_dept sd2,(
+                    select de.tree_code from sys_dept de
+                    left join sys_dept_authority sda on de.id=sda.dept_id and auth_obj_type='2'
+                    where de.delete_flag=0 and sda.auth_obj_id=#{loginUserIdForAuthority,jdbcType=VARCHAR}
+                    ) b where sd2.delete_flag=0 and sd2.tree_code like concat(b.tree_code, '%')
+                    union
+                    select id from sys_dept sd3,(
+                    select de.tree_code from sys_dept de
+                    left join sys_dept_authority sda on de.id=sda.dept_id and auth_obj_type='1'
+                    where de.delete_flag=0 and sda.auth_obj_id=(select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR} )
+                    ) c where sd3.delete_flag=0 and sd3.tree_code like concat(c.tree_code, '%')
+                )
+            </if>
         </where>
     </sql>
 
@@ -87,7 +107,22 @@
     <sql id="classifyConditions">
         <where>
             <if test="classifyId!= null and classifyId !='' ">
-                and m.classify_id in (select id from dir_classify where tree_code like concat((select tree_code from dir_classify where id=#{classifyId, jdbcType=VARCHAR}),'%'))
+                and m.classify_id in (select id from dir_classify where delete_flag=0 and tree_code like concat((select tree_code from dir_classify where delete_flag=0 and id=#{classifyId, jdbcType=VARCHAR}),'%'))
+            </if>
+            <if test="loginUserIdForAuthority != null and loginUserIdForAuthority!='' ">
+                and m.classify_id in(
+                    select id  from dir_classify t,
+                    (select dc.tree_code from dir_classify_authority dca
+                    left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
+                    where dca.auth_obj_type ='2' and dca.auth_obj_id = #{loginUserIdForAuthority,jdbcType=VARCHAR}
+                    ) a where t.delete_flag=0 and t.tree_code like CONCAT(a.tree_code, '%')
+                    union
+                    select id  from dir_classify c,
+                    (select dc.tree_code from dir_classify_authority dca
+                    left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
+                    where dca.auth_obj_type ='1' and dca.auth_obj_id =  (select su.dept_id from sys_user su where su.delete_flag=0 and su.id = #{loginUserIdForAuthority,jdbcType=VARCHAR})
+                    )b where c.delete_flag=0 and c.tree_code like CONCAT(b.tree_code, '%')
+                )
             </if>
         </where>
     </sql>

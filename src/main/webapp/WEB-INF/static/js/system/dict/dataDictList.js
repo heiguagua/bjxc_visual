@@ -97,7 +97,8 @@ function getDictDetails(categoryCode,dd) {
     $("#addDict1").addClass("hidden")
     $("#addDict2").removeClass("hidden")
     $("#back").removeClass("hidden")
-    console.log(categoryCode,dd)
+    $("#category").val(categoryCode);
+
     $("#tableList").html('<table id="systemDataDictTableId" class="table table-hover"></table>');
     jQuery("#systemDataDictTableId").customTable({
         url: basePathJS + '/sysDict/detailsList?categoryCode=' + categoryCode,
@@ -178,7 +179,9 @@ function getDictDetails(categoryCode,dd) {
 }
 
 function addDetailDict() {
-    add('新增字典',basePathJS + '/sysDict/detailAdd');
+    var category = $("#category").val();
+    console.log(category)
+    add('新增字典',basePathJS + '/sysDict/detailAdd?category='+category);
 }
 function editDictDetails(id) {
     update('编辑字典',basePathJS + '/sysDict/detailEdit' , id );

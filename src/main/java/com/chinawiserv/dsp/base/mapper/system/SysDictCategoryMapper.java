@@ -23,11 +23,7 @@ public interface SysDictCategoryMapper extends BaseMapper<SysDictCategory> {
 
     SysDictCategoryVo selectVoById(String categoryCode);
 
-    int selectCategoryVoCount(Map<String, Object> paramMap);
-
     int baseInsert(SysDictCategory entity);
-
-    int dictInsert(SysDictCategory entity);
 
     boolean baseUpdate(SysDictCategory entity);
 

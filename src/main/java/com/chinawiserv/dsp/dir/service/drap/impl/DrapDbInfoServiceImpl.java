@@ -11,12 +11,14 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbSystemMap;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbInfoVo;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbTableColumnVo;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbTableInfoVo;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDictTableColumnVo;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDictTableInfoVo;
 import com.chinawiserv.dsp.dir.mapper.drap.DrapDbInfoMapper;
+import com.chinawiserv.dsp.dir.mapper.drap.DrapDbSystemMapMapper;
 import com.chinawiserv.dsp.dir.mapper.drap.DrapDbTableColumnMapper;
 import com.chinawiserv.dsp.dir.mapper.drap.DrapDbTableInfoMapper;
 import com.chinawiserv.dsp.dir.mapper.drap.DrapDictTableColumnMapper;
@@ -51,6 +53,8 @@ public class DrapDbInfoServiceImpl extends
 	@Autowired
 	private DrapDictTableColumnMapper dictTableColumnMapper;
 
+	@Autowired
+	private DrapDbSystemMapMapper systemMapper;
 	@Override
 	public boolean insertVO(DrapDbInfoVo vo) throws Exception {
 		// todo
@@ -90,11 +94,24 @@ public class DrapDbInfoServiceImpl extends
 	@Override
 	public void receiveDbInfo(List<DrapDbInfoVo> vos) {
 		Map<String, Object> paramMap = null;
+		List<DrapDbSystemMap> drapDbSyMapLst = null;
 		for (DrapDbInfoVo drapDbInfoVo : vos) {
 			if (null == drapDbInfoVo) {
 				continue;
 			}
+			drapDbSyMapLst = drapDbInfoVo.getDbSystemMapLst();
 			paramMap = new HashMap<String, Object>(0);
+			//新增系统
+			if (drapDbSyMapLst != null && !drapDbSyMapLst.isEmpty())
+			{
+				for (DrapDbSystemMap system:drapDbSyMapLst)
+				{
+					paramMap.put("id", system.getId());
+					systemMapper.baseDelete(paramMap);
+					systemMapper.insert(system);
+				}
+			}
+			paramMap.clear();
 			paramMap.put("id", drapDbInfoVo.getId());
 			mapper.baseDelete(paramMap);
 			mapper.insert(drapDbInfoVo);
@@ -119,11 +136,11 @@ public class DrapDbInfoServiceImpl extends
 					paramMap.put("id", dbTableInfoVo.getId());
 					dbTableInfoMapper.deleteByMap(paramMap);
 					dbTableInfoMapper.insert(dbTableInfoVo);
+					paramMap.clear();
+					paramMap.put("table_id", dbTableInfoVo.getId());
+					dbTableColumnMapper.deleteByMap(paramMap);
 					for (DrapDbTableColumnVo columnVo : dbTableInfoVo
 							.getColumnVos()) {
-						paramMap.clear();
-						paramMap.put("table_id", dbTableInfoVo.getId());
-						dbTableColumnMapper.deleteByMap(paramMap);
 						dbTableColumnMapper.insert(columnVo);
 					}
 				}

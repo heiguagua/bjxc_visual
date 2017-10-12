@@ -101,27 +101,6 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             String id = (String) paramMap.get("id");
             if (StringUtils.isNotBlank(id)) {
                 param.put("fid", id);
-                String onlyParentAuthDept = (String) paramMap.get("onlyParentAuthDept");
-                if (StringUtils.isNotBlank(onlyParentAuthDept)) {
-                    SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(onlyParentAuthDept);
-                    Integer deptLevel = sysDeptVo.getDeptLevel();
-                    if (deptLevel != null && deptLevel >= 3) {
-                        String parentDeptId = sysDeptVo.getFid();
-                        List<String> deptIds = null;
-                        if (StringUtils.isNotBlank(parentDeptId)) {
-                            Map map = new HashMap();
-                            map.put("authObjId", parentDeptId);
-                            map.put("authObjType", AuthObjTypeEnum.DEPT.getKey());
-                            List<SysDeptAuthorityVo> parentDeptAuths = sysDeptAuthorityMapper.selectVoList(map);
-                            deptIds = parentDeptAuths.stream().map(parentDeptAuth -> parentDeptAuth.getDeptId()).collect(Collectors.toList());
-                        }
-                        if (deptIds == null || deptIds.isEmpty()) {
-                            return list;
-                        } else {
-                            param.put("ids", deptIds);
-                        }
-                    }
-                }
             } else {
                 param.put("hasChildrenTopDept", "1");
                 String excludeTreeCodeCondition = (String) paramMap.get("excludeTreeCodeCondition");
