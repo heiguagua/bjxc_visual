@@ -20,6 +20,8 @@ public class DirDatasetVo extends DirDataset{
 
     private String classifyName;
 
+    private String relClassifyName;
+
     private String classifyStatus;
 
     private String deptName;
@@ -31,6 +33,9 @@ public class DirDatasetVo extends DirDataset{
     private String regionDeptCode;
 
     private String regionDeptName;
+
+    //主目录类别编码
+    private String infoResourceCode;
 
     //梳理系统数据集id
     private String drapDatasetId;
@@ -68,6 +73,14 @@ public class DirDatasetVo extends DirDataset{
         this.classifyName = classifyName;
     }
 
+    public String getRelClassifyName() {
+        return relClassifyName;
+    }
+
+    public void setRelClassifyName(String relClassifyName) {
+        this.relClassifyName = relClassifyName;
+    }
+
     public String getClassifyStatus() {
         return classifyStatus;
     }
@@ -98,6 +111,14 @@ public class DirDatasetVo extends DirDataset{
 
     public void setRegionDeptName(String regionDeptName) {
         this.regionDeptName = regionDeptName;
+    }
+
+    public String getInfoResourceCode() {
+        return infoResourceCode;
+    }
+
+    public void setInfoResourceCode(String infoResourceCode) {
+        this.infoResourceCode = infoResourceCode;
     }
 
     public DirDatasetExtFormat getExt() {

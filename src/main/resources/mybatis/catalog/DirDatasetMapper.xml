@@ -575,7 +575,7 @@
                 AND ddef.dataset_id = d.id
                 AND dict_code = ddef.format_type
             ) AS format_type,
-            dc.classify_structure_name,
+            dnc.classify_structure_name,
             total_storage,
             structure_count,
             shared_storage,
@@ -588,6 +588,7 @@
         LEFT JOIN sys_dept sd ON sd.id = d.belong_dept_id
         LEFT JOIN dir_dataset_classify_map ddcm ON d.id = ddcm.dataset_id
         LEFT JOIN dir_classify dc ON ddcm.classify_id = dc.id
+        LEFT JOIN dir_national_classify dnc ON dnc.classify_code=dc.national_code
         LEFT JOIN dir_dataset_survey dds ON dds.dataset_id = dd.dataset_id
         WHERE TRUE
         <if test="tree_codes != null">

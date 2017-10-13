@@ -19,7 +19,7 @@
                                 <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
                                 <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
                                        placeholder="">
-                                <input type="hidden" id="classifyId" name="classifyId">
+                                <input type="hidden" id="classifyId" name="classifyIds">
                                 <div class="menu-wrap">
                                     <div id="menuContent" class="menuContent" style="display:none;">
                                         <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
@@ -53,7 +53,7 @@
                         <div class="col-sm-6">
                             <label  class="col-sm-3 control-label">信息资源编码 :</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="datasetCode" name="datasetCode">
+                                <input type="text" class="form-control" id="infoResourceCode" readonly>
                             </div>
                         </div>
                     </div>

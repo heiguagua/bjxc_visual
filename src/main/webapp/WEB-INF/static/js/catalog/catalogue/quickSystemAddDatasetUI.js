@@ -383,8 +383,18 @@ $(document).on("click", "button#field_add", function(){
                     if(data.content.list){
                         var arr=data.content.list;
                         for (var i in arr){
-                           var thisTrNum = getTrNum();
-                           buildItem(thisTrNum,arr[i]);
+                            var b = true;
+                            $('#dataitemList>tr').each(function (idx, item) {
+                                var id = $(item).find('input[type="hidden"]:last').val();
+                                if (id == arr[i].id) {
+                                    b = false;
+                                    return false;
+                                }
+                            });
+                            if (b) {
+                                var thisTrNum = getTrNum();
+                                buildItem(thisTrNum, arr[i]);
+                            }
                         }
                     }
                 }else{
@@ -570,7 +580,7 @@ function buildItem(thisTrNum,data){
         +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.column_length?data.column_length:'')+'" min="1" type="text" class="form-control"></td>'
         +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.dept_id?data.dept_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_name?data.dept_name:'')+'" > </td>'
         +'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
-        +'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
+        /*+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'*/
         +'<td><input type="hidden" value="'+(data.table_id?data.table_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.table_name?data.table_name:'')+'" > </td>'
         +'<td><select name="items['+thisTrNum+'].secretFlag" data-rule="涉密标识:required;" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
@@ -627,8 +637,8 @@ $(document).on('click','#selectAllItem',function(){
     }
 });
 $(document).on('click','#deleteItems',function(){
-    $("#dataitemList").find('input[type="checkbox"]:checked').each(function(){
-        var trNum=$(this).attr('trNum');
+    $("#dataitemList").find('input[type="checkbox"]:checked').each(function(idex,item){
+        var trNum=$(item).attr('trNum');
         infoTableDel(trNum);
     })
 });
@@ -658,4 +668,11 @@ $(document).on("change","#storeMedia",function(){
     if(selectedValue!=""){
         Dict.cascadeSelects('resourceFormat', ['#format_type'], selectedValue);
     }
+});
+$(function () {
+    $('#myModal').on('hide.bs.modal', function () {
+        $('#bus_tree').empty();
+        $('#dataset_item_container').empty();
+        $('#field_tree').empty();
+    })
 });

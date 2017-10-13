@@ -910,7 +910,7 @@ function _submitFormForNews(index, layero , options){
                 },
                 error:function(){
                     layer.closeAll('loading');
-                    errorMsgTip("数据错误", parentWin);
+                    errorMsgTip("请导入正确的excel模板！", parentWin);
                 }
             });
 

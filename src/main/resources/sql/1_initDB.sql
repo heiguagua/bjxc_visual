@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/10/13 12:04:42                            */
+/* Created on:     17/10/13 17:12:32                            */
 /*==============================================================*/
 
 
@@ -1194,6 +1194,7 @@ create table dir_service_info
    request_format       varchar(36) comment '服务请求格式',
    request_info         mediumtext comment '请求信息',
    operate_date         datetime comment '操作时间',
+   operation_desc       varchar(2048) comment '服务操作说明',
    primary key (id)
 );
 

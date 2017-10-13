@@ -19,4 +19,6 @@ public interface DirDatasetSurveyMapper {
     public int baseUpdate(DirDatasetSurvey dirDatasetSurvey);
 
     DirDatasetSurvey selectDrapSurveyByDatasetId(@Param("dataset_id")String dataset_id);
+
+    void batchInsert(List<DirDatasetSurvey> dirDatasetSurveyList);
 }

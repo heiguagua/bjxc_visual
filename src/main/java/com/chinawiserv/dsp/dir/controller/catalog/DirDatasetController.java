@@ -721,7 +721,7 @@ public class DirDatasetController extends BaseController {
             }
             List<ExportDatasetExcel> list = service.selectExportLists(tree_codes, dataset_name, region_id);
             ExportExcelUtil util = new ExportExcelUtil();
-            File file =util.getExcelDemoFile("excelTemplate/完整目录模板.xlsx");
+            File file =util.getExcelDemoFile("excelTemplate/excelTemplate.xlsx");
             String sheetName="Sheet1";
             wb = util.writeNewExcel(file, sheetName,list);
 
