@@ -118,12 +118,12 @@
 		                            </div>
 		                    </div>
 	                	</div>
-	                	<div class="col-sm-6">
+	                	<%--<div class="col-sm-6">
 		                	 <label  class="col-sm-3 control-label" style="padding-left:0px">所属系统:</label>
 		                    <div class="col-sm-9">
 		                        <input type="text" class="form-control" id="system_name" placeholder="成都市公民信息管理系统">
 		                    </div>
-	                	</div>
+	                	</div>--%>
 	                </div>   
                 </div>
                 
@@ -322,8 +322,8 @@
 							<th>长度</th>
 							<th>责任部门</th>
 							<th>所属信息资源</th>
-							<th>所属系统</th>
-							<th>所属表</th>
+							<%--<th>所属系统</th>
+							<th>所属表</th>--%>
 							<th>涉密标识</th>
 							<th>共享类型</th>
 							<th>共享条件</th>
