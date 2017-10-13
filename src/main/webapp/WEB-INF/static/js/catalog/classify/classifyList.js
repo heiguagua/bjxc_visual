@@ -146,7 +146,7 @@ jQuery(document).ready(function () {
 //			var apiCatgegory=$(curThis).attr('data-category');
 //			var orderNumber=$(curThis).attr('data-orderNumber');
 //			$('#parent_id').val(api_fcode);	
-			updateApi('编辑目录--同级',basePathJS + '/dirClassify/edit' , id);
+			updateApi('编辑目录--同级',basePathJS + '/dirClassify/edit' , id,1300,800);
 //			$('#api_name').val(apiName);
 //			$('#api_category').val(apiCatgegory);
 //			$('#api_url').val(apiUrl);

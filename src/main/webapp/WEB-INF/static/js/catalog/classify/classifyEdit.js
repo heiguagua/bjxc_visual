@@ -55,6 +55,10 @@ function initFormerDate(classifyId) {
                     $("#Eorder_number").val(vo.orderNumber);
                     $("#deptId").val(vo.deptId);
                     $("#Eicon").append(Dict.selectsDom("classify_icon",vo.iconName?vo.iconName:''));
+                    $("#Eclassify_type").append('<option value="'+vo.classifyType+'" >"'+vo.classifyType+'"</option>');
+                    $("#Enational_code").val(vo.natinalCode);
+                    
+                    
                     $("#Eclassify_desc").val(vo.classifyDesc);   
                     $("#EclassifyCode").val(vo.classifyCode);
                 }

@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
+import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
@@ -49,6 +52,9 @@ public class DirClassifyController extends BaseController {
 	
 	@Autowired
 	private DirDeptMapMapper mapper2;
+	
+	@Autowired
+	private ISysRegionService sysRegionService;
 	
 //	@RequiresPermissions("XXX:XXX:list")
 	@RequestMapping("")
@@ -219,6 +225,9 @@ public class DirClassifyController extends BaseController {
 			if (StringUtils.isEmpty(fid)) {
 				paramMap.put("fid", "root");
 			}
+//			String regionCode = ShiroUtils.getLoginUser().getRegionCode();
+//			List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
+//			paramMap.put("regionCodes", SysRegionVoList);
 			List<DirClassifyVo> dirClassifyVoList = service.selectVoList(paramMap);
 			handleResult.put("vo", dirClassifyVoList);
 		} catch (Exception e) {

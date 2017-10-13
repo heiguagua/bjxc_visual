@@ -93,6 +93,47 @@
 			                        </div>
 			                    </div>
 			                </div>
+			                
+			                
+			                <div class="form-group">
+			                    <div class="row">
+			                        <div class="col-sm-6" >
+			                            <label  class="col-sm-3 control-label"  for="icon">目录类别*</label>
+			                            <div class="col-sm-9">
+			                                <select id="classify_type" name="classifyType" class="form-control select2" style="width: 100%;" data-rule="选择类别:required">             
+	                                		  <option value =""></option>
+	                                		  <option value ="1">行政区域数据</option>
+	                                		  <option value ="2">分类（基础库、主题库、部门库 ）</option>
+											  <option value ="3">分类（各级部门）</option>
+											  <option value="4">分类（各级子行政区域）</option>
+											  <option value="5">基础库数据</option> 
+											  <option value="6">主题库数据</option> 
+											  <option value="7">部门库数据</option> 
+                                			</select>
+			                            </div>
+			                        </div>
+			                        <div class="col-sm-6">
+			                            <label  class="col-sm-3 control-label" for="orderNumber">国家库*</label>
+			                            <div class="col-sm-9">
+			                            	<input type="text" id="national_code" name="nationalCode" class="form-control"
+                                       		placeholder="" data-rule="排序号:required;nationalCode;">
+			                            	
+											<!-- <input type="text" id="appCategory" data-rule="应用分类:required;" class="form-control"
+					                         placeholder="">
+					                        <input type="hidden" id="dictCode" name="appCategory">
+					                        <div class="menu-wrap">
+					                            <div id="menuContent" class="menuContent" style="display:none;">
+					                                <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+					                            </div>
+					                        </div>	 -->		                            
+				                        </div>
+			                        </div>
+			                        
+			                        
+			                    </div>
+			                </div>
+			                
+			                
                         	<div class="form-group">
 			                    <div class="row">
 			                        <div class="col-sm-12">
