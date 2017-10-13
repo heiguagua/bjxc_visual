@@ -52,18 +52,26 @@ public class DirDataSyncApiController {
                 result.setMsg("参数不合法!");
             } else {
                 try {
-                    csDataSyncService.syncData(type, data);
-                    result.setState(true);
-                    result.setMsg("数据同步成功!");
+                    int resultFlag = csDataSyncService.syncData(type, data);
+                    if (resultFlag == 1) {
+                        result.setState(true);
+                        result.setMsg("数据同步成功!");
+                    } else if (resultFlag == 0) {
+                        result.setState(false);
+                        result.setMsg("数据序列化出错!");
+                    } else if (resultFlag == -1) {
+                        result.setState(false);
+                        result.setMsg("数据不存在!");
+                    }
                 } catch (Exception e) {
                     logger.warn(e.getMessage());
                     result.setState(false);
-                    result.setMsg("系统错误!");
+                    result.setMsg("数据同步失败," + e.getMessage());
                 }
             }
         } else {
             result.setState(false);
-            result.setMsg("参数不能为空!");
+            result.setMsg("参数非法!");
         }
         return result;
     }
