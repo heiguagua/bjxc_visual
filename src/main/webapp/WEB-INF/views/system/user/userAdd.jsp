@@ -61,7 +61,7 @@
                             <select id="roleIds" name="roleIds" class="form-control" data-rule="角色:required;roleIds;"></select>
                         </div>
                         <div class="form-group">
-                            <label for="realName">真实姓名</label>
+                            <label for="realName">真实姓名 *</label>
                             <input type="text" id="realName" name="realName" class="form-control"
                                    placeholder="请输入真实姓名" data-rule="真实姓名:required;realName;">
                         </div>

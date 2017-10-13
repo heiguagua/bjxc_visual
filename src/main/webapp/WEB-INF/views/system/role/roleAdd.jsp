@@ -31,13 +31,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="roleLevel">角色级别 <i style="color: red">*必选</i></label>
-                                <select  id="roleLevel" name="roleLevel" class="form-control">
-                                    <option value="">请选择角色级别</option>
+                                <select  id="roleLevel" name="roleLevel" class="form-control" style="width: 80px;">
+                                    <%--<option value="">请选择角色级别</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option value="5">5</option>--%>
                                 </select>
                             </div>
                             <div class="form-group">
