@@ -51,6 +51,7 @@
 				/api/**=anon
 				/drap/**=anon
 				/img/**=anon
+				/catalog/catalogue/=anon
 				<!--/WEB-INF/views/login.jsp=anon-->
 	        	<!--/sys/login=anon-->
 	        	<!--/captcha.jpg=anon-->
