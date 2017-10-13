@@ -20,6 +20,8 @@ public class DirDatasetVo extends DirDataset{
 
     private String classifyName;
 
+    private String relClassifyName;
+
     private String classifyStatus;
 
     private String deptName;
@@ -66,6 +68,14 @@ public class DirDatasetVo extends DirDataset{
 
     public void setClassifyName(String classifyName) {
         this.classifyName = classifyName;
+    }
+
+    public String getRelClassifyName() {
+        return relClassifyName;
+    }
+
+    public void setRelClassifyName(String relClassifyName) {
+        this.relClassifyName = relClassifyName;
     }
 
     public String getClassifyStatus() {
