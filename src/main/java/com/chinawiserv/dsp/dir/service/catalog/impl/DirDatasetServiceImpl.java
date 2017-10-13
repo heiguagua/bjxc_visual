@@ -517,9 +517,11 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 int relFlag = classifyMapVo.getRelFlag();
                 String classifyId = classifyMapVo.getClassifyId();
                 String classifyStructureName = classifyMapVoList.get(i).getClassifyStructureName();
+                String infoResourceCode = classifyMapVo.getInfoResourceCode();
                 if(relFlag == 0){
                     dirDatasetVo.setClassifyIds(classifyId);
                     dirDatasetVo.setClassifyName(classifyStructureName);
+                    dirDatasetVo.setInfoResourceCode(infoResourceCode);
                 }else{
                     relClassifyName += classifyStructureName+",";
                 }
