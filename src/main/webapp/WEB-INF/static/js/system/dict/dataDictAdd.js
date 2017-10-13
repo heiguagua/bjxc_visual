@@ -4,6 +4,11 @@
 
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
+    var  val = $("#categoryCode").val();
+    if(!val){
+        layer.msg("请输入类型编码");
+        return false;
+    }
     return true ;
 }
 

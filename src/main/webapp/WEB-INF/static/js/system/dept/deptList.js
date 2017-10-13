@@ -79,7 +79,7 @@ jQuery(document).ready(function () {
             align: 'center',
             valign: 'middle',
             sortable: false ,
-            width: '18%',
+            width: '20%',
             formatter : function (value) {
                 var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:allotDept(\"" + value + "\")'><i class='fa fa-chain'></i>创建下级</a>";
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editDept(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";

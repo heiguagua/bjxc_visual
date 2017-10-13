@@ -21,7 +21,7 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                <small>门户数据管理 > 用户注册申请</small>
+                <small>门户数据管理 > 用户注册管理</small>
             </h1>
         </section>
         <!-- Main content -->
