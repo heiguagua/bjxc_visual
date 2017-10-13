@@ -58,14 +58,11 @@ function initFormerDate(userId) {
 
                     var status = user.status;
                     if (status == 1) {
-                        $("#status1").attr("checked", "checked");
-                        $("#status2").attr("checked", false);
+                        $("#status1").click();
                     }
-                    if (status == -1) {
-                        $("#status1").attr("checked", false);
-                        $("#status2").attr("checked", "checked");
+                    if (status == 0) {
+                        $("#status0").click();
                     }
-
                 }
             }
         }
