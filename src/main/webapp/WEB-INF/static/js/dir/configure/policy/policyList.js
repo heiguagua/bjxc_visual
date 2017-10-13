@@ -15,6 +15,24 @@ jQuery(document).ready(function () {
             align: 'center',
             valign: 'middle',
             sortable: false
+        },
+        {
+            field: 'policyLevel',
+            title: '政策级别',
+            align: 'center',
+            valign: 'middle',
+            sortable: false,
+            formatter : function (value) {            	
+            	if(value =='G') {
+            		return '国家级';
+            	}else if(value == 'S'){            		
+            		return '省级';
+            	}else if(value == 'C'){
+            		return '市级';
+            	}else{
+            		return '';
+            	}                
+            }            
         }, {
             field: 'userName',
             title: '创建人',
