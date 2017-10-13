@@ -2,15 +2,18 @@
  * Created by lenovo on 2017/5/9.
  */
 $(document).ready(function(){
-    $("#roleLevel").select2({
-        data: [
-            {id: "1", text: "1"},
-            {id: "2", text: "2"},
-            {id: "3", text: "3"},
-            {id: "4", text: "4"},
-            {id: "5", text: "5"}
-        ]
-    })
+    $.commonAjax({
+        url: basePathJS + "/system/role/getRoleLevelList",
+        success: function (result) {
+            if (result.state) {
+                var selectData = result.content.selectData;
+                $("#roleLevel").select2({
+                    data: selectData
+                });
+            }
+        }
+    });
+
 });
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");

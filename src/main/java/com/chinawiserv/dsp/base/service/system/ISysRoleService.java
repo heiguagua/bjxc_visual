@@ -30,6 +30,8 @@ public interface ISysRoleService extends ICommonService<SysRole, SysRoleVo> {
 
     List<JSONObject> getRoleNameList(String userId) throws Exception;
 
+    List<JSONObject> getRoleLevelList(String userId) throws Exception;
+
     boolean deleteRoleById(String id) throws Exception;
 
     boolean deleteBatchRoleByIds(List<String> ids) throws Exception;

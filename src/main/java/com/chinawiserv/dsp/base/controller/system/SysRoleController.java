@@ -304,5 +304,18 @@ public class SysRoleController extends BaseController {
         return handleResult;
     }
 
+    @RequestMapping("/getRoleLevelList")
+    @ResponseBody
+    public HandleResult getRoleLevelList(String userId) {
+        HandleResult handleResult = new HandleResult();
+        try {
+            List<JSONObject> result = sysRoleService.getRoleLevelList(userId);
+            handleResult.put("selectData", result);
+        } catch (Exception e) {
+            handleResult.error("获取角色级别失败");
+            logger.error("获取角色级别失败", e);
+        }
+        return handleResult;
+    }
 
 }
