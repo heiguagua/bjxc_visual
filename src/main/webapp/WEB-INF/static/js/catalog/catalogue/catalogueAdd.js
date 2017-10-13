@@ -110,6 +110,15 @@ function initButtonClickEvent(){
         $("input[name='items["+thisTrNum+"].openCondition']").val($("#openCondition").val());
     });
 
+    //点击信息项表格的全选框
+    $(document).on('click','#selectAllItem',function(){
+        if(this.checked){
+            $("#dataitemList :checkbox").prop("checked", true);
+        }else{
+            $("#dataitemList :checkbox").prop("checked", false);
+        }
+    });
+
     //点击信息项的删除按钮
     $(document).on('click','#deleteItems',function(){
         $("#dataitemList").find('input[type="checkbox"]:checked').each(function(){
