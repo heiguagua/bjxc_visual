@@ -73,7 +73,7 @@ function initTable(){
                 if(value == "1"){
                     result = "<font > 同意</font>"
                 } else if (value == "2"){
-                    result = "<font > 同意</font>"
+                    result = "<font > 拒绝</font>"
                 }
                 return result;
             }
@@ -86,13 +86,25 @@ function initTable(){
             sortable: false,
             formatter : function (value, row, index) {
                 var id = '<input type="hidden" name="dirDataItemApplyList['+index+'].id" value="' + value + '">'
-                var status = '<select class="form-control dirDataItemApplyList" name="dirDataItemApplyList['+index+'].status"><option value="1">同意</option><option value="2">拒绝</option></select>';
+                var status = '<select class="form-control dirDataItemApplyList" name="dirDataItemApplyList['+index+'].status" onchange="controlStatus()"><option value="1">同意</option><option value="2">拒绝</option></select>';
                 return id + status;
             }
         }
         ]
     });
 }
+
+function controlStatus(){
+    var noneAggree = true;
+    $(".dirDataItemApplyList").each(function(){
+        noneAggree &= ("2" == $(this).val());
+    });
+    if(noneAggree){
+        $("select[name='status']").val("2");
+        $("select[name='status']").change();
+    }
+}
+
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
     return true ;

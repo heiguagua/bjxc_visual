@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="operateTimeRange">operateTimeRange</label>
-                                            <input id="operateTimeRange" type="text" name="operateTimeRange" class="form-control date" readonly placeholder="操作开始日期 ~ 操作结束日期" style="width: 320px;">
+                                            <input id="operateTimeRange" type="text" name="operateTimeRange" class="form-control date" readonly placeholder="操作开始日期 ~ 操作结束日期" style="width: 320px;background-color: #fff">
                                         </div>
                                         <div class="form-group">
                                             <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i> 查询</button>

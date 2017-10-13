@@ -49,6 +49,7 @@
 	        	/images/**=anon
 	        	/plugins/**=anon
 				/api/**=anon
+				/dcm/**=anon
 				/drap/**=anon
 				/img/**=anon
 				/catalog/catalogue/=anon

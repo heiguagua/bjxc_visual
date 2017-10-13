@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/10/11 17:16:21                            */
+/* Created on:     17/10/13 17:12:32                            */
 /*==============================================================*/
 
 
@@ -95,6 +95,8 @@ drop table if exists dir_dataset_source_relation;
 drop table if exists dir_dataset_survey;
 
 drop table if exists dir_develop_apis;
+
+drop table if exists dir_national_classify;
 
 drop table if exists dir_news;
 
@@ -201,8 +203,6 @@ drop table if exists sys_log;
 drop table if exists sys_menu;
 
 drop table if exists sys_region;
-
-drop table if exists sys_region_dept;
 
 drop table if exists sys_region_level;
 
@@ -513,6 +513,7 @@ create table dir_classify
 (
    id                   varchar(36) not null comment 'id',
    region_code          varchar(6) comment '所属行政区划',
+   classify_type        varchar(36) comment '分类类型',
    classify_code        varchar(64) comment '【国】分类编号',
    classify_name        varchar(128) comment '【国】分类名称',
    classify_desc        varchar(1000) comment '分类描述',
@@ -523,7 +524,7 @@ create table dir_classify
    dcm_index            int default 0 comment '信息资源索引',
    order_number         int(4) comment '显示顺序',
    icon                 varchar(256) comment '图标',
-   classify_structure_code varchar(1024) comment '分类结构编号',
+   classify_structure_code varchar(1024) comment '分类结构编号（未用）',
    classify_structure_name varchar(1024) comment '分类结构名称',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
@@ -532,6 +533,7 @@ create table dir_classify
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    tree_code            varchar(1024) comment '树编码',
+   national_code        varchar(64) comment '对应国家库分类编码',
    primary key (id)
 );
 
@@ -843,11 +845,13 @@ create table dir_dataset
 (
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
+   charge_dept_id       varchar(36) comment '牵头部门',
    dataset_code         varchar(64) comment '数据集编码',
    dataset_name         varchar(128) comment '【国】信息资源名称',
    alias                varchar(128) comment '别名',
    belong_dept_type     varchar(36) comment '【国】信息资源提供方类型',
    belong_dept_id       varchar(36) comment '【国】信息资源提供方ID',
+   belong_dept_no       varchar(128) comment '【国】信息资源提供方代码',
    dataset_desc         varchar(1000) comment '【国】信息资源摘要',
    share_type           varchar(36) comment '【国】信息资源共享类型',
    share_condition      varchar(500) comment '【国】信息资源共享条件',
@@ -885,6 +889,7 @@ create table dir_dataset_classify_map
    classify_id          varchar(36) comment '目录类别ID',
    info_resource_code   varchar(64) comment '【国】信息资源代码',
    status               varchar(36) comment '状态',
+   rel_flag             int(3) comment '是否关联设置',
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
@@ -1073,6 +1078,25 @@ create table dir_develop_apis
 alter table dir_develop_apis comment '开发者工具';
 
 /*==============================================================*/
+/* Table: dir_national_classify                                 */
+/*==============================================================*/
+create table dir_national_classify
+(
+   id                   varchar(36) not null comment 'id',
+   classify_code        varchar(64) comment '【国】分类编号',
+   classify_name        varchar(128) comment '【国】分类名称',
+   classify_desc        varchar(1000) comment '分类描述',
+   fcode                varchar(64) comment '上级分类ID',
+   classify_level       int comment '级别',
+   order_number         int(4) comment '显示顺序',
+   classify_structure_code varchar(1024) comment '分类结构编号',
+   classify_structure_name varchar(1024) comment '分类结构名称',
+   primary key (id)
+);
+
+alter table dir_national_classify comment '国家库目录分类表';
+
+/*==============================================================*/
 /* Table: dir_news                                              */
 /*==============================================================*/
 create table dir_news
@@ -1170,6 +1194,7 @@ create table dir_service_info
    request_format       varchar(36) comment '服务请求格式',
    request_info         mediumtext comment '请求信息',
    operate_date         datetime comment '操作时间',
+   operation_desc       varchar(2048) comment '服务操作说明',
    primary key (id)
 );
 
@@ -2300,26 +2325,6 @@ create table sys_region
 alter table sys_region comment '行政区域表';
 
 /*==============================================================*/
-/* Table: sys_region_dept                                       */
-/*==============================================================*/
-create table sys_region_dept
-(
-   id                   varchar(36) not null comment '主键ID',
-   region_dept_code     varchar(36) not null comment '行政部门编号',
-   region_dept_name     varchar(64) comment '行政部门名称',
-   fcode                varchar(36) comment '上级行政部门编号',
-   fname                varchar(64) comment '上级行政部门名称',
-   region_dept_level    int(6) comment '行政部门级别',
-   structure_code       varchar(1000) comment '显示树编码',
-   structure_name       varchar(4000) comment '显示树名称',
-   status               varchar(36) default '1' comment '状态',
-   order_number         int(4) comment '排序',
-   primary key (id)
-);
-
-alter table sys_region_dept comment '行政部门表';
-
-/*==============================================================*/
 /* Table: sys_region_level                                      */
 /*==============================================================*/
 create table sys_region_level
@@ -2471,3 +2476,18 @@ DEFAULT CHARSET = utf8;
 
 alter table sys_user_role comment '用户角色表';
 
+
+
+
+drop view if EXISTS v_sys_region_dept;
+create view v_sys_region_dept as
+select id,region_code,'1' as category,region_code as region_dept_code,region_name as region_dept_name,fcode from sys_region
+-- union
+-- select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name,region_code as fcode from sys_dept where fid='root'
+union
+select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name ,region_code as fcode
+	from sys_dept t where fid in (select id from sys_dept where fid = 'root')
+union
+select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name ,
+	(select a.dept_code from sys_dept a where a.id = t.fid) as fcode
+	from sys_dept t where fid <> 'root' and fid not in (select id from sys_dept where fid = 'root');

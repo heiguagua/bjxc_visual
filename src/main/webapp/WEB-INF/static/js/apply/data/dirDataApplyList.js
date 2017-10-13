@@ -29,12 +29,14 @@ jQuery(document).ready(function () {
             title: '所属目录分类',
             align: 'center',
             valign: 'middle',
+            width: '160',
             sortable: false
         }, {
             field: 'datasetName',
             title: '所属信息资源',
             align: 'center',
             valign: 'middle',
+            width: '120',
             sortable: false
         }, {
             field: 'limitVisitCnt',
@@ -56,6 +58,7 @@ jQuery(document).ready(function () {
             align: 'center',
             valign: 'middle',
             sortable: false,
+            width: '120',
             formatter: function (value, row) {
                 return value + '[' + row.userName + ']';
             }
@@ -64,6 +67,7 @@ jQuery(document).ready(function () {
             title: '申请人所属组织',
             align: 'center',
             valign: 'middle',
+            width: '120',
             sortable: false
         }, {
             field: 'applyDate',
@@ -84,7 +88,7 @@ jQuery(document).ready(function () {
                 if (value == "1") {
                     result = "<font > 同意</font>"
                 } else if (value == "2") {
-                    result = "<font > 同意</font>"
+                    result = "<font > 拒绝</font>"
                 }
                 return result;
             }

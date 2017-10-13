@@ -5,5 +5,5 @@ package com.chinawiserv.dsp.dir.service.cs;
  */
 public interface ICsDataSyncService {
 
-    void syncData(String type, String jsonObj) throws Exception;
+    int syncData(String type, String jsonObj) throws Exception;
 }

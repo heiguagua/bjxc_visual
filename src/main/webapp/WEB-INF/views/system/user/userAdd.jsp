@@ -15,7 +15,7 @@
                     padding-left: 0;
                 }
                 .box-bodyx label{
-                    width: 120px;
+                    width: 140px;
                     float: left;
                 }
                 .box-bodyx .form-group>.form-group{
@@ -29,7 +29,7 @@
                           method="post" action="<%=basePath%>/system/user/doAdd">
                         <div class="box-body box-bodyx">
                         <div class="form-group">
-                            <label for="userName">用户名</label>
+                            <label for="userName">用户名 <i style="color: red">*必选</i></label>
                             <div class="form-group">
                             <input type="text" id="userName" name="userName" class="form-control"
                                    placeholder="请输入用户名" autocomplete="false"
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password">密码</label>
+                            <label for="password">密码 <i style="color: red">*必选</i></label>
                             <div class="form-group">
                             <input type="text" style="display: none">
                             <input type="password" id="password" name="password" class="form-control" autocomplete="false"
@@ -45,17 +45,16 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password2">确认密码</label>
+                            <label for="password2">确认密码 <i style="color: red">*必选</i></label>
                             <div class="form-group">
                             <input type="password" id="password2" name="password2" class="form-control"
                                    placeholder="请再次输入密码" data-rule="确认密码:required;password; match(password)">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="regionName" style='float:left;'>所属区域 *</label>
+                            <label for="regionName" style='float:left;'>所属区域 <i style="color: red">*必选</i></label>
                             <div class="form-group">
-                            <input type="text" id="regionName" required="required"
-                                   data-parsley-required-message="该项为必填" class="form-control" readonly style="background-color:#fff">
+                            <input type="text" id="regionName" data-rule="所属区域:required;regionCode;" class="form-control" readonly style="background-color:#fff">
                             <input type="hidden" id="regionCode" name="regionCode">
                             <div class="menu-wrap">
                                 <div id="menuRegionContent" class="menuRegionContent" style="display:none;">
@@ -66,10 +65,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="deptName" style='float:left;'>所属组织机构 *</label>
+                            <label for="deptName" style='float:left;'>所属组织机构 <i style="color: red">*必选</i></label>
                             <div class="form-group">
-                            <input type="text" id="deptName" required="required"
-                                   data-parsley-required-message="该项为必填" class="form-control" readonly style="background-color:#fff">
+                            <input type="text" id="deptName" data-rule="所属组织机构:required;deptId;" class="form-control" readonly style="background-color:#fff">
                             <input type="hidden" id="deptId" name="deptId">
                             <div class="menu-wrap">
                                 <div id="menuContent" class="menuContent" style="display:none;">
@@ -80,20 +78,20 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="roleIds">添加角色</label>
+                            <label for="roleIds">添加角色 <i style="color: red">*必选</i></label>
                             <div class="form-group">
-                            <select id="roleIds" name="roleIds" class="form-control"></select>
+                                <select id="roleIds" name="roleIds" class="form-control" data-rule="角色:required;roleIds;"></select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="realName">真实姓名</label>
+                            <label for="realName">真实姓名 <i style="color: red">*必选</i></label>
                             <div class="form-group">
                             <input type="text" id="realName" name="realName" class="form-control"
                                    placeholder="请输入真实姓名" data-rule="真实姓名:required;realName;">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="userType">用户类型</label>
+                            <label for="userType">用户类型 <i style="color: red">*必选</i></label>
                             <div class="form-group">
                             <select id="userType" name="userType" class="form-control select2"
                                     style="width: 100%;"></select>
@@ -129,14 +127,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label>状态</label>
+                            <label>状态 <i style="color: red">*必选</i></label>
                             <div class="form-group">
                                 <span class="radio-inline" style="padding: 4px 0 0 16px;">
-                                    <input name="status" type="radio" id="inlineRadio2" class="minimal" checked
+                                    <input name="status" type="radio" id="inlineRadio1" class="minimal" checked
                                            value="1"> 启用
                                 </span>
                                 <span class="radio-inline pdl0">
-                                    <input name="status" type="radio" id="inlineRadio3" class="minimal" value="-1"> 禁用
+                                    <input name="status" type="radio" id="inlineRadio0" class="minimal" value="0"> 禁用
                                 </span>
                             </div>
                         </div>

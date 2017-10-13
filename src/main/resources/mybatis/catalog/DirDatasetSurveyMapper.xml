@@ -36,6 +36,15 @@
         values(#{id},#{datasetId},#{totalStorage},#{structureCount},#{sharedStorage},#{sharedStructureCount},#{openedStorage},#{openedStructureCount})
     </insert>
 
+    <insert id="batchInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
+        insert into dir_dataset_survey(id,dataset_id,total_storage,structure_count,shared_storage,shared_structure_count,
+        opened_storage,opened_structure_count) values
+        <foreach collection="list" item="item" separator=",">
+          (#{item.id},#{item.datasetId},#{item.totalStorage},#{item.structureCount},#{item.sharedStorage},#{item.sharedStructureCount},
+            #{item.openedStorage},#{item.openedStructureCount})
+        </foreach>
+    </insert>
+
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
         update dir_dataset_survey
         <set>

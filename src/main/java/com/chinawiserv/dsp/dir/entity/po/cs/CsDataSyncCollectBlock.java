@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 @TableName("cs_data_sync_collect_block")
 public class CsDataSyncCollectBlock implements Serializable {
+    @TableField(exist = false)
     private static final long serialVersionUID = -5903971487923399923L;
     private String id;
     @TableField("block_name")

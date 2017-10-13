@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @TableName("cs_data_sync_collect_column")
 public class CsDataSyncCollectColumn implements Serializable {
+    @TableField(exist = false)
     private static final long serialVersionUID = 2744778232141825485L;
     private String id;
     @TableField("cloumn_name")
