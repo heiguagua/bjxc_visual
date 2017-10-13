@@ -162,7 +162,10 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		final List<DirDataset> dirDatasetList = new ArrayList<>();
 		final List<DirDatasetSourceInfo> dirDatasetSourceInfoList = new ArrayList<>();
 		for (DrapDatasetVo drapDatasetVo :drapDatasetList){
-			final String classifyId = dirClassifyDeptMapMapper.selectByDeptId(drapDatasetVo.getBelongDeptId());
+			String classifyId = dirClassifyDeptMapMapper.selectByDeptId(drapDatasetVo.getBelongDeptId());
+			if(classifyId == null || "".equals(classifyId)){
+				classifyId = dirClassifyDeptMapMapper.selectByDeptFId(drapDatasetVo.getBelongDeptId());
+			}
 			if(classifyId != null && !"".equals(classifyId)) {
 				final DirClassify dirClassify = dirClassifyMapper.selectFclassify(classifyId);
 				DirDatasetClassifyMap dirDatasetClassifyMap = new DirDatasetClassifyMap();

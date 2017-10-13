@@ -102,7 +102,7 @@
         <li>
          <!-- Menu Toggle Button -->
           <a class="citytitle">
-			<span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span">成都</span>&emsp;<img class="changeAdress" src="<%=basePath%>/images/userImg/changeAdress.png" /></span>
+			<span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span"></span>&emsp;<img class="changeAdress" src="<%=basePath%>/images/userImg/changeAdress.png" /></span>
 			<ul class="innerul" id="box1">
 			</ul>
 		  </a>
@@ -126,27 +126,3 @@
     </div>
   </nav>
 </header>
-
-
-<script type="text/javascript">
-
-$(".citytitle .defaultcity img.changeAdress").click(function(){
-//	$(".citytitle .innerul").stop().toggle(500);
-    $(".citytitle .innerul").toggle(500);
-})
-$(".citytitle .innerul").delegate("li",'click',function(event){
-    $(".citytitle .defaultcity span.Defaultcity_span").text($(this).text())
-    event.stopPropagation();
-    $(".citytitle .innerul").stop().slideUp();
-    var selectedRegionObj = {name:$(this).text() , code : $(this).attr("region_code")};
-    var selectedRegionObj_str = JSON.stringify(selectedRegionObj);
-    window.localStorage.setItem("regionObj", selectedRegionObj_str);
-    if($(tableSelector)){
-        setParams();
-        reloadTable();
-//        $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
-//        $(tableSelector).data("bootstrap.table").refresh();
-    }
-})
-
-</script>
