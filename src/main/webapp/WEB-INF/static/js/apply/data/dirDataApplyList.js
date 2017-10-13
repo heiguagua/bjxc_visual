@@ -84,7 +84,7 @@ jQuery(document).ready(function () {
                 if (value == "1") {
                     result = "<font > 同意</font>"
                 } else if (value == "2") {
-                    result = "<font > 同意</font>"
+                    result = "<font > 拒绝</font>"
                 }
                 return result;
             }
