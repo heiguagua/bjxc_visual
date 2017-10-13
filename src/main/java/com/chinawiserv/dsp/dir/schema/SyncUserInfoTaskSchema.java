@@ -31,13 +31,14 @@ public class SyncUserInfoTaskSchema {
     private SyncToLoacalService syncToLoacalService;
 
     private Props props = Props.of("conf/schedule.properties");
-    @Scheduled(cron = "0 0/5 * * * ?")  //每5分钟执行一次
+    @Scheduled(cron = "0 0/1 * * * ?")  //每5分钟执行一次
     public void syncUserFromShenma(){
         String sw = props.get("synchronize.switch");
         String viewUserTableName = props.get("synchronize.db.view.user");
         String viewDeptTableName = props.get("synchronize.db.view.department");
         List<SysUser> users = Lists.newArrayList();//用户的List
         List<SysDept> depts = Lists.newArrayList();//部门的List
+        boolean flag = false;
         if("on".equals(sw)){
             System.out.println("====================================轮询数据库开始=======================================");
             Connection conn = DBConnUtil.getConnection();
@@ -52,29 +53,55 @@ public class SyncUserInfoTaskSchema {
             Statement stmt;
             try{
                 stmt = conn.createStatement();
-                ResultSet rsUser = stmt.executeQuery("SELECT * FROM " + viewUserTableName);
+                String sql = "";
+                if(StringUtils.isBlank(viewDeptTableName)){
+                    sql = "SELECT * FROM "+ viewUserTableName;
+                }else{
+                    flag = true;
+                    sql = "SELECT u.*,d.uuid AS deptId FROM "+ viewUserTableName +" u LEFT JOIN "+ viewDeptTableName +" d ON u.organize_code = d.org_code";
+                }
+                ResultSet rsUser = stmt.executeQuery(sql);
                 SysUser sysUser= null;
 
                 while(rsUser.next()){
                     sysUser = new SysUser();
 
-                    sysUser.setRealName(rsUser.getString("user_name"));
-                    sysUser.setCreateTime(rsUser.getTimestamp("register_time"));
-                    String userName = rsUser.getString("login_name");
+                    sysUser.setRealName(rsUser.getString(props.get("user.realName")));
+                    sysUser.setCreateTime(rsUser.getTimestamp(props.get("user.createTime")));
+                    String userName = rsUser.getString(props.get("user.userName"));
                     sysUser.setUserName(userName);
                     String token = DesUtil.encrypt(userName);
                     sysUser.setToken(token);
-                    sysUser.setUpdateTime(rsUser.getTimestamp("updatetime"));
-                    sysUser.setStatus(rsUser.getInt("status"));
-                    sysUser.setEmail(rsUser.getString("email"));
-                    sysUser.setCellPhoneNumber(rsUser.getString("mobile"));
-                    sysUser.setPassword(rsUser.getString("password"));
-                    sysUser.setId(rsUser.getString("uuid"));
-                    sysUser.setUserImg(rsUser.getString("head_img"));
-                    sysUser.setDeptId(rsUser.getString("organize_code"));
-                    sysUser.setUpdateTime(rsUser.getTimestamp("last_update_time"));
+                    sysUser.setUpdateTime(rsUser.getTimestamp(props.get("user.updateTime")));
+                    sysUser.setStatus(rsUser.getInt(props.get("user.status")));
+                    sysUser.setEmail(rsUser.getString(props.get("user.email")));
+                    sysUser.setCellPhoneNumber(rsUser.getString(props.get("user.cellPhoneNumber")));
+                    sysUser.setPassword(rsUser.getString(props.get("user.password")));
+                    sysUser.setId(rsUser.getString(props.get("user.id")));
+                    sysUser.setUserImg(rsUser.getString(props.get("user.userImg")));
+                    if(flag){
+                        sysUser.setDeptId(rsUser.getString("deptId"));
+                    }else{
+                        sysUser.setDeptId(rsUser.getString(props.get("user.deptId")));
+                    }
+                    sysUser.setDeptId(rsUser.getString("deptId"));
                     sysUser.setUserType(1);
                     users.add(sysUser);
+                }
+
+                /**
+                 * 更新用户表
+                 * */
+                try{
+                    syncToLoacalService.insertOrUpdateSysUser(users);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                if(StringUtils.isBlank(viewDeptTableName)){
+                    conn.close();
+                    System.out.println("====================================轮询数据库结束=======================================");
+                    return;
                 }
 
                 ResultSet rsDept = stmt.executeQuery("SELECT a.*,b.uuid AS fuuid FROM "+ viewDeptTableName +" a\n" +
@@ -83,50 +110,38 @@ public class SyncUserInfoTaskSchema {
                 while (rsDept.next()){
                     sysDept = new SysDept();
 
-                    sysDept.setId(rsDept.getString("uuid"));
-                    sysDept.setStatus( rsDept.getInt("org_status"));
-                    sysDept.setOrderNumber(rsDept.getInt("order_number"));
-                    sysDept.setOrgLatitude(rsDept.getString("org_latitude"));
-                    sysDept.setOrgLongitude(rsDept.getString("org_longitude"));
-                    sysDept.setFunctionKeyword(rsDept.getString("function_keyword"));
-                    sysDept.setDeptAddress(rsDept.getString("org_address"));
-                    sysDept.setRegionCode(rsDept.getString("region_code"));
-                    sysDept.setCreateTime(rsDept.getTimestamp("create_time"));
-                    sysDept.setDeptContactPhone(rsDept.getString("landline_telephone"));
-                    sysDept.setDeptListingName(rsDept.getString("listing_name"));
-                    sysDept.setDeptContactFixedPhone(rsDept.getString("othter_connact"));
-                    sysDept.setDeptShortName(rsDept.getString("org_shortname"));
-                    sysDept.setDeptContactEmail(rsDept.getString("contact_email"));
-                    sysDept.setDeptContactMan(rsDept.getString("contact_person"));
-                    sysDept.setDeptContactPhone(rsDept.getString("contact_phone"));
-                    sysDept.setCreateUserId(rsDept.getString("create_user"));
-                    sysDept.setDeptAlias(rsDept.getString("org_alias"));
-                    sysDept.setDeptType(rsDept.getString("org_category"));
-                    sysDept.setDeptCode(rsDept.getString("org_code"));
-                    sysDept.setDeptContactDept(rsDept.getString("org_extend_code"));
+                    sysDept.setId(rsDept.getString(props.get("dept.id")));
+                    sysDept.setStatus( rsDept.getInt(props.get("dept.status")));
+                    sysDept.setOrderNumber(rsDept.getInt(props.get("dept.orderNumber")));
+                    sysDept.setOrgLatitude(rsDept.getString(props.get("dept.orgLatitude")));
+                    sysDept.setOrgLongitude(rsDept.getString(props.get("dept.orgLongitude")));
+                    sysDept.setFunctionKeyword(rsDept.getString(props.get("dept.functionKeyword")));
+                    sysDept.setDeptAddress(rsDept.getString(props.get("dept.deptAddress")));
+                    sysDept.setRegionCode(rsDept.getString(props.get("dept.regionCode")));
+                    sysDept.setCreateTime(rsDept.getTimestamp(props.get("dept.createTime")));
+                    sysDept.setDeptContactPhone(rsDept.getString(props.get("dept.deptContactPhone")));
+                    sysDept.setDeptListingName(rsDept.getString(props.get("dept.deptListingName")));
+                    sysDept.setDeptContactFixedPhone(rsDept.getString(props.get("dept.deptContactFixedPhone")));
+                    sysDept.setDeptShortName(rsDept.getString(props.get("dept.deptShortName")));
+                    sysDept.setDeptContactEmail(rsDept.getString(props.get("dept.eeptContactEmail")));
+                    sysDept.setDeptContactMan(rsDept.getString(props.get("dept.deptContactMan")));
+                    sysDept.setDeptContactPhone(rsDept.getString(props.get("dept.deptContactPhone")));
+                    sysDept.setCreateUserId(rsDept.getString(props.get("dept.createUserId")));
+                    sysDept.setDeptAlias(rsDept.getString(props.get("dept.deptAlias")));
+                    sysDept.setDeptType(rsDept.getString(props.get("dept.deptType")));
+                    sysDept.setDeptCode(rsDept.getString(props.get("dept.deptCode")));
+                    sysDept.setDeptContactDept(rsDept.getString(props.get("dept.deptContactDept")));
                     sysDept.setFid(rsDept.getString("fuuid"));
-                    sysDept.setFname(rsDept.getString("org_fname"));
-                    String deptName = rsDept.getString("org_fullname");
-                    if(StringUtils.isBlank(deptName)){
-                        deptName = rsDept.getString("org_shortname");
-                    }
-                    sysDept.setDeptName(deptName);
-                    sysDept.setDeptResponseMan(rsDept.getString("org_response_person"));
-                    sysDept.setRegionCode(rsDept.getString("region"));
-                    sysDept.setDeptResponseEmail(rsDept.getString("response_email"));
-                    sysDept.setDeptResponsePhone(rsDept.getString("response_phone"));
-                    sysDept.setDeptFunction(rsDept.getString("org_function"));
-                    sysDept.setUpdateTime(rsDept.getTimestamp("last_update_time"));
-                    sysDept.setDeptLevel(rsDept.getInt("org_level"));
+                    sysDept.setFname(rsDept.getString(props.get("dept.fname")));
+                    sysDept.setDeptName(rsDept.getString(props.get("dept.deptName")));
+                    sysDept.setDeptResponseMan(rsDept.getString(props.get("dept.deptResponseMan")));
+                    sysDept.setRegionCode(rsDept.getString(props.get("dept.regionCode")));
+                    sysDept.setDeptResponseEmail(rsDept.getString(props.get("dept.deptResponseEmail")));
+                    sysDept.setDeptResponsePhone(rsDept.getString(props.get("dept.deptResponsePhone")));
+                    sysDept.setDeptFunction(rsDept.getString(props.get("dept.deptFunction")));
+                    sysDept.setUpdateTime(rsDept.getTimestamp(props.get("dept.updateTime")));
+                    sysDept.setDeptLevel(rsDept.getInt(props.get("dept.deptLevel")));
                     depts.add(sysDept);
-                }
-                /**
-                 * 更新用户表
-                 * */
-                try{
-                    syncToLoacalService.insertOrUpdateSysUser(users);
-                }catch (Exception e){
-                    e.printStackTrace();
                 }
 
                 /**
