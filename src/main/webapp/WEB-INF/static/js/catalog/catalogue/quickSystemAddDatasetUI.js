@@ -383,8 +383,18 @@ $(document).on("click", "button#field_add", function(){
                     if(data.content.list){
                         var arr=data.content.list;
                         for (var i in arr){
-                           var thisTrNum = getTrNum();
-                           buildItem(thisTrNum,arr[i]);
+                            var b = true;
+                            $('#dataitemList>tr').each(function (idx, item) {
+                                var id = $(item).find('input[type="hidden"]:last').val();
+                                if (id == arr[i].id) {
+                                    b = false;
+                                    return false;
+                                }
+                            });
+                            if (b) {
+                                var thisTrNum = getTrNum();
+                                buildItem(thisTrNum, arr[i]);
+                            }
                         }
                     }
                 }else{
@@ -627,8 +637,8 @@ $(document).on('click','#selectAllItem',function(){
     }
 });
 $(document).on('click','#deleteItems',function(){
-    $("#dataitemList").find('input[type="checkbox"]:checked').each(function(){
-        var trNum=$(this).attr('trNum');
+    $("#dataitemList").find('input[type="checkbox"]:checked').each(function(idex,item){
+        var trNum=$(item).attr('trNum');
         infoTableDel(trNum);
     })
 });
@@ -658,4 +668,11 @@ $(document).on("change","#storeMedia",function(){
     if(selectedValue!=""){
         Dict.cascadeSelects('resourceFormat', ['#format_type'], selectedValue);
     }
+});
+$(function () {
+    $('#myModal').on('hide.bs.modal', function () {
+        $('#bus_tree').empty();
+        $('#dataset_item_container').empty();
+        $('#field_tree').empty();
+    })
 });

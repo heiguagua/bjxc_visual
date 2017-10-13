@@ -459,7 +459,7 @@ function buildItem(thisTrNum,data){
         +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.Length?data.Length:'')+'" min="1" type="text" class="form-control"></td>'
         +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_short_name?data.dept_short_name:'')+'" > </td>'
         +'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
-        /*+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'*/
+        +'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
         +'<td><select name="items['+thisTrNum+'].secretFlag" data-rule="涉密标识:required;" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
         +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" value="'+(data.shareConditionDesc?data.shareConditionDesc:'')+'"></td>'

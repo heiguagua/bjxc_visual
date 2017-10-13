@@ -383,8 +383,18 @@ $(document).on("click", "button#field_add", function(){
                     if(data.content.list){
                         var arr=data.content.list;
                         for (var i in arr){
-                           var thisTrNum = getTrNum();
-                           buildItem(thisTrNum,arr[i]);
+                            var b = true;
+                            $('#dataitemList>tr').each(function (idx, item) {
+                                var id = $(item).find('input[type="hidden"]:last').val();
+                                if (id == arr[i].id) {
+                                    b = false;
+                                    return false;
+                                }
+                            });
+                            if (b) {
+                                var thisTrNum = getTrNum();
+                                buildItem(thisTrNum, arr[i]);
+                            }
                         }
                     }
                 }else{
