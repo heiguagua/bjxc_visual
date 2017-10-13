@@ -99,7 +99,7 @@
                                         <input id="status1" name="status" type="radio" class="minimal" value="1"> 启用
                                     </span>
                                     <span class="radio-inline pdl0">
-                                        <input id="status2" name="status" type="radio" class="minimal" value="-1"> 禁用
+                                        <input id="status0" name="status" type="radio" class="minimal" value="0"> 禁用
                                     </span>
                                 </div>
                             </div>

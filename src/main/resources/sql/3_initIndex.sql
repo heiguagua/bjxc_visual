@@ -25,6 +25,7 @@ call del_idx('p_dir','dir_classify','Index_dirclassify_classifycode');
 call del_idx('p_dir','dir_classify','Index_dirclassify_fid');
 call del_idx('p_dir','dir_classify','Index_dirclassify_classifystructurecode');
 call del_idx('p_dir','dir_classify','Index_dirclassify_treecode');
+call del_idx('p_dir','dir_classify','Index_dirclassify_classifyname');
 call del_idx('p_dir','dir_classify_authority','Index_dirclassifyauthority_authobjid');
 call del_idx('p_dir','dir_classify_authority','Index_dirclassifyauthority_classifyid');
 call del_idx('p_dir','dir_data_audit','Index_dirdataaudit_dcmid');
@@ -152,6 +153,7 @@ ALTER TABLE dir_classify ADD INDEX Index_dirclassify_classifycode (classify_code
 ALTER TABLE dir_classify ADD INDEX Index_dirclassify_fid (fid);
 ALTER TABLE dir_classify ADD INDEX Index_dirclassify_classifystructurecode (classify_structure_code (255));
 ALTER TABLE dir_classify ADD INDEX Index_dirclassify_treecode (tree_code (255));
+ALTER TABLE dir_classify ADD INDEX Index_dirclassify_classifyname (classify_name);
 ALTER TABLE dir_classify_authority ADD INDEX Index_dirclassifyauthority_authobjid (auth_obj_id);
 ALTER TABLE dir_classify_authority ADD INDEX Index_dirclassifyauthority_classifyid (classify_id);
 ALTER TABLE dir_data_audit ADD INDEX Index_dirdataaudit_dcmid (dcm_id);

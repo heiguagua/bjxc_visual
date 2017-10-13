@@ -139,7 +139,11 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
         } else {
             minRoleLevel = ShiroUtils.getLoginUser().getMinRoleLevel();
         }
-        for (int i = minRoleLevel + 1; i <= 5; i++) {
+        int i = minRoleLevel + 1;
+        if(i <= 0){
+            i = 1;
+        }
+        for (; i <= 5; i++) {
             JSONObject obj = new JSONObject();
             obj.put("id", i);
             obj.put("text", i);

@@ -130,11 +130,11 @@
                             <label>状态 <i style="color: red">*必选</i></label>
                             <div class="form-group">
                                 <span class="radio-inline" style="padding: 4px 0 0 16px;">
-                                    <input name="status" type="radio" id="inlineRadio2" class="minimal" checked
+                                    <input name="status" type="radio" id="inlineRadio1" class="minimal" checked
                                            value="1"> 启用
                                 </span>
                                 <span class="radio-inline pdl0">
-                                    <input name="status" type="radio" id="inlineRadio3" class="minimal" value="-1"> 禁用
+                                    <input name="status" type="radio" id="inlineRadio0" class="minimal" value="0"> 禁用
                                 </span>
                             </div>
                         </div>

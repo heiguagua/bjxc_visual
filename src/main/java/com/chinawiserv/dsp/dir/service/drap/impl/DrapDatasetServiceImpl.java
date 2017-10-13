@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.dir.service.drap.impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 import com.chinawiserv.dsp.dir.entity.po.drap.*;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset;
@@ -72,10 +73,19 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 	private DirDatasetMapper dirDatasetMapper;
 
 	@Autowired
+	private DirDatasetExtFormatMapper dirDatasetExtFormatMapper;
+
+	@Autowired
+	private DirDatasetSurveyMapper dirDatasetSurveyMapper;
+
+	@Autowired
 	private DirDataitemMapper dirDataitemMapper;
 
 	@Autowired
 	private DirDataitemSourceInfoMapper dirDataitemSourceInfoMapper;
+
+	@Autowired
+	private SysDictMapper sysDictMapper;
 
 
 
@@ -138,11 +148,17 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 			final String drapDatasetExtFormatPosStr = MapUtils.getString(dataObj, "datasetExtFormatList");
 			final List<DrapDatasetExtFormat> drapDatasetExtFormatList = JSON.parseArray(drapDatasetExtFormatPosStr, DrapDatasetExtFormat.class);
 			this.drapDatasetExtFormatMapper.batchInsert(drapDatasetExtFormatList);
+
+			final List<DirDatasetExtFormat> dirDatasetExtFormatList = JSON.parseArray(drapDatasetExtFormatPosStr, DirDatasetExtFormat.class);
+			this.dirDatasetExtFormatMapper.batchInsert(dirDatasetExtFormatList);
 		}
 		if(dataObj.containsKey("datasetSurveyList")){
 			final String drapDatasetSurveyPosStr = MapUtils.getString(dataObj, "datasetSurveyList");
 			final List<DrapDatasetSurvey> drapDatasetSurveyList = JSON.parseArray(drapDatasetSurveyPosStr, DrapDatasetSurvey.class);
 			this.drapDatasetSurveyMapper.batchInsert(drapDatasetSurveyList);
+
+			final List<DirDatasetSurvey> dirDatasetSurveyList = JSON.parseArray(drapDatasetSurveyPosStr, DirDatasetSurvey.class);
+			this.dirDatasetSurveyMapper.batchInsert(dirDatasetSurveyList);
 		}
 
 		List<DrapDatasetItem> drapDatasetItemList = new ArrayList<>();
@@ -161,6 +177,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 
 		final List<DirDataset> dirDatasetList = new ArrayList<>();
 		final List<DirDatasetSourceInfo> dirDatasetSourceInfoList = new ArrayList<>();
+		final String dataSetSourceType = sysDictMapper.selectDictcodeByCategoryAndName("资源梳理添加", "dataSetSourceType");
 		for (DrapDatasetVo drapDatasetVo :drapDatasetList){
 			String classifyId = dirClassifyDeptMapMapper.selectByDeptId(drapDatasetVo.getBelongDeptId());
 			if(classifyId == null || "".equals(classifyId)){
@@ -179,7 +196,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 				dirClassifyMapper.updateClassifyIndexbyFid(classifyId);
 			}
 
-			final DirDataset dirDataset = getDirDataset(drapDatasetVo);
+			final DirDataset dirDataset = getDirDataset(drapDatasetVo,dataSetSourceType);
 			dirDatasetList.add(dirDataset);
 			final DirDatasetSourceInfo dirDatasetSourceInfo = new DirDatasetSourceInfo();
 			dirDatasetSourceInfo.setId(CommonUtil.get32UUID());
@@ -209,7 +226,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		}
 	}
 	
-	private static DirDataset getDirDataset(DrapDatasetVo drapDatasetVo){
+	private static DirDataset getDirDataset(DrapDatasetVo drapDatasetVo, String dataSetSourceType){
 		final DirDataset dirDataset = new DirDataset();
 		dirDataset.setId(drapDatasetVo.getId());
 		dirDataset.setRegionCode(drapDatasetVo.getRegionCode());
@@ -232,7 +249,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		dirDataset.setDataLevel(drapDatasetVo.getDataLevel());
 		dirDataset.setDataIndexSystem(drapDatasetVo.getDataIndexSystem());
 		dirDataset.setSecretFlag(drapDatasetVo.getIsSecret());
-		dirDataset.setSourceType(drapDatasetVo.getSourceType());
+		dirDataset.setSourceType(dataSetSourceType);
 		dirDataset.setStatus(drapDatasetVo.getStatus().toString());
 		dirDataset.setCreateUserId(drapDatasetVo.getCreateUser());
 		dirDataset.setCreateTime(drapDatasetVo.getCreateTime());
