@@ -540,12 +540,27 @@ public class DirDatasetController extends BaseController {
     @RequestMapping("/catalogue/quickSystemAddDatasetUI")
     public  String quickSystemAddDatasetUI(){
         return "catalog/catalogue/quickSystemAddDatasetUI";
-    }/**
+    }
+    /**
      * 从爬虫添加数据集-快速添加页面
      */
     @RequestMapping("/catalogue/quickCsAddDatasetUI")
     public  String quickCsAddDatasetUI(){
         return "catalog/catalogue/quickCsAddDatasetUI";
+    }
+    /**
+     * 从关系型添加数据集-快速添加页面
+     */
+    @RequestMapping("/catalogue/quickDcmAddDatasetUI")
+    public  String quickDcmAddDatasetUI(){
+        return "catalog/catalogue/quickDcmAddDatasetUI";
+    }
+    /**
+     * 从非关系型添加数据集-快速添加页面
+     */
+    @RequestMapping("/catalogue/quickDcmNosqlAddDatasetUI")
+    public  String quickDcmNosqlAddDatasetUI(){
+        return "catalog/catalogue/quickDcmNosqlAddDatasetUI";
     }
     /**
      * 从资源/系统添加数据集-快速添加

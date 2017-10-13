@@ -140,7 +140,7 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
                 entity.setId(UUID.randomUUID().toString());
                 entity.setPicName(picName);               
                 entity.setPicType(file.getContentType());               
-                entity.setNewsPic("/images" + "/"+lunboDir+"/"+picName);
+                entity.setNewsPic("/img" + "/"+lunboDir+"/"+picName);
                 entity.setPicSize(picSize);
                 entity.setStatus("1");
                 String loginUserId = ShiroUtils.getLoginUserId();
@@ -231,7 +231,7 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 
                     dirNewsVo.setPicName(picName);               
                     dirNewsVo.setPicType(file.getContentType());               
-                    dirNewsVo.setNewsPic("/images" + "/"+lunboDir+"/"+picName);
+                    dirNewsVo.setNewsPic("/img" + "/"+lunboDir+"/"+picName);
                     dirNewsVo.setPicSize(picSize);
 //                    dirNewsVo.setStatus("1");
                     String loginUserId = ShiroUtils.getLoginUserId();

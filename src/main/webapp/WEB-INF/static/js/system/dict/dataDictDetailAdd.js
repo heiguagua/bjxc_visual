@@ -22,15 +22,11 @@ function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
     var  val = $("#dictCode").val();
     var val1 = $("#dictName").val();
-    var val2 = $("#orderNumber").val();
     if(!val){
-        alert("配置项编码不能为空");
+        layer.msg("配置项编码不能为空");
         return false;
     } else if (!val1){
-        alert("配置项名称不能为空")
-        return false;
-    }else if (!val2){
-        alert("顺序不能为空")
+        layer.msg("配置项名称不能为空")
         return false;
     }
     return true ;

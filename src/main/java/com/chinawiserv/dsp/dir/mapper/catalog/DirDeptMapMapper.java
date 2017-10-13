@@ -16,4 +16,6 @@ public interface DirDeptMapMapper extends BaseMapper<DirDeptMap> {
     int baseInsert(DirDeptMap entity);
 
     String selectByDeptId(String deptId);
+
+    String selectByDeptFId(String belongDeptId);
 }

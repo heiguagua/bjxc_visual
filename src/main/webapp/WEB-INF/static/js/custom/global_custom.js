@@ -1268,12 +1268,12 @@ function initGlobalCustom(tempUrlPrefix) {
          * 获取当前选中的区域的编码
          */
         getSelectedRegionCode:function(){
-            var regionCode = "";
+            /*var regionCode = "";
             var regionObj = JSON.parse(window.localStorage.getItem("regionObj"));
             if(regionObj){
                 regionCode = regionObj.code;
-            }
-            return regionCode;
+            }*/
+            return newRegionCode;
         },
         /**
          * 获取目录类别的下拉树对象
@@ -2148,8 +2148,8 @@ function initGlobalCustom(tempUrlPrefix) {
                 var setting = {
                     async: {
                         enable: true,
-                        url: basePathJS + "/system/dept/getDeptSelectDataList?regionCode=" + dd,
-                        autoParam: ["id"],
+                        url: basePathJS + "/system/dept/getDeptSelectDataList?regionCode=" + dd + "&onlyLoginUserDept=1",
+                        autoParam: ["id", "deptLevel"],
                         dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                             var params = [];
                             var nodeObjs = childNodes.content.selectData;
@@ -2160,6 +2160,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 params[i] = {
                                     'id': nodeObjs[i].id,
                                     'name': nodeObjs[i].deptName,
+                                    'deptLevel': nodeObjs[i].deptLevel,
                                     'isParent': (nodeObjs[i].isLeaf ? false : true),
                                     'nocheck': nodeObjs[i].deptLevel == 1
                                 }
