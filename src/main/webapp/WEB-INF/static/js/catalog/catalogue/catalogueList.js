@@ -26,6 +26,9 @@ function initTable(){
             sortable: false,
             width: '15%',
             formatter:function(value, row, index){
+                if(value == undefined){
+                    value = "";
+                }
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
@@ -33,6 +36,9 @@ function initTable(){
             title: '所属目录分类',
             sortable: false,
             formatter:function(value, row, index){
+                if(value == undefined){
+                    value = "";
+                }
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{

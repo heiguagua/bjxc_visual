@@ -1283,7 +1283,6 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param treeDivDomId      树形展开区域的DIV的id
          */
         initClassifyTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId) {
-            var selectIds = "";
             var setting = {
                 async: {
                     enable: true,
@@ -1328,12 +1327,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 if (result.state) {
                                     var classifyObj = result.content.vo;
                                     $('#' + nameInputDomId).val(classifyObj.classifyStructureName);
-                                    if (selectIds == "") {
-                                        selectIds = treeNode.id;
-                                    } else {
-                                        selectIds += "," + treeNode.id;
-                                    }
-                                    $('#' + codeInputDomId).val(selectIds);
+                                    $('#' + codeInputDomId).val(treeNode.id);
                                 }
                             }
                         });

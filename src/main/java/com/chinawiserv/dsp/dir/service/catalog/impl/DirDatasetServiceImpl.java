@@ -107,21 +107,34 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             }
             //数据集插入成功后，插入数据集与目录类别中间表的数据
             String classifyIds = vo.getClassifyIds();
-            if(!StringUtils.isEmpty(classifyIds)){
-                List<DirDatasetClassifyMapVo> classifyMapVoList = new ArrayList<>();
-                String [] classifyIdArray = classifyIds.split(",");
-                for(String classifyId : classifyIdArray){
-                    DirDatasetClassifyMapVo classifyMapVo = new DirDatasetClassifyMapVo();
-                    String classifyMapId = UUID.randomUUID().toString();
-                    classifyMapVo.setId(classifyMapId);
-                    classifyMapVo.setDatasetId(datasetId);
-                    classifyMapVo.setClassifyId(classifyId);
-                    classifyMapVo.setStatus("0");
-                    classifyMapVo.setInfoResourceCode(dirClassifyService.generateDatasetCode(classifyId));
-                    classifyMapVoList.add(classifyMapVo);
-                }
-                classifyMapResult = dirDatasetClassifyMapMapper.insertListItem(classifyMapVoList);
+            String relClassifyIds = vo.getRelDatasetCode();
+            List<DirDatasetClassifyMapVo> classifyMapVoList = new ArrayList<>();
+            if(!StringUtils.isEmpty(classifyIds)){//目录类别是单选
+                DirDatasetClassifyMapVo classifyMapVo = new DirDatasetClassifyMapVo();
+                String classifyMapId = UUID.randomUUID().toString();
+                classifyMapVo.setId(classifyMapId);
+                classifyMapVo.setDatasetId(datasetId);
+                classifyMapVo.setClassifyId(classifyIds);
+                classifyMapVo.setStatus("0");
+                classifyMapVo.setRelFlag(0);
+                classifyMapVo.setInfoResourceCode(dirClassifyService.generateDatasetCode(classifyIds));
+                classifyMapVoList.add(classifyMapVo);
             }
+            if(!StringUtils.isEmpty(relClassifyIds)){//关联目录类别是多选
+                String [] relClassifyIdArray = relClassifyIds.split(",");
+                for(String relClassifyId : relClassifyIdArray){
+                    DirDatasetClassifyMapVo relClassifyMapVo = new DirDatasetClassifyMapVo();
+                    String classifyMapId = UUID.randomUUID().toString();
+                    relClassifyMapVo.setId(classifyMapId);
+                    relClassifyMapVo.setDatasetId(datasetId);
+                    relClassifyMapVo.setClassifyId(relClassifyId);
+                    relClassifyMapVo.setStatus("0");
+                    relClassifyMapVo.setRelFlag(1);
+                    relClassifyMapVo.setInfoResourceCode(dirClassifyService.generateDatasetCode(relClassifyId));
+                    classifyMapVoList.add(relClassifyMapVo);
+                }
+            }
+            classifyMapResult = dirDatasetClassifyMapMapper.insertListItem(classifyMapVoList);
             //数据项来源
             //List<DirDataitemSourceInfo> sourceInf
             // os = vo.getSourceInfos();
@@ -220,21 +233,41 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     private void updateDatasetClassifyMapInfo(DirDatasetVo vo, String updateUserId, Date updateTime) throws Exception{
         String classifyIds = vo.getClassifyIds();
+        String relClassifyIds = vo.getRelDatasetCode();
         String datasetId = vo.getId();
+        //现在选择目录类别为单选
         if(!StringUtils.isEmpty(classifyIds)){
-            Map<String,Object> mapParam = new HashMap<>();
-            mapParam.put("datasetId",datasetId);
-            List<DirDatasetClassifyMapVo> oldClassifyMapVoList = dirDatasetClassifyMapMapper.baseSelect(mapParam);
-            String [] classifyIdArray = classifyIds.split(",");
+            Map<String,Object> classifyIdParam = new HashMap<>();
+            classifyIdParam.put("datasetId",datasetId);
+            classifyIdParam.put("relFlag",0);//0是非关联，1是关联
+            List<DirDatasetClassifyMapVo> oldClassifyMapVoList = dirDatasetClassifyMapMapper.baseSelect(classifyIdParam);
+            if(!ObjectUtils.isEmpty(oldClassifyMapVoList)){
+                DirDatasetClassifyMapVo oldClassifyMapVo = oldClassifyMapVoList.get(0);
+                String oldClassifyId = oldClassifyMapVo.getClassifyId();
+                if(!classifyIds.equals(oldClassifyId)){
+                    oldClassifyMapVo.setClassifyId(classifyIds);
+                    oldClassifyMapVo.setUpdateUserId(updateUserId);
+                    oldClassifyMapVo.setUpdateTime(updateTime);
+                    dirDatasetClassifyMapMapper.baseUpdate(oldClassifyMapVo);
+                }
+            }
+        }
+        //数据集的关联的目录类别为多选
+        if(!StringUtils.isEmpty(relClassifyIds)){
+            Map<String,Object> relClassifyIdsParam = new HashMap<>();
+            relClassifyIdsParam.put("datasetId",datasetId);
+            relClassifyIdsParam.put("relFlag",1);//0是非关联，1是关联
+            List<DirDatasetClassifyMapVo> oldRelClassifyMapVoList = dirDatasetClassifyMapMapper.baseSelect(relClassifyIdsParam);
+            String [] relClassifyIdArray = relClassifyIds.split(",");
             //由于需要保留历史数据，所以中间表的数据只能逻辑删除
             //由于有多个值，并能修改，所以不知道是原有的哪个类别改成了现在的哪个类别，只能做新增和删除(逻辑删除)
             List<String> needAddClassifyList = new ArrayList<>();
             List<String> needDeleteClassifyList = new ArrayList<>();
-            if(!ObjectUtils.isEmpty(oldClassifyMapVoList)){ //【由于目录类别是必填项，所以没写如果空后面的逻辑】
+            if(!ObjectUtils.isEmpty(oldRelClassifyMapVoList)){
                 //先比较哪些是新增的目录类别
-                for(String classifyId : classifyIdArray){
+                for(String classifyId : relClassifyIdArray){
                     boolean hasThisClassifyid = false;
-                    for(DirDatasetClassifyMapVo oldVo : oldClassifyMapVoList){
+                    for(DirDatasetClassifyMapVo oldVo : oldRelClassifyMapVoList){
                         String oldClassifyId = oldVo.getClassifyId();
                         if(classifyId.equals(oldClassifyId)){
                             hasThisClassifyid = true;
@@ -246,11 +279,11 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     }
                 }
                 //反过来比较哪些是删除的目录类别
-                for(DirDatasetClassifyMapVo oldVo : oldClassifyMapVoList){
+                for(DirDatasetClassifyMapVo oldVo : oldRelClassifyMapVoList){
                     boolean hasThisClassifyid = false;
                     String oldClassifyId = oldVo.getClassifyId();
                     String oldClassifyMapId = oldVo.getId();
-                    for(String classifyId : classifyIdArray){
+                    for(String classifyId : relClassifyIdArray){
                         if(oldClassifyId.equals(classifyId)){
                             hasThisClassifyid = true;
                             break;
@@ -270,6 +303,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                         classifyMapVo.setDatasetId(datasetId);
                         classifyMapVo.setClassifyId(addClassifyId);
                         classifyMapVo.setStatus("0");
+                        classifyMapVo.setRelFlag(1);
                         classifyMapVo.setInfoResourceCode(dirClassifyService.generateDatasetCode(addClassifyId));
                         classifyMapVo.setUpdateUserId(updateUserId);
                         classifyMapVo.setUpdateTime(updateTime);
@@ -279,6 +313,14 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
                 //将该删除的中间表的数据的删除标识改为1
                 if(needDeleteClassifyList.size()>0){
+                    /*StringBuffer idsBuffer = new StringBuffer();
+                    for(int i=0,ii=needDeleteClassifyList.size();i<ii;i++){
+                        if(i==0){
+                            idsBuffer.append("'").append(needDeleteClassifyList.get(i)).append("'");
+                        }else{
+                            idsBuffer.append(",'").append(needDeleteClassifyList.get(i)).append("'");
+                        }
+                    }*/
                     Map<String,Object> deleteParam = new HashMap<>();
                     deleteParam.put("deleteFlag",1);
                     deleteParam.put("ids",needDeleteClassifyList);
@@ -286,6 +328,40 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     deleteParam.put("updateTime",updateTime);
                     dirDatasetClassifyMapMapper.batchUpdateStatus(deleteParam);
                 }
+            }else{ //如果修改前关联目录类别为空，则把新的所有数据都直接插入
+                List<DirDatasetClassifyMapVo> addClassifyMapVoList = new ArrayList<>();
+                for(String addClassifyId : relClassifyIdArray){
+                    DirDatasetClassifyMapVo classifyMapVo = new DirDatasetClassifyMapVo();
+                    String classifyMapId = UUID.randomUUID().toString();
+                    classifyMapVo.setId(classifyMapId);
+                    classifyMapVo.setDatasetId(datasetId);
+                    classifyMapVo.setClassifyId(addClassifyId);
+                    classifyMapVo.setStatus("0");
+                    classifyMapVo.setRelFlag(1);
+                    classifyMapVo.setInfoResourceCode(dirClassifyService.generateDatasetCode(addClassifyId));
+                    classifyMapVo.setUpdateUserId(updateUserId);
+                    classifyMapVo.setUpdateTime(updateTime);
+                    addClassifyMapVoList.add(classifyMapVo);
+                }
+                dirDatasetClassifyMapMapper.insertListItem(addClassifyMapVoList);
+            }
+        }else{ //如果修改后关联目录类别为空，则需要把数据库中已有的删除
+            Map<String,Object> relClassifyIdsParam = new HashMap<>();
+            relClassifyIdsParam.put("datasetId",datasetId);
+            relClassifyIdsParam.put("relFlag",1);//0是非关联，1是关联
+            List<DirDatasetClassifyMapVo> oldRelClassifyMapVoList = dirDatasetClassifyMapMapper.baseSelect(relClassifyIdsParam);
+            if(!ObjectUtils.isEmpty(oldRelClassifyMapVoList)){
+                List<String> needDeleteRelClassifyIdList = new ArrayList<>();
+                for(DirDatasetClassifyMapVo oldVo : oldRelClassifyMapVoList){
+                    String mapId = oldVo.getId();
+                    needDeleteRelClassifyIdList.add(mapId);
+                }
+                Map<String,Object> deleteParam = new HashMap<>();
+                deleteParam.put("deleteFlag",1);
+                deleteParam.put("ids",needDeleteRelClassifyIdList);
+                deleteParam.put("updateUserId",updateUserId);
+                deleteParam.put("updateTime",updateTime);
+                dirDatasetClassifyMapMapper.batchUpdateStatus(deleteParam);
             }
         }
     }
@@ -435,16 +511,23 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         }
         List<DirDatasetClassifyMapVo> classifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(new Page<>(), mapParam);
         if(!ObjectUtils.isEmpty(classifyMapVoList)){
-            String classifyIds = "";
-            String classifyName = "";
+            String relClassifyName = "";
             for(int i=0,ii=classifyMapVoList.size();i<ii;i++){
-                String classifyId = classifyMapVoList.get(i).getClassifyId();
+                DirDatasetClassifyMapVo classifyMapVo = classifyMapVoList.get(i);
+                int relFlag = classifyMapVo.getRelFlag();
+                String classifyId = classifyMapVo.getClassifyId();
                 String classifyStructureName = classifyMapVoList.get(i).getClassifyStructureName();
-                classifyIds += i==0?classifyId:","+classifyId;
-                classifyName += i==0?classifyStructureName:","+classifyStructureName;
+                if(relFlag == 0){
+                    dirDatasetVo.setClassifyIds(classifyId);
+                    dirDatasetVo.setClassifyName(classifyStructureName);
+                }else{
+                    relClassifyName += classifyStructureName+",";
+                }
             }
-            dirDatasetVo.setClassifyIds(classifyIds);
-            dirDatasetVo.setClassifyName(classifyName);
+            if(!"".equals(relClassifyName)){
+                relClassifyName = relClassifyName.substring(0,relClassifyName.length()-1);
+            }
+            dirDatasetVo.setRelClassifyName(relClassifyName);
         }
 		return dirDatasetVo;
 	}
