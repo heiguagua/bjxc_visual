@@ -555,8 +555,7 @@
         ON dcm.`id` = dda.`dcm_id`
         WHERE TRUE
         AND dda.`applicant_id` = #{userId}
-        AND dcm.`classify_id` = #{classifyId}
-        AND dcm.`dataset_id` = #{datasetId}
+        AND dcm.`id` = #{dcmId}
         LIMIT 0, 1
     </select>
 
