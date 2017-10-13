@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @TableName("cs_data_sync_collect")
 public class CsDataSyncCollect implements Serializable {
-
+    @TableField(exist = false)
     private static final long serialVersionUID = -8586243690552578118L;
     @JSONField(name = "tableId")
     private String id;//表ID（唯一标识）
@@ -21,15 +21,17 @@ public class CsDataSyncCollect implements Serializable {
     @TableField("update_time")
     @JSONField(name = "updateTime")
     private Long updateTime;//更新时间
-    @TableField("sourceName")
+    @TableField("source_name")
     @JSONField(name = "sourceName")
     private String sourceName;//资源名称
     @TableField("project_name")
     @JSONField(name = "projectName")
     private String projectName;//项目名称
     @JSONField(name = "dbType")
+    @TableField(exist = false)
     private String dbType;
     @JSONField(name = "dbDesc")
+    @TableField(exist = false)
     private String dbDesc;
 
     public CsDataSyncCollect() {

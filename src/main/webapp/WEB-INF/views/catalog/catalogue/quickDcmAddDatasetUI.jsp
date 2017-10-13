@@ -5,7 +5,7 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/plugins/treeview/bootstrap-treeview.js"></script>
     <script src="<%=basePath%>/plugins/treeview/data.treeview.js"></script>
-    <script src="<%=basePath%>/js/catalog/catalogue/quickSystemAddDatasetUI.js"></script>
+    <script src="<%=basePath%>/js/catalog/catalogue/quickDcmAddDatasetUI.js"></script>
     <style type="text/css">
         .menu-wrap {
             position: relative;
@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-7">
-                            <label for="classifyName" class="col-sm-3 control-label" style="width: 21.3%;">信息资源分类
+                            <label for="classifyName" class="col-sm-3 control-label" style="width: 21%;">信息资源分类
                                 :</label>
                             <div class="col-sm-9">
                                 <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
@@ -258,8 +258,8 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            <label for="datasetDesc" class="col-sm-2 control-label" style="width:12.2%">信息资源摘要:</label>
-                            <div class="col-sm-10" style="width:87.8%">
+                            <label for="datasetDesc" class="col-sm-2 control-label" style="width:12%">信息资源摘要:</label>
+                            <div class="col-sm-10" style="width:88%">
                                 <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="信息资源摘要*" value="无"> -->
                                 <textarea class="form-control" rows="3" id="datasetDesc" name="datasetDesc">无</textarea>
                                 <p><span class="pull-right">(最多256个汉字)</span></p>
@@ -377,12 +377,12 @@
                     </table>
                 </div>
                 <input id="tableNumber" type="hidden" name="tableNumber" value="">
-                <input type="hidden" name="sourceType" value="2">
+                <input type="hidden" name="sourceType" value="5">
             </form>
         </div>
     </div>
 
-    <%@include file="./selectSystemDatasetModal.jsp" %>
+    <%@include file="selectDcmDatasetModal.jsp" %>
 </section><!-- /.content -->
 
 </body>

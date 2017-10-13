@@ -87,11 +87,10 @@ public class SysUserRealm extends AuthorizingRealm {
             throw new IncorrectCredentialsException("账号或密码不正确");
         }
         
-        //账号锁定
-		//todo xxx
-//        if(user.getStatus() == 0){
-//        	throw new LockedAccountException("账号已被锁定,请联系管理员");
-//        }
+        //账号禁用
+        if(user.getStatus() == -1){
+        	throw new LockedAccountException("账号已被禁用,请联系管理员");
+        }
 
         if(StringUtils.isBlank(user.getRegionCode())){
             throw new IncorrectCredentialsException("当前登录用户未被分配区域，请联系管理员！");

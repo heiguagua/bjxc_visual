@@ -11,6 +11,8 @@ jQuery(document).ready(function () {
 function initAllSelect(){
     $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化信息资源分类下拉框
     $.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联信息资源分类下拉框
+    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent','belongDeptTypeCode')//初始化资源提供方下拉框;
+
     //信息资源格式下拉框初始化
     Dict.selects('dataSetStoreMedia',['#resourceFormat']);
     //共享类型
@@ -354,8 +356,8 @@ $(document).on("click", "button#add_to_container", function(){
         }
     });
     for(var i in fieldIds){
-        $('a[data-id='+fieldIds[i]+']').removeClass('active');
-        $('a[data-id='+fieldIds[i]+']').addClass('disabled');
+        $('#field_tree>a[data-id='+fieldIds[i]+']').removeClass('active');
+        $('#field_tree>a[data-id='+fieldIds[i]+']').addClass('disabled');
     }
 });
 $(document).on("click", "button#field_add", function(){

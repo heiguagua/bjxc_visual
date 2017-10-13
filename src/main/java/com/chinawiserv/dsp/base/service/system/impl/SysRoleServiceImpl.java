@@ -57,7 +57,7 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
         SysUserVo currentLoginUser = ShiroUtils.getLoginUser();
         List<SysRole> roles = currentLoginUser.getSysRoleList();
         int roleLevel = -1;
-        if(roles != null){
+        if (roles != null) {
             roleLevel = roles.stream().min((o1, o2) -> o1.getRoleLevel().compareTo(o2.getRoleLevel())).get().getRoleLevel();
         }
         paramMap.put("roleLevel", roleLevel);
@@ -78,7 +78,7 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
     @Override
     public ListResult getAuth(String id) throws Exception {
         SysRole sysRole = selectById(id);
-        if(sysRole == null){
+        if (sysRole == null) {
             throw new RuntimeException("该角色不存在");
         }
         List<SysRoleMenu> sysRoleMenus = sysRoleMenuMapper.selectList(new EntityWrapper<SysRoleMenu>().addFilter("role_id = {0}", id));
@@ -93,12 +93,12 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
     public JSONObject checkRoleName(String roleName, String roleId) throws Exception {
         List<SysRole> list;
         JSONObject result = new JSONObject();
-        if(StringUtils.isNotBlank(roleId)){
+        if (StringUtils.isNotBlank(roleId)) {
             list = selectList(new EntityWrapper<SysRole>().where("role_name = {0}", roleName).and("id != {0}", roleId).and("delete_flag = {0}", 0));//todo
         } else {
             list = selectList(new EntityWrapper<SysRole>().where("role_name = {0}", roleName).and("delete_flag = {0}", 0));//todo
         }
-        if(list != null && !list.isEmpty()){
+        if (list != null && !list.isEmpty()) {
             result.put("error", "该角色名已存在");
         }
         return result;
@@ -108,21 +108,41 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
     public List<JSONObject> getRoleNameList(String userId) throws Exception {
         List<JSONObject> result = new ArrayList<JSONObject>();
         List<SysRole> list = new ArrayList<SysRole>();
-        if(StringUtils.isNotBlank(userId)){
-            List<SysUserRole> userRoleList = sysUserRoleMapper.selectList(new EntityWrapper<SysUserRole>().addFilter("user_id={0} ",userId));//todo
-            for(SysUserRole sysUserRole : userRoleList){
+        if (StringUtils.isNotBlank(userId)) {
+            List<SysUserRole> userRoleList = sysUserRoleMapper.selectList(new EntityWrapper<SysUserRole>().addFilter("user_id={0} ", userId));//todo
+            for (SysUserRole sysUserRole : userRoleList) {
                 SysRole sysRole = sysRoleMapper.selectById(sysUserRole.getRoleId());
-                if(sysRole.getRoleLevel() > -1){
+                if (sysRole.getRoleLevel() > -1) {
                     list.add(sysRole);
                 }
             }
-        }else{
-            list = sysRoleMapper.selectList(new EntityWrapper<SysRole>().addFilter("delete_flag = {0}", 0).addFilter("role_level > -1"));
+        } else {
+            int loginUserMinRoleLevel = ShiroUtils.getLoginUser().getMinRoleLevel();
+            list = sysRoleMapper.selectList(new EntityWrapper<SysRole>().addFilter("delete_flag = {0}", 0).addFilter("role_level > {0}", loginUserMinRoleLevel));
         }
-        for(SysRole sysRole : list){
+        for (SysRole sysRole : list) {
             JSONObject obj = new JSONObject();
-            obj.put("id",sysRole.getId());
-            obj.put("text",sysRole.getRoleName());
+            obj.put("id", sysRole.getId());
+            obj.put("text", sysRole.getRoleName());
+            result.add(obj);
+        }
+        return result;
+    }
+
+    @Override
+    public List<JSONObject> getRoleLevelList(String userId) throws Exception {
+        List<JSONObject> result = new ArrayList();
+        int minRoleLevel;
+        if (StringUtils.isNotBlank(userId)) {
+            SysUserVo sysUserVo = sysUserMapper.selectVoById(userId);//todo
+            minRoleLevel = sysUserVo.getMinRoleLevel();
+        } else {
+            minRoleLevel = ShiroUtils.getLoginUser().getMinRoleLevel();
+        }
+        for (int i = minRoleLevel + 1; i <= 5; i++) {
+            JSONObject obj = new JSONObject();
+            obj.put("id", i);
+            obj.put("text", i);
             result.add(obj);
         }
         return result;
@@ -131,12 +151,12 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
     @Override
     public boolean deleteRoleById(String id) throws Exception {
         int count = sysUserMapper.selectUsersCountByRoleId(id);
-        if(count == 0){
+        if (count == 0) {
             SysRole sysRole = new SysRole();
             sysRole.setId(id);
             sysRole.setDeleteFlag(1);
             return updateById(sysRole);
-        }else throw new RuntimeException("Delete role failed, because some users are belong to it!");
+        } else throw new RuntimeException("Delete role failed, because some users are belong to it!");
     }
 
     @Override

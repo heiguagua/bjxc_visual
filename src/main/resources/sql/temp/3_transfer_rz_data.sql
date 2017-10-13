@@ -1,4 +1,4 @@
-
+/*
 -- 系统管理模块
 	-- 顶级组织机构表
 	delete from sys_dept;
@@ -25,13 +25,14 @@
 	insert into sys_guid_dept(id,cur_dept_id,guid_dept_id)
 		select uuid,organize_id,director_organize_id from rz_dir.account_director ;
 
-
+*/
 
 -- 目录类型相关表
 	-- 先修改目标数据表结构,添加old_code,old_fcode,
 	--	 alter table dir_classify add column old_code varchar(64);
 	--	 alter table dir_classify add column old_fcode varchar(64);
 	-- 目录类型表
+	/*
 	delete from dir_classify;
 	insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number, -- classify_structure_code,classify_structure_name,
 	status)
@@ -59,7 +60,7 @@ INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classif
 
 insert into dir_classify_dept_map (id,classify_id,dept_id)
 	select REPLACE(uuid(),'-',''),id,id from sys_dept where fid in (select id from sys_dept where fid = 'root');
-
+*/
 -- 以上为基础数据，以下为业务数据，需要转的
 
 	-- 目录系统的信息资源（数据集）

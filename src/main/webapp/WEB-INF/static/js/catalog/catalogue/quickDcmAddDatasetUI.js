@@ -3,6 +3,8 @@
  */
 jQuery(document).ready(function () {
     window.Dict=new dict();
+    window.fieldIds=[];
+    window.table_number=[];
     initAllSelect();
     initInputValue();
 });
@@ -114,7 +116,7 @@ var Model = {
                     var html = '';
                     var cur = this;
 
-                    var pool=[];
+                    var pool=fieldIds;
                     var setCode=$('#set_code').val();//操作的对象
                     /*$.ajax({
                         url: basePathJS+"/admin/SysBus_getDirBusinessBySetCode",
@@ -136,13 +138,13 @@ var Model = {
 
                     $.each(cur.datas, function(idx, itm){
                         try {
-                            if(cur.existed(itm.ID,pool)){
-                                html += '<a class="list-group-item no-border disabled" data-id="'+itm.id+'">'+itm.cloumn_name+'</a>';
+                            if(cur.existed(itm.id,pool)){
+                                html += '<a class="list-group-item no-border disabled" data-id="'+itm.id+'">'+itm.column_en_name+'</a>';
                             }else{
-                                html += '<a class="list-group-item no-border" data-id="'+itm.id+'">'+itm.cloumn_name+'</a>';
+                                html += '<a class="list-group-item no-border" data-id="'+itm.id+'">'+itm.column_en_name+'</a>';
                             }
                         } catch (e) {
-                            html += '<a class="list-group-item no-border" data-id="'+itm.id+'" >'+itm.cloumn_name+'</a>';
+                            html += '<a class="list-group-item no-border" data-id="'+itm.id+'" >'+itm.column_en_name+'</a>';
                         }
 
                     });
@@ -173,11 +175,11 @@ var Model = {
         loadGroups: function(success){
             this.cache.group.tree = tree;
             var cur = this;
-            $.get(basePathJS+'/csSystem/selectProjectList',null, function (data) {
+            $.get(basePathJS+'/system/dept/getDeptByPrivilege',null, function (data) {
                 var d=data.content;
-                if(d.list!=null){
+                if(d.result!=null){
                     $('#group_tree').treeview({
-                        data: formatOrg(d.list),
+                        data: formatOrg(d.result.childs),
                         color: "#428bca",
                         nodeIcon: 'fa fa-tag',
                         showBorder: false,
@@ -201,7 +203,7 @@ var Model = {
         loadBusiness: function(success){
             this.cache.bus.tree = tree;
             var cur = this;
-            $.get(basePathJS+'/csSystem/selectSourceByProName?project_name='+(cur.cache.group.select?cur.cache.group.select.text:""),null, function (data) {
+            $.get(basePathJS+'/DcmDb/selectDbByDeptId?dept_id='+(cur.cache.group.select?cur.cache.group.select.dir_code:""),null, function (data) {
                 var d = data.content;
                 if(d.list!=null){
                     $('#bus_tree').treeview({
@@ -213,7 +215,7 @@ var Model = {
                         searchResultColor: "",
                         onNodeSelected: function (e, n) {
                             cur.cache.bus.select = n;
-                            cur.loadDataSet(n);
+                            cur.loadDataSet(n.dir_code);
                         },
                         onNodeUnselected: function (e, n) {
                             cur.cache.item.reset();
@@ -244,10 +246,10 @@ var Model = {
             var cur = this;
             if(cur.cache.bus.select){
                 $.ajax({
-                    url: basePathJS+"/csSystem/selectTablesBySourceName",
+                    url: basePathJS+"/DcmDb/selectTableByDbId",
                     type: "post",
                     data: {
-                        source_name: cur.cache.bus.select.text
+                        db_id: cur.cache.bus.select.dir_code
                     },
                     dataType: "json",
                     success: function (data) {
@@ -266,7 +268,7 @@ var Model = {
             var cur = this;
             if(cur.cache.data.select){
                 $.ajax({
-                    url: basePathJS+"/csSystem/selectColumnsByTableId",
+                    url: basePathJS+"/DcmDb/selectFieldByTableId",
                     type: "post",
                     data: {
                         table_id: cur.cache.data.select.id
@@ -300,6 +302,16 @@ $(document).on("click", "#dataset_item_container>a", function(){
     Model.business.cache.item.reset();
     Model.business.loadItems();
 });
+$(document).on("click", "em", function(){
+    $(this).closest('span').remove();
+    var id=$(this).attr('data-id');
+    for (var i in fieldIds){
+        if(fieldIds[i]==id){
+            fieldIds.splice(i,1);
+            break;
+        }
+    }
+});
 $(document).on("click", "#field_tree>a", function(){
     var disabled = $(this).hasClass("disabled");
     if(!disabled){
@@ -311,44 +323,186 @@ $(document).on("click", "#field_tree>a", function(){
         }
     }
 });
+
+$(document).on("click", "button#add_to_container", function(){
+    var table_id=$("#dataset_item_container>a.active").attr("data-id");
+    var table_name=$("#dataset_item_container>a.active").text();
+    var b=true;
+    for (var i in table_number){
+        if(table_number[i].table_id==table_id){
+            b=false;
+            break;
+        }
+    }
+    if(b){
+        var obj={'table_id':table_id,'table_name':table_name};
+        table_number.push(obj);
+    }
+    $.each($("#field_tree>a.active"), function(idx, itm){
+        var id = $(itm).attr("data-id");
+        var text = $(itm).text();
+        if(id&&text){
+            var b=true;
+            for (var i in  fieldIds){
+                if(id==fieldIds[i]){
+                    b=false;
+                    break;
+                }
+            }
+            if (b) {
+                fieldIds.push(id);
+                $('#fieldTexts').append('<span class="words-split"><a href="javascript:void(0)" class="fm-button">' + text + '<em data-id="' + id + '"> </em></a></span>');
+            }
+        }
+    });
+    for(var i in fieldIds){
+        $('#field_tree>a[data-id='+fieldIds[i]+']').removeClass('active');
+        $('#field_tree>a[data-id='+fieldIds[i]+']').addClass('disabled');
+    }
+});
 $(document).on("click", "button#field_add", function(){
-    var id=$("#dataset_item_container>a.active").attr('data-id');
+
+    $('#table_number').text(table_number.length);
+    $('#link_number').text(table_number.length-1);
+    $('#tableNumber').val(table_number.length);
+    //获取选中的数据项
+    if(fieldIds.length>0){
+        $.ajax({
+            url: basePathJS+"/DcmDb/selectFieldByIds",
+            type:"get",
+            data:{
+                list:fieldIds.toString()
+            },
+            dataType:"json",
+            success:function(data){
+                if(data.state){
+                    /*for(var i in fieldIds){
+                        $('a[column-id='+fieldIds[i]+']').removeClass('active');
+                        $('a[column-id='+fieldIds[i]+']').addClass('disabled');
+                    }*/
+                    if(data.content.list){
+                        var arr=data.content.list;
+                        for (var i in arr){
+                           var thisTrNum = getTrNum();
+                           buildItem(thisTrNum,arr[i]);
+                        }
+                    }
+                }else{
+                    $.bootstrapDialog.failure(data.message);
+                }
+            },
+            error: function(xhr, c){
+
+            }
+        });
+        var trnum=$('#data_sys_link>tr').length;
+        for (var i=0;i<table_number.length-1-trnum;i++){
+            buildLinkSelect(table_number,getTrNum1(trnum),trnum+1);
+        }
+        $('#myModal').modal('hide');
+    }else{
+        layer.alert('请选择字段！')
+    }
+});
+$(document).on("click", "#addLinks", function(){
+    var trnum=$('#data_sys_link>tr').length;
+    buildLinkSelect(table_number,getTrNum1(trnum),trnum+1);
+});
+function getTrNum1(thisTrNum){
+    if(thisTrNum>0){
+        var maxNum=0;
+        $.each($('#data_sys_link>tr'),function(idx,item){
+            var i= $(item).find('td:first').attr('trNum');
+            if(i>maxNum){
+                maxNum=i;
+            }
+        })
+        thisTrNum=parseInt(maxNum)+1;
+    }
+    return thisTrNum;
+}
+
+function buildLinkSelect(data,trNum,i){
+    var str='';
+    for (var j in data){
+        str+="<option value='"+data[j].table_id+"'>"+data[j].table_name+"</option>"
+    }
+    $("#data_sys_link").append("<tr id='se_"+trNum+"'>" +
+        "<td trNum='"+trNum+"'>"+i+"</td>" +
+        "<td style='text-align: right'><select id='sys_select' class='form-control' data-rule='表:required;' name='relations["+trNum+"].sourceTableId'><option value=''>请选择表</option>"+str+"</select></td>" +
+        "<td><select name='relations["+trNum+"].sourceColumnId' class='form-control' data-rule='字段:required;'><option value=''>请选择字段</option></select></td>" +
+        "<td>∞</td>" +
+        "<td style='text-align: right'><select id='sys_select_f' class='form-control' data-rule='表:required;' name='relations["+trNum+"].targetTableId'><option value=''>请选择表</option>"+str+"</select></td>" +
+        "<td><select name='relations["+trNum+"].targetColumnId' class='form-control' data-rule='字段:required;'><option value=''>请选择字段</option></select></td>" +
+        "<td><a class='btn btn-xs btn-warning' onclick='javascript:deleteLinkHtml(\""+trNum+"\")'>删除</a></td>" +
+        "</tr>");
+}
+
+function deleteLinkHtml(trNum) {
+    $('#se_'+trNum).remove();
+}
+
+$(document).on("change", "select#sys_select", function(){
+    var str=$(this).find("option:selected").val();
+    var ids=[];
+    var option=[];
+    var options='';
     $.ajax({
-        url: basePathJS+"/csSystem/selectColumnsByTableId",
+        url: basePathJS+"/DcmDb/selectFieldByTableId",
         type: "post",
         data: {
-            table_id: id
+            table_id:str
         },
         dataType: "json",
         success: function (data) {
-            if(data.state && data.content){
-                var datas = data.content.list;
-                $('#dataitemList').empty();
-                for(var i in datas){
-                    var thisTrNum = getTrNum();
-                    buildItem(thisTrNum,{id:datas[i].id,itemName:datas[i].cloumn_name});
-                }
+            if(data.state && data.content.list){
+                $.each(data.content.list, function(idx, itm){
+                    ids.push(itm.id);
+                    option.push(itm.column_en_name);
+                })
             }
         },
+        async:false,
         error: function(xhr, c){
         }
     });
-    //提交
-    /*var arr=[];
-    $.each($("#field_tree>a.active"), function(idx, itm){
-        //var id = $(itm).attr("data-id");
-        var name = $(itm).text();
-        if(name){
-            arr.push({itemName:name});
+
+    for (var i = 0; i < option.length; i++) {
+        options+="<option value='"+ids[i]+"'>"+option[i]+"</option>"
+    }
+    $(this).parent().parent().children().eq(2).children().find("option").not(":first").remove();
+    $(this).parent().parent().children().eq(2).children().append(options);
+});
+$(document).on("change", "select#sys_select_f", function(){
+    var str=$(this).find("option:selected").val();
+    var ids=[];
+    var option=[];
+    var options='';
+    $.ajax({
+        url: basePathJS+"/DcmDb/selectFieldByTableId",
+        type: "post",
+        data: {
+            table_id:str
+        },
+        dataType: "json",
+        success: function (data) {
+            if(data.state && data.content.list){
+                $.each(data.content.list, function(idx, itm){
+                    ids.push(itm.id);
+                    option.push(itm.column_en_name);
+                })
+            }
+        },
+        async:false,
+        error: function(xhr, c){
         }
     });
-    if(arr.length>0){
-        for (var i in arr){
-            var thisTrNum = getTrNum();
-            buildItem(thisTrNum,arr[i]);
-        }
-    }*/
-    $('#myModal').modal('hide');
+
+    for (var i = 0; i < option.length; i++) {
+        options+="<option value='"+ids[i]+"'>"+option[i]+"</option>"
+    }
+    $(this).parent().parent().children().eq(5).children().find("option").not(":first").remove();
+    $(this).parent().parent().children().eq(5).children().append(options);
 });
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
@@ -376,8 +530,10 @@ $(document).on('click','#add_item',function () {
         })
         thisTrNum=parseInt(maxNum)+1;
     }
-    $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'"><td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
-        '<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
+    $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'">' +
+        '<td><input trNum='+thisTrNum+' data-rule="字段名:required;" type="text" class="form-control"></td>'+
+        '<td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
+        '<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType")+'</select></td>'+
         '<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" min="1" type="text" class="form-control"></td>'+
         '<td></td>'+
         '<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
@@ -405,19 +561,17 @@ function getTrNum(){
     }
     return thisTrNum;
 }
-function buildDataset(data){
-    for(var key in data){
-        $('#'+key).val(data[key]);
-    }
-}
+
 function buildItem(thisTrNum,data){
     var str='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
-        +'<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
+        +'<td><input value="'+(data.columnName?data.columnName:'')+'" data-rule="字段名:required;" type="text" class="form-control"></td>'
+        +'<td><input value="'+(data.columnRemark?data.columnRemark:'')+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.Length?data.Length:'')+'" min="1" type="text" class="form-control"></td>'
-        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_short_name?data.dept_short_name:'')+'" > </td>'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.columnLength?data.columnLength:'')+'" min="1" type="text" class="form-control"></td>'
+        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.dept_id?data.dept_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_name?data.dept_name:'')+'" > </td>'
         +'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         +'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
+        +'<td><input type="hidden" value="'+(data.table_id?data.table_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.table_name?data.table_name:'')+'" > </td>'
         +'<td><select name="items['+thisTrNum+'].secretFlag" data-rule="涉密标识:required;" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
         +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" value="'+(data.shareConditionDesc?data.shareConditionDesc:'')+'"></td>'
@@ -436,11 +590,20 @@ function formatOrg(aaData) {
     if (aaData.length == 0) return null;
     var objArr = [];
     aaData.forEach(function (v, n) {
+
         var temp_json = {};
-        temp_json.text = v;
-        temp_json.dir_code = 0;
-        temp_json.nodes=null;
+        temp_json.text = v.deptShortName;
+        temp_json.dir_code = v.id;
+        try {
+            temp_json.nodes = formatOrg(v.childs);
+        } catch (e) {
+            temp_json.nodes = formatOrg([]);
+        }
+        if (temp_json.nodes) {
+            temp_json.selectable = false;
+        }
         objArr.push(temp_json);
+
     });
     return objArr;
 }
@@ -449,8 +612,8 @@ function formatTable(aaData) {
     var objArr = [];
     aaData.forEach(function (v, n) {
         var temp_json = {};
-        temp_json.text = v;
-        temp_json.dir_code = 0;
+        temp_json.text = v.db_name;
+        temp_json.dir_code = v.id;
         temp_json.nodes=null;
         objArr.push(temp_json);
     });
@@ -475,6 +638,7 @@ $(document).on("change","#storeMedia",function(){
         Dict.cascadeSelects('dataSetStoreMedia', ['#format_type'], selectedValue);
     }
 });
+
 
 function initInputValue(){
     //初始化资源提供方和提供方代码输入框的值
