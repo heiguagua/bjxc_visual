@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @TableName("cs_data_sync_collect_db")
 public class CsDataSyncCollectDb implements Serializable {
+    @TableField(exist = false)
     private static final long serialVersionUID = -7230762524986271784L;
     @JSONField(name = "storeDbid")
     private String id;//数据库id
