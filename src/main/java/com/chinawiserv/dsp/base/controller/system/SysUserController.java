@@ -108,7 +108,7 @@ public class SysUserController extends BaseController {
             sysUserService.delete(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return result.error("删除用户失败");
+            return result.error("删除用户失败：" + e.getMessage());
         }
         return result.success("删除用户成功");
     }

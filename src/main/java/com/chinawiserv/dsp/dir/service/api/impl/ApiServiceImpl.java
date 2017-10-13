@@ -464,66 +464,82 @@ public class ApiServiceImpl implements IApiService {
         String token = (String)paramMap.get("token");
 
         /**
-         * 获取数据集
+         * 获取服务封装类型
          * */
-        String datasetId = (String)paramMap.get("datasetId");
+        String serviceType = (String)paramMap.get("type");
         /**
-         * 对应目录的ID
+         * 梳理封装
          * */
-        String classifyId = (String)paramMap.get("classifyId");
-
-        if(null == paramMap || StringUtils.isAnyBlank(token,datasetId,classifyId)){
-            handleResult.setMsg("未传入TOKEN或数据集ID或目录ID");
-            handleResult.setState(false);
+        if("drap".equalsIgnoreCase(serviceType)){
             return handleResult;
         }
-
-        //查询Token对应的用户
-        SysUser sysUserParam = new SysUser();
-        sysUserParam.setToken(token);
-        SysUser sysUser = sysUserMapper.selectOne(sysUserParam);
-
-        if(null != sysUser){
-            String userName = sysUser.getUserName();
-            String userId = sysUser.getId();
-            paramMap.put("userName",userName);
-            paramMap.put("userId",userId);
-            Map<String,Object> userInfo = Maps.newHashMap();
-            userInfo.put("userId",userId);
-            userInfo.put("userName",userName);
-            userInfo.put("userRealName",sysUser.getRealName());
-            handleResult.put("userInfo",userInfo);
+        /**
+         * 非梳理封装
+         * */
+        else {
             /**
-             * 查询用户字段权限
+             * 获取数据集
              * */
-            Map<String,Object> dataseAuthorityMap = apiMapper.getDataAuthorityByUserId(paramMap);  //待完成
-            String dataApplyId = null;
-            if(null != dataseAuthorityMap && !dataseAuthorityMap.isEmpty()){
-                dataApplyId = (String)dataseAuthorityMap.get("dataApplyId");
-            }
-            boolean status;
-            try{
-                status = Boolean.valueOf((String)dataseAuthorityMap.get("status")).booleanValue();
-            }catch (Exception e){
-                logger.error(e.getMessage());
-                status = false;
-            }
-            paramMap.put("dataApplyId",dataApplyId);
-            handleResult.put("authorityDataset",dataseAuthorityMap);
-            handleResult.put("userDatasetAuthority",status);
-            handleResult.setState(true);
+            String dcmId = (String)paramMap.get("dcmId");
             /**
-             * 查询数据集对应字段
+             * 对应目录的ID
              * */
-            if(status){
-                List<Map<String,Object>> itemAuthorityList = apiMapper.getDataitemAuthorityByUserIdAndDatasetId(paramMap);
-                handleResult.put("authorityItems",itemAuthorityList);
+
+            if(null == paramMap || StringUtils.isAnyBlank(token,dcmId)){
+                handleResult.setMsg("未传入TOKEN或dcmId");
+                handleResult.setState(false);
+                return handleResult;
             }
 
-        }else{
-            handleResult.setMsg("对应用户不存在");
-            handleResult.setState(false);
+            //查询Token对应的用户
+            SysUser sysUserParam = new SysUser();
+            sysUserParam.setToken(token);
+            SysUser sysUser = sysUserMapper.selectOne(sysUserParam);
+
+            if(null != sysUser){
+                String userName = sysUser.getUserName();
+                String userId = sysUser.getId();
+                paramMap.put("userName",userName);
+                paramMap.put("userId",userId);
+                Map<String,Object> userInfo = Maps.newHashMap();
+                userInfo.put("userId",userId);
+                userInfo.put("userName",userName);
+                userInfo.put("userRealName",sysUser.getRealName());
+                handleResult.put("userInfo",userInfo);
+                /**
+                 * 查询用户字段权限
+                 * */
+                Map<String,Object> dataseAuthorityMap = apiMapper.getDataAuthorityByUserId(paramMap);  //待完成
+                String dataApplyId = null;
+                if(null != dataseAuthorityMap && !dataseAuthorityMap.isEmpty()){
+                    dataApplyId = (String)dataseAuthorityMap.get("dataApplyId");
+                }
+                boolean status;
+                try{
+                    status = Boolean.valueOf((String)dataseAuthorityMap.get("status")).booleanValue();
+                }catch (Exception e){
+                    logger.error(e.getMessage());
+                    status = false;
+                }
+                paramMap.put("dataApplyId",dataApplyId);
+                handleResult.put("authorityDataset",dataseAuthorityMap);
+                handleResult.put("userDatasetAuthority",status);
+                handleResult.setState(true);
+                /**
+                 * 查询数据集对应字段
+                 * */
+                if(status){
+                    List<Map<String,Object>> itemAuthorityList = apiMapper.getDataitemAuthorityByUserIdAndDatasetId(paramMap);
+                    handleResult.put("authorityItems",itemAuthorityList);
+                }
+
+            }else{
+                handleResult.setMsg("对应用户不存在");
+                handleResult.setState(false);
+            }
         }
+
+
         return handleResult;
     }
 

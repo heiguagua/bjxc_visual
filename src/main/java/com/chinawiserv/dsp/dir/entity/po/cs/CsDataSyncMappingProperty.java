@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @TableName("cs_data_sync_mapping_property")
 public class CsDataSyncMappingProperty implements Serializable {
+    @TableField(exist = false)
     private static final long serialVersionUID = 5637577966909782901L;
     private String id;
     @TableField("conf_id")

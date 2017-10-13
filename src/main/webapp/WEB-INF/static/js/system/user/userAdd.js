@@ -4,7 +4,7 @@
 
 jQuery(document).ready(function () {
     $(window).load(function(){
-        $("#userName").val("")
+        $("#userName").val("");
         $("#password").val("");
     });
     initSelectData();

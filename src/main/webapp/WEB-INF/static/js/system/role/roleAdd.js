@@ -1,12 +1,25 @@
 /**
  * Created by lenovo on 2017/5/9.
  */
+$(document).ready(function(){
+    $.commonAjax({
+        url: basePathJS + "/system/role/getRoleLevelList",
+        success: function (result) {
+            if (result.state) {
+                var selectData = result.content.selectData;
+                $("#roleLevel").select2({
+                    data: selectData
+                });
+            }
+        }
+    });
 
+});
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
     var  val = $("#roleLevel").val();
     if(!val){
-        alert("请选择角色级别");
+        layer.msg("请选择角色级别");
         return false;
     }
     return true ;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.cs.CsDataSyncMappingPropertyMapper">
-    <!-- CsDataSyncMappingProperty的resultMap,column是给数据库列起的别名,它对应property类的属性-->
-    <resultMap id="result_CsDataSyncMappingProperty_Map"
+
+    <resultMap id="BaseResultMap"
                type="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncMappingProperty">
         <id column="id" property="id"/>
         <result column="conf_id" property="confId"/>
@@ -14,122 +14,9 @@
         <result column="update_user" property="updateUser"/>
     </resultMap>
 
-    <!-- 数据库中表名为:cs_data_sync_mapping_property的列名,as前是数据库的列明,as后是列的别名用于映射成实体类中的属性,需要注意的是别名必须与resultMap中的column别名一致 -->
     <sql id="cs_data_sync_mapping_property_Column">
-        cs_data_sync_mapping_property.id as id
-        ,cs_data_sync_mapping_property.conf_id as conf_id
-        ,cs_data_sync_mapping_property.cloumn_name as cloumn_name
-        ,cs_data_sync_mapping_property.cloumn_chzn as cloumn_chzn
-        ,cs_data_sync_mapping_property.porperty_type as porperty_type
-        ,cs_data_sync_mapping_property.property_id as property_id
-        ,cs_data_sync_mapping_property.update_time as update_time
-        ,cs_data_sync_mapping_property.update_user as update_user
+         id , conf_id, cloumn_name , cloumn_chzn, porperty_type , property_id ,update_time , update_user
     </sql>
 
-    <!-- 获得一个CsDataSyncMappingProperty对象,以参数CsDataSyncMappingProperty对象中不为空的属性作为条件进行查询-->
-    <select id="selectCsDataSyncMappingPropertyByObj"
-            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncMappingProperty"
-            resultMap="result_CsDataSyncMappingProperty_Map">
-        select
-        <include refid="cs_data_sync_mapping_property_Column"/>
-        from cs_data_sync_mapping_property
-        <where>
-            <if test="updateUser != null ">and cs_data_sync_mapping_property.update_user = #{updateUser}</if>
-            <if test="updateTime != null ">and cs_data_sync_mapping_property.update_time = #{updateTime}</if>
-            <if test="propertyId != null ">and cs_data_sync_mapping_property.property_id = #{propertyId}</if>
-            <if test="porpertyType != null ">and cs_data_sync_mapping_property.porperty_type = #{porpertyType}</if>
-            <if test="cloumnChzn != null ">and cs_data_sync_mapping_property.cloumn_chzn = #{cloumnChzn}</if>
-            <if test="cloumnName != null ">and cs_data_sync_mapping_property.cloumn_name = #{cloumnName}</if>
-            <if test="confId != null ">and cs_data_sync_mapping_property.conf_id = #{confId}</if>
-            <if test="id != null ">and cs_data_sync_mapping_property.id = #{id}</if>
-        </where>
-    </select>
-
-    <!-- 通过CsDataSyncMappingProperty的id获得对应数据库中表的数据对象-->
-    <select id="selectCsDataSyncMappingPropertyById" parameterType="java.lang.String"
-            resultMap="result_CsDataSyncMappingProperty_Map">
-        select
-        <include refid="cs_data_sync_mapping_property_Column"/>
-        from cs_data_sync_mapping_property
-        where cs_data_sync_mapping_property.id = #{id}
-    </select>
-
-    <!-- 将CsDataSyncMappingProperty插入到对应数据库的表中,包括属性值为null的数据-->
-
-    <insert id="insertCsDataSyncMappingProperty"
-            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncMappingProperty">
-        insert into cs_data_sync_mapping_property(id,conf_id,cloumn_name,cloumn_chzn,porperty_type,property_id,update_time,update_user) 
-        values(#{id},#{confId},#{cloumnName},#{cloumnChzn},#{porpertyType},#{propertyId},#{updateTime},#{updateUser})
-    </insert>
-
-    <!-- 将CsDataSyncMappingProperty中属性值不为null的数据,插入到对应数据库的表中-->
-    <insert id="insertNonEmptyCsDataSyncMappingProperty"
-            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncMappingProperty">
-        insert into cs_data_sync_mapping_property
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">id,</if>
-            <if test="confId != null">conf_id,</if>
-            <if test="cloumnName != null">cloumn_name,</if>
-            <if test="cloumnChzn != null">cloumn_chzn,</if>
-            <if test="porpertyType != null">porperty_type,</if>
-            <if test="propertyId != null">property_id,</if>
-            <if test="updateTime != null">update_time,</if>
-            <if test="updateUser != null">update_user,</if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">#{id},</if>
-            <if test="confId != null">#{confId},</if>
-            <if test="cloumnName != null">#{cloumnName},</if>
-            <if test="cloumnChzn != null">#{cloumnChzn},</if>
-            <if test="porpertyType != null">#{porpertyType},</if>
-            <if test="propertyId != null">#{propertyId},</if>
-            <if test="updateTime != null">#{updateTime},</if>
-            <if test="updateUser != null">#{updateUser},</if>
-        </trim>
-    </insert>
-
-    <!-- 通过CsDataSyncMappingProperty的id将CsDataSyncMappingProperty的数据更新到数据库中对应的表,包括值null的数据-->
-    <update id="updateCsDataSyncMappingPropertyById"
-            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncMappingProperty">
-        update cs_data_sync_mapping_property set
-            conf_id=#{confId}
-            ,cloumn_name=#{cloumnName}
-            ,cloumn_chzn=#{cloumnChzn}
-            ,porperty_type=#{porpertyType}
-            ,property_id=#{propertyId}
-            ,update_time=#{updateTime}
-            ,update_user=#{updateUser}
-        where id=#{id}
-    </update>
-
-    <!-- 通过CsDataSyncMappingProperty的id将CsDataSyncMappingProperty中属性值不为null的数据更新到数据库对应的表中-->
-    <update id="updateNonEmptyCsDataSyncMappingPropertyById"
-            parameterType="com.chinawiserv.dsp.dir.entity.po.cs.CsDataSyncMappingProperty">
-        update cs_data_sync_mapping_property
-        <set>
-            <if test="confId != null">
-                conf_id=#{confId},
-            </if>
-            <if test="cloumnName != null">
-                cloumn_name=#{cloumnName},
-            </if>
-            <if test="cloumnChzn != null">
-                cloumn_chzn=#{cloumnChzn},
-            </if>
-            <if test="porpertyType != null">
-                porperty_type=#{porpertyType},
-            </if>
-            <if test="propertyId != null">
-                property_id=#{propertyId},
-            </if>
-            <if test="updateTime != null">
-                update_time=#{updateTime},
-            </if>
-            <if test="updateUser != null">
-                update_user=#{updateUser},
-            </if>
-        </set>
-        where id=#{id}
-    </update>
 
 </mapper>

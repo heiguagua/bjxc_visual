@@ -59,6 +59,8 @@ function initEditPage(){
                 $("#orgLongitude").val(vo.orgLongitude);
                 $("#orgLatitude").val(vo.orgLatitude);
                 $("#orderNumber").val(vo.orderNumber);
+                $("#validateFrom").val(vo.validateFromStr);
+                $("#validateTo").val(vo.validateToStr);
                 // $("#icon").text(vo.icon);
                 $("#inlineRadio"+vo.status).attr("checked", true);
             }

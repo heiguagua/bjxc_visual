@@ -122,7 +122,7 @@ public class SysDeptController extends BaseController {
                 handleResult.error("删除组织机构失败");
             }
         }catch (Exception e){
-            handleResult.error("删除组织机构失败");
+            handleResult.error("删除组织机构失败：" + e.getMessage());
             logger.error("删除组织机构失败", e);
         }
         return handleResult;
