@@ -184,15 +184,15 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public boolean deleteDeptById(String id) throws Exception {
         SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(id);
         if (sysDeptVo != null) {
-            if (!sysDeptMapper.isParentDept(sysDeptVo.getDeptCode())) {
+            if (!sysDeptMapper.isParentDept(sysDeptVo.getId())) {
                 int count = sysUserMapper.selectUsersCountByDeptId(id);
                 if (count == 0) {
                     SysDept sysDept = new SysDept();
                     sysDept.setId(id);
                     sysDept.setDeleteFlag(1);
                     return updateById(sysDept);
-                }
-            }
+                }else throw new Exception("有用户所属该组织机构");
+            }else throw new Exception("该组织机构有下级组织机构");
         }
         return false;
     }
