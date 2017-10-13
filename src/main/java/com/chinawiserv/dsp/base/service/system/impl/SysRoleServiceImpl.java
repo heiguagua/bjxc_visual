@@ -117,7 +117,8 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
                 }
             }
         }else{
-            list = sysRoleMapper.selectList(new EntityWrapper<SysRole>().addFilter("delete_flag = {0}", 0).addFilter("role_level > -1"));
+            int loginUserMinRoleLevel = ShiroUtils.getLoginUser().getMinRoleLevel();
+            list = sysRoleMapper.selectList(new EntityWrapper<SysRole>().addFilter("delete_flag = {0}", 0).addFilter("role_level > {0}", loginUserMinRoleLevel));
         }
         for(SysRole sysRole : list){
             JSONObject obj = new JSONObject();

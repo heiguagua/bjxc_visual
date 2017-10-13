@@ -1268,12 +1268,12 @@ function initGlobalCustom(tempUrlPrefix) {
          * 获取当前选中的区域的编码
          */
         getSelectedRegionCode:function(){
-            var regionCode = "";
+            /*var regionCode = "";
             var regionObj = JSON.parse(window.localStorage.getItem("regionObj"));
             if(regionObj){
                 regionCode = regionObj.code;
-            }
-            return regionCode;
+            }*/
+            return newRegionCode;
         },
         /**
          * 获取目录类别的下拉树对象
