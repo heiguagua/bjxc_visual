@@ -69,7 +69,7 @@ function initInputValue(){
                 $("#relDatasetName").val(obj.relClassifyName);
                 $("#relDatasetCode").val(obj.relDatasetCode);
                 $("#datasetName").val(obj.datasetName);
-                $("#datasetCode").val(obj.datasetCode);
+                $("#infoResourceCode").val(obj.infoResourceCode);
                 $("#belongDeptType").val(obj.belongDeptType);
                 $("#belongDeptTypeName").val(obj.regionDeptName);
                 $("#belongDeptCode").val(obj.regionDeptCode);
