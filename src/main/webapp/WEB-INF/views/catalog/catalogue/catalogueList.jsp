@@ -38,19 +38,22 @@
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li>
-                                                <button type="button" style="width: 100%;" onclick="quickSystemAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从系统梳理添加</button>
+                                                <button type="button" style="width: 100%;" onclick="quickSystemAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从梳理系统(系统)</button>
                                             </li>
                                             <li>
-                                                <button type="button" style="width: 100%;" onclick="quickAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从资源梳理添加</button>
+                                                <button type="button" style="width: 100%;" onclick="quickAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从梳理系统(资源)</button>
                                             </li>
                                             <li>
-                                                <button type="button" style="width: 100%;" onclick="quickCsAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从爬虫系统添加</button>
+                                                <button type="button" style="width: 100%;" onclick="quickCsAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从采集系统(爬虫)</button>
                                             </li>
                                             <li>
-                                                <button type="button" style="width: 100%;" onclick="quickDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从关系型采集添加</button>
+                                                <button type="button" style="width: 100%;" onclick="quickDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从采集系统(关系型)</button>
                                             </li>
                                             <li>
-                                                <button type="button" style="width: 100%;" onclick="quickNosqlDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从非关系型采集添加</button>
+                                                <button type="button" style="width: 100%;" onclick="quickNosqlDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从采集系统(非关系型)</button>
+                                            </li>
+                                            <li>
+                                                <button type="button" style="width: 100%;"  class="btn btn-primary btn-flat btn_blue"><p style="color: #DDDDDD">从处理系统</p></button>
                                             </li>
                                         </ul>
                                     </div>
