@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/10/13 17:12:32                            */
+/* Created on:     17/10/14 19:25:23                            */
 /*==============================================================*/
 
 
@@ -63,6 +63,8 @@ drop table if exists dir_data_publish;
 drop table if exists dir_data_rate;
 
 drop table if exists dir_data_registe;
+
+drop table if exists dir_data_transfer;
 
 drop table if exists dir_data_visit;
 
@@ -766,6 +768,23 @@ create table dir_data_registe
 );
 
 alter table dir_data_registe comment '数据注册情况表';
+
+/*==============================================================*/
+/* Table: dir_data_transfer                                     */
+/*==============================================================*/
+create table dir_data_transfer
+(
+   id                   varchar(36) not null comment 'ID',
+   dcm_id               varchar(36) comment '信息资源ID',
+   transfer_user_id     varchar(36) comment '上报人ID',
+   transfer_user_name   varchar(64) comment '上报人姓名',
+   transfer_time        datetime comment '上报时间',
+   trasnfer_scope       varchar(256) comment '上报范围',
+   transfer_status      varchar(36) comment '上报状态',
+   primary key (id)
+);
+
+alter table dir_data_transfer comment '资源目录上报信息';
 
 /*==============================================================*/
 /* Table: dir_data_visit                                        */
@@ -2475,7 +2494,6 @@ ENGINE = InnoDB
 DEFAULT CHARSET = utf8;
 
 alter table sys_user_role comment '用户角色表';
-
 
 
 
