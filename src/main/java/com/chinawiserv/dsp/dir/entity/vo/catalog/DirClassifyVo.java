@@ -16,10 +16,13 @@ public class DirClassifyVo extends DirClassify{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private String hasLeaf;
 	private String DeptId;
 	private String DeptName;
     private String iconName;
+    private String classifyTypeName;
+    private String nationalClassifyName;
     
     public String getHasLeaf() {
         return hasLeaf;
@@ -53,5 +56,28 @@ public class DirClassifyVo extends DirClassify{
 		this.iconName = iconName;
 	}
 
+	public String getClassifyTypeName() {
+		return classifyTypeName;
+	}
+
+	public void setClassifyTypeName(String classifyTypeName) {
+		this.classifyTypeName = classifyTypeName;
+	}
+
+	public String getNationalClassifyName() {
+		return nationalClassifyName;
+	}
+
+	public void setNationalClassifyName(String nationalClassifyName) {
+		this.nationalClassifyName = nationalClassifyName;
+	}
+	
+	
+	
+//	public static void main(String[] args) {
+//		
+//		DirClassifyVo vo = new DirClassifyVo();
+//		System.out.println(vo);
+//	}
 
 }

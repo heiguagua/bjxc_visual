@@ -67,19 +67,17 @@
 			                            </div>
 			                        </div>
 			                        <div class="col-sm-6">
-			                            <label  class="col-sm-3 control-label" for="orderNumber">国家库*</label>
+			                            <label  class="col-sm-3 control-label" for="EnationalCode">国家库*</label>
 			                            <div class="col-sm-9">
-			                            	<input type="text" id="Enational_code" name="nationalCode" class="form-control"
-                                       		placeholder="" data-rule="排序号:required;nationalCode;">
-			                            	
-											<!-- <input type="text" id="appCategory" data-rule="应用分类:required;" class="form-control"
+                        	
+											<input type="text" id="EnationalCode" data-rule="国家库:required;" class="form-control"
 					                         placeholder="">
-					                        <input type="hidden" id="dictCode" name="appCategory">
+					                        <input type="hidden" id="EdictNationalCode" name="nationalCode">
 					                        <div class="menu-wrap">
-					                            <div id="menuContent" class="menuContent" style="display:none;">
-					                                <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+					                            <div id="EmenuNationalContent" class="menuContent" style="display:none;">
+					                                <ul id="EtreeNational" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
 					                            </div>
-					                        </div>	 -->		                            
+					                        </div>		                            
 				                        </div>
 			                        </div>
 			                        

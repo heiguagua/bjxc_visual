@@ -1,4 +1,4 @@
-var dict = function () {
+var dict1 = function () {
 
     var dicts = {};
     $.commonAjax({
