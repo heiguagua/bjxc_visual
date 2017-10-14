@@ -43,7 +43,7 @@
 <script src="<%=basePath%>/js/system/region/region_switch.js"></script>
 <header class="main-header">
  <!-- Logo -->
- <a href="<%=basePath%>/data/collectJob" class="logo">
+ <a href="javascript:void(0)" class="logo">
    <!-- mini logo for sidebar mini 50x50 pixels -->
    <span class="logo-mini"><b>${systemShortName}</b></span>
    <!-- logo for regular state and mobile devices -->
@@ -110,7 +110,7 @@
        
        <li class="dropdown user user-menu">
          <!-- Menu Toggle Button -->
-         <a href="<%=basePath%>/system/me/page" class="dropdown-toggle" data-toggle="tooltip" title="Admnin" data-placement="bottom">
+         <a href="<%=basePath%>/system/me/page" class="dropdown-toggle" data-toggle="tooltip" title="${me.realName}" data-placement="bottom">
            <img src="<%=basePath%>${(me.userImg)}" class="user-image" alt="User Image">
            <span class="hidden-xs">${me.userName}</span>
          </a>
