@@ -36,9 +36,14 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
     
     void updateClassifyIndexbyFid(String fid);
     
+    
+    
+    
     int selectCountLevel1();
     
     DirClassify selectFclassify(String fid);
+    
+    Object selectMaxIndexByFcode(String fid);
     
 //    String selectClassifyStructureNamebyFid(String fid);
     

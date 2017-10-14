@@ -58,6 +58,40 @@
                             </div>
                             
                             <div class="form-group">
+			                    <div class="row">
+			                        <div class="col-sm-6" >
+			                            <label  class="col-sm-3 control-label"  for="icon">目录类别*</label>
+			                            <div class="col-sm-9">
+			                                <select id="Eclassify_type" name="classifyType" class="form-control select2" style="width: 100%;" data-rule="选择类别:required">                         		  
+                                			</select>
+			                            </div>
+			                        </div>
+			                        <div class="col-sm-6">
+			                            <label  class="col-sm-3 control-label" for="orderNumber">国家库*</label>
+			                            <div class="col-sm-9">
+			                            	<input type="text" id="Enational_code" name="nationalCode" class="form-control"
+                                       		placeholder="" data-rule="排序号:required;nationalCode;">
+			                            	
+											<!-- <input type="text" id="appCategory" data-rule="应用分类:required;" class="form-control"
+					                         placeholder="">
+					                        <input type="hidden" id="dictCode" name="appCategory">
+					                        <div class="menu-wrap">
+					                            <div id="menuContent" class="menuContent" style="display:none;">
+					                                <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+					                            </div>
+					                        </div>	 -->		                            
+				                        </div>
+			                        </div>
+			                        
+			                        
+				                    </div>
+				                </div>
+                            
+                            
+                            
+                            
+                            
+                            <div class="form-group">
                                 <label for="apiDesc">目录描述:</label>
                                 <textarea class="form-control" 
 									id="Eclassify_desc"  name="classifyDesc" data-rule=""></textarea>                                

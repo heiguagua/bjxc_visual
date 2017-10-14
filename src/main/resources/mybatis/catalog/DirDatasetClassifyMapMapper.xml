@@ -12,6 +12,7 @@
         <result column="classify_id" property="classifyId"/>
         <result column="info_resource_code" property="infoResourceCode"/>
         <result column="status" property="status"/>
+        <result column="rel_flag" property="relFlag"/>
         <result column="update_user_id" property="updateUserId"/>
         <result column="update_time" property="updateTime"/>
         <result column="delete_flag" property="deleteFlag"/>
@@ -38,6 +39,9 @@
             </if>
             <if test="status != null and status!='' ">
                 and t.status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="relFlag != null">
+                and t.rel_flag = #{relFlag,jdbcType=INTEGER}
             </if>
             <if test="allStatus != null and allStatus!='' ">
                 and t.status in
@@ -137,17 +141,17 @@
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetClassifyMap">
         insert into
-        dir_dataset_classify_map(id,dataset_id,classify_id,info_resource_code,status,update_user_id,update_time)
+        dir_dataset_classify_map(id,dataset_id,classify_id,info_resource_code,status,rel_flag,update_user_id,update_time)
         values(
-        #{id},#{datasetId},#{classifyId},#{infoResourceCode},#{status},#{updateUserId},#{updateTime}
+        #{id},#{datasetId},#{classifyId},#{infoResourceCode},#{status},#{relFlag},#{updateUserId},#{updateTime}
         )
     </insert>
 
     <insert id="insertListItem">
-        insert into dir_dataset_classify_map(id,dataset_id,classify_id,info_resource_code,status,update_user_id,update_time)
+        insert into dir_dataset_classify_map(id,dataset_id,classify_id,info_resource_code,status,rel_flag,update_user_id,update_time)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.datasetId},#{item.classifyId},#{item.infoResourceCode},#{item.status},#{item.updateUserId},#{item.updateTime})
+            (#{item.id},#{item.datasetId},#{item.classifyId},#{item.infoResourceCode},#{item.status},#{item.relFlag},#{item.updateUserId},#{item.updateTime})
         </foreach>
     </insert>
 
@@ -169,6 +173,9 @@
             <if test="status != null">
                 status = #{status},
             </if>
+            <if test="relFlag != null">
+                rel_flag = #{relFlag},
+            </if>
             <if test="updateUserId != null">
                 update_user_id = #{updateUserId},
             </if>
@@ -183,11 +190,14 @@
     </update>
 
     <update id="batchUpdateStatus" parameterType="java.util.Map">
-        <if test="ids != null and ids !='' and status != null and status != '' ">
+        <if test="ids != null and ids!='' ">
             update dir_dataset_classify_map
             <set>
                 <if test="status != null">
                     status = #{status},
+                </if>
+                <if test="relFlag != null">
+                    rel_flag = #{relFlag},
                 </if>
                 <if test="updateUserId != null">
                     update_user_id = #{updateUserId},
@@ -203,6 +213,7 @@
             <foreach collection="ids" open="(" close=")" item="item" separator=",">
                 #{item, jdbcType=VARCHAR}
             </foreach>
+            <!--where id in (${ids})-->
         </if>
     </update>
 

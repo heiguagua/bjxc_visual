@@ -28,6 +28,8 @@
         <result column="update_time" property="updateTime"/>
         <result column="delete_flag" property="deleteFlag"/>
         <result column="tree_code" property="treeCode"/>
+        <result column="classify_type" property="classifyType"/>
+        <result column="national_code" property="nationalCode"/>
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
@@ -107,7 +109,13 @@
         SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
         FROM dir_classify t
         LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
-        <include refid="queryConditions"></include>and t.delete_flag = 0 
+
+        <include refid="queryConditions"></include>and t.delete_flag = 0 <!-- and t.region_code 
+			in (
+			          <foreach collection="regionCodes" item="item" separator=",">
+			              #{item.regionCode}
+			          </foreach>
+        		) -->
         order by order_number
     </select>
 
@@ -121,12 +129,12 @@
     </update>
     
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.*, s.dept_name as dept_name,d.dept_id as dept_id,c.icon_name as icon_name FROM dir_classify t 
+        select q.* from (
+        	SELECT t.*, s.dept_name as dept_name,d.dept_id as dept_id,c.icon_name as icon_name FROM dir_classify t 
 			left join dir_classify_dept_map d on t.id = d.classify_id
 			left join sys_dept s on d.dept_id = s.id
 			left join sys_icon_lib c on (c.icon_path = t.icon and c.icon_type = 'classify_icon')
-			WHERE t.id = #{id}
-			
+			WHERE t.id = #{id} ) q limit 1			
     </select>
     
     <select id="selectVoById12" parameterType="java.lang.String" resultMap="BaseResultVoMap">
@@ -152,9 +160,12 @@
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
         insert into
-        dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,classify_structure_code,classify_structure_name,status,create_user_id,create_time,update_user_id,update_time,delete_flag,icon,tree_code)
+
+        dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,classify_structure_code,classify_structure_name,status,create_user_id,create_time,update_user_id,update_time,delete_flag,icon,tree_code,classify_type,national_code)
         values(
-        #{id},#{regionCode},#{classifyCode},#{classifyName},#{classifyDesc},#{fid},#{fname},#{classifyLevel},#{classifyIndex},#{dcmIndex},#{orderNumber},#{classifyStructureCode},#{classifyStructureName},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},#{icon},#{treeCode}
+
+        #{id},#{regionCode},#{classifyCode},#{classifyName},#{classifyDesc},#{fid},#{fname},#{classifyLevel},#{classifyIndex},#{dcmIndex},#{orderNumber},#{classifyStructureCode},#{classifyStructureName},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},#{icon},
+        #{treeCode},#{classifyType},#{nationalCode}
         )
     </insert>
 
@@ -245,6 +256,14 @@
           </foreach>
         )
     </select>
+    
+    <select id="selectMaxIndexByFcode" resultType="java.lang.Object">
+    
+    	select max(classify_index) from dir_classify where fid = #{fid}    
+    
+    </select>
+    
+    
     
     <select id="selectClassifyByStructrue" resultType="java.lang.String">
         SELECT

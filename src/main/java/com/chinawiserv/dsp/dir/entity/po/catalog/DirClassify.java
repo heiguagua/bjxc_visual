@@ -113,6 +113,13 @@ public class DirClassify implements Serializable {
 	@TableField("icon")
 	private String icon;
 	
+	@TableField("classify_type")
+	private String classifyType;
+	
+	@TableField("national_code")
+	private String nationalCode;
+	
+	
 	public String getId() {
 		return id;
 	}
@@ -279,6 +286,22 @@ public class DirClassify implements Serializable {
 
 	public void setTreeCode(String treeCode) {
 		this.treeCode = treeCode;
+	}
+
+	public String getClassifyType() {
+		return classifyType;
+	}
+
+	public void setClassifyType(String classifyType) {
+		this.classifyType = classifyType;
+	}
+
+	public String getNationalCode() {
+		return nationalCode;
+	}
+
+	public void setNationalCode(String nationalCode) {
+		this.nationalCode = nationalCode;
 	}
 	
 	

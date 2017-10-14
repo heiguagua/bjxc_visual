@@ -51,9 +51,17 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     	DirClassify fclassify = mapper.selectFclassify(vo.getFid());
     	String fclassifyStructureName = fclassify.getClassifyStructureName();
     	String fcode = fclassify.getClassifyCode();
+    	String regionCode = fclassify.getRegionCode();
+//    	String fid = fclassify.getId();
     	String ftreecode = fclassify.getTreeCode();
     	int flevel = fclassify.getClassifyLevel();
-    	int fclassifyIndex = fclassify.getClassifyIndex(); 	
+    	int fclassifyIndex = 0;
+    	if(mapper.selectMaxIndexByFcode(fclassify.getId())!=null){
+    		 fclassifyIndex = (int) mapper.selectMaxIndexByFcode(fclassify.getId()); 
+    	}else{
+    		
+    		 fclassifyIndex = 0;
+    	}
     	int level = flevel+1;
     	
     	if(!vo.getFid().equals("root")){
@@ -65,53 +73,55 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     			vo.setClassifyCode(fcode.substring(0,1)+0+(fclassifyIndex+1));
     			vo.setTreeCode(ftreecode+";"+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
-    			mapper.updateClassifyIndexbyFid(vo.getFid());
+//    			mapper.updateClassifyIndexbyFid(vo.getFid());
+    			vo.setClassifyIndex(fclassifyIndex+1);
+    			vo.setRegionCode(regionCode);
     			mapper.baseInsert(vo);
     		 }else{
     			 
     			vo.setClassifyCode(fcode.substring(0,1)+(fclassifyIndex+1));
     			vo.setTreeCode(ftreecode+";"+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
-    			mapper.updateClassifyIndexbyFid(vo.getFid());
+//    			mapper.updateClassifyIndexbyFid(vo.getFid());
+    			vo.setClassifyIndex(fclassifyIndex+1);
+    			vo.setRegionCode(regionCode);
     			mapper.baseInsert(vo);
     		 }
     		 
     		  
-    	}else if(level == 3 ){
-    		vo.setClassifyLevel(3);
+    	}else if(level >= 3 ){
+    		vo.setClassifyLevel(flevel+1);
     		if(fclassifyIndex<9){
    			 
-    			vo.setClassifyCode(fcode.substring(0,3)+0+0+(fclassifyIndex+1));
+    			vo.setClassifyCode(fcode+0+0+(fclassifyIndex+1));
     			vo.setTreeCode(ftreecode+";"+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
-    			mapper.updateClassifyIndexbyFid(vo.getFid());
+//    			mapper.updateClassifyIndexbyFid(vo.getFid());
+    			vo.setClassifyIndex(fclassifyIndex+1);
+    			vo.setRegionCode(regionCode);
     			mapper.baseInsert(vo);
     		 }else if(fclassifyIndex < 99 && fclassifyIndex >= 9 ){
     			 
-    			 vo.setClassifyCode(fcode.substring(0,3)+0+(fclassifyIndex+1));
+    			 vo.setClassifyCode(fcode+0+(fclassifyIndex+1));
     			 vo.setTreeCode(ftreecode+";"+(fclassifyIndex+1));
     			 vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
-    			 mapper.updateClassifyIndexbyFid(vo.getFid());
+//    			 mapper.updateClassifyIndexbyFid(vo.getFid());
+    			 vo.setClassifyIndex(fclassifyIndex+1);
+    			 vo.setRegionCode(regionCode);
     			 mapper.baseInsert(vo);
     		 }
     		 else{
     			 
     			vo.setClassifyLevel(flevel+1); 
-    			vo.setClassifyCode(fcode.substring(0,3)+(fclassifyIndex+1));
+    			vo.setClassifyCode(fcode+(fclassifyIndex+1));
     			vo.setTreeCode(ftreecode+";"+(fclassifyIndex+1));
     			vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
-    			mapper.updateClassifyIndexbyFid(vo.getFid());
-    			mapper.baseInsert(vo);
-    			
+//    			mapper.updateClassifyIndexbyFid(vo.getFid());
+    			vo.setClassifyIndex(fclassifyIndex+1);
+    			vo.setRegionCode(regionCode);
+    			mapper.baseInsert(vo);    			
     		 }
     		
-    	}else{
-    		vo.setClassifyLevel(flevel+1);
-    		vo.setClassifyCode(fcode+(fclassifyIndex+1));
-    		vo.setTreeCode(ftreecode+";"+(fclassifyIndex+1));
-    		vo.setClassifyStructureName(fclassifyStructureName+"->"+vo.getClassifyName());
-    		mapper.updateClassifyIndexbyFid(vo.getFid());
-    		mapper.baseInsert(vo);
     	}
     			
     	}else{
@@ -120,6 +130,8 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     		vo.setClassifyStructureName(vo.getClassifyName());
     		vo.setClassifyCode(""+(mapper.selectCountLevel1()+1));
     		vo.setTreeCode(""+(mapper.selectCountLevel1()+1));
+    		vo.setClassifyIndex((int)mapper.selectMaxIndexByFcode("root")+1);
+    		vo.setRegionCode(regionCode);
     		mapper.baseInsert(vo);
     	}
     	
