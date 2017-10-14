@@ -29,13 +29,19 @@ function initTable(){
             width: '15%',
             sortable: false,
             formatter:function(value, row, index){
+                if(value == undefined){
+                    value = "";
+                }
                 return '<p title="'+value+'">'+value+'</p>';
             }
         }, {
             field: 'classifyStructureName',
-            title: '所属目录类别',
+            title: '信息资源分类',
             sortable: false,
             formatter:function(value, row, index){
+                if(value == undefined){
+                    value = "";
+                }
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{

@@ -33,7 +33,7 @@ function initTable(){
             }
         },{
             field: 'classifyName',
-            title: '所属目录分类',
+            title: '信息资源分类',
             sortable: false,
             formatter:function(value, row, index){
                 if(value == undefined){
@@ -65,7 +65,7 @@ function initTable(){
         },{
             field: 'classifyStatus',
             title: '状态',
-            width: '5%',
+            width: '10%',
             sortable: false,
             formatter: function(value, row, index) {
                 if (value == 0) {

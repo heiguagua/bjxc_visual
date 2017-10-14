@@ -14,7 +14,7 @@ jQuery(document).ready(function () {
 
 function initAllSelect(){
 	
-//	$.initQueryClassifyTreeSelect('treeDemo','appCategory','dictCode','menuContent');
+	$.initNationalQueryClassifyTreeSelect('treeNational','nationalCode','dictNationalCode','menuNationalContent');
     Dict.selects('classify_icon',['#icon']);
     
 }

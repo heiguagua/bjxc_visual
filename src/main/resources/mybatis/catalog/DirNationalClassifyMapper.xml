@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DirNationalClassifyMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirNationalClassify">
+        <id column="id" property="id"/>
+
+        <result column="classify_code" property="classifyCode"/>
+        <result column="classify_name" property="classifyName"/>
+        <result column="classify_desc" property="classifyDesc"/>
+        <result column="fcode" property="fcode"/>
+        <result column="classify_level" property="classifyLevel"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="classify_structure_code" property="classifyStructureCode"/>
+        <result column="classify_structure_name" property="classifyStructureName"/>
+        
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirNationalClassifyVo">
+         <result column="has_leaf" property="hasLeaf"/>         
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+        	
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="fcode != null">
+                AND t.fcode = #{fcode,jdbcType=VARCHAR}
+            </if>
+                 
+        </where>
+    </sql>
+    
+   <select id="selectFclassify" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+    	
+    	select * from dir_classify where id = #{fid}
+    	
+    </select>
+    
+	<!-- <select id="selectClassifyCodebyFid" resultType="string">
+		
+		select classify_code from dir_classify where id = #{fid}
+		
+	</select>
+	<select id="selectClassifyLevelbyFid" resultType="java.lang.Integer">
+	
+		select classify_level from dir_classify where id = #{fid}
+	
+	</select>
+	
+	<select id="selectClassifyIndexbyFid" resultType="java.lang.Integer">
+		
+		select classify_index from dir_classify where id = #{fid}
+		
+	</select> -->
+	
+	 <update id="updateClassifyIndexbyFid" >
+	
+		update dir_classify 
+    	
+    		set classify_index = classify_index+1
+     
+     	where  id = #{fid}  
+	
+	</update>
+	<select id="selectCountLevel1"> 
+		
+		select count(*) from dir_classify where classify_level = 1
+		
+	</select>
+	<!-- <select id="selectClassifyStructureNamebyFid"  resultType="string">
+		
+		select classify_structure_name from dir_classify where id = #{fid}
+	
+	</select> -->
+    <select id="selectVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
+        FROM dir_national_classify t
+        LEFT JOIN (SELECT DISTINCT(fcode) AS dcode FROM dir_national_classify) b ON t.classify_code=b.dcode
+        <include refid="queryConditions"></include>	
+        order by order_number
+    </select>
+    
+    <select id="selectDirectoryByFcode" parameterType="string" resultType="string">
+        SELECT fid FROM dir_classify WHERE classify_code = #{dir_code}
+    </select>
+	
+	<select id="selectClassifyIdByRegionCode" parameterType="string" resultType="string">
+		
+		select classify_code from dir_classify where region_code = #{regionCode} limit 1
+	
+	</select>
+
+
+
+	<update id="updateDeleteFlag" parameterType="string">
+    	update dir_classify 
+    	
+    		set delete_flag = 1
+     
+     	where  id = #{id}                              
+    </update>
+    
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+       select * from dir_national_classify where classify_code = #{classifyCode}	
+    </select>
+    
+    <select id="selectVoById12" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.*, s.dept_name as dept_name,d.dept_id as dept_id,c.icon_name as icon_name FROM dir_classify t 
+			left join dir_classify_dept_map d on t.id = d.classify_id
+			left join sys_dept s on d.dept_id = s.id
+			left join sys_icon_lib c on c.icon_path = t.icon
+			WHERE t.id = #{id}
+			
+    </select>
+
+	
+	<select id="getCatelogByParentCode" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+	
+		select * from dir_classify where fid = #{id} and delete_flag = 0
+	
+	</select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM dir_classify t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+        insert into
+
+        dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,classify_structure_code,classify_structure_name,status,create_user_id,create_time,update_user_id,update_time,delete_flag,icon,tree_code,classify_type,national_code)
+        values(
+
+        #{id},#{regionCode},#{classifyCode},#{classifyName},#{classifyDesc},#{fid},#{fname},#{classifyLevel},#{classifyIndex},#{dcmIndex},#{orderNumber},#{classifyStructureCode},#{classifyStructureName},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},#{icon},
+        #{treeCode},#{classifyType},#{nationalCode}
+        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+        update dir_classify
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="regionCode != null">
+                region_code = #{regionCode},
+            </if>
+            <if test="classifyCode != null">
+                classify_code = #{classifyCode},
+            </if>
+            <if test="classifyName != null">
+                classify_name = #{classifyName},
+            </if>
+            <if test="classifyDesc != null">
+                classify_desc = #{classifyDesc},
+            </if>
+            <if test="fid != null">
+                fid = #{fid},
+            </if>
+            <if test="fname != null">
+                fname = #{fname},
+            </if>
+            <if test="classifyLevel != null">
+                classify_level = #{classifyLevel},
+            </if>
+            <if test="classifyIndex != null">
+                classify_index = #{classifyIndex},
+            </if>
+            <if test="dcmIndex != null">
+                dcm_index = #{dcmIndex},
+            </if>
+            <if test="orderNumber != null and orderNumber!=''">
+                order_number = #{orderNumber},
+            </if>
+            <if test="classifyStructureCode != null">
+                classify_structure_code = #{classifyStructureCode},
+            </if>
+            <if test="classifyStructureName != null">
+                classify_structure_name = #{classifyStructureName},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="icon != null">
+                icon = #{icon}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from dir_classify
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectClassifyByIds" resultType="java.lang.String">
+        SELECT tree_code FROM dir_classify WHERE id IN (
+          <foreach collection="arr" item="item" separator=",">
+              #{item}
+          </foreach>
+        )
+    </select>
+    
+    <select id="selectMaxIndexByFcode" resultType="java.lang.Object">
+    
+    	select max(classify_index) from dir_classify where fid = #{fid}    
+    
+    </select>
+    
+    
+    
+    <select id="selectClassifyByStructrue" resultType="java.lang.String">
+        SELECT
+            id
+        FROM
+            dir_classify
+        WHERE
+            classify_structure_name = #{structure}
+    </select>
+
+</mapper>
