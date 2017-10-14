@@ -7,7 +7,8 @@ jQuery(document).ready(function () {
 //    initUserTypeList();
 //    initDeptSelectDataList();
 //    initRoleNameList();
-    window.Dict=new dict();
+    window.Dict1=new dict1();
+    window.DictData = new dict();
     initFormerDate(classifyId);
 });
 
@@ -44,7 +45,8 @@ function initFormerDate(classifyId) {
             if (result.state) {
                 var vo = result.content.vo;
                 if(vo){
-					
+                	$.initNationalQueryClassifyTreeSelect('EtreeNational','EnationalCode','EdictNationalCode','EmenuNationalContent');
+
                     $("#Eclassify_name").val(vo.classifyName);
                     if(vo.deptId == "" || vo.deptId==undefined){
                     	 $("#Edep").addClass('hidden');
@@ -54,10 +56,11 @@ function initFormerDate(classifyId) {
                     $("#deptName").val(vo.deptName);
                     $("#Eorder_number").val(vo.orderNumber);
                     $("#deptId").val(vo.deptId);
-                    $("#Eicon").append(Dict.selectsDom("classify_icon",vo.iconName?vo.iconName:''));
-                    $("#Eclassify_type").append('<option value="'+vo.classifyType+'" >"'+vo.classifyType+'"</option>');
-                    $("#Enational_code").val(vo.natinalCode);
-                    
+                    $("#Eicon").append(Dict1.selectsDom("classify_icon",vo.iconName?vo.iconName:''));
+//                    $("#Eclassify_type").append('<option value="'+vo.classifyType+'" >"'+vo.classifyType+'"</option>');
+                    $("#EnationalCode").val(vo.nationalClassifyName);
+                    $("#EdictNationalCode").val(vo.nationalCode);
+                    $("#Eclassify_type").append(DictData.selectsDom("dirClassifyCategory",vo.classifyType?vo.classifyType:''));
                     
                     $("#Eclassify_desc").val(vo.classifyDesc);   
                     $("#EclassifyCode").val(vo.classifyCode);

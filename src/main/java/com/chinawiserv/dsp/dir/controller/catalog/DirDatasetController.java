@@ -979,7 +979,7 @@ public class DirDatasetController extends BaseController {
      */
     @RequestMapping("/download")
     public String downloadFile(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        String realPath = request.getServletContext().getRealPath("WEB-INF/classes/excelTemplate/");
+    	String realPath = request.getSession().getServletContext().getRealPath("WEB-INF/classes/excelTemplate/");
         String fileName="excelTemplate.xlsx";
         File file = new File(realPath, fileName);
         if (file.exists()) {
