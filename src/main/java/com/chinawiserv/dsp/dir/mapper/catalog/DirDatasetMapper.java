@@ -62,4 +62,17 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
     int insertListDataset(@Param("list") List<DirDataset> list);
 
     DirDataset selectDatasetByNameAndClassifyId(@Param("datasetName") String datasetName,@Param("classifyId") String classifyId);
+    
+    /**
+     * 目录编目上传
+     */
+   Integer selectDirReportCount(Map<String,Object> paramMap);
+   
+   List<DirDatasetVo>selectDirReportPage(Page<DirDatasetVo> page, Map<String, Object> paramMap);
+   
+   void insertDirTransfer(DirDataTransfer transer);
+   
+   List<DirDataTransfer> getTransferLst(Map<String,Object> paramMap);
+    
+   Integer getServiceNum(Map<String,Object> paramMap);
 }

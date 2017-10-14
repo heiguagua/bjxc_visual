@@ -16,6 +16,7 @@ public class DirDatasetVo extends DirDataset{
 
     private List<DirDataitemVo> items;
 
+    private DirDataTransfer transfer;
     private String classifyIds;
 
     private String classifyName;
@@ -40,6 +41,8 @@ public class DirDatasetVo extends DirDataset{
     //梳理系统数据集id
     private String drapDatasetId;
 
+    //
+    private String transferId;
     //数据集扩展属性
     private DirDatasetExtFormat ext;
 
@@ -49,6 +52,7 @@ public class DirDatasetVo extends DirDataset{
     //大普查
     private DirDatasetSurvey survey;
 
+    private Integer serviceNum;
     public DirDatasetSurvey getSurvey() {
         return survey;
     }
@@ -168,4 +172,30 @@ public class DirDatasetVo extends DirDataset{
     public void setDrapDatasetId(String drapDatasetId) {
         this.drapDatasetId = drapDatasetId;
     }
+
+	public DirDataTransfer getTransfer() {
+		return transfer;
+	}
+
+	public void setTransfer(DirDataTransfer transfer) {
+		this.transfer = transfer;
+	}
+
+	public String getTransferId() {
+		return transferId;
+	}
+
+	public void setTransferId(String transferId) {
+		this.transferId = transferId;
+	}
+
+	public Integer getServiceNum() {
+		return serviceNum;
+	}
+
+	public void setServiceNum(Integer serviceNum) {
+		this.serviceNum = serviceNum;
+	}
+    
+    
 }
