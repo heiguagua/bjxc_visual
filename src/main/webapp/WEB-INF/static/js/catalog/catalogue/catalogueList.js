@@ -95,13 +95,13 @@ function initTable(){
                 var editBtn ="";
                 if(row.classifyStatus==0 || row.classifyStatus==2 || row.classifyStatus==4 || row.classifyStatus==6){
                     editBtn = [
-                        "<p><a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-close'>&#160;</i>编辑</a>&#160;",
-                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看</a></p>"
+                        "<p><a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                     ].join('');
                 }else{
                     editBtn = [
-                        "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-close'>&#160;</i>编辑</a>&#160;",
-                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看</a></p>"
+                        "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                     ].join('');
                 }
                 return editBtn;

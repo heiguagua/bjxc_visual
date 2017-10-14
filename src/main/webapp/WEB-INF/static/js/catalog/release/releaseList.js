@@ -98,7 +98,7 @@ function initUnReleaseTable(){
             sortable: false,
             formatter: function(value) {
                 var editBtn = [
-                    "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看详情</a>"
+                    "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看详情</a>"
                 ].join('');
                 return editBtn;
             }
@@ -179,7 +179,7 @@ function initReleasedTable(){
             sortable: false,
             formatter: function(value) {
                 var editBtn = [
-                    "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看详情</a>"
+                    "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看详情</a>"
                 ].join('');
                 return editBtn;
             }
