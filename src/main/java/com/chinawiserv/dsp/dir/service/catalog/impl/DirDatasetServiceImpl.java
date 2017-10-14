@@ -323,7 +323,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     }*/
                     Map<String,Object> deleteParam = new HashMap<>();
                     deleteParam.put("deleteFlag",1);
-                    deleteParam.put("ids",needDeleteClassifyList);
+                    deleteParam.put("ids",needDeleteClassifyList.toArray());
                     deleteParam.put("updateUserId",updateUserId);
                     deleteParam.put("updateTime",updateTime);
                     dirDatasetClassifyMapMapper.batchUpdateStatus(deleteParam);
@@ -358,7 +358,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
                 Map<String,Object> deleteParam = new HashMap<>();
                 deleteParam.put("deleteFlag",1);
-                deleteParam.put("ids",needDeleteRelClassifyIdList);
+                deleteParam.put("ids",needDeleteRelClassifyIdList.toArray());
                 deleteParam.put("updateUserId",updateUserId);
                 deleteParam.put("updateTime",updateTime);
                 dirDatasetClassifyMapMapper.batchUpdateStatus(deleteParam);
