@@ -47,8 +47,7 @@
         ON dc.`id` = dcm.`classify_id`
         WHERE TRUE
         AND t.`delete_flag` = 0
-        AND t.`source_type` = '2'
-        OR t.`source_type` = '3'
+        AND t.`source_type` != '1'
         <choose>
             <when test="null != classifyId and '' != classifyId">
                 AND dc.`id` = #{classifyId}
@@ -60,6 +59,7 @@
         <if test="null != regionCode and '' != regionCode">
             AND t.`region_code` = #{regionCode}
         </if>
+        GROUP BY t.`id`
     </select>
 
     <!-- 查询指定数据集下面的数据库信息 -->
