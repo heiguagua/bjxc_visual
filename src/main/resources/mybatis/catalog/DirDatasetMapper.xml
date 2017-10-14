@@ -137,7 +137,7 @@
         select sub.*,MAX(IFNULL(m.status,0)) AS classify_status,GROUP_CONCAT(c.classify_structure_name) AS classify_name from(
         select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
         di.dict_name as source_type_name,count(it.dataset_id) as item_nums FROM dir_dataset t
-        left join sys_dept de on t.belong_dept_id=de.id and de.delete_flag=0
+        left join sys_dept de on t.charge_dept_id=de.id and de.delete_flag=0
         left join sys_dict di on t.source_type=di.dict_code and di.category='datasetSourceType'
         left join dir_dataitem it on t.id=it.dataset_id and it.delete_flag=0
         <include refid="queryConditions"></include>
