@@ -253,3 +253,8 @@ table td {
 .ztree{
     overflow-y: auto !important;
 }
+
+.redStar{
+    color: #ff0000;
+    vertical-align: middle;
+}
