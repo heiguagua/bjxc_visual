@@ -91,13 +91,13 @@
                                         </div>
                                         </input>
                                     </div>
+
                                     <div class="input-group" style="float:right;margin-right:4px;width:240px">
                                         <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                         <input type="hidden" id="searchClassifyId">
                                         <div class="menu-wrap">
                                             <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
-                                                <ul id="searchClassifyTreeDemo" c
-                                                lass="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                             </div>
                                         </div>
                                     </div>
@@ -106,7 +106,7 @@
                             </form>
                             <div class="box-body table-responsive no-padding">
                                 <!-- 表格 -->
-                                <table class="layui-table" id="catalogueTable" lay-even="" lay-skin="row"></table>
+                                <table id="catalogueTable" class="table table-hover"></table>
                                 <!-- 表格 end-->
                             </div>
                         </div>

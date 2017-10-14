@@ -65,7 +65,7 @@ function initTable(){
         },{
             field: 'classifyStatus',
             title: '状态',
-            width: '5%',
+            width: '10%',
             sortable: false,
             formatter: function(value, row, index) {
                 if (value == 0) {

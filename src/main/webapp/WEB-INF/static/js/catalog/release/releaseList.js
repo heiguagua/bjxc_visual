@@ -46,6 +46,9 @@ function initUnReleaseTable(){
             width: '15%',
             sortable: false,
             formatter:function(value, row, index){
+                if(value == undefined){
+                    value = "";
+                }
                 return '<p title="'+value+'">'+value+'</p>';
             }
         }, {
@@ -129,6 +132,9 @@ function initReleasedTable(){
             width: '15%',
             sortable: false,
             formatter:function(value, row, index){
+                if(value == undefined){
+                    value = "";
+                }
                 return '<p title="'+value+'">'+value+'</p>';
             }
         }, {
