@@ -880,7 +880,7 @@ create table dir_dataset
    is_open              varchar(36) comment '【国】信息资源是否社会开放',
    open_condition       varchar(500) comment '【国】信息资源开放条件',
    update_frequency     varchar(36) comment '【国】信息资源更新周期',
-   rel_dataset_code     varchar(36) comment '【国】信息资源关联资源分类',
+   rel_dataset_code     varchar(1000) comment '【国】信息资源关联资源分类',
    storage_medium       varchar(36) comment '存储介质',
    storage_location     varchar(500) comment '物理存储位置',
    data_level           varchar(36) comment '【川】信息资源最小分级单元',
