@@ -1351,6 +1351,153 @@ function initGlobalCustom(tempUrlPrefix) {
             })
 
         },
+        /**
+         * 获取关联目录类别的下拉树对象(多选,不可以选择父级节点)
+         * @param treeDomId         ztree对象的id
+         * @param nameInputDomId    显示选中目录类别的名称的input框的id
+         * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
+         * @param treeDivDomId      树形展开区域的DIV的id
+         * @param classifyCodeInputDomId 信息资源分类存储id值的input框的id
+         */
+        initRelClassifyTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, classifyCodeInputDomId) {
+            var checkedOjb = [];
+            var setting = {
+                check: {
+                    enable: true,
+                    chkboxType:  { "Y": "", "N": "" } //取消父子关联
+                },
+                async: {
+                    enable: true,
+                    url: basePathJS + "/dirClassify/authorityList",
+                    autoParam: ["fid"],
+                    dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
+                        var params = [];
+                        var nodeObjs = childNodes.content.vo;
+                        if (!nodeObjs) {
+                            return null;
+                        }
+                        //获取信息资源分类选择的值
+                        var selectedClassifyId = $("#"+classifyCodeInputDomId).val();
+                        console.log("====================="+selectedClassifyId);
+                        for (var i in nodeObjs) {
+                            var chkDisabledStatus = false;
+                            if(selectedClassifyId!="" && selectedClassifyId==nodeObjs[i].id){
+                                chkDisabledStatus = true;
+                            }
+                            params[i] = {
+                                'id': nodeObjs[i].id,
+                                'name': nodeObjs[i].classifyName,
+                                'fid': nodeObjs[i].id,
+                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
+                                'nocheck': (nodeObjs[i].hasLeaf == "1" ? true : false),
+                                'chkDisabled':chkDisabledStatus
+                            }
+                        }
+                        return params;
+                    }
+                },
+                callback: {
+                    beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+                        var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
+                        if (treeNode.isParent) {
+                            if (treeNode.open) {
+                                zTreeObj.expandNode(treeNode, false);
+                            } else {
+                                zTreeObj.expandNode(treeNode, true);
+                            }
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
+                    onClick: function (e, treeId, treeNode) { //点击节点，选中并触发oncheck事件
+                        var zTree = $.fn.zTree.getZTreeObj(treeId);
+                        var checkedStatus = treeNode.checked;
+                        if(!checkedStatus){
+                            zTree.checkNode(treeNode,true,true,true);
+                        }else{
+                            zTree.checkNode(treeNode,false,true,true);
+                        }
+
+                    },
+                    onCheck: function (e, treeId, treeNode) { //点击radio，获取目录类别的全名称，显示到输入框中
+                        var checkedStatus = treeNode.checked;
+                        if(checkedStatus){
+                            $.commonAjax({
+                                url: basePathJS + "/dirClassify/editLoad",
+                                data: {id: treeNode.id},
+                                success: function (result) {
+                                    if (result.state) {
+                                        var classifyObj = result.content.vo;
+                                        var nameValue = $('#' + nameInputDomId).val();
+                                        var idValue = $('#' + codeInputDomId).val();
+                                        checkedOjb.push({id:treeNode.id,name:classifyObj.classifyStructureName});
+                                        var newNameValue ="";
+                                        if(nameValue && nameValue.length>0){
+                                            newNameValue = nameValue+","+classifyObj.classifyStructureName;
+                                        }else{
+                                            newNameValue = classifyObj.classifyStructureName;
+                                        }
+                                        $('#' + nameInputDomId).val(newNameValue);
+                                        $('#' + nameInputDomId).attr("title",newNameValue);
+                                        if(idValue && idValue.length>0){
+                                            var newIdValue = idValue+","+treeNode.id;
+                                            $('#' + codeInputDomId).val(newIdValue);
+                                        }else{
+                                            $('#' + codeInputDomId).val(treeNode.id);
+                                        }
+                                    }
+                                }
+                            });
+                        }else{
+                            for(var i= 0,ii=checkedOjb.length;i<ii;i++){
+                                var id = checkedOjb[i].id;
+                                if(treeNode.id == id){
+                                    checkedOjb.splice(i,1);
+                                    break;
+                                }
+                            }
+                            //去除后，再更新值
+                            var newNameValue="";
+                            var newIdValue="";
+                            for(var j= 0,jj=checkedOjb.length;j<jj;j++){
+                                var id = checkedOjb[j].id;
+                                var name = checkedOjb[j].name;
+                                console.log("old=="+name);
+                                if(id && id.length>0){
+                                    newIdValue += id+",";
+                                }
+                                if(name && name.length>0){
+                                    newNameValue += name+",";
+                                }
+                                console.log("new=="+newNameValue);
+                            }
+                            newIdValue = newIdValue==""?newIdValue:newIdValue.substring(0,newIdValue.length-1);
+                            newNameValue = newNameValue==""?newNameValue:newNameValue.substring(0,newNameValue.length-1);
+                            $('#' + codeInputDomId).val(newIdValue);
+                            $('#' + nameInputDomId).val(newNameValue);
+                            $('#' + nameInputDomId).attr("title",newNameValue);
+                        }
+                    }
+                }
+            };
+
+            $('#' + nameInputDomId).click(function () {
+                $.fn.zTree.init($("#" + treeDomId), setting);
+                var cityOffset = $("#" + nameInputDomId).offset();
+                $("#" + treeDivDomId).css({
+                    left: cityOffset.left + "px",
+                    top: cityOffset.top + $("#" + nameInputDomId).outerHeight() + "px"
+                }).slideDown("fast");
+                $("body").bind("mousedown", function (event) {
+                    if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#" + treeDivDomId).length > 0)) {
+                        $("#" + treeDivDomId).fadeOut("fast");
+                        $("body").unbind("mousedown");
+                    }
+                });
+            })
+
+        },
         
         /**
          * 获取目录类别的下拉树对象
@@ -1384,7 +1531,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].dictName,
                                 'parentCode': nodeObjs[i].dictCode,
-                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)                                                               
+                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
                             }
                         }
                         return params;
@@ -1462,9 +1609,7 @@ function initGlobalCustom(tempUrlPrefix) {
             })
 
         },
-        
-        
-        
+
         /**
          * 获取目录类别查询框的下拉树对象(单选,可以选择父级节点)
          * @param treeDomId         ztree对象的id
@@ -1538,8 +1683,7 @@ function initGlobalCustom(tempUrlPrefix) {
             })
 
         },
-        
-        
+
         /**
          * 获取国家哭目录类别查询框的下拉树对象(单选,可以选择父级节点)
          * @param treeDomId         ztree对象的id
