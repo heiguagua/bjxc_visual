@@ -228,6 +228,7 @@ public class DirClassifyController extends BaseController {
 			String regionCode = ShiroUtils.getLoginUser().getRegionCode();
 			String dir_code = mapper.selectClassifyIdByRegionCode(regionCode);
 			paramMap.put("dir_code", dir_code);
+			paramMap.put("regionCode", regionCode);
 			List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
 			paramMap.put("regionCodes", SysRegionVoList);
 			List<DirClassifyVo> dirClassifyVoList = service.selectVoList(paramMap);

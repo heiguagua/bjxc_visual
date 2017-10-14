@@ -40,6 +40,7 @@
         <result column="icon_name" property="iconName"/>
         <result column="classify_type_name" property="classifyTypeName" jdbcType="VARCHAR"/>
         <result column="national_classify_name" property="nationalClassifyName" jdbcType="VARCHAR"/>
+       	<result column="is_local" property="isLocal" jdbcType="VARCHAR"/>
         
     </resultMap>
 
@@ -109,7 +110,7 @@
     </select>
 
     <select id="selectVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
+        SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf,case when t.region_code = #{regionCode} then '1' else '0' end as is_local
         FROM dir_classify t
         LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
 

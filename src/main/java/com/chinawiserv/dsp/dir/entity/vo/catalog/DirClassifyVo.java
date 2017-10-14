@@ -23,6 +23,7 @@ public class DirClassifyVo extends DirClassify{
     private String iconName;
     private String classifyTypeName;
     private String nationalClassifyName;
+    private String isLocal;
     
     public String getHasLeaf() {
         return hasLeaf;
@@ -71,6 +72,16 @@ public class DirClassifyVo extends DirClassify{
 	public void setNationalClassifyName(String nationalClassifyName) {
 		this.nationalClassifyName = nationalClassifyName;
 	}
+
+	public String getIsLocal() {
+		return isLocal;
+	}
+
+	public void setIsLocal(String isLocal) {
+		this.isLocal = isLocal;
+	}
+
+
 	
 	
 	

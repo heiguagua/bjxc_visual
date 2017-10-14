@@ -453,29 +453,30 @@ insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
   insert into sys_region_version(id,version_code) values ('1','v1.0');
   -- 行政区划级别表
   delete from sys_region_level;
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('10','国家级','1');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('20','省、自治区、直辖市以及特别行政区级','2');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('21','省','2');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('22','自治区','2');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('23','直辖市','2');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('24','特别行政区','2');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('30','副省级','3');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('31','副省级省会城市','3');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('32','计划单列市','3');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('40','市、自治州级','4');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('41','地级市','4');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('42','自治州','4');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('50','区、县级市、县级','5');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('51','区','5');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('52','县级市','5');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('53','县','5');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('60','乡镇（街道）级','6');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('61','乡','6');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('62','镇','6');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('63','街道','6');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('70','村（社区）级','7');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('71','村','7');
-  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values ('72','社区','7');
+  insert into sys_region_level (region_level_code,region_level_name,region_level_value) values
+	('10','国家级','1'),
+	('20','省、自治区、直辖市以及特别行政区级','2'),
+	('21','省','2'),
+	('22','自治区','2'),
+	('23','直辖市','2'),
+	('24','特别行政区','2'),
+	('30','副省级','3'),
+	('31','副省级省会城市','3'),
+	('32','计划单列市','3'),
+	('40','市、自治州级','4'),
+	('41','地级市','4'),
+	('42','自治州','4'),
+	('50','区、县级市、县级','5'),
+	('51','区','5'),
+	('52','县级市','5'),
+	('53','县','5'),
+	('60','乡镇（街道）级','6'),
+	('61','乡','6'),
+	('62','镇','6'),
+	('63','街道','6'),
+	('70','村（社区）级','7'),
+	('71','村','7'),
+	('72','社区','7');
   -- 行政区划表
 -- 全国所有的行政区划
 delete from sys_region;
@@ -3997,6 +3998,74 @@ INSERT INTO sys_region (id,region_code,region_name,fcode,fname,first_charact,reg
 	('9d4aee39-50cb-11e7-889e-00ffffff0000','510185','简阳市','510100','成都市',NULL,'52','1','1');
 
 
+-- 图标库初始化值
+delete from sys_icon_lib;
+insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values
+  	(REPLACE(uuid(),'-',''),'menu_icon','fa-folder','','fa-folder'),
+  	(REPLACE(uuid(),'-',''),'menu_icon','fa-cogs','','fa-cogs'),
+  	(REPLACE(uuid(),'-',''),'menu_icon','fa-cog','','fa-cog'),
+  	(REPLACE(uuid(),'-',''),'menu_icon','fa-user-circle-o','','fa-user-circle-o'),
+  	(REPLACE(uuid(),'-',''),'menu_icon','fa-graduation-cap','','fa-graduation-cap'),
+  	(REPLACE(uuid(),'-',''),'menu_icon','fa-users','','fa-users'),
+  	(REPLACE(uuid(),'-',''),'menu_icon','fa-list','','fa-list'),
+  	(REPLACE(uuid(),'-',''),'menu_icon','fa-info-circle','','fa-info-circle'),
+  	(REPLACE(uuid(),'-',''),'menu_icon','fa-eye','','fa-eye'),
+  	(REPLACE(uuid(),'-',''),'classify_icon','base1','/img/index/base1.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','base2','/img/index/base2.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','base3','/img/index/base3.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','base4','/img/index/base4.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','base5','/img/index/base5.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','base6','/img/index/base6.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','bg2x','/img/index/bg2x.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','Catalog2x','/img/index/Catalog2x.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','data1','/img/index/data1.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','data2','/img/index/data2.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','data3','/img/index/data3.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','data4','/img/index/data4.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','dep1','/img/index/dep1.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','dep2','/img/index/dep2.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','dep3','/img/index/dep3.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','dep4','/img/index/dep4.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','dep5','/img/index/dep5.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','hot2x','/img/index/hot2x.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','ico1','/img/index/ico1.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','ico2','/img/index/ico2.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','main1-bg','/img/index/main1-bg.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','main3_1','/img/index/main3_1.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','main3_2','/img/index/main3_2.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','main3_3','/img/index/main3_3.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','main3_4','/img/index/main3_4.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','main3_5','/img/index/main3_5.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','map1','/img/index/map1.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','map2','/img/index/map2.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','map3','/img/index/map3.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','map4','/img/index/map4.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','map5','/img/index/map5.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','new2x','/img/index/new2x.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','policy2x','/img/index/policy2x.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','Shape2x','/img/index/Shape2x.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','share','/img/index/share.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','tool1','/img/index/tool1.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','tool2','/img/index/tool2.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','tool3','/img/index/tool3.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','tool4','/img/index/tool4.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','tool5','/img/index/tool5.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic1','/img/index/topic1.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic10','/img/index/topic10.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic11','/img/index/topic11.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic12','/img/index/topic12.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic13','/img/index/topic13.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic14','/img/index/topic14.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic2','/img/index/topic2.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic3','/img/index/topic3.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic4','/img/index/topic4.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic5','/img/index/topic5.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic6','/img/index/topic6.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic7','/img/index/topic7.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic8','/img/index/topic8.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','topic9','/img/index/topic9.png',''),
+  	(REPLACE(uuid(),'-',''),'classify_icon','total','/img/index/total.png','');
+
   -- 基础部门模板表
   delete from sys_dept_category_template;
   INSERT INTO sys_dept_category_template (ID,category_code,category_name,fullname_template,shortname_template,apply_min_level,apply_max_level) VALUES ('39e27000-50d3-11e7-889e-00ffffff0000','A','党委','中国共产党XX委员会','XX党委',6,2);
@@ -4149,6 +4218,7 @@ insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_na
 	 ('9ebc9be8-50d4-11e7-889e-00ffffff0000','510185','F','510185_F','简阳市人民检察院','简阳市人民检察院','root','root','简阳市人民检察院',1,'',NULL,0,0,'');
 
 
+
 delete from dir_develop_apis; 
 -- SELECT id,region_code,api_name,api_category,'http://' as api_url,parent_id,parent_name,order_number,`status` FROM `dir_develop_apis`
 INSERT INTO dir_develop_apis (id,region_code,api_name,api_category,api_url,parent_id,parent_name,order_number,status) VALUES 
@@ -4187,73 +4257,6 @@ INSERT INTO dir_develop_apis (id,region_code,api_name,api_category,api_url,paren
 	('f8a7afd557ee4534a90213c774525648','510100','个人信用专题分析','2','http://','cde5a67d7d7c11e782df000c29e0ca25','数据分析',2,'1');
 
 
--- 图标库初始化值
-delete from sys_icon_lib;
-insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) values
-  	(REPLACE(uuid(),'-',''),'menu_icon','fa-folder','','fa-folder'),
-  	(REPLACE(uuid(),'-',''),'menu_icon','fa-cogs','','fa-cogs'),
-  	(REPLACE(uuid(),'-',''),'menu_icon','fa-cog','','fa-cog'),
-  	(REPLACE(uuid(),'-',''),'menu_icon','fa-user-circle-o','','fa-user-circle-o'),
-  	(REPLACE(uuid(),'-',''),'menu_icon','fa-graduation-cap','','fa-graduation-cap'),
-  	(REPLACE(uuid(),'-',''),'menu_icon','fa-users','','fa-users'),
-  	(REPLACE(uuid(),'-',''),'menu_icon','fa-list','','fa-list'),
-  	(REPLACE(uuid(),'-',''),'menu_icon','fa-info-circle','','fa-info-circle'),
-  	(REPLACE(uuid(),'-',''),'menu_icon','fa-eye','','fa-eye'),
-  	(REPLACE(uuid(),'-',''),'classify_icon','base1','/img/index/base1.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','base2','/img/index/base2.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','base3','/img/index/base3.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','base4','/img/index/base4.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','base5','/img/index/base5.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','base6','/img/index/base6.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','bg2x','/img/index/bg2x.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','Catalog2x','/img/index/Catalog2x.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','data1','/img/index/data1.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','data2','/img/index/data2.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','data3','/img/index/data3.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','data4','/img/index/data4.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','dep1','/img/index/dep1.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','dep2','/img/index/dep2.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','dep3','/img/index/dep3.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','dep4','/img/index/dep4.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','dep5','/img/index/dep5.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','hot2x','/img/index/hot2x.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','ico1','/img/index/ico1.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','ico2','/img/index/ico2.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','main1-bg','/img/index/main1-bg.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','main3_1','/img/index/main3_1.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','main3_2','/img/index/main3_2.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','main3_3','/img/index/main3_3.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','main3_4','/img/index/main3_4.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','main3_5','/img/index/main3_5.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','map1','/img/index/map1.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','map2','/img/index/map2.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','map3','/img/index/map3.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','map4','/img/index/map4.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','map5','/img/index/map5.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','new2x','/img/index/new2x.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','policy2x','/img/index/policy2x.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','Shape2x','/img/index/Shape2x.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','share','/img/index/share.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','tool1','/img/index/tool1.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','tool2','/img/index/tool2.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','tool3','/img/index/tool3.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','tool4','/img/index/tool4.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','tool5','/img/index/tool5.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic1','/img/index/topic1.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic10','/img/index/topic10.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic11','/img/index/topic11.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic12','/img/index/topic12.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic13','/img/index/topic13.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic14','/img/index/topic14.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic2','/img/index/topic2.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic3','/img/index/topic3.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic4','/img/index/topic4.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic5','/img/index/topic5.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic6','/img/index/topic6.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic7','/img/index/topic7.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic8','/img/index/topic8.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','topic9','/img/index/topic9.png',''),
-  	(REPLACE(uuid(),'-',''),'classify_icon','total','/img/index/total.png','');
 
 -- 初始化目录分类信息（全国的）
 delete from dir_classify;
@@ -4454,6 +4457,9 @@ insert into dir_classify (id,fid,region_code,classify_code,classify_index,classi
 -- 生成原国家库的目录分类编码
 delete from dir_national_classify;
 INSERT INTO dir_national_classify (id,classify_code,classify_name,classify_desc,fcode,classify_level,order_number,classify_structure_code,classify_structure_name) VALUES
+	(uuid(),'2','政务主题信息资源目录',NULL,'root',NULL,NULL,NULL,NULL),
+	(uuid(),'3','政务部门信息资源目录',NULL,'root',NULL,NULL,NULL,NULL),
+	(uuid(),'307','省（自治区、直辖市）和计划单列市',NULL,'3',NULL,NULL,NULL,NULL),
 	('bf6e00d1-afec-11e7-b780-000c2909b055','307001','北京市',NULL,'307',NULL,NULL,NULL,NULL),
 	('bf6e029f-afec-11e7-b780-000c2909b055','30700102','基础目录',NULL,'307001',NULL,NULL,NULL,NULL),
 	('bf6e05cf-afec-11e7-b780-000c2909b055','3070010201','人口',NULL,'30700102',NULL,NULL,NULL,NULL),
