@@ -8,6 +8,7 @@ import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.FakeTimeLimiter;
 import com.google.common.util.concurrent.SimpleTimeLimiter;
 import com.google.common.util.concurrent.Striped;
@@ -179,8 +180,24 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 
     @Override
     public List<DirClassifyVo> selectVoList(Map<String, Object> paramMap) throws Exception {
-        return mapper.selectVoListForTreeData(paramMap);
+    	
+    	List<String> listClassifyIds  = getFdir_codes((String)paramMap.get("dir_code"));
+    	paramMap.put("listClassifyIds", listClassifyIds);
+    	return mapper.selectVoListForTreeData(paramMap);
+    	
     }
+    
+    public List<String> getFdir_codes(String dir_code){
+	  	List<String> listfdir = Lists.newArrayList();
+        listfdir.add(dir_code);
+      	 
+      	 if(!(mapper.selectDirectoryByFcode(dir_code).equals("root"))){
+      		      		
+      		listfdir.addAll(getFdir_codes(mapper.selectDirectoryByFcode(dir_code)));      		 
+      		      		 
+      	 }      		
+      	return listfdir;
+      }
 
 
     @Override
