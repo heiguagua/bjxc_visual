@@ -988,12 +988,12 @@ public class DirDatasetController extends BaseController {
         if (file.exists()) {
             response.setContentType("application/force-download");// 设置强制下载不打开
             response.addHeader("Content-Disposition",
-                    "attachment;fileName="+URLEncoder.encode("完整目录模板.xlsx", "utf-8"));// 设置文件名
+                    "attachment;fileName=" + URLEncoder.encode("完整目录模板.xlsx", "utf-8"));// 设置文件名
             byte[] buffer = new byte[1024];
-            InputStream inputStream=null;
+            InputStream inputStream = null;
             BufferedInputStream bis = null;
             try {
-                inputStream= this.getClass().getClassLoader().getResource("excelTemplate/excelTemplate.xlsx").openStream();
+                inputStream = this.getClass().getClassLoader().getResource("excelTemplate/excelTemplate.xlsx").openStream();
                 bis = new BufferedInputStream(inputStream);
                 OutputStream os = response.getOutputStream();
                 int i = bis.read(buffer);
@@ -1022,7 +1022,7 @@ public class DirDatasetController extends BaseController {
                     }
                 }
             }
-        
+        }
 
         return null;
     }
