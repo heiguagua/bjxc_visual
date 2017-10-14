@@ -280,6 +280,18 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     oldClassifyMapVo.setUpdateTime(updateTime);
                     dirDatasetClassifyMapMapper.baseUpdate(oldClassifyMapVo);
                 }
+            }else{ //如果为空，直接插入
+                DirDatasetClassifyMapVo classifyMapVo = new DirDatasetClassifyMapVo();
+                String classifyMapId = UUID.randomUUID().toString();
+                classifyMapVo.setId(classifyMapId);
+                classifyMapVo.setDatasetId(datasetId);
+                classifyMapVo.setClassifyId(classifyIds);
+                classifyMapVo.setStatus("0");
+                classifyMapVo.setRelFlag(0);
+                classifyMapVo.setInfoResourceCode(dirClassifyService.generateDatasetCode(classifyIds));
+                classifyMapVo.setUpdateUserId(updateUserId);
+                classifyMapVo.setUpdateTime(updateTime);
+                dirDatasetClassifyMapMapper.baseInsert(classifyMapVo);
             }
         }
         //数据集的关联的目录类别为多选
