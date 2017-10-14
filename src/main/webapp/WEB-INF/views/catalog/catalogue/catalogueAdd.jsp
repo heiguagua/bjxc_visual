@@ -12,14 +12,13 @@
             <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd">
                 <div class="form-group">
                     <div class="row">
-                        <input type="hidden" id="belongDeptId" name="belongDeptId">
                         <input type="hidden" name="sourceType" value="1">
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源分类 :</label>
                             <div class="col-sm-9">
                                 <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
                                 <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
-                                       placeholder="">
+                                       placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">
                                 <div class="menu-wrap">
                                     <div id="menuContent" class="menuContent" style="display:none;">
@@ -32,7 +31,7 @@
                             <label for="relDatasetCode" class="col-sm-3 control-label">关联资源代码:</label>
                             <div class="col-sm-9">
                                 <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源代码" disabled>--%>
-                                <input type="text" id="relDatasetName" required="required" data-parsley-required-message="该项为必填" class="form-control">
+                                <input type="text" id="relDatasetName" class="form-control" placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="relDatasetCode" name="relDatasetCode">
                                 <div class="menu-wrap">
                                     <div id="relMenuContent" class="menuContent" style="display:none;">
@@ -64,21 +63,42 @@
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源提供方 :</label>
                             <div class="col-sm-9">
-                                <input type="text" id="belongDeptTypeName" data-rule="信息资源分类:required;" class="form-control"
-                                       placeholder="">
+                                <%--<input type="text" id="belongDeptTypeName" data-rule="信息资源分类:required;" class="form-control"
+                                       placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="belongDeptType" name="belongDeptType">
                                 <input type="hidden" id="belongDeptTypeCode">
                                 <div class="menu-wrap">
                                     <div id="belongDeptTypeMenuContent" class="menuContent" style="display:none;">
                                         <ul id="belongDeptTypeTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                     </div>
-                                </div>
+                                </div>--%>
+                                    <div class="col-sm-6" style="padding:0">
+                                        <input type="text" id="belongDeptTypeName" data-rule="信息资源提供方:required;" class="form-control"
+                                               placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+                                        <input type="hidden" id="belongDeptType" name="belongDeptType">
+                                        <div class="menu-wrap">
+                                            <div id="belongDeptTypeMenuContent" class="menuContent" style="display:none;">
+                                                <ul id="belongDeptTypeTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6" style="padding:0">
+                                        <input type="text" id="belongDeptName" data-rule="信息资源提供方:required;" class="form-control"
+                                               placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+                                        <input type="hidden" id="belongDeptId" name="belongDeptId">
+                                        <div class="menu-wrap">
+                                            <div id="belongDeptMenuContent" class="menuContent" style="display:none;">
+                                                <ul id="belongDeptTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label">信息资源提供方代码:</label>
+                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="belongDeptCode" disabled>
+                                <input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo">
+                                <input type="hidden" id="chargeDeptId" name="chargeDeptId">
                             </div>
                         </div>
                     </div>

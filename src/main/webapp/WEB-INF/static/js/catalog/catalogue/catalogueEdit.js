@@ -10,9 +10,11 @@ jQuery(document).ready(function () {
 });
 
 function initAllSelect(){
+    var regionCode = $.getSelectedRegionCode();
     $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化信息资源分类下拉框
     $.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联信息资源分类下拉框
-    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent','belongDeptTypeCode')//初始化资源提供方下拉框;
+    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
+    $.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
     //信息资源格式下拉框初始化
     Dict.selects('resourceFormat',['#formatCategory']);
     //共享类型
@@ -51,9 +53,6 @@ function initAllSelect(){
         }
     });
 
-    $("#belongDeptTypeName").on("change",function(){
-        $("#belongDeptCode").val($("#belongDeptTypeCode").val());
-    });
 }
 
 function initInputValue(){
@@ -72,8 +71,10 @@ function initInputValue(){
                 $("#infoResourceCode").val(obj.infoResourceCode);
                 $("#belongDeptType").val(obj.belongDeptType);
                 $("#belongDeptTypeName").val(obj.regionDeptName);
-                $("#belongDeptCode").val(obj.regionDeptCode);
                 $("#belongDeptId").val(obj.belongDeptId);
+                $("#belongDeptName").val(obj.deptName);
+                $("#belongDeptNo").val(obj.belongDeptNo);
+                $("#chargeDeptId").val(obj.chargeDeptId);
                 if(obj.ext != undefined && obj.ext !=""){
                     $("#formatCategory").val(obj.ext.formatCategory);
                     $("#formatCategory").change();
@@ -129,14 +130,14 @@ function initButtonClickEvent(){
         +'<input type="hidden" name="items['+thisTrNum+'].belongDeptId" >  </td>'
         //+'<td><input class="form-control" type="text"  value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
-        +'<td><select name="items['+thisTrNum+'].secretFlag" data-rule="涉密标识:required;" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
+        +'<td><select name="items['+thisTrNum+'].secretFlag" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'
         +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" ></td>'
         +'<td><select name="items['+thisTrNum+'].shareMethod" data-rule="共享方式:required;" class="form-control">'+Dict.selectsDom("dataSetShareMethod")+'</select></td>'
         +'<td><select name="items['+thisTrNum+'].isOpen" class="form-control"><option value="1" selected>是</option><option value="0" >否</option></select></td>'
         +'<td><input name="items['+thisTrNum+'].openCondition" type="text" class="form-control" ></td>'
-        +'<td><select name="items['+thisTrNum+'].storageLocation" data-rule="存储位置:required;" class="form-control">'+Dict.selectsDom("setItemStoreLocation")+'</select></td>'
-        +'<td><select name="items['+thisTrNum+'].updateFrequency" data-rule="更新周期:required;" class="form-control">'+Dict.selectsDom("setItemFrequency")+'</select></td>'
+        +'<td><select name="items['+thisTrNum+'].storageLocation" class="form-control">'+Dict.selectsDom("setItemStoreLocation")+'</select></td>'
+        +'<td><select name="items['+thisTrNum+'].updateFrequency" class="form-control">'+Dict.selectsDom("setItemFrequency")+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" ></td></tr>');
 
         //数据集与数据项共有的属性,如果数据集已经设值了,那新增一行时,就把这些值带入数据项

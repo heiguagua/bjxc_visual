@@ -1692,9 +1692,9 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param nameInputDomId    显示选中目录类别的名称的input框的id
          * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
          * @param treeDivDomId      树形展开区域的DIV的id
-         * @param showCodeInputDomId 用于联动的提供方编码显示时取值的input框的id
          */
-        initRegionDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, showCodeInputDomId) {
+        initRegionDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId) {
+            var regionCode = $.getSelectedRegionCode();
             var setting = {
                 check: {
                     enable: true,
@@ -1706,6 +1706,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     enable: true,
                     url: basePathJS + "/sysRegionDept/authorityList",
                     autoParam: ["fcode"],
+                    otherParam: {regionCode:regionCode},
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                         var params = [];
                         var nodeObjs = childNodes.content.vo;
@@ -1717,8 +1718,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].regionDeptName,
                                 'fcode': nodeObjs[i].regionDeptCode,
-                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
-                                'structureName':nodeObjs[i].structureName
+                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
                             }
                         }
                         return params;
@@ -1730,10 +1730,8 @@ function initGlobalCustom(tempUrlPrefix) {
                         zTree.checkNode(treeNode,true,true,true);
                     },
                     onCheck: function (e, treeId, treeNode) { //点击radio，获取目录类别的全名称，显示到输入框中
-                        $('#' + nameInputDomId).val(treeNode.structureName);
+                        $('#' + nameInputDomId).val(treeNode.name);
                         $('#' + codeInputDomId).val(treeNode.id);
-                        $('#' + showCodeInputDomId).val(treeNode.fcode);
-                        $('#' + nameInputDomId).change();
                     }
                 }
             };

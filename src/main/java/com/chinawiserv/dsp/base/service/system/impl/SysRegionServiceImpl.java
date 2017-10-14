@@ -12,6 +12,7 @@ import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +108,33 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
     @Override
     public SysRegionVo getRegionDataByCode(String regionCode) throws Exception {
         return mapper.selectVoByCode(regionCode);
+    }
+
+    @Override
+    public List<String> getAllParentRegionCodes(String regionCode) throws Exception{
+        List<String> allParentCodeList = new ArrayList<>();
+        if(!StringUtils.isEmpty(regionCode)){
+            String regionCodeCondition = regionCode.substring(0, 2);
+            List<SysRegionVo> sysRegionVoList = mapper.selectAllRegionByRegionCode(regionCodeCondition);
+            getAllParentCode(sysRegionVoList, regionCode, allParentCodeList);
+        }
+        return allParentCodeList;
+    }
+
+    private void getAllParentCode(List<SysRegionVo> sysRegionVoList, String regionCode, List<String> allParentCodeList){
+        if(!ObjectUtils.isEmpty(sysRegionVoList)){
+            for(SysRegionVo sysRegionVo : sysRegionVoList){
+                String code = sysRegionVo.getRegionCode();
+                if(regionCode.equals(code)){
+                    String parentCode = sysRegionVo.getFcode();
+                    if(!StringUtils.isEmpty(parentCode)){
+                        allParentCodeList.add(parentCode);
+                        getAllParentCode(sysRegionVoList, parentCode, allParentCodeList);
+                    }
+                    break;
+                }
+            }
+        }
     }
 
 
