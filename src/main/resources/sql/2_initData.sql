@@ -107,7 +107,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 	('0703','07','开发者工具管理','/dirDevelopApis','fa-cog','2','2','0703','','1'),
 	('0704','07','专题应用管理','/dirSpecialApps','fa-cog','3','2','0704','','1'),
 	('08', '0', '上报管理', '', 'fa-list', '8', '1', '08', 'system','1'),
-	('0801', '08', '上报目录', '/dirupload/dirAudit', 'fa-cog', '3', '2', '0801', 'dirupload:dirAudit', '1');
+	('0801', '08', '目录/服务上报', '/dirupload/dirAudit', 'fa-cog', '3', '2', '0801', 'dirupload:dirAudit', '1');
 
 
 
