@@ -29,7 +29,13 @@ input[name='uploadAddress']{
 margin-left: 8%;
 width: 80%;
 }
-
+.control-label {
+    text-align: left !important;
+}
+.col-sm-10{
+margin-left: 23% !important;
+margin-top: -11%
+}
 </style>
 </head>
 <body>
