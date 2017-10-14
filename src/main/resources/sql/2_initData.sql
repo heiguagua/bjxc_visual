@@ -299,8 +299,8 @@ insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 /*	('77','','dataSetIsOpen','1','普遍开放',NULL,NULL,NULL,NULL,1),
 	('21','','dataSetIsOpen','2','依申请开放',NULL,NULL,NULL,NULL,1),
 	('20','','dataSetIsOpen','3','不开放',NULL,NULL,NULL,NULL,1),*/
-	('20','','dataSetIsOpen','0','是',NULL,NULL,NULL,NULL,1),
-	('21','','dataSetIsOpen','1','否',NULL,NULL,NULL,NULL,1),
+	('20','','dataSetIsOpen','0','否',NULL,NULL,NULL,NULL,1),
+	('21','','dataSetIsOpen','1','是',NULL,NULL,NULL,NULL,1),
 	('154','','dataSetReleaseType','1','发布到互联网',NULL,NULL,NULL,NULL,1),
 	('155','','dataSetReleaseType','2','发布到电子政务外网',NULL,NULL,NULL,NULL,1),
 	('156','','dataSetReleaseType','3','同时发布',NULL,NULL,NULL,NULL,1),
