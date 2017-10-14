@@ -20,7 +20,7 @@
 	<div class="top_cont">
 		<section class="top_conttitle">
 				<img class="logopng" src="<%=basePath%>/images/userImg/logo.png">
-				<p>成都市大数据资源服务网</p>
+				<p>大数据资源服务网</p>
 				<div class="righttext">
 					<!-- <p>成都市大数据资源服务网</p> -->
 					<!-- <p class="entitle">Chengdu Open Government Data Platform</p> -->

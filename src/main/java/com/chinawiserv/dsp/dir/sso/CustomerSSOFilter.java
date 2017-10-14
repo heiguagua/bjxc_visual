@@ -116,6 +116,8 @@ public class CustomerSSOFilter extends SSOFilter {
             list2 = sysMenuService.selectMenuIdsByuserId(currentLoginUser.getId());
             String[] permissions = list2.toArray(new String[list2.size()]);
             ShiroUtils.setSessionAttribute(SystemConst.PERMISSIONS, permissions);
+            //获取当前用户的区域编码
+            ShiroUtils.setSessionAttribute(SystemConst.REGION, currentLoginUser.getRegionCode());
         } catch (Exception e) {
             e.printStackTrace();
         }

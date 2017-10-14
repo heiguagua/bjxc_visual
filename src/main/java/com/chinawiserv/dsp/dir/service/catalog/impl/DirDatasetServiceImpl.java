@@ -1,26 +1,49 @@
 package com.chinawiserv.dsp.dir.service.catalog.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
-import com.chinawiserv.dsp.base.common.util.ShiroUtils;
-import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
-import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
-import com.chinawiserv.dsp.base.service.system.ISysRegionService;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.*;
-import com.chinawiserv.dsp.dir.enums.apply.SourceTypeEnum;
-import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
-import com.chinawiserv.dsp.dir.mapper.catalog.*;
-import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
-import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
-import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
+import com.chinawiserv.dsp.base.common.util.Helper;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.chinawiserv.dsp.base.service.system.ISysRegionService;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataAuditVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataOfflineVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataPublishVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataRegisteVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetSurveyVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import com.chinawiserv.dsp.dir.enums.catalog.ReportScope;
+import com.chinawiserv.dsp.dir.enums.catalog.ReportStatus;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDataAuditMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDataOfflineMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDataPublishMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDataRegisteMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDataitemMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDataitemSourceInfoMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetSourceInfoMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetSurveyMapper;
+import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
+import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 
 /**
  * <p>
@@ -136,40 +159,40 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             }
             classifyMapResult = dirDatasetClassifyMapMapper.insertListItem(classifyMapVoList);
             //数据项来源
-            //List<DirDataitemSourceInfo> sourceInf
-            // os = vo.getSourceInfos();
+            List<DirDataitemSourceInfo> sourceInfos = vo.getSourceInfos();
             //数据集插入成功后，插入该数据集的数据项的数据
             List<DirDataitemVo> dirDataitemVoList = vo.getItems();
             if(!ObjectUtils.isEmpty(dirDataitemVoList)){
-                //int i=0;
-                //List<DirDataitemSourceInfo> insertSourceInfos=new ArrayList<>();
-                //DirDataitemSourceInfo sourceInfo=null;
+                List<DirDataitemSourceInfo> insertSourceInfos=new ArrayList<>();
+                DirDataitemSourceInfo sourceInfo=null;
                 List<DirDataitemVo> needInsertVoList = new ArrayList<>(); //用于去除空行数据
-                for(DirDataitemVo item : dirDataitemVoList){
-                    String itemName = item.getItemName();//用必填项名称,来验证是否是空行数据
-                    if(!StringUtils.isEmpty(itemName)){
-                        String itemId = UUID.randomUUID().toString();
-                        item.setId(itemId);
-                        item.setDatasetId(datasetId);
-                        item.setStatus("0");
-                        item.setCreateUserId(logionUser.getId());
-                        item.setCreateTime(createTime);
-                        needInsertVoList.add(item);
-                        //数据项来源
-                        /*if(!ObjectUtils.isEmpty(sourceInfos)){
-                            sourceInfo = sourceInfos.get(i);
-                            sourceInfo.setId(itemId);
-                            sourceInfo.setItemId(itemId);
-                            insertSourceInfos.add(sourceInfo);
-                            i++;
-                        }*/
+                for(int i=0,ii=dirDataitemVoList.size();i<ii;i++){
+                    DirDataitemVo item = dirDataitemVoList.get(i);
+                    if(!ObjectUtils.isEmpty(item)){
+                        String itemName = item.getItemName();//用必填项名称,来验证是否是空行数据
+                        if(!StringUtils.isEmpty(itemName)){
+                            String itemId = UUID.randomUUID().toString();
+                            item.setId(itemId);
+                            item.setDatasetId(datasetId);
+                            item.setStatus("0");
+                            item.setCreateUserId(logionUser.getId());
+                            item.setCreateTime(createTime);
+                            needInsertVoList.add(item);
+                            //数据项来源
+                            if(!ObjectUtils.isEmpty(sourceInfos)){
+                                sourceInfo = sourceInfos.get(i);
+                                sourceInfo.setId(itemId);
+                                sourceInfo.setItemId(itemId);
+                                sourceInfo.setSourceObjType(vo.getSourceType());
+                                insertSourceInfos.add(sourceInfo);
+                            }
+                        }
                     }
-
                 }
                 itemResult = itemMapper.insertListItem(needInsertVoList);
-                /*if(insertSourceInfos!=null&&insertSourceInfos.size()>0){
+                if(insertSourceInfos!=null&&insertSourceInfos.size()>0){
                     dataitemSourceInfoMapper.insertList(insertSourceInfos);
-                }*/
+                }
             }
 
         }
@@ -250,6 +273,18 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     oldClassifyMapVo.setUpdateTime(updateTime);
                     dirDatasetClassifyMapMapper.baseUpdate(oldClassifyMapVo);
                 }
+            }else{ //如果为空，直接插入
+                DirDatasetClassifyMapVo classifyMapVo = new DirDatasetClassifyMapVo();
+                String classifyMapId = UUID.randomUUID().toString();
+                classifyMapVo.setId(classifyMapId);
+                classifyMapVo.setDatasetId(datasetId);
+                classifyMapVo.setClassifyId(classifyIds);
+                classifyMapVo.setStatus("0");
+                classifyMapVo.setRelFlag(0);
+                classifyMapVo.setInfoResourceCode(dirClassifyService.generateDatasetCode(classifyIds));
+                classifyMapVo.setUpdateUserId(updateUserId);
+                classifyMapVo.setUpdateTime(updateTime);
+                dirDatasetClassifyMapMapper.baseInsert(classifyMapVo);
             }
         }
         //数据集的关联的目录类别为多选
@@ -573,6 +608,91 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         return page;
 	}
 
+    @Override
+    public Page<DirDatasetVo> selectDirTransferPage(Map<String, Object> paramMap) {
+        Page<DirDatasetVo> page = getPage(paramMap);
+        page.setOrderByField("create_time");
+        page.setAsc(false);
+        String regionCode = (String)paramMap.get("regionCode");
+        if(!StringUtils.isEmpty(regionCode)){
+            StringBuffer allRegionCodeBuffer = new StringBuffer();
+            List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
+            if(!ObjectUtils.isEmpty(SysRegionVoList)){
+                for(SysRegionVo vo : SysRegionVoList){
+                    String subRegionCode = vo.getRegionCode();
+                    allRegionCodeBuffer.append("'").append(subRegionCode).append("',");
+                }
+                if(allRegionCodeBuffer.length()>0){
+                    String allRegionCode = allRegionCodeBuffer.toString();
+                    allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
+                    paramMap.put("allRegionCode",allRegionCode);
+                }
+            }
+        }
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String depId = ShiroUtils.getLoginUserDeptId();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(depId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
+        List<DirDatasetVo> dirDatasetClassifyMapVoList = mapper.selectDirReportPage(page,paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+    	return page;
+    }
+    
+    @Override
+    public HandleResult updateDirReport(Map<String,Object> paramMap) {
+    	//TODO
+    	HandleResult result = new HandleResult();
+    
+    	if (!Helper.checkParam(paramMap.get("scmId")))
+    	{
+    		result.error("上报目录失败，当前目录参数为空。");
+    		return result;
+    	}
+    	
+    	if (!Helper.checkParam(paramMap.get("scope")))
+    	{
+    		result.error("上报目录失败，上报内容不能为空。");
+    		return result;
+    	}
+//    	if (!Helper.checkParam(paramMap.get("uploadAddr")))
+//    	{
+//    		result.error("上报目录失败，上级接口地址不能为空。");
+//    		return result;
+//    	}
+    	String[] scmIdArr=String.valueOf(paramMap.get("scmId")).split(",");
+    	DirDataTransfer transfer = new DirDataTransfer();
+    	Integer num = null;
+    	Map<String,Object> param = new HashMap<String, Object>(1);
+    	for (String scmId:scmIdArr){
+    		transfer = new DirDataTransfer();
+    		transfer.setId(Helper.getUUID());
+    		//TODO上报远程服务器
+    		transfer.setDcmId(scmId);
+    		param.put("transferId", scmId);
+    		num=mapper.getServiceNum(param);
+    		if (!Helper.checkParam(num) || num==0)
+    		{
+        		transfer.setTrasnferScope(ReportScope.SOURCE_DIR.getKey());
+    		}else{
+        		transfer.setTrasnferScope(String.valueOf(paramMap.get("scope")));
+    		}
+    		transfer.setTransferStatus(ReportStatus.REPORT_SUCCESS.getKey());
+    		transfer.setTransferTime(new Date());
+    		transfer.setTransferUserId(ShiroUtils.getLoginUserId());
+    		transfer.setTransferUserName(ShiroUtils.getLoginUserName());
+    		mapper.insertDirTransfer(transfer);
+    	}
+    	result.success("上报成功");
+    	return result;
+    }
     @Override
     public Page<DirDatasetClassifyMapVo> selectClassifyMapVoPage(Map<String, Object> paramMap){
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);

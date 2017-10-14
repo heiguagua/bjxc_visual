@@ -60,7 +60,7 @@ public class DirNationalClassifyController extends BaseController {
 		try {
 			String fid = (String) paramMap.get("fcode");
 			if (StringUtils.isEmpty(fid)) {
-				paramMap.put("fcode", "2");
+				paramMap.put("fcode", "root");
 			}
 //			String regionCode = ShiroUtils.getLoginUser().getRegionCode();
 //			String dir_code = mapper.selectClassifyIdByRegionCode(regionCode);

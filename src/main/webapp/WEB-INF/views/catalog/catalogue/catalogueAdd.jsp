@@ -12,11 +12,23 @@
             <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd">
                 <div class="form-group">
                     <div class="row">
-                        <input type="hidden" name="sourceType" value="1">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
+                            <input type="hidden" name="sourceType" value="1">
+                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">信息资源分类<span class="redStar">*</span>:</label>
+                            <div class="col-sm-10"  style="width:87.8%">
+                                <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+                                       placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+                                <input type="hidden" id="classifyId" name="classifyIds">
+                                <div class="menu-wrap">
+                                    <div id="menuContent" class="menuContent" style="display:none;">
+                                        <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%--<div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源分类 :</label>
                             <div class="col-sm-9">
-                                <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
                                 <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">
@@ -30,7 +42,6 @@
                         <div class="col-sm-6">
                             <label for="relDatasetCode" class="col-sm-3 control-label">关联资源分类:</label>
                             <div class="col-sm-9">
-                                <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>--%>
                                 <input type="text" id="relDatasetName" class="form-control" placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="relDatasetCode" name="relDatasetCode">
                                 <div class="menu-wrap">
@@ -39,13 +50,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label">信息资源名称:</label>
+                            <label  class="col-sm-3 control-label">信息资源名称<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="datasetName" name="datasetName">
                             </div>
@@ -61,7 +72,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label for="classifyName" class="col-sm-3 control-label">信息资源提供方 :</label>
+                            <label for="classifyName" class="col-sm-3 control-label">信息资源提供方<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
                                 <%--<input type="text" id="belongDeptTypeName" data-rule="信息资源分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
@@ -95,10 +106,26 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码:</label>
+                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo">
+                                <input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo" data-rule="信息资源提供方代码:required;">
                                 <input type="hidden" id="chargeDeptId" name="chargeDeptId">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="relDatasetCode" class="col-sm-2 control-label" style="width:12.2%">关联资源分类:</label>
+                            <div class="col-sm-10"  style="width:87.8%">
+                                <input type="text" id="relDatasetName" class="form-control" placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+                                <input type="hidden" id="relDatasetCode" name="relDatasetCode">
+                                <div class="menu-wrap">
+                                    <div id="relMenuContent" class="menuContent" style="display:none;">
+                                        <ul id="relTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -130,7 +157,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式:</label>
+                            <label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
                                 <div class="col-sm-6" style="padding:0">
                                     <select class="form-control" data-rule="所属资源格式:required;" id="formatCategory" name="ext.formatCategory">
@@ -165,9 +192,9 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label for="shareType" class="col-sm-3 control-label">共享类型:</label>
+                            <label for="shareType" class="col-sm-3 control-label">共享类型<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" >
+                                <select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" data-rule="所属资源格式:required;">
                                 </select>
                                 <div id="shareMethodDiv">
                                     <label for="shareMethod" class="col-sm-4 control-label">共享方式:</label>
@@ -291,18 +318,18 @@
                     <table style="width:135%" class="table-striped">
                         <thead>
                         <tr class='table_title_tr'>
-                            <th><input type="checkbox" id="selectAllItem"> 全选</th>
-                            <th>信息项名称</th>
-                            <th>类型</th>
-                            <th>长度</th>
+                            <th style="width: 60px;"><input type="checkbox" id="selectAllItem"> 全选</th>
+                            <th>信息项名称<span class="redStar">*</span></th>
+                            <th>类型<span class="redStar">*</span></th>
+                            <th>长度<span class="redStar">*</span></th>
                             <%--<th>责任部门</th>--%>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>涉密标识</th>
-                            <th>共享类型</th>
+                            <th>共享类型<span class="redStar">*</span></th>
                             <th>共享条件</th>
                             <th>共享方式</th>
-                            <th>是否向社会开放</th>
+                            <th>是否向社会开放<span class="redStar">*</span></th>
                             <th>开放条件</th>
                             <th>存储位置</th>
                             <th>更新周期</th>
