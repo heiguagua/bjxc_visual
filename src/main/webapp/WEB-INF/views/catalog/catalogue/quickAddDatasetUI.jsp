@@ -84,7 +84,7 @@
 	                	<div class="col-sm-6">
 	                	<label  class="col-sm-3 control-label">信息资源提供方:</label>
 	                    <div class="col-sm-9">
-							<input type="text" id="belongDeptTypeName" data-rule="信息资源分类:required;" class="form-control"
+							<%--<input type="text" id="belongDeptTypeName" data-rule="信息资源分类:required;" class="form-control"
 								   placeholder="">
 							<input type="hidden" id="belongDeptType" name="belongDeptType">
 							<input type="hidden" id="belongDeptTypeCode">
@@ -92,15 +92,35 @@
 								<div id="belongDeptTypeMenuContent" class="menuContent" style="display:none;">
 									<ul id="belongDeptTypeTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
 								</div>
+							</div>--%>
+							<div class="col-sm-6" style="padding:0">
+								<input type="text" id="belongDeptTypeName" data-rule="信息资源提供方:required;" class="form-control"
+									   placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+								<input type="hidden" id="belongDeptType" name="belongDeptType">
+								<div class="menu-wrap">
+									<div id="belongDeptTypeMenuContent" class="menuContent" style="display:none;">
+										<ul id="belongDeptTypeTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6" style="padding:0">
+								<input type="text" id="belongDeptName" data-rule="信息资源提供方:required;" class="form-control"
+									   placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+								<input type="hidden" id="belongDeptId" name="belongDeptId">
+								<div class="menu-wrap">
+									<div id="belongDeptMenuContent" class="menuContent" style="display:none;">
+										<ul id="belongDeptTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+									</div>
+								</div>
 							</div>
 	                    </div>
 	                	</div>
 	                	<div class="col-sm-6">
-		                	 <label  class="col-sm-3 control-label" style="padding-left:0px">信息资源提供方代码:</label>
-		                    <div class="col-sm-9">
-								<input type="text" class="form-control" id="dept_short_name" disabled>
-								<input type="hidden" id="belongDeptId" name="belongDeptId">
-		                    </div>
+							<label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo">
+								<input type="hidden" id="chargeDeptId" name="chargeDeptId">
+							</div>
 	                	</div>
 	                </div>   
                 </div>

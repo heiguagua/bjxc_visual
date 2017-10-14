@@ -11,7 +11,9 @@ jQuery(document).ready(function () {
 function initAllSelect(){
     $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化信息资源分类下拉框
     $.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联信息资源分类下拉框
-    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent','belongDeptTypeCode')//初始化资源提供方下拉框;
+    var regionCode = $.getSelectedRegionCode();
+    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
+    $.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
     $('#datasetName').on('blur',function(){
         var datasetName=$('#datasetName').val();
         $(".dataset-name").each(function(idex,item){
