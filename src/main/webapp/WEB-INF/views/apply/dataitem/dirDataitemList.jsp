@@ -54,7 +54,7 @@
                                 <div class="input-group">
                                     <ol class="breadcrumb mgb0">
                                         <li><a href="#" onclick="javascript:retdcView()">共享审核消息列表</a></li>
-                                        <li class="active">数据项列表</li>
+                                        <li class="active">信息项列表</li>
                                     </ol>
                                 </div>
                                 <div class="input-group pull-right">
@@ -278,7 +278,7 @@
                 {
                     field: 'dataItemStateName', title: '状态', width: '10%'
                 },
-                {field: 'applyInfo', title: '数据项'},
+                {field: 'applyInfo', title: '信息项'},
                 {field: 'sourceTypeName', title: '来源业务'},
 //                {field: 'realName', title: '申请人', width: '5%'},
                 {field: 'auditDate', title: '申请提交时间'},
@@ -342,7 +342,7 @@
      * @return {[type]}   [description]
      */
     function ddAudit(v) {
-        openLayerNoBtn('#homeauditLayer', '数据项详情[' + v + ']', 650, 400, function (i, l) {
+        openLayerNoBtn('#homeauditLayer', '信息项详情[' + v + ']', 650, 400, function (i, l) {
             console.log(i, l)
         });
     }

@@ -99,7 +99,7 @@ function initButtonClickEvent(){
         +'<td><select name="items['+thisTrNum+'].updateFrequency" class="form-control">'+Dict.selectsDom("setItemFrequency")+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" ></td></tr>');
 
-        //数据集与数据项共有的属性,如果数据集已经设值了,那新增一行时,就把这些值带入数据项
+        //数据集与信息项共有的属性,如果数据集已经设值了,那新增一行时,就把这些值带入信息项
         $("select[name='items["+thisTrNum+"].secretFlag']").val($("input[name='secretFlag']:checked").val());
         $("select[name='items["+thisTrNum+"].shareType']").val($("#shareType").val());
         $("select[name='items["+thisTrNum+"].shareMethod']").val($("#shareMethod").val());

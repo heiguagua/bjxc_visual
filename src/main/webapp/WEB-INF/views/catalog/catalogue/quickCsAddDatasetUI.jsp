@@ -55,7 +55,7 @@
 							<label class="col-sm-3"></label>
 							<div class="col-sm-9" style="padding-right: 0;">
 								<a id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas" data-toggle="modal" data-target="#myModal">
-									配置数据项
+									配置信息项
 								</a>
 							</div>
 
@@ -126,9 +126,9 @@
                 <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-12">
-		                	<label for="relDatasetCode" style="width: 12%;" class="col-sm-3 control-label">关联资源代码:</label>
+		                	<label for="relDatasetCode" style="width: 12%;" class="col-sm-3 control-label">关联资源分类:</label>
 		                    <div class="col-sm-9" style="width:88%;">
-		                        <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源代码" disabled>--%>
+		                        <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>--%>
 		                            <input type="text" id="relDatasetName" required="required" data-parsley-required-message="该项为必填" class="form-control">
 		                            <input type="hidden" id="relDatasetCode" name="relDatasetCode">
 		                            <div class="menu-wrap">
@@ -365,9 +365,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="relDatasetCode" class="col-sm-2 control-label">关联资源代码</label>
+                    <label for="relDatasetCode" class="col-sm-2 control-label">关联资源分类</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源代码" disabled>
+                        <input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>
                             <input type="text" id="relDatasetName" required="required" data-parsley-required-message="该项为必填" class="form-control">
                             <input type="hidden" id="relDatasetCode" name="relDatasetCode">
                             <div class="menu-wrap">

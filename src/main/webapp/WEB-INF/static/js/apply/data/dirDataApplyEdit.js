@@ -57,7 +57,7 @@ function initTable(){
             }
         }, {
             field: 'itemName',
-            title: '数据项',
+            title: '信息项',
             align: 'center',
             valign: 'middle',
             sortable: false

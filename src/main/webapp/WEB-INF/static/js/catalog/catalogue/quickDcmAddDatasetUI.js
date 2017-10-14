@@ -375,7 +375,7 @@ function initRelationNumber(){
 $(document).on("click", "button#field_add", function(){
 
     initRelationNumber();
-    //获取选中的数据项
+    //获取选中的信息项
     if(fieldIds.length>0){
         $.ajax({
             url: basePathJS+"/DcmDb/selectFieldByIds",
