@@ -719,7 +719,10 @@ public class DirDatasetController extends BaseController {
             }
             List<ExportDatasetExcel> list = service.selectExportLists(tree_codes, dataset_name, region_id);
             ExportExcelUtil util = new ExportExcelUtil();
-            String realPath = request.getSession().getServletContext().getRealPath("WEB-INF/classes/excelTemplate/excelTemplate.xlsx");
+            String realPath1 = request.getSession().getServletContext().getRealPath("WEB-INF/classes/excelTemplate/excelTemplate.xlsx");
+            String realPath = this.getClass().getClassLoader().getResource("/excelTemplate/excelTemplate.xlsx").getPath();
+            logger.debug("realPath1:"+realPath1);
+            logger.debug("realPath:"+realPath);
             File file =util.getExcelDemoFile(realPath);
             String sheetName="Sheet1";
             wb = util.writeNewExcel(file, sheetName,list);
@@ -993,7 +996,7 @@ public class DirDatasetController extends BaseController {
             InputStream inputStream = null;
             BufferedInputStream bis = null;
             try {
-                inputStream = this.getClass().getClassLoader().getResource("excelTemplate/excelTemplate.xlsx").openStream();
+                inputStream = this.getClass().getClassLoader().getResource("/excelTemplate/excelTemplate.xlsx").openStream();
                 bis = new BufferedInputStream(inputStream);
                 OutputStream os = response.getOutputStream();
                 int i = bis.read(buffer);
