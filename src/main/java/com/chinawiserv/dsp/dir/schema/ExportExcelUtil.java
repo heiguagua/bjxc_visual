@@ -28,13 +28,7 @@ public class ExportExcelUtil {
      * @throws Exception
      */
     public  File getExcelDemoFile(String fileDir) throws Exception{
-        String classDir = null;
-        String fileBaseDir = null;
-        File file = null;
-        classDir = Thread.currentThread().getContextClassLoader().getResource("/").getPath();
-        fileBaseDir = classDir.substring(1);
-
-        file = new File(fileBaseDir+fileDir);
+        File  file = new File(fileDir);
         if(!file.exists()){
             throw new Exception("模板文件不存在！");
         }

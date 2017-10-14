@@ -38,6 +38,9 @@
         <result column="dept_id" property="DeptId"/>
         <result column="dept_name" property="DeptName"/>
         <result column="icon_name" property="iconName"/>
+        <result column="classify_type_name" property="classifyTypeName" jdbcType="VARCHAR"/>
+        <result column="national_classify_name" property="nationalClassifyName" jdbcType="VARCHAR"/>
+        
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -148,10 +151,12 @@
     
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
         select q.* from (
-        	SELECT t.*, s.dept_name as dept_name,d.dept_id as dept_id,c.icon_name as icon_name FROM dir_classify t 
+        	SELECT t.*, s.dept_name as dept_name,d.dept_id as dept_id,c.icon_name as icon_name,h.dict_name as classify_type_name,n.classify_name as national_classify_name  FROM dir_classify t 
 			left join dir_classify_dept_map d on t.id = d.classify_id
 			left join sys_dept s on d.dept_id = s.id
 			left join sys_icon_lib c on (c.icon_path = t.icon and c.icon_type = 'classify_icon')
+			left join sys_dict h on (h.dict_code = t.classify_type and h.category = 'dirClassifyCategory')
+			left join dir_national_classify n on t.national_code = n.classify_code
 			WHERE t.id = #{id} ) q limit 1			
     </select>
     
@@ -248,7 +253,13 @@
                 delete_flag = #{deleteFlag},
             </if>
             <if test="icon != null">
-                icon = #{icon}
+                icon = #{icon},
+            </if>
+            <if test="classifyType != null">
+                classify_type = #{classifyType},
+            </if>
+             <if test="nationalCode != null">
+                national_code = #{nationalCode}
             </if>
         </set>
         where id = #{id}

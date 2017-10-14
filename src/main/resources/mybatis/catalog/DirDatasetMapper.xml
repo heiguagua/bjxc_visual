@@ -164,7 +164,7 @@
         left join dir_dataset_ext_format f on t.id=f.dataset_id
         left join sys_dept de on t.belong_dept_id=de.id and de.delete_flag=0
         left join dir_dataset_survey su on t.id=su.dataset_id
-        left join sys_region_dept rd on t.belong_dept_type=rd.id
+        left join v_sys_region_dept rd on t.belong_dept_type=rd.id
         where t.id = #{id}
     </select>
 

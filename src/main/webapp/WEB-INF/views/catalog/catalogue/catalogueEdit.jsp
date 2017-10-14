@@ -28,9 +28,9 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label for="relDatasetCode" class="col-sm-3 control-label">关联资源代码:</label>
+                            <label for="relDatasetCode" class="col-sm-3 control-label">关联资源分类:</label>
                             <div class="col-sm-9">
-                                <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源代码" disabled>--%>
+                                <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>--%>
                                 <input type="text" id="relDatasetName"  class="form-control" placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="relDatasetCode" name="relDatasetCode">
                                 <div class="menu-wrap">
@@ -97,9 +97,9 @@
                 <%--<div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label for="relDatasetCode" class="col-sm-3 control-label">关联资源代码:</label>
+                            <label for="relDatasetCode" class="col-sm-3 control-label">关联资源分类:</label>
                             <div class="col-sm-9">
-                                &lt;%&ndash;<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源代码" disabled>&ndash;%&gt;
+                                &lt;%&ndash;<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>&ndash;%&gt;
                                 <input type="text" id="relDatasetName" required="required" data-parsley-required-message="该项为必填" class="form-control">
                                 <input type="hidden" id="relDatasetCode" name="relDatasetCode">
                                 <div class="menu-wrap">

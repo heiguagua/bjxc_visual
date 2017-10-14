@@ -51,7 +51,7 @@ function initTable(){
             }
         },{
             field: 'itemNums',
-            title: '数据项数',
+            title: '信息项数',
             sortable: false,
             width: '10%'
         },{

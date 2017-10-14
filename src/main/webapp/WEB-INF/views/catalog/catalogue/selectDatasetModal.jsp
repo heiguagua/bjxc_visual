@@ -19,7 +19,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                  配置数据项
+                  配置信息项
                 </h4>
                 	
             </div>
@@ -50,7 +50,7 @@
                         overflow: auto;
                     }
                 </style>
-                <p style="margin-bottom:15px;">选择数据项</p>
+                <p style="margin-bottom:15px;">选择信息项</p>
                 <div class="col-md-12" style="/*height: 100%;*/padding: 0px;">
                     <div class="col-md-3 col_container">
                         <div class="header_title">选择组织</div>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 col_container">
-                        <div class="header_title">选择数据项</div>
+                        <div class="header_title">选择信息项</div>
                         <div id="field_tree" class="content_scroll_item list-group">
 	                        <div style="text-align:center">
 	                          <img class="selec_img"  alt="" src="<%=basePath%>/images/addimg/predir.png">

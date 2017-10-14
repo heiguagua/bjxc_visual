@@ -38,28 +38,25 @@
                 </div> -->
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-sm-7">
-                            <label for="classifyName" class="col-sm-3 control-label" style="width: 21.3%;">信息资源分类
-                                :</label>
-                            <div class="col-sm-9">
+                        <div class="col-sm-11">
+                            <label style="width:13.3%;" for="classifyName" class="col-sm-3 control-label" style="width: 21.3%;">信息资源分类 :</label>
+                            <div class="col-sm-9"  style="width:76%;">
                                 <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
                                 <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
                                        placeholder="">
                                 <input type="hidden" id="classifyId" name="classifyIds">
                                 <div class="menu-wrap">
                                     <div id="menuContent" class="menuContent" style="display:none;">
-                                        <ul id="treeDemo" class="ztree"
-                                            style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                        <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-1">
                             <label class="col-sm-3"></label>
-                            <div class="col-sm-9">
-                                <a id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas"
-                                        data-toggle="modal" data-target="#myModal">
-                                    配置数据项
+                            <div class="col-sm-9" style="padding-right: 0;">
+                                <a id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas" data-toggle="modal" data-target="#myModal">
+                                    配置信息项
                                 </a>
                             </div>
 
@@ -130,9 +127,9 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            <label for="relDatasetCode" style="width:12%;" class="col-sm-3 control-label">关联资源代码:</label>
+                            <label for="relDatasetCode" style="width:12%;" class="col-sm-3 control-label">关联资源分类:</label>
                             <div class="col-sm-9" style="width:88%;">
-                                <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源代码" disabled>--%>
+                                <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>--%>
                                 <input type="text" id="relDatasetName" required="required"
                                        data-parsley-required-message="该项为必填" class="form-control">
                                 <input type="hidden" id="relDatasetCode" name="relDatasetCode">

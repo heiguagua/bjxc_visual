@@ -39,6 +39,7 @@ jQuery(document).ready(function () {
                         		  'classifyName':nodeObjs[i].classifyName,
                         		  'fid':nodeObjs[i].id,
                         		  'fidforadd':nodeObjs[i].fid,
+                        		  'classifyType':nodeObjs[i].classifyType,
                         		  'isParent':(nodeObjs[i].hasLeaf=="1"?true:false)
                           }
                       }
@@ -100,11 +101,17 @@ jQuery(document).ready(function () {
 				+"<li><a class='"+treeNode.fidforadd+"' id='addSibling'  data-pcode="+treeNode.fidforadd+" href='#'  >添加同级</a></li>"
 				+"<li><a class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"	
-				if(treeNode.fidforadd!='root'){
+				if(treeNode.classifyType=='2-1' || treeNode.classifyType=='2-2' || treeNode.classifyType=='2-3'){	
+					aObj.after(editStr2);
 					aObj.after(editStr3);
+				}else if(treeNode.classifyType == '5' || treeNode.classifyType == '6'|| treeNode.classifyType == '7'){
+					aObj.after(editStr2);
+					aObj.after(editStr1);
+					aObj.after(editStr3);
+				}else{
+					
 				}				
-				aObj.after(editStr2);
-				aObj.after(editStr1);		
+						
 		var btn = $("#diyBtn_"+treeNode.id);				
 		
 		
@@ -146,7 +153,7 @@ jQuery(document).ready(function () {
 //			var apiCatgegory=$(curThis).attr('data-category');
 //			var orderNumber=$(curThis).attr('data-orderNumber');
 //			$('#parent_id').val(api_fcode);	
-			updateApi('编辑目录--同级',basePathJS + '/dirClassify/edit' , id,1300,800);
+			updateApi('编辑目录--同级',basePathJS + '/dirClassify/edit' , id,800,500);
 //			$('#api_name').val(apiName);
 //			$('#api_category').val(apiCatgegory);
 //			$('#api_url').val(apiUrl);
@@ -163,7 +170,7 @@ jQuery(document).ready(function () {
 				 tip("无权限添加初始目录类别，请联系管理员。" );
 				 return false;
 			 }
-			addDir('新增目录--同级',basePathJS + '/dirClassify/add' , fid,1300,800);
+			addDir('新增目录--同级',basePathJS + '/dirClassify/add' , fid,800,500);
 //			$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');
@@ -176,7 +183,7 @@ jQuery(document).ready(function () {
 	    	var curThis=this;
 			var fid=$(curThis).attr('data-id');
 //			$('#parent_id').val(api_fcode);
-			addDir('新增目录--子级',basePathJS + '/dirClassify/add',fid,1300,800);
+			addDir('新增目录--子级',basePathJS + '/dirClassify/add',fid,800,500);
 //	    	$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');

@@ -7,7 +7,8 @@ jQuery(document).ready(function () {
 	 var fid = $("#fid").val();
      initSelectData();
      checkDep(fid);
-     window.Dict=new dict();
+     window.Dict=new dict1();
+     window.DictData = new dict();
      initAllSelect();
      
 });
@@ -16,6 +17,7 @@ function initAllSelect(){
 	
 	$.initNationalQueryClassifyTreeSelect('treeNational','nationalCode','dictNationalCode','menuNationalContent');
     Dict.selects('classify_icon',['#icon']);
+    DictData.selects('dirClassifyCategory',['#classify_type']);
     
 }
 	$(function(){

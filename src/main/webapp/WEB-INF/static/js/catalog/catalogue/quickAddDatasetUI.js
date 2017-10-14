@@ -356,7 +356,7 @@ $(document).on("click", "button#field_add", function(){
             }
         });
     }
-    //获取选中的数据项
+    //获取选中的信息项
     if(ids){
         $.ajax({
             url: basePathJS+"/catalog/selectDatasetItemByIds",

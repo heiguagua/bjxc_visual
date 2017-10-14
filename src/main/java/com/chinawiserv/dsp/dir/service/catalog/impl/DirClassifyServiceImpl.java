@@ -9,18 +9,14 @@ import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.google.common.collect.Lists;
-import com.google.common.util.concurrent.FakeTimeLimiter;
-import com.google.common.util.concurrent.SimpleTimeLimiter;
 import com.google.common.util.concurrent.Striped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 
 /**
  * <p>
@@ -162,7 +158,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 
     @Override
     public DirClassifyVo selectVoById(String id) throws Exception {
-    	DirClassifyVo  s = mapper.selectVoById(id);
+//    	DirClassifyVo s = mapper.selectVoById(id);
 		return mapper.selectVoById(id);
 	}
 
