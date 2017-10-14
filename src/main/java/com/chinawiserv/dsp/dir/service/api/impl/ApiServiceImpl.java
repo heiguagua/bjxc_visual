@@ -136,9 +136,9 @@ public class ApiServiceImpl implements IApiService {
             /**
              * 单表无关系
              * */
-            tableInfoList = apiMapper.getTableInfoWithoutRelationByDatasetId(paramMap);
-            if(null != tableInfoList && tableInfoList.size() > 0){
-                for(Iterator iter = tableInfoList.iterator(); iter.hasNext();){
+            tableRelation = apiMapper.getTableInfoWithoutRelationByDatasetId(paramMap);
+            if(null != tableRelation && tableRelation.size() > 0){
+                for(Iterator iter = tableRelation.iterator(); iter.hasNext();){
                     Map<String,Object> tableInfo = (Map<String,Object>)iter.next();
                     if(null != tableInfo){
                         String tableId = (String)tableInfo.get("tableId");
