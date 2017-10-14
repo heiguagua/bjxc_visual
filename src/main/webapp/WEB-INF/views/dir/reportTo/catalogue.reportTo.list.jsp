@@ -39,7 +39,7 @@ padding-left:20%;position:absolute
 		<div class="content-wrapper">
 			<section class="content-header">
 				<h1>
-					<small>上报管理 > 目录上报</small>
+					<small>上报管理 > 目录/服务上报</small>
 				</h1>
 				<!-- <ul class="title_ul">
                 	<li class="active"><i class="fa fa-television" style="font-size:20px"></i>&nbsp;常规模式</li>
