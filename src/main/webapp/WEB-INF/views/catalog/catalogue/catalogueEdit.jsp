@@ -13,10 +13,24 @@
                 <div class="form-group">
                     <div class="row">
                         <input type="hidden" id="id" name="id" value="${id}">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
+                            <input type="hidden" name="sourceType" value="1">
+                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">信息资源分类:</label>
+                            <div class="col-sm-10"  style="width:87.8%">
+                                <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+                                       placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+                                <input type="hidden" id="classifyId" name="classifyIds">
+                                <div class="menu-wrap">
+                                    <div id="menuContent" class="menuContent" style="display:none;">
+                                        <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%--<div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源分类 :</label>
                             <div class="col-sm-9">
-                                <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
+                                &lt;%&ndash;<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">&ndash;%&gt;
                                 <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">
@@ -30,7 +44,7 @@
                         <div class="col-sm-6">
                             <label for="relDatasetCode" class="col-sm-3 control-label">关联资源分类:</label>
                             <div class="col-sm-9">
-                                <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>--%>
+                                &lt;%&ndash;<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>&ndash;%&gt;
                                 <input type="text" id="relDatasetName"  class="form-control" placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="relDatasetCode" name="relDatasetCode">
                                 <div class="menu-wrap">
@@ -39,7 +53,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
                 <div class="form-group">
@@ -90,6 +104,22 @@
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo">
                                 <input type="hidden" id="chargeDeptId" name="chargeDeptId">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="relDatasetCode" class="col-sm-2 control-label" style="width:12.2%">信息资源分类:</label>
+                            <div class="col-sm-10"  style="width:87.8%">
+                                <input type="text" id="relDatasetName" class="form-control" placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+                                <input type="hidden" id="relDatasetCode" name="relDatasetCode">
+                                <div class="menu-wrap">
+                                    <div id="relMenuContent" class="menuContent" style="display:none;">
+                                        <ul id="relTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

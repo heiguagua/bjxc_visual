@@ -13,22 +13,28 @@
                 <div class="form-group">
                     <div class="row">
                         <input type="hidden" id="id" name="id" value="${id}">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
+                            <input type="hidden" name="sourceType" value="1">
+                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">信息资源分类:</label>
+                            <div class="col-sm-10"  style="width:87.8%">
+                                <input type="text" id="classifyName"  class="form-control" readonly>
+                            </div>
+                        </div>
+                        <%--<div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源分类 :</label>
                             <div class="col-sm-9">
-                                <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
                                 <input type="text" id="classifyName"  class="form-control" readonly>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label for="relDatasetName" class="col-sm-3 control-label">关联资源分类:</label>
                             <div class="col-sm-9">
-                                <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>--%>
                                 <input type="text" id="relDatasetName"  class="form-control" readonly>
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
@@ -70,6 +76,17 @@
                             <label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="belongDeptNo" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="relDatasetName" class="col-sm-2 control-label" style="width:12.2%">信息资源分类:</label>
+                            <div class="col-sm-10"  style="width:87.8%">
+                                <input type="text" id="relDatasetName"  class="form-control" readonly>
                             </div>
                         </div>
                     </div>
