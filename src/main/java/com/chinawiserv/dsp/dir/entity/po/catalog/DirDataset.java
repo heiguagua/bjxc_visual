@@ -28,6 +28,11 @@ public class DirDataset implements Serializable {
 	@TableField("region_code")
 	private String regionCode;
     /**
+     * 牵头部门Id
+     */
+    @TableField("charge_dept_id")
+    private String chargeDeptId;
+    /**
      * 数据集编码
      */
 	@TableField("dataset_code")
@@ -51,6 +56,11 @@ public class DirDataset implements Serializable {
      */
 	@TableField("belong_dept_id")
 	private String belongDeptId;
+    /**
+     * 【国】信息资源提供方编码
+     */
+    @TableField("belong_dept_no")
+    private String belongDeptNo;
     /**
      * 【国】信息资源摘要
      */
@@ -177,7 +187,15 @@ public class DirDataset implements Serializable {
 		this.regionCode = regionCode;
 	}
 
-	public String getDatasetCode() {
+    public String getChargeDeptId() {
+        return chargeDeptId;
+    }
+
+    public void setChargeDeptId(String chargeDeptId) {
+        this.chargeDeptId = chargeDeptId;
+    }
+
+    public String getDatasetCode() {
 		return datasetCode;
 	}
 
@@ -217,7 +235,15 @@ public class DirDataset implements Serializable {
 		this.belongDeptId = belongDeptId;
 	}
 
-	public String getDatasetDesc() {
+    public String getBelongDeptNo() {
+        return belongDeptNo;
+    }
+
+    public void setBelongDeptNo(String belongDeptNo) {
+        this.belongDeptNo = belongDeptNo;
+    }
+
+    public String getDatasetDesc() {
 		return datasetDesc;
 	}
 

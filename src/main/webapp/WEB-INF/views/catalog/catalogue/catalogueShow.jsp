@@ -40,7 +40,7 @@
                         <div class="col-sm-6">
                             <label  class="col-sm-3 control-label">信息资源编码 :</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="datasetCode" name="datasetCode" readonly>
+                                <input type="text" class="form-control" id="infoResourceCode" readonly>
                             </div>
                         </div>
                     </div>
@@ -56,14 +56,20 @@
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源提供方 :</label>
                             <div class="col-sm-9">
-                                <input type="text" id="belongDeptTypeName" data-rule="信息资源提供方:required;" class="form-control"
-                                       placeholder="" readonly>
+                                <div class="col-sm-6" style="padding:0">
+                                    <input type="text" id="belongDeptTypeName" class="form-control"
+                                           placeholder="" readonly>
+                                </div>
+                                <div class="col-sm-6" style="padding:0">
+                                    <input type="text" id="belongDeptName" class="form-control"
+                                           placeholder="" readonly>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label">信息资源提供方代码:</label>
+                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="belongDeptCode" readonly>
+                                <input type="text" class="form-control" id="belongDeptNo" readonly>
                             </div>
                         </div>
                     </div>
