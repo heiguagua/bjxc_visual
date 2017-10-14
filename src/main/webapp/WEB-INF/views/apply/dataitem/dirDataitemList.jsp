@@ -196,7 +196,7 @@
                     return '待审核'
                 }*/
             },
-                {field: 'classifyName', title: '所属目录类别',alt:'classifyStructureName',  formatter: function (v,r) {
+                {field: 'classifyName', title: '信息资源分类',alt:'classifyStructureName',  formatter: function (v,r) {
                     return '<a title="'+r.classifyStructureName+'">'+v+'</a>'
                 }},
                 {field: 'datasetName', title: '所属数据集', width: '15%'},

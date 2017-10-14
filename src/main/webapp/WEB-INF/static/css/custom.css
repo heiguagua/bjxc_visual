@@ -250,3 +250,6 @@ table td {
     color: #999999;
     font-size: 12px;
 }
+.ztree{
+    overflow-y: auto !important;
+}
