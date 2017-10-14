@@ -48,6 +48,7 @@
         <result column="item_nums" property="itemNums"/>
         <result column="region_dept_code" property="regionDeptCode"/>
         <result column="region_dept_name" property="regionDeptName"/>
+        <result column="transferId" property="transferId" />
     </resultMap>
 
     <resultMap id="ExtResultVoMap" extends="BaseResultVoMap"
@@ -57,6 +58,11 @@
             <result column="format_type" property="formatType"/>
             <result column="format_info" property="formatInfo"/>
         </association>
+		<association property="transfer" column="transferId"
+			javaType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer"
+			select="selectDirTransferList"></association>
+		<association property="serviceNum" column="transferId" javaType="Integer" select="getServiceNum"></association>	
+		
         <association property="survey" javaType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
             <result column="total_storage" property="totalStorage" />
             <result column="structure_count" property="structureCount" />
@@ -67,7 +73,16 @@
         </association>
     </resultMap>
     
-
+	<resultMap id="DirDataTransferBaseResultMap"
+		type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
+		<id column="id" property="id" />
+		<result column="dcm_id" property="dcmId" />
+		<result column="transfer_user_id" property="transferUserId" />
+		<result column="transfer_user_name" property="transferUserName" />
+		<result column="transfer_time" property="transferTime" />
+		<result column="trasnfer_scope" property="trasnferScope" />
+		<result column="transfer_status" property="transferStatus" />
+	</resultMap>
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
@@ -125,9 +140,88 @@
                     )b where c.delete_flag=0 and c.tree_code like CONCAT(b.tree_code, '%')
                 )
             </if>
+            <if test="mstatus!=null and mstatus!=''">
+            and m.status>=#{mstatus}
+            
+            </if>
         </where>
     </sql>
+	<!-- 查询已审核待上传报告 -->
+	<select id="selectDirReportPage" parameterType="java.util.Map"
+		resultMap="ExtResultVoMap">
+		select sub.*,MAX(IFNULL(m.status,0)) AS
+		classify_status,GROUP_CONCAT(c.classify_structure_name) AS
+		classify_name,m.id as transferId from(
+		select
+		t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
+		di.dict_name as source_type_name,count(it.dataset_id) as item_nums
+		FROM dir_dataset t
+		left join sys_dept de on t.belong_dept_id=de.id and
+		de.delete_flag=0
+		left join sys_dict di on t.source_type=di.dict_code
+		and
+		di.category='datasetSourceType'
+		left join dir_dataitem it on
+		t.id=it.dataset_id and it.delete_flag=0
+		<include refid="queryConditions"></include>
+		group by t.id ) sub
+		left join dir_dataset_classify_map m on
+		sub.id=m.dataset_id and
+		m.delete_flag=0
+		left join dir_classify c on
+		m.classify_id=c.id and c.delete_flag=0
+		<include refid="classifyConditions"></include>
+		group by sub.id
+	</select>
+	<select id="selectDirReportCount" resultType="Integer"
+		parameterType="map">
 
+		SELECT COUNT(A.id) FROM (
+		select sub.id,sub.create_time from(
+		select
+		t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
+		di.dict_name as source_type_name,count(it.dataset_id) as item_nums
+		FROM dir_dataset t
+		left join sys_dept de on t.belong_dept_id=de.id and
+		de.delete_flag=0
+		left join sys_dict di on t.source_type=di.dict_code
+		and
+		di.category='datasetSourceType'
+		left join dir_dataitem it on
+		t.id=it.dataset_id and it.delete_flag=0
+		<include refid="queryConditions"></include>
+		group by t.id ) sub
+		left join dir_dataset_classify_map m on
+		sub.id=m.dataset_id and
+		m.delete_flag=0
+		left join dir_classify c on
+		m.classify_id=c.id and c.delete_flag=0
+		<include refid="classifyConditions"></include>
+		group by sub.id
+
+		) as A
+	</select>
+	<select id="selectDirTransferList" parameterType="String"
+		resultMap="DirDataTransferBaseResultMap">
+		SELECT IFNULL(trasnfer_scope,"")
+		trasnfer_scope,IFNULL(transfer_status,"") transfer_status FROM
+		dir_data_transfer WHERE dcm_id=#{transferId} ORDER BY transfer_time DESC LIMIT
+		0,1;
+	</select>
+    <select id="getServiceNum" parameterType="map" resultType="Integer">
+    select count(*) from dir_dataset_service_map where obj_id=#{transferId}
+    </select>
+	<select id="getTransferLst" parameterType="map"
+		resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
+		select * from dir_data_transfer where dcm_id=#{transferId}
+	</select>
+	<insert id="insertDirTransfer"
+		parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
+		INSERT INTO dir_data_transfer
+		(id,dcm_id,transfer_user_id,transfer_user_name,transfer_time,trasnfer_scope,transfer_status)
+		VALUES
+		(#{id},#{dcmId},#{transferUserId},#{transferUserName},#{transferTime},#{trasnferScope},#{transferStatus})
+	</insert>
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.* FROM dir_dataset t
         <include refid="queryConditions"></include>

@@ -131,9 +131,31 @@ public class ApiServiceImpl implements IApiService {
                     }
                 }
             }
-
+            result.put("tableRelation",tableRelation);
+        }else {
+            /**
+             * 单表无关系
+             * */
+            tableRelation = apiMapper.getTableInfoWithoutRelationByDatasetId(paramMap);
+            if(null != tableRelation && tableRelation.size() > 0){
+                for(Iterator iter = tableRelation.iterator(); iter.hasNext();){
+                    Map<String,Object> tableInfo = (Map<String,Object>)iter.next();
+                    if(null != tableInfo){
+                        String tableId = (String)tableInfo.get("tableId");
+                        String tableName = (String)tableInfo.get("tableName");
+                        if(StringUtils.isNotBlank(tableId)){
+                            tableParamMap.put("tableId",tableId);
+                            List<Map<String,Object>> tableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
+                            Map<String,Object> table = Maps.newHashMap();
+                            table.put("tableName",tableName);
+                            table.put("tableColunms",tableColumnList);
+                            table.put("tableId",tableId);
+                            tableInfoList.add(table);
+                        }
+                    }
+                }
+            }
         }
-        result.put("tableRelation",tableRelation);
         result.put("tableInfo",tableInfoList);
         return result;
     }

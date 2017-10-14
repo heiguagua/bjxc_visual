@@ -719,7 +719,10 @@ public class DirDatasetController extends BaseController {
             }
             List<ExportDatasetExcel> list = service.selectExportLists(tree_codes, dataset_name, region_id);
             ExportExcelUtil util = new ExportExcelUtil();
-            String realPath = request.getSession().getServletContext().getRealPath("WEB-INF/classes/excelTemplate/excelTemplate.xlsx");
+            String realPath1 = request.getSession().getServletContext().getRealPath("WEB-INF/classes/excelTemplate/excelTemplate.xlsx");
+            String realPath = this.getClass().getClassLoader().getResource("/excelTemplate/excelTemplate.xlsx").getPath();
+            logger.debug("realPath1:"+realPath1);
+            logger.debug("realPath:"+realPath);
             File file =util.getExcelDemoFile(realPath);
             String sheetName="Sheet1";
             wb = util.writeNewExcel(file, sheetName,list);
@@ -981,11 +984,6 @@ public class DirDatasetController extends BaseController {
      */
     @RequestMapping("/download")
     public String downloadFile(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-
-    	String realPath = request.getSession().getServletContext().getRealPath("WEB-INF/classes/excelTemplate/");
-        String fileName="excelTemplate.xlsx";
-        File file = new File(realPath, fileName);
-        if (file.exists()) {
             response.setContentType("application/force-download");// 设置强制下载不打开
             response.addHeader("Content-Disposition",
                     "attachment;fileName=" + URLEncoder.encode("完整目录模板.xlsx", "utf-8"));// 设置文件名
@@ -993,7 +991,7 @@ public class DirDatasetController extends BaseController {
             InputStream inputStream = null;
             BufferedInputStream bis = null;
             try {
-                inputStream = this.getClass().getClassLoader().getResource("excelTemplate/excelTemplate.xlsx").openStream();
+                inputStream = this.getClass().getClassLoader().getResource("/excelTemplate/excelTemplate.xlsx").openStream();
                 bis = new BufferedInputStream(inputStream);
                 OutputStream os = response.getOutputStream();
                 int i = bis.read(buffer);
@@ -1022,8 +1020,6 @@ public class DirDatasetController extends BaseController {
                     }
                 }
             }
-        }
-
         return null;
     }
 }

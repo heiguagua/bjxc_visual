@@ -73,4 +73,6 @@ public interface ApiMapper{
 
     DrapDbTableInfo getTableInfoBySystemIdAndDbId(Map<String,Object> paramMap);
 
+    List<Map<String,Object>> getTableInfoWithoutRelationByDatasetId(Map<String,Object> paramMap);
+
 }

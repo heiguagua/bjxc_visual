@@ -18,7 +18,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <small>目录管理 > 目录类别</small>
+                <small>目录管理 > 目录分类管理</small>
             </h1>
         </section>
         <!-- Main content -->
