@@ -225,9 +225,11 @@ public class DirClassifyController extends BaseController {
 			if (StringUtils.isEmpty(fid)) {
 				paramMap.put("fid", "root");
 			}
-//			String regionCode = ShiroUtils.getLoginUser().getRegionCode();
-//			List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
-//			paramMap.put("regionCodes", SysRegionVoList);
+			String regionCode = ShiroUtils.getLoginUser().getRegionCode();
+			String dir_code = mapper.selectClassifyIdByRegionCode(regionCode);
+			paramMap.put("dir_code", dir_code);
+			List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
+			paramMap.put("regionCodes", SysRegionVoList);
 			List<DirClassifyVo> dirClassifyVoList = service.selectVoList(paramMap);
 			handleResult.put("vo", dirClassifyVoList);
 		} catch (Exception e) {

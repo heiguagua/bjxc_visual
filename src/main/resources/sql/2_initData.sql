@@ -196,10 +196,13 @@ insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) valu
 
 -- 系统配置表
   delete from sys_setting;
-  INSERT INTO sys_setting VALUES 
-	(REPLACE(uuid(),'-',''),'','1','systemName','系统名称','目录管理系统',null,'1',null,null,null,null,0),
+  INSERT INTO sys_setting VALUES
+  	(REPLACE(uuid(),'-',''),'','1','projectPortalName','项目门户名称','成都市大数据资源服务网',null,'1',null,null,null,null,0),
+  	(REPLACE(uuid(),'-',''),'','1','projectPortalEnName','项目门户英文名称','Chengdu Big Data Resource Service Network',null,'1',null,null,null,null,0),
+  	(REPLACE(uuid(),'-',''),'','1','projectPortalLogo','项目门户Logo图标','/img/logo.png',null,'1',null,null,null,null,0),
+		(REPLACE(uuid(),'-',''),'','1','systemName','系统名称','政务信息资源管理',null,'1',null,null,null,null,0),
   	(REPLACE(uuid(),'-',''),'','1','systemShortName','系统英文简称','DIR',null,'1',null,null,null,null,0),
-  	(REPLACE(uuid(),'-',''),'','1','systemSubName','系统子名称','目录管理',null,'1',null,null,null,null,0),
+  	(REPLACE(uuid(),'-',''),'','1','systemSubName','系统子名称','目录管理系统',null,'1',null,null,null,null,0),
   	(REPLACE(uuid(),'-',''),'','1','defaultIcon','系统默认Icon图标','',null,'1',null,null,null,null,0),
   	(REPLACE(uuid(),'-',''),'','1','localRegion','系统所属行政区划','510100',null,'1',null,null,null,null,0),
   	(REPLACE(uuid(),'-',''),'','1','bottomCopyright','许可说明','Copyright © 2017 勤智数码. All rights reserved.',null,'1',null,null,null,null,0),
@@ -4443,7 +4446,8 @@ insert into dir_classify (id,fid,region_code,classify_code,classify_index,classi
 -- insert into dir_classify_dept_map (id,classify_id,dept_id)
 	-- select REPLACE(uuid(),'-',''),id,id from sys_dept where fid in (select id from sys_dept where fid = 'root');
 	
--- 生成原国家库的目录分类编码	
+-- 生成原国家库的目录分类编码
+delete from dir_national_classify;
 INSERT INTO dir_national_classify (id,classify_code,classify_name,classify_desc,fcode,classify_level,order_number,classify_structure_code,classify_structure_name) VALUES
 	('bf6e00d1-afec-11e7-b780-000c2909b055','307001','北京市',NULL,'307',NULL,NULL,NULL,NULL),
 	('bf6e029f-afec-11e7-b780-000c2909b055','30700102','基础目录',NULL,'307001',NULL,NULL,NULL,NULL),

@@ -36,8 +36,9 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
     
     void updateClassifyIndexbyFid(String fid);
     
+    String selectDirectoryByFcode(String dir_code);
     
-    
+    String selectClassifyIdByRegionCode(String regionCode);
     
     int selectCountLevel1();
     

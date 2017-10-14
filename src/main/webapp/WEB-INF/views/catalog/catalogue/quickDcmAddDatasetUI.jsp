@@ -77,7 +77,7 @@
                         <div class="col-sm-6">
                             <label class="col-sm-3 control-label">信息资源编码 :</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="datasetCode" name="datasetCode">
+                                <input type="text" class="form-control" id="datasetCode" name="datasetCode" disabled>
                             </div>
                         </div>
                     </div>

@@ -40,10 +40,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -970,6 +967,60 @@ public class DirDatasetController extends BaseController {
         if(excelFileFileName.toLowerCase().endsWith("xlsx")){
             return new XSSFWorkbook(is);
         }
+        return null;
+    }
+
+    /**
+     * 文件下载
+     * @Description:
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/download")
+    public String downloadFile(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        String realPath = request.getServletContext().getRealPath("WEB-INF/classes/excelTemplate/");
+        String fileName="excelTemplate.xlsx";
+        File file = new File(realPath, fileName);
+        if (file.exists()) {
+            response.setContentType("application/force-download");// 设置强制下载不打开
+            response.addHeader("Content-Disposition",
+                    "attachment;fileName="+URLEncoder.encode("完整目录模板.xlsx", "utf-8"));// 设置文件名
+            byte[] buffer = new byte[1024];
+            FileInputStream fis = null;
+            BufferedInputStream bis = null;
+            try {
+                fis = new FileInputStream(file);
+                bis = new BufferedInputStream(fis);
+                OutputStream os = response.getOutputStream();
+                int i = bis.read(buffer);
+                while (i != -1) {
+                    os.write(buffer, 0, i);
+                    i = bis.read(buffer);
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+                e.printStackTrace();
+            } finally {
+                if (bis != null) {
+                    try {
+                        bis.close();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
         return null;
     }
 }
