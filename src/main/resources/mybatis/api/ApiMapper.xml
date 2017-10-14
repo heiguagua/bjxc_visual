@@ -131,6 +131,7 @@
         WHERE TRUE
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '2'
+        AND ddi.`id` IS NOT NULL
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
 
@@ -176,6 +177,7 @@
         WHERE TRUE
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '3'
+        AND ddi.`id` IS NOT NULL
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
 
@@ -215,6 +217,7 @@
         WHERE TRUE
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '4'
+        AND ddi.`id` IS NOT NULL
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
 
@@ -254,6 +257,7 @@
         WHERE TRUE
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '5'
+        AND ddi.`id` IS NOT NULL
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
 

@@ -39,10 +39,13 @@ function initInputValue(){
                 var obj = result.content.vo;
                 $("#classifyName").val(obj.classifyName);
                 $("#classifyName").attr("title",obj.classifyName);
+                $("#relDatasetName").val(obj.relClassifyName);
+                $("#relDatasetName").attr("title",obj.relClassifyName);
                 $("#datasetName").val(obj.datasetName);
-                $("#datasetCode").val(obj.datasetCode);
+                $("#infoResourceCode").val(obj.infoResourceCode);
                 $("#belongDeptTypeName").val(obj.regionDeptName);
-                $("#belongDeptCode").val(obj.regionDeptCode);
+                $("#belongDeptName").val(obj.deptName);
+                $("#belongDeptNo").val(obj.belongDeptNo);
                 //$("#belongDeptId").val(obj.belongDeptId);
                 if(obj.ext != undefined && obj.ext !=""){
                     $("#formatCategory").val(obj.ext.formatCategory);

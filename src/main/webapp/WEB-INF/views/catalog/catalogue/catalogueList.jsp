@@ -47,10 +47,10 @@
                                                 <button type="button" style="width: 100%;" onclick="quickCsAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从爬虫系统添加</button>
                                             </li>
                                             <li>
-                                                <button type="button" style="width: 100%;" onclick="quickDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从关系型采集系统添加</button>
+                                                <button type="button" style="width: 100%;" onclick="quickDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从关系型采集添加</button>
                                             </li>
                                             <li>
-                                                <button type="button" style="width: 100%;" onclick="quickNosqlDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从非关系型采集系统添加</button>
+                                                <button type="button" style="width: 100%;" onclick="quickNosqlDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从非关系型采集添加</button>
                                             </li>
                                         </ul>
                                     </div>
@@ -59,6 +59,14 @@
                                         <img src="<%=basePath%>/images/userImg/addimg.png"/>
                                             <!-- <i class="fa fa-plus-circle"></i> -->自定义添加
                                         </a>
+                                    </div>
+                                    <div class="input-group">
+                                        <a class="btn btn-primary btn-flat dropdown-toggle  btn-myself" href="<%=basePath%>/catalog/download" >模板下载</a>
+                                       <%-- <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
+                                                data-toggle="dropdown" onclick="javascript:excelImportUI()">
+                                            <img src="<%=basePath%>/images/userImg/importimg.png"/>
+                                            <!-- <i class="fa fa-plus"></i> -->模板下载
+                                        </button>--%>
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
