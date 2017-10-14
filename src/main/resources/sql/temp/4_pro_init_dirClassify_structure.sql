@@ -126,12 +126,12 @@ UPDATE  dir_classify t SET t.`tree_code` = getDirClassifyTreeCode(t.`id`);
 UPDATE  dir_classify t SET t.`classify_structure_name` = getDirClassifyStructureName(t.`id`);
 
 -- 更新目录分类的tree_index
-update dir_classify a INNER JOIN (
-	select max(rownum) as tree_index,pre_parent_id as fid from dir_classify_treeNum group by pre_parent_id) b
-	 on a.id=b.fid 
-	set a.classify_index = b.tree_index;
+-- update dir_classify a INNER JOIN (
+-- 	select max(rownum) as tree_index,pre_parent_id as fid from dir_classify_treeNum group by pre_parent_id) b
+-- 	 on a.id=b.fid
+-- 	set a.classify_index = b.tree_index;
 -- 更新classifyCode的值
-call pro_init_dir_classify_code();
+-- call pro_init_dir_classify_code();
 -- UPDATE  dir_classify t SET t.`classify_code` = getDirClassifyCode(t.`id`) where t.fid <> 'root';
 
 DROP TABLE if exists dir_classify_treeNum;

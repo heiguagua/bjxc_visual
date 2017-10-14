@@ -11,7 +11,7 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 按天回滚 daily -->
             <!-- log.dir 在maven profile里配置 -->
-            <fileNamePattern>logs/dc-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/dir-error-%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- 日志最大的历史 31天 -->
             <maxHistory>31</maxHistory>
         </rollingPolicy>
@@ -29,7 +29,7 @@
     <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 按天回滚 daily -->
-            <fileNamePattern>logs/dc-info-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/dir-info-%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- 日志最大的历史 31天 -->
             <maxHistory>31</maxHistory>
         </rollingPolicy>
@@ -47,7 +47,7 @@
     <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 按天回滚 daily -->
-            <fileNamePattern>logs/dc-debug-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/dir-debug-%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- 日志最大的历史 31天 -->
             <maxHistory>31</maxHistory>
         </rollingPolicy>

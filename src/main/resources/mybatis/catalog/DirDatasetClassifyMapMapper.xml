@@ -190,7 +190,7 @@
     </update>
 
     <update id="batchUpdateStatus" parameterType="java.util.Map">
-        <if test="ids != null and ids.size()>0">
+        <if test="ids != null and ids!='' ">
             update dir_dataset_classify_map
             <set>
                 <if test="status != null">

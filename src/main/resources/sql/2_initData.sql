@@ -63,12 +63,12 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 	('0112','01','组织机构数据权限审核管理','/system/deptAuthorityAudit','fa-cogs','8','2','0112','system:deptAuthorityAudit:list','1'),
 	('011201','0112','组织机构数据权限审核列表','','','2','3','011201','system:deptAuthorityAudit:list','1'),
 	('011202','0112','审核组织机构数据权限','','','2','3','011202','system:deptAuthorityAudit:edit','1'),
-	('03','0','目录类别','/dirClassify','fa-cog','1','2','03','catalog:classify','1'),
-	('0301','03','查看目录类别列表','','','1','3','0301','catalog:classify:list','1'),
-	('0302','03','新增目录类别','','','2','3','0302','catalog:classify:add','1'),
-	('0303','03','修改目录类别','','','3','3','0303','catalog:classify:edit','1'),
-	('0304','03','删除目录类别','','','4','3','0304','catalog:classify:delete','1'),
-	('04','0','目录编目','/catalog/catalogue','fa-cog','2','2','04','catalog:catalogue','1'),
+	('03','0','目录分类','/dirClassify','fa-cog','2','2','03','catalog:classify','1'),
+	('0301','03','查看目录分类列表','','','1','3','0301','catalog:classify:list','1'),
+	('0302','03','新增目录分类','','','2','3','0302','catalog:classify:add','1'),
+	('0303','03','修改目录分类','','','3','3','0303','catalog:classify:edit','1'),
+	('0304','03','删除目录分类','','','4','3','0304','catalog:classify:delete','1'),
+	('04','0','目录编目','/catalog/catalogue','fa-cog','1','2','04','catalog:catalogue','1'),
 	('0401','04','查看目录列表','','','1','3','0401','catalog:catalogue:list','1'),
 	('0402','04','自定义新增目录','','','2','3','0402','catalog:catalogue:add','1'),
 	('0403','04','快速新增目录','','','3','3','0403','catalog:catalogue:fastAdd','1'),
@@ -196,10 +196,13 @@ insert into sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class ) valu
 
 -- 系统配置表
   delete from sys_setting;
-  INSERT INTO sys_setting VALUES 
-	(REPLACE(uuid(),'-',''),'','1','systemName','系统名称','目录管理系统',null,'1',null,null,null,null,0),
+  INSERT INTO sys_setting VALUES
+  	(REPLACE(uuid(),'-',''),'','1','projectPortalName','项目门户名称','成都市大数据资源服务网',null,'1',null,null,null,null,0),
+  	(REPLACE(uuid(),'-',''),'','1','projectPortalEnName','项目门户英文名称','Chengdu Big Data Resource Service Network',null,'1',null,null,null,null,0),
+  	(REPLACE(uuid(),'-',''),'','1','projectPortalLogo','项目门户Logo图标','/img/logo.png',null,'1',null,null,null,null,0),
+		(REPLACE(uuid(),'-',''),'','1','systemName','系统名称','政务信息资源管理',null,'1',null,null,null,null,0),
   	(REPLACE(uuid(),'-',''),'','1','systemShortName','系统英文简称','DIR',null,'1',null,null,null,null,0),
-  	(REPLACE(uuid(),'-',''),'','1','systemSubName','系统子名称','目录管理',null,'1',null,null,null,null,0),
+  	(REPLACE(uuid(),'-',''),'','1','systemSubName','系统子名称','目录管理系统',null,'1',null,null,null,null,0),
   	(REPLACE(uuid(),'-',''),'','1','defaultIcon','系统默认Icon图标','',null,'1',null,null,null,null,0),
   	(REPLACE(uuid(),'-',''),'','1','localRegion','系统所属行政区划','510100',null,'1',null,null,null,null,0),
   	(REPLACE(uuid(),'-',''),'','1','bottomCopyright','许可说明','Copyright © 2017 勤智数码. All rights reserved.',null,'1',null,null,null,null,0),
@@ -299,8 +302,8 @@ insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 /*	('77','','dataSetIsOpen','1','普遍开放',NULL,NULL,NULL,NULL,1),
 	('21','','dataSetIsOpen','2','依申请开放',NULL,NULL,NULL,NULL,1),
 	('20','','dataSetIsOpen','3','不开放',NULL,NULL,NULL,NULL,1),*/
-	('20','','dataSetIsOpen','0','是',NULL,NULL,NULL,NULL,1),
-	('21','','dataSetIsOpen','1','否',NULL,NULL,NULL,NULL,1),
+	('20','','dataSetIsOpen','0','否',NULL,NULL,NULL,NULL,1),
+	('21','','dataSetIsOpen','1','是',NULL,NULL,NULL,NULL,1),
 	('154','','dataSetReleaseType','1','发布到互联网',NULL,NULL,NULL,NULL,1),
 	('155','','dataSetReleaseType','2','发布到电子政务外网',NULL,NULL,NULL,NULL,1),
 	('156','','dataSetReleaseType','3','同时发布',NULL,NULL,NULL,NULL,1),
@@ -402,9 +405,11 @@ insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 	('38','','setItemFrequency','7','日',NULL,NULL,NULL,NULL,1),
 	('39','','setItemFrequency','8','小时',NULL,NULL,NULL,NULL,1),
 	('40','','setItemFrequency','9','实时',NULL,NULL,NULL,NULL,1),
-	('49','','setItemIsOpen','1','普遍开放',NULL,NULL,NULL,NULL,1),
+	/*('49','','setItemIsOpen','1','普遍开放',NULL,NULL,NULL,NULL,1),
 	('50','','setItemIsOpen','2','依申请开放',NULL,NULL,NULL,NULL,1),
-	('78','','setItemIsOpen','3','不开放',NULL,NULL,NULL,NULL,1),
+	('78','','setItemIsOpen','3','不开放',NULL,NULL,NULL,NULL,1),*/
+	('49','','setItemIsOpen','0','否',NULL,NULL,NULL,NULL,1),
+	('50','','setItemIsOpen','1','是',NULL,NULL,NULL,NULL,1),
 	('27','','setItemSetType','0','产生的',NULL,NULL,NULL,NULL,1),
 	('26','','setItemSetType','1','需要的',NULL,NULL,NULL,NULL,1),
 	('43','','setItemShareMethod','1','文件传输',NULL,NULL,NULL,NULL,1),
@@ -4441,7 +4446,8 @@ insert into dir_classify (id,fid,region_code,classify_code,classify_index,classi
 -- insert into dir_classify_dept_map (id,classify_id,dept_id)
 	-- select REPLACE(uuid(),'-',''),id,id from sys_dept where fid in (select id from sys_dept where fid = 'root');
 	
--- 生成原国家库的目录分类编码	
+-- 生成原国家库的目录分类编码
+delete from dir_national_classify;
 INSERT INTO dir_national_classify (id,classify_code,classify_name,classify_desc,fcode,classify_level,order_number,classify_structure_code,classify_structure_name) VALUES
 	('bf6e00d1-afec-11e7-b780-000c2909b055','307001','北京市',NULL,'307',NULL,NULL,NULL,NULL),
 	('bf6e029f-afec-11e7-b780-000c2909b055','30700102','基础目录',NULL,'307001',NULL,NULL,NULL,NULL),
