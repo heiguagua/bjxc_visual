@@ -258,7 +258,7 @@
 
     <!-- 查询指定数据集下面的数据表信息和字段关系 -->
     <select id="getTableInfoByDatasetId" parameterType="map" resultType="map">
-        <!-- 系统梳理 -->
+        <!-- 系统梳理有关系 -->
         SELECT
         sourceddti.`table_name` AS sourceTableName,
         sourceddti.`id` AS sourceTableId,
@@ -294,11 +294,46 @@
         WHERE TRUE
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '2'
+        AND sourceddti.`id` IS NOT NULL
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
 
         UNION ALL
-        <!-- 资源梳理 -->
+
+        <!-- 系统梳理无关系 -->
+        SELECT
+        sourceddti.`table_name` AS sourceTableName,
+        sourceddti.`id` AS sourceTableId,
+        NULL AS sourceColumnName,
+        NULL AS sourceColumnId,
+        NULL AS targetTableName,
+        NULL AS targetTableId,
+        NULL AS targetColumnName,
+        NULL AS targetColumnId,
+        NULL AS relationType
+        FROM
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN drap_db_table_info sourceddti
+        ON sourceddti.`id` = ddsi.`source_obj_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dd.`source_type`
+        WHERE TRUE
+        AND dd.`delete_flag` = 0
+        AND sd.`dict_code` = '2'
+        AND sourceddti.`id` IS NOT NULL
+        <include refid="datasetWhereClause"/>
+        GROUP BY dd.`id`
+
+        UNION ALL
+
+        <!-- 资源梳理有关系 -->
         SELECT
         sourceddti.`table_name` AS sourceTableName,
         sourceddti.`id` AS sourceTableId,
@@ -336,12 +371,50 @@
         WHERE TRUE
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '3'
+        AND sourceddti.`id` IS NOT NULL
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
 
         UNION ALL
 
-        <!-- 爬虫系统 -->
+        <!-- 资源梳理无关系 -->
+        SELECT
+        sourceddti.`table_name` AS sourceTableName,
+        sourceddti.`id` AS sourceTableId,
+        NULL AS sourceColumnName,
+        NULL AS sourceColumnId,
+        NULL AS targetTableName,
+        NULL AS targetTableId,
+        NULL AS targetColumnName,
+        NULL AS targetColumnId,
+        NULL AS relationType
+        FROM
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN drap_dataset ddt
+        ON ddt.`id` = ddsi.`source_obj_id`
+        LEFT JOIN drap_data_column_map ddtr
+        ON ddtr.`dataset_id` = ddt.`id`
+        LEFT JOIN drap_db_table_info sourceddti
+        ON sourceddti.`id` = ddtr.`table_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dd.`source_type`
+        WHERE TRUE
+        AND dd.`delete_flag` = 0
+        AND sd.`dict_code` = '3'
+        AND sourceddti.`id` IS NOT NULL
+        <include refid="datasetWhereClause"/>
+        GROUP BY dd.`id`
+
+        UNION ALL
+
+        <!-- 爬虫系统有关系 -->
         SELECT
         sourceddti.`table_name` AS sourceTableName,
         sourceddti.`id` AS sourceTableId,
@@ -377,12 +450,46 @@
         WHERE TRUE
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '4'
+        AND sourceddti.`id` IS NOT NULL
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
 
         UNION ALL
 
-        <!-- 采集系统 -->
+        <!-- 爬虫系统无关系 -->
+        SELECT
+        sourceddti.`table_name` AS sourceTableName,
+        sourceddti.`id` AS sourceTableId,
+        NULL AS sourceColumnName,
+        NULL AS sourceColumnId,
+        NULL AS targetTableName,
+        NULL AS targetTableId,
+        NULL AS targetColumnName,
+        NULL AS targetColumnId,
+        NULL AS relationType
+        FROM
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN cs_data_sync_collect sourceddti
+        ON sourceddti.`id` = ddsi.`source_obj_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dd.`source_type`
+        WHERE TRUE
+        AND dd.`delete_flag` = 0
+        AND sd.`dict_code` = '4'
+        AND sourceddti.`id` IS NOT NULL
+        <include refid="datasetWhereClause"/>
+        GROUP BY dd.`id`
+
+        UNION ALL
+
+        <!-- 采集系统有关系 -->
         SELECT
         sourceddti.`target_obj_code` AS sourceTableName,
         sourceddti.`id` AS sourceTableId,
@@ -418,9 +525,42 @@
         WHERE TRUE
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '5'
+        AND sourceddti.`id` IS NOT NULL
         <include refid="datasetWhereClause"/>
         GROUP BY dd.`id`
 
+        UNION ALL
+
+        <!-- 采集系统无关系 -->
+        SELECT
+        sourceddti.`target_obj_code` AS sourceTableName,
+        sourceddti.`id` AS sourceTableId,
+        NULL AS sourceColumnName,
+        NULL AS sourceColumnId,
+        NULL AS targetTableName,
+        NULL AS targetTableId,
+        NULL AS targetColumnName,
+        NULL AS targetColumnId,
+        NULL AS relationType
+        FROM
+        dir_dataset dd
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN dcm_table_info sourceddti
+        ON sourceddti.`id` = ddsi.`source_obj_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dd.`source_type`
+        WHERE TRUE
+        AND dd.`delete_flag` = 0
+        AND sd.`dict_code` = '5'
+        AND sourceddti.`id` IS NOT NULL
+        <include refid="datasetWhereClause"/>
+        GROUP BY dd.`id`
 
     </select>
 

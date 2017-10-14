@@ -31,7 +31,7 @@ public class SyncUserInfoTaskSchema {
     private SyncToLoacalService syncToLoacalService;
 
     private Props props = Props.of("conf/schedule.properties");
-    @Scheduled(cron = "0 0/1 * * * ?")  //每5分钟执行一次
+    @Scheduled(cron = "0 0/5 * * * ?")  //每5分钟执行一次
     public void syncUserFromShenma(){
         String sw = props.get("synchronize.switch");
         String viewUserTableName = props.get("synchronize.db.view.user");
@@ -58,7 +58,10 @@ public class SyncUserInfoTaskSchema {
                     sql = "SELECT * FROM "+ viewUserTableName;
                 }else{
                     flag = true;
-                    sql = "SELECT u.*,d.uuid AS deptId FROM "+ viewUserTableName +" u LEFT JOIN "+ viewDeptTableName +" d ON u.organize_code = d.org_code";
+                    sql = "SELECT u.*,d." + props.get("user.id") + " AS deptId FROM " +
+                           viewUserTableName + " u LEFT JOIN " + viewDeptTableName +
+                           " d ON u." + props.get("user.deptId") + " = d." +
+                           props.get("dept.deptCode");
                 }
                 ResultSet rsUser = stmt.executeQuery(sql);
                 SysUser sysUser= null;
@@ -104,8 +107,8 @@ public class SyncUserInfoTaskSchema {
                     return;
                 }
 
-                ResultSet rsDept = stmt.executeQuery("SELECT a.*,b.uuid AS fuuid FROM "+ viewDeptTableName +" a\n" +
-                        "LEFT JOIN "+ viewDeptTableName +" b ON b.org_code = a.org_fcode");
+                ResultSet rsDept = stmt.executeQuery("SELECT a.*,b." + props.get("dept.id") + " AS fuuid FROM "+ viewDeptTableName +" a\n" +
+                        "LEFT JOIN "+ viewDeptTableName +" b ON b." + props.get("dept.deptCode") + " = a."+props.get("dept.fcode"));
                 SysDept sysDept= null;
                 while (rsDept.next()){
                     sysDept = new SysDept();
