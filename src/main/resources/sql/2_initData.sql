@@ -402,9 +402,11 @@ insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 	('38','','setItemFrequency','7','日',NULL,NULL,NULL,NULL,1),
 	('39','','setItemFrequency','8','小时',NULL,NULL,NULL,NULL,1),
 	('40','','setItemFrequency','9','实时',NULL,NULL,NULL,NULL,1),
-	('49','','setItemIsOpen','1','普遍开放',NULL,NULL,NULL,NULL,1),
+	/*('49','','setItemIsOpen','1','普遍开放',NULL,NULL,NULL,NULL,1),
 	('50','','setItemIsOpen','2','依申请开放',NULL,NULL,NULL,NULL,1),
-	('78','','setItemIsOpen','3','不开放',NULL,NULL,NULL,NULL,1),
+	('78','','setItemIsOpen','3','不开放',NULL,NULL,NULL,NULL,1),*/
+	('49','','setItemIsOpen','0','否',NULL,NULL,NULL,NULL,1),
+	('50','','setItemIsOpen','1','是',NULL,NULL,NULL,NULL,1),
 	('27','','setItemSetType','0','产生的',NULL,NULL,NULL,NULL,1),
 	('26','','setItemSetType','1','需要的',NULL,NULL,NULL,NULL,1),
 	('43','','setItemShareMethod','1','文件传输',NULL,NULL,NULL,NULL,1),
