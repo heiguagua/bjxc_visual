@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/10/13 17:12:32                            */
+/* Created on:     17/10/14 19:25:23                            */
 /*==============================================================*/
 
 
@@ -63,6 +63,8 @@ drop table if exists dir_data_publish;
 drop table if exists dir_data_rate;
 
 drop table if exists dir_data_registe;
+
+drop table if exists dir_data_transfer;
 
 drop table if exists dir_data_visit;
 
@@ -768,6 +770,23 @@ create table dir_data_registe
 alter table dir_data_registe comment '数据注册情况表';
 
 /*==============================================================*/
+/* Table: dir_data_transfer                                     */
+/*==============================================================*/
+create table dir_data_transfer
+(
+   id                   varchar(36) not null comment 'ID',
+   dcm_id               varchar(36) comment '信息资源ID',
+   transfer_user_id     varchar(36) comment '上报人ID',
+   transfer_user_name   varchar(64) comment '上报人姓名',
+   transfer_time        datetime comment '上报时间',
+   trasnfer_scope       varchar(256) comment '上报范围',
+   transfer_status      varchar(36) comment '上报状态',
+   primary key (id)
+);
+
+alter table dir_data_transfer comment '资源目录上报信息';
+
+/*==============================================================*/
 /* Table: dir_data_visit                                        */
 /*==============================================================*/
 create table dir_data_visit
@@ -861,7 +880,7 @@ create table dir_dataset
    is_open              varchar(36) comment '【国】信息资源是否社会开放',
    open_condition       varchar(500) comment '【国】信息资源开放条件',
    update_frequency     varchar(36) comment '【国】信息资源更新周期',
-   rel_dataset_code     varchar(36) comment '【国】信息资源关联资源代码',
+   rel_dataset_code     varchar(36) comment '【国】信息资源关联资源分类',
    storage_medium       varchar(36) comment '存储介质',
    storage_location     varchar(500) comment '物理存储位置',
    data_level           varchar(36) comment '【川】信息资源最小分级单元',
@@ -1510,7 +1529,7 @@ create table drap_dataset
    no_share_reason      varchar(1000) comment '不予共享依据',
    is_open              varchar(36) comment '【国】信息资源是否社会开放',
    open_condition       varchar(1000) comment '【国】信息资源开放条件',
-   rel_dataset_code     varchar(36) comment '【国】信息资源关联资源代码',
+   rel_dataset_code     varchar(36) comment '【国】信息资源关联资源分类',
    data_level           varchar(36) comment '【川】信息资源最小分级单元',
    data_index_system    varchar(36) comment '【川】信息资源指标体系',
    is_secret            varchar(36) comment '【川】信息资源涉密性',
@@ -2475,7 +2494,6 @@ ENGINE = InnoDB
 DEFAULT CHARSET = utf8;
 
 alter table sys_user_role comment '用户角色表';
-
 
 
 

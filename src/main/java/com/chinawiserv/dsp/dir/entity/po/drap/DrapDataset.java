@@ -132,7 +132,7 @@ public class DrapDataset implements Serializable {
 	@TableField("open_condition")
 	private String openCondition;
     /**
-     * 【国】信息资源关联资源代码
+     * 【国】信息资源关联资源分类
      */
 	@TableField("rel_dataset_code")
 	private String relDatasetCode;

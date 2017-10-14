@@ -19,7 +19,7 @@ public class DrapDataset {
     private String noShareReason;//不予共享依据
     private String isOpen;//【国】信息资源是否社会开放
     private String openCondition;//【国】信息资源开放条件
-    private String relDatasetCode;//【国】信息资源关联资源代码
+    private String relDatasetCode;//【国】信息资源关联资源分类
     private String dataLevel;//【川】信息资源最小分级单元
     private String dataIndexSystem;//【川】信息资源指标体系
     private String isSecret;//【川】信息资源涉密性

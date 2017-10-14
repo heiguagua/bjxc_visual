@@ -21,9 +21,9 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label for="relDatasetName" class="col-sm-3 control-label">关联资源代码:</label>
+                            <label for="relDatasetName" class="col-sm-3 control-label">关联资源分类:</label>
                             <div class="col-sm-9">
-                                <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源代码" disabled>--%>
+                                <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>--%>
                                 <input type="text" id="relDatasetName"  class="form-control" readonly>
                             </div>
                         </div>
