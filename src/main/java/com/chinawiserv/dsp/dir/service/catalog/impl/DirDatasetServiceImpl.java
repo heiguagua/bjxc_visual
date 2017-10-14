@@ -163,31 +163,31 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             //数据集插入成功后，插入该数据集的数据项的数据
             List<DirDataitemVo> dirDataitemVoList = vo.getItems();
             if(!ObjectUtils.isEmpty(dirDataitemVoList)){
-                int i=0;
                 List<DirDataitemSourceInfo> insertSourceInfos=new ArrayList<>();
                 DirDataitemSourceInfo sourceInfo=null;
                 List<DirDataitemVo> needInsertVoList = new ArrayList<>(); //用于去除空行数据
-                for(DirDataitemVo item : dirDataitemVoList){
-                    String itemName = item.getItemName();//用必填项名称,来验证是否是空行数据
-                    if(!StringUtils.isEmpty(itemName)){
-                        String itemId = UUID.randomUUID().toString();
-                        item.setId(itemId);
-                        item.setDatasetId(datasetId);
-                        item.setStatus("0");
-                        item.setCreateUserId(logionUser.getId());
-                        item.setCreateTime(createTime);
-                        needInsertVoList.add(item);
-                        //数据项来源
-                        if(!ObjectUtils.isEmpty(sourceInfos)){
-                            sourceInfo = sourceInfos.get(i);
-                            sourceInfo.setId(itemId);
-                            sourceInfo.setItemId(itemId);
-                            sourceInfo.setSourceObjType(vo.getSourceType());
-                            insertSourceInfos.add(sourceInfo);
-                            i++;
+                for(int i=0,ii=dirDataitemVoList.size();i<ii;i++){
+                    DirDataitemVo item = dirDataitemVoList.get(i);
+                    if(!ObjectUtils.isEmpty(item)){
+                        String itemName = item.getItemName();//用必填项名称,来验证是否是空行数据
+                        if(!StringUtils.isEmpty(itemName)){
+                            String itemId = UUID.randomUUID().toString();
+                            item.setId(itemId);
+                            item.setDatasetId(datasetId);
+                            item.setStatus("0");
+                            item.setCreateUserId(logionUser.getId());
+                            item.setCreateTime(createTime);
+                            needInsertVoList.add(item);
+                            //数据项来源
+                            if(!ObjectUtils.isEmpty(sourceInfos)){
+                                sourceInfo = sourceInfos.get(i);
+                                sourceInfo.setId(itemId);
+                                sourceInfo.setItemId(itemId);
+                                sourceInfo.setSourceObjType(vo.getSourceType());
+                                insertSourceInfos.add(sourceInfo);
+                            }
                         }
                     }
-
                 }
                 itemResult = itemMapper.insertListItem(needInsertVoList);
                 if(insertSourceInfos!=null&&insertSourceInfos.size()>0){
