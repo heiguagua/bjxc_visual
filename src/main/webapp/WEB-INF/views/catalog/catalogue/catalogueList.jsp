@@ -106,7 +106,7 @@
                             </form>
                             <div class="box-body table-responsive no-padding">
                                 <!-- 表格 -->
-                                <table class="layui-table" id="catalogueTable" lay-even="" lay-skin="row"></table>
+                                <table id="catalogueTable" class="table table-hover"></table>
                                 <!-- 表格 end-->
                             </div>
                         </div>
