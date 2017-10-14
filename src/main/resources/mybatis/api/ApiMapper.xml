@@ -57,6 +57,9 @@
                 AND dc.`id` IS NULL
             </otherwise>
         </choose>
+        <if test="null != regionCode and '' != regionCode">
+            AND t.`region_code` = #{regionCode}
+        </if>
     </select>
 
     <!-- 查询指定数据集下面的数据库信息 -->
