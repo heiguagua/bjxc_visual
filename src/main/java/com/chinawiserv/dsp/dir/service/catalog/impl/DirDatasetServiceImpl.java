@@ -657,11 +657,11 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     		result.error("上报目录失败，上报内容不能为空。");
     		return result;
     	}
-    	if (!Helper.checkParam(paramMap.get("uploadAddr")))
-    	{
-    		result.error("上报目录失败，上级接口地址不能为空。");
-    		return result;
-    	}
+//    	if (!Helper.checkParam(paramMap.get("uploadAddr")))
+//    	{
+//    		result.error("上报目录失败，上级接口地址不能为空。");
+//    		return result;
+//    	}
     	String[] scmIdArr=String.valueOf(paramMap.get("scmId")).split(",");
     	DirDataTransfer transfer = new DirDataTransfer();
     	Integer num = null;
