@@ -49,6 +49,9 @@ public class DirDatasetVo extends DirDataset{
     //表间关系
     private List<DirDatasetSourceRelation> relations;
 
+    //数据项来源
+    private List<DirDataitemSourceInfo> sourceInfos;
+
     //大普查
     private DirDatasetSurvey survey;
 
@@ -196,6 +199,12 @@ public class DirDatasetVo extends DirDataset{
 	public void setServiceNum(Integer serviceNum) {
 		this.serviceNum = serviceNum;
 	}
-    
-    
+
+    public List<DirDataitemSourceInfo> getSourceInfos() {
+        return sourceInfos;
+    }
+
+    public void setSourceInfos(List<DirDataitemSourceInfo> sourceInfos) {
+        this.sourceInfos = sourceInfos;
+    }
 }
