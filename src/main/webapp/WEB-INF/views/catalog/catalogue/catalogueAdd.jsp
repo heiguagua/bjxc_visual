@@ -291,7 +291,7 @@
                     <table style="width:135%" class="table-striped">
                         <thead>
                         <tr class='table_title_tr'>
-                            <th><input type="checkbox" id="selectAllItem"> 全选</th>
+                            <th style="width: 60px;"><input type="checkbox" id="selectAllItem"> 全选</th>
                             <th>信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>

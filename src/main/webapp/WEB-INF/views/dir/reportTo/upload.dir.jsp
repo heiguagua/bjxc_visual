@@ -29,6 +29,13 @@ input[name='uploadAddress']{
 margin-left: 8%;
 width: 80%;
 }
+.control-label {
+    text-align: left !important;
+}
+.col-sm-10{
+margin-left: 23% !important;
+margin-top: -11%
+}
 </style>
 </head>
 <body>
@@ -48,14 +55,14 @@ width: 80%;
 						</div>
 
 					</div>
-					<div class="form-group">
+<!-- 					<div class="form-group">
 						<label for="input"  class="col-sm-2 control-label">上级接口地址<span
 							class="required">*</span></label>
 						<div class="col-sm-10">
 							<input class="form-control" name="head" disabled="disabled" value="http://"><input data-rule="required" class="form-control" name="uploadAddress" type="text"
 								value="">
 						</div>
-					</div>
+					</div> -->
 				</form>
 			</div>
 		</div>

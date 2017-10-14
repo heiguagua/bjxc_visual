@@ -146,7 +146,7 @@ function uploadDir(){
 	if (arr==null){
 		return;
 	}
-	requirementAdd("目录上报", basePathJS+"/dirupload/uploadDirPage?scmIdArr="+arr, "65%", "500px")
+	requirementAdd("目录上报", basePathJS+"/dirupload/uploadDirPage?scmIdArr="+arr, "30%", "350px")
 }
 /**
  * 获取ID数组

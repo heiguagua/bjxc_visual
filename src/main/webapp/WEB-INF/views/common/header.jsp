@@ -59,16 +59,24 @@
    <div class="btn-group">
    	<ul class="nav_uls">
         <li>
-        <img src="<%=basePath%>/images/userImg/sourceimgicon2.png"/>
-        <a href="<%=basePath%>/jp:hk_drap" style="color: #FFFFFF;">&nbsp;&nbsp;资源梳理</a></li>
-   		<li class="active">
-   		<img src="<%=basePath%>/images/userImg/directimgicon1.png"/>&nbsp;&nbsp;目录管理</li>
+            <img src="<%=basePath%>/images/userImg/sourceimgicon2.png"/>
+            <a href="<%=basePath%>/jp:hk_drap" style="color: #FFFFFF;">&nbsp;&nbsp;资源梳理</a></li>
+        <li class="active">
+            <img src="<%=basePath%>/images/userImg/directimgicon1.png"/>&nbsp;&nbsp;目录管理
+        </li>
         <li>
-        <img src="<%=basePath%>/images/userImg/serverimgicon1.png"/>
-        <a href="<%=basePath%>/jp:hk_service" style="color: #FFFFFF;">&nbsp;&nbsp;服务封装</a></li>
+            <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
+            <a href="<%=basePath%>/jp:hk_dcm" style="color: #FFFFFF;" >&nbsp;&nbsp;数据采集</a></li>
         <li>
-        <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
-        <a href="<%=basePath%>/jp:hk_portal" style="color: #FFFFFF;">&nbsp;&nbsp;门户</a></li>
+            <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
+            <a href="<%=basePath%>/jp:hk_cs" style="color: #FFFFFF;">&nbsp;&nbsp;爬虫采集</a></li>
+        <li>
+            <img src="<%=basePath%>/images/userImg/serverimgicon1.png"/>
+            <a href="<%=basePath%>/jp:hk_service" style="color: #FFFFFF;">&nbsp;&nbsp;服务封装</a></li>
+
+        <li>
+            <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
+            <a href="<%=basePath%>/jp:hk_portal" style="color: #FFFFFF;">&nbsp;&nbsp;门户</a></li>
    	</ul>
    </div>
    
