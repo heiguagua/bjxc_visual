@@ -182,6 +182,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                             sourceInfo = sourceInfos.get(i);
                             sourceInfo.setId(itemId);
                             sourceInfo.setItemId(itemId);
+                            sourceInfo.setSourceObjType(vo.getSourceType());
                             insertSourceInfos.add(sourceInfo);
                             i++;
                         }
