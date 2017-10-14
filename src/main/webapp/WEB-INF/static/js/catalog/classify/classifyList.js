@@ -38,6 +38,7 @@ jQuery(document).ready(function () {
                         		  'classifyCode':nodeObjs[i].classifyCode,
                         		  'classifyName':nodeObjs[i].classifyName,
                         		  'fid':nodeObjs[i].id,
+                        		  'isLocal':nodeObjs[i].isLocal,
                         		  'fidforadd':nodeObjs[i].fid,
                         		  'classifyType':nodeObjs[i].classifyType,
                         		  'isParent':(nodeObjs[i].hasLeaf=="1"?true:false)
@@ -101,7 +102,7 @@ jQuery(document).ready(function () {
 				+"<li><a class='"+treeNode.fidforadd+"' id='addSibling'  data-pcode="+treeNode.fidforadd+" href='#'  >添加同级</a></li>"
 				+"<li><a class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"	
-				if(treeNode.classifyType=='2-1' || treeNode.classifyType=='2-2' || treeNode.classifyType=='2-3'){	
+				if(treeNode.classifyType=='2-1' || treeNode.classifyType=='2-2' || treeNode.classifyType=='2-3' && treeNode.isLocal=='1'){	
 					aObj.after(editStr2);
 					aObj.after(editStr3);
 				}else if(treeNode.classifyType == '5' || treeNode.classifyType == '6'|| treeNode.classifyType == '7'){
