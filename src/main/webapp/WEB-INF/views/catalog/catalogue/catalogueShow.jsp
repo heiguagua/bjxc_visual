@@ -84,7 +84,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            <label for="relDatasetName" class="col-sm-2 control-label" style="width:12.2%">信息资源分类:</label>
+                            <label for="relDatasetName" class="col-sm-2 control-label" style="width:12.2%">关联资源分类:</label>
                             <div class="col-sm-10"  style="width:87.8%">
                                 <input type="text" id="relDatasetName"  class="form-control" readonly>
                             </div>
