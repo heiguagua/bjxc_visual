@@ -1,6 +1,6 @@
 -- 角色表
 delete from sys_role;
-INSERT INTO sys_role(id,role_name,role_desc,role_level,status) VALUES 
+INSERT INTO sys_role(id,role_name,role_desc,role_level,status) VALUES
 	('737933bffef640329a4f864c4e2746ba','超级管理员','超级管理员',-1,1),
 	('dab7f9219c4611e78cf200ffe04ac734','区域管理员','区域管理员',0,1);
 
@@ -12,7 +12,7 @@ insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,passw
 -- select id,menu_name,pid,url,icon,sort,menu_type,code,resource_name,status from sys_menu order by pid ;
 delete from sys_menu;
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES 
-	('01','0','系统管理','','fa-cogs','4','1','01','system','1'),
+	('01','0','系统管理','','fa-cogs','5','1','01','system','1'),
 	('0101','01','用户管理','/system/user','fa-user-circle-o','2','2','0101','system:user','1'),
 	('010101','0101','编辑用户','','','2','3','010101','system:user:edit','1'),
 	('010102','0101','删除用户','','','3','3','010102','system:user:delete','1'),
@@ -106,7 +106,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 	('0702','07','政策发布','/dirPolicy','fa-cog','1','2','0702','','1'),
 	('0703','07','开发者工具管理','/dirDevelopApis','fa-cog','2','2','0703','','1'),
 	('0704','07','专题应用管理','/dirSpecialApps','fa-cog','3','2','0704','','1'),
-	('08', '0', '上报管理', '', 'fa-list', '8', '1', '08', 'system','1'),
+	('08', '0', '上报管理', '', 'fa-list', '4', '1', '08', 'system','1'),
 	('0801', '08', '目录/服务上报', '/dirupload/dirAudit', 'fa-cog', '3', '2', '0801', 'dirupload:dirAudit', '1');
 
 
