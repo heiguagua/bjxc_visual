@@ -63,7 +63,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 	('0112','01','组织机构数据权限审核管理','/system/deptAuthorityAudit','fa-cogs','8','2','0112','system:deptAuthorityAudit:list','1'),
 	('011201','0112','组织机构数据权限审核列表','','','2','3','011201','system:deptAuthorityAudit:list','1'),
 	('011202','0112','审核组织机构数据权限','','','2','3','011202','system:deptAuthorityAudit:edit','1'),
-	('03','0','目录分类','/dirClassify','fa-cog','2','2','03','catalog:classify','1'),
+	('03','0','目录分类管理','/dirClassify','fa-cog','2','2','03','catalog:classify','1'),
 	('0301','03','查看目录分类列表','','','1','3','0301','catalog:classify:list','1'),
 	('0302','03','新增目录分类','','','2','3','0302','catalog:classify:add','1'),
 	('0303','03','修改目录分类','','','3','3','0303','catalog:classify:edit','1'),
