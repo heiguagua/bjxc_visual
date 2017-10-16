@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.catalog.DirDataTransferMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
+        <id column="id" property="id"/>
+        <result column="dcm_id" property="dcmId"/>
+        <result column="transfer_user_id" property="transferUserId"/>
+        <result column="transfer_user_name" property="transferUserName"/>
+        <result column="transfer_time" property="transferTime"/>
+        <result column="trasnfer_scope" property="trasnferScope"/>
+        <result column="transfer_status" property="transferStatus"/>
+    </resultMap>
+
+    <resultMap id="BaseResultVoMap" extends="BaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataTransferVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM dir_data_transfer t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM dir_data_transfer t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM dir_data_transfer t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
+        insert into dir_data_transfer(id,dcm_id,transfer_user_id,transfer_user_name,transfer_time,trasnfer_scope,transfer_status,) values(
+            #{id},#{dcmId},#{transferUserId},#{transferUserName},#{transferTime},#{trasnferScope},#{transferStatus},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
+        update dir_data_transfer
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="dcmId != null">
+                dcm_id = #{dcmId},
+            </if>
+            <if test="transferUserId != null">
+                transfer_user_id = #{transferUserId},
+            </if>
+            <if test="transferUserName != null">
+                transfer_user_name = #{transferUserName},
+            </if>
+            <if test="transferTime != null">
+                transfer_time = #{transferTime},
+            </if>
+            <if test="trasnferScope != null">
+                trasnfer_scope = #{trasnferScope},
+            </if>
+            <if test="transferStatus != null">
+                transfer_status = #{transferStatus},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from dir_data_transfer
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>
