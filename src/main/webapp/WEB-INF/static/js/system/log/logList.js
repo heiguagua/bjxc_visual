@@ -22,7 +22,28 @@ $(document).ready(function () {
             valign: 'middle',
             sortable: false,
             formatter : function (value, row) {
-                return value + '[' + row.userName + ']';
+                var final = "";
+                if(value && row.userName){
+                    final = value + '[' + row.userName + ']'
+                }else{
+                    if(!value && !row.userName){
+                        final = "-";
+                    }else {
+                        if(value){
+                            final += value;
+                        }else{
+                            final += "-";
+                        }
+                        final += "[";
+                        if(row.userName){
+                            final += row.userName;
+                        }else{
+                            final += "-";
+                        }
+                        final += "]";
+                    }
+                }
+                return final;
             }
         }, {
             field: 'operateIp',
