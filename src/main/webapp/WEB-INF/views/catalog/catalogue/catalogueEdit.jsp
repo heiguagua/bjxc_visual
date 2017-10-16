@@ -14,7 +14,6 @@
                     <div class="row">
                         <input type="hidden" id="id" name="id" value="${id}">
                         <div class="col-sm-12">
-                            <input type="hidden" name="sourceType" value="1">
                             <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">信息资源分类<span class="redStar">*</span>:</label>
                             <div class="col-sm-10"  style="width:87.8%">
                                 <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
