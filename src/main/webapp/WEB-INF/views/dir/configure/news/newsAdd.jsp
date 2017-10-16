@@ -20,7 +20,7 @@
                         <div class="box-body">
                             <div class="form-group col-md-12">
                                 <label for="choosePic">图片<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
-                                <input style="display: inline-block" type="file" name="file" value="file" id="choosePic">
+                                <input style="display: inline-block" type="file" name="file" value="file" id="choosePic" data-rule="图片:required;file">
                                 <label id="picNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过10M)</label>
                                 <div id="addPicDiv"></div>
                             </div>

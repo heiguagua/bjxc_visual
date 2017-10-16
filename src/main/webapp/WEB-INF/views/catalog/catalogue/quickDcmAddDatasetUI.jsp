@@ -127,8 +127,8 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            <label for="relDatasetCode" style="width:12%;" class="col-sm-3 control-label">关联资源分类:</label>
-                            <div class="col-sm-9" style="width:88%;">
+                            <label for="relDatasetCode" style="width:12.2%;" class="col-sm-3 control-label">关联资源分类:</label>
+                            <div class="col-sm-9" style="width:87.8%;">
                                 <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>--%>
                                 <input type="text" id="relDatasetName" required="required"
                                        data-parsley-required-message="该项为必填" class="form-control">
@@ -275,8 +275,8 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            <label for="datasetDesc" class="col-sm-2 control-label" style="width:12%">信息资源摘要:</label>
-                            <div class="col-sm-10" style="width:88%">
+                            <label for="datasetDesc" class="col-sm-2 control-label" style="width:12.2%">信息资源摘要:</label>
+                            <div class="col-sm-10" style="width:87.8%">
                                 <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="信息资源摘要*" value="无"> -->
                                 <textarea class="form-control" rows="3" id="datasetDesc" name="datasetDesc">无</textarea>
                                 <p><span class="pull-right">(最多256个汉字)</span></p>
