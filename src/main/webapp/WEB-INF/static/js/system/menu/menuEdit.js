@@ -44,7 +44,7 @@ function initFormData(menuId){
                                     allowClear: true
                                 });
                                 $("#iconName").change(function(){
-                                    $("#icon").val('fa ' + $("#select2-fid-container").attr("title"))
+                                    $("#icon").val($("#select2-iconName-container").attr("title"))
                                 })
                                 $("#iconName").val(menu.icon).trigger("change");
                             }
