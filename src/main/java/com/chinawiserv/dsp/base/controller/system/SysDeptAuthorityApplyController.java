@@ -81,7 +81,7 @@ public class SysDeptAuthorityApplyController extends BaseController {
             service.insertVO(entity);
             handleResult.success("创建数据权限申请表成功");
         } catch (Exception e) {
-            handleResult.error("创建数据权限申请表失败");
+            handleResult.error("创建数据权限申请表失败：" + e.getMessage());
             logger.error("创建数据权限申请表失败", e);
         }
         return handleResult;

@@ -13,6 +13,7 @@ import com.chinawiserv.dsp.dir.entity.po.apply.DirRegistUser;
 public class DirRegistUserVo extends DirRegistUser{
     private String stateName;
     private Boolean opration;
+    private String deptName;
 
     public String getStateName() {
         return stateName;
@@ -28,5 +29,13 @@ public class DirRegistUserVo extends DirRegistUser{
 
     public void setOpration(Boolean opration) {
         this.opration = opration;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 }
