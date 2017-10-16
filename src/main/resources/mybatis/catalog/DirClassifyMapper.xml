@@ -115,18 +115,18 @@
         LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
 
         <include refid="queryConditions"></include>and t.delete_flag = 0 and (t.region_code 
-			in (
-			          <foreach collection="regionCodes" item="item" separator=",">
+			in 
+			          <foreach collection="regionCodes" item="item" open="(" separator="," close=")">
 			              #{item.regionCode}
 			          </foreach>
 			          
-        		) or t.id in (
+        	or t.id in 
         		
-        			 <foreach collection="listClassifyIds" item="item" separator=",">
+        			 <foreach collection="listClassifyIds"  item="item" open="(" separator="," close=")">
 			              #{item}
 			          </foreach>
         		        		
-        		))
+        		)
         order by order_number
     </select>
     
