@@ -126,8 +126,8 @@
                 <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-12">
-		                	<label for="relDatasetCode" style="width: 12%;" class="col-sm-3 control-label">关联资源分类:</label>
-		                    <div class="col-sm-9" style="width:88%;">
+		                	<label for="relDatasetCode" style="width: 12.2%;" class="col-sm-3 control-label">关联资源分类:</label>
+		                    <div class="col-sm-9" style="width:87.8%;">
 		                        <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>--%>
 		                            <input type="text" id="relDatasetName" required="required" data-parsley-required-message="该项为必填" class="form-control">
 		                            <input type="hidden" id="relDatasetCode" name="relDatasetCode">
