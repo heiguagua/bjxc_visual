@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <style>
 	*{margin: 0;padding: 0;}
 	.citytitle{

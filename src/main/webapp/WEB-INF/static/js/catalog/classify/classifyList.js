@@ -91,16 +91,16 @@ jQuery(document).ready(function () {
 		var aObj = $("#" + treeNode.tId + "_a");
 		if ($("#diyBtn_"+treeNode.id).length>0) return;
 //		var editStr1 = "<span id='diyBtn_space_" +treeNode.dir_code+ "' >&nbsp;</span><select class='selDemo ' id='diyBtn_" +treeNode.dir_code+ "'><option value=1>1</option><option value=2>2</option><option value=3>3</option></select>";
-		var editStr1 = "<span id='diyBtn_space_" +treeNode.id+ "'><a class='btn btn-edit "+treeNode.classifyName+"' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-desc= "+treeNode.apiDesc+" data-orderNumber= "+treeNode.orderNumber+" data-url= "+treeNode.apiUrl+" data-category= "+treeNode.apiCategory+">编辑</a></span>"
-		var editStr3 = "<span id='diyBtn_space4_" +treeNode.id+ "'><a class='btn btn-edit s4' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-code = "+treeNode.classifyCode+" >删除</a></span>"
+		var editStr1 = "<span id='diyBtn_space_" +treeNode.id+ "'><a href='javascript:void(0)' class='btn btn-edit "+treeNode.classifyName+"' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-desc= "+treeNode.apiDesc+" data-orderNumber= "+treeNode.orderNumber+" data-url= "+treeNode.apiUrl+" data-category= "+treeNode.apiCategory+">编辑</a></span>"
+		var editStr3 = "<span id='diyBtn_space4_" +treeNode.id+ "'><a href='javascript:void(0)' class='btn btn-edit s4' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-code = "+treeNode.classifyCode+" >删除</a></span>"
 		var editStr2 = "<div class='btn-group'>"
 				+"<button id='diyBtn_space2_" +treeNode.id+ "' type='button' class='btn btn-add dropdown-toggle'"
 	           +         "data-toggle='dropdown'>"
 			   +	"添加 <span class='caret'></span></button>"
 			   +	"<ul id='diyBtn_space3_" +treeNode.id+ "' class='dropdown-menu' role='menu'>"
 
-				+"<li><a class='"+treeNode.fidforadd+"' id='addSibling'  data-pcode="+treeNode.fidforadd+" href='#'  >添加同级</a></li>"
-				+"<li><a class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
+				+"<li><a href='javascript:void(0)' class='"+treeNode.fidforadd+"' id='addSibling'  data-pcode="+treeNode.fidforadd+" href='#'  >添加同级</a></li>"
+				+"<li><a href='javascript:void(0)' class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"	
 				if(treeNode.classifyType=='2-1' || treeNode.classifyType=='2-2' || treeNode.classifyType=='2-3' && treeNode.isLocal=='1'){	
 					aObj.after(editStr2);
