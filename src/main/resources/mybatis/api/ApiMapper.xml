@@ -573,6 +573,7 @@
     <!-- 查询用户申请的数据集拥有的数据字段 -->
     <select id="getDataitemAuthorityByUserIdAndDatasetId" parameterType="map" resultType="map">
         <!-- 系统梳理 -->
+        <!--
         SELECT
         dti.`table_name` AS tableName,
         dtc.`column_en_name` AS columnName
@@ -597,11 +598,37 @@
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '2'
         AND dia.`status` = '1'
+        -->
+        SELECT
+        ddti.`table_name` AS tableName,
+        ddtc.`column_en_name` AS columnName
+        FROM
+        dir_data_item_apply dia
+        LEFT JOIN dir_data_apply dda ON dda.`id` = dia.`data_apply_id`
+        LEFT JOIN dir_dataset_classify_map ddcm ON ddcm.`id` = dda.`dcm_id`
+        LEFT JOIN dir_dataset dd ON dd.`id` = ddcm.`dataset_id`
+        LEFT JOIN dir_dataset_source_info ddsi ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN drap_dataset ddst ON ddst.`id` = ddsi.`source_obj_id`
+        LEFT JOIN drap_data_column_map ddcmp ON ddcmp.`dataset_id` = ddst.`id`
+        LEFT JOIN drap_db_table_column ddtc ON ddtc.`id` = ddcmp.`system_column_id`
+        LEFT JOIN drap_db_table_info ddti ON ddti.`id` = ddcmp.`table_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dd.`source_type`
+        WHERE TRUE
+        AND dd.`delete_flag` = 0
+        AND sd.`dict_code` = '2'
+        AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
-
+        GROUP BY ddtc.`id`
         UNION ALL
 
         <!-- 资源梳理 -->
+        <!--
         SELECT
         dti.`table_name` AS tableName,
         dtc.`column_en_name` AS columnName
@@ -630,8 +657,34 @@
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '3'
         AND dia.`status` = '1'
-        <include refid = "datasetApplyWhereClause"/>
+        -->
+        SELECT
+        ddti.`table_name` AS tableName,
+        ddtc.`column_en_name` AS columnName
+        FROM
+        dir_data_item_apply dia
+        LEFT JOIN dir_data_apply dda ON dda.`id` = dia.`data_apply_id`
+        LEFT JOIN dir_dataset_classify_map ddcm ON ddcm.`id` = dda.`dcm_id`
+        LEFT JOIN dir_dataset dd ON dd.`id` = ddcm.`dataset_id`
+        LEFT JOIN dir_dataset_source_info ddsi ON ddsi.`dataset_id` = dd.`id`
+        LEFT JOIN drap_dataset ddst ON ddst.`id` = ddsi.`source_obj_id`
+        LEFT JOIN drap_data_column_map ddcmp ON ddcmp.`dataset_id` = ddst.`id`
+        LEFT JOIN drap_db_table_column ddtc ON ddtc.`id` = ddcmp.`system_column_id`
+        LEFT JOIN drap_db_table_info ddti ON ddti.`id` = ddcmp.`table_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dd.`source_type`
+        WHERE TRUE
+        AND dd.`delete_flag` = 0
+        AND sd.`dict_code` = '3'
+        AND dia.`status` = '1'
 
+        <include refid = "datasetApplyWhereClause"/>
+        GROUP BY ddtc.`id`
         UNION ALL
 
         <!-- 爬虫系统 -->

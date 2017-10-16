@@ -62,7 +62,7 @@ public class DirReportController extends BaseController {
 	@RequestMapping("dirAudit")
 	public String dirAudit(@RequestParam Map<String,Object> param){
 		setCurrentMenuInfo(param);
-		return "dir/reportTo/dir.reportTo.list";
+		return "dir/reportTo/dir.audit.list";
 	}
 	
 	@RequestMapping("uploadDirPage")

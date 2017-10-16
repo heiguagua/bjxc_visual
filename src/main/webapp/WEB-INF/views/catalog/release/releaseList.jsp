@@ -21,8 +21,8 @@
        <div class="btn-group btn_develop">
        		
        	 <ul class="title_ul" id="releaseTab">
-                	<li class="active" id="unReleaseTab"><i class="fa fa-desktop" style="font-size:20px"></i>&nbsp;待发布</li>
-                	<li id="releasedTab"><i class="fa fa-crop" aria-hidden="true"></i>&nbsp;已发布</li>
+                	<li class="active" id="unReleaseTab"><i class="fa fa-paper-plane-o" style="font-size:20px"></i>&nbsp;待发布</li>
+                	<li id="releasedTab"><i class="fa fa-television" aria-hidden="true"></i>&nbsp;已发布</li>
                 	
                 </ul>
 		   	<!-- <ul class="nav_ulss" id="releaseTab">
