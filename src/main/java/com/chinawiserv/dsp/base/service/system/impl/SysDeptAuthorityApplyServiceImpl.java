@@ -56,6 +56,7 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
             Map paramMap = new HashMap();
             paramMap.put("applicant", applicant);
             paramMap.put("toDeptIds", toDeptIdArray);
+            paramMap.put("auditRefused", "0");
             int count = mapper.selectVoCount(paramMap);
             if(count <= 0){
                 for (String toDeptId : toDeptIdArray) {
