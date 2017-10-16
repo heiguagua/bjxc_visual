@@ -449,7 +449,7 @@ function createWindow(options) {
         type: 2,
         area: [width, height],
         offset:'90px',
-        fixed: false, //不固定
+        fixed: true, //不固定
         maxmin: false
     } , options);
 
