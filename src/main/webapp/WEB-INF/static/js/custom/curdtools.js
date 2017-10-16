@@ -1098,6 +1098,7 @@ function _customYesCallback(index, layero , options) {
  * @param url
  */
 function createDialog(title, content, url, parameter, func, parentWin) {
+
 	//todo zIndex = getzIndex();
     var realLayer;
     if(parentWin){
@@ -1117,6 +1118,7 @@ function createDialog(title, content, url, parameter, func, parentWin) {
 
 function createDialogForApi(title, content, url, parameter, func, parentWin) {
 	//todo zIndex = getzIndex();
+
     var realLayer;
     if(parentWin){
         realLayer = parentWin.layer;
@@ -1125,8 +1127,10 @@ function createDialogForApi(title, content, url, parameter, func, parentWin) {
     }
     realLayer.confirm(content, {icon: 3, title:title, zIndex: realLayer.zIndex}, function(index){
         if($.isFunction(func)){
+        	
             func();
         } else{
+        	
             doSubmitForApi(url,parameter);
             
         }
