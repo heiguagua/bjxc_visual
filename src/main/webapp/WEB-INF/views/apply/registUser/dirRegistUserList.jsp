@@ -101,7 +101,7 @@
                 {field: 'realName', title: '姓名', width: '10%'},
                 {field: 'loginName', title: '用户名', width: '10%'},
                 {field: 'phone', title: '电话号码'},
-                {field: 'belongDep', title: '所属组织'},
+                {field: 'deptName', title: '所属组织'},
                 {field: 'stateName', title: '状态', width: '8%'},
                 {
                     field: 'id',
