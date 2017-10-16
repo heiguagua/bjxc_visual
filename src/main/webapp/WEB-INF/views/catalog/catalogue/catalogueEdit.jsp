@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码<span class="redStar">*</span>:</label>
+                            <label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 13px;">信息资源提供方代码<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo" data-rule="信息资源提供方代码:required;">
                                 <input type="hidden" id="chargeDeptId" name="chargeDeptId">
@@ -305,8 +305,8 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <p>
-                            <a class="btn btn-primary btn-flat pull-right" id="N_add_itemH"><i class="fa fa-plus"></i> 添加信息项</a>
-                            <a class="btn btn-primary btn-flat pull-right" id="deleteItems" style="margin-right: 10px;"><i class="fa fa-plus"></i> 删除</a>
+                            <a class="btn btn-primary btn-flat pull-right btn_blue" id="N_add_itemH"><i class="fa fa-plus"></i> 添加信息项</a>
+                            <a class="btn btn-primary btn-flat pull-right btn_blue" id="deleteItems" style="margin-right: 10px;"><i class="fa fa-plus"></i> 删除</a>
                         </p>
                     </div>
                 </div>

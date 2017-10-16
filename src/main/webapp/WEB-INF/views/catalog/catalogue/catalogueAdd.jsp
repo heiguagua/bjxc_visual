@@ -106,7 +106,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码<span class="redStar">*</span>:</label>
+                            <label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 13px;">信息资源提供方代码<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo" data-rule="信息资源提供方代码:required;">
                                 <input type="hidden" id="chargeDeptId" name="chargeDeptId">
