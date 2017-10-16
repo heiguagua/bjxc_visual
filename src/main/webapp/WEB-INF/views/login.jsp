@@ -21,10 +21,6 @@
 		<section class="top_conttitle">
 				<img class="logopng" src="<%=basePath%>/images/userImg/logo.png">
 				<p>大数据资源服务网</p>
-				<div class="righttext">
-					<!-- <p>成都市大数据资源服务网</p> -->
-					<!-- <p class="entitle">Chengdu Open Government Data Platform</p> -->
-				</div>
 				<div class="section_bottom">
 						<span class="left_span">
 							登录
@@ -47,8 +43,7 @@
 							  </div>
 						  </c:if>
 					
-						<div class="inputdiv reg-box">
-							<span class="spanuser">
+						<div class="inputdiv reg-box"><span class="spanuser">
 								<img src="<%=basePath%>/images/userImg/Username.png"/>
 							</span
 							><input type="text" id="userLoadName" class="account"  name="userName" placeholder="用户名" data-rule="用户名:required;username;"/>

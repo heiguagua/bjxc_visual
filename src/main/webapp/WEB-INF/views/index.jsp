@@ -2,9 +2,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-
 </head>
-
+	
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <%@include file="common/header.jsp" %>
