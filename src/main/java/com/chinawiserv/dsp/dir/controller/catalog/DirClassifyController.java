@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.controller.catalog;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
@@ -94,6 +95,16 @@ public class DirClassifyController extends BaseController {
 	public String add(@RequestParam String fid, Model model) {		 
 		model.addAttribute("fid",fid);
 		return "catalog/classify/classifyAdd";
+	}
+	
+	
+	/**
+	 * 新增目录分类表
+	 */
+	@RequestMapping("/addNational")
+	public String addNational(@RequestParam String fid, Model model) {		 
+		model.addAttribute("fid",fid);
+		return "catalog/classify/classifyAddNational";
 	}
 
 	/**
@@ -222,12 +233,15 @@ public class DirClassifyController extends BaseController {
 		HandleResult handleResult = new HandleResult();
 		try {
 			String fid = (String) paramMap.get("fid");
-			if (StringUtils.isEmpty(fid)) {
-				paramMap.put("fid", "root");
-			}
 			String regionCode = ShiroUtils.getLoginUser().getRegionCode();
-			String dir_code = mapper.selectClassifyIdByRegionCode(regionCode);
-			paramMap.put("dir_code", dir_code);
+			String fidd = mapper.getFirstNode(regionCode);
+			
+			if (StringUtils.isEmpty(fid)) {
+				paramMap.put("fid", fidd);
+			}
+			
+//			String dir_code = mapper.selectClassifyIdByRegionCode(regionCode);
+//			paramMap.put("dir_code", dir_code);
 			paramMap.put("regionCode", regionCode);
 			List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
 			paramMap.put("regionCodes", SysRegionVoList);
@@ -239,4 +253,27 @@ public class DirClassifyController extends BaseController {
 		}
 		return handleResult;
 	}
+
+    /**
+     * 根据登录用户的权限获取目录类别树结构的数据
+     */
+    @RequiresPermissions("catalog:classify:list")
+    @RequestMapping("/subAuthorityList")
+    @ResponseBody
+    public HandleResult getSubClassifyListForLoginUser(@RequestParam Map<String, Object> paramMap) {
+        HandleResult handleResult = new HandleResult();
+        try {
+            String fid = (String) paramMap.get("fid");
+            if (StringUtils.isEmpty(fid)) {
+                paramMap.put("classifyType", "1");
+                paramMap.put("regionCode",ShiroUtils.getSessionAttribute(SystemConst.REGION));
+            }
+            List<DirClassifyVo> dirClassifyVoList = service.selectSubVoList(paramMap);
+            handleResult.put("vo", dirClassifyVoList);
+        } catch (Exception e) {
+            handleResult.error("根据登录用户的权限获取目录分类表信息失败");
+            logger.error("根据登录用户的权限获取目录分类表信息失败", e);
+        }
+        return handleResult;
+    }
 }

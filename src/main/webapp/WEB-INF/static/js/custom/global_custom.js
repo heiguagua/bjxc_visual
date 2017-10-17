@@ -1286,7 +1286,7 @@ function initGlobalCustom(tempUrlPrefix) {
             var setting = {
                 async: {
                     enable: true,
-                    url: basePathJS + "/dirClassify/authorityList",
+                    url: basePathJS + "/dirClassify/subAuthorityList",
                     autoParam: ["fid"],
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                         var params = [];
@@ -1368,7 +1368,7 @@ function initGlobalCustom(tempUrlPrefix) {
                 },
                 async: {
                     enable: true,
-                    url: basePathJS + "/dirClassify/authorityList",
+                    url: basePathJS + "/dirClassify/subAuthorityList",
                     autoParam: ["fid"],
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                         var params = [];
@@ -1627,7 +1627,7 @@ function initGlobalCustom(tempUrlPrefix) {
                 },
                 async: {
                     enable: true,
-                    url: basePathJS + "/dirClassify/authorityList",
+                    url: basePathJS + "/dirClassify/subAuthorityList",
                     autoParam: ["fid"],
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                         var params = [];
@@ -1788,7 +1788,7 @@ function initGlobalCustom(tempUrlPrefix) {
             var setting = {
                 async: {
                     enable: true,
-                    url: basePathJS + "/dirClassify/authorityList",
+                    url: basePathJS + "/dirClassify/subAuthorityList",
                     autoParam: ["fid"],
                     otherParam: param,
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式

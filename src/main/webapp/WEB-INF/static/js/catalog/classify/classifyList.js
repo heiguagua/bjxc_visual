@@ -38,6 +38,7 @@ jQuery(document).ready(function () {
                         		  'classifyCode':nodeObjs[i].classifyCode,
                         		  'classifyName':nodeObjs[i].classifyName,
                         		  'fid':nodeObjs[i].id,
+                        		  'type':nodeObjs[i].classifyType,
                         		  'isLocal':nodeObjs[i].isLocal,
                         		  'fidforadd':nodeObjs[i].fid,
                         		  'classifyType':nodeObjs[i].classifyType,
@@ -92,7 +93,8 @@ jQuery(document).ready(function () {
 		if ($("#diyBtn_"+treeNode.id).length>0) return;
 //		var editStr1 = "<span id='diyBtn_space_" +treeNode.dir_code+ "' >&nbsp;</span><select class='selDemo ' id='diyBtn_" +treeNode.dir_code+ "'><option value=1>1</option><option value=2>2</option><option value=3>3</option></select>";
 		var editStr1 = "<span id='diyBtn_space_" +treeNode.id+ "'><a href='javascript:void(0)' class='btn btn-edit "+treeNode.classifyName+"' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-desc= "+treeNode.apiDesc+" data-orderNumber= "+treeNode.orderNumber+" data-url= "+treeNode.apiUrl+" data-category= "+treeNode.apiCategory+">编辑</a></span>"
-		var editStr3 = "<span id='diyBtn_space4_" +treeNode.id+ "'><a href='javascript:void(0)' class='btn btn-edit s4' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-code = "+treeNode.classifyCode+" >删除</a></span>"
+		var editStr4 = "<span id='diyBtn_space5_" +treeNode.id+ "'><a href='javascript:void(0)' class='btn btn-addNational "+treeNode.type+"' id='diyBtn_" +treeNode.id+ "' data-type ="+treeNode.type+" data-id ="+treeNode.id+" >导入国家库目录</a></span>"
+		var editStr3 = "<span id='diyBtn_space4_" +treeNode.id+ "'><a href='javascript:void(0)' class='btn btn-delete s4' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-code = "+treeNode.classifyCode+" >删除</a></span>"
 		var editStr2 = "<div class='btn-group'>"
 				+"<button id='diyBtn_space2_" +treeNode.id+ "' type='button' class='btn btn-add dropdown-toggle'"
 	           +         "data-toggle='dropdown'>"
@@ -102,9 +104,13 @@ jQuery(document).ready(function () {
 				+"<li><a href='javascript:void(0)' class='"+treeNode.fidforadd+"' id='addSibling'  data-pcode="+treeNode.fidforadd+" href='#'  >添加同级</a></li>"
 				+"<li><a href='javascript:void(0)' class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"	
-				if(treeNode.classifyType=='2-1' || treeNode.classifyType=='2-2' || treeNode.classifyType=='2-3' && treeNode.isLocal=='1'){	
+				if( treeNode.classifyType=='2-3' && treeNode.isLocal=='1'){	
 					aObj.after(editStr2);
 					aObj.after(editStr3);
+				}else if(treeNode.classifyType=='2-1' || treeNode.classifyType=='2-2' || treeNode.classifyType=='3'){
+					aObj.after(editStr2);
+					aObj.after(editStr3);
+					aObj.after(editStr4);
 				}else if(treeNode.classifyType == '5' || treeNode.classifyType == '6'|| treeNode.classifyType == '7'){
 					aObj.after(editStr2);
 					aObj.after(editStr1);
@@ -192,6 +198,20 @@ jQuery(document).ready(function () {
 //			$('#api_desc').val('');
 			
 	    });
+	    
+	  //添加国家库
+	    $("."+treeNode.type+"").on("click", function () {
+	    	var curThis=this;
+			var fid=$(curThis).attr('data-id');
+//			$('#parent_id').val(api_fcode);
+			addDir('新增国家库目录--子级',basePathJS + '/dirClassify/addNational',fid,800,500);
+//	    	$('#api_name').val('');
+//			$('#api_category').val('');
+//			$('#api_url').val('');
+//			$('#order_number').val('');
+//			$('#api_desc').val('');
+			
+	    });
 
 		if (btn) btn.bind("change", function(){alert("diy Select value="+btn.attr("value")+" for " + treeNode.name);});
 
@@ -228,6 +248,7 @@ jQuery(document).ready(function () {
 				$("#diyBtn_space2_" +treeNode.id).unbind().remove();
 				$("#diyBtn_space3_" +treeNode.id).unbind().remove();
 				$("#diyBtn_space4_" +treeNode.id).unbind().remove();
+				$("#diyBtn_space5_" +treeNode.id).unbind().remove();
 				
 		};  
 		     			

@@ -47,14 +47,20 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-        	
+            t.delete_flag = 0
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
             <if test="fid != null">
                 AND t.fid = #{fid,jdbcType=VARCHAR}
             </if>
-                 
+            <if test="classifyType != null">
+                AND t.classify_type = #{classifyType,jdbcType=VARCHAR}
+            </if>
+            <if test="regionCode!= null and allRegionCode !='' ">
+                and t.region_code = #{regionCode,jdbcType=VARCHAR}
+            </if>
+
         </where>
     </sql>
     
@@ -108,25 +114,34 @@
         SELECT t.* FROM dir_classify t
         <include refid="queryConditions"></include>
     </select>
+    
+    <select id="getFirstNode" parameterType="string" resultType="string">
+    	
+    	select fid from dir_classify where classify_type = '1' and region_code = #{regionCode}
+    
+    </select>
+    
 
     <select id="selectVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf,case when t.region_code = #{regionCode} then '1' else '0' end as is_local
         FROM dir_classify t
         LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
 
-        <include refid="queryConditions"></include>and t.delete_flag = 0 and (t.region_code 
+        <include refid="queryConditions"></include>and t.delete_flag = 0 and t.region_code 
 			in 
 			          <foreach collection="regionCodes" item="item" open="(" separator="," close=")">
 			              #{item.regionCode}
 			          </foreach>
-			          
-        	or t.id in 
-        		
-        			 <foreach collection="listClassifyIds"  item="item" open="(" separator="," close=")">
-			              #{item}
-			          </foreach>
-        		        		
-        		)
+		        
+        	
+        order by order_number
+    </select>
+
+    <select id="selectSubVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf,case when t.region_code = #{regionCode} then '1' else '0' end as is_local
+        FROM dir_classify t
+        LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
+        <include refid="queryConditions"></include>
         order by order_number
     </select>
     
