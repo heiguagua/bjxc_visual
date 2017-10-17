@@ -814,7 +814,7 @@ public class DirDatasetController extends BaseController {
                         row.getCell(29).setCellType(CellType.STRING);
                         name= row.getCell(29).getStringCellValue();
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
                     String organization_code = null;//dirOrganizeMapper.selectByRegionAndName(region,name);
                     dataset.setBelongDeptType(organization_code);

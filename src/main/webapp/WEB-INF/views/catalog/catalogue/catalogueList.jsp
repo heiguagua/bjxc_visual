@@ -82,7 +82,7 @@
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle btn-myself"
                                                 data-toggle="dropdown" id="catalogueDeleteButton">
                                                 <img src="<%=basePath%>/images/userImg/delImg.png"/>
-                                            <!-- <i class="fa fa-plus"></i> -->批量删除
+                                            <!-- <i class="fa fa-plus"></i> -->删除
                                         </button>
                                     </div>
                                     <div class="input-group" style="float:right">
