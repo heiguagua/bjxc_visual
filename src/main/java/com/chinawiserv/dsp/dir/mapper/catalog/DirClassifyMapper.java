@@ -26,6 +26,8 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
 
     List<DirClassifyVo> selectVoListForTreeData(Map<String, Object> paramMap);
 
+    List<DirClassifyVo> selectSubVoListForTreeData(Map<String, Object> paramMap);
+
     DirClassifyVo selectVoById(String id);
     
 //    String selectClassifyCodebyFid(String fid);
