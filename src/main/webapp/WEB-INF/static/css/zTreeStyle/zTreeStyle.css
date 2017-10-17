@@ -22,6 +22,24 @@ website:	http://code.google.com/p/jquerytree/
     padding: 3px;
     margin-left: 15px;
     border: none;}
+    .ztree li .btn-delete{background: #000080;
+    border-radius: 100px;
+    color: #FFF;
+    height: 26px;
+    width: 54px;
+    font-size: 14px;
+    padding: 3px;
+    margin-left: 15px;
+    border: none;}
+    .ztree li .btn-addNational{background: #ff0000;
+    border-radius: 100px;
+    color: #FFA;
+    height: 26px;
+    width: 125px;
+    font-size: 14px;
+    padding: 3px;
+    margin-left: 15px;
+    border: none;}
     .ztree li .btn-add{background: #27DC93;
     border-radius: 100px;
     color: #FFF;

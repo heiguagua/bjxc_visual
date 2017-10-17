@@ -95,6 +95,16 @@ public class DirClassifyController extends BaseController {
 		model.addAttribute("fid",fid);
 		return "catalog/classify/classifyAdd";
 	}
+	
+	
+	/**
+	 * 新增目录分类表
+	 */
+	@RequestMapping("/addNational")
+	public String addNational(@RequestParam String fid, Model model) {		 
+		model.addAttribute("fid",fid);
+		return "catalog/classify/classifyAddNational";
+	}
 
 	/**
 	 * 执行新增
@@ -222,12 +232,15 @@ public class DirClassifyController extends BaseController {
 		HandleResult handleResult = new HandleResult();
 		try {
 			String fid = (String) paramMap.get("fid");
-			if (StringUtils.isEmpty(fid)) {
-				paramMap.put("fid", "root");
-			}
 			String regionCode = ShiroUtils.getLoginUser().getRegionCode();
-			String dir_code = mapper.selectClassifyIdByRegionCode(regionCode);
-			paramMap.put("dir_code", dir_code);
+			String fidd = mapper.getFirstNode(regionCode);
+			
+			if (StringUtils.isEmpty(fid)) {
+				paramMap.put("fid", fidd);
+			}
+			
+//			String dir_code = mapper.selectClassifyIdByRegionCode(regionCode);
+//			paramMap.put("dir_code", dir_code);
 			paramMap.put("regionCode", regionCode);
 			List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
 			paramMap.put("regionCodes", SysRegionVoList);

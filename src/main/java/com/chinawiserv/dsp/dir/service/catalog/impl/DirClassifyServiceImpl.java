@@ -177,23 +177,23 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     @Override
     public List<DirClassifyVo> selectVoList(Map<String, Object> paramMap) throws Exception {
     	
-    	List<String> listClassifyIds  = getFdir_codes((String)paramMap.get("dir_code"));
-    	paramMap.put("listClassifyIds", listClassifyIds);
+//    	List<String> listClassifyIds  = getFdir_codes((String)paramMap.get("dir_code"));
+//    	paramMap.put("listClassifyIds", listClassifyIds);
     	return mapper.selectVoListForTreeData(paramMap);
     	
     }
     
-    public List<String> getFdir_codes(String dir_code){
-	  	List<String> listfdir = Lists.newArrayList();
-        listfdir.add(dir_code);
-      	 
-      	 if(!(mapper.selectDirectoryByFcode(dir_code).equals("root"))){
-      		      		
-      		listfdir.addAll(getFdir_codes(mapper.selectDirectoryByFcode(dir_code)));      		 
-      		      		 
-      	 }      		
-      	return listfdir;
-      }
+//    public List<String> getFdir_codes(String dir_code){
+//	  	List<String> listfdir = Lists.newArrayList();
+//        listfdir.add(dir_code);
+//      	 
+//      	 if(!(mapper.selectDirectoryByFcode(dir_code).equals("root"))){
+//      		      		
+//      		listfdir.addAll(getFdir_codes(mapper.selectDirectoryByFcode(dir_code)));      		 
+//      		      		 
+//      	 }      		
+//      	return listfdir;
+//      }
 
 
     @Override
