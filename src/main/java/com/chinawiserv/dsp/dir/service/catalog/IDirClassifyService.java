@@ -20,6 +20,8 @@ public interface IDirClassifyService extends ICommonService<DirClassify, DirClas
 
 	List<DirClassifyVo> selectVoList(Map<String,Object> paramMap) throws Exception;
 
+    List<DirClassifyVo> selectSubVoList(Map<String,Object> paramMap) throws Exception;
+
     String generateDatasetCode(String classifyId);
 	void DeleteByFlag(String classifyCode);
 }
