@@ -188,7 +188,7 @@ public class ApiServiceImpl implements IApiService {
                     String classifyId = (String)serviceInfo.get("classifyId");
                     String serviceInfoParams = "";
                     try{
-                        serviceInfoParams = serviceInfo.get("serviceInfoParams").toString();
+                        serviceInfoParams = "field_description="+serviceInfo.get("serviceInfoParams").toString();
                     }catch (Exception e){
                         serviceInfoParams = "";
                     }

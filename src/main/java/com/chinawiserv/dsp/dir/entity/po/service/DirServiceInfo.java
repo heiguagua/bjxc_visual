@@ -71,7 +71,7 @@ private String serviceName;
      */
 	 
 	@TableField("request_info")	 
-	private transient String requestInfo;
+	private String requestInfo;
 	 
     /**
 	 
