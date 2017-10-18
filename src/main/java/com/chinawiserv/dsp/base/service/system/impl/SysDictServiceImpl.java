@@ -10,6 +10,7 @@ import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
 import com.chinawiserv.dsp.base.service.system.ISysDictService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.dir.enums.EnumTools;
+import com.chinawiserv.dsp.dir.schema.DictConstantMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -128,9 +129,15 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
     @Override
     public String selectDictcodeByCategoryAndName(String dict_name,String category){
         String dictCode=null;
-        if(!StringUtils.isEmpty(dict_name)&&!StringUtils.isEmpty(category)){
-            dictCode= mapper.selectDictcodeByCategoryAndName(dict_name, category);
+        String code = DictConstantMap.getDictCode(dict_name + ':' + category);
+        if(""==code){
+            if(!StringUtils.isEmpty(dict_name)&&!StringUtils.isEmpty(category)){
+                dictCode= mapper.selectDictcodeByCategoryAndName(dict_name, category);
+                DictConstantMap.putKeyValue(dict_name + ':' + category,dictCode);
+            }
+        }else{
+            dictCode=code;
         }
         return dictCode;
-    };
+    }
 }

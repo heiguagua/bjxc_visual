@@ -784,6 +784,7 @@ public class DirDatasetController extends BaseController {
             item=new DirDataitemVo();
             Row row = sheet.getRow(i);
             String classifyId = getClassifyId(row, hashMap);
+            row.getCell(26).setCellType(CellType.STRING);
             String datasetName = row.getCell(26).getStringCellValue();
             boolean b=true;
             for (DirDataset dirDataset : lists) {
@@ -808,27 +809,32 @@ public class DirDatasetController extends BaseController {
                     //信息资源提供方代码
                     String region=null,name=null;
                     try {
+                        row.getCell(28).setCellType(CellType.STRING);
                         region= row.getCell(28).getStringCellValue();
+                        row.getCell(29).setCellType(CellType.STRING);
                         name= row.getCell(29).getStringCellValue();
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
                     String organization_code = null;//dirOrganizeMapper.selectByRegionAndName(region,name);
                     dataset.setBelongDeptType(organization_code);
                     dataset.setBelongDeptId(organization_code);
                     //摘要
                     try {
+                        row.getCell(31).setCellType(CellType.STRING);
                         dataset.setDatasetDesc(row.getCell(31).getStringCellValue());
                     } catch (Exception e) {
                         dataset.setDatasetDesc(null);
                     }
                     //信息资源格式
                     try {
+                        row.getCell(32).setCellType(CellType.STRING);
                         dataset.setStorageMedium(sysDictService.selectDictcodeByCategoryAndName(row.getCell(32).getStringCellValue(),"setItemStoreMedia"));
                     } catch (Exception e) {
                         dataset.setStorageMedium(null);
                     }
                     try {
+                        row.getCell(33).setCellType(CellType.STRING);
                         dataset.setShareMethodCategory(sysDictService.selectDictcodeByCategoryAndName(row.getCell(33).getStringCellValue(),"setItemStoreMedia"));
                     } catch (Exception e) {
                         dataset.setShareMethodCategory(null);
@@ -867,13 +873,16 @@ public class DirDatasetController extends BaseController {
 
 
         //数据集
-        service.insertListDataset(datasetList);
-        //数据集-目录
+        int i = service.transactionInsert(datasetList, datamapList, items);
+        if(i==0){
+            return false;
+        }
+        /*//数据集-目录
         if(datamapList!=null&&datamapList.size()>0){
             dirDatasetClassifyMapMapper.insertListItem(datamapList);
         }
         //数据项
-        dataitemService.insertListItem(items);
+        dataitemService.insertListItem(items);*/
 
         return true;
     }
@@ -890,11 +899,13 @@ public class DirDatasetController extends BaseController {
         item.setDatasetId(dataset.getId());
         item.setCreateUserId(ShiroUtils.getLoginUserId());
         try {
+            row.getCell(41).setCellType(CellType.STRING);
             item.setItemName(row.getCell(41).getStringCellValue());
         } catch (Exception e) {
             item.setItemName(null);
         }
         try {
+            row.getCell(42).setCellType(CellType.STRING);
             item.setItemType(sysDictService.selectDictcodeByCategoryAndName(row.getCell(42).getStringCellValue(),"dataitemType"));
         } catch (Exception e) {
             item.setItemType(null);
@@ -907,47 +918,78 @@ public class DirDatasetController extends BaseController {
         }
         //共享类型
         try {
+            row.getCell(44).setCellType(CellType.STRING);
             item.setShareType(sysDictService.selectDictcodeByCategoryAndName(row.getCell(44).getStringCellValue(),"dataSetShareType"));
         } catch (Exception e) {
             item.setShareType(null);
         }
         //共享条件
         try {
+            row.getCell(45).setCellType(CellType.STRING);
             item.setShareCondition(row.getCell(45).getStringCellValue());
         } catch (Exception e) {
             item.setShareCondition(null);
         }
         //共享方式
         try {
+            row.getCell(46).setCellType(CellType.STRING);
             item.setShareMethodCategory(sysDictService.selectDictcodeByCategoryAndName(row.getCell(46).getStringCellValue(),"requirementExpectGetType"));
         } catch (Exception e) {
             item.setShareMethodCategory(null);
         }
         try {
+            row.getCell(47).setCellType(CellType.STRING);
             item.setShareMethod(sysDictService.selectDictcodeByCategoryAndName(row.getCell(47).getStringCellValue(),"requirementExpectGetType"));
         } catch (Exception e) {
             item.setShareMethod(null);
         }
         //开放属性
         try {
+            row.getCell(48).setCellType(CellType.STRING);
             item.setIsOpen(row.getCell(48).getStringCellValue().trim().equals("是")?"1":"0");
         } catch (Exception e) {
             item.setIsOpen(null);
         }
         try {
+            row.getCell(49).setCellType(CellType.STRING);
             item.setOpenCondition(row.getCell(49).getStringCellValue());
         } catch (Exception e) {}
         try {
+            row.getCell(50).setCellType(CellType.STRING);
             item.setUpdateFrequency(sysDictService.selectDictcodeByCategoryAndName(row.getCell(50).getStringCellValue(),"requirementExpectUpdateFrequence"));
         } catch (Exception e) {}
         item.setCreateTime(dataset.getCreateTime());
     }
     private String getClassifyId(Row row, Map<String, String> hashMap) {
         String classifyId=null;
-        String string1 = row.getCell(0).getStringCellValue().trim();
-        String string2 = row.getCell(1).getStringCellValue().trim();
-        String string3 = row.getCell(2).getStringCellValue().trim();
-        String string4 = row.getCell(3).getStringCellValue().trim();
+        String string1 = null;
+        try {
+            string1 = row.getCell(0).getStringCellValue().trim();
+        } catch (Exception e) {
+            row.getCell(0).setCellType(CellType.STRING);
+            string1 = row.getCell(0).getStringCellValue().trim();
+        }
+        String string2 = null;
+        try {
+            string2 = row.getCell(1).getStringCellValue().trim();
+        } catch (Exception e) {
+            row.getCell(1).setCellType(CellType.STRING);
+            string2 = row.getCell(1).getStringCellValue().trim();
+        }
+        String string3 = null;
+        try {
+            string3 = row.getCell(2).getStringCellValue().trim();
+        } catch (Exception e) {
+            row.getCell(2).setCellType(CellType.STRING);
+            string3 = row.getCell(2).getStringCellValue().trim();
+        }
+        String string4 = null;
+        try {
+            string4 = row.getCell(3).getStringCellValue().trim();
+        } catch (Exception e) {
+            row.getCell(3).setCellType(CellType.STRING);
+            string4 = row.getCell(3).getStringCellValue().trim();
+        }
         String strc=string1+"->"+string2+"->"+string3+"->"+string4;
         if(hashMap.containsKey(strc)){
             classifyId= hashMap.get(strc);

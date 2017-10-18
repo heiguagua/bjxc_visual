@@ -88,7 +88,7 @@ public class SysUserRealm extends AuthorizingRealm {
         }
         
         //账号禁用
-        if(user.getStatus() == -1){
+        if(user.getStatus() == 0){
         	throw new LockedAccountException("账号已被禁用,请联系管理员");
         }
 

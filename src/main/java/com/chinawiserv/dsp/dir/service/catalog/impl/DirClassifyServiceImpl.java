@@ -1,6 +1,8 @@
 package com.chinawiserv.dsp.dir.service.catalog.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
+import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
@@ -12,6 +14,8 @@ import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Striped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +35,9 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 
     @Autowired
     private DirClassifyMapper mapper;
+
+    @Autowired
+    private ISysRegionService sysRegionService;
 
     private Striped<Lock> locks = Striped.lazyWeakLock(100);
 
@@ -177,23 +184,28 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     @Override
     public List<DirClassifyVo> selectVoList(Map<String, Object> paramMap) throws Exception {
     	
-    	List<String> listClassifyIds  = getFdir_codes((String)paramMap.get("dir_code"));
-    	paramMap.put("listClassifyIds", listClassifyIds);
+//    	List<String> listClassifyIds  = getFdir_codes((String)paramMap.get("dir_code"));
+//    	paramMap.put("listClassifyIds", listClassifyIds);
     	return mapper.selectVoListForTreeData(paramMap);
     	
     }
+
+    @Override
+    public List<DirClassifyVo> selectSubVoList(Map<String, Object> paramMap) throws Exception {
+        return mapper.selectSubVoListForTreeData(paramMap);
+    }
     
-    public List<String> getFdir_codes(String dir_code){
-	  	List<String> listfdir = Lists.newArrayList();
-        listfdir.add(dir_code);
-      	 
-      	 if(!(mapper.selectDirectoryByFcode(dir_code).equals("root"))){
-      		      		
-      		listfdir.addAll(getFdir_codes(mapper.selectDirectoryByFcode(dir_code)));      		 
-      		      		 
-      	 }      		
-      	return listfdir;
-      }
+//    public List<String> getFdir_codes(String dir_code){
+//	  	List<String> listfdir = Lists.newArrayList();
+//        listfdir.add(dir_code);
+//      	 
+//      	 if(!(mapper.selectDirectoryByFcode(dir_code).equals("root"))){
+//      		      		
+//      		listfdir.addAll(getFdir_codes(mapper.selectDirectoryByFcode(dir_code)));      		 
+//      		      		 
+//      	 }      		
+//      	return listfdir;
+//      }
 
 
     @Override

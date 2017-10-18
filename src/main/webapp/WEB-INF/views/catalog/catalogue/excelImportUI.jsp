@@ -12,8 +12,8 @@
             <!--原来的上传是 点提交按钮 form action  提交    现在layui提交  -->
            <!-- <input type="file" name="file" />  -->
            
-           <a href="javascript:;" class="a-upload">
-			    <input type="file" name="file" id="">点击这里上传文件
+           <a href="javascript:;" class="<%--a-upload--%>">
+			    <input type="file" name="file" id="">
 			</a>
 			           
            

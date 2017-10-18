@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.dir.mapper.dcm_sync.DcmPoolRmdbMapper">
+
+    <!--批量插入记录-->
+    <insert id="insertBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";" >
+              insert into dcm_pool_rmdb
+              <foreach collection="item.keys" item="key" open="(" close=")" separator="," >
+                    ${key}
+              </foreach>
+              values
+              <foreach collection="item.keys"  item="key" open="(" close=")" separator=",">
+                #{item.${key}} 
+              </foreach>
+        </foreach>
+    </insert>
+
+    <!--批量更新-->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";" >
+            UPDATE dcm_pool_rmdb SET
+            <foreach collection="item.keys" item="key" separator="," >
+                  ${key} = #{item.${key}}
+            </foreach>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+</mapper>

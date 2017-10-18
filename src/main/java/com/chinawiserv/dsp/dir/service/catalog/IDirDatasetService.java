@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 
@@ -52,6 +53,8 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
     List<ExportDatasetExcel> selectExportLists(String [] tree_code, String dataset_name, String region_code);
 
     int insertListDataset(List<DirDataset> list);
+
+    int transactionInsert(List<DirDataset> list, List<DirDatasetClassifyMapVo> datamapList, List<DirDataitemVo> items);
 
     DirDataset selectDatasetByNameAndClassifyId(String datasetName, String classifyId);
     
