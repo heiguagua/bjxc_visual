@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 	 
  
-@TableName("dir_service_info") 
+@TableName("dir_service_info")
 public class DirServiceInfo implements Serializable {
  
  private static final long serialVersionUID = 1L;

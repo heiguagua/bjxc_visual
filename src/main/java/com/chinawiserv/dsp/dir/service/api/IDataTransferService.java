@@ -19,6 +19,6 @@ public interface IDataTransferService {
     /**
      * 解析上报数据
      */
-    Map<String, Object> analysisReportData(Map<String, Object> paramMap);
+    Map<String, Object> analysisReportData(String dataSource);
 
 }
