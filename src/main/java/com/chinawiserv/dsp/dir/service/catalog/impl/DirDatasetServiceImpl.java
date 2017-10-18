@@ -1038,6 +1038,23 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     }
 
     @Override
+    public int transactionInsert(List<DirDataset> list, List<DirDatasetClassifyMapVo> datamapList, List<DirDataitemVo> items) {
+        int i=0;
+        int m=0;
+        int j=0;
+        if(list!=null&&list.size()>0){
+            i=mapper.insertListDataset(list);
+        }
+        if(datamapList!=null&&datamapList.size()>0){
+           m=dirDatasetClassifyMapMapper.insertListItem(datamapList);
+        }
+        if(items!=null && items.size()>0){
+            j= itemMapper.insertListItem(items);
+        }
+        return j;
+    }
+
+    @Override
     public DirDataset selectDatasetByNameAndClassifyId(String datasetName, String classifyId) {
         DirDataset dirDataset=null;
         if(!StringUtils.isEmpty(datasetName)&&!StringUtils.isEmpty(classifyId)){

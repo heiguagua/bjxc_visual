@@ -873,13 +873,16 @@ public class DirDatasetController extends BaseController {
 
 
         //数据集
-        service.insertListDataset(datasetList);
-        //数据集-目录
+        int i = service.transactionInsert(datasetList, datamapList, items);
+        if(i==0){
+            return false;
+        }
+        /*//数据集-目录
         if(datamapList!=null&&datamapList.size()>0){
             dirDatasetClassifyMapMapper.insertListItem(datamapList);
         }
         //数据项
-        dataitemService.insertListItem(items);
+        dataitemService.insertListItem(items);*/
 
         return true;
     }

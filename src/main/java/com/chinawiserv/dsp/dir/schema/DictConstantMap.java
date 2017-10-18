@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class DictConstantMap {
     private static Map<String,String> map=new HashMap<>();
-
+    private static Lock lock=new ReentrantLock();
     public static String getDictCode(String key){
         if(!StringUtils.isEmpty(key)){
             if(map.containsKey(key)){
@@ -25,7 +25,6 @@ public class DictConstantMap {
     }
 
     public static void putKeyValue(String key,String value){
-        Lock lock=new ReentrantLock();
         if(!StringUtils.isEmpty(key)){
             try {
                 lock.lock();
