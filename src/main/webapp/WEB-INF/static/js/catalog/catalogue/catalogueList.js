@@ -3,10 +3,71 @@ var paramsObj = {};
 
 jQuery(document).ready(function () {
     initTable();
-    initAllSelect();
+    //initAllSelect();
     initButtonClickEvent();
 });
 
+var setting = {
+    async: {
+        enable: true,
+        url: basePathJS + "/dirClassify/subAuthorityList",
+        autoParam: ["fid"],
+        dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
+            var params = [];
+            var nodeObjs = childNodes.content.vo;
+            if (!nodeObjs) {
+                return null;
+            }
+            for (var i in nodeObjs) {
+                params[i] = {
+                    'id': nodeObjs[i].id,
+                    'name': nodeObjs[i].classifyName,
+                    'fid': nodeObjs[i].id,
+                    'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
+                }
+            }
+            return params;
+        }
+    },
+    callback: {
+        beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+            var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+            if (treeNode.isParent) {
+                if (treeNode.open) {
+                    zTreeObj.expandNode(treeNode, false);
+                } else {
+                    zTreeObj.expandNode(treeNode, true);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        },
+        onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+
+                //var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                //treeObj.cancelSelectedNode();
+
+            $('#searchClassifyId').val(treeNode.id);
+            setParams();
+            reloadTable();
+            /*$.commonAjax({
+                url: basePathJS + "/dirClassify/editLoad",
+                data: {id: treeNode.id},
+                success: function (result) {
+                    if (result.state) {
+                        var classifyObj = result.content.vo;
+                        $('#' + nameInputDomId).val(classifyObj.classifyStructureName);
+                        $('#' + codeInputDomId).val(treeNode.id);
+                    }
+                }
+            });*/
+        }
+    }
+};
+$(document).ready(function(){
+    $.fn.zTree.init($("#treeDemo"), setting);
+});
 function initTable(){
     var regionCode = $.getSelectedRegionCode();
     paramsObj["regionCode"] = regionCode;
@@ -179,7 +240,8 @@ function reloadTable() {
 }
 
 function addCustom() {
-    add('新增信息资源',basePathJS + '/catalog/catalogue/add',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    add('新增信息资源',basePathJS + '/catalog/catalogue/add'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 
 function catalogueTableEdit(id) {
