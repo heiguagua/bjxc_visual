@@ -60,16 +60,18 @@ public class ApiServiceImpl implements IApiService {
     public List<Map<String, Object>> test(Map<String, Object> paramMap) {
         return apiMapper.test(paramMap);
     }
+
     /**
      * 根据目录ID查询子目录
-     * */
+     */
     @Override
     public List<Map<String, Object>> getSubDirectoryById(Map<String, Object> paramMap) {
         return apiMapper.getSubDirectoryById(paramMap);
     }
+
     /**
      * 查询数据集下面的数据项
-     * */
+     */
     @Override
     public List<Map<String, Object>> getSubDataItemById(Map<String, Object> paramMap) {
         return apiMapper.getSubDataItemById(paramMap);
@@ -84,95 +86,97 @@ public class ApiServiceImpl implements IApiService {
     public List<Map<String, Object>> getDbInfoByDatasetId(Map<String, Object> paramMap) {
         return null;
     }
+
     /**
      *
      * */
     @Override
-    public Map<String,Object> getServiceInfoByDatasetId(Map<String, Object> paramMap) {
-        Map<String,Object> result = Maps.newHashMap();
-        Map<String,Object> tableParamMap = Maps.newHashMap();
+    public Map<String, Object> getServiceInfoByDatasetId(Map<String, Object> paramMap) {
+        Map<String, Object> result = Maps.newHashMap();
+        Map<String, Object> tableParamMap = Maps.newHashMap();
         /**
          * 查询数据库信息
          * */
-        List<Map<String,Object>> dbResult = apiMapper.getDbInfoByDatasetId(paramMap);
-        result.put("dbInfo",dbResult);
+        List<Map<String, Object>> dbResult = apiMapper.getDbInfoByDatasetId(paramMap);
+        result.put("dbInfo", dbResult);
 
         /**
          * 查询数据表、字段对应关系
          * */
-        List<Map<String,Object>> tableRelation = apiMapper.getTableInfoByDatasetId(paramMap);
-        List<Map<String,Object>> tableInfoList = Lists.newArrayList();
-        if(null != tableRelation && tableRelation.size() > 0){
+        List<Map<String, Object>> tableRelation = apiMapper.getTableInfoByDatasetId(paramMap);
+        List<Map<String, Object>> tableInfoList = Lists.newArrayList();
+        if (null != tableRelation && tableRelation.size() > 0) {
 
-            for(Iterator iter = tableRelation.iterator(); iter.hasNext();){
+            for (Iterator iter = tableRelation.iterator(); iter.hasNext(); ) {
 
-                Map<String,Object> tableInfo = (Map<String,Object>)iter.next();
-                if(null != tableInfo){
-                    String sourceTableId = (String)tableInfo.get("sourceTableId");
-                    String sourceTableName = (String)tableInfo.get("sourceTableName");
-                    if(StringUtils.isNotBlank(sourceTableId)){
-                        tableParamMap.put("tableId",sourceTableId);
-                        List<Map<String,Object>> sourceTableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
-                        Map<String,Object> tableSource = Maps.newHashMap();
-                        tableSource.put("tableName",sourceTableName);
-                        tableSource.put("tableColunms",sourceTableColumnList);
+                Map<String, Object> tableInfo = (Map<String, Object>) iter.next();
+                if (null != tableInfo) {
+                    String sourceTableId = (String) tableInfo.get("sourceTableId");
+                    String sourceTableName = (String) tableInfo.get("sourceTableName");
+                    if (StringUtils.isNotBlank(sourceTableId)) {
+                        tableParamMap.put("tableId", sourceTableId);
+                        List<Map<String, Object>> sourceTableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
+                        Map<String, Object> tableSource = Maps.newHashMap();
+                        tableSource.put("tableName", sourceTableName);
+                        tableSource.put("tableColunms", sourceTableColumnList);
                         tableInfoList.add(tableSource);
                     }
 
-                    String targetTableId = (String)tableInfo.get("targetTableId");
-                    String targetTableName = (String)tableInfo.get("targetTableName");
-                    if(StringUtils.isNotBlank(targetTableId)){
-                        tableParamMap.put("tableId",targetTableId);
-                        List<Map<String,Object>> targetTableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
-                        Map<String,Object> tableTarget = Maps.newHashMap();
-                        tableTarget.put("tableName",targetTableName);
-                        tableTarget.put("tableColunms",targetTableColumnList);
+                    String targetTableId = (String) tableInfo.get("targetTableId");
+                    String targetTableName = (String) tableInfo.get("targetTableName");
+                    if (StringUtils.isNotBlank(targetTableId)) {
+                        tableParamMap.put("tableId", targetTableId);
+                        List<Map<String, Object>> targetTableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
+                        Map<String, Object> tableTarget = Maps.newHashMap();
+                        tableTarget.put("tableName", targetTableName);
+                        tableTarget.put("tableColunms", targetTableColumnList);
                         tableInfoList.add(tableTarget);
                     }
                 }
             }
-            result.put("tableRelation",tableRelation);
-        }else {
+            result.put("tableRelation", tableRelation);
+        } else {
             /**
              * 单表无关系
              * */
             tableRelation = apiMapper.getTableInfoWithoutRelationByDatasetId(paramMap);
-            if(null != tableRelation && tableRelation.size() > 0){
-                for(Iterator iter = tableRelation.iterator(); iter.hasNext();){
-                    Map<String,Object> tableInfo = (Map<String,Object>)iter.next();
-                    if(null != tableInfo){
-                        String tableId = (String)tableInfo.get("tableId");
-                        String tableName = (String)tableInfo.get("tableName");
-                        if(StringUtils.isNotBlank(tableId)){
-                            tableParamMap.put("tableId",tableId);
-                            List<Map<String,Object>> tableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
-                            Map<String,Object> table = Maps.newHashMap();
-                            table.put("tableName",tableName);
-                            table.put("tableColunms",tableColumnList);
-                            table.put("tableId",tableId);
+            if (null != tableRelation && tableRelation.size() > 0) {
+                for (Iterator iter = tableRelation.iterator(); iter.hasNext(); ) {
+                    Map<String, Object> tableInfo = (Map<String, Object>) iter.next();
+                    if (null != tableInfo) {
+                        String tableId = (String) tableInfo.get("tableId");
+                        String tableName = (String) tableInfo.get("tableName");
+                        if (StringUtils.isNotBlank(tableId)) {
+                            tableParamMap.put("tableId", tableId);
+                            List<Map<String, Object>> tableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
+                            Map<String, Object> table = Maps.newHashMap();
+                            table.put("tableName", tableName);
+                            table.put("tableColunms", tableColumnList);
+                            table.put("tableId", tableId);
                             tableInfoList.add(table);
                         }
                     }
                 }
             }
         }
-        result.put("tableInfo",tableInfoList);
+        result.put("tableInfo", tableInfoList);
         return result;
     }
+
     /**
      * 发布服务，往表插入数据(dir_service_info/dir_dataset_service_map)
-     * */
+     */
     @Override
     public HandleResult releaseService(Map<String, Object> paramMap) {
         HandleResult handleResult = new HandleResult();
-        if(null == paramMap || paramMap.size() == 0){
+        if (null == paramMap || paramMap.size() == 0) {
             handleResult.setMsg("未传入参数");
             handleResult.setState(false);
             return handleResult;
-        }else{
-            String serviceInfoStr = (String)paramMap.get("serviceInfo"); //获取服务信息的JSON字符串
+        } else {
+            String serviceInfoStr = (String) paramMap.get("serviceInfo"); //获取服务信息的JSON字符串
 
-            if(null != serviceInfoStr){
+            if (null != serviceInfoStr) {
                 JSONArray serviceInfoArr = JSONArray.fromObject(serviceInfoStr);
                 //解析JSON字符串,获取服务相关信息
                 for (int i = 0; i < serviceInfoArr.size(); i++) {
@@ -180,58 +184,66 @@ public class ApiServiceImpl implements IApiService {
                     DirServiceInfo dirServiceInfo = new DirServiceInfo();
 
                     JSONObject serviceInfo = serviceInfoArr.getJSONObject(i);
-                    String serviceName = (String)serviceInfo.get("serviceName");
-                    String serviceType = (String)serviceInfo.get("serviceType");
-                    String serviceUrl = (String)serviceInfo.get("serviceUrl");
-                    String requestType = (String)serviceInfo.get("requestType");
-                    String dataStyle = (String)serviceInfo.get("dataStyle");
-                    String classifyId = (String)serviceInfo.get("classifyId");
+                    String serviceName = (String) serviceInfo.get("serviceName");
+                    String serviceType = (String) serviceInfo.get("serviceType");
+                    String serviceUrl = (String) serviceInfo.get("serviceUrl");
+                    String requestType = (String) serviceInfo.get("requestType");
+                    String dataStyle = (String) serviceInfo.get("dataStyle");
+                    String classifyId = (String) serviceInfo.get("classifyId");
                     String serviceInfoParams = "";
-                    try{
-                        serviceInfoParams = "field_description="+serviceInfo.get("serviceInfoParams").toString();
-                    }catch (Exception e){
+                    try {
+                        serviceInfoParams = "field_description=" + serviceInfo.get("serviceInfoParams").toString();
+                    } catch (Exception e) {
                         serviceInfoParams = "";
                     }
-                    String serviceId = (String)serviceInfo.get("serviceNo");
-                    String status = (String)serviceInfo.get("status");
-                    String dirOrDrapType = (String)serviceInfo.get("dirType"); //目录梳理类型
-                    String dirOrDrapTypeId = (String)serviceInfo.get("dirTypeId"); //目录数据集 OR 梳理数据表ID OR mongoDB数据集ID
+                    String serviceId = (String) serviceInfo.get("serviceNo");
+                    String status = (String) serviceInfo.get("status");
+                    String dirOrDrapType = (String) serviceInfo.get("dirType"); //目录梳理类型
+                    String dirOrDrapTypeId = (String) serviceInfo.get("dirTypeId"); //目录数据集 OR 梳理数据表ID OR mongoDB数据集ID
 
                     /**
                      * 来自梳理的处理
                      * */
-                    if("hackle".equalsIgnoreCase(dirOrDrapType)){
-                        String systemId = (String)serviceInfo.get("systemId"); //系统ID
-                        String dbId = (String)serviceInfo.get("dbId");  //数据库ID
-                        String dirStructure = (String)serviceInfo.get("dirStructure");  //数据表
+                    if ("hackle".equalsIgnoreCase(dirOrDrapType)) {
+                        String systemId = (String) serviceInfo.get("systemId"); //系统ID
+                        String dbId = (String) serviceInfo.get("dbId");  //数据库ID
+                        String dirStructure = (String) serviceInfo.get("dirStructure");  //数据表
                         /**
                          * 查询表对应的ID
                          * */
-                        Map<String,Object> tableParamMap = Maps.newHashMap();
-                        tableParamMap.put("systemId",systemId);
-                        tableParamMap.put("dbId",dbId);
-                        if(null != dirStructure && !dirStructure.contains(",")){
-                            tableParamMap.put("tableName",serviceName);
+                        Map<String, Object> tableParamMap = Maps.newHashMap();
+                        tableParamMap.put("systemId", systemId);
+                        tableParamMap.put("dbId", dbId);
+                        if (null != dirStructure && !dirStructure.contains(",")) {
+                            tableParamMap.put("tableName", serviceName);
                             DrapDbTableInfo drapDbTableInfo = apiMapper.getTableInfoBySystemIdAndDbId(tableParamMap);
-                            if(null != drapDbTableInfo){
+                            if (null != drapDbTableInfo) {
                                 String tableId = drapDbTableInfo.getId();
                                 dirOrDrapTypeId = tableId;
+                            } else if (null == drapDbTableInfo) {
+                                handleResult.error("发布失败，对应表不存在或未同步");
+                                handleResult.setState(false);
+                                return handleResult;
                             }
                         }
 
-                        if(dirStructure.contains(",")){
+                        if (dirStructure.contains(",")) {
                             StringBuffer sb = new StringBuffer();
                             String[] tableNames = dirStructure.split(",");
-                            for (String tableName:tableNames) {
-                                tableParamMap.put("tableName",tableName);
+                            for (String tableName : tableNames) {
+                                tableParamMap.put("tableName", tableName);
                                 DrapDbTableInfo drapDbTableInfo = apiMapper.getTableInfoBySystemIdAndDbId(tableParamMap);
-                                if(null != drapDbTableInfo){
+                                if (null != drapDbTableInfo) {
                                     String tableId = drapDbTableInfo.getId();
                                     sb.append(tableId);
                                     sb.append(",");
+                                } else if (null == drapDbTableInfo) {
+                                    handleResult.error("发布失败，对应表不存在或未同步");
+                                    handleResult.setState(false);
+                                    return handleResult;
                                 }
                             }
-                            if(null != sb){
+                            if (null != sb) {
                                 dirOrDrapTypeId = sb.toString();
                             }
                         }
@@ -241,19 +253,19 @@ public class ApiServiceImpl implements IApiService {
                      * 多个源，对ID进行拆分
                      * */
                     String[] idList = null;
-                    if(null != dirOrDrapTypeId && dirOrDrapTypeId.contains(",")){
+                    if (null != dirOrDrapTypeId && dirOrDrapTypeId.contains(",")) {
                         idList = dirOrDrapTypeId.split(",");
                     }
                     Date startDate = null;
                     Date endDate = null;
 
                     try {
-                        startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String)serviceInfo.get("startDate"));
+                        startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String) serviceInfo.get("startDate"));
                     } catch (Exception e) {
                         startDate = null;
                     }
                     try {
-                        endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String)serviceInfo.get("endDate"));
+                        endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String) serviceInfo.get("endDate"));
                     } catch (Exception e) {
                         endDate = null;
                     }
@@ -261,7 +273,7 @@ public class ApiServiceImpl implements IApiService {
                     /**
                      * 初始化PO:DirServiceInfo
                      * */
-                    if(null == serviceId || "" == serviceId){
+                    if (null == serviceId || "" == serviceId) {
                         return handleResult;
                     }
 
@@ -277,22 +289,26 @@ public class ApiServiceImpl implements IApiService {
 
                     DirServiceInfo dirServiceInfoIf = dirServiceInfoMapper.selectById(serviceId);
 
-                    if(null != dirServiceInfoIf){
+                    if (null != dirServiceInfoIf) {
                         dirServiceInfoMapper.updateById(dirServiceInfo);
-                    }else if(null == dirServiceInfoIf){
+                    } else if (null == dirServiceInfoIf) {
                         dirServiceInfoMapper.insert(dirServiceInfo);
                     }
 
-                    if(null != idList){
+                    if (null != idList) {
                         for (int j = 0; j < idList.length; j++) {
                             dirDatasetClassifyMap.setDatasetId(idList[j]);
                             dirDatasetClassifyMap.setClassifyId(classifyId);
                             DirDatasetClassifyMap dirDatasetClassifyMapIf = dirDatasetClassifyMapMapper.selectOne(dirDatasetClassifyMap);
-                            if(null != dirDatasetClassifyMapIf){
+                            if (null != dirDatasetClassifyMapIf) {
                                 idList[j] = dirDatasetClassifyMapIf.getId();
+                            } else if (null == dirDatasetClassifyMapIf && !"hackle".equalsIgnoreCase(dirOrDrapType)) {
+                                handleResult.setMsg("发布失败，信息资源、目录信息查询失败，请检查是否存在或同步");
+                                handleResult.setState(false);
+                                return handleResult;
                             }
                             DirDatasetServiceMap dirDatasetServiceMapEntity = new DirDatasetServiceMap();
-                            dirDatasetServiceMapEntity.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                            dirDatasetServiceMapEntity.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                             dirDatasetServiceMapEntity.setServiceId(serviceId);
                             dirDatasetServiceMapEntity.setStatus(status);
                             dirDatasetServiceMapEntity.setValidFrom(startDate);
@@ -308,9 +324,9 @@ public class ApiServiceImpl implements IApiService {
                             dirDatasetServiceMapEntityParam.setObjType(dirOrDrapType);
 
                             DirDatasetServiceMap dirDatasetServiceMapEntityIf = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapEntityParam);
-                            if(null == dirDatasetServiceMapEntityIf){
+                            if (null == dirDatasetServiceMapEntityIf) {
                                 dirDatasetServiceMapMapper.insert(dirDatasetServiceMapEntity);
-                            }else{
+                            } else {
                                 dirDatasetServiceMapEntityIf.setValidFrom(startDate);
                                 dirDatasetServiceMapEntityIf.setValidTo(endDate);
                                 dirDatasetServiceMapEntityIf.setStatus(status);
@@ -320,7 +336,7 @@ public class ApiServiceImpl implements IApiService {
                         }
                         handleResult.setState(true);
                         handleResult.setMsg("发布成功");
-                    }else if(null == idList){
+                    } else if (null == idList) {
                         /**
                          * 判断是否是重新发布，重新发布就更新数据库，不是就插入数据库
                          * */
@@ -334,12 +350,16 @@ public class ApiServiceImpl implements IApiService {
                         dirDatasetClassifyMap.setClassifyId(classifyId);
                         dirDatasetClassifyMap.setDatasetId(dirOrDrapTypeId);
                         DirDatasetClassifyMap dirDatasetClassifyMapIf = dirDatasetClassifyMapMapper.selectOne(dirDatasetClassifyMap);
-                        if(null != dirDatasetClassifyMapIf){
+                        if (null != dirDatasetClassifyMapIf) {
                             dirOrDrapTypeId = dirDatasetClassifyMapIf.getId();
+                        } else if (null == dirDatasetClassifyMapIf && !"hackle".equalsIgnoreCase(dirOrDrapType)) {
+                            handleResult.setMsg("发布失败，信息资源、目录信息查询失败，请检查是否存在或同步");
+                            handleResult.setState(false);
+                            return handleResult;
                         }
                         dirDatasetServiceMapParam.setObjId(dirOrDrapTypeId);
                         DirDatasetServiceMap dirDatasetServiceMapIf = dirDatasetServiceMapMapper.selectOne(dirDatasetServiceMapParam);
-                        if (null != dirDatasetServiceMapIf){
+                        if (null != dirDatasetServiceMapIf) {
                             dirDatasetServiceMapIf.setValidFrom(startDate);
                             dirDatasetServiceMapIf.setValidTo(endDate);
                             dirDatasetServiceMapIf.setObjType(dirOrDrapType);
@@ -348,12 +368,12 @@ public class ApiServiceImpl implements IApiService {
                             dirDatasetServiceMapMapper.updateById(dirDatasetServiceMapIf);
                             handleResult.setState(true);
                             handleResult.setMsg("发布成功");
-                        }else if(null == dirDatasetServiceMapIf){
+                        } else if (null == dirDatasetServiceMapIf) {
                             /**
                              * 插入数据集服务关联信息
                              * */
                             DirDatasetServiceMap dirDatasetServiceMap = new DirDatasetServiceMap();
-                            dirDatasetServiceMap.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                            dirDatasetServiceMap.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                             dirDatasetServiceMap.setServiceId(serviceId);
                             dirDatasetServiceMap.setStatus(status);
                             dirDatasetServiceMap.setValidFrom(startDate);
@@ -368,52 +388,53 @@ public class ApiServiceImpl implements IApiService {
                     }
 
                 }
-            }else {
+            } else {
                 handleResult.setState(false);
             }
         }
 
         return handleResult;
     }
+
     /**
      * 下架服务，更新服务状态
-     * */
+     */
     @Override
     public HandleResult unReleaseService(Map<String, Object> paramMap) {
         HandleResult handleResult = new HandleResult();
-         if(null == paramMap || paramMap.size() == 0){
+        if (null == paramMap || paramMap.size() == 0) {
             handleResult.setMsg("未传入参数");
             handleResult.setState(false);
             return handleResult;
-        }else{
-             String serviceInfoStr = (String)paramMap.get("serviceInfo");
-             if(null != serviceInfoStr && serviceInfoStr.startsWith("[")){
-                 JSONArray serviceInfoArr = JSONArray.fromObject(serviceInfoStr);
-                 //解析JSON字符串,获取服务相关信息
-                 for (int i = 0; i < serviceInfoArr.size(); i++) {
-                     DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
-                     JSONObject serviceInfo = serviceInfoArr.getJSONObject(i);
-                     String status = (String)serviceInfo.get("status");
-                     String serviceId = (String)serviceInfo.get("serviceNo");
-                     dirDatasetServiceMapParam.setServiceId(serviceId);
-                     Wrapper wrapper = new EntityWrapper();
-                     wrapper.eq("service_id",serviceId);
-                     List<DirDatasetServiceMap> mapList = dirDatasetServiceMapMapper.selectList(wrapper);
-                     if(null != mapList && !mapList.isEmpty()){
-                         for (DirDatasetServiceMap map:mapList) {
-                             map.setStatus(status);
-                             map.setOperateTime(new Date());
-                             dirDatasetServiceMapMapper.updateById(map);
-                         }
-                         handleResult.setState(true);
-                         handleResult.setMsg("下架成功");
-                     }else{
-                         logger.error(serviceId+"的服务不存在");
-                         handleResult.setState(false);
-                         handleResult.setMsg(serviceId+"的服务不存在");
-                     }
-                 }
-             }
+        } else {
+            String serviceInfoStr = (String) paramMap.get("serviceInfo");
+            if (null != serviceInfoStr && serviceInfoStr.startsWith("[")) {
+                JSONArray serviceInfoArr = JSONArray.fromObject(serviceInfoStr);
+                //解析JSON字符串,获取服务相关信息
+                for (int i = 0; i < serviceInfoArr.size(); i++) {
+                    DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
+                    JSONObject serviceInfo = serviceInfoArr.getJSONObject(i);
+                    String status = (String) serviceInfo.get("status");
+                    String serviceId = (String) serviceInfo.get("serviceNo");
+                    dirDatasetServiceMapParam.setServiceId(serviceId);
+                    Wrapper wrapper = new EntityWrapper();
+                    wrapper.eq("service_id", serviceId);
+                    List<DirDatasetServiceMap> mapList = dirDatasetServiceMapMapper.selectList(wrapper);
+                    if (null != mapList && !mapList.isEmpty()) {
+                        for (DirDatasetServiceMap map : mapList) {
+                            map.setStatus(status);
+                            map.setOperateTime(new Date());
+                            dirDatasetServiceMapMapper.updateById(map);
+                        }
+                        handleResult.setState(true);
+                        handleResult.setMsg("下架成功");
+                    } else {
+                        logger.error(serviceId + "的服务不存在");
+                        handleResult.setState(false);
+                        handleResult.setMsg(serviceId + "的服务不存在");
+                    }
+                }
+            }
 
         }
         return handleResult;
@@ -421,7 +442,7 @@ public class ApiServiceImpl implements IApiService {
 
     /**
      * 同步神马用户数据(插入更新)
-     * */
+     */
     @Override
     public Map<String, Object> syncUserInfo(List<SysUser> userList) {
         return null;
@@ -483,16 +504,16 @@ public class ApiServiceImpl implements IApiService {
         /**
          * 获取token
          * */
-        String token = (String)paramMap.get("token");
+        String token = (String) paramMap.get("token");
 
         /**
          * 获取服务封装类型
          * */
-        String serviceType = (String)paramMap.get("type");
+        String serviceType = (String) paramMap.get("type");
         /**
          * 梳理封装
          * */
-        if("drap".equalsIgnoreCase(serviceType)){
+        if ("drap".equalsIgnoreCase(serviceType)) {
             return handleResult;
         }
         /**
@@ -502,12 +523,12 @@ public class ApiServiceImpl implements IApiService {
             /**
              * 获取数据集
              * */
-            String dcmId = (String)paramMap.get("dcmId");
+            String dcmId = (String) paramMap.get("dcmId");
             /**
              * 对应目录的ID
              * */
 
-            if(null == paramMap || StringUtils.isAnyBlank(token,dcmId)){
+            if (null == paramMap || StringUtils.isAnyBlank(token, dcmId)) {
                 handleResult.setMsg("未传入TOKEN或dcmId");
                 handleResult.setState(false);
                 return handleResult;
@@ -518,44 +539,44 @@ public class ApiServiceImpl implements IApiService {
             sysUserParam.setToken(token);
             SysUser sysUser = sysUserMapper.selectOne(sysUserParam);
 
-            if(null != sysUser){
+            if (null != sysUser) {
                 String userName = sysUser.getUserName();
                 String userId = sysUser.getId();
-                paramMap.put("userName",userName);
-                paramMap.put("userId",userId);
-                Map<String,Object> userInfo = Maps.newHashMap();
-                userInfo.put("userId",userId);
-                userInfo.put("userName",userName);
-                userInfo.put("userRealName",sysUser.getRealName());
-                handleResult.put("userInfo",userInfo);
+                paramMap.put("userName", userName);
+                paramMap.put("userId", userId);
+                Map<String, Object> userInfo = Maps.newHashMap();
+                userInfo.put("userId", userId);
+                userInfo.put("userName", userName);
+                userInfo.put("userRealName", sysUser.getRealName());
+                handleResult.put("userInfo", userInfo);
                 /**
                  * 查询用户字段权限
                  * */
-                Map<String,Object> dataseAuthorityMap = apiMapper.getDataAuthorityByUserId(paramMap);  //待完成
+                Map<String, Object> dataseAuthorityMap = apiMapper.getDataAuthorityByUserId(paramMap);  //待完成
                 String dataApplyId = null;
-                if(null != dataseAuthorityMap && !dataseAuthorityMap.isEmpty()){
-                    dataApplyId = (String)dataseAuthorityMap.get("dataApplyId");
+                if (null != dataseAuthorityMap && !dataseAuthorityMap.isEmpty()) {
+                    dataApplyId = (String) dataseAuthorityMap.get("dataApplyId");
                 }
                 boolean status;
-                try{
-                    status = Boolean.valueOf((String)dataseAuthorityMap.get("status")).booleanValue();
-                }catch (Exception e){
+                try {
+                    status = Boolean.valueOf((String) dataseAuthorityMap.get("status")).booleanValue();
+                } catch (Exception e) {
                     logger.error(e.getMessage());
                     status = false;
                 }
-                paramMap.put("dataApplyId",dataApplyId);
-                handleResult.put("authorityDataset",dataseAuthorityMap);
-                handleResult.put("userDatasetAuthority",status);
+                paramMap.put("dataApplyId", dataApplyId);
+                handleResult.put("authorityDataset", dataseAuthorityMap);
+                handleResult.put("userDatasetAuthority", status);
                 handleResult.setState(true);
                 /**
                  * 查询数据集对应字段
                  * */
-                if(status){
-                    List<Map<String,Object>> itemAuthorityList = apiMapper.getDataitemAuthorityByUserIdAndDatasetId(paramMap);
-                    handleResult.put("authorityItems",itemAuthorityList);
+                if (status) {
+                    List<Map<String, Object>> itemAuthorityList = apiMapper.getDataitemAuthorityByUserIdAndDatasetId(paramMap);
+                    handleResult.put("authorityItems", itemAuthorityList);
                 }
 
-            }else{
+            } else {
                 handleResult.setMsg("对应用户不存在");
                 handleResult.setState(false);
             }
