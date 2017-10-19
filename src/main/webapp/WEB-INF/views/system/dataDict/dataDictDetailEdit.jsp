@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <label>状态</label>
                                 <div class="col-sm-10">
-                                <span class="radio-inline" style="padding: 4px 0 0 16px;">
+                                <span class="radio-inline">
                                     <input name="status" type="radio" class="minimal" value="1"> 启用
                                 </span>
                                     <span  class="radio-inline pdl0">

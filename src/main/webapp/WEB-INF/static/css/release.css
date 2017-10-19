@@ -29,9 +29,10 @@
 .control-Reslabel{
 	text-align:left;
 }
-.radio-inline, .checkbox-inline{
+/*注释掉解决系统管理 字典管理 字典明细 修改 单选框错位  */
+/* .radio-inline, .checkbox-inline{
 	    padding-left: 80px;
-}
+} */
 
 .radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline{
 	margin-left: 45px;
