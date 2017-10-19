@@ -79,11 +79,11 @@
 
 /* 表格整体布局 */
 
-.box-body{
-	    padding: 0 30px !important;
+div.box div.box-body{
+	    padding: 0 30px 0px 240px;
 }
 .box-header{
-	    padding: 10px 30px;
+	    padding: 10px 30px 0px 270px;
 }
 .content-header > h1{
 	    padding: 0 40px;
@@ -243,3 +243,12 @@ input.input_test{
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{
 	background:none;
 }
+
+/* 后面单独处理目录编目 */
+
+.sidebar-myself{
+	    border: 1px solid #ccc ;
+	    padding-top:0px !important;
+}
+
+
