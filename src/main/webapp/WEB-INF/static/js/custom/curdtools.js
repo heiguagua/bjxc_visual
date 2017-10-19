@@ -203,7 +203,7 @@ function addDirNational(title, url, fid, classifyType, width, height, isRestful)
         }
     }
 
-    var options = _getDefaultWinOptionsForUpdateapiList(title , url , width, height) ;
+    var options = _getDefaultWinOptionsForaddNational(title , url , width, height);
 
     createWindow(options);
 }
@@ -590,6 +590,35 @@ function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
     return options ;
 }
 
+
+function _getDefaultWinOptionsForaddNational( title , url , width, height) {
+    var options = {
+        title:title,
+        width : width ,
+        height : height ,
+        content: url ,
+        btn: [ '<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
+        success: _successLoad ,
+        yes :function(index, layero){
+        	var submitBtn = $(".layui-layer-btn0");
+            try {
+//            	$("#loading").html("<img src='/img/index/loading.gif'/>"); 
+            	layer.load(3);
+                submitBtn.hide();
+                _submitFormForApi(index , layero);
+//                $("#loading").empty(); 
+            } catch (e) {
+
+            } finally {
+                submitBtn.show();
+            }
+        	
+//            location.reload();
+        }
+    };
+
+    return options ;
+}
 /**
  *
  * @param parentWin
