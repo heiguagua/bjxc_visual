@@ -14,9 +14,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/dirClassify/doAdd">
+                          method="post" action="<%=basePath%>/dirClassify/doAddNational">
                         <div class="box-body">
-                        	<input id=fid type="hidden" value="${fid}" name="fid" />                
+                        	<input id=fid type="hidden" value="${fid}" name="fid" /> 
+                        	<input id=classifyType type="hidden" value="${classifyType}" name="classifyType" />               
 			                <div class="form-group">
 			                    <div class="row">
 			                        <div class="col-sm-6">
@@ -24,7 +25,7 @@
 			                            <div class="col-sm-9">
 <!-- 			                            	<input type="text" id="national_code" name="nationalCode" class="form-control"
                                        		placeholder="" data-rule="排序号:required;nationalCode;">
-			              -->               	
+			              -->               <div id="loading"></div>	
 										 	<input type="text" id="nationalCode" data-rule="国家库:required;" class="form-control"
 					                         placeholder="">
 					                        <input type="hidden" id="dictNationalCode" name="nationalCode">

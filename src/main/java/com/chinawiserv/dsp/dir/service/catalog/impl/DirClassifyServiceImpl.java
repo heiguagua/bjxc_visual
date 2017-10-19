@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirNationalClassify;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirNationalClassifyVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirNationalClassifyMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
@@ -35,6 +39,9 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 
     @Autowired
     private DirClassifyMapper mapper;
+    
+    @Autowired
+    private DirNationalClassifyMapper mapper2;
 
     @Autowired
     private ISysRegionService sysRegionService;
@@ -44,6 +51,13 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 
     @Override
     public boolean insertVO(DirClassifyVo vo) throws Exception {
+    	
+    	mapper.baseInsert(this.prepareClassifyVo(vo));    	
+		return true;
+    }
+    
+    @Override
+    public DirClassifyVo prepareClassifyVo(DirClassifyVo vo){
     	
     	vo.setId(CommonUtil.get32UUID());
     	vo.setCreateTime(new Date());
@@ -80,7 +94,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 //    			mapper.updateClassifyIndexbyFid(vo.getFid());
     			vo.setClassifyIndex(fclassifyIndex+1);
     			vo.setRegionCode(regionCode);
-    			mapper.baseInsert(vo);
+    			
     		 }else{
     			 
     			vo.setClassifyCode(fcode.substring(0,1)+(fclassifyIndex+1));
@@ -89,7 +103,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 //    			mapper.updateClassifyIndexbyFid(vo.getFid());
     			vo.setClassifyIndex(fclassifyIndex+1);
     			vo.setRegionCode(regionCode);
-    			mapper.baseInsert(vo);
+    			
     		 }
     		 
     		  
@@ -103,7 +117,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 //    			mapper.updateClassifyIndexbyFid(vo.getFid());
     			vo.setClassifyIndex(fclassifyIndex+1);
     			vo.setRegionCode(regionCode);
-    			mapper.baseInsert(vo);
+    			
     		 }else if(fclassifyIndex < 99 && fclassifyIndex >= 9 ){
     			 
     			 vo.setClassifyCode(fcode+0+(fclassifyIndex+1));
@@ -112,7 +126,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 //    			 mapper.updateClassifyIndexbyFid(vo.getFid());
     			 vo.setClassifyIndex(fclassifyIndex+1);
     			 vo.setRegionCode(regionCode);
-    			 mapper.baseInsert(vo);
+    			 
     		 }
     		 else{
     			 
@@ -123,7 +137,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 //    			mapper.updateClassifyIndexbyFid(vo.getFid());
     			vo.setClassifyIndex(fclassifyIndex+1);
     			vo.setRegionCode(regionCode);
-    			mapper.baseInsert(vo);    			
+    			   			
     		 }
     		
     	}
@@ -136,10 +150,11 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     		vo.setTreeCode(""+(mapper.selectCountLevel1()+1));
     		vo.setClassifyIndex((int)mapper.selectMaxIndexByFcode("root")+1);
     		vo.setRegionCode(regionCode);
-    		mapper.baseInsert(vo);
+    		
     	}
     	
-		return true;
+		return vo;
+    	
     }
 
     @Override
@@ -206,6 +221,71 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 //      	 }      		
 //      	return listfdir;
 //      }
+    
+    //批量插入
+    @Override
+    public void insertbatchNational(DirClassifyVo vo){
+    	
+    	String fid = vo.getFid();   
+    	String type = vo.getClassifyType();
+    	List<DirNationalClassifyVo>  listClassifies = mapper2.selectSonClassify(vo.getNationalCode());
+    	for (Iterator iterator = listClassifies.iterator(); iterator.hasNext();) {
+    		
+			DirNationalClassifyVo dirNationalClassifyVo = (DirNationalClassifyVo) iterator.next();
+			getSClassifies(dirNationalClassifyVo.getClassifyCode(),fid,type);
+			
+		}
+    
+    }
+    
+    
+    
+    
+     public void getSClassifies(String fcode, String fid,String type){
+    	
+//	  		List<String> listsClassifies = Lists.newArrayList();
+//	  	  		
+//		  	listsClassifies.add(fcode);
+	   
+	  		DirNationalClassifyVo dirNationalClassifyVo = mapper2.selectFclassify(fcode);
+	  		DirClassifyVo dirclassifyVo = new DirClassifyVo();
+	  		
+	  		dirclassifyVo.setClassifyName(dirNationalClassifyVo.getClassifyName());
+	  		dirclassifyVo.setFid(fid);
+	  		
+	  		DirClassifyVo vo = prepareClassifyVo(dirclassifyVo);
+		  		if(type.equals("2-1")){
+		  			vo.setClassifyType("5");
+		  		}else if(type.equals("2-2")){
+		  			vo.setClassifyType("6");	
+		  		}else if(type.equals("3")){
+		  			vo.setClassifyType("7");
+		  		}
+	  		
+	  		
+	  		mapper.baseInsert(vo);
+
+	  		String pid = vo.getId();
+	  		
+	  		if(mapper2.selectSonClassify(fcode)!=null){
+      		 
+	      		 List<DirNationalClassifyVo> list = mapper2.selectSonClassify(fcode); 
+	      		 
+	      		 for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+	      			 
+					DirNationalClassifyVo dirNationalClassifyVo2 = (DirNationalClassifyVo) iterator.next();
+					getSClassifies(dirNationalClassifyVo2.getClassifyCode(),pid,type);
+				 
+	      		 }    		 
+	      		 
+//	      		 for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+//	      			 
+//				 	String string = (String) iterator.next();
+//				 	listsClassifies.addAll(getSClassifies(string,pid));
+//				 	
+//				}      		      		 
+      	 }    	
+       }
 
 
     @Override

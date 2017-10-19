@@ -28,6 +28,8 @@ public interface DirNationalClassifyMapper extends BaseMapper<DirNationalClassif
 
     List<DirNationalClassifyVo> selectVoListForTreeData(Map<String, Object> paramMap);
 
+    List<DirNationalClassifyVo> selectSonClassify(String fcode);
+    
     DirNationalClassifyVo selectVoById(String classifyCode);
     
 //    String selectClassifyCodebyFid(String fid);
@@ -44,9 +46,11 @@ public interface DirNationalClassifyMapper extends BaseMapper<DirNationalClassif
     
     int selectCountLevel1();
     
-    DirClassify selectFclassify(String fid);
+    DirNationalClassifyVo selectFclassify(String fid);
     
     Object selectMaxIndexByFcode(String fid);
+    
+    
     
 //    String selectClassifyStructureNamebyFid(String fid);
     
