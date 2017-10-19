@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="box-body table-responsive no-padding">
+                        <div class="box-body table-responsive ">
                             <!-- 表格 -->
                             <table class="table-striped" id="usersuggestTable" lay-even="" lay-skin="row">
                             </table>

@@ -27,8 +27,67 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">
+                        	
+                        
+                        		<aside class="main-sidebar sidebar-myself" id="min-aside">
+
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel">
+     	<b id="dir-Manger">目录分类</b>
+      <div class="pull-right image">
+      <a href="#" class="sidebar-toggle" role="button"  style="right: -14px;">
+     
+	  <i class="fa fa-backward pull-right" id="backward"></i>
+	  <i class="fa fa-forward pull-right" id="forward"></i>
+	</a>
+      		<!-- <span class="pull-right-container">
+                <i class="fa fa-backward pull-right" id="forward"></i>
+              </span> -->
+      </div>
+     
+    </div>
+
+    <!-- search form (Optional) -->
+    <!-- <form action="#" method="get" class="sidebar-form">
+      <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Search...">
+        <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+              </button>
+            </span>
+      </div>
+    </form> -->
+    <!-- /.search form -->
+
+    <!-- Sidebar Menu -->
+    <ul class="sidebar-menu" data-widget="tree" id="min-ul">
+     
+      <!-- Optionally, you can add icons to the links -->
+      <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
+      <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+        <ul class="treeview-menu">
+          <li><a href="#">Link in level 2</a></li>
+          <li><a href="#">Link in level 2</a></li>
+        </ul>
+      </li>
+    </ul>
+    <!-- /.sidebar-menu -->
+  </section>
+  <!-- /.sidebar -->
+</aside>
+                        
+                        
                             <form class="form-inline" method="post">
-                                <div class="box-header">
+                                <div class="box-header box-header-myself">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
                                                 data-toggle="dropdown"><img src="<%=basePath%>/images/userImg/addimg.png"/>
@@ -85,29 +144,37 @@
                                             <!-- <i class="fa fa-plus"></i> -->删除
                                         </button>
                                     </div>
-                                    <div class="input-group" style="float:right">
-                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
-                                                <i class="fa fa-search"></i> 查询
-                                            </button>
-                                        </div>
-                                        </input>
+                                    <div class="pull-right">
+	                                    <div class="input-group" style="margin-right:4px;min-width:240px">
+	                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
+	                                        <input type="hidden" id="searchClassifyId">
+	                                        <div class="menu-wrap">
+	                                            <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
+	                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="input-group">
+	                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
+	                                        <div class="input-group-btn">
+	                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
+	                                                <i class="fa fa-search"></i> 查询
+	                                            </button>
+	                                        </div>
+	                                        </input>
+	                                    </div>
                                     </div>
+                                    
 
-                                    <div class="input-group" style="float:right;margin-right:4px;min-width:240px">
-                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
-                                        <input type="hidden" id="searchClassifyId">
-                                        <div class="menu-wrap">
-                                            <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
-                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     
                                 </div>
                             </form>
-                            <div class="box-body table-responsive no-padding">
+		
+
+                            
+                           <!-- 00000 -->
+                            <div class="box-body table-responsive table-myself">
                                 <!-- 表格 -->
                                 <table id="catalogueTable" class="table table-hover"></table>
                                 <!-- 表格 end-->
@@ -123,4 +190,46 @@
     </div>
 
 </body>
+<script>
+/* 目录编目收缩小侧边栏,用的adminlte */
+	$(function(){
+		$("#forward").hide();
+		$("#dir-Manger").parent("div.user-panel").css("text-align","center")
+		$("#backward").click(function(){
+			$("#min-aside").animate({
+				width:"40px",
+			},200);
+			$("#dir-Manger").hide();
+			$("#forward").show(400);
+			$("#backward").hide(500);
+			$("#min-ul").hide(500);
+			$("#min-aside").css("border","none")
+			 $("div.box div.table-myself").animate({
+				paddingLeft: "50px"
+			})
+			$('.box-header').animate({
+				paddingLeft: "60px"
+			})
+			$(".user-panel").css("background","#f4f6f9");
+		})
+		$("#forward").click(function(){
+			$("#min-aside").animate({
+				width:"230px",
+			},200);
+			$("#dir-Manger").show();
+			$("#forward").hide(400);
+			$("#backward").show(500);
+			$("#min-ul").show(500);
+			$("#min-aside").css("border","1px solid #ccc");
+			$(".box-body").animate({
+				paddingLeft: "240px"
+			})
+			$('.box-header').animate({
+				paddingLeft: "270px"
+			})
+			$(".user-panel").css("background","none");
+		})
+	})
+
+</script>
 </html>

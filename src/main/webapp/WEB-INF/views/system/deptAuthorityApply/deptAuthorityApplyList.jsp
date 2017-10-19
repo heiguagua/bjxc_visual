@@ -47,7 +47,7 @@
                             </div><!-- /.box-header -->
                         </div>
 
-                        <div class="box-body table-responsive no-padding">
+                        <div class="box-body table-responsive ">
                             <table id="deptAuthorityApplyTableId" class="table table-hover">
 
                             </table>
