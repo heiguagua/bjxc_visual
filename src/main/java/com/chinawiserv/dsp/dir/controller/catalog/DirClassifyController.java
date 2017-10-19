@@ -102,8 +102,9 @@ public class DirClassifyController extends BaseController {
 	 * 新增目录分类表
 	 */
 	@RequestMapping("/addNational")
-	public String addNational(@RequestParam String fid, Model model) {		 
+	public String addNational(@RequestParam String fid, @RequestParam String classifyType, Model model) {		 
 		model.addAttribute("fid",fid);
+		model.addAttribute("classifyType",classifyType);
 		return "catalog/classify/classifyAddNational";
 	}
 
@@ -133,6 +134,31 @@ public class DirClassifyController extends BaseController {
 			}
 			
 			
+		} catch (Exception e) {
+			handleResult.error("创建目录分类表失败");
+			logger.error("创建目录分类表失败", e);
+		}
+		return handleResult;
+	}
+	
+	/**
+	 * 执行国家库导入
+	 */
+//	@RequiresPermissions("XXX:XXX:add")
+	@Log("创建目录分类表")
+	@RequestMapping("/doAddNational")
+	@ResponseBody
+	public HandleResult doAddNational(DirClassifyVo entity) {
+		HandleResult handleResult = new HandleResult();
+		
+		try {
+			if(!entity.getFid().equals("root")){
+				service.insertbatchNational(entity);				
+				handleResult.success("导入国家库成功");
+			}else{
+				handleResult.error("导入失败");
+			}
+						
 		} catch (Exception e) {
 			handleResult.error("创建目录分类表失败");
 			logger.error("创建目录分类表失败", e);
