@@ -17,6 +17,10 @@ import java.util.Map;
  */
 public interface IDirClassifyService extends ICommonService<DirClassify, DirClassifyVo> {
 
+	
+	DirClassifyVo prepareClassifyVo(DirClassifyVo vo);
+	
+	void insertbatchNational(DirClassifyVo vo);
 
 	List<DirClassifyVo> selectVoList(Map<String,Object> paramMap) throws Exception;
 

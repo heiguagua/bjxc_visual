@@ -187,6 +187,27 @@ function addDir(title, url, fid, width, height, isRestful) {
     createWindow(options);
 }
 
+
+function addDirNational(title, url, fid, classifyType, width, height, isRestful) {
+
+    if (fid) {
+        if(isRestful!='undefined'&&isRestful){
+            url += '/'+fid+classifyType;
+        }else{
+            if (url.indexOf("?") == -1 ) {
+                url += '?fid='+fid+'&classifyType='+classifyType;
+            } else {
+                url += '&fid='+fid+'&classifyType='+classifyType;
+                
+            }
+        }
+    }
+
+    var options = _getDefaultWinOptionsForUpdateapiList(title , url , width, height) ;
+
+    createWindow(options);
+}
+
 //updateapi customization
 function updateApi(title, url, id, width, height, isRestful) {
 
@@ -762,6 +783,7 @@ function _submitFormForApi(index, layero , options){
 
            //runBeforeSubmit: 提交之前，可重写此方法以获取额外参数设置与数据校验
            if ($.isFunction(iframeWin.runBeforeSubmit)) {
+//        	   $("#loading").html("<img src='/img/index/loading.gif' />"); 
                if (!iframeWin.runBeforeSubmit(form)) {
                    return ;
                }
@@ -785,7 +807,7 @@ function _submitFormForApi(index, layero , options){
                     * @type {{response: *, options: *}}
                     */
                    var data = {response : response , options : options , parentIframeWin : parentIframeWin};
-
+//                 $("#loading").empty(); 
                    if (response.state) {
                        if ($.isFunction(iframeWin.runAfterSubmitSuccess)) {
                            iframeWin.runAfterSubmitSuccess(data);

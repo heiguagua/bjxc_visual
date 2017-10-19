@@ -92,7 +92,7 @@
 
 								</div>
 							</form>
-							<div class="box-body table-responsive no-padding">
+							<div class="box-body table-responsive">
 								<!-- 表格 -->
 								<table class="layui-table" id="catalogueTable" lay-even=""
 									lay-skin="row"></table>
