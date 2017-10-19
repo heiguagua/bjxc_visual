@@ -21,6 +21,11 @@
             background: #FFF;
             width: 100%;
         }
+        .n-top, .n-right, .n-bottom, .n-left{
+	     position: absolute;
+    bottom: 0;
+    left: 0 
+}
     </style>
 </head>
 <section class="content">

@@ -39,9 +39,15 @@
         </where>
     </sql>
     
-   <select id="selectFclassify" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+   <select id="selectFclassify" resultType="com.chinawiserv.dsp.dir.entity.vo.catalog.DirNationalClassifyVo">
     	
-    	select * from dir_classify where id = #{fid}
+    	select * from dir_national_classify where classify_code = #{fcode}
+    	
+    </select>
+    
+    <select id="selectSonClassify" resultType="com.chinawiserv.dsp.dir.entity.vo.catalog.DirNationalClassifyVo">
+    	
+    	select * from dir_national_classify where fcode = #{fcode}
     	
     </select>
     
