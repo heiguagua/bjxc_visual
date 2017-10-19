@@ -144,25 +144,29 @@
                                             <!-- <i class="fa fa-plus"></i> -->删除
                                         </button>
                                     </div>
-                                    <div class="input-group" style="float:right">
-                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
-                                                <i class="fa fa-search"></i> 查询
-                                            </button>
-                                        </div>
-                                        </input>
+                                    <div class="pull-right">
+	                                    <div class="input-group" style="margin-right:4px;min-width:240px">
+	                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
+	                                        <input type="hidden" id="searchClassifyId">
+	                                        <div class="menu-wrap">
+	                                            <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
+	                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="input-group">
+	                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
+	                                        <div class="input-group-btn">
+	                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
+	                                                <i class="fa fa-search"></i> 查询
+	                                            </button>
+	                                        </div>
+	                                        </input>
+	                                    </div>
                                     </div>
+                                    
 
-                                    <div class="input-group" style="float:right;margin-right:4px;min-width:240px">
-                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
-                                        <input type="hidden" id="searchClassifyId">
-                                        <div class="menu-wrap">
-                                            <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
-                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     
                                 </div>
                             </form>
