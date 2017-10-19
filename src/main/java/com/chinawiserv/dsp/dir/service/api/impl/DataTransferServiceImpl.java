@@ -14,7 +14,6 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -193,6 +192,8 @@ public class DataTransferServiceImpl implements IDataTransferService {
         } catch (JsonSyntaxException e) {
             message = ReportStatus.REPORT_EXCEPTION.getDesc();
             e.printStackTrace();
+            result.put("msg",message);
+            return result;
         }
 
         /**
@@ -408,22 +409,27 @@ public class DataTransferServiceImpl implements IDataTransferService {
                     }
                 }
             }
+            message = ReportStatus.REPORT_SUCCESS.getDesc();
         } catch (Exception e) {
+            /**
+             * 异常后回滚
+             * */
             platformTransactionManager.rollback(status);
+            countInsert = 0;
+            countUpdate = 0;
             message = ReportStatus.REPORT_FAIL.getDesc();
             logger.error(e.getMessage());
         } finally {
             platformTransactionManager.commit(status);
-            message = ReportStatus.REPORT_SUCCESS.getDesc();
-            /**
-             * 插入条数
-             * */
-            result.put("insert",countInsert);
-            /**
-             * 更新条数
-             * */
-            result.put("update",countUpdate);
         }
+        /**
+         * 插入条数
+         * */
+        result.put("insert",countInsert);
+        /**
+         * 更新条数
+         * */
+        result.put("update",countUpdate);
         result.put("msg",message);
         return result;
     }
