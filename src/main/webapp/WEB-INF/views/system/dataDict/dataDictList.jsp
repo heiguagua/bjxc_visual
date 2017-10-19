@@ -68,7 +68,7 @@
                             </div><!-- /.box-header -->
                         </div>
 
-                        <div class="box-body table-responsive no-padding" id="tableList">
+                        <div class="box-body table-responsive" id="tableList">
                             <table id="systemDataDictTableId" class="table table-hover">
 
                             </table>

@@ -87,7 +87,7 @@
                         
                         
                             <form class="form-inline" method="post">
-                                <div class="box-header">
+                                <div class="box-header box-header-myself">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
                                                 data-toggle="dropdown"><img src="<%=basePath%>/images/userImg/addimg.png"/>
@@ -170,7 +170,7 @@
 
                             
                            <!-- 00000 -->
-                            <div class="box-body table-responsive ">
+                            <div class="box-body table-responsive table-myself">
                                 <!-- 表格 -->
                                 <table id="catalogueTable" class="table table-hover"></table>
                                 <!-- 表格 end-->
@@ -200,7 +200,7 @@
 			$("#backward").hide(500);
 			$("#min-ul").hide(500);
 			$("#min-aside").css("border","none")
-			$(".box-body").animate({
+			 $("div.box div.table-myself").animate({
 				paddingLeft: "50px"
 			})
 			$('.box-header').animate({
