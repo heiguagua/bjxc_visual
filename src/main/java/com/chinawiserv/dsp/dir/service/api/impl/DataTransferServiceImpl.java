@@ -6,12 +6,14 @@ import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 import com.chinawiserv.dsp.dir.entity.po.service.DirServiceInfo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DataTransferVo;
+import com.chinawiserv.dsp.dir.enums.catalog.ReportStatus;
 import com.chinawiserv.dsp.dir.mapper.api.DirServiceInfoMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.*;
 import com.chinawiserv.dsp.dir.service.api.IDataTransferService;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -175,6 +177,7 @@ public class DataTransferServiceImpl implements IDataTransferService {
 
     @Override
     public Map<String, Object> analysisReportData(String dataSource) {
+        String message = null;
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         TransactionStatus status = platformTransactionManager.getTransaction(def);
         Map result = Maps.newHashMap();
@@ -183,15 +186,14 @@ public class DataTransferServiceImpl implements IDataTransferService {
         /**
          * 解析上报数据
          * */
-        JSONObject dataSourceJson = null;
-        try {
-            dataSourceJson = JSONObject.fromObject(dataSource);
-        }catch (Exception e){
-            logger.error("数据为空或者格式错误！");
-            return result;
-        }
         Gson gson = new Gson();
-        DataTransferVo dataTransferVo = gson.fromJson(dataSourceJson.toString(), DataTransferVo.class);
+        DataTransferVo dataTransferVo = null;
+        try {
+            dataTransferVo = gson.fromJson(dataSource, DataTransferVo.class);
+        } catch (JsonSyntaxException e) {
+            message = ReportStatus.REPORT_EXCEPTION.getDesc();
+            e.printStackTrace();
+        }
 
         /**
          * 获取DCM关系表实体
@@ -408,9 +410,11 @@ public class DataTransferServiceImpl implements IDataTransferService {
             }
         } catch (Exception e) {
             platformTransactionManager.rollback(status);
+            message = ReportStatus.REPORT_FAIL.getDesc();
             logger.error(e.getMessage());
         } finally {
             platformTransactionManager.commit(status);
+            message = ReportStatus.REPORT_SUCCESS.getDesc();
             /**
              * 插入条数
              * */
@@ -420,6 +424,7 @@ public class DataTransferServiceImpl implements IDataTransferService {
              * */
             result.put("update",countUpdate);
         }
+        result.put("msg",message);
         return result;
     }
 }

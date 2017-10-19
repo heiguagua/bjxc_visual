@@ -3,6 +3,8 @@ package com.chinawiserv.dsp.dir.controller.api;
 import com.chinawiserv.dsp.base.common.util.HttpUtil;
 import com.chinawiserv.dsp.base.common.util.Props;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.dir.enums.catalog.ReportStatus;
 import com.chinawiserv.dsp.dir.service.api.IDataTransferService;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
@@ -38,8 +40,8 @@ public class DataTransferController extends BaseController {
      */
     @RequestMapping("getReportDataByDataset")
     @ResponseBody
-    public Map<String, Object> getReportDataByDataset(@RequestParam Map<String, Object> paramMap) {
-        Map result = Maps.newHashMap();
+    public HandleResult getReportDataByDataset(@RequestParam Map<String, Object> paramMap) {
+        HandleResult result = new HandleResult();
         /**
          * 获取上报地址
          * */
@@ -53,8 +55,6 @@ public class DataTransferController extends BaseController {
         Gson gson = new Gson();
         String dataTransferResultJsonStr = gson.toJson(dataTransferResult);
 
-        System.out.println(dataTransferResultJsonStr.length());
-
         String resultJsonStr = null;
         try {
             resultJsonStr = HttpUtil.sendPostJson(address,dataTransferResultJsonStr);
@@ -66,9 +66,16 @@ public class DataTransferController extends BaseController {
             JSONObject resultJson = JSONObject.fromObject(resultJsonStr);
             Integer insertCount = (Integer)resultJson.get("insert");
             Integer updateCount = (Integer)resultJson.get("update");
+            String msg = (String)resultJson.get("msg");
             result.put("insertCount",insertCount);
             result.put("updateCount",updateCount);
-
+            if(ReportStatus.REPORT_SUCCESS.getDesc().equalsIgnoreCase(msg)){
+                result.success(msg);//上报成功
+                result.setState(true);
+            }else{
+                result.error(msg);//上报失败
+                result.setState(false);
+            }
         }
         return result;
     }
