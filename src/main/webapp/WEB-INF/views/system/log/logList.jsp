@@ -16,7 +16,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    <small>返回上一级/系统管理 > 日志查询</small>
+                    <small>系统管理 > 日志查询</small>
                 </h1>
             </section>
             <!-- Main content -->
