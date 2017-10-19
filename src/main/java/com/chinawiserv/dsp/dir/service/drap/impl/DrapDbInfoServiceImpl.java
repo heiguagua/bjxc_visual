@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.dir.service.drap.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,10 +9,13 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbSystemMap;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDictTableColumn;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDictTableInfo;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbInfoVo;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbTableColumnVo;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbTableInfoVo;
@@ -218,10 +222,31 @@ public class DrapDbInfoServiceImpl extends
 
 		}
 
-		// if (null!=map.get("dicTable")) {
-		// List<DrapDictTableInfoVo> list=(List<DrapDictTableInfoVo>)
-		// map.get("dicTable");
-		// }
+		 if (null!=map.get("dicTable")) {
+		     
+		    
+		     
+		 List<DrapDictTableInfoVo> list=(List<DrapDictTableInfoVo>)map.get("dicTable");
+		 
+		 //删除之前的
+		 List<String>ids=new ArrayList<>();
+
+		 List<DrapDictTableInfo> oldDictTableInfos=dictTableInfoMapper.selectList(new EntityWrapper<DrapDictTableInfo>().eq("db_id",  list.get(0).getDbId()));
+		 for (DrapDictTableInfo drapDictTableInfo : oldDictTableInfos) {
+		     ids.add(drapDictTableInfo.getId());
+        }
+		 
+		 dictTableColumnMapper.delete(new EntityWrapper<DrapDictTableColumn>().in("table_id", ids));
+         dictTableInfoMapper.delete(new EntityWrapper<DrapDictTableInfo>().eq("db_id", list.get(0).getDbId()) );
+         
+		 for (DrapDictTableInfoVo drapDictTableInfoVo : list) {
+            dictTableInfoMapper.insert(drapDictTableInfoVo);
+            for (DrapDictTableColumnVo dictTableColumnVo : drapDictTableInfoVo.getColumnVos()) {
+                dictTableColumnMapper.insert(dictTableColumnVo);
+            }
+        }
+		 
+		 }
 
 	}
 

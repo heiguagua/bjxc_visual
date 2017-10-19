@@ -13,7 +13,7 @@ import java.util.List;
  * Time:15:47
  * Chinawiserv Technologies Co., Ltd.
  */
-public interface DcmTableInfoMapper {
+public interface DcmPoolNosqlMapper {
 
     int insertBatch(List parameter);
     int updateBatch(List parameter);

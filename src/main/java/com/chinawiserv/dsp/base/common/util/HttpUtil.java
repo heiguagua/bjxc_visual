@@ -1,6 +1,14 @@
 package com.chinawiserv.dsp.base.common.util;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chinawiserv.dsp.base.common.config.Config;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.*;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
@@ -436,4 +445,27 @@ public class HttpUtil {
         }
         return result;
     }
+
+    /**
+	 * 向指定 URL 发送POST方法的请求JSON数据
+	 * */
+    public static String sendPostJson(String url,String Json){
+    	HttpPost httpPost = new HttpPost(url);
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		httpPost.addHeader(HTTP.CONTENT_TYPE, "application/json; charset=UTF-8");
+		httpPost.setHeader("Accept","application/json");
+		try {
+			StringEntity se = new StringEntity(Json, Charset.forName("UTF-8"));
+			httpPost.setEntity(se);
+			HttpResponse response=httpClient.execute(httpPost);
+
+			if(response != null && response.getStatusLine().getStatusCode() == 200) {
+				String result= EntityUtils.toString(response.getEntity());
+				return result;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
