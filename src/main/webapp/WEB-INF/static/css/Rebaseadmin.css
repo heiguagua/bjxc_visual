@@ -222,8 +222,6 @@ section .sidebar{
 
 
 
-
-
 /*登录验证的样式*/
 div.mg_right{
 	float:right;
@@ -259,4 +257,15 @@ input.input_test{
 	    padding-top:0px !important;
 }
 
+/* 目录编目 目录分类 自定义样式 保留左边样式 去掉offcanvs带来的效果 */
+.main-sidebar—Du{
+	position:absolute;
+	left:0;
+	top:0;
+	padding-top: 70px;
+	width: 230px;
+	height:100%;
+    z-index: 810;
+    xtransition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
 
+}

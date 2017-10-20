@@ -29,7 +29,7 @@
                         <div class="box">
 
 
-                            <aside class="main-sidebar sidebar-myself" id="min-aside">
+                            <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
                                 <section class="sidebar">
                                     <div class="user-panel">
                                         <b id="dir-Manger">目录分类</b>
@@ -168,7 +168,7 @@
 			$("#dir-Manger").hide();
 			$("#forward").show(400);
 			$("#backward").hide(500);
-			$("#min-ul").hide(500);
+			$("#treeDemo").hide(200);
 			$("#min-aside").css("border","none")
 			 $("div.box div.table-myself").animate({
 				paddingLeft: "50px"
@@ -185,7 +185,7 @@
 			$("#dir-Manger").show();
 			$("#forward").hide(400);
 			$("#backward").show(500);
-			$("#min-ul").show(500);
+			$("#treeDemo").show(200);
 			$("#min-aside").css("border","1px solid #ccc");
 			$(".box-body").animate({
 				paddingLeft: "240px"
