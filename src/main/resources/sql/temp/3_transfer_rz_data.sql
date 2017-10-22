@@ -32,35 +32,146 @@
 	--	 alter table dir_classify add column old_code varchar(64);
 	--	 alter table dir_classify add column old_fcode varchar(64);
 	-- 目录类型表
-	/*
-	delete from dir_classify;
-	insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number, -- classify_structure_code,classify_structure_name,
-	status)
-		select uuid,'510100','',dir_name,description, -- fcode,
-			(select a.uuid from rz_dir.dir_lists a where a.dir_code = t.fcode) as old_fid,
-			fname,dir_level,0,0,dir_order,
-			-- (select a.dir_struct_codes from rz_dir.dir_lists_datasetmap a where a.dir_code = t.dir_code and a.dir_struct_codes is not null limit 0,1) as old_dir_struct_codes
-			-- (select a.dir_structure from rz_dir.dir_lists_datasetmap a where a.dir_code = t.dir_code and a.dir_structure is not null limit 0,1) as old_dir_structure
-			status
-		from rz_dir.dir_lists t ;
--- 重置顶级目录分类的值
-	update dir_classify set classify_code='1',fid='root',order_number='1' where classify_name = '政务基础信息资源目录';
-	update dir_classify set classify_code='2',fid='root',order_number='2' where classify_name = '政务主题信息资源目录';
+--
+-- 	delete from dir_classify;
+-- 	insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number, -- classify_structure_code,classify_structure_name,
+-- 	status)
+-- 		select uuid,'510100','',dir_name,description, -- fcode,
+-- 			(select a.uuid from rz_dir.dir_lists a where a.dir_code = t.fcode) as old_fid,
+-- 			fname,dir_level,0,0,dir_order,
+-- 			-- (select a.dir_struct_codes from rz_dir.dir_lists_datasetmap a where a.dir_code = t.dir_code and a.dir_struct_codes is not null limit 0,1) as old_dir_struct_codes
+-- 			-- (select a.dir_structure from rz_dir.dir_lists_datasetmap a where a.dir_code = t.dir_code and a.dir_structure is not null limit 0,1) as old_dir_structure
+-- 			status
+-- 		from rz_dir.dir_lists t ;
+-- -- 重置顶级目录分类的值
+-- -- 	update dir_classify set classify_code='1',fid='root',order_number='1' where classify_name = '政务基础信息资源目录';
+-- -- 	update dir_classify set classify_code='2',fid='root',order_number='2' where classify_name = '政务主题信息资源目录';
+--
+-- -- INSERT INTO dir_classify (id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,icon,classify_structure_code,classify_structure_name,status,tree_code)
+-- -- 	VALUES ('3','510100','3','政务部门信息资源目录','','root','root',1,1,0,3,NULL,'','政务部门信息资源目录','Y','3');
+-- -- INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+-- -- 	VALUES ('301', '510100', '301', '省（自治区、直辖市）和计划单列市', '', '3', '政务部门信息资源目录', 1, 1, 0, NULL, NULL, '', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市', 'Y', '3;301');
+-- -- INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+-- -- 	VALUES ('30101', '510100', '30101', '四川省成都市', '', '301', '省（自治区、直辖市）和计划单列市', 1, 1, 0, NULL, NULL, '3', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市', 'Y', '3;301;30101');
+--
+-- INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
+--   select id,region_code,dept_code,dept_name,'','30101','四川省成都市','4',0,0,order_number,icon,'','','Y',''
+--  from sys_dept where fid in (select id from sys_dept where fid = 'root');
+--
+-- insert into dir_classify_dept_map (id,classify_id,dept_id)
+-- 	select REPLACE(uuid(),'-',''),id,id from sys_dept where fid in (select id from sys_dept where fid = 'root');
+--
 
-INSERT INTO dir_classify (id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,icon,classify_structure_code,classify_structure_name,status,tree_code)
-	VALUES ('3','510100','3','政务部门信息资源目录','','root','root',1,1,0,3,NULL,'','政务部门信息资源目录','Y','3');
-INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
-	VALUES ('301', '510100', '301', '省（自治区、直辖市）和计划单列市', '', '3', '政务部门信息资源目录', 1, 1, 0, NULL, NULL, '', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市', 'Y', '3;301');
-INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
-	VALUES ('30101', '510100', '30101', '四川省成都市', '', '301', '省（自治区、直辖市）和计划单列市', 1, 1, 0, NULL, NULL, '3', '政务部门信息资源目录->省（自治区、直辖市）和计划单列市->四川省成都市', 'Y', '3;301;30101');
+-- 最新导入目录分类的sql 20171021
+-- 政务基础信息资源目录
+-- 1级 基础库
+-- insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,status,classify_type)
+-- 	select uuid,'510100','',dir_name,description,
+-- 			(select id from dir_classify dc where dc.region_code='510100' and dc.classify_name='政务基础信息资源目录') as old_fid,fname,
+-- 			(select classify_level from dir_classify where region_code='510100' and classify_type = '2-1' ) + 1 as classify_level,
+-- 			0,0,dir_order,status,'5'
+-- 		from rz_dir.dir_lists t where t.fname='政务基础信息资源目录' order by t.dir_level,t.dir_order;
+-- 2级 基础库
+insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,status,classify_type)
+	select uuid,'510100','',dir_name,description,
+			(select a.uuid from rz_dir.dir_lists a where a.dir_code = t.fcode) as old_fid,fname,
+			(select classify_level from dir_classify where region_code='510100' and classify_type = '2-1' ) + 2 as classify_level,
+			0,0,dir_order,status,'5'
+		from rz_dir.dir_lists t where t.fcode in
+			(select dir_code from rz_dir.dir_lists where fname ='政务基础信息资源目录') order by t.dir_level,t.dir_order;
+-- 3级 基础库
+insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,status,classify_type)
+	select uuid,'510100','',dir_name,description,
+			(select a.uuid from rz_dir.dir_lists a where a.dir_code = t.fcode) as old_fid,fname,
+			(select classify_level from dir_classify where region_code='510100' and classify_type = '2-1' ) + 3 as classify_level,
+			0,0,dir_order,status,'5'
+		from rz_dir.dir_lists t where t.fcode in
+			(select dir_code from rz_dir.dir_lists where fcode in
+				(select dir_code from rz_dir.dir_lists where fname ='政务基础信息资源目录')) order by t.dir_level,t.dir_order;
+-- 4级 基础库
+insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,status,classify_type)
+	select uuid,'510100','',dir_name,description,
+			(select a.uuid from rz_dir.dir_lists a where a.dir_code = t.fcode) as old_fid,fname,
+			(select classify_level from dir_classify where region_code='510100' and classify_type = '2-1' ) + 4 as classify_level,
+			0,0,dir_order,status,'5'
+		from rz_dir.dir_lists t where t.fcode in
+			(select dir_code from rz_dir.dir_lists where fcode in
+				(select dir_code from rz_dir.dir_lists where fcode in
+					(select dir_code from rz_dir.dir_lists where fname ='政务基础信息资源目录'))) order by t.dir_level,t.dir_order;
+-- 5级 基础库（无）
 
-INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, tree_code)
-  select id,region_code,dept_code,dept_name,'','30101','四川省成都市','4',0,0,order_number,icon,'','','Y',''
- from sys_dept where fid in (select id from sys_dept where fid = 'root');
+-- 	政务主题信息资源目录
+-- 1级 主题库
+-- insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,status,classify_type)
+-- 	select uuid,'510100','',dir_name,description,
+-- 			(select id from dir_classify dc where dc.region_code='510100' and dc.classify_name='政务主题信息资源目录') as old_fid,fname,
+-- 			(select classify_level from dir_classify where region_code='510100' and classify_type = '2-2' ) + 1 as classify_level,
+-- 			0,0,dir_order,status,'6'
+-- 		from rz_dir.dir_lists t where t.fname='政务主题信息资源目录' order by t.dir_level,t.dir_order;
+-- 2级 主题库
+insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,status,classify_type)
+	select uuid,'510100','',dir_name,description,
+			(select a.uuid from rz_dir.dir_lists a where a.dir_code = t.fcode) as old_fid,fname,
+			(select classify_level from dir_classify where region_code='510100' and classify_type = '2-2' ) + 2 as classify_level,
+			0,0,dir_order,status,'6'
+		from rz_dir.dir_lists t where t.fcode in
+			(select dir_code from rz_dir.dir_lists where fname ='政务主题信息资源目录') order by t.dir_level,t.dir_order;
+-- 3级 主题库
+insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,status,classify_type)
+	select uuid,'510100','',dir_name,description,
+			(select a.uuid from rz_dir.dir_lists a where a.dir_code = t.fcode) as old_fid,fname,
+			(select classify_level from dir_classify where region_code='510100' and classify_type = '2-2' ) + 3 as classify_level,
+			0,0,dir_order,status,'6'
+		from rz_dir.dir_lists t where t.fcode in
+			(select dir_code from rz_dir.dir_lists where fcode in
+				(select dir_code from rz_dir.dir_lists where fname ='政务主题信息资源目录')) order by t.dir_level,t.dir_order;
+-- 4级 主题库
+insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,status,classify_type)
+	select uuid,'510100','',dir_name,description,
+			(select a.uuid from rz_dir.dir_lists a where a.dir_code = t.fcode) as old_fid,fname,
+			(select classify_level from dir_classify where region_code='510100' and classify_type = '2-2' ) + 4 as classify_level,
+			0,0,dir_order,status,'6'
+		from rz_dir.dir_lists t where t.fcode in
+			(select dir_code from rz_dir.dir_lists where fcode in
+				(select dir_code from rz_dir.dir_lists where fcode in
+					(select dir_code from rz_dir.dir_lists where fname ='政务主题信息资源目录'))) order by t.dir_level,t.dir_order;
 
-insert into dir_classify_dept_map (id,classify_id,dept_id)
-	select REPLACE(uuid(),'-',''),id,id from sys_dept where fid in (select id from sys_dept where fid = 'root');
-*/
+-- 5级 主题库
+insert into dir_classify(id,region_code,classify_code,classify_name,classify_desc,fid,fname,classify_level,classify_index,dcm_index,order_number,status,classify_type)
+	select uuid,'510100','',dir_name,description,
+			(select a.uuid from rz_dir.dir_lists a where a.dir_code = t.fcode) as old_fid,fname,
+			(select classify_level from dir_classify where region_code='510100' and classify_type = '2-2' ) + 5 as classify_level,
+			0,0,dir_order,status,'6'
+		from rz_dir.dir_lists t where t.fcode in
+			(select dir_code from rz_dir.dir_lists where fcode in
+				(select dir_code from rz_dir.dir_lists where fcode in
+					(select dir_code from rz_dir.dir_lists where fcode in
+						(select dir_code from rz_dir.dir_lists where fname ='政务主题信息资源目录')))) order by t.dir_level,t.dir_order;
+-- 6级 主题库（无）
+
+-- 政务部门信息资源目录
+-- 1级 部门库
+-- INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, classify_type)
+-- 	select id,region_code,'',dept_name,'',
+-- 			(select id from dir_classify where region_code='510100' and classify_type = '3' ) as fid,
+-- 			(select classify_name from dir_classify where region_code='510100' and classify_type = '3' ) as fname,
+-- 			(select classify_level from dir_classify where region_code='510100' and classify_type = '3' ) + 1 as classify_level,
+-- 			0,0,order_number,icon,'','','Y','7'
+-- 		from sys_dept where fid in
+-- 			(select id from sys_dept where fid = 'root') order by dept_code;
+-- 2级 部门库
+INSERT INTO dir_classify (id, region_code, classify_code, classify_name, classify_desc, fid, fname, classify_level, classify_index, dcm_index, order_number, icon, classify_structure_code, classify_structure_name, status, classify_type)
+	select id,region_code,'',dept_name,'',fid,fname,
+			(select classify_level from dir_classify where region_code='510100' and classify_type = '2-3' ) + 2 as classify_level,
+			0,0,order_number,icon,'','','Y','7'
+		from sys_dept where fid in
+			(select id from sys_dept where fid in
+				(select id from sys_dept where fid = 'root')) order by dept_code;
+-- 3级 部门库（无）
+-- 查询验证
+select id,fid,region_code,classify_code,classify_index,classify_name,classify_type,classify_level,order_number,icon,classify_structure_name,tree_code,national_code,status
+from dir_classify where region_code = '510100' and classify_type in ('5','6','7')
+ order by classify_type,classify_level,fid,order_number;
 -- 以上为基础数据，以下为业务数据，需要转的
 
 	-- 目录系统的信息资源（数据集）
