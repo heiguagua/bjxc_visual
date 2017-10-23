@@ -253,13 +253,14 @@ input.input_test{
 /* 后面单独处理目录编目 */
 
 .sidebar-myself{
-	    border: 1px solid #ccc ;
+	    border: 1px solid #ddd ;
 	    padding-top:0px !important;
 }
 
 /* 目录编目 目录分类 自定义样式 保留左边样式 去掉offcanvs带来的效果 */
 .main-sidebar—Du{
 	position:absolute;
+	overflow: auto;
 	left:0;
 	top:0;
 	padding-top: 70px;

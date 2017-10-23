@@ -11,6 +11,7 @@
 .layui-layer-dialog{
 	top:340px !important;
 }
+
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
