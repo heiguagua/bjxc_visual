@@ -24,14 +24,18 @@
                             <input type="hidden" name="sourceType" value="1">
                             <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">信息资源分类<span class="redStar">*</span>:</label>
                             <div class="col-sm-10"  style="width:87.8%">
-                                <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+                                <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+                                       placeholder="" disabled>
+                                <input type="hidden" value="${vo.id}" id="classifyId" name="classifyIds">
+
+                                <%--<input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">
                                 <div class="menu-wrap">
                                     <div id="menuContent" class="menuContent" style="display:none;">
                                         <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                         <%--<div class="col-sm-6">
