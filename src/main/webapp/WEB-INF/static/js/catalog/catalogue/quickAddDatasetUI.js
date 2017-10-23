@@ -8,8 +8,8 @@ jQuery(document).ready(function () {
 });
 function initAllSelect(){
     var regionCode = $.getSelectedRegionCode();
-    $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化信息资源分类下拉框
-    $.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联信息资源分类下拉框
+    $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
+    $.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联目录分类下拉框
     $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
     $.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
     $('#datasetName').on('blur',function(){
@@ -192,7 +192,7 @@ var Model = {
                         searchResultColor: "",
                         onNodeSelected: function (e, n) {
                             cur.cache.group.select = n;
-                            cur.loadBusiness(n.dir_code);
+                            cur.loadDataSet(n.dir_code);
                         },
                         onNodeUnselected: function (e, n) {
                             cur.cache.item.reset();
@@ -247,14 +247,15 @@ var Model = {
                 }
             });*/
         },
-        loadDataSet: function(success){
+        loadDataSet: function(dept_id){
             var cur = this;
-            if(cur.cache.bus.select){
+            //cur.cache.bus.select
+            if(dept_id){
                 $.ajax({
                     url: basePathJS+"/catalog/selectDatasetByActivityId",
                     type: "post",
                     data: {
-                        activity_id: cur.cache.bus.select.dir_code
+                        activity_id: dept_id
                     },
                     dataType: "json",
                     success: function (data) {

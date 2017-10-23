@@ -94,7 +94,7 @@ function initTable(){
             }
         },{
             field: 'classifyName',
-            title: '信息资源分类',
+            title: '目录分类',
             sortable: false,
             formatter:function(value, row, index){
                 if(value == undefined){

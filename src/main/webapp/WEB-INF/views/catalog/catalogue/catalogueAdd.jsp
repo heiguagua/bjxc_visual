@@ -22,13 +22,13 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <input type="hidden" name="sourceType" value="1">
-                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">信息资源分类<span class="redStar">*</span>:</label>
+                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">目录分类<span class="redStar">*</span>:</label>
                             <div class="col-sm-10"  style="width:87.8%">
-                                <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+                                <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="" disabled>
                                 <input type="hidden" value="${vo.id}" id="classifyId" name="classifyIds">
 
-                                <%--<input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+                                <%--<input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">
                                 <div class="menu-wrap">
@@ -39,9 +39,9 @@
                             </div>
                         </div>
                         <%--<div class="col-sm-6">
-                            <label for="classifyName" class="col-sm-3 control-label">信息资源分类 :</label>
+                            <label for="classifyName" class="col-sm-3 control-label">目录分类 :</label>
                             <div class="col-sm-9">
-                                <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+                                <input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">
                                 <div class="menu-wrap">
@@ -86,7 +86,7 @@
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源提供方<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <%--<input type="text" id="belongDeptTypeName" data-rule="信息资源分类:required;" class="form-control"
+                                <%--<input type="text" id="belongDeptTypeName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="belongDeptType" name="belongDeptType">
                                 <input type="hidden" id="belongDeptTypeCode">
