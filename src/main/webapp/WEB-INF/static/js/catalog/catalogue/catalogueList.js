@@ -241,6 +241,10 @@ function reloadTable() {
 
 function addCustom() {
     var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
     add('新增信息资源',basePathJS + '/catalog/catalogue/add'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 
@@ -253,23 +257,53 @@ function catalogueTableShow(id){
 }
 
 function quickAddDatasetUI() {
-    add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
+    add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 
 function quickSystemAddDatasetUI() {
-    add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
+    add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 function quickCsAddDatasetUI() {
-    add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
+    add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 function quickDcmAddDatasetUI() {
-    add('从关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmAddDatasetUI',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
+    add('从关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 function quickNosqlDcmAddDatasetUI() {
-    add('从非关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmNosqlAddDatasetUI',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
+    add('从非关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmNosqlAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 function excelImportUI() {
     addNews('导入',basePathJS +'/catalog/catalogue/excelImportUI',900,200);
 }
-
+function checkClassfyId(searchClassifyId){
+    if(searchClassifyId){
+        return true;
+    }
+    return false;
+}
 

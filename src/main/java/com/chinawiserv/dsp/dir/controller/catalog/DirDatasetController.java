@@ -9,6 +9,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.service.system.ISysDictService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
@@ -16,6 +17,7 @@ import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
 import com.chinawiserv.dsp.dir.schema.ExportExcelUtil;
+import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetSourceRelationService;
@@ -37,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,6 +80,9 @@ public class DirDatasetController extends BaseController {
 
     @Autowired
     private DirDatasetClassifyMapMapper dirDatasetClassifyMapMapper;
+
+    @Autowired
+    private IDirClassifyService classifyService;
 
     @RequestMapping("/catalogue/excelImportUI")
     public  String excelImportUI(){
@@ -245,8 +251,14 @@ public class DirDatasetController extends BaseController {
      */
     @RequiresPermissions("catalog:catalogue:add")
     @RequestMapping("/catalogue/add")
-    public  String add(){
-		return "catalog/catalogue/catalogueAdd";
+    public  ModelAndView add(String classifyId) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        if(!StringUtils.isEmpty(classifyId)){
+            DirClassifyVo dirClassifyVo = classifyService.selectVoById(classifyId);
+            modelAndView.addObject("vo",dirClassifyVo);
+        }
+        modelAndView.setViewName("catalog/catalogue/catalogueAdd");
+        return modelAndView;
     }
 
     /**
@@ -529,36 +541,66 @@ public class DirDatasetController extends BaseController {
      * 从资源添加数据集-快速添加页面
      */
     @RequestMapping("/catalogue/quickAddDatasetUI")
-    public  String quickAddDatasetUI(){
-        return "catalog/catalogue/quickAddDatasetUI";
+    public  ModelAndView quickAddDatasetUI(String classifyId) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        if(!StringUtils.isEmpty(classifyId)){
+            DirClassifyVo dirClassifyVo = classifyService.selectVoById(classifyId);
+            modelAndView.addObject("vo",dirClassifyVo);
+        }
+        modelAndView.setViewName("catalog/catalogue/quickAddDatasetUI");
+        return modelAndView;
     }
     /**
      * 从系统添加数据集-快速添加页面
      */
     @RequestMapping("/catalogue/quickSystemAddDatasetUI")
-    public  String quickSystemAddDatasetUI(){
-        return "catalog/catalogue/quickSystemAddDatasetUI";
+    public  ModelAndView quickSystemAddDatasetUI(String classifyId) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        if(!StringUtils.isEmpty(classifyId)){
+            DirClassifyVo dirClassifyVo = classifyService.selectVoById(classifyId);
+            modelAndView.addObject("vo",dirClassifyVo);
+        }
+        modelAndView.setViewName("catalog/catalogue/quickSystemAddDatasetUI");
+        return modelAndView;
     }
     /**
      * 从爬虫添加数据集-快速添加页面
      */
     @RequestMapping("/catalogue/quickCsAddDatasetUI")
-    public  String quickCsAddDatasetUI(){
-        return "catalog/catalogue/quickCsAddDatasetUI";
+    public  ModelAndView quickCsAddDatasetUI(String classifyId) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        if(!StringUtils.isEmpty(classifyId)){
+            DirClassifyVo dirClassifyVo = classifyService.selectVoById(classifyId);
+            modelAndView.addObject("vo",dirClassifyVo);
+        }
+        modelAndView.setViewName("catalog/catalogue/quickCsAddDatasetUI");
+        return modelAndView;
     }
     /**
      * 从关系型添加数据集-快速添加页面
      */
     @RequestMapping("/catalogue/quickDcmAddDatasetUI")
-    public  String quickDcmAddDatasetUI(){
-        return "catalog/catalogue/quickDcmAddDatasetUI";
+    public  ModelAndView quickDcmAddDatasetUI(String classifyId) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        if(!StringUtils.isEmpty(classifyId)){
+            DirClassifyVo dirClassifyVo = classifyService.selectVoById(classifyId);
+            modelAndView.addObject("vo",dirClassifyVo);
+        }
+        modelAndView.setViewName("catalog/catalogue/quickDcmAddDatasetUI");
+        return modelAndView;
     }
     /**
      * 从非关系型添加数据集-快速添加页面
      */
     @RequestMapping("/catalogue/quickDcmNosqlAddDatasetUI")
-    public  String quickDcmNosqlAddDatasetUI(){
-        return "catalog/catalogue/quickDcmNosqlAddDatasetUI";
+    public  ModelAndView quickDcmNosqlAddDatasetUI(String classifyId) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        if(!StringUtils.isEmpty(classifyId)){
+            DirClassifyVo dirClassifyVo = classifyService.selectVoById(classifyId);
+            modelAndView.addObject("vo",dirClassifyVo);
+        }
+        modelAndView.setViewName("catalog/catalogue/quickDcmNosqlAddDatasetUI");
+        return modelAndView;
     }
     /**
      * 从资源/系统添加数据集-快速添加

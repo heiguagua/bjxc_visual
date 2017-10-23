@@ -48,14 +48,14 @@
 		                    <label style="width:13.3%;" for="classifyName" class="col-sm-3 control-label" style="width: 21.3%;">信息资源分类 :</label>
 		                    <div class="col-sm-9"  style="width:76%;">
 		                        <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
-		                        <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
-		                         placeholder="">
-		                        <input type="hidden" id="classifyId" name="classifyIds">
-		                        <div class="menu-wrap">
+		                        <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+		                         placeholder="" disabled>
+		                        <input type="hidden" value="${vo.id}" id="classifyId" name="classifyIds">
+		                        <%--<div class="menu-wrap">
 		                            <div id="menuContent" class="menuContent" style="display:none;">
 		                                <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
 		                            </div>
-		                        </div>
+		                        </div>--%>
 		                    </div>
 		                 </div>   
 	                	<div class="col-sm-1">

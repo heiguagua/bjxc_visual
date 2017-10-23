@@ -36,15 +36,15 @@
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
 
-                                                <i class="fa fa-backward pull-right" id="backward"></i>
-                                                <i class="fa fa-forward pull-right" id="forward"></i>
+                                                <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                             </a>
 
                                         </div>
 
                                     </div>
                                     <div>
-                                        <ul id="treeDemo" class="ztree">xxx</ul>
+                                        <ul id="treeDemo" class="ztree"></ul>
                                     </div>
                                 </section>
 
@@ -186,7 +186,7 @@
 			$("#forward").hide(400);
 			$("#backward").show(500);
 			$("#treeDemo").show(200);
-			$("#min-aside").css("border","1px solid #ccc");
+			$("#min-aside").css("border","1px solid #ddd");
 			$(".box-body").animate({
 				paddingLeft: "240px"
 			})
