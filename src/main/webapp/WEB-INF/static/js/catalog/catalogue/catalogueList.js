@@ -3,10 +3,71 @@ var paramsObj = {};
 
 jQuery(document).ready(function () {
     initTable();
-    initAllSelect();
+    //initAllSelect();
     initButtonClickEvent();
 });
 
+var setting = {
+    async: {
+        enable: true,
+        url: basePathJS + "/dirClassify/subAuthorityList",
+        autoParam: ["fid"],
+        dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
+            var params = [];
+            var nodeObjs = childNodes.content.vo;
+            if (!nodeObjs) {
+                return null;
+            }
+            for (var i in nodeObjs) {
+                params[i] = {
+                    'id': nodeObjs[i].id,
+                    'name': nodeObjs[i].classifyName,
+                    'fid': nodeObjs[i].id,
+                    'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
+                }
+            }
+            return params;
+        }
+    },
+    callback: {
+        beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+            var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+            if (treeNode.isParent) {
+                if (treeNode.open) {
+                    zTreeObj.expandNode(treeNode, false);
+                } else {
+                    zTreeObj.expandNode(treeNode, true);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        },
+        onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+
+                //var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                //treeObj.cancelSelectedNode();
+
+            $('#searchClassifyId').val(treeNode.id);
+            setParams();
+            reloadTable();
+            /*$.commonAjax({
+                url: basePathJS + "/dirClassify/editLoad",
+                data: {id: treeNode.id},
+                success: function (result) {
+                    if (result.state) {
+                        var classifyObj = result.content.vo;
+                        $('#' + nameInputDomId).val(classifyObj.classifyStructureName);
+                        $('#' + codeInputDomId).val(treeNode.id);
+                    }
+                }
+            });*/
+        }
+    }
+};
+$(document).ready(function(){
+    $.fn.zTree.init($("#treeDemo"), setting);
+});
 function initTable(){
     var regionCode = $.getSelectedRegionCode();
     paramsObj["regionCode"] = regionCode;
@@ -33,7 +94,7 @@ function initTable(){
             }
         },{
             field: 'classifyName',
-            title: '信息资源分类',
+            title: '目录分类',
             sortable: false,
             formatter:function(value, row, index){
                 if(value == undefined){
@@ -179,7 +240,12 @@ function reloadTable() {
 }
 
 function addCustom() {
-    add('新增信息资源',basePathJS + '/catalog/catalogue/add',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
+    add('新增信息资源',basePathJS + '/catalog/catalogue/add'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 
 function catalogueTableEdit(id) {
@@ -191,23 +257,53 @@ function catalogueTableShow(id){
 }
 
 function quickAddDatasetUI() {
-    add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
+    add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 
 function quickSystemAddDatasetUI() {
-    add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
+    add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 function quickCsAddDatasetUI() {
-    add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
+    add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 function quickDcmAddDatasetUI() {
-    add('从关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmAddDatasetUI',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
+    add('从关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 function quickNosqlDcmAddDatasetUI() {
-    add('从非关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmNosqlAddDatasetUI',1300,800);
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!");
+        return;
+    }
+    add('从非关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmNosqlAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 function excelImportUI() {
     addNews('导入',basePathJS +'/catalog/catalogue/excelImportUI',900,200);
 }
-
+function checkClassfyId(searchClassifyId){
+    if(searchClassifyId){
+        return true;
+    }
+    return false;
+}
 

@@ -30,7 +30,13 @@ function initAllSelect(){
 		     }
 		
 		 });
-		
+		/*$("#loading").ajaxStart(function(){ 
+	        $(this).html("<img src='/img/index/loading.gif' />"); 
+	      }); 
+	     $("#loading").ajaxSuccess(function(){ 
+	        $(this).html(""); 
+	        // $(this).empty(); // 或者直接清除 
+	      }); */
 	 });
 	
 function initSelectData() {

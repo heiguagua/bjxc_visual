@@ -19,8 +19,15 @@ public class DcmDataSyncApiController {
 
     @PostMapping(value = "/sync")
     public HandleResult syncData(@RequestParam Map<String, Object> param) {
-        // TODO: 2017/10/13 进行错误信息提示，添加日志方面的东西
-        dcmDataSyncService.synDcmDate(param);
-        return null;
+        HandleResult result = new HandleResult();
+        try{
+            result.setState(true);
+            result.setMsg("数据同步成功!");
+            dcmDataSyncService.synDcmDate(param);
+        }catch (Exception e){
+            result.setState(false);
+            result.setMsg("数据同步失败，" + e.getMessage());
+        }
+        return result;
     }
 }

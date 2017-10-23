@@ -59,7 +59,7 @@
 
                             </div>
                         </form>
-                        <div class="box-body table-responsive no-padding " id="userregisterBox"  style="margin-top: 20px">
+                        <div class="box-body table-responsive " id="userregisterBox"  style="margin-top: 20px">
                             <!-- 表格 -->
                             <table class="layui-tables" id="userregisterTable" lay-even="" lay-skin="row"></table>
                             <!-- 表格 end-->

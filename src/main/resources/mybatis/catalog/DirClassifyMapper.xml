@@ -64,7 +64,7 @@
         </where>
     </sql>
     
-   <select id="selectFclassify" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+   <select id="selectFclassify" resultType="com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo">
     	
     	select * from dir_classify where id = #{fid}
     	
@@ -127,7 +127,7 @@
         FROM dir_classify t
         LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
 
-        <include refid="queryConditions"></include>and t.delete_flag = 0 and t.region_code 
+        where fid=#{fid} and t.delete_flag = 0 and t.region_code 
 			in 
 			          <foreach collection="regionCodes" item="item" open="(" separator="," close=")">
 			              #{item.regionCode}
@@ -155,6 +155,9 @@
 	
 	</select>
 
+	<select id="selectClassifyBySfcode" parameterType="string" resultType="string">
+        SELECT org_code FROM dir_organize WHERE org_fcode = #{org_fcode}
+    </select>
 
 
 	<update id="updateDeleteFlag" parameterType="string">

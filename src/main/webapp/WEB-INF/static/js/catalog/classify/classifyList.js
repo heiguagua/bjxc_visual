@@ -203,8 +203,9 @@ jQuery(document).ready(function () {
 	    $("."+treeNode.type+"").on("click", function () {
 	    	var curThis=this;
 			var fid=$(curThis).attr('data-id');
+			var classifyType = $(curThis).attr('data-type');
 //			$('#parent_id').val(api_fcode);
-			addDir('新增国家库目录--子级',basePathJS + '/dirClassify/addNational',fid,800,500);
+			addDirNational('新增国家库目录--子级',basePathJS + '/dirClassify/addNational',fid,classifyType,800,500);
 //	    	$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');

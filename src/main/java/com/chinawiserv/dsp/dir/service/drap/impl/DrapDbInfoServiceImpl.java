@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
@@ -226,11 +227,14 @@ public class DrapDbInfoServiceImpl extends
 		     
 		    
 		     
-		 List<DrapDictTableInfoVo> list=(List<DrapDictTableInfoVo>)map.get("dicTable");
+		 @SuppressWarnings("unchecked")
+        List<DrapDictTableInfoVo> listJson=(List<DrapDictTableInfoVo>)map.get("dicTable");
+		 
+		List<DrapDictTableInfoVo> list=JSON.parseArray(JSON.toJSONString(listJson), DrapDictTableInfoVo.class);
 		 
 		 //删除之前的
 		 List<String>ids=new ArrayList<>();
-
+		 
 		 List<DrapDictTableInfo> oldDictTableInfos=dictTableInfoMapper.selectList(new EntityWrapper<DrapDictTableInfo>().eq("db_id",  list.get(0).getDbId()));
 		 for (DrapDictTableInfo drapDictTableInfo : oldDictTableInfos) {
 		     ids.add(drapDictTableInfo.getId());

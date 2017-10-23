@@ -76,14 +76,26 @@
 .skin-blue .main-header .navbar .nav > li > a{
 	color: #7d8698;
 }
+/* adminlte下拉框样式统一变圆润 */
+.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single{
+	    border-radius: 4px;
+}
 
 /* 表格整体布局 */
 
 .box-body{
-	    padding: 0 30px !important;
+	      padding: 0 30px;
+	    /* padding: 0 30px 0px 240px; */
 }
+div.box div.table-myself{
+	padding: 0 30px 0px 240px;
+}
+
 .box-header{
 	    padding: 10px 30px;
+}
+.box-header-myself{
+	padding: 10px 30px 0px 270px;
 }
 .content-header > h1{
 	    padding: 0 40px;
@@ -214,8 +226,6 @@ section .sidebar{
 
 
 
-
-
 /*登录验证的样式*/
 div.mg_right{
 	float:right;
@@ -242,4 +252,25 @@ input.input_test{
 /* 每页显示记录 变色问题*/
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{
 	background:none;
+}
+
+/* 后面单独处理目录编目 */
+
+.sidebar-myself{
+	    border: 1px solid #ddd ;
+	    padding-top:0px !important;
+}
+
+/* 目录编目 目录分类 自定义样式 保留左边样式 去掉offcanvs带来的效果 */
+.main-sidebar—Du{
+	position:absolute;
+	overflow: auto;
+	left:0;
+	top:0;
+	padding-top: 70px;
+	width: 230px;
+	height:100%;
+    z-index: 810;
+    xtransition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+
 }

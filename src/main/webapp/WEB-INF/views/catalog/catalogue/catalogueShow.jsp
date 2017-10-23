@@ -15,13 +15,13 @@
                         <input type="hidden" id="id" name="id" value="${id}">
                         <div class="col-sm-12">
                             <input type="hidden" name="sourceType" value="1">
-                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">信息资源分类:</label>
+                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">目录分类:</label>
                             <div class="col-sm-10"  style="width:87.8%">
                                 <input type="text" id="classifyName"  class="form-control" readonly>
                             </div>
                         </div>
                         <%--<div class="col-sm-6">
-                            <label for="classifyName" class="col-sm-3 control-label">信息资源分类 :</label>
+                            <label for="classifyName" class="col-sm-3 control-label">目录分类 :</label>
                             <div class="col-sm-9">
                                 <input type="text" id="classifyName"  class="form-control" readonly>
                             </div>
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label">信息资源编码 :</label>
+                            <label  class="col-sm-3 control-label">信息资源编码:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="infoResourceCode" readonly>
                             </div>
@@ -173,7 +173,7 @@
                         <div class="col-sm-6">
                             <label for="openCondition" class="col-sm-3 control-label">开放条件:</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" rows="2" id="openCondition" name="openCondition" placeholder="(最多256个汉字)" readonly></textarea>
+                                <textarea class="form-control" rows="2" id="openCondition" name="openCondition" readonly></textarea>
                                 <%--<p><span class="pull-right">(最多256个汉字)</span></p>--%>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
                         <div class="col-sm-12">
                             <label for="datasetDesc" class="col-sm-2 control-label" style="width:12%">信息资源摘要:</label>
                             <div class="col-sm-10"  style="width:88%">
-                                <textarea class="form-control" rows="2" id="datasetDesc" name="datasetDesc" placeholder="(最多256个汉字)" readonly></textarea>
+                                <textarea class="form-control" rows="2" id="datasetDesc" name="datasetDesc" readonly></textarea>
                                 <%--<p><span class="pull-right">(最多256个汉字)</span></p>--%>
                             </div>
                         </div>

@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="box-body table-responsive no-padding">
+                        <div class="box-body table-responsive ">
                             <!-- 表格 -->
                             <table class="layui-table" id="homeauditTable" lay-even="" lay-skin="row">
                             </table>
@@ -196,7 +196,7 @@
                     return '待审核'
                 }*/
             },
-                {field: 'classifyName', title: '信息资源分类',alt:'classifyStructureName',  formatter: function (v,r) {
+                {field: 'classifyName', title: '目录分类',alt:'classifyStructureName',  formatter: function (v,r) {
                     return '<a title="'+r.classifyStructureName+'">'+v+'</a>'
                 }},
                 {field: 'datasetName', title: '所属数据集', width: '15%'},

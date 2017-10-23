@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="box-body table-responsive no-padding">
+                            <div class="box-body table-responsive ">
                                 <!-- 表格 -->
                                 <table id="registeTable" class="table table-hover"></table>
                                 <!-- 表格 end-->
