@@ -22,21 +22,21 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
-            field: 'userType',
-            title: '用户类型',
-            align: 'center',
-            valign: 'middle',
-            sortable: false,
-            formatter: function (value) {
-                var ret = '';
-                if (value === 1) {
-                    ret = '管理员';
-                } else if (value === 2) {
-                    ret = '普通用户';
-                }
-                return ret;
-            }
-        }, {
+//            field: 'userType',
+//            title: '用户类型',
+//            align: 'center',
+//            valign: 'middle',
+//            sortable: false,
+//            formatter: function (value) {
+//                var ret = '';
+//                if (value === 1) {
+//                    ret = '管理员';
+//                } else if (value === 2) {
+//                    ret = '普通用户';
+//                }
+//                return ret;
+//            }
+//        }, {
             field: 'userDesc',
             title: '描述',
             align: 'center',

@@ -2457,7 +2457,7 @@ create table sys_user
    id                   varchar(36) not null comment 'id',
    region_code          varchar(6) comment '所属行政区划',
    dept_id              varchar(36) comment '所属组织机构',
-   user_type            varchar(36) not null comment '用户类型',
+   user_type            varchar(36) DEFAULT NULL comment '用户类型',
    user_name            varchar(64) not null comment '用户名',
    real_name            varchar(36) comment '用户真实姓名',
    password             varchar(36) not null comment '密码',
