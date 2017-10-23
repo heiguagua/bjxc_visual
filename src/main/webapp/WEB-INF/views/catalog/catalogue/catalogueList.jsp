@@ -36,8 +36,8 @@
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
 
-                                                <i class="fa fa-backward pull-right" id="backward"></i>
-                                                <i class="fa fa-forward pull-right" id="forward"></i>
+                                                <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                             </a>
 
                                         </div>
