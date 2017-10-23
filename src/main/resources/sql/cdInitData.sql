@@ -1,3 +1,12 @@
+delete from sys_dict where category in ('dataSetIsOpen','setItemIsOpen');
+
+insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES
+	('77','','dataSetIsOpen','1','普遍开放',NULL,NULL,NULL,NULL,1),
+	('21','','dataSetIsOpen','2','依申请开放',NULL,NULL,NULL,NULL,1),
+	('20','','dataSetIsOpen','3','不开放',NULL,NULL,NULL,NULL,1),
+	('49','','setItemIsOpen','1','普遍开放',NULL,NULL,NULL,NULL,1),
+	('50','','setItemIsOpen','2','依申请开放',NULL,NULL,NULL,NULL,1),
+	('78','','setItemIsOpen','3','不开放',NULL,NULL,NULL,NULL,1);
 delete from sys_dept;
 insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values
 	 ('96891c92-50d4-11e7-889e-00ffffff0000','000000','A','000000_A','中国共产党中央委员会','中共中央','root','root','中国共产党中央委员会',1,'',NULL,0,0,''),
