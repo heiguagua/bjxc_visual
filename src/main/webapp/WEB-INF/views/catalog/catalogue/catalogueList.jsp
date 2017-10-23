@@ -186,7 +186,7 @@
 			$("#forward").hide(400);
 			$("#backward").show(500);
 			$("#treeDemo").show(200);
-			$("#min-aside").css("border","1px solid #ccc");
+			$("#min-aside").css("border","1px solid #ddd");
 			$(".box-body").animate({
 				paddingLeft: "240px"
 			})
