@@ -788,7 +788,7 @@ public class DirDatasetController extends BaseController {
     //excel导入
     @RequestMapping("/excelImport")
     @ResponseBody
-    public HandleResult excelImport(@RequestParam(value="file",required=false)MultipartFile file,HttpServletRequest request, HttpServletResponse response){
+    public HandleResult excelImport(@RequestParam(value="file",required=false)MultipartFile file,String regionCode,HttpServletRequest request, HttpServletResponse response){
         HandleResult handleResult = new HandleResult();
         if(file==null){
             handleResult.error("文件不能为空");
@@ -797,7 +797,7 @@ public class DirDatasetController extends BaseController {
             try {
 
                 Workbook workbook = createWorkbook(file.getInputStream(), originalFilename);
-                boolean b = addDirDataset(workbook.getSheetAt(0));
+                boolean b = addDirDataset(workbook.getSheetAt(0),regionCode);
                 if(b){
                     handleResult.setMsg("导入成功！");
                 }else{
@@ -810,7 +810,7 @@ public class DirDatasetController extends BaseController {
         return handleResult;
     }
 
-    private boolean addDirDataset(Sheet sheet){
+    private boolean addDirDataset(Sheet sheet,String regionCode){
         //存放数据集
         List<DirDataset> lists=new ArrayList<DirDataset>();
         //存放数据项
@@ -845,6 +845,7 @@ public class DirDatasetController extends BaseController {
                     dataitemService.deleteByDatasetId(dataset.getId());
                 }else{
                     dataset=new DirDataset();
+                    dataset.setRegionCode(regionCode);
                     dataset.setDatasetName(datasetName);
                     dataset.setId(UUID.randomUUID().toString().replace("-", ""));
                     dataset.setDatasetCode(dataset.getId());
