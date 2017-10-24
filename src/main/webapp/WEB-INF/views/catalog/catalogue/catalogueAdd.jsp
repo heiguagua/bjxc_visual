@@ -6,18 +6,19 @@
     <script src="<%=basePath%>/js/catalog/catalogue/catalogueAdd.js"></script>
 </head>
 <style>
-.n-top, .n-right, .n-bottom, .n-left{
+/* .n-top, .n-right, .n-bottom, .n-left{
 	     position: absolute;
     bottom: 0;
     left: 0 ;
-}
+} */
 </style>
 
 <body>
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd">
+            <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" 
+            >
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">

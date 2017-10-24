@@ -117,6 +117,7 @@ var Mysql_TYPE_SOURCE = [
     {value: 'BIGINT', text: 'BIGINT'},
     {value: 'BIT', text: 'BIT'},
     {value: 'REAL', text: 'REAL'},
+    
     {value: 'DOUBLE', text: 'DOUBLE'},
     {value: 'FLOAT', text: 'FLOAT'},
     {value: 'DECIMAL', text: 'DECIMAL'},

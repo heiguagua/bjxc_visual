@@ -21,17 +21,13 @@
             background: #FFF;
             width: 100%;
         }
-        .n-top, .n-right, .n-bottom, .n-left{
-	     position: absolute;
-    bottom: 0;
-    left: 0 
-}
     </style>
 </head>
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="addForm" method="post" action="<%=basePath%>/catalog/quickAddDataset">
+            <form class="form-horizontal" id="addForm" method="post" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" 
+             action="<%=basePath%>/catalog/quickAddDataset">
                 <!-- <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right" data-toggle="modal" data-target="#myModal">
                       配置数据集
                   </button> -->

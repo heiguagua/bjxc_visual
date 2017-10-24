@@ -292,3 +292,12 @@ select.form-controls{
 .layui-table[lay-even] tr:nth-child(even){
 	background-color:#fff;
 }
+
+/* 针对目录编目的验证样式挨近上一行 */
+.n-bottom .msg-wrap{
+	margin-top:0px;
+}
+/* 针对目录新添加行增加行高 以免遮挡验证样式 */
+  table.table-striped tbody>tr{
+        	height:50px;
+        }
