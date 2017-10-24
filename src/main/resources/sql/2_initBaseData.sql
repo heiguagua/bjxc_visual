@@ -8,11 +8,21 @@ INSERT INTO sys_role(id,role_name,role_desc,role_level,status) VALUES
 delete from sys_user;
 insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status,user_img,token) values
 	('09f4fef9249c457ca67b4a7a45823730','510100','','1','admin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/img/userImg/avatar5.png','123123556');
+-- 国家级用户
+insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status,user_img,token) values
+	('09f4fef9249c457ca67b4a7a45823731','000000','','1','nadmin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/img/userImg/avatar5.png','123123556');
+-- 四川省用户
+insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status,user_img,token) values
+	('09f4fef9249c457ca67b4a7a45823732','510000','','1','scadmin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/img/userImg/avatar5.png','123123556');
 
 -- 用户角色表
 delete from sys_user_role;
 insert into sys_user_role(id,user_id,role_id)
     values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'admin'),(select id from sys_role where role_name='超级管理员'));
+insert into sys_user_role(id,user_id,role_id)
+    values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'nadmin'),(select id from sys_role where role_name='超级管理员'));
+insert into sys_user_role(id,user_id,role_id)
+    values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'scadmin'),(select id from sys_role where role_name='超级管理员'));
 
 
 -- 菜单表

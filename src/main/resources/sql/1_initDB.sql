@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/10/14 19:25:23                            */
+/* Created on:     17/10/24 9:09:54                             */
 /*==============================================================*/
 
 
@@ -880,7 +880,7 @@ create table dir_dataset
    is_open              varchar(36) comment '【国】信息资源是否社会开放',
    open_condition       varchar(500) comment '【国】信息资源开放条件',
    update_frequency     varchar(36) comment '【国】信息资源更新周期',
-   rel_dataset_code     varchar(1000) comment '【国】信息资源关联资源分类',
+   rel_dataset_code     varchar(1000) comment '【国】信息资源关联资源代码',
    storage_medium       varchar(36) comment '存储介质',
    storage_location     varchar(500) comment '物理存储位置',
    data_level           varchar(36) comment '【川】信息资源最小分级单元',
@@ -1529,7 +1529,7 @@ create table drap_dataset
    no_share_reason      varchar(1000) comment '不予共享依据',
    is_open              varchar(36) comment '【国】信息资源是否社会开放',
    open_condition       varchar(1000) comment '【国】信息资源开放条件',
-   rel_dataset_code     varchar(36) comment '【国】信息资源关联资源分类',
+   rel_dataset_code     varchar(36) comment '【国】信息资源关联资源代码',
    data_level           varchar(36) comment '【川】信息资源最小分级单元',
    data_index_system    varchar(36) comment '【川】信息资源指标体系',
    is_secret            varchar(36) comment '【川】信息资源涉密性',
@@ -1820,6 +1820,8 @@ create table drap_dict_table_info
    code_index           int comment '编码序号',
    table_source_type    varchar(36) comment '表来源',
    real_table_id        varchar(36) comment '对应实际数据表ID',
+   status               int(3) comment '状态',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
@@ -2457,7 +2459,7 @@ create table sys_user
    id                   varchar(36) not null comment 'id',
    region_code          varchar(6) comment '所属行政区划',
    dept_id              varchar(36) comment '所属组织机构',
-   user_type            varchar(36) DEFAULT NULL comment '用户类型',
+   user_type            varchar(36) comment '用户类型',
    user_name            varchar(64) not null comment '用户名',
    real_name            varchar(36) comment '用户真实姓名',
    password             varchar(36) not null comment '密码',
