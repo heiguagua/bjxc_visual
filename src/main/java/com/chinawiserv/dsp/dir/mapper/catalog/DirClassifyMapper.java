@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.mapper.catalog;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
@@ -53,8 +54,14 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
 //    String selectClassifyStructureNamebyFid(String fid);
     
   //逻辑删除
-    
     void  updateDeleteFlag(String classifyCode);
+    DirDeptMap selectMapByDeptId(String dcmId);
+    
+    List<DirClassify> selectBy23Region(String regionCode);
+    
+    String selectFidById(String id);
+    
+    SysDept selectDeptById(String id);
     
     List<DirClassifyVo> getCatelogByParentCode(String id);
 

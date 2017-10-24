@@ -311,6 +311,34 @@
     
     </select>
     
+    <select id="selectMapByDeptId" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap">
+    
+    	select * from dir_classify_dept_map where dept_id = #{dcmId} 
+    	
+    	
+    
+    </select>
+    
+    <select id="selectBy23Region" resultMap="BaseResultMap">
+    
+    	select * from dir_classify where classify_type = '2-3' and region_code = #{regionCode}
+    
+    </select>
+    
+    <select id="selectFidById" resultType="string"> 
+    
+    	select fid from sys_dept where id = #{id}
+    
+    </select>
+    
+    <select id="selectDeptById" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDept"> 
+    
+    	select * from sys_dept where id = #{id}
+    
+    </select>
+    
+    
+
     
     
     <select id="selectClassifyByStructrue" resultType="java.lang.String">

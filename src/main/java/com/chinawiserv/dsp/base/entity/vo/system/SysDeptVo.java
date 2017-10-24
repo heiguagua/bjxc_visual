@@ -20,6 +20,8 @@ public class SysDeptVo extends SysDept {
     private String regionName;
 
     private Boolean isLeaf;
+    
+    private String isSync;
 
     private List<SysDeptVo> childs;
 
@@ -74,4 +76,13 @@ public class SysDeptVo extends SysDept {
     public void setChilds(List<SysDeptVo> childs) {
         this.childs = childs;
     }
+
+	public String getIsSync() {
+		return isSync;
+	}
+
+	public void setIsSync(String isSync) {
+		this.isSync = isSync;
+	}
+        
 }

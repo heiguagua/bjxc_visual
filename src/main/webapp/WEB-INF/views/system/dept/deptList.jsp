@@ -6,6 +6,11 @@
     <script src="<%=basePath%>/js/system/dept/deptList.js"></script>
 
 </head>
+<style type="text/css">
+.layui-layer-dialog{
+	top:180px !important;
+}
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -31,6 +36,12 @@
                                             <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:addDept()" >
                                                 <img src="<%=basePath%>/images/userImg/addimg.png"/>
                                                 创建一级组织机构
+                                            </a>
+                                        </div>
+                                        <div class="input-group">
+                                            <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:syncDeptClassify()" >
+                                                <img src="<%=basePath%>/images/userImg/changeAdress.png"/>
+                                                同步目录
                                             </a>
                                         </div>
                                     <%--</#if>--%>

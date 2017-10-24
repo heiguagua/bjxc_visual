@@ -37,6 +37,8 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
     Map<String, Object> getDeptCondition(String regionCode);
 
     boolean isParentDept(String id);
+    
+    String insertIntoDir(Map<String, Object> paramMap);
 
     List<SysDeptVo> selectDeptListLikeTreeCode(List<String> list);
 
