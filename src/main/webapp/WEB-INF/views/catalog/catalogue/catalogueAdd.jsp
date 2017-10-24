@@ -183,7 +183,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label" style="padding-left:0px">涉密标识：</label>
+                            <label  class="col-sm-3 control-label" style="padding-top:13px">涉密标识：</label>
                             <div class="col-sm-9 control-label">
                                 <div class="redio-box">
                                     <input type="radio" name="secretFlag" value="1" ><span></span>

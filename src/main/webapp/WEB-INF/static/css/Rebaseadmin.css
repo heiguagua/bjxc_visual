@@ -274,3 +274,21 @@ input.input_test{
     xtransition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
 
 }
+
+
+select.form-controls{
+	height:34px;
+}
+
+
+
+/*上保管理 目录/服务上报  表格优化  */
+.layui-table[lay-skin=row] td, .layui-table[lay-skin=row] th{
+	border-left:1px solid #ddd;
+	    border-top: 1px solid #f4f4f4;
+	    vertical-align:middle;    
+}
+/*上保管理 目录/服务上报  表格优化  */	
+.layui-table[lay-even] tr:nth-child(even){
+	background-color:#fff;
+}

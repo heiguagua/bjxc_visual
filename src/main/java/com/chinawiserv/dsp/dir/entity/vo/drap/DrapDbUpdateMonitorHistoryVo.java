@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.dir.entity.vo.drap;
 
-import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbUpdateMonitorHistory;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbUpdateHistory;
+
 
 /**
  * <p>
@@ -10,5 +11,5 @@ import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbUpdateMonitorHistory;
  * @author wuty
  * @since 2017-09-27
  */
-public class DrapDbUpdateMonitorHistoryVo extends DrapDbUpdateMonitorHistory{
+public class DrapDbUpdateMonitorHistoryVo extends DrapDbUpdateHistory{
 }
