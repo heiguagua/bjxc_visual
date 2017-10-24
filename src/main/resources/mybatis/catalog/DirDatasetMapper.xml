@@ -447,15 +447,13 @@
 
     <select id="selectDatasetByActivityId" resultType="map">
         SELECT
-            dd.id,
-            dd.dataset_name
+            id,
+            dataset_name
         FROM
-            drap_dataset dd
-        LEFT JOIN drap_activity_set_map dsm ON dsm.dataset_id=dd.id
-        LEFT JOIN drap_business_activity dba ON dsm.activity_id=dba.id
+            drap_dataset
         WHERE
             TRUE
-        AND dba.id = #{activity_id}
+        AND belong_dept_id = #{activity_id}
     </select>
 
     <resultMap id="result_DrapDatasetItem_Map" type="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem">

@@ -27,63 +27,28 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">
-                        	
-                        
-                        		<aside class="main-sidebar sidebar-myself" id="min-aside">
 
-  <!-- sidebar: style can be found in sidebar.less -->
-  <section class="sidebar">
 
-    <!-- Sidebar user panel (optional) -->
-    <div class="user-panel">
-     	<b id="dir-Manger">目录分类</b>
-      <div class="pull-right image">
-      <a href="#" class="sidebar-toggle" role="button"  style="right: -14px;">
-     
-	  <i class="fa fa-backward pull-right" id="backward"></i>
-	  <i class="fa fa-forward pull-right" id="forward"></i>
-	</a>
-      		<!-- <span class="pull-right-container">
-                <i class="fa fa-backward pull-right" id="forward"></i>
-              </span> -->
-      </div>
-     
-    </div>
+                            <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                                <section class="sidebar">
+                                    <div class="user-panel">
+                                        <b id="dir-Manger">目录分类</b>
+                                        <div class="pull-right image">
+                                            <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
 
-    <!-- search form (Optional) -->
-    <!-- <form action="#" method="get" class="sidebar-form">
-      <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Search...">
-        <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-      </div>
-    </form> -->
-    <!-- /.search form -->
+                                                <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                            </a>
 
-    <!-- Sidebar Menu -->
-    <ul class="sidebar-menu" data-widget="tree" id="min-ul">
-     
-      <!-- Optionally, you can add icons to the links -->
-      <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-      <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-      <li class="treeview">
-        <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-        <ul class="treeview-menu">
-          <li><a href="#">Link in level 2</a></li>
-          <li><a href="#">Link in level 2</a></li>
-        </ul>
-      </li>
-    </ul>
-    <!-- /.sidebar-menu -->
-  </section>
-  <!-- /.sidebar -->
-</aside>
+                                        </div>
+
+                                    </div>
+                                    <div>
+                                        <ul id="treeDemo" class="ztree"></ul>
+                                    </div>
+                                </section>
+
+                            </aside>
                         
                         
                             <form class="form-inline" method="post">
@@ -145,7 +110,8 @@
                                         </button>
                                     </div>
                                     <div class="pull-right">
-	                                    <div class="input-group" style="margin-right:4px;min-width:240px">
+                                        <input type="hidden" id="searchClassifyId">
+	                                    <%--<div class="input-group" style="margin-right:4px;min-width:240px">
 	                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
 	                                        <input type="hidden" id="searchClassifyId">
 	                                        <div class="menu-wrap">
@@ -153,7 +119,7 @@
 	                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
 	                                            </div>
 	                                        </div>
-	                                    </div>
+	                                    </div>--%>
 	                                    <div class="input-group">
 	                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
 	                                        <div class="input-group-btn">
@@ -202,7 +168,7 @@
 			$("#dir-Manger").hide();
 			$("#forward").show(400);
 			$("#backward").hide(500);
-			$("#min-ul").hide(500);
+			$("#treeDemo").hide(200);
 			$("#min-aside").css("border","none")
 			 $("div.box div.table-myself").animate({
 				paddingLeft: "50px"
@@ -219,8 +185,8 @@
 			$("#dir-Manger").show();
 			$("#forward").hide(400);
 			$("#backward").show(500);
-			$("#min-ul").show(500);
-			$("#min-aside").css("border","1px solid #ccc");
+			$("#treeDemo").show(200);
+			$("#min-aside").css("border","1px solid #ddd");
 			$(".box-body").animate({
 				paddingLeft: "240px"
 			})

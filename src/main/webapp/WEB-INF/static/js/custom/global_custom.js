@@ -117,6 +117,7 @@ var Mysql_TYPE_SOURCE = [
     {value: 'BIGINT', text: 'BIGINT'},
     {value: 'BIT', text: 'BIT'},
     {value: 'REAL', text: 'REAL'},
+    
     {value: 'DOUBLE', text: 'DOUBLE'},
     {value: 'FLOAT', text: 'FLOAT'},
     {value: 'DECIMAL', text: 'DECIMAL'},
@@ -1357,7 +1358,7 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param nameInputDomId    显示选中目录类别的名称的input框的id
          * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
          * @param treeDivDomId      树形展开区域的DIV的id
-         * @param classifyCodeInputDomId 信息资源分类存储id值的input框的id
+         * @param classifyCodeInputDomId 目录分类存储id值的input框的id
          */
         initRelClassifyTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, classifyCodeInputDomId) {
             var checkedOjb = [];
@@ -1376,7 +1377,7 @@ function initGlobalCustom(tempUrlPrefix) {
                         if (!nodeObjs) {
                             return null;
                         }
-                        //获取信息资源分类选择的值
+                        //获取目录分类选择的值
                         var selectedClassifyId = $("#"+classifyCodeInputDomId).val();
                         console.log("====================="+selectedClassifyId);
                         for (var i in nodeObjs) {

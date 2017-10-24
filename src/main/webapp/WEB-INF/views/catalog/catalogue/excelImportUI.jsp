@@ -15,7 +15,7 @@
            <a href="javascript:;" class="<%--a-upload--%>">
 			    <input type="file" name="file" id="">
 			</a>
-			           
+			<input type="hidden" id="regionCodeId" name="regionCode">
            
            
           <!--  <a href="javascript:;" class="file">选择文件
@@ -39,6 +39,10 @@
 </body>
 
 <script>
+    $(function(){
+        $('#regionCodeId').val($.getSelectedRegionCode());
+    })
+
  <%-- layui.use('upload', function(){
 	  var $ = layui.jquery
 	  ,upload = layui.upload;

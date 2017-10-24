@@ -1,7 +1,7 @@
 package com.chinawiserv.dsp.dir.service.drap.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbConnectMonitorHistory;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbConnectHistory;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbConnectMonitorHistoryVo;
 import com.chinawiserv.dsp.dir.mapper.drap.DrapDbConnectMonitorHistoryMapper;
 import com.chinawiserv.dsp.dir.service.drap.IDrapDbConnectMonitorHistoryService;
@@ -19,7 +19,7 @@ import java.util.Map;
  * @since 2017-09-27
  */
 @Service
-public class DrapDbConnectMonitorHistoryServiceImpl extends CommonServiceImpl<DrapDbConnectMonitorHistoryMapper, DrapDbConnectMonitorHistory , DrapDbConnectMonitorHistoryVo> implements IDrapDbConnectMonitorHistoryService {
+public class DrapDbConnectMonitorHistoryServiceImpl extends CommonServiceImpl<DrapDbConnectMonitorHistoryMapper, DrapDbConnectHistory , DrapDbConnectMonitorHistoryVo> implements IDrapDbConnectMonitorHistoryService {
 
     @Autowired
     private DrapDbConnectMonitorHistoryMapper mapper;

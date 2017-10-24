@@ -1,6 +1,6 @@
 package com.chinawiserv.dsp.dir.service.drap;
 
-import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbUpdateMonitorHistory;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbUpdateHistory;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbUpdateMonitorHistoryVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
@@ -12,6 +12,6 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  * @author wuty
  * @since 2017-09-27
  */
-public interface IDrapDbUpdateMonitorHistoryService extends ICommonService<DrapDbUpdateMonitorHistory, DrapDbUpdateMonitorHistoryVo> {
+public interface IDrapDbUpdateMonitorHistoryService extends ICommonService<DrapDbUpdateHistory, DrapDbUpdateMonitorHistoryVo> {
 	
 }

@@ -52,13 +52,13 @@
                 </style>
                 <p style="margin-bottom:15px;">选择信息项</p>
                 <div class="col-md-12" style="/*height: 100%;*/padding: 0px;">
-                    <div class="col-md-3 col_container">
+                    <div class="col-md-4 col_container">
                         <div class="header_title">选择组织</div>
                         <div class="content_scroll_item list-group">
                             <div id="group_tree" class=""></div>
                         </div>
                     </div>
-                    <div class="col-md-3 col_container">
+                    <%--<div class="col-md-3 col_container">
                         <div class="header_title">选择业务</div>
                         <div class="content_scroll_item list-group">
                             <div id="bus_tree" class="" style="text-align:center">
@@ -66,19 +66,19 @@
                             	<p class="img_p">请先选择组织</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 col_container">
+                    </div>--%>
+                    <div class="col-md-4 col_container">
                         <div class="header_title">选择信息资源</div>
                         <div id="dataset_item_container" class="content_scroll_item list-group">
                         
                         			<div style="text-align:center">
 			                        			 <img class="selec_img"  alt="" src="<%=basePath%>/images/addimg/dbmysql.png">
-			                            	<p class="img_p">请先选择业务</p>
+			                            	<p class="img_p">请先选择组织</p>
                         			</div>
                          
                         </div>
                     </div>
-                    <div class="col-md-3 col_container">
+                    <div class="col-md-4 col_container">
                         <div class="header_title">选择信息项</div>
                         <div id="field_tree" class="content_scroll_item list-group">
 	                        <div style="text-align:center">
