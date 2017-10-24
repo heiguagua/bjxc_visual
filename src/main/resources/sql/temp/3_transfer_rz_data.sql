@@ -1,31 +1,39 @@
 /*
--- 系统管理模块
-	-- 顶级组织机构表
-	delete from sys_dept;
-	delete from sys_guid_dept;
-	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname)
-		select uuid,region_code,SUBSTR(organs_code,8) ,organs_code,organs_fullname,organs_shortname,'','','','root','root'
-		from  rz_dir.ADMINI_ORGANS;
+	1、需要将Mysql数据库修改为支持跨库查询（添加federated 引擎）。修改方法可参考 http://huqiji.iteye.com/blog/2068613，这里简单说下操作步骤。
+		1.1 在mysql的配置文件 my.cnf 中添加一行：federated
+		1.2 重启mysql服务，登录进mysql的shell后，用下面命令查询验证：
+				mysql>show engines;
+				如显示有：| FEDERATED  | YES      | Federated MySQL storage engine                                 |  则表示安装成功
+	2、将新产品的数据库建立在和软中数据库同库的服务器上，这里我们假定软中的数据库名为rz_dir(如果现场的软中老数据库名不一致，则需要将下面所有的rz_dir替换为对应的数据库名)
+	3、在产品新建的数据库中，先执行基础数据的SQL后，最后执行本文件，即可将软中老数据导入到产品数据库中
+ */
+-- -- 系统管理模块
+-- 	-- 顶级组织机构表
+-- 	delete from sys_dept;
+-- 	delete from sys_guid_dept;
+-- 	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname)
+-- 		select uuid,region_code,SUBSTR(organs_code,8) ,organs_code,organs_fullname,organs_shortname,'','','','root','root'
+-- 		from  rz_dir.ADMINI_ORGANS;
+--
+-- 	-- 普通组织机构表
+-- 	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname,order_number)
+-- 		select uuid,region_code,org_category_code,org_code,org_fullname,org_shortname,org_alias,'',org_function,
+-- 		(select b.uuid from rz_dir.ADMINI_ORGANS b,rz_dir.ORGANS_ORGANIZE_MAP c where b.uuid=c.organs_id and t.uuid=c.organize_id) as old_fid,
+-- 		(select b.organs_fullname from rz_dir.ADMINI_ORGANS b,rz_dir.ORGANS_ORGANIZE_MAP c where b.uuid=c.organs_id and t.uuid=c.organize_id) as old_fname,
+-- 		order_number
+-- 		from rz_dir.DIR_ORGANIZE t where t.org_fcode='root';
+-- 	-- 普通组织机构子部门
+-- 	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname,order_number)
+-- 		select uuid,region_code,org_category_code,org_code,org_fullname,org_shortname,org_alias,'',org_function,
+-- 		(select a.uuid from rz_dir.DIR_ORGANIZE a where a.org_code = t.org_fcode) as old_fid,org_fname,order_number
+-- 		from rz_dir.DIR_ORGANIZE t where t.org_fcode <> 'root';
+--
+-- 	 update sys_dept set fid='root' where fid is null;
+-- 	-- 业务指导部门
+-- 	insert into sys_guid_dept(id,cur_dept_id,guid_dept_id)
+-- 		select uuid,organize_id,director_organize_id from rz_dir.account_director ;
 
-	-- 普通组织机构表
-	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname,order_number)
-		select uuid,region_code,org_category_code,org_code,org_fullname,org_shortname,org_alias,'',org_function,
-		(select b.uuid from rz_dir.ADMINI_ORGANS b,rz_dir.ORGANS_ORGANIZE_MAP c where b.uuid=c.organs_id and t.uuid=c.organize_id) as old_fid,
-		(select b.organs_fullname from rz_dir.ADMINI_ORGANS b,rz_dir.ORGANS_ORGANIZE_MAP c where b.uuid=c.organs_id and t.uuid=c.organize_id) as old_fname,
-		order_number
-		from rz_dir.DIR_ORGANIZE t where t.org_fcode='root';
-	-- 普通组织机构子部门
-	insert into sys_dept(id,region_code,dept_type,dept_code,dept_name,dept_short_name,dept_alias,dept_desc,dept_function,fid,fname,order_number)
-		select uuid,region_code,org_category_code,org_code,org_fullname,org_shortname,org_alias,'',org_function,
-		(select a.uuid from rz_dir.DIR_ORGANIZE a where a.org_code = t.org_fcode) as old_fid,org_fname,order_number
-		from rz_dir.DIR_ORGANIZE t where t.org_fcode <> 'root';
 
-	 update sys_dept set fid='root' where fid is null;
-	-- 业务指导部门
-	insert into sys_guid_dept(id,cur_dept_id,guid_dept_id)
-		select uuid,organize_id,director_organize_id from rz_dir.account_director ;
-
-*/
 
 -- 目录类型相关表
 	-- 先修改目标数据表结构,添加old_code,old_fcode,
