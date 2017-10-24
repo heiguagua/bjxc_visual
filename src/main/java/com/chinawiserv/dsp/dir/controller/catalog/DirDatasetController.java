@@ -1029,10 +1029,13 @@ public class DirDatasetController extends BaseController {
         try {
             string4 = row.getCell(3).getStringCellValue().trim();
         } catch (Exception e) {
-            row.getCell(3).setCellType(CellType.STRING);
-            string4 = row.getCell(3).getStringCellValue().trim();
+            try {
+                row.getCell(3).setCellType(CellType.STRING);
+                string4 = row.getCell(3).getStringCellValue().trim();
+            } catch (Exception e1) {
+            }
         }
-        String strc=string1+"->"+string2+"->"+string3+"->"+string4;
+        String strc=string1+"->"+string2+"->"+string3+(string4!=null?"->"+string4:"");
         if(hashMap.containsKey(strc)){
             classifyId= hashMap.get(strc);
         }else{
