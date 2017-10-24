@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-md-12">
             <!-- form start -->
-            <style>
+            <!-- <style>
                .box-body .pdl0{
                     padding-left: 0;
                 }
@@ -38,12 +38,17 @@
                .box-bodyx .form-group>.form-group{
                    width: 70%;
                    float: left;}
-            </style>
+            </style> -->
             <div class="row">
                 <div class="col-md-6">
                     <form  class="form-inline" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/system/dept/doAdd">
                         <div class="box-body box-bodyx">
+                        
+                
+                        
+                        
+                        <!--11111111111111111111  -->
                             <div class="form-group">
                                 <label for="regionName">所属行政区域
                                     *</label>

@@ -274,3 +274,8 @@ input.input_test{
     xtransition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
 
 }
+
+
+select.form-controls{
+	height:34px;
+}
