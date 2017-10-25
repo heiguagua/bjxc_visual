@@ -42,8 +42,8 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="icon">选择图标*</label>
-                                <select id="Eicon" name="icon" class="form-control select2" style="width: 100%;" data-rule="选择图标:required">             
+                                <label for="icon">选择图标</label>
+                                <select id="Eicon" name="icon" class="form-control select2" style="width: 100%;" >             
                                 		  <!-- <option value =""></option>
                                 		  <option value ="volvo">Volvo</option>
 										  <option value ="saab">Saab</option>
@@ -67,10 +67,10 @@
 			                            </div>
 			                        </div>
 			                        <div class="col-sm-6">
-			                            <label  class="col-sm-3 control-label" for="EnationalCode">国家库*</label>
+			                            <label  class="col-sm-3 control-label" for="EnationalCode">国家库</label>
 			                            <div class="col-sm-9">
                         	
-											<input type="text" id="EnationalCode" data-rule="国家库:required;" class="form-control"
+											<input type="text" id="EnationalCode"  class="form-control"
 					                         placeholder="">
 					                        <input type="hidden" id="EdictNationalCode" name="nationalCode">
 					                        <div class="menu-wrap">
