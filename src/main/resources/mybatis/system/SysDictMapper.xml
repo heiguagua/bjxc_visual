@@ -39,6 +39,9 @@
             <if test="searchKey != null">
                AND t.dict_code LIKE concat('%', #{searchKey,jdbcType=VARCHAR}, '%')
             </if>
+            <if test="status != null">
+               AND t.status = 1
+            </if>
         </where>
     </sql>
     <select id="selectCategoryVoPage" parameterType="java.util.Map"
