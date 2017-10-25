@@ -6,29 +6,30 @@
     <script src="<%=basePath%>/js/catalog/catalogue/catalogueAdd.js"></script>
 </head>
 <style>
-.n-top, .n-right, .n-bottom, .n-left{
+/* .n-top, .n-right, .n-bottom, .n-left{
 	     position: absolute;
     bottom: 0;
     left: 0 ;
-}
+} */
 </style>
 
 <body>
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd">
+            <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" 
+            >
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
                             <input type="hidden" name="sourceType" value="1">
-                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">信息资源分类<span class="redStar">*</span>:</label>
+                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">目录分类<span class="redStar">*</span>:</label>
                             <div class="col-sm-10"  style="width:87.8%">
-                                <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+                                <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="" disabled>
                                 <input type="hidden" value="${vo.id}" id="classifyId" name="classifyIds">
 
-                                <%--<input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+                                <%--<input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">
                                 <div class="menu-wrap">
@@ -39,9 +40,9 @@
                             </div>
                         </div>
                         <%--<div class="col-sm-6">
-                            <label for="classifyName" class="col-sm-3 control-label">信息资源分类 :</label>
+                            <label for="classifyName" class="col-sm-3 control-label">目录分类 :</label>
                             <div class="col-sm-9">
-                                <input type="text" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+                                <input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">
                                 <div class="menu-wrap">
@@ -86,7 +87,7 @@
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源提供方<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <%--<input type="text" id="belongDeptTypeName" data-rule="信息资源分类:required;" class="form-control"
+                                <%--<input type="text" id="belongDeptTypeName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="belongDeptType" name="belongDeptType">
                                 <input type="hidden" id="belongDeptTypeCode">
@@ -183,7 +184,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label" style="padding-left:0px">涉密标识：</label>
+                            <label  class="col-sm-3 control-label" style="padding-top:13px">涉密标识：</label>
                             <div class="col-sm-9 control-label">
                                 <div class="redio-box">
                                     <input type="radio" name="secretFlag" value="1" ><span></span>

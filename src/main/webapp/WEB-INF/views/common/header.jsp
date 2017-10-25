@@ -74,7 +74,9 @@
         <li>
             <img src="<%=basePath%>/images/userImg/serverimgicon1.png"/>
             <a href="<%=basePath%>/jp:hk_service" style="color: #FFFFFF;">&nbsp;&nbsp;服务封装</a></li>
-
+		<li>
+            <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
+            <a href="<%=basePath%>/jp:hk_analysis" style="color: #FFFFFF;">&nbsp;&nbsp;分析监管</a></li>
         <li>
             <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
             <a href="<%=basePath%>/jp:hk_portal" style="color: #FFFFFF;">&nbsp;&nbsp;门户</a></li>

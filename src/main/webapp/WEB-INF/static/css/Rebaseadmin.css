@@ -76,6 +76,10 @@
 .skin-blue .main-header .navbar .nav > li > a{
 	color: #7d8698;
 }
+/* adminlte下拉框样式统一变圆润 */
+.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single{
+	    border-radius: 4px;
+}
 
 /* 表格整体布局 */
 
@@ -120,7 +124,7 @@ div.box div.table-myself{
 	opacity: 0.45;
 	 min-height: 67px;
     line-height: 67px;
-	margin-right:30px;
+	margin-right:24px;
 	cursor:pointer;
 }
 .nav_uls>li.active{
@@ -270,3 +274,30 @@ input.input_test{
     xtransition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
 
 }
+
+
+select.form-controls{
+	height:34px;
+}
+
+
+
+/*上保管理 目录/服务上报  表格优化  */
+.layui-table[lay-skin=row] td, .layui-table[lay-skin=row] th{
+	border-left:1px solid #ddd;
+	    border-top: 1px solid #f4f4f4;
+	    vertical-align:middle;    
+}
+/*上保管理 目录/服务上报  表格优化  */	
+.layui-table[lay-even] tr:nth-child(even){
+	background-color:#fff;
+}
+
+/* 针对目录编目的验证样式挨近上一行 */
+.n-bottom .msg-wrap{
+	margin-top:0px;
+}
+/* 针对目录新添加行增加行高 以免遮挡验证样式 */
+  table.table-striped tbody>tr{
+        	height:50px;
+        }

@@ -17,6 +17,13 @@ import com.chinawiserv.dsp.base.mapper.system.SysRegionMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirNationalClassifyVo;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirDeptMapMapper;
+import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +51,15 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 
     @Autowired
     private SysRegionMapper sysRegionMapper;
+    
+    @Autowired
+    private DirClassifyMapper dirClassifyMapper;
+    
+    @Autowired
+    private DirDeptMapMapper dirDeptMapMapper;
+    
+    @Autowired
+    private IDirClassifyService dirService;
 
     @Autowired
     private SysDeptAuthorityMapper sysDeptAuthorityMapper;
@@ -200,6 +216,75 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public List<SysDeptVo> selectVoList(Map<String, Object> paramMap) {
         return sysDeptMapper.selectVoList(paramMap);
+    }
+    
+    @Override
+    public String insertIntoDir(Map<String, Object> params){
+    	
+    	
+    	String Ids = (String) params.get("dcmIds");
+    	String [] dcmIdArray = Ids.split(",");
+    	List<String> dcmIds = Arrays.asList(dcmIdArray);  
+    	
+    	String messageInfo = "";
+    	for (Iterator iterator = dcmIds.iterator(); iterator.hasNext();) {
+    		
+			String dcmId = (String) iterator.next();			
+			
+			if(dirClassifyMapper.selectMapByDeptId(dcmId)!= null){
+				
+				    messageInfo= "0";
+					break;
+					
+			}else if(dirClassifyMapper.selectBy23Region(sysDeptMapper.selectById(dcmId).getRegionCode())==null){
+					
+					messageInfo= "1";
+					break;
+					
+			}else if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))==null && !dirClassifyMapper.selectFidById(dcmId).equals("root")){
+					messageInfo= "2";
+					break;
+					
+			}else if(dirClassifyMapper.selectFidById(dcmId).equals("root")){
+					messageInfo= "3";
+					break;
+					
+			}else{	
+//					dirService.
+					String fid = dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId)).getClassifyId();
+					SysDept sysDept = dirClassifyMapper.selectDeptById(dcmId);
+//					DirNationalClassifyVo dirNationalClassifyVo = mapper2.selectFclassify(fcode);
+			  		DirClassifyVo dirclassifyVo = new DirClassifyVo();
+			  		
+			  		dirclassifyVo.setClassifyName(sysDept.getDeptName());		  		
+			  		dirclassifyVo.setFid(fid);
+			  		
+			  		DirClassifyVo vo = dirService.prepareClassifyVo(dirclassifyVo);
+//				  		if(type.equals("2-1")){
+//				  			vo.setClassifyType("5");
+//				  		}else if(type.equals("2-2")){
+//				  			vo.setClassifyType("6");	
+//				  		}else if(type.equals("3")){
+//				  			vo.setClassifyType("7");
+//				  		}
+			  		vo.setClassifyType("7");
+			  		
+			  		dirClassifyMapper.baseInsert(vo);
+			  		
+			  		DirDeptMap d = new DirDeptMap();
+			  		d.setClassifyId(vo.getId());
+			  		d.setDeptId(dcmId);
+			  		d.setId(CommonUtil.get32UUID());
+			  		dirDeptMapMapper.baseInsert(d);
+			  		
+			  		messageInfo = "4";
+			  		
+			}
+			
+		}
+    	
+	    return messageInfo;
+    	
     }
 
     @Override

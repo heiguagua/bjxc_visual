@@ -292,6 +292,7 @@ public class DirClassifyController extends BaseController {
             String fid = (String) paramMap.get("fid");
             if (StringUtils.isEmpty(fid)) {
                 paramMap.put("classifyType", "1");
+                //查出第一层节点的regionCode，就相当于过滤出下面字节点的regionCode了
                 paramMap.put("regionCode",ShiroUtils.getSessionAttribute(SystemConst.REGION));
             }
             List<DirClassifyVo> dirClassifyVoList = service.selectSubVoList(paramMap);

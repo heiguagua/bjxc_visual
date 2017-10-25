@@ -74,6 +74,12 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
+            field: 'isSync',
+            title: '是否已同步目录',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        },{
             field: 'id',
             title: '操作',
             align: 'center',
@@ -100,6 +106,26 @@ jQuery(document).ready(function () {
     }
 
 });
+
+
+
+
+function syncDeptClassify(){
+
+	    var dcmIds="";
+	    var selectedRow = $(tableSelector).bootstrapTable('getSelections');
+	    if(selectedRow && selectedRow.length > 0) {
+	        for (var i = 0, ii = selectedRow.length; i < ii; i++) {
+	            var dcmId = selectedRow[i].id;
+	            dcmIds += i == 0 ? dcmId : "," + dcmId;
+	        }
+	        var parameter = {dcmIds: dcmIds};
+	        sync(basePathJS + '/system/dept/doSycn' , parameter );
+	    }else{
+	        errorMsgTip("请先选择要同步目录的部门");
+	    }
+
+}
 
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;

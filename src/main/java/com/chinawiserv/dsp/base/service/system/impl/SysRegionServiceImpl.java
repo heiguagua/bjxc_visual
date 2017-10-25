@@ -84,6 +84,27 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
     }
 
     @Override
+    public String getAllSubRegionCodesWithSelf(String regionCode) {
+        String allRegionCodes = "";
+        if(!org.springframework.util.StringUtils.isEmpty(regionCode)){
+            StringBuffer allRegionCodeBuffer = new StringBuffer();
+            List<SysRegionVo> SysRegionVoList = selectAllRegionByRegionCode(regionCode);
+            if(!ObjectUtils.isEmpty(SysRegionVoList)){
+                for(SysRegionVo vo : SysRegionVoList){
+                    String subRegionCode = vo.getRegionCode();
+                    allRegionCodeBuffer.append("'").append(subRegionCode).append("',");
+                }
+                if(allRegionCodeBuffer.length()>0){
+                    String allRegionCode = allRegionCodeBuffer.toString();
+                    allRegionCodes = allRegionCode.substring(0,allRegionCode.length()-1);
+                }
+            }
+        }
+
+        return allRegionCodes;
+    }
+
+    @Override
     public List<SysRegionVo> getRegionSelectDataList(Map<String, Object> paramMap) {
         String regionCode = (String)paramMap.get("regionCode");
         if(StringUtils.isBlank(regionCode)){

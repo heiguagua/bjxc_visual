@@ -375,6 +375,10 @@ function delObj(url,parameter, func, parentWin) {
     createDialog('删除确认', '您『确定』删除当前选中的记录吗？', url, parameter, func, parentWin);
 }
 
+function sync(url,parameter, func, parentWin) {
+    createDialog('同步确认', '您『确定』同步当前选中的记录吗？', url, parameter, func, parentWin);
+}
+
 function updateStatus(url,parameter, func, parentWin) {
 	if(parameter.status=="1"){
 		createDialog('更改确认', '您『确定』禁用当前图片吗？', url, parameter, func, parentWin);

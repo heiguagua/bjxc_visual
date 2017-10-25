@@ -45,10 +45,10 @@
                 <div class="form-group">
                 	<div class="row">
 	                	<div class="col-sm-11">
-		                    <label style="width:13.3%;" for="classifyName" class="col-sm-3 control-label" style="width: 21.3%;">信息资源分类 :</label>
+		                    <label style="width:13.3%;" for="classifyName" class="col-sm-3 control-label" style="width: 21.3%;">目录分类 :</label>
 		                    <div class="col-sm-9"  style="width:76%;">
 		                        <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
-		                        <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="信息资源分类:required;" class="form-control"
+		                        <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="目录分类:required;" class="form-control"
 		                         placeholder="" disabled>
 		                        <input type="hidden" value="${vo.id}" id="classifyId" name="classifyIds">
 		                        <%--<div class="menu-wrap">
@@ -62,7 +62,7 @@
 	                		<label class="col-sm-3"></label>
 	                		<div class="col-sm-9" style="padding-right: 0;">
 	                			 <a id="deploy_dataset" class="btn btn-primary btn-flat pull-right btn-datas" data-toggle="modal" data-target="#myModal">
-             			      	配置数据集
+             			      	配置数据项
                 			</a>
 	                		</div>
 		                 	
@@ -91,7 +91,7 @@
 	                	<div class="col-sm-6">
 	                	<label  class="col-sm-3 control-label">信息资源提供方:</label>
 	                    <div class="col-sm-9">
-							<%--<input type="text" id="belongDeptTypeName" data-rule="信息资源分类:required;" class="form-control"
+							<%--<input type="text" id="belongDeptTypeName" data-rule="目录分类:required;" class="form-control"
 								   placeholder="">
 							<input type="hidden" id="belongDeptType" name="belongDeptType">
 							<input type="hidden" id="belongDeptTypeCode">

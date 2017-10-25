@@ -59,12 +59,12 @@
                                        placeholder="请输入真实姓名" data-rule="真实姓名:required;realName;">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="userType">用户类型</label>
-                                <div class="form-group">
-                                <select id="userType" name="userType" class="form-control select2" style="width: 100%;"></select>
-                                </div>
-                            </div>
+<!--                             <div class="form-group"> -->
+<!--                                 <label for="userType">用户类型</label> -->
+<!--                                 <div class="form-group"> -->
+<!--                                 <select id="userType" name="userType" class="form-control select2" style="width: 100%;"></select> -->
+<!--                                 </div> -->
+<!--                             </div> -->
                             <div class="form-group">
                                 <label for="telephoneNumber">电话号码</label>
                                 <div class="form-group">

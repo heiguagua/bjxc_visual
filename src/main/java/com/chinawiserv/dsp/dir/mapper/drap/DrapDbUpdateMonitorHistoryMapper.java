@@ -2,7 +2,7 @@ package com.chinawiserv.dsp.dir.mapper.drap;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbUpdateMonitorHistory;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbUpdateHistory;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbUpdateMonitorHistoryVo;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,7 @@ import java.util.Map;
  * @author wuty
  * @since 2017-09-27
  */
-public interface DrapDbUpdateMonitorHistoryMapper extends BaseMapper<DrapDbUpdateMonitorHistory> {
+public interface DrapDbUpdateMonitorHistoryMapper extends BaseMapper<DrapDbUpdateHistory> {
 
     List<DrapDbUpdateMonitorHistoryVo> selectVoPage(Page<DrapDbUpdateMonitorHistoryVo> page, Map<String, Object> paramMap);
 
@@ -24,9 +24,9 @@ public interface DrapDbUpdateMonitorHistoryMapper extends BaseMapper<DrapDbUpdat
 
     int selectVoCount(Map<String, Object> paramMap);
 
-    int baseInsert(DrapDbUpdateMonitorHistory entity);
+    int baseInsert(DrapDbUpdateHistory entity);
 
-    int baseUpdate(DrapDbUpdateMonitorHistory entity);
+    int baseUpdate(DrapDbUpdateHistory entity);
 
     int baseDelete(String id);
 }

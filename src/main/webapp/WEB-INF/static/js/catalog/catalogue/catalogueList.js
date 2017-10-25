@@ -94,7 +94,7 @@ function initTable(){
             }
         },{
             field: 'classifyName',
-            title: '信息资源分类',
+            title: '目录分类',
             sortable: false,
             formatter:function(value, row, index){
                 if(value == undefined){
@@ -298,6 +298,11 @@ function quickNosqlDcmAddDatasetUI() {
     add('从非关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmNosqlAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 function excelImportUI() {
+    var regionCode = $.getSelectedRegionCode();
+    if(!regionCode){
+        tip("请选择区域！");
+        return;
+    }
     addNews('导入',basePathJS +'/catalog/catalogue/excelImportUI',900,200);
 }
 function checkClassfyId(searchClassifyId){

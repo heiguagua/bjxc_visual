@@ -15,13 +15,13 @@
                         <input type="hidden" id="id" name="id" value="${id}">
                         <div class="col-sm-12">
                             <input type="hidden" name="sourceType" value="1">
-                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">信息资源分类:</label>
+                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">目录分类:</label>
                             <div class="col-sm-10"  style="width:87.8%">
                                 <input type="text" id="classifyName"  class="form-control" readonly>
                             </div>
                         </div>
                         <%--<div class="col-sm-6">
-                            <label for="classifyName" class="col-sm-3 control-label">信息资源分类 :</label>
+                            <label for="classifyName" class="col-sm-3 control-label">目录分类 :</label>
                             <div class="col-sm-9">
                                 <input type="text" id="classifyName"  class="form-control" readonly>
                             </div>
