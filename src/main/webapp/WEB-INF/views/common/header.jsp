@@ -57,7 +57,7 @@
    <!-- <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a> -->
    <!-- Navbar Right Menu -->
    
-   <div class="btn-group">
+   <div class="btn-group" style="display:block;">
    	<ul class="nav_uls">
         <li>
             <img src="<%=basePath%>/images/userImg/sourceimgicon2.png"/>
@@ -132,8 +132,7 @@
            <img src="<%=basePath%>/images/userImg/adminDeltimg.png" class="adminDeltimg"/>
          </a>
        </li>
-       <li style="width: 30px;">
-       </li>
+       
       </ul>
     </div>
   </nav>
