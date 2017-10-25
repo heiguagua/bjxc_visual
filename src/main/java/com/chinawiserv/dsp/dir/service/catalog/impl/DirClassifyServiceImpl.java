@@ -18,6 +18,7 @@ import com.google.common.util.concurrent.Striped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -207,6 +208,13 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 
     @Override
     public List<DirClassifyVo> selectSubVoList(Map<String, Object> paramMap) throws Exception {
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            //查找当前用户拥有权限的目录类别
+            paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+        }
         return mapper.selectSubVoListForTreeData(paramMap);
     }
     

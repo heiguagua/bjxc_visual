@@ -60,7 +60,21 @@
             <if test="regionCode!= null and allRegionCode !='' ">
                 and t.region_code = #{regionCode,jdbcType=VARCHAR}
             </if>
-
+            <if test="loginUserIdForAuthority != null and loginUserIdForAuthority!='' ">
+                and t.id in(
+                select id  from dir_classify t,
+                (select dc.tree_code from dir_classify_authority dca
+                left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
+                where dca.auth_obj_type ='2' and dca.auth_obj_id = #{loginUserIdForAuthority,jdbcType=VARCHAR}
+                ) a where t.delete_flag=0 and t.tree_code like CONCAT(a.tree_code, '%')
+                union
+                select id  from dir_classify c,
+                (select dc.tree_code from dir_classify_authority dca
+                left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
+                where dca.auth_obj_type ='1' and dca.auth_obj_id =  (select su.dept_id from sys_user su where su.delete_flag=0 and su.id = #{loginUserIdForAuthority,jdbcType=VARCHAR})
+                )b where c.delete_flag=0 and c.tree_code like CONCAT(b.tree_code, '%')
+                )
+            </if>
         </where>
     </sql>
     
@@ -138,7 +152,7 @@
     </select>
 
     <select id="selectSubVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf,case when t.region_code = #{regionCode} then '1' else '0' end as is_local
+        SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
         FROM dir_classify t
         LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
         <include refid="queryConditions"></include>

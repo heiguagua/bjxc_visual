@@ -574,21 +574,10 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetVo> page = getPage(paramMap);
         page.setOrderByField("create_time");
         page.setAsc(false);
-        String regionCode = (String)paramMap.get("regionCode");
-        if(!StringUtils.isEmpty(regionCode)){
-            StringBuffer allRegionCodeBuffer = new StringBuffer();
-            List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
-            if(!ObjectUtils.isEmpty(SysRegionVoList)){
-                for(SysRegionVo vo : SysRegionVoList){
-                    String subRegionCode = vo.getRegionCode();
-                    allRegionCodeBuffer.append("'").append(subRegionCode).append("',");
-                }
-                if(allRegionCodeBuffer.length()>0){
-                    String allRegionCode = allRegionCodeBuffer.toString();
-                    allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
-                    paramMap.put("allRegionCode",allRegionCode);
-                }
-            }
+        //获取当前区域及子区域的编码
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf((String)paramMap.get("regionCode"));
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
         }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();

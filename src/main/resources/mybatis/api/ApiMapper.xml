@@ -573,32 +573,39 @@
     <!-- 查询用户申请的数据集拥有的数据字段 -->
     <select id="getDataitemAuthorityByUserIdAndDatasetId" parameterType="map" resultType="map">
         <!-- 系统梳理 -->
-        <!--
+
         SELECT
-        dti.`table_name` AS tableName,
-        dtc.`column_en_name` AS columnName
+          dti.`table_name` AS tableName,
+          dtc.`column_en_name` AS columnName
         FROM
-        dir_data_item_apply dia
-        LEFT JOIN dir_dataset dd
-        ON dd.`id` = dia.`data_apply_id`
-        LEFT JOIN dir_dataitem_source_info dsi
-        ON dsi.`item_id` = dia.`item_id`
-        LEFT JOIN drap_db_table_column dtc
-        ON dtc.`id` = dsi.`source_obj_id`
-        LEFT JOIN drap_db_table_info dti
-        ON dti.`id` = dtc.`table_id`
-        LEFT JOIN
-        (SELECT
-        *
-        FROM
-        sys_dict
-        WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = dd.`source_type`
+          dir_data_item_apply dia
+          LEFT JOIN dir_data_apply dda
+            ON dda.`id` = dia.`data_apply_id`
+          LEFT JOIN dir_dataset_classify_map ddcm
+            ON ddcm.`id` = dda.`dcm_id`
+          LEFT JOIN dir_dataset dd
+            ON dd.`id` = ddcm.`dataset_id`
+          LEFT JOIN dir_dataitem_source_info dsi
+            ON dsi.`item_id` = dia.`item_id`
+          LEFT JOIN drap_db_table_column dtc
+            ON dtc.`id` = dsi.`source_obj_id`
+          LEFT JOIN drap_db_table_info dti
+            ON dti.`id` = dtc.`table_id`
+          LEFT JOIN
+            (SELECT
+              *
+            FROM
+              sys_dict
+            WHERE category = 'dataSetSourceType') sd
+            ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
-        AND dd.`delete_flag` = 0
-        AND sd.`dict_code` = '2'
-        AND dia.`status` = '1'
-        -->
+          AND dd.`delete_flag` = 0
+          AND sd.`dict_code` = '2'
+          AND dia.`status` = '1'
+          AND dtc.`id` IS NOT NULL
+          <include refid = "datasetApplyWhereClause"/>
+          GROUP BY dtc.`id`
+        <!--
         SELECT
         ddti.`table_name` AS tableName,
         ddtc.`column_en_name` AS columnName
@@ -625,39 +632,48 @@
         AND dia.`status` = '1'
         <include refid = "datasetApplyWhereClause"/>
         GROUP BY ddtc.`id`
+        -->
+
         UNION ALL
 
         <!-- 资源梳理 -->
-        <!--
+
         SELECT
-        dti.`table_name` AS tableName,
-        dtc.`column_en_name` AS columnName
+          dti.`table_name` AS tableName,
+          dtc.`column_en_name` AS columnName
         FROM
-        dir_data_item_apply dia
-        LEFT JOIN dir_dataset dd
-        ON dd.`id` = dia.`data_apply_id`
-        LEFT JOIN dir_dataitem_source_info dsi
-        ON dsi.`item_id` = dia.`item_id`
-        LEFT JOIN drap_dataset_item ddi
-        ON ddi.`id` = dsi.`source_obj_id`
-        LEFT JOIN drap_data_column_map dcm
-        ON dcm.`business_item_id` = ddi.`id`
-        LEFT JOIN drap_db_table_column dtc
-        ON dtc.`id` = dcm.`system_column_id`
-        LEFT JOIN drap_db_table_info dti
-        ON dti.`id` = dtc.`table_id`
-        LEFT JOIN
-        (SELECT
-        *
-        FROM
-        sys_dict
-        WHERE category = 'dataSetSourceType') sd
-        ON sd.`dict_code` = dd.`source_type`
+          dir_data_item_apply dia
+          LEFT JOIN dir_data_apply dda
+            ON dda.`id` = dia.`data_apply_id`
+          LEFT JOIN dir_dataset_classify_map ddcm
+            ON ddcm.`id` = dda.`dcm_id`
+          LEFT JOIN dir_dataset dd
+            ON dd.`id` = ddcm.`dataset_id`
+          LEFT JOIN dir_dataitem_source_info dsi
+            ON dsi.`item_id` = dia.`item_id`
+          LEFT JOIN drap_dataset_item ddi
+            ON ddi.`id` = dsi.`source_obj_id`
+          LEFT JOIN drap_data_column_map dcm
+            ON dcm.`business_item_id` = ddi.`id`
+          LEFT JOIN drap_db_table_column dtc
+            ON dtc.`id` = dcm.`system_column_id`
+          LEFT JOIN drap_db_table_info dti
+            ON dti.`id` = dtc.`table_id`
+          LEFT JOIN
+            (SELECT
+              *
+            FROM
+              sys_dict
+            WHERE category = 'dataSetSourceType') sd
+            ON sd.`dict_code` = dd.`source_type`
         WHERE TRUE
-        AND dd.`delete_flag` = 0
-        AND sd.`dict_code` = '3'
-        AND dia.`status` = '1'
-        -->
+          AND dd.`delete_flag` = 0
+          AND sd.`dict_code` = '3'
+          AND dia.`status` = '1'
+          AND dtc.`id` IS NOT NULL
+          <include refid = "datasetApplyWhereClause"/>
+          GROUP BY dtc.`id`
+        <!--
         SELECT
         ddti.`table_name` AS tableName,
         ddtc.`column_en_name` AS columnName
@@ -685,6 +701,8 @@
 
         <include refid = "datasetApplyWhereClause"/>
         GROUP BY ddtc.`id`
+        -->
+
         UNION ALL
 
         <!-- 爬虫系统 -->
@@ -693,8 +711,12 @@
         dtc.`cloumn_name` AS columnName
         FROM
         dir_data_item_apply dia
+        LEFT JOIN dir_data_apply dda
+        ON dda.`id` = dia.`data_apply_id`
+        LEFT JOIN dir_dataset_classify_map ddcm
+        ON ddcm.`id` = dda.`dcm_id`
         LEFT JOIN dir_dataset dd
-        ON dd.`id` = dia.`data_apply_id`
+        ON dd.`id` = ddcm.`dataset_id`
         LEFT JOIN dir_dataitem_source_info dsi
         ON dsi.`item_id` = dia.`item_id`
         LEFT JOIN cs_data_sync_collect_column dtc
@@ -712,18 +734,24 @@
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '4'
         AND dia.`status` = '1'
+        AND dtc.`id` IS NOT NULL
         <include refid = "datasetApplyWhereClause"/>
+        GROUP BY dtc.`id`
 
         UNION ALL
 
         <!-- 采集系统 -->
         SELECT
-        dti.`target_obj_code`AS tableName,
+        dti.`target_obj_code` AS tableName,
         dtc.`column_name` AS columnName
         FROM
         dir_data_item_apply dia
+        LEFT JOIN dir_data_apply dda
+        ON dda.`id` = dia.`data_apply_id`
+        LEFT JOIN dir_dataset_classify_map ddcm
+        ON ddcm.`id` = dda.`dcm_id`
         LEFT JOIN dir_dataset dd
-        ON dd.`id` = dia.`data_apply_id`
+        ON dd.`id` = ddcm.`dataset_id`
         LEFT JOIN dir_dataitem_source_info dsi
         ON dsi.`item_id` = dia.`item_id`
         LEFT JOIN dcm_table_column dtc
@@ -741,7 +769,9 @@
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '5'
         AND dia.`status` = '1'
+        AND dtc.`id` IS NOT NULL
         <include refid = "datasetApplyWhereClause"/>
+        GROUP BY dtc.`id`
 
     </select>
 
