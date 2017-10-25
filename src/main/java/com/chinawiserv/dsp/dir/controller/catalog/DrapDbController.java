@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.controller.catalog;
 
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DrapDbTableColumn;
+import com.chinawiserv.dsp.dir.enums.catalog.ColumnType;
 import com.chinawiserv.dsp.dir.mapper.catalog.DrapDbMapper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,9 @@ public class DrapDbController {
             handleResult.error("参数不能为空!");
         } else {
             List<DrapDbTableColumn> tableColumns = drapDbMapper.selectFieldByIds(list);
+            for (DrapDbTableColumn item:tableColumns) {
+               item.setColumn_type(ColumnType.getCode(item.getColumn_type()));
+            }
             handleResult.put("list",tableColumns);
         }
         return handleResult;
