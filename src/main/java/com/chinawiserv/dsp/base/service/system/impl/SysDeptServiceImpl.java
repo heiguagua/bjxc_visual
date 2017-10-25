@@ -241,7 +241,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 					messageInfo= "1";
 					break;
 					
-			}else if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))==null && !dirClassifyMapper.selectFidById(dcmId).equals("root")){
+			}else if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))==null && !dirClassifyMapper.selectFidById(dcmId).equals("root") && !dirClassifyMapper.selectFidById(dirClassifyMapper.selectFidById(dcmId)).equals("root") ){
 					messageInfo= "2";
 					break;
 					
@@ -251,7 +251,12 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 					
 			}else{	
 //					dirService.
-					String fid = dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId)).getClassifyId();
+				String fid = "";
+				if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))!=null){
+					 fid = dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId)).getClassifyId();
+				}else{
+					 fid = dirClassifyMapper.selectBy3Region(sysDeptMapper.selectById(dcmId).getRegionCode()).getId();
+				}
 					SysDept sysDept = dirClassifyMapper.selectDeptById(dcmId);
 //					DirNationalClassifyVo dirNationalClassifyVo = mapper2.selectFclassify(fcode);
 			  		DirClassifyVo dirclassifyVo = new DirClassifyVo();
