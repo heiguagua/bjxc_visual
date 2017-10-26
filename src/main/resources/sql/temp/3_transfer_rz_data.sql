@@ -188,7 +188,7 @@
 			share_type,share_condition,share_method,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,
 			source_type,status,create_user_id,create_time,update_time)
 		select uuid,(select a.region_code from rz_dir.dir_organize a where a.org_code = t.org_code) as old_region_code,
-				set_code,set_name,alias,(select id from v_sys_region_dept where region_code='510100' and category = '1') as belong_dept_type,
+				set_code,set_name,alias,(select region_dept_code from v_sys_region_dept where region_code='510100' and category = '1') as belong_dept_type,
 				(select a.uuid from rz_dir.dir_organize a where a.org_code = t.org_code) as old_belong_dep_id,'' as belong_dept_no,
 				description,share_type,share_condi_explain,share_way,whether_open,open_condition,update_cycle,'' as rel_dataset_code,
 				storage_medium,storage_location,type,status,create_user,create_time ,last_operation_time
