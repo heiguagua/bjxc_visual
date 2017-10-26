@@ -58,6 +58,7 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
     DirDeptMap selectMapByDeptId(String dcmId);
     
     List<DirClassify> selectBy23Region(String regionCode);
+    DirClassify selectBy3Region(String regionCode);
     
     String selectFidById(String id);
     

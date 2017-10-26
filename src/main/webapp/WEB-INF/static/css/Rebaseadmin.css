@@ -48,7 +48,7 @@
 .main-header .logo{
 	height: 70px;
 	line-height:70px;
-	padding: 0 10px !important;
+	padding:0 !important;
 }
 .skin-blue .main-header .logo{
 	background: #4197F4;
@@ -64,7 +64,8 @@
 	    padding: 28px 28px;
 }
 .navbar-nav > li > a{
-	    padding-top: 30px
+	    padding-top: 26px;
+	    min-height:70px;
 }
 .skin-blue .main-header .logo:hover{
 	    background: #4197F4;
@@ -101,7 +102,7 @@ div.box div.table-myself{
 	    padding: 0 40px;
 }
 .navbar-static-top .btn-group{
-	    padding: 0 60px;
+	    padding: 0 4%;
 }
 
 
@@ -124,7 +125,7 @@ div.box div.table-myself{
 	opacity: 0.45;
 	 min-height: 67px;
     line-height: 67px;
-	margin-right:24px;
+	margin-right:2%;
 	cursor:pointer;
 }
 .nav_uls>li.active{

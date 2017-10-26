@@ -73,9 +73,9 @@
                         	<div class="form-group">
 			                    <div class="row">
 			                        <div class="col-sm-6" >
-			                            <label  class="col-sm-3 control-label"  for="icon">选择图标*</label>
+			                            <label  class="col-sm-3 control-label"  for="icon">选择图标</label>
 			                            <div class="col-sm-9">
-			                                 <select id="icon" name="icon" class="form-control select2" style="width: 100%;" data-rule="选择图标:required">             
+			                                 <select id="icon" name="icon" class="form-control select2" style="width: 100%;" >             
                                 		  <<!-- option value =""></option>
                                 		  <option value ="volvo">Volvo</option>
 										  <option value ="saab">Saab</option>
@@ -101,24 +101,24 @@
 			                            <label  class="col-sm-3 control-label"  for="icon">目录类别*</label>
 			                            <div class="col-sm-9">
 			                                <select id="classify_type" name="classifyType" class="form-control select2" style="width: 100%;" data-rule="选择类别:required">             
-	                                		  <option value =""></option>
+	                                	<!-- 	  <option value =""></option>
 	                                		  <option value ="1">行政区域数据</option>
 	                                		  <option value ="2">分类（基础库、主题库、部门库 ）</option>
 											  <option value ="3">分类（各级部门）</option>
 											  <option value="4">分类（各级子行政区域）</option>
 											  <option value="5">基础库数据</option> 
 											  <option value="6">主题库数据</option> 
-											  <option value="7">部门库数据</option> 
+											  <option value="7">部门库数据</option>  -->
                                 			</select>
 			                            </div>
 			                        </div>
 			                        <div class="col-sm-6">
-			                            <label  class="col-sm-3 control-label" for="nationalCode">国家库*</label>
+			                            <label  class="col-sm-3 control-label" for="nationalCode">国家库</label>
 			                            <div class="col-sm-9">
 <!-- 			                            	<input type="text" id="national_code" name="nationalCode" class="form-control"
                                        		placeholder="" data-rule="排序号:required;nationalCode;">
 			              -->               	
-										 	<input type="text" id="nationalCode" data-rule="国家库:required;" class="form-control"
+										 	<input type="text" id="nationalCode" class="form-control"
 					                         placeholder="">
 					                        <input type="hidden" id="dictNationalCode" name="nationalCode">
 					                        <div class="menu-wrap">

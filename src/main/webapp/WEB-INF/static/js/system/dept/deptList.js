@@ -78,7 +78,14 @@ jQuery(document).ready(function () {
             title: '是否已同步目录',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter : function (value){
+                if(value == '0'){
+                	return "否";                	
+                }else if(value == '1'){
+                	return "是";
+                }
+            }
         },{
             field: 'id',
             title: '操作',
