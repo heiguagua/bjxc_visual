@@ -13,6 +13,10 @@
 .layui-layer-dialog{
 	top:180px !important;
 }
+.ztree li ul {
+    margin: 0;
+    padding: 0 0 10 18px !important;
+}
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

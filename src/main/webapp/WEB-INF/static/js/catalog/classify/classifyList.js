@@ -99,7 +99,7 @@ jQuery(document).ready(function () {
 				+"<button id='diyBtn_space2_" +treeNode.id+ "' type='button' class='btn btn-add dropdown-toggle'"
 	           +         "data-toggle='dropdown'>"
 			   +	"添加 <span class='caret'></span></button>"
-			   +	"<ul id='diyBtn_space3_" +treeNode.id+ "' class='dropdown-menu' role='menu'>"
+			   +	"<ul id='diyBtn_space3_" +treeNode.id+ "' class='dropdown-menu' role='menu' style='padding-bottom: 100px'>"
 
 				+"<li><a href='javascript:void(0)' class='"+treeNode.fidforadd+"' id='addSibling'  data-pcode="+treeNode.fidforadd+" href='#'  >添加同级</a></li>"
 				+"<li><a href='javascript:void(0)' class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
