@@ -94,6 +94,16 @@ public class SysDept implements Serializable {
 
 	private String treeCode;
 
+	private String deptStructureName;
+
+	public String getDeptStructureName() {
+		return deptStructureName;
+	}
+
+	public void setDeptStructureName(String deptStructureName) {
+		this.deptStructureName = deptStructureName;
+	}
+
 	public String getId() {
 		return id;
 	}
