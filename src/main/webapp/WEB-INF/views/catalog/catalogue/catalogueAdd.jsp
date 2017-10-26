@@ -107,14 +107,15 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6" style="padding:0">
-                                        <input type="text" id="belongDeptName" data-rule="信息资源提供方:required;" class="form-control"
+                                        <input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="请输入提供方信息" >
+                                        <%--<input type="text" id="belongDeptName" data-rule="信息资源提供方:required;" class="form-control"
                                                placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                         <input type="hidden" id="belongDeptId" name="belongDeptId">
                                         <div class="menu-wrap">
                                             <div id="belongDeptMenuContent" class="menuContent" style="display:none;">
                                                 <ul id="belongDeptTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                             </div>
-                                        </div>
+                                        </div>--%>
                                     </div>
                             </div>
                         </div>

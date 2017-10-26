@@ -14,7 +14,7 @@ function initAllSelect(){
     $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
     $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId'); //初始化关联目录分类下拉框
     $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
-    $.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
+    //$.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
     //信息资源格式下拉框初始化
     Dict.selects('resourceFormat',['#formatCategory']);
     //共享类型

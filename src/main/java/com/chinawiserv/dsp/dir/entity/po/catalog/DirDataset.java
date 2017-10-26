@@ -57,6 +57,11 @@ public class DirDataset implements Serializable {
 	@TableField("belong_dept_id")
 	private String belongDeptId;
     /**
+     * 【国】信息资源提供方名称(科室)
+     */
+    @TableField("belong_dept_name")
+    private String belongDeptName;
+    /**
      * 【国】信息资源提供方编码
      */
     @TableField("belong_dept_no")
@@ -234,6 +239,14 @@ public class DirDataset implements Serializable {
 	public void setBelongDeptId(String belongDeptId) {
 		this.belongDeptId = belongDeptId;
 	}
+
+    public String getBelongDeptName() {
+        return belongDeptName;
+    }
+
+    public void setBelongDeptName(String belongDeptName) {
+        this.belongDeptName = belongDeptName;
+    }
 
     public String getBelongDeptNo() {
         return belongDeptNo;
