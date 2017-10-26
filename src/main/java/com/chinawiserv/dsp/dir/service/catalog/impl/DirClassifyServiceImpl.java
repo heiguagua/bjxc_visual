@@ -211,10 +211,10 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
         //非超管和区域管理员，则要做权限过滤
-        if(minRoleLevl>0){
-            //查找当前用户拥有权限的目录类别
-            paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
-        }
+//        if(minRoleLevl>0){
+//            //查找当前用户拥有权限的目录类别
+//            paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
+//        }
         return mapper.selectSubVoListForTreeData(paramMap);
     }
     
