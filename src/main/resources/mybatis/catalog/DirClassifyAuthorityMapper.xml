@@ -122,5 +122,17 @@
         </where>
     </sql>
 
+    <select id="selectAuthorityIdForLoginUser" resultType="java.lang.String">
+        select distinct(s.tree_code) as tree_code from(
+            select dc.tree_code from dir_classify_authority dca
+            left join dir_classify dc on dca.classify_id = dc.id
+            where dca.auth_obj_type ='2' and dc.delete_flag=0 and dca.auth_obj_id = #{loginUserId,jdbcType=VARCHAR}
+            union
+            select dc2.tree_code from dir_classify_authority dca2
+            left join dir_classify dc2 on dca2.classify_id = dc2.id
+            where dca2.auth_obj_type ='1' and dc2.delete_flag=0 and dca2.auth_obj_id =  (select su.dept_id from sys_user su where su.delete_flag=0 and su.id = #{loginUserId,jdbcType=VARCHAR})
+        ) s
+    </select>
+
 
 </mapper>

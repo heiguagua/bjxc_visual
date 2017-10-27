@@ -24,6 +24,7 @@ public class DirClassifyVo extends DirClassify{
     private String classifyTypeName;
     private String nationalClassifyName;
     private String isLocal;
+    private String authorityNode;
     
     public String getHasLeaf() {
         return hasLeaf;
@@ -81,10 +82,14 @@ public class DirClassifyVo extends DirClassify{
 		this.isLocal = isLocal;
 	}
 
+    public String getAuthorityNode() {
+        return authorityNode;
+    }
 
-	
-	
-	
+    public void setAuthorityNode(String authorityNode) {
+        this.authorityNode = authorityNode;
+    }
+
 //	public static void main(String[] args) {
 //		
 //		DirClassifyVo vo = new DirClassifyVo();

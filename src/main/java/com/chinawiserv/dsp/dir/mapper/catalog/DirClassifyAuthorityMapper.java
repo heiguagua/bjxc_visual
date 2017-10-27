@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassifyAuthority;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -34,4 +36,6 @@ public interface DirClassifyAuthorityMapper extends BaseMapper<DirClassifyAuthor
     List<DirClassifyAuthorityVo> selectVoList(Map<String, Object> paramMap);
 
     int deleteByVo(DirClassifyAuthorityVo dirClassifyAuthorityVo);
+
+    List<String> selectAuthorityIdForLoginUser(@Param("loginUserId") String userId);
 }
