@@ -1,5 +1,7 @@
 package com.chinawiserv.dsp.dir.service.catalog.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,7 +9,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.entity.po.system.SysRegionDept;
+import com.chinawiserv.dsp.base.entity.vo.system.*;
+import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
+import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
+import com.chinawiserv.dsp.base.mapper.system.SysRegionDeptMapper;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
+import com.chinawiserv.dsp.dir.mapper.catalog.*;
+import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -18,8 +31,6 @@ import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
 import com.chinawiserv.dsp.base.common.util.Helper;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
-import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataAuditVo;
@@ -32,16 +43,6 @@ import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetSurveyVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.enums.catalog.ReportScope;
 import com.chinawiserv.dsp.dir.enums.catalog.ReportStatus;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDataAuditMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDataOfflineMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDataPublishMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDataRegisteMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDataitemMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDataitemSourceInfoMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetSourceInfoMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetSurveyMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 
@@ -84,6 +85,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     private DirDatasetSurveyMapper surveyMapper;
 
     @Autowired
+    private DirDatasetExtFormatMapper dirDatasetExtFormatMapper;
+
+    @Autowired
     private IDirClassifyService dirClassifyService;
 
     @Autowired
@@ -91,6 +95,18 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Autowired
     private DirDatasetSourceInfoMapper datasetSourceInfoMapper;
+
+    @Autowired
+    private IDirDataitemService dataitemService;
+
+    @Autowired
+    private SysDictMapper sysDictMapper;
+
+    @Autowired
+    private SysRegionDeptMapper sysRegionDeptMapper;
+
+    @Autowired
+    private SysDeptMapper sysDeptMapper;
 
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
@@ -682,6 +698,285 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     	result.success("上报成功");
     	return result;
     }
+
+    @Override
+    public boolean addDirDatasetWithOutDir(Sheet sheet, String regionCode, String classifyId) {
+        //存放数据集
+        List<DirDataset> lists=new ArrayList<DirDataset>();
+        //存放数据项
+        List<DirDataitemVo> items=new ArrayList<DirDataitemVo>();
+        //存放数据集-目录中间关系
+        List<DirDatasetClassifyMapVo> datamapList = new ArrayList<DirDatasetClassifyMapVo>();
+        //存放新增数据集
+        List<DirDataset> datasetList = new ArrayList<DirDataset>();
+        //存放新增数据集的资源分类
+        final List<DirDatasetExtFormat> dirDatasetExtFormatList = new ArrayList<DirDatasetExtFormat>();
+        //存放新增数据集的信息资源大普查
+        final List<DirDatasetSurvey> dirDatasetSurveyList = new ArrayList<DirDatasetSurvey>();
+
+        final List<SysDictVo> sysDictVoList = sysDictMapper.selectDictList(new HashMap<>());
+
+        final String sourceType = sysDictMapper.selectDictcodeByCategoryAndName("excel导入","dataSetSourceType");
+
+        DirDataset dataset=null;
+        for(int i=3;i<=sheet.getLastRowNum();i++){
+            final DirDataitemVo item=new DirDataitemVo();
+            Row row = sheet.getRow(i);
+            row.getCell(0).setCellType(CellType.STRING);
+            String datasetName = row.getCell(0).getStringCellValue();
+            boolean b=true;
+            for (DirDataset dirDataset : lists) {
+                if(dirDataset.getDatasetName().equals(datasetName)){
+                    setItem(item,row,dirDataset, sysDictVoList);
+                    items.add(item);
+                    b=false;
+                    break;
+                }
+            }
+            if(b){
+                //查询数据集是否存在
+                DirDataset tempDirDataset =this.selectDatasetByNameAndClassifyId(datasetName,classifyId);
+                if(tempDirDataset!=null){
+                    dataset=tempDirDataset;
+                    dataitemService.deleteByDatasetId(dataset.getId());
+                }else{
+                    dataset=new DirDataset();
+                    dataset.setRegionCode(regionCode);
+                    dataset.setDatasetName(datasetName);
+                    dataset.setId(CommonUtil.get32UUID());
+//                    dataset.setDatasetCode(dataset.getId());
+                    dataset.setSourceType(sourceType);
+                    //信息资源提供方代码
+                    String region=null,name=null;
+                    try {
+                        row.getCell(2).setCellType(CellType.STRING);
+                        region= row.getCell(2).getStringCellValue();
+                        row.getCell(3).setCellType(CellType.STRING);
+                        name= row.getCell(3).getStringCellValue();
+                        Map regionMap = new HashMap<>();
+                        regionMap.put("regionDeptName",region);
+                        regionMap.put("regionCode",regionCode);
+                        List<SysRegionDeptVo> sysRegionDeptList = sysRegionDeptMapper.selectVoList(regionMap);
+                        if(!sysRegionDeptList.isEmpty()){
+                            dataset.setBelongDeptType(sysRegionDeptList.get(0).getId());
+                            Map deptMap = new HashMap<>();
+                            deptMap.put("deptName",name);
+                            deptMap.put("fName",region);
+                            List<SysDeptVo> sysDeptVoList = sysDeptMapper.selectVoList(deptMap);
+                            if(!sysDeptVoList.isEmpty()){
+                                dataset.setBelongDeptId(sysDeptVoList.get(0).getId());
+                            }
+                        }
+                        dataset.setBelongDeptName(name);
+                    } catch (Exception e) {
+                    }
+
+                    //摘要
+                    try {
+                        row.getCell(5).setCellType(CellType.STRING);
+                        dataset.setDatasetDesc(row.getCell(5).getStringCellValue());
+                    } catch (Exception e) {
+                        dataset.setDatasetDesc(null);
+                    }
+                    //信息资源格式
+                    final DirDatasetExtFormat dirDatasetExtFormat = new DirDatasetExtFormat();
+                    dirDatasetExtFormat.setId(CommonUtil.get32UUID());
+                    dirDatasetExtFormat.setDatasetId(dataset.getId());
+                    try {
+                        dirDatasetExtFormat.setFormatCategory(getDictCode(sysDictVoList, "resourceFormat","root", row.getCell(6).getStringCellValue()));
+                    } catch (Exception e) {
+
+                    }
+                    try {
+                        dirDatasetExtFormat.setFormatType(getDictCode(sysDictVoList, "resourceFormat",dirDatasetExtFormat.getFormatCategory(), row.getCell(7).getStringCellValue()));
+                    } catch (Exception e) {
+
+                    }
+                    dirDatasetExtFormatList.add(dirDatasetExtFormat);
+                    //信息大普查
+                    DirDatasetSurvey dirDatasetSurvey = new DirDatasetSurvey();
+                    dirDatasetSurvey.setId(CommonUtil.get32UUID());
+                    dirDatasetSurvey.setDatasetId(dataset.getId());
+                    try {
+                        dirDatasetSurvey.setTotalStorage((int) row.getCell(9).getNumericCellValue());
+                    } catch (Exception e) {
+                    }
+                    try {
+                        dirDatasetSurvey.setStructureCount((int) row.getCell(10).getNumericCellValue());
+                    } catch (Exception e) {
+                    }
+                    try {
+                        dirDatasetSurvey.setSharedStorage((int) row.getCell(11).getNumericCellValue());
+                    } catch (Exception e) {
+                    }
+                    try {
+                        dirDatasetSurvey.setSharedStructureCount((int) row.getCell(12).getNumericCellValue());
+                    } catch (Exception e) {
+                    }
+                    try {
+                        dirDatasetSurvey.setOpenedStorage((int) row.getCell(13).getNumericCellValue());
+                    } catch (Exception e) {
+                    }
+                    try {
+                        dirDatasetSurvey.setOpenedStructureCount((int) row.getCell(14).getNumericCellValue());
+                    } catch (Exception e) {
+                    }
+                    dirDatasetSurveyList.add(dirDatasetSurvey);
+                    //发布日期
+                    try {
+                        dataset.setCreateTime(row.getCell(25).getDateCellValue());
+                    } catch (Exception e) {
+                        String str=row.getCell(25).getStringCellValue();
+                        Date d=null;
+                        try {
+                            d=new SimpleDateFormat("yyyy年MM月dd日").parse(str);
+                            dataset.setCreateTime(d);
+                        } catch (ParseException e1) {
+                        }
+                    }
+                    dataset.setCreateUserId(ShiroUtils.getLoginUserId());
+                    dataset.setUpdateTime(new Date());
+                    dataset.setUpdateUserId(ShiroUtils.getLoginUserId());
+                    dataset.setStatus("0");
+
+                    //数据集目录中间表
+                    DirDatasetClassifyMapVo datasetmap = new DirDatasetClassifyMapVo();
+                    datasetmap.setClassifyId(classifyId);
+                    datasetmap.setDatasetId(dataset.getId());
+                    datasetmap.setId(UUID.randomUUID().toString());
+                    datasetmap.setStatus("0");
+                    datasetmap.setDeleteFlag(0);
+                    datasetmap.setUpdateTime(new Date());
+                    datamapList.add(datasetmap);
+
+                    //存放需要新增的数据集
+                    datasetList.add(dataset);
+                }
+                lists.add(dataset);
+		    	/*数据项*/
+                setItem(item,row,dataset,sysDictVoList);
+                items.add(item);
+            }
+        }
+
+
+        //数据集
+        int i = mapper.insertListDataset(datasetList);
+        if(i>0) {
+            if(!dirDatasetExtFormatList.isEmpty()){
+                dirDatasetExtFormatMapper.batchInsert(dirDatasetExtFormatList);
+            }
+            if(!dirDatasetSurveyList.isEmpty()){
+                surveyMapper.batchInsert(dirDatasetSurveyList);
+            }
+            if (!datamapList.isEmpty()) {
+                dirDatasetClassifyMapMapper.insertListItem(datamapList);
+            }
+            if (!items.isEmpty()) {
+                itemMapper.insertListItem(items);
+            }
+        }else{
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 设置数据项
+     * @param item 数据项
+     * @param row Row
+     * @param dataset 数据集
+     * @param sysDictVoList
+     */
+    private void setItem(DirDataitemVo item, Row row, DirDataset dataset, List<SysDictVo> sysDictVoList){
+        item.setId(CommonUtil.get32UUID());
+        item.setDatasetId(dataset.getId());
+        item.setCreateUserId(ShiroUtils.getLoginUserId());
+        try {
+            row.getCell(15).setCellType(CellType.STRING);
+            item.setItemName(row.getCell(15).getStringCellValue());
+        } catch (Exception e) {
+            item.setItemName(null);
+        }
+        try {
+            row.getCell(16).setCellType(CellType.STRING);
+            item.setItemType(getDictCode(sysDictVoList, "dataitemType", row.getCell(16).getStringCellValue()));
+        } catch (Exception e) {
+            item.setItemType(null);
+        }
+        try {
+            row.getCell(17).setCellType(CellType.STRING);
+            item.setItemLength(Integer.parseInt(row.getCell(17).getStringCellValue()));
+        } catch (NumberFormatException e) {
+            item.setItemLength(null);
+        }
+        //共享类型
+        try {
+            row.getCell(18).setCellType(CellType.STRING);
+            item.setShareType(getDictCode(sysDictVoList, "dataSetShareType", row.getCell(18).getStringCellValue()));
+        } catch (Exception e) {
+            item.setShareType(null);
+        }
+        //共享条件
+        try {
+            row.getCell(19).setCellType(CellType.STRING);
+            item.setShareCondition(row.getCell(19).getStringCellValue());
+        } catch (Exception e) {
+            item.setShareCondition(null);
+        }
+        //共享方式
+        try {
+            row.getCell(20).setCellType(CellType.STRING);
+            item.setShareMethodCategory(getDictCode(sysDictVoList, "requirementExpectGetType", row.getCell(20).getStringCellValue()));
+        } catch (Exception e) {
+            item.setShareMethodCategory(null);
+        }
+        try {
+            row.getCell(21).setCellType(CellType.STRING);
+            item.setShareMethod(getDictCode(sysDictVoList, "requirementExpectGetType",row.getCell(21).getStringCellValue()));
+        } catch (Exception e) {
+            item.setShareMethod(null);
+        }
+        //开放属性
+        try {
+            row.getCell(22).setCellType(CellType.STRING);
+            item.setIsOpen(row.getCell(22).getStringCellValue().trim().equals("是")?"1":"0");
+        } catch (Exception e) {
+            item.setIsOpen(null);
+        }
+        try {
+            row.getCell(23).setCellType(CellType.STRING);
+            item.setOpenCondition(row.getCell(23).getStringCellValue());
+        } catch (Exception e) {}
+        try {
+            row.getCell(24).setCellType(CellType.STRING);
+            item.setUpdateFrequency(getDictCode(sysDictVoList, "requirementExpectUpdateFrequence", row.getCell(24).getStringCellValue()));
+        } catch (Exception e) {}
+        item.setCreateTime(dataset.getCreateTime());
+        item.setCreateUserId(ShiroUtils.getLoginUserId());
+        item.setUpdateTime(new Date());
+        item.setUpdateUserId(ShiroUtils.getLoginUserId());
+    }
+
+    private String getDictCode(List<SysDictVo> sysDictVoList,String category, String sysDictName){
+        for (SysDictVo sysDictVo : sysDictVoList){
+            if(category != null && sysDictName != null && category.equals(sysDictVo.getCategory()) && sysDictName.equals(sysDictVo.getDictName())){
+                return sysDictVo.getDictCode();
+            }
+        }
+        return null;
+    }
+
+    private String getDictCode(List<SysDictVo> sysDictVoList,String category,String parentCode, String sysDictName){
+        for (SysDictVo sysDictVo : sysDictVoList){
+            if(category != null && sysDictName != null && category.equals(sysDictVo.getCategory())
+                    && parentCode.equals(sysDictVo.getParentCode()) && sysDictName.equals(sysDictVo.getDictName())){
+                return sysDictVo.getDictCode();
+            }
+        }
+        return null;
+    }
+
     @Override
     public Page<DirDatasetClassifyMapVo> selectClassifyMapVoPage(Map<String, Object> paramMap){
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);

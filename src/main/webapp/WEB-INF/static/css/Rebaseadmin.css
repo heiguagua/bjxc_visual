@@ -1,3 +1,6 @@
+/* body{
+	    min-width: 1250px;
+} */
 .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side{
 	background:#fff !important;
 }
@@ -249,7 +252,7 @@ input.input_test{
 /* 翻页记录字体默认色加强 */
 .dropdown-menu > li > a{
 	    color: #777 !important;
-}
+}	
 /* 每页显示记录 变色问题*/
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{
 	background:none;

@@ -85,7 +85,8 @@ public class DirDatasetController extends BaseController {
     private IDirClassifyService classifyService;
 
     @RequestMapping("/catalogue/excelImportUI")
-    public  String excelImportUI(){
+    public  String excelImportUI(@RequestParam String classifyId, Model model){
+        model.addAttribute("classifyId",classifyId);
         return "catalog/catalogue/excelImportUI";
     }
 
@@ -739,6 +740,7 @@ public class DirDatasetController extends BaseController {
         }
         return handleResult;
     }
+
     /**
      * 导出完整模板excel
      */
@@ -786,25 +788,48 @@ public class DirDatasetController extends BaseController {
     }
 
     //excel导入
+//    @RequestMapping("/excelImport")
+//    @ResponseBody
+//    public HandleResult excelImport(@RequestParam(value="file",required=false)MultipartFile file,String regionCode,HttpServletRequest request, HttpServletResponse response){
+//        HandleResult handleResult = new HandleResult();
+//        if(file==null){
+//            handleResult.error("文件不能为空");
+//        }else{
+//            String originalFilename = file.getOriginalFilename();
+//            try {
+//
+//                Workbook workbook = createWorkbook(file.getInputStream(), originalFilename);
+//                boolean b = addDirDataset(workbook.getSheetAt(0),regionCode);
+//                if(b){
+//                    handleResult.setMsg("导入成功！");
+//                }else{
+//                    handleResult.error("导入失败!");
+//                }
+//            } catch (IOException e) {
+//                handleResult.error("文件不能为空");
+//            }
+//        }
+//        return handleResult;
+//    }
+
     @RequestMapping("/excelImport")
     @ResponseBody
-    public HandleResult excelImport(@RequestParam(value="file",required=false)MultipartFile file,String regionCode,HttpServletRequest request, HttpServletResponse response){
+    public HandleResult excelImport(@RequestParam(value = "excelFile",required = false) MultipartFile excelFile, String regionCode, HttpServletRequest request, HttpServletResponse response){
         HandleResult handleResult = new HandleResult();
-        if(file==null){
-            handleResult.error("文件不能为空");
+        if(excelFile==null){
+            handleResult.error("文件不能为空！");
         }else{
-            String originalFilename = file.getOriginalFilename();
+            final String originalFilename = excelFile.getOriginalFilename();
             try {
-
-                Workbook workbook = createWorkbook(file.getInputStream(), originalFilename);
+                final Workbook workbook = createWorkbook(excelFile.getInputStream(), originalFilename);
                 boolean b = addDirDataset(workbook.getSheetAt(0),regionCode);
                 if(b){
-                    handleResult.setMsg("导入成功！");
+                    handleResult.success("导入成功！");
                 }else{
                     handleResult.error("导入失败!");
                 }
-            } catch (IOException e) {
-                handleResult.error("文件不能为空");
+            } catch (Exception e) {
+                handleResult.error("导入失败，请检查excel文件！");
             }
         }
         return handleResult;
@@ -1044,6 +1069,30 @@ public class DirDatasetController extends BaseController {
             hashMap.put(strc,classifyId);
         }
         return classifyId;
+    }
+
+
+    @RequestMapping("/excelImportWithOutDir")
+    @ResponseBody
+    public HandleResult excelImportWithOutDir(@RequestParam(value = "excelWithOutDir",required = false) MultipartFile excelFile, String regionCode,String classifyId, HttpServletRequest request, HttpServletResponse response){
+        HandleResult handleResult = new HandleResult();
+        if(excelFile==null){
+            handleResult.error("文件不能为空！");
+        }else{
+            final String originalFilename = excelFile.getOriginalFilename();
+            try {
+                final Workbook workbook = createWorkbook(excelFile.getInputStream(), originalFilename);
+                boolean b = service.addDirDatasetWithOutDir(workbook.getSheetAt(0), regionCode,classifyId);
+                if(b){
+                    handleResult.success("导入成功！");
+                }else{
+                    handleResult.error("导入失败!");
+                }
+            } catch (Exception e) {
+                handleResult.error("导入失败，请检查excel文件！");
+            }
+        }
+        return handleResult;
     }
 
     /**

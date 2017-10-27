@@ -44,7 +44,7 @@ function initInputValue(){
                 $("#datasetName").val(obj.datasetName);
                 $("#infoResourceCode").val(obj.infoResourceCode);
                 $("#belongDeptTypeName").val(obj.regionDeptName);
-                $("#belongDeptName").val(obj.deptName);
+                $("#belongDeptName").val(obj.belongDeptName);
                 $("#belongDeptNo").val(obj.belongDeptNo);
                 //$("#belongDeptId").val(obj.belongDeptId);
                 if(obj.ext != undefined && obj.ext !=""){

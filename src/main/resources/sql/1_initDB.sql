@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/10/24 9:09:54                             */
+/* Created on:     17/10/26 21:53:25                            */
 /*==============================================================*/
 
 
@@ -34,6 +34,8 @@ drop table if exists dcm_table_column;
 
 drop table if exists dcm_table_info;
 
+drop table if exists dir_carousel_picture;
+
 drop table if exists dir_classify;
 
 drop table if exists dir_classify_authority;
@@ -51,6 +53,10 @@ drop table if exists dir_data_comment;
 drop table if exists dir_data_correction;
 
 drop table if exists dir_data_distribute;
+
+drop table if exists dir_data_export_record;
+
+drop table if exists dir_data_import_record;
 
 drop table if exists dir_data_item_apply;
 
@@ -87,6 +93,8 @@ drop table if exists dir_dataset_ext_sevice_field;
 drop table if exists dir_dataset_ext_share_consult;
 
 drop table if exists dir_dataset_ext_source;
+
+drop table if exists dir_dataset_import_map;
 
 drop table if exists dir_dataset_service_map;
 
@@ -203,6 +211,8 @@ drop table if exists sys_icon_lib;
 drop table if exists sys_log;
 
 drop table if exists sys_menu;
+
+drop table if exists sys_product_integrate;
 
 drop table if exists sys_region;
 
@@ -509,6 +519,31 @@ DEFAULT CHARSET = utf8;
 alter table dcm_table_info comment '采集数据表信息';
 
 /*==============================================================*/
+/* Table: dir_carousel_picture                                  */
+/*==============================================================*/
+create table dir_carousel_picture
+(
+   id                   varchar(36) not null comment 'ID',
+   region_code          varchar(6) comment '所属行政区划',
+   pic_name             varchar(128) comment '图片名称',
+   pic_path             varchar(128) comment '图片路径',
+   pic_type             varchar(36) comment '图片类型',
+   pic_order            int(6) comment '播放顺序',
+   pic_size             varchar(36) comment '图片大小',
+   publisher            varchar(36) comment '发布人',
+   publish_date         date comment '发布时间',
+   status               varchar(36) comment '状态',
+   create_user_id       varchar(36) comment '创建人',
+   create_time          datetime comment '创建时间',
+   update_user_id       varchar(36) comment '更新人',
+   update_time          datetime comment '更新时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
+   primary key (id)
+);
+
+alter table dir_carousel_picture comment '轮播图片表';
+
+/*==============================================================*/
 /* Table: dir_classify                                          */
 /*==============================================================*/
 create table dir_classify
@@ -518,6 +553,7 @@ create table dir_classify
    classify_type        varchar(36) comment '分类类型',
    classify_code        varchar(64) comment '【国】分类编号',
    classify_name        varchar(128) comment '【国】分类名称',
+   lead_dept_id         varchar(36) comment '牵头部门',
    classify_desc        varchar(1000) comment '分类描述',
    fid                  varchar(36) comment '上级分类ID',
    fname                varchar(128) comment '上级分类名称',
@@ -679,6 +715,36 @@ create table dir_data_distribute
 );
 
 alter table dir_data_distribute comment '数据集权限分配表';
+
+/*==============================================================*/
+/* Table: dir_data_export_record                                */
+/*==============================================================*/
+create table dir_data_export_record
+(
+   id                   varchar(36) not null comment 'ID',
+   file_name            varchar(128) comment '导出文件名',
+   file_path            varchar(256) comment '导出文件路径',
+   exporter_id          varchar(36) comment '导出人ID',
+   export_time          datetime comment '导出时间',
+   primary key (id)
+);
+
+alter table dir_data_export_record comment '数据导出记录表';
+
+/*==============================================================*/
+/* Table: dir_data_import_record                                */
+/*==============================================================*/
+create table dir_data_import_record
+(
+   id                   varchar(36) not null comment 'ID',
+   file_name            varchar(128) comment '导入文件名',
+   file_path            varchar(256) comment '导入文件保存路径',
+   importer_id          varchar(36) comment '导入人ID',
+   import_time          datetime comment '导入时间',
+   primary key (id)
+);
+
+alter table dir_data_import_record comment '数据集导入详情表';
 
 /*==============================================================*/
 /* Table: dir_data_item_apply                                   */
@@ -870,6 +936,7 @@ create table dir_dataset
    alias                varchar(128) comment '别名',
    belong_dept_type     varchar(36) comment '【国】信息资源提供方类型',
    belong_dept_id       varchar(36) comment '【国】信息资源提供方ID',
+   belong_dept_name     varchar(256) comment '【国】信息资源提供方名称',
    belong_dept_no       varchar(128) comment '【国】信息资源提供方代码',
    dataset_desc         varchar(1000) comment '【国】信息资源摘要',
    share_type           varchar(36) comment '【国】信息资源共享类型',
@@ -998,6 +1065,19 @@ create table dir_dataset_ext_source
 );
 
 alter table dir_dataset_ext_source comment '数据集扩展信息（【川】主要来源）';
+
+/*==============================================================*/
+/* Table: dir_dataset_import_map                                */
+/*==============================================================*/
+create table dir_dataset_import_map
+(
+   id                   varchar(36) not null comment 'ID',
+   import_record_id     varchar(36) comment '导入记录表ID',
+   data_id              varchar(36) comment '数据ID',
+   primary key (id)
+);
+
+alter table dir_dataset_import_map comment '数据与导入记录关系表';
 
 /*==============================================================*/
 /* Table: dir_dataset_service_map                               */
@@ -1748,6 +1828,7 @@ create table drap_db_table_column
    column_desc          varchar(256) comment '字段描述',
    data_precision       varchar(36) comment '字段数据精度',
    code_index           int comment '编码序号',
+   is_shared            int(3) comment '是否共享',
    status               int(3) comment '状态',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
@@ -1769,6 +1850,7 @@ create table drap_db_table_info
    table_cn_name        varchar(64) comment '数据表中文名称',
    table_desc           varchar(256) comment '数据表描述',
    code_index           int comment '编码序号',
+   is_shared            int(3) comment '是否共享',
    status               int(3) comment '状态',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
@@ -1797,6 +1879,7 @@ create table drap_dict_table_column
    column_desc          varchar(256) comment '字段描述',
    data_precision       varchar(36) comment '字段数据精度',
    code_index           int comment '编码序号',
+   is_shared            int(3) comment '是否共享',
    status               int(3) comment '状态',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    real_column_id       varchar(36) comment '对应实际数据表字段ID',
@@ -1820,6 +1903,7 @@ create table drap_dict_table_info
    code_index           int comment '编码序号',
    table_source_type    varchar(36) comment '表来源',
    real_table_id        varchar(36) comment '对应实际数据表ID',
+   is_shared            int(3) comment '是否共享',
    status               int(3) comment '状态',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
@@ -2225,6 +2309,7 @@ create table sys_dict
    parent_code          varchar(36) comment '上级字典值',
    order_number         int(4) comment '显示顺序',
    icon                 varchar(256) comment '图标',
+   dict_level           int(4) comment '字典级别',
    status               int(3) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -2325,6 +2410,27 @@ ENGINE = InnoDB
 DEFAULT CHARSET = utf8;
 
 alter table sys_menu comment '系统菜单表';
+
+/*==============================================================*/
+/* Table: sys_product_integrate                                 */
+/*==============================================================*/
+create table sys_product_integrate
+(
+   id                   varchar(36) not null comment 'ID',
+   product_no           varchar(64) comment '产品标识',
+   product_name         varchar(64) comment '产品名称',
+   product_show_name    varchar(64) comment '产品显示名称',
+   product_desc         varchar(256) comment '产品描述',
+   root_path            varchar(256) comment '产品访问根路径地址',
+   sso_path             varchar(256) comment '单点登录跳转地址',
+   order_number         int(6) default 0 comment '显示顺序',
+   integrate_flag       int(3) default 1 comment '是否集成',
+   cur_open_flag        int(3) default 1 comment '是否在当前页面打开',
+   icon                 varchar(64) comment '显示图标',
+   primary key (id)
+);
+
+alter table sys_product_integrate comment '产品集成表';
 
 /*==============================================================*/
 /* Table: sys_region                                            */
@@ -2499,6 +2605,7 @@ alter table sys_user_role comment '用户角色表';
 
 
 
+
 drop view if EXISTS v_sys_region_dept;
 create view v_sys_region_dept as
 select id,region_code,'1' as category,region_code as region_dept_code,region_name as region_dept_name,fcode from sys_region
@@ -2506,8 +2613,8 @@ select id,region_code,'1' as category,region_code as region_dept_code,region_nam
 -- select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name,region_code as fcode from sys_dept where fid='root'
 union
 select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name ,region_code as fcode
-	from sys_dept t where fid in (select id from sys_dept where fid = 'root')
-union
-select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name ,
-	(select a.dept_code from sys_dept a where a.id = t.fid) as fcode
-	from sys_dept t where fid <> 'root' and fid not in (select id from sys_dept where fid = 'root');
+	from sys_dept t where fid in (select id from sys_dept where fid = 'root');
+-- union
+-- select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name ,
+-- 	(select a.dept_code from sys_dept a where a.id = t.fid) as fcode
+-- 	from sys_dept t where fid <> 'root' and fid not in (select id from sys_dept where fid = 'root');

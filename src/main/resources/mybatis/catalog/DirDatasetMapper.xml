@@ -14,6 +14,7 @@
         <result column="alias" property="alias" />
         <result column="belong_dept_type" property="belongDeptType" />
         <result column="belong_dept_id" property="belongDeptId" />
+        <result column="belong_dept_name" property="belongDeptName" />
         <result column="belong_dept_no" property="belongDeptNo" />
         <result column="dataset_desc" property="datasetDesc" />
         <result column="share_type" property="shareType" />
@@ -97,7 +98,7 @@
                 and t.region_code in (${allRegionCode})
             </if>
             <if test="loginUserIdForAuthority != null and loginUserIdForAuthority!='' ">
-                and t.belong_dept_id in(
+                and t.charge_dept_id in(
                     select id from sys_dept sd1,(
                     select de.tree_code from sys_dept de
                     where de.delete_flag=0 and de.id=(select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR} )
@@ -268,16 +269,16 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
-        insert into dir_dataset(id,region_code,charge_dept_id,dataset_code,dataset_name,alias,belong_dept_type,belong_dept_id,belong_dept_no,dataset_desc,share_type,share_condition,share_method_category,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,secret_flag,source_type,status,create_user_id,create_time,update_user_id,update_time) values(
-        #{id},#{regionCode},#{chargeDeptId},#{datasetCode},#{datasetName},#{alias},#{belongDeptType},#{belongDeptId},#{belongDeptNo},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethodCategory},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{secretFlag},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime})
+        insert into dir_dataset(id,region_code,charge_dept_id,dataset_code,dataset_name,alias,belong_dept_type,belong_dept_id,belong_dept_name,belong_dept_no,dataset_desc,share_type,share_condition,share_method_category,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,secret_flag,source_type,status,create_user_id,create_time,update_user_id,update_time) values(
+        #{id},#{regionCode},#{chargeDeptId},#{datasetCode},#{datasetName},#{alias},#{belongDeptType},#{belongDeptId},#{belongDeptName},#{belongDeptNo},#{datasetDesc},#{shareType},#{shareCondition},#{shareMethodCategory},#{shareMethod},#{shareMethodDesc},#{isOpen},#{openCondition},#{updateFrequency},#{relDatasetCode},#{storageMedium},#{storageLocation},#{dataLevel},#{dataIndexSystem},#{secretFlag},#{sourceType},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime})
     </insert>
 
     <insert id="batchInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
-        insert into dir_dataset(id,region_code,charge_dept_id,dataset_code,dataset_name,alias,belong_dept_type,belong_dept_id,belong_dept_no,dataset_desc,share_type,share_condition,share_method_category,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,secret_flag,source_type,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values
+        insert into dir_dataset(id,region_code,charge_dept_id,dataset_code,dataset_name,alias,belong_dept_type,belong_dept_id,belong_dept_name,belong_dept_no,dataset_desc,share_type,share_condition,share_method_category,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,secret_flag,source_type,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values
         <foreach collection="list" item="item" separator=",">
         (
             #{item.id},#{item.regionCode},#{item.chargeDeptId},#{item.datasetCode},#{item.datasetName},#{item.alias},#{item.belongDeptType},
-            #{item.belongDeptId},#{item.belongDeptNo},#{item.datasetDesc},#{item.shareType},#{item.shareCondition},#{item.shareMethodCategory},
+            #{item.belongDeptId},#{item.belongDeptName},#{item.belongDeptNo},#{item.datasetDesc},#{item.shareType},#{item.shareCondition},#{item.shareMethodCategory},
             #{item.shareMethod},#{item.shareMethodDesc},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},
             #{item.relDatasetCode},#{item.storageMedium},#{item.storageLocation},#{item.dataLevel},#{item.dataIndexSystem},
             #{item.secretFlag},#{item.sourceType},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},
@@ -337,6 +338,9 @@
             </if>
             <if test="belongDeptId != null">
                 belong_dept_id = #{belongDeptId},
+            </if>
+            <if test="belongDeptName != null">
+                belong_dept_name = #{belongDeptName},
             </if>
             <if test="belongDeptNo != null">
                 belong_dept_no = #{belongDeptNo},
