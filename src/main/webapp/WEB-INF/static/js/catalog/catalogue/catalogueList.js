@@ -85,7 +85,7 @@ function initTable(){
             sortable: false
         },{
             field: 'deptName',
-            title: '牵头部门',
+            title: '信息资源提供方',
             sortable: false,
             width: '15%',
             formatter:function(value, row, index){

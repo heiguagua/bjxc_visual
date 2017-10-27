@@ -25,7 +25,7 @@ function initTable(){
             visible: false
         },{
             field: 'deptName',
-            title: '牵头部门',
+            title: '信息资源提供方',
             width: '15%',
             sortable: false,
             formatter:function(value, row, index){

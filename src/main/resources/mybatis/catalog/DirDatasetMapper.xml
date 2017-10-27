@@ -148,24 +148,21 @@
         </where>
     </sql>
 	<!-- 查询已审核待上传报告 -->
-	<select id="selectDirReportPage" parameterType="java.util.Map"
-		resultMap="ExtResultVoMap">
-		select sub.*,MAX(IFNULL(m.status,0)) AS
-		classify_status,GROUP_CONCAT(c.classify_structure_name) AS
-		classify_name,m.id as transferId from(
-		select
-		t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
-		di.dict_name as source_type_name,count(it.dataset_id) as item_nums
-		FROM dir_dataset t
-		left join sys_dept de on t.belong_dept_id=de.id and
-		de.delete_flag=0
-		left join sys_dict di on t.source_type=di.dict_code
-		and
-		di.category='datasetSourceType'
-		left join dir_dataitem it on
-		t.id=it.dataset_id and it.delete_flag=0
-		<include refid="queryConditions"></include>
-		group by t.id ) sub
+	<select id="selectDirReportPage" parameterType="java.util.Map" resultMap="ExtResultVoMap">
+		select sub.*,MAX(IFNULL(m.status,0)) AS classify_status,
+        GROUP_CONCAT(c.classify_structure_name) AS classify_name,m.id as transferId from(
+            select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
+            di.dict_name as source_type_name,count(it.dataset_id) as item_nums
+            FROM dir_dataset t
+            left join sys_dept de on t.belong_dept_id=de.id and
+            de.delete_flag=0
+            left join sys_dict di on t.source_type=di.dict_code
+            and
+            di.category='datasetSourceType'
+            left join dir_dataitem it on
+            t.id=it.dataset_id and it.delete_flag=0
+            <include refid="queryConditions"></include>
+            group by t.id ) sub
 		left join dir_dataset_classify_map m on
 		sub.id=m.dataset_id and
 		m.delete_flag=0
@@ -174,6 +171,7 @@
 		<include refid="classifyConditions"></include>
 		group by sub.id
 	</select>
+
 	<select id="selectDirReportCount" resultType="Integer"
 		parameterType="map">
 
@@ -230,9 +228,9 @@
 
     <select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         select sub.*,MAX(IFNULL(m.status,0)) AS classify_status,GROUP_CONCAT(c.classify_structure_name) AS classify_name from(
-        select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
+        select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.region_dept_name as dept_name,
         di.dict_name as source_type_name,count(it.dataset_id) as item_nums FROM dir_dataset t
-        left join sys_dept de on t.charge_dept_id=de.id and de.delete_flag=0
+        left join v_sys_region_dept de on t.belong_dept_type=de.id
         left join sys_dict di on t.source_type=di.dict_code and di.category='datasetSourceType'
         left join dir_dataitem it on t.id=it.dataset_id and it.delete_flag=0
         <include refid="queryConditions"></include>
