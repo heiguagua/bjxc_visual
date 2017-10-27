@@ -89,6 +89,7 @@ public class SysRegionDeptServiceImpl extends CommonServiceImpl<SysRegionDeptMap
                     String allRegionCode = allRegionCodeBuffer.toString();
                     allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
                     paramMap.put("allRegionCode",allRegionCode);
+                    paramMap.remove("regionCode");
                 }
             }
         }
