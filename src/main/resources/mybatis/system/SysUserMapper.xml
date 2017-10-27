@@ -12,6 +12,7 @@
         <result column="user_name" property="userName"/>
         <result column="real_name" property="realName"/>
         <result column="password" property="password"/>
+        <result column="token" property="token"/>
         <result column="user_type" property="userType"/>
         <result column="telephone_number" property="telephoneNumber"/>
         <result column="cell_phone_number" property="cellPhoneNumber"/>
