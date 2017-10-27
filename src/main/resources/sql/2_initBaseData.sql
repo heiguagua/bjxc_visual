@@ -141,16 +141,17 @@ delete from sys_role_menu;
 
 -- 系统配置表
   delete from sys_setting;
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES (REPLACE(uuid(),'-',''),'','1','projectPortalName','项目门户名称','成都市大数据资源服务网',null,'1',null,null,null,null,0);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES (REPLACE(uuid(),'-',''),'','1','projectPortalEnName','项目门户英文名称','Chengdu Big Data Resource Service Network',null,'1',null,null,null,null,0);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES (REPLACE(uuid(),'-',''),'','1','projectPortalLogo','项目门户Logo图标','/img/logo.png',null,'1',null,null,null,null,0);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES (REPLACE(uuid(),'-',''),'','1','systemName','系统名称','政务信息资源管理',null,'1',null,null,null,null,0);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES (REPLACE(uuid(),'-',''),'','1','systemShortName','系统英文简称','DIR',null,'1',null,null,null,null,0);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES (REPLACE(uuid(),'-',''),'','1','systemSubName','系统子名称','目录管理系统',null,'1',null,null,null,null,0);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES (REPLACE(uuid(),'-',''),'','1','defaultIcon','系统默认Icon图标','',null,'1',null,null,null,null,0);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES (REPLACE(uuid(),'-',''),'','1','localRegion','系统所属行政区划','510100',null,'1',null,null,null,null,0);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES (REPLACE(uuid(),'-',''),'','1','bottomCopyright','许可说明','Copyright © 2017 勤智数码. All rights reserved.',null,'1',null,null,null,null,0);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES (REPLACE(uuid(),'-',''),'','2','crawlerInterface','爬虫接口地址','http://127.0.0.1:8080/crawler/wbsiteStore','','1','549d321508db446e9bcaa477835fe5f1','2017-06-27 10:46:53',null,null,'0');
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a8731fb94511e7a38b00ffe04ac734','','1','projectPortalName','项目门户名称','成都市大数据资源服务网',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a874f7b94511e7a38b00ffe04ac734','','1','projectPortalEnName','项目门户英文名称','Chengdu Big Data Resource Service Network',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a8756eb94511e7a38b00ffe04ac734','','1','projectPortalLogo','项目门户Logo图标','/img/logo.png',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a875c1b94511e7a38b00ffe04ac734','','1','systemName','系统名称','政务信息资源管理',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87602b94511e7a38b00ffe04ac734','','1','systemShortName','系统英文简称','DIR',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87648b94511e7a38b00ffe04ac734','','1','systemSubName','系统子名称','目录管理系统',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87681b94511e7a38b00ffe04ac734','','1','defaultIcon','系统默认Icon图标','',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a876bbb94511e7a38b00ffe04ac734','','1','localRegion','系统所属行政区划','510100',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a876f4b94511e7a38b00ffe04ac734','','1','bottomCopyright','许可说明','Copyright © 2017 勤智数码. All rights reserved.',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87732b94511e7a38b00ffe04ac734','','1','integrateCurNo','系统集成当前标识','','',1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87732b94511e7a38b00ffe04ac734','','2','crawlerInterface','爬虫接口地址','http://127.0.0.1:8080/crawler/wbsiteStore','',1);
 
 -- 系统字典分类表
   delete from sys_dict_category;
@@ -396,12 +397,12 @@ insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('112','','systemStatus','2','良好',NULL,NULL,NULL,NULL,1);
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('113','','systemStatus','3','一般',NULL,NULL,NULL,NULL,1);
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('114','','systemStatus','4','差',NULL,NULL,NULL,NULL,1);
-insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('ffc92e1ea7f011e7b780000c2909b055','','resourceFormat','01','电子文件',NULL,'',1,NULL,1);
-insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('ffe674c7a7f011e7b780000c2909b055','','resourceFormat','02','电子表格',NULL,'',2,NULL,1);
-insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('fff2ac20a7f011e7b780000c2909b055','','resourceFormat','03','数据库',NULL,'',3,NULL,1);
-insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('0014636aa7f111e7b780000c2909b055','','resourceFormat','04','图形图像',NULL,'',4,NULL,1);
-insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('0021879ba7f111e7b780000c2909b055','','resourceFormat','05','流媒体',NULL,'',5,NULL,1);
-insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('002f6f2fa7f111e7b780000c2909b055','','resourceFormat','06','自描述格式',NULL,'',6,NULL,1);
+insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('ffc92e1ea7f011e7b780000c2909b055','','resourceFormat','01','电子文件',NULL,'root',1,NULL,1);
+insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('ffe674c7a7f011e7b780000c2909b055','','resourceFormat','02','电子表格',NULL,'root',2,NULL,1);
+insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('fff2ac20a7f011e7b780000c2909b055','','resourceFormat','03','数据库',NULL,'root',3,NULL,1);
+insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('0014636aa7f111e7b780000c2909b055','','resourceFormat','04','图形图像',NULL,'root',4,NULL,1);
+insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('0021879ba7f111e7b780000c2909b055','','resourceFormat','05','流媒体',NULL,'root',5,NULL,1);
+insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('002f6f2fa7f111e7b780000c2909b055','','resourceFormat','06','自描述格式',NULL,'root',6,NULL,1);
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('ffcb70e3a7f011e7b780000c2909b055','','resourceFormat','0101','doc',NULL,'01',1,NULL,1);
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('ffce2e09a7f011e7b780000c2909b055','','resourceFormat','0102','docx',NULL,'01',2,NULL,1);
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('ffd0d06ea7f011e7b780000c2909b055','','resourceFormat','0103','html',NULL,'01',3,NULL,1);
@@ -454,6 +455,7 @@ insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('312b93c0afcc11e7b780000c2909b055','','dataSetSourceType','4','爬虫系统添加',NULL,NULL,NULL,NULL,1);
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('312c6388afcc11e7b780000c2909b055','','dataSetSourceType','5','关系型采集添加',NULL,NULL,NULL,NULL,1);
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('312d2909afcc11e7b780000c2909b055','','dataSetSourceType','6','非关系型采集添加',NULL,NULL,NULL,NULL,1);
+insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('312d2910afcc11e7b780000c2909b055','','dataSetSourceType','7','excel导入',NULL,NULL,NULL,NULL,1);
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('a62a0c01b49c11e7acf500ffe04ac734', '', 'sysDeptCategory', 'A', '党委', NULL, 'root', 0, NULL, 1);
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('a62d9999b49c11e7acf500ffe04ac734', '', 'sysDeptCategory', 'B', '人大', NULL, 'root', 0, NULL, 1);
 insert into sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES('a62d9b0eb49c11e7acf500ffe04ac734', '', 'sysDeptCategory', 'C', '政府部门', NULL, 'root', 0, NULL, 1);

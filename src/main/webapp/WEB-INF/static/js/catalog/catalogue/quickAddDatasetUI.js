@@ -4,14 +4,14 @@
 jQuery(document).ready(function () {
     window.Dict=new dict();
     initAllSelect();
-
+    initInputValue();
 });
 function initAllSelect(){
     var regionCode = $.getSelectedRegionCode();
     $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
     $.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联目录分类下拉框
     $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
-    $.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
+    //$.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
     $('#datasetName').on('blur',function(){
         var datasetName=$('#datasetName').val();
         $(".dataset-name").each(function(idex,item){
@@ -59,6 +59,20 @@ function initAllSelect(){
         }
     });
 }
+
+function initInputValue(){
+    //初始化资源提供方和提供方代码输入框的值
+    $.commonAjax({
+        url:basePathJS + "/system/dept/getDeptInfoForLoginUser",
+        success: function (result) {
+            if (result.state) {
+                var deptObj = result.content.vo;
+                $("#chargeDeptId").val(deptObj.id);
+            }
+        }
+    });
+}
+
 var tree=new Tree();
 var Model = {
     business: {

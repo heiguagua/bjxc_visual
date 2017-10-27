@@ -32,10 +32,21 @@
             <if test="allRegionCode!= null and allRegionCode !='' ">
                 and t.region_code in (${allRegionCode})
             </if>
+            <if test="regionCode != null">
+                and t.region_code = #{regionCode,jdbcType=VARCHAR}
+            </if>
+            <if test="regionDeptName != null">
+                and t.region_dept_name = #{regionDeptName,jdbcType=VARCHAR}
+            </if>
         </where>
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.* FROM v_sys_region_dept t
+        <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoList" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.* FROM v_sys_region_dept t
         <include refid="queryConditions"></include>
     </select>

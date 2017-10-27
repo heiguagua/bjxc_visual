@@ -31,4 +31,6 @@ public interface SysRegionDeptMapper extends BaseMapper<SysRegionDept> {
     int baseUpdate(SysRegionDept entity);
 
     int baseDelete(String id);
+
+    List<SysRegionDeptVo> selectVoList(Map<String, Object> regionMap);
 }

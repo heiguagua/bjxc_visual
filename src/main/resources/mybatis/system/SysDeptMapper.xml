@@ -55,6 +55,12 @@
 			<if test="searchKey != null">
 				AND t.dept_name LIKE concat(concat('%', #{searchKey}), '%')
 			</if>
+			<if test="deptName != null">
+				AND t.dept_name = #{deptName}
+			</if>
+			<if test="fName != null">
+				AND t.fname = #{fName}
+			</if>
 			<if test="deptLevel != null">
 				AND t.dept_level = #{deptLevel}
 			</if>

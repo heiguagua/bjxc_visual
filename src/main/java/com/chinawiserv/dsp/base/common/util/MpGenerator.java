@@ -34,7 +34,7 @@ public class MpGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         //todo 修改本地已存在的文件夹目录
-        gc.setOutputDir("E:/testMybatisPlus/code");
+        gc.setOutputDir("E:/newFile");
         gc.setFileOverride(true);
         gc.setActiveRecord(false);
         gc.setEnableCache(true);// XML 二级缓存
@@ -65,8 +65,8 @@ public class MpGenerator {
         dsc.setDriverName("com.mysql.jdbc.Driver");
         //todo 修改数据库用户名、密码和url
         dsc.setUsername("root");
-        dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/directory_management?characterEncoding=utf8");
+        dsc.setPassword("bdgm;2015");
+        dsc.setUrl("jdbc:mysql://192.168.13.72:3306/dsp_dir_rz?characterEncoding=utf8");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -79,7 +79,7 @@ public class MpGenerator {
 
         //todo 需要生成的表以逗号连接
 //        String includeTableStr = "dcm_task_api_conf,dcm_task_crawler_conf,dcm_task_db_conf,dcm_task_scan_record,dcm_task_sd_column_conf,dcm_task_sf_conf,dcm_task_uf_record,dcm_task_usf_conf";
-        String includeTableStr = "";
+        String includeTableStr = "dir_dataset_ext_format";
 
         if (org.apache.commons.lang.StringUtils.isNotBlank(includeTableStr)) {
             String includeTableArr[] =  includeTableStr.trim().split(",");
@@ -96,11 +96,11 @@ public class MpGenerator {
         // 自定义 mapper 父类
         // strategy.setSuperMapperClass("com.baomidou.demo.TestMapper");
         // 自定义 service 父类
-         strategy.setSuperServiceClass("com.chinawiserv.dsp.base.service.common.ICommonService");
+        strategy.setSuperServiceClass("com.chinawiserv.dsp.base.service.common.ICommonService");
         // 自定义 service 实现类父类
-         strategy.setSuperServiceImplClass("com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl");
+        strategy.setSuperServiceImplClass("com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl");
         // 自定义 controller 父类
-         strategy.setSuperControllerClass("com.chinawiserv.dsp.base.controller.common.BaseController");
+        strategy.setSuperControllerClass("com.chinawiserv.dsp.base.controller.common.BaseController");
         // 【实体】是否生成字段常量（默认 false）
         // public static final String ID = "test_id";
         // strategy.setEntityColumnConstant(true);
@@ -123,7 +123,7 @@ public class MpGenerator {
             public void initMap() {
                 Map<String, Object> map = new HashMap<String, Object>();
                 //todo 设置子模块名称
-                map.put("subModuleName", "configure");
+                map.put("subModuleName", "drap");
                 this.setMap(map);
             }
         };
@@ -144,15 +144,15 @@ public class MpGenerator {
 
         // 自定义模板配置，可以 copy 源码 mybatis-plus/src/main/resources/template 下面内容修改，
         // 放置自己项目的 src/main/resources/template 目录下, 默认名称一下可以不配置，也可以自定义模板名称
-         TemplateConfig tc = new TemplateConfig();
-         tc.setController("templates/controller.java.vm");
-         tc.setEntity("templates/entity.java.vm");
-         tc.setMapper("templates/mapper.java.vm");
-         tc.setXml("templates/mapper.xml.vm");
-         tc.setService("templates/service.java.vm");
-         tc.setServiceImpl("templates/serviceImpl.java.vm");
+        TemplateConfig tc = new TemplateConfig();
+        tc.setController("templates/controller.java.vm");
+        tc.setEntity("templates/entity.java.vm");
+        tc.setMapper("templates/mapper.java.vm");
+        tc.setXml("templates/mapper.xml.vm");
+        tc.setService("templates/service.java.vm");
+        tc.setServiceImpl("templates/serviceImpl.java.vm");
         // 如上任何一个模块如果设置 空 OR Null 将不生成该模块。
-         mpg.setTemplate(tc);
+        mpg.setTemplate(tc);
 
         // 执行生成
         mpg.execute();
