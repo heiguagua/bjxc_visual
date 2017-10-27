@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
+import com.chinawiserv.dsp.base.common.util.DesUtil;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
@@ -87,7 +88,9 @@ public class SysUserController extends BaseController {
     @ResponseBody
     public HandleResult doAdd(SysUserVo user){
         HandleResult result = new HandleResult();
+
         try {
+            user.setToken(DesUtil.encrypt(user.getUserName()));
             sysUserService.insertVO(user);
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,6 +154,7 @@ public class SysUserController extends BaseController {
     public  HandleResult doEdit(SysUserVo user,Model model){
         HandleResult result = new HandleResult();
         try {
+            user.setToken(DesUtil.encrypt(user.getUserName()));
             sysUserService.updateVO(user);
         } catch (Exception e) {
             e.printStackTrace();
