@@ -1,11 +1,14 @@
 package com.chinawiserv.dsp.dir.controller.api;
 
+import com.alibaba.fastjson.JSON;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.system.*;
+import com.chinawiserv.dsp.base.service.system.ISysUserRoleService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +37,29 @@ public class DrapApiController extends BaseController{
 
     @Autowired
     ISysUserService userService;
+
+    @Autowired
+    ISysUserRoleService sysUserRoleService;
     /**
      * 推送用户数据的接口
      * */
     @RequestMapping("syncUserData")
     @ResponseBody
-    public List<SysUser> syncUserData(@RequestParam Map<String,Object> paramMap){
-        List<SysUser> result  = Lists.newArrayList();
+    public Map<String,String> syncUserData(@RequestParam Map<String,Object> paramMap){
+        Map<String,String> map = Maps.newHashMap();
+
+        List<SysUser> resultUserList  = Lists.newArrayList();
+        List<SysUserRole> resultUserRoleList = Lists.newArrayList();
         try{
-            result = service.syncUserData();
+            resultUserList = service.syncUserData();
+            resultUserRoleList = sysUserRoleService.selectList(null);
+
         }catch (Exception e){
             logger.error(e.getMessage());
         }
-        return result;
+        map.put("userArray", JSON.toJSONString(resultUserList));
+        map.put("userRoleArray", JSON.toJSONString(resultUserRoleList));
+        return map;
     }
     /**
      * 推送部门数据的接口

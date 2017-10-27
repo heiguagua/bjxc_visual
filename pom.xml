@@ -295,7 +295,7 @@
     </dependencies>
 
     <build>
-        <finalName>dir</finalName>
+        <finalName>dm</finalName>
         <!-- 打包包含*.xml -->
         <resources>
             <resource>
@@ -325,7 +325,7 @@
                         <port>8082</port>
                     </httpConnector>
                     <webApp>
-                        <contextPath>/dir</contextPath>
+                        <contextPath>/dm</contextPath>
                     </webApp>
                 </configuration>
             </plugin>
