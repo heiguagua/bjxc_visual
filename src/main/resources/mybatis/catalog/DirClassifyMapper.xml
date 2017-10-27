@@ -182,6 +182,12 @@
      	where  id = #{id}                              
     </update>
     
+    <delete id="deleteFromMapDept">
+    	delete from dir_classify_dept_map
+    	where classify_id = #{classify_id}
+    
+    </delete>
+    
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
         select q.* from (
         	SELECT t.*, s.dept_name as dept_name,d.dept_id as dept_id,c.icon_name as icon_name,h.dict_name as classify_type_name,n.classify_name as national_classify_name  FROM dir_classify t 

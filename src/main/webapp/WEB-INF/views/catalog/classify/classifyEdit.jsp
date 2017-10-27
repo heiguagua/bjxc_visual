@@ -64,13 +64,13 @@
                             
                             <div class="form-group">
 			                    <div class="row">
-			                        <div class="col-sm-6" >
+			                        <!-- <div class="col-sm-6" >
 			                            <label  class="col-sm-3 control-label"  for="icon">目录类别*</label>
 			                            <div class="col-sm-9">
 			                                <select id="Eclassify_type" name="classifyType" class="form-control select2" style="width: 100%;" data-rule="选择类别:required">                         		  
                                 			</select>
 			                            </div>
-			                        </div>
+			                        </div> -->
 			                        <div class="col-sm-6">
 			                            <label  class="col-sm-3 control-label" for="EnationalCode">国家库</label>
 			                            <div class="col-sm-9">
@@ -93,7 +93,7 @@
                             <div class="form-group" id="Edep">
                             	<div class="row">
                             	<div class="col-sm-6 ">
-	                                <label class="col-sm-3 control-label" for="deptName">所属组织 *</label>
+	                                <label class="col-sm-3 control-label" for="deptName">所属组织</label>
 	                                <div class="col-sm-9">
 	                                    <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
 	                                    <input type="text" id="deptName" required="required"

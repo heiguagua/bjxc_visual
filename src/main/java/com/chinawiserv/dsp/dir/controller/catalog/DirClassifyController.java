@@ -240,7 +240,16 @@ public class DirClassifyController extends BaseController {
 	public HandleResult doEdit(DirClassifyVo entity, Model model) {
 		HandleResult handleResult = new HandleResult();
 		try {
+			
 			service.updateVO(entity);
+			String deptId = entity.getDeptId();
+			String classifyId = entity.getId();
+			DirDeptMap ddmap = new DirDeptMap();
+			ddmap.setClassifyId(classifyId);
+			ddmap.setDeptId(deptId);
+			ddmap.setId(CommonUtil.get32UUID());
+			mapper.deleteFromMapDept(classifyId);
+			mapper2.baseInsert(ddmap);
 			handleResult.success("编辑目录分类表成功");
 		} catch (Exception e) {
 			handleResult.error("编辑目录分类表失败");

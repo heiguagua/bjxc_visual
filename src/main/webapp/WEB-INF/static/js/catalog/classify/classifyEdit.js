@@ -48,11 +48,11 @@ function initFormerDate(classifyId) {
                 	$.initNationalQueryClassifyTreeSelect('EtreeNational','EnationalCode','EdictNationalCode','EmenuNationalContent');
 
                     $("#Eclassify_name").val(vo.classifyName);
-                    if(vo.deptId == "" || vo.deptId==undefined){
-                    	 $("#Edep").addClass('hidden');
-                    }else{
-                    	$("#Edep").removeClass('hidden');
-                    }
+//                    if(vo.deptId == "" || vo.deptId==undefined){
+//                    	 $("#Edep").addClass('hidden');
+//                    }else{
+//                    	$("#Edep").removeClass('hidden');
+//                    }
                     $("#deptName").val(vo.deptName);
                     $("#Eorder_number").val(vo.orderNumber);
                     $("#deptId").val(vo.deptId);

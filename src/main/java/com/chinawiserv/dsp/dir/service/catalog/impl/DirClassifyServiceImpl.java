@@ -73,6 +73,16 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     	String regionCode = fclassify.getRegionCode();
 //    	String fid = fclassify.getId();
     	String ftreecode = fclassify.getTreeCode();
+    	String Ftype = fclassify.getClassifyType();
+    	
+    	if(Ftype.equals("2-1") || Ftype.equals("5")){
+  			vo.setClassifyType("5");
+  		}else if(Ftype.equals("2-2") || Ftype.equals("6")){
+  			vo.setClassifyType("6");	
+  		}else if(Ftype.equals("3") || Ftype.equals("7")){
+  			vo.setClassifyType("7");
+  		}
+    	
     	int flevel = fclassify.getClassifyLevel();
     	int fclassifyIndex = 0;
     	if(mapper.selectMaxIndexByFcode(fclassify.getId())!=null){
@@ -262,11 +272,11 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 	  		dirclassifyVo.setFid(fid);
 	  		
 	  		DirClassifyVo vo = prepareClassifyVo(dirclassifyVo);
-		  		if(type.equals("2-1")){
+		  		if(type.equals("2-1") || type.equals("5")){
 		  			vo.setClassifyType("5");
-		  		}else if(type.equals("2-2")){
+		  		}else if(type.equals("2-2") || type.equals("6")){
 		  			vo.setClassifyType("6");	
-		  		}else if(type.equals("3")){
+		  		}else if(type.equals("3") || type.equals("7")){
 		  			vo.setClassifyType("7");
 		  		}
 	  		

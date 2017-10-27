@@ -64,6 +64,8 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
     
     SysDept selectDeptById(String id);
     
+    void deleteFromMapDept(String classify_id);
+    
     List<DirClassifyVo> getCatelogByParentCode(String id);
 
     int selectVoCount(Map<String, Object> paramMap);
