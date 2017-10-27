@@ -1,7 +1,6 @@
 package com.chinawiserv.dsp.base.entity.vo.system;
 
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>

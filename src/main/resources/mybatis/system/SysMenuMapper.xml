@@ -129,5 +129,12 @@
         AND m.`resource_name` IS NOT NULL
 
     </select>
+    
+    <select id="selectChildren" parameterType="java.lang.String" resultMap="BaseResultMapVo">
+        SELECT id FROM sys_menu WHERE pid = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteSysRoleMenu" parameterType="java.lang.String">
+        DELETE FROM sys_role_menu WHERE menu_id = #{id,jdbcType=VARCHAR}
+    </delete>
 
 </mapper>

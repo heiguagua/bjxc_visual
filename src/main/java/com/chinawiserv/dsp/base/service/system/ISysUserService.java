@@ -8,7 +8,7 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
 
 /**
  * <p>
- * 用户表 服务类
+ * 用户表 服务类1
  * </p>
  *
  * @author zhanf

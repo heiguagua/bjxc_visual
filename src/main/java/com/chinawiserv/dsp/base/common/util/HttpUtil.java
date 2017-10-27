@@ -332,7 +332,7 @@ public class HttpUtil {
 		}
 		return url.toString();
 	}
-
+	//TODO
     /**
      * 向指定URL发送GET方法的请求
      *

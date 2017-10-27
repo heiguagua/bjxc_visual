@@ -29,5 +29,8 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     SysMenuVo selectCatalogByFunctionId(String id) throws Exception;
 
     List<SysMenuVo> selectMenusByFunctionId(String id) throws Exception;
-
+	//TODO 爬虫
+	Boolean deleteSysRoleMenu(String id) throws Exception;
+	//TODO 爬虫
+    List<SysMenuVo> selectChildren(String id) throws Exception;
 }

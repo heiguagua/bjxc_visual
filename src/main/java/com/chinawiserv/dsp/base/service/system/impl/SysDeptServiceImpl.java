@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -52,6 +53,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Autowired
     private SysRegionMapper sysRegionMapper;
     
+    //TODO 以下内容需要再检查下，删掉
     @Autowired
     private DirClassifyMapper dirClassifyMapper;
     
@@ -60,7 +62,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     
     @Autowired
     private IDirClassifyService dirService;
-
+    //TODO end
     @Autowired
     private SysDeptAuthorityMapper sysDeptAuthorityMapper;
 
@@ -177,6 +179,23 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             list.addAll(sysDeptMapper.selectVoListForTreeData(param));
         }
         return list;
+    }
+    
+    @Override
+    public JSONArray getDeptSelectDataList() throws Exception {
+        JSONArray jsonArray = new JSONArray();
+        List<SysDept> list = new ArrayList<SysDept>();
+
+        list = sysDeptMapper.selectList(new EntityWrapper<SysDept>());
+
+        for(SysDept sysDept : list){
+            JSONObject obj = new JSONObject();
+            obj.put("id",sysDept.getId());
+            obj.put("text",sysDept.getDeptName());
+
+            jsonArray.add(obj);
+        }
+        return jsonArray;
     }
 
     private String findParentDeptId(int parentDeptLevel, String deptId){

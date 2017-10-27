@@ -4,7 +4,7 @@ package com.chinawiserv.dsp.base.entity.vo.system;
 import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
 
 /**
- * Created by ZS on 2017/5/12.
+ * Created by ZS on 2017/5/12.1
  */
 public class SysSettingVo extends SysSetting {
 

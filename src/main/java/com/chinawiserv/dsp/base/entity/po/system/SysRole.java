@@ -1,14 +1,13 @@
 package com.chinawiserv.dsp.base.entity.po.system;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotations.TableName;
+
 /**
  * <p>
- * 系统角色表
+ * 系统角色表1
  * </p>
  *
  * @author zhanf

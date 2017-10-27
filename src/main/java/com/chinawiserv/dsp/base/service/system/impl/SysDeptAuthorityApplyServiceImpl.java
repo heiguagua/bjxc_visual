@@ -1,28 +1,27 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthorityApply;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityApplyVo;
-import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityApplyMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
-import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
-import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityApplyService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityApplyService;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>

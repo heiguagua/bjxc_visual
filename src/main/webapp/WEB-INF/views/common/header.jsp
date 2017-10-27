@@ -44,12 +44,14 @@
 <script src="<%=basePath%>/js/system/region/region_switch.js"></script>
 <header class="main-header">
  <!-- Logo -->
- <a href="javascript:void(0)" class="logo">
+  <div class="logo">
    <!-- mini logo for sidebar mini 50x50 pixels -->
    <span class="logo-mini"><b>${systemShortName}</b></span>
    <!-- logo for regular state and mobile devices -->
-   <span class="logo-lg"><span><img src="<%=basePath%>/images/userImg/logoSmall.png"/>&nbsp;${systemName}-${systemSubName}</span></span>
- </a>
+  <!-- <span class="logo-lg"><span><img src="<%=basePath%>/images/userImg/logoSmall.png"/>&nbsp;${systemName}-${systemSubName}</span></span> -->
+   <a href="<%=basePath%>/catalog/catalogue" style="color: #fff" ><span class="logo-lg"><span><img src="<%=basePath%>/images/userImg/logoSmall.png"/>&nbsp;
+       <span id="logo" style="font-size: 12px">${systemName}-${systemSubName}</span></span></span></a>
+ </div>
 
  <!-- Header Navbar -->
  <nav class="navbar navbar-static-top" role="navigation">
@@ -128,12 +130,30 @@
          </a>
        </li>
        <li>
-         <a href="<%=basePath%>/login/logout" class="dropdown-toggle" data-toggle="tooltip" title="退出" data-placement="bottom">
-           <img src="<%=basePath%>/images/userImg/adminDeltimg.png" class="adminDeltimg"/>
+         <a href="#" onclick="javascript:isOut()" class="dropdown-toggle" data-toggle="tooltip" title="退出" data-placement="bottom">
+<%--            <img src="<%=basePath%>/images/userImg/adminDeltimg.png" class="adminDeltimg"/> --%>
+			<i class="fa fa-sign-out"></i>
          </a>
        </li>
-       
+       <li style="width: 30px;">
+       </li>
       </ul>
     </div>
   </nav>
+  <script type="text/javascript">
+      $(document).ready(function(){
+          if($('#logo').text().indexOf("-") == -1){
+              $('#logo').css({"font-size":"16px"})
+          }
+      })
+    function isOut(){
+      layer.confirm("是否退出系统", {icon: 3, title: "提示", offset: getOffset()}, function (index) {
+          layer.close(index);
+          window.location.href = '<%=basePath%>/login/logout';
+        <%--window.location.href = '<%=basePath%>/login';--%>
+      });
+    }
+
+
+  </script>
 </header>

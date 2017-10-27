@@ -5,12 +5,7 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
     <script src="<%=basePath%>/js/system/user/userAdd.js"></script>
-</head>
-<body>
-<section class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <style>
+    <style>
                 .box-body .pdl0{
                     padding-left: 0;
                 }
@@ -21,7 +16,16 @@
                 .box-bodyx .form-group>.form-group{
                     width: 70%;
                     float: left;}
+                 .form-group{
+			            margin-bottom:25px;
+			      }
             </style>
+</head>
+<body>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
@@ -33,7 +37,7 @@
                             <div class="form-group">
                             <input type="text" id="userName" name="userName" class="form-control"
                                    placeholder="请输入用户名" autocomplete="false"
-                                   data-rule="用户名:required;userName;remote(<%=basePath%>/system/user/insertCheckName)">
+                                   data-rule="用户名:username;required;length[3~12];remote(<%=basePath%>/system/user/insertCheckName)">
                             </div>
                         </div>
                         <div class="form-group">
@@ -41,14 +45,14 @@
                             <div class="form-group">
                             <input type="text" style="display: none">
                             <input type="password" id="password" name="password" class="form-control" autocomplete="false"
-                                   placeholder="请输入密码" data-rule="密码:required;password;">
+                                   placeholder="请输入密码" data-rule="密码:password;required;">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password2">确认密码 <i style="color: red">*必选</i></label>
                             <div class="form-group">
                             <input type="password" id="password2" name="password2" class="form-control"
-                                   placeholder="请再次输入密码" data-rule="确认密码:required;password; match(password)">
+                                   placeholder="请再次输入密码" data-rule="确认密码:password; match(password);required">
                             </div>
                         </div>
                         <div class="form-group">
@@ -87,7 +91,7 @@
                             <label for="realName">真实姓名 <i style="color: red">*必选</i></label>
                             <div class="form-group">
                             <input type="text" id="realName" name="realName" class="form-control"
-                                   placeholder="请输入真实姓名" data-rule="真实姓名:required;realName;">
+                                   placeholder="请输入真实姓名" data-rule="真实姓名:realName;required;length[~36, true]">
                             </div>
                         </div>
 <!--                         <div class="form-group"> -->
@@ -98,10 +102,10 @@
 <!--                             </div> -->
 <!--                         </div> -->
                         <div class="form-group">
-                            <label for="telephoneNumber">电话号码</label>
+                            <label for="telephoneNumber">固定电话</label>
                             <div class="form-group">
                             <input type="text" id="telephoneNumber" name="telephoneNumber" class="form-control"
-                                   placeholder="请输入电话号码" data-rule="电话:tel;">
+                                   placeholder="请输入固定电话号码(格式为0000-0000000)" data-rule="电话:tel;">
                             </div>
                         </div>
                         <div class="form-group">
@@ -115,14 +119,15 @@
                             <label for="email">邮箱</label>
                             <div class="form-group">
                             <input type="text" id="email" name="email" class="form-control"
-                                   placeholder="请输入邮箱">
+                                   placeholder="请输入邮箱" data-rule="邮箱:email">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>用户描述</label>
                             <div class="form-group">
                             <textarea class="form-control" name="userDesc" rows="3"
-                                      placeholder="请输入描述，最多300个字符 ..."></textarea>
+                                      placeholder="请输入描述，最多512个字符,1个汉字算2个字符 ..."
+                                      data-rule="用户描述:length[~512, true]" data-msg="最多输入256个汉字或512个字符"></textarea>
                             </div>
                         </div>
 

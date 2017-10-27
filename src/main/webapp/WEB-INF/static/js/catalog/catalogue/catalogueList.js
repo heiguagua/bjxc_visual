@@ -11,7 +11,7 @@ var setting = {
     async: {
         enable: true,
         url: basePathJS + "/dirClassify/subAuthorityList",
-        autoParam: ["fid","treeCode","authorityNode"],
+        autoParam: ["fid"],
         dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
             var params = [];
             var nodeObjs = childNodes.content.vo;
@@ -23,9 +23,7 @@ var setting = {
                     'id': nodeObjs[i].id,
                     'name': nodeObjs[i].classifyName,
                     'fid': nodeObjs[i].id,
-                    'treeCode': nodeObjs[i].treeCode,
-                    'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
-                    'authorityNode':nodeObjs[i].authorityNode
+                    'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
                 }
             }
             return params;

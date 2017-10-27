@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * <p>
-  * 系统角色表 Mapper 接口
+  * 系统角色表 Mapper 接口1
  * </p>
  *
  * @author zhanf

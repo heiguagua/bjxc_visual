@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 系统设置表 服务实现类
+ * 系统设置表 服务实现类1
  * </p>
  *
  * @author zhanf

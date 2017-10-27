@@ -1,14 +1,7 @@
 package com.chinawiserv.dsp.base.controller.system;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.controller.common.BaseController;
-import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
-import com.chinawiserv.dsp.base.entity.po.system.SysLog;
-import com.chinawiserv.dsp.base.entity.vo.system.SysLogVo;
-import com.chinawiserv.dsp.base.service.system.ISysLogService;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -19,13 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.controller.common.BaseController;
+import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysLog;
+import com.chinawiserv.dsp.base.entity.vo.system.SysLogVo;
+import com.chinawiserv.dsp.base.service.system.ISysLogService;
 
 
 /**
  * <p>
- * 日志表 前端控制器
+ * 日志表 前端控制器1
  * </p>
  *
  * @author zhanf

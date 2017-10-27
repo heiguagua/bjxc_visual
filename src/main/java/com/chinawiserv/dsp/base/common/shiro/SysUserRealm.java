@@ -1,20 +1,29 @@
 package com.chinawiserv.dsp.base.common.shiro;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.chinawiserv.dsp.base.entity.po.system.SysMenu;
-import com.chinawiserv.dsp.base.entity.po.system.SysUser;
-import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
-import com.chinawiserv.dsp.base.service.system.ISysMenuService;
-import com.chinawiserv.dsp.base.service.system.ISysUserService;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.*;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.chinawiserv.dsp.base.entity.po.system.SysMenu;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.service.system.ISysMenuService;
+import com.chinawiserv.dsp.base.service.system.ISysUserService;
 
 /**
  * 认证
@@ -91,7 +100,7 @@ public class SysUserRealm extends AuthorizingRealm {
         if(user.getStatus() == 0){
         	throw new LockedAccountException("账号已被禁用,请联系管理员");
         }
-
+        //TODO
         if(StringUtils.isBlank(user.getRegionCode())){
             throw new IncorrectCredentialsException("当前登录用户未被分配区域，请联系管理员！");
         }

@@ -9,7 +9,8 @@ import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
+//import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
+//import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -128,14 +129,14 @@ public class SysUserAuthorityController extends BaseController {
                 sysDeptAuthorityVo.setAuthObjId(authObjId);
                 service.updateVO(sysDeptAuthorityVo);
             }else if("dir".equals(authType)){
-                String classifyIds = (String) paramMap.get("classifyIds");
-                String authDetail = (String) paramMap.get("authDetail");
-                DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
-                dirClassifyAuthorityVo.setClassifyIds(classifyIds);
-                dirClassifyAuthorityVo.setAuthObjType(AuthObjTypeEnum.USER.getKey());
-                dirClassifyAuthorityVo.setAuthObjId(authObjId);
-                dirClassifyAuthorityVo.setAuthDetail(authDetail);
-                dirClassifyAuthorityService.updateVO(dirClassifyAuthorityVo);
+//                String classifyIds = (String) paramMap.get("classifyIds");
+//                String authDetail = (String) paramMap.get("authDetail");
+//                DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
+//                dirClassifyAuthorityVo.setClassifyIds(classifyIds);
+//                dirClassifyAuthorityVo.setAuthObjType(AuthObjTypeEnum.USER.getKey());
+//                dirClassifyAuthorityVo.setAuthObjId(authObjId);
+//                dirClassifyAuthorityVo.setAuthDetail(authDetail);
+//                dirClassifyAuthorityService.updateVO(dirClassifyAuthorityVo);
             }
             handleResult.success("编辑用户数据权限分配表成功");
         } catch (Exception e) {

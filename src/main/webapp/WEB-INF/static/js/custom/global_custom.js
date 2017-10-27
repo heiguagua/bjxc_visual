@@ -1,9 +1,9 @@
 var urlPrefix = "";
-var specialReg = new RegExp("['\"]+");  //特殊字符的正则表达式
+var specialReg = new RegExp("['\"]+");  //特殊字符的正则表达式 1
 var reg_numberRange = /^[0-9\,\-]+$/g;
 var reg_englishRange = /^[a-zA-Z\,\-]+$/g;
 /**
- * 操作分隔符，常量
+ * 操作分隔符，常量1
  * @type {string}
  */
 var OPERATION_SEPARATOR = ' ';

@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 系统组织机构表
+ * 系统组织机构表1
  * </p>
  *
  * @author zhanf

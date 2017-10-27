@@ -1,9 +1,16 @@
 var tableSelector = '#systemDeptTableId';
-
+//1
 jQuery(document).ready(function () {
     "use strict";
     var paramsObj = {};
-
+    $("#searchKeyId").keydown(function(e){
+        var curKey = e.which;
+        if(curKey == 13){
+        	setParams();
+        	reloadTable();//此处可以是你要执行的功能
+            return false;//这句非常重要。如果没有这句，那么查询出结果后，会出现刷新页面动作等，导致查询结果失效。
+        }
+    });
     jQuery(tableSelector).customTable({
         url: basePathJS + '/system/dept/list',
         queryParams: function (params) {
@@ -54,7 +61,19 @@ jQuery(document).ready(function () {
             title: '联系人',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter: function (value) {
+                var desc;
+                if (value) {
+                    if (value.length > 10) {
+                        desc = value.substring(0, 10);
+                        desc += ' ...';
+                    } else {
+                        desc = value;
+                    }
+                }
+                return desc;
+            }
         }, {
             field: 'deptContactPhone',
             title: '联系电话',
@@ -66,13 +85,38 @@ jQuery(document).ready(function () {
             title: '地址',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter: function (value) {
+                var desc;
+                if (value) {
+                    if (value.length > 10) {
+                        desc = value.substring(0, 10);
+                        desc += ' ...';
+                    } else {
+                        desc = value;
+                    }
+                }
+                return desc;
+            }
         }, {
-            field: 'deptDesc',
-            title: '描述',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
+        	 field: 'deptDesc',
+             title: '描述',
+             width: 250,
+             align: 'center',
+             valign: 'middle',
+             sortable: false,
+             formatter: function (value) {
+                 var desc;
+                 if (value) {
+                     if (value.length > 15) {
+                         desc = value.substring(0, 15);
+                         desc += ' ...';
+                     } else {
+                         desc = value;
+                     }
+                 }
+                 return desc;
+             }
         }, {
             field: 'isSync',
             title: '是否已同步目录',
@@ -135,7 +179,7 @@ function syncDeptClassify(){
 }
 
 function reloadTable() {
-    $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
+//    $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
     $(tableSelector).data("bootstrap.table").refresh();
 }
 

@@ -1,12 +1,11 @@
 package com.chinawiserv.dsp.base.service.system;
 
-import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
-import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
-import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
-import com.chinawiserv.dsp.base.service.common.ICommonService;
-
 import java.util.List;
 import java.util.Map;
+
+import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
+import com.chinawiserv.dsp.base.service.common.ICommonService;
 
 /**
  * <p>

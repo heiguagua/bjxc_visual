@@ -6,11 +6,13 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.DesUtil;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.service.system.ISysLogService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -40,7 +42,12 @@ import java.util.Map;
 @RequestMapping("/system/user")
 public class SysUserController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	/**
+     * 日志服务
+     */
+    @Autowired
+    private ISysLogService sysLogService;
+    
     @Autowired
     private ISysUserService sysUserService;
 
@@ -86,15 +93,19 @@ public class SysUserController extends BaseController {
     @RequiresPermissions("system:user:add")
     @RequestMapping("/doAdd")
     @ResponseBody
-    public HandleResult doAdd(SysUserVo user){
+    public HandleResult doAdd(SysUserVo user, HttpServletRequest request){
         HandleResult result = new HandleResult();
-
         try {
             user.setToken(DesUtil.encrypt(user.getUserName()));
             sysUserService.insertVO(user);
+              /**
+             * 记录登录日志
+             */
+//            sysLogService.insertLog("创建用户成功", ShiroUtils.getLoginUser(), request.getRequestURI(), user.toString().replaceAll("password='(.*?)'","password='******'"));
         } catch (Exception e) {
             e.printStackTrace();
-             return result.error("创建用户失败");
+//            sysLogService.insertLog("创建用户失败", ShiroUtils.getLoginUser(), request.getRequestURI(), e.toString());
+            return result.error("创建用户失败");
         }
         return result.success("创建用户成功");
     }
@@ -106,14 +117,19 @@ public class SysUserController extends BaseController {
     @RequestMapping("/delete")
     @ResponseBody
     public HandleResult delete(String id){
-        HandleResult result = new HandleResult();
-        try {
-            sysUserService.delete(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return result.error("删除用户失败：" + e.getMessage());
+       	String loginUserId = ShiroUtils.getLoginUserId();
+        //不能删除系统管理员，不能删除自己
+        if (!"549d321508db446e9bcaa477835fe5f1".equals(id) && !id.equals(loginUserId)) {
+            try {
+				sysUserService.delete(id);
+			} catch (ErrorInfoException e) {
+				e.printStackTrace();
+				 return new HandleResult().error("删除用户失败：" + e.getMessage());
+			}
+            return new HandleResult().success("删除用户成功");
+        } else {
+            return new HandleResult().error("删除失败，用户不能删除自己！");
         }
-        return result.success("删除用户成功");
     }
 
     /**
@@ -152,15 +168,21 @@ public class SysUserController extends BaseController {
     @RequestMapping("/doEdit")
     @ResponseBody
     public  HandleResult doEdit(SysUserVo user,Model model){
-        HandleResult result = new HandleResult();
-        try {
-            user.setToken(DesUtil.encrypt(user.getUserName()));
-            sysUserService.updateVO(user);
+       HandleResult result = new HandleResult();
+        try {            
+            String loginUserId = ShiroUtils.getLoginUserId();
+            if (loginUserId.equals(user.getId()) && user.getStatus() != 1) {
+                result.error("编辑用户失败，不能禁用自己！");
+            } else {
+                user.setToken(DesUtil.encrypt(user.getUserName()));
+                sysUserService.updateVO(user);
+                result.success("编辑用户成功！");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             result.error("编辑用户失败");
         }
-        return result.success("编辑用户成功");
+        return result;
     }
 
     /**
@@ -174,7 +196,7 @@ public class SysUserController extends BaseController {
         if(list.size() > 0){
             resultJson.put("error" , userName+" 用户名已存在,请换一个尝试。" );
         } else {
-            resultJson.put("ok" , "");
+            resultJson.put("ok" , "用户名很棒。");
         }
         return resultJson;
     }
@@ -197,7 +219,7 @@ public class SysUserController extends BaseController {
                 if (list.size() > 0) {
 	                resultJson.put("error" , userName+" 用户名已存在,请换一个尝试。" );
                 }
-	            resultJson.put("ok" , "");
+	            resultJson.put("ok" , "新用户名很棒。");
             }
 
         }

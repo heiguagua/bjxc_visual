@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * <p>
-  * 组织机构表 Mapper 接口
+  * 组织机构表 Mapper 接口1
  * </p>
  *
  * @author zhanf

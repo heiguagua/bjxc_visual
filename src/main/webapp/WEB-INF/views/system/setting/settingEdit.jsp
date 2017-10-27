@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<!-- 1 -->
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
@@ -25,12 +25,12 @@
                             <div class="form-group">
                                 <label for="settingName">系统配置名称</label>
                                 <input type="text" id="settingName" name="settingName" class="form-control"
-                                       placeholder="请输入系统配置名称" data-rule="组织系统配置名称:required;">
+                                       placeholder="请输入系统配置名称" data-rule="组织系统配置名称:required;" readonly="readonly">
                             </div>
                             <div class="form-group">
                                 <label for="settingValue">系统配置值</label>
                                 <input type="text" id="settingValue" name="settingValue" class="form-control"
-                                       placeholder="请输入系统配置值" data-rule="组织系统配置值:required;">
+                                       placeholder="请输入系统配置值" data-rule="组织系统配置值:length[1~300, true];required;">
                             </div>
                             <div class="form-group">
                                 <label for="regionCode">所属行政区域</label>
@@ -39,7 +39,8 @@
                             <div class="form-group">
                                 <label>系统配置描述</label>
                                 <textarea class="form-control" id="settingDesc" name="settingDesc" rows="3"
-                                          placeholder="请输入描述，最多300个字符 ..."></textarea>
+                                          placeholder="请输入描述，最多300个字符,1个汉字按2个字符计算 ..."
+                                          data-rule="系统配置描述:length[0~300, true]"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>状态</label>

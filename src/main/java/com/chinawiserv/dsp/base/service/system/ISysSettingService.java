@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 系统设置表 服务类
+ * 系统设置表 服务类1
  * </p>
  *
  * @author zhanf

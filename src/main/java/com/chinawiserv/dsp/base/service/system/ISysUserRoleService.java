@@ -5,7 +5,7 @@ import com.chinawiserv.dsp.base.entity.po.system.SysUserRole;
 
 /**
  * <p>
- * 用户角色关联表 服务类
+ * 用户角色关联表 服务类1
  * </p>
  *
  * @author zhanf

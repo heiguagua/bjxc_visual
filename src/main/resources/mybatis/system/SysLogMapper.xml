@@ -58,7 +58,7 @@
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM sys_log t
+        SELECT count(1) FROM sys_log t LEFT JOIN sys_user u ON t.operator_id = u.id
         <include refid="queryConditions"></include>
     </select>
 
@@ -110,6 +110,26 @@
             </if>
         </where>
     </sql>
+	
+	 <select id="selectVoList" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysLogVo">
+		SELECT t.* , su.real_name FROM  sys_log t LEFT  JOIN sys_user su ON  t.operator = su.id
+		<include refid="selectVoListWhereCause"/>
+	</select>
+	
+	<sql id="selectVoListWhereCause">
+		<trim prefix="where" prefixOverrides="and">
+			<if test="searchKey != null">
+				AND t.operate_desc like CONCAT('%',#{searchKey,jdbcType=VARCHAR},'%')
+			</if>
 
+			<if test="create_time_begin != null">
+				AND t.operate_time &gt;= #{create_time_begin,jdbcType=VARCHAR}
+			</if>
+
+			<if test="create_time_end != null">
+				AND t.operate_time &lt;= #{create_time_end,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</sql>
 
 </mapper>

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 菜单树+是否有权限表示
+ * 菜单树+是否有权限表示1
  * @author Gaojun.Zhou
  * @date 2016年12月26日 上午10:34:02
  */

@@ -2,7 +2,7 @@ $(document).ready(function(){
     initEditPage();
 });
 
-//初始化编辑界面
+//初始化编辑界面 1
 function initEditPage(){
     var params = {id : $("#settingId").val()};
     $.post(basePathJS + "/system/setting/editLoad",

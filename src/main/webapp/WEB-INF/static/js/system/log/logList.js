@@ -1,9 +1,16 @@
 $(document).ready(function () {
     "use strict";
-
+//1
     var tableSelector = '#systemLogTableId';
     var paramsObj = {};
-
+    $("#operatorRealName,#operatorUserName").keydown(function(e){
+        var curKey = e.which;
+        if(curKey == 13){
+        	setParams();
+        	reloadTable();//此处可以是你要执行的功能
+            return false;//这句非常重要。如果没有这句，那么查询出结果后，会出现刷新页面动作等，导致查询结果失效。
+        }
+    });
     $(tableSelector).customTable({
         url: basePathJS + '/system/log/list',
         queryParams: function (params) {
@@ -76,7 +83,11 @@ $(document).ready(function () {
         setParams();
         reloadTable();
     });
-
+    $('#queryBtnReset').click(function () {
+        $('#operateTimeRange').val('');
+        $('#operatorUserName').val('');
+        $('#operatorRealName').val('');
+    });
     function setParams() {
         var operatorUserName = $('#operatorUserName').val();
         var operatorRealName = $('#operatorRealName').val();
@@ -95,10 +106,19 @@ function queryLogDetail(id) {
     var url = basePathJS + '/system/log/params';
 
     $.post(url,{id : id}, function(str){
+    	try{
+            str = formatJson(str);
+            str = str.replace(/\r\n/g,"<br/>");
+            str = str.replace(/ /g,"&nbsp;");
+        } catch (error){
+            console.log(error);
+        }
         layer.open({
             type: 1,
+            skin: 'layui-layer-rim',
             title : '查看参数',
-            area: ['700px', '400px'],
+            area: ['500px', '320px'],
+            offset :getOffset(280),
             fixed: false, //不固定
             content: str //注意，如果str是object，那么需要字符拼接。
         });

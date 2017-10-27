@@ -4,7 +4,7 @@ package com.chinawiserv.dsp.base.entity.vo.system;
 import com.chinawiserv.dsp.base.entity.po.system.SysLog;
 
 /**
- * Created by zhanf on 2017/5/12.
+ * Created by zhanf on 2017/5/12.1
  */
 public class SysLogVo extends SysLog {
 

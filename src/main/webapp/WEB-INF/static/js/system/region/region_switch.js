@@ -1,7 +1,7 @@
 jQuery(document).ready(function () {
     initRegion();
 });
-
+//1
 function initRegion(){
 	$.ajax({
         url: basePathJS+"/sysRegion/getRegionListForLoginUser",

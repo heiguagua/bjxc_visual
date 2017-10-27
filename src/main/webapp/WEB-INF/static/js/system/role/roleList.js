@@ -1,12 +1,19 @@
 /**
- * Created by lenovo on 2017/5/9.
+ * Created by lenovo on 2017/5/9. 1
  */
 var tableSelector = '#systemRoleTableId';
 
 jQuery(document).ready(function () {
     "use strict";
     var paramsObj = {};
-
+    $("#searchKeyId").keydown(function(e){
+        var curKey = e.which;
+        if(curKey == 13){
+        	setParams();
+        	reloadTable();//此处可以是你要执行的功能
+            return false;//这句非常重要。如果没有这句，那么查询出结果后，会出现刷新页面动作等，导致查询结果失效。
+        }
+    });
     jQuery(tableSelector).customTable({
         url: basePathJS + '/system/role/list',
         queryParams: function (params) {
@@ -26,11 +33,21 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
-            field: 'roleDesc',
-            title: '描述',
-            align: 'center',
-            valign: 'middle',
-            sortable: false
+        	 field: 'roleDesc',
+             width: 320,
+             title: '描述',
+             align: 'center',
+             valign: 'middle',
+             sortable: false,
+             formatter : function (value) {
+                 var display = null;
+                 if (value && value.length > 15){
+                     display = value.substring(0,15) + " ...";
+                 } else {
+                     display = value;
+                 }
+                 return display;
+             }
         }, {
             field: 'createTime',
             title: '创建时间',

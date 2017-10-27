@@ -1,5 +1,5 @@
 <%--
-  Created by IntelliJ IDEA.
+  Created by IntelliJ IDEA. 1
   User: lenovo
   Date: 2017/5/9
   Time: 15:02
@@ -12,6 +12,11 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
     <script src="<%=basePath%>/js/system/role/roleEdit.js"></script>
+     <style>
+        .form-group{
+            margin-bottom:25px;
+        }
+    </style>
 </head>
 <body>
 <section class="content">
@@ -40,14 +45,14 @@
                                 <label for="roleName">角色名称</label>
                                 <div class="form-group">
                                 <input type="text" id="roleName" name="roleName" class="form-control"
-                                       placeholder="请输入角色名称" data-rule="角色名称:required;simpleName;remote(<%=basePath%>/system/role/checkRoleName?roleId=${roleId});">
+                                       placeholder="请输入角色名称" data-rule="角色名称:simpleName;required;remote(<%=basePath%>/system/role/checkRoleName?roleId=${roleId});">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>角色描述</label>
                                 <div class="form-group">
                                 <textarea class="form-control" id="roleDesc" name="roleDesc" rows="3"
-                                          placeholder="请输入描述，最多300个字符 ..." data-rule="角色描述:length(~300);"></textarea>
+                                          placeholder="请输入描述，最多512个字符,一个汉字算2个字符 ..." data-rule="角色描述:length[~512, true]" data-msg="最多输入256个汉字或512个字符"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">

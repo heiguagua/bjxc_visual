@@ -1,12 +1,14 @@
 package com.chinawiserv.dsp.base.controller.system;
 
 
+import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.service.system.ISysLogService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,9 @@ import java.io.File;
 @Controller
 @RequestMapping("/system/me")
 public class MeController extends BaseController {
-
+	@Autowired
+    private ISysLogService sysLogService;
+	
 	@Autowired
     private ISysUserService sysUserService;
 	
@@ -51,7 +55,7 @@ public class MeController extends BaseController {
      */
     @RequestMapping("/doChangePwd")
 	@ResponseBody
-    public HandleResult doChangePwd(String password, String newpassword, String newpassword2, Model model) throws Exception {
+    public HandleResult doChangePwd(String password, String newpassword, String newpassword2, Model model, HttpServletRequest request) throws Exception {
 
 		HandleResult result = new HandleResult();
     	
@@ -74,20 +78,24 @@ public class MeController extends BaseController {
 			newSysUser.setId(loginUserId);
 			newSysUser.setPassword(CommonUtil.string2MD5(newpassword));
 
-			sysUserService.updateVO(newSysUser);
+			if (sysUserService.updateVO(newSysUser)){
+               sysLogService.insertLog("修改密码", ShiroUtils.getLoginUser(), request.getRequestURI(), "修改密码成功");
+           } else{
+               sysLogService.insertLog("修改密码", ShiroUtils.getLoginUser(), request.getRequestURI(), "修改密码失败");
+           }
 		} catch (Exception e) {
 			e.printStackTrace();
 			return result.error("密码修改失败");
 		}
-
-		return result.success("密码修改成功");
+		ShiroUtils.logout();
+		return result.success("密码修改成功，请重新登录！");
     }
 	/**
 	 * 执行图片上传
 	 */
 	@RequestMapping(value = "/uploadImage",method = RequestMethod.POST)
 	//@ResponseBody
-	public String fileUpload(
+	public HandleResult fileUpload(
 			@RequestParam("systemLogo") MultipartFile file,
 			HttpServletRequest request) {
 		if (!file.isEmpty()) {
@@ -97,24 +105,29 @@ public class MeController extends BaseController {
 				    SysUserVo userVo = sysUserService.selectVoById(id);
 					// 文件保存路径
 				    String resource = "/WEB-INF/static/images/userImg/";
+				    String filenameOri = file.getOriginalFilename();
+                	filenameOri = userVo.getId()+filenameOri.substring(filenameOri.lastIndexOf("."));
 					String filePath = request.getSession().getServletContext().getRealPath("/") + resource
-							+ file.getOriginalFilename();
+						+ filenameOri;
 					//转存文件
 					file.transferTo(new File(filePath));
 					//保存到数据库的文件名
-					String filename="/images/userImg/" + file.getOriginalFilename();
+					String filename="/images/userImg/" + filenameOri;
 					//修改用户图片的url
 				    userVo.setUserImg(filename);
 				    //更新用户
 				    sysUserService.updateById(userVo);
-				    //return new HandleResult().success("上传图片成功");
+				    //更新图片
+                	ShiroUtils.setSessionAttribute(SystemConst.ME, userVo);
+				    return new HandleResult().success("上传图片成功");
 			} catch (Exception e) {
 				e.printStackTrace();
-				//return new HandleResult().error("上传失败");
-				return "system/me/page";
+				return new HandleResult().error("上传失败");
+				//return "system/me/page";
 			}
 
 		}
-		return "system/me/page";
+		//return "system/me/page";
+		return new HandleResult().error("请选择文件");
 	}
 }

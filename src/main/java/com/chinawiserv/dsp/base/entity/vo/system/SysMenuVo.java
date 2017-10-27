@@ -5,7 +5,7 @@ import com.chinawiserv.dsp.base.entity.po.system.SysMenu;
 
 /**
  * <p>
- * 菜单表
+ * 菜单表1
  * </p>
  *
  * @author zhanf

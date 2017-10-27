@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 日志表 服务实现类
+ * 日志表 服务实现类1
  * </p>
  *
  * @author zhanf

@@ -28,7 +28,7 @@ import java.util.*;
 
 /**
  * <p>
- * 角色表 服务实现类
+ * 角色表 服务实现类1
  * </p>
  *
  * @author zhanf
@@ -121,10 +121,12 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
             list = sysRoleMapper.selectList(new EntityWrapper<SysRole>().addFilter("delete_flag = {0}", 0).addFilter("role_level > {0}", loginUserMinRoleLevel));
         }
         for (SysRole sysRole : list) {
-            JSONObject obj = new JSONObject();
-            obj.put("id", sysRole.getId());
-            obj.put("text", sysRole.getRoleName());
-            result.add(obj);
+        	if(sysRole.getStatus() == 1){
+	            JSONObject obj = new JSONObject();
+	            obj.put("id", sysRole.getId());
+	            obj.put("text", sysRole.getRoleName());
+	            result.add(obj);
+        	 }
         }
         return result;
     }

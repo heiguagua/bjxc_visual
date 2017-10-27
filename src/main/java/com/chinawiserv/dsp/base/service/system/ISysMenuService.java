@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 菜单表 服务类
+ * 菜单表 服务类1
  * </p>
  *
  * @author zhanf

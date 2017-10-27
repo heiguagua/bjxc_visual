@@ -1,10 +1,9 @@
 package com.chinawiserv.dsp.base.entity.po.system;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>

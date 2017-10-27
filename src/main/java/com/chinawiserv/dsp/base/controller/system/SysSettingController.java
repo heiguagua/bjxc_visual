@@ -25,7 +25,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 系统设置表 前端控制器
+ * 系统设置表 前端控制器1
  * </p>
  *
  * @author zhanf

@@ -3,6 +3,7 @@
 <html>
 <head>
 	<%@include file="/WEB-INF/views/common/head.jsp" %>
+	<script src="<%=basePath%>/js/login.js"></script>
 	<style type="text/css">
 		.has-feedback .form-control{
 			height: 50px;
@@ -10,6 +11,12 @@
 		.form-control-feedback {
 			top: 8px !important ;
 		}
+		 #change_code{
+            color: #333;
+        }
+        #change_code:hover{
+            color: #72afd2 !important;
+        }
 	</style>
 	<link rel="stylesheet" href="<%=basePath%>/css/load.css">
 </head>
@@ -18,9 +25,11 @@
   
   <div class="longin_content">
 	<div class="top_cont">
-		<section class="top_conttitle">
+		<section class="top_conttitle" style="text-align: center">
 				<img class="logopng" src="<%=basePath%>/images/userImg/logo.png">
-				<p>大数据资源服务网</p>
+				<p>${projectPortalName}</p>
+            	<div class="righttext">
+            	</div>
 				<div class="section_bottom">
 						<span class="left_span">
 							登录
@@ -45,15 +54,16 @@
 					
 						<div class="inputdiv reg-box"><span class="spanuser">
 								<img src="<%=basePath%>/images/userImg/Username.png"/>
-							</span
-							><input type="text" id="userLoadName" class="account"  name="userName" placeholder="用户名" data-rule="用户名:required;username;"/>
+							</span><input type="text" id="userLoadName" class="account"  name="userName" placeholder="用户名" data-rule="用户名:required;username;" value="${userName}"/>
 							<input type="hidden" name="return_url" value="${return_url}">
 						</div>
 						<div class="inputdiv reg-box">
 							<span class="spanuser">
 								<img src="<%=basePath%>/images/userImg/Password.png"/>
-							</span
-							><input type="password" class="admin_pwd" id="userPassWord" name="password"  placeholder="密码"  data-rule="密码:required;password;"/>
+							</span>
+							<input type="password" class="admin_pwd" id="password"  placeholder="密码"  data-rule="密码:required;password;"/>
+                			<input type="hidden" name="password">
+                			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 						</div>
 						<div class="inputdiv reg-box">
 						

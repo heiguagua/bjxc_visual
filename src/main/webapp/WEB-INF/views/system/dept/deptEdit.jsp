@@ -47,21 +47,24 @@
                             <div class="form-group">
                                 <label for="deptCode">组织机构编码</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="deptCode" name="deptCode">
+                                    <input type="text" class="form-control" id="deptCode" name="deptCode"
+                                    data-rule="组织机构编码:simpleCode;required;length[~64, true]">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="deptName">组织机构名称</label>
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="deptName" id="deptName"
-                                           placeholder="组织机构名称">
+                                           placeholder="组织机构名称"
+                                           data-rule="组织机构名称:required;deptName;remote(<%=basePath%>/system/dept/checkDeptName, fid:#fid)">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="deptShortName">组织机构简称</label>
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="deptShortName" id="deptShortName"
-                                           placeholder="组织机构简称">
+                                           placeholder="组织机构简称"
+                                           data-rule="组织机构简称:simpleName;length[~64, true]">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -82,7 +85,8 @@
                                 <label for="deptDesc">组织机构描述</label>
                                 <div name="deptDesc" class="form-group">
                                     <textarea class="form-control" rows="3" name="deptDesc" id="deptDesc"
-                                              placeholder="请输入组织机构描述"></textarea>
+                                              placeholder="请输入组织机构描述"
+                                              placeholder="请输入描述，最多512个字符,一个汉字算2个字符 ..." data-rule="length[~512, true];" data-msg="最多输入256个汉字或512个字符"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -166,7 +170,8 @@
                                 <label for="deptAddress">组织机构地址</label>
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="deptAddress" id="deptAddress"
-                                           placeholder="组织机构地址">
+                                           placeholder="组织机构地址"
+                                           data-rule="地址:length[~256, true]" data-msg="最多输入128个汉字或256个字符">
                                 </div>
                             </div>
                             <div class="form-group">

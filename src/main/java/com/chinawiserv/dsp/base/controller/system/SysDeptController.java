@@ -255,6 +255,26 @@ public class SysDeptController extends BaseController {
         }
         return handleResult;
     }
+    
+        /**
+     * 组织机构的下拉数据 pacong
+     * @param userId
+     * @return
+     */
+//    @RequestMapping("/getDeptSelectDataList")
+//    @ResponseBody
+//    public HandleResult getDeptSelectDataList(String userId) {
+//        HandleResult handleResult = new HandleResult();
+//        try {
+//            JSONArray result = sysDeptService.getDeptSelectDataList();
+//            handleResult.put("selectData", result);
+//        } catch (Exception e) {
+//            handleResult.error("获取角色名称失败");
+//            logger.error("获取角色名称失败", e);
+//        }
+//        return handleResult;
+//    }
+    
 
     /**
      * 根据登录用户获取部门树，用于快速添加

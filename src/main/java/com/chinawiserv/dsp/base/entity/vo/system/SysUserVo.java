@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by jacky on 2017/5/11.
+ * Created by jacky on 2017/5/11.1
  */
 public class SysUserVo extends SysUser {
     private String deptName;

@@ -1,9 +1,16 @@
 var tableSelector = '#systemUserTableId';
-
+//1
 jQuery(document).ready(function () {
     "use strict";
     var paramsObj = {};
-
+    $("#searchKeyId").keydown(function(e){
+        var curKey = e.which;
+        if(curKey == 13){
+        	setParams();
+        	reloadTable();//此处可以是你要执行的功能
+            return false;//这句非常重要。如果没有这句，那么查询出结果后，会出现刷新页面动作等，导致查询结果失效。
+        }
+    });
     jQuery(tableSelector).customTable({
         url: basePathJS + '/system/user/list',
         queryParams: function (params) {
@@ -67,7 +74,7 @@ jQuery(document).ready(function () {
                         res = "启用";
                     }
                     else {
-                        res = "禁用";
+                        res = "<font color='red'> 禁用</font>";
                     }
                     return res;
                 }

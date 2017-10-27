@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by lenovo on 2017/5/15.
+ * Created by lenovo on 2017/5/15.1
  */
 public class SysDeptVo extends SysDept {
 

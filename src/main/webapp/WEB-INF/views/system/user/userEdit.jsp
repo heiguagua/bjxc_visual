@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<!-- 1 -->
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
@@ -22,6 +22,9 @@
                 .box-bodyx .form-group>.form-group{
                     width: 70%;
                     float: left;}
+                .form-group{
+			            margin-bottom:25px;
+			      }
             </style>
             <div class="row">
                 <div class="col-md-6">
@@ -66,7 +69,7 @@
 <!--                                 </div> -->
 <!--                             </div> -->
                             <div class="form-group">
-                                <label for="telephoneNumber">电话号码</label>
+                                <label for="telephoneNumber">固定电话</label>
                                 <div class="form-group">
                                 <input type="text" id="telephoneNumber" name="telephoneNumber" class="form-control"
                                        placeholder="请输入电话号码" data-rule="电话:tel;">

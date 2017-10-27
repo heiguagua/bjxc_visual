@@ -1,5 +1,5 @@
 /**
- * Created by lenovo on 2017/5/9.
+ * Created by lenovo on 2017/5/9. 1
  */
 $(document).ready(function(){
     $.commonAjax({

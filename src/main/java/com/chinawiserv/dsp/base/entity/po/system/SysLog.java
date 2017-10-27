@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 系统操作日志表 Po对象
+ * 系统操作日志表 Po对象1
  * </p>
  *
  * @author wuty

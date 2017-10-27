@@ -35,7 +35,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 菜单表 前端控制器
+ * 菜单表 前端控制器1
  * </p>
  *
  * @author zhanf

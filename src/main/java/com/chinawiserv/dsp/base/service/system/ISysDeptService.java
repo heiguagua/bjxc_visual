@@ -1,14 +1,13 @@
 package com.chinawiserv.dsp.base.service.system;
 
+import java.util.List;
+import java.util.Map;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -27,7 +26,9 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
     JSONObject checkDeptName(String deptName, String deptId) throws Exception;
 
     List<SysDeptVo> getDeptSelectDataList(Map<String, Object> paramMap) throws Exception;
-
+	//TODO pacong
+	JSONArray getDeptSelectDataList() throws Exception;
+	
     boolean deleteDeptById(String id) throws Exception;
 
     List<SysDeptVo> selectVoList(Map<String, Object> paramMap);

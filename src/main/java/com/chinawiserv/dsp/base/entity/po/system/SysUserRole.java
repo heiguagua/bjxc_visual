@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 用户角色关联表
+ * 用户角色关联表1
  * </p>
  *
  * @author zhanf

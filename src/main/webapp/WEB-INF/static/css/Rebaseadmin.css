@@ -115,7 +115,9 @@ div.box div.table-myself{
 
 
 /* 导航另外加*/
-	
+ a{
+	color:#fff;
+}
  .nav_uls{
 	color: #FFFFFF;
 	font-size: 14px;
@@ -225,6 +227,8 @@ section .sidebar{
 	
 	
 }
+
+
 
 
 

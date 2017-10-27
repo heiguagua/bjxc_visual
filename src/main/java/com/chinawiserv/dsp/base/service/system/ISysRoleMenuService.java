@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * <p>
- * 角色菜单关联表 服务类
+ * 角色菜单关联表 服务类1
  * </p>
  *
  * @author zhanf

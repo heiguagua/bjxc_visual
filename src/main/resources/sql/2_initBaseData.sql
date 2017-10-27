@@ -7,13 +7,13 @@ INSERT INTO sys_role(id,role_name,role_desc,role_level,status) VALUES ('dab7f921
 -- 用户表
 delete from sys_user;
 insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status,user_img,token) values
-	('09f4fef9249c457ca67b4a7a45823730','510100','','1','admin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/img/userImg/avatar5.png','4CC476F58B6718F2');
+	('09f4fef9249c457ca67b4a7a45823730','510100','','1','admin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/images/userImg/avatar5.png','4CC476F58B6718F2');
 -- 国家级用户
 insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status,user_img,token) values
-	('09f4fef9249c457ca67b4a7a45823731','000000','','1','nadmin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/img/userImg/avatar5.png','66F1D7A1F8775B8F');
+	('09f4fef9249c457ca67b4a7a45823731','000000','','1','nadmin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/images/userImg/avatar5.png','66F1D7A1F8775B8F');
 -- 四川省用户
 insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status,user_img,token) values
-	('09f4fef9249c457ca67b4a7a45823732','510000','','1','scadmin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/img/userImg/avatar5.png','B0BC0491A7FE27D4');
+	('09f4fef9249c457ca67b4a7a45823732','510000','','1','scadmin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/images/userImg/avatar5.png','B0BC0491A7FE27D4');
 
 -- 菜单表
 -- select id,menu_name,pid,url,icon,sort,menu_type,code,resource_name,status from sys_menu order by pid ;

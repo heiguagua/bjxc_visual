@@ -8,6 +8,7 @@ import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.ListResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysRole;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.po.system.SysUserRole;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRoleVo;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -110,7 +112,11 @@ public class SysRoleController extends BaseController {
         HandleResult handleResult = new HandleResult();
         try {
             sysRoleService.insertVO(role);
-            handleResult.success("创建角色成功");
+           	SysRole roleVo = sysRoleService.selectOne(new EntityWrapper<SysRole>().addFilter("role_name = {0}", role.getRoleName()));
+            handleResult.success("创建角色成功，请给角色授权！");
+            HashMap<String, Object> roleHash = new HashMap<>();
+            roleHash.put("roleId",roleVo.getId());
+            handleResult.setContent(roleHash);
         } catch (Exception e) {
             handleResult.error("创建角色失败");
             logger.error("创建角色失败", e);
@@ -128,10 +134,13 @@ public class SysRoleController extends BaseController {
     public HandleResult delete(@RequestParam String id) {
         HandleResult handleResult = new HandleResult();
         try {
-            if(sysRoleService.deleteRoleById(id)){
+        	//检查该角色是否有用户
+            List<SysUserRole> sysUserRoles = sysUserRoleService.selectList(new EntityWrapper<SysUserRole>().addFilter("role_id = {0}", id));
+            if(sysUserRoles == null || sysUserRoles.size() == 0){
+            	sysRoleService.deleteRoleById(id);
                 handleResult.success("删除角色成功");
             }else {
-                handleResult.error("删除角色失败");
+                handleResult.error("删除角色失败，该角色有用户使用！");
             }
         } catch (Exception e) {
             handleResult.error("删除角色失败");
@@ -150,8 +159,22 @@ public class SysRoleController extends BaseController {
     public HandleResult deleteBatch(@RequestParam("idArr[]") List<String> ids) {
         HandleResult handleResult = new HandleResult();
         try {
-            sysRoleService.deleteBatchRoleByIds(ids);
-            handleResult.success("批量删除角色成功");
+           //            sysRoleService.deleteBatchRoleByIds(ids);
+//            handleResult.success("批量删除角色成功");
+            String roleStr = "";
+            for(String id : ids){
+                //检查该角色是否有用户
+                List<SysUserRole> sysUserRoles = sysUserRoleService.selectList(new EntityWrapper<SysUserRole>().addFilter("role_id = {0}", id));
+                if(sysUserRoles != null && sysUserRoles.size() > 0){
+                    roleStr = roleStr + id +",";
+                }
+            }
+            if("".equals(roleStr)){
+                sysRoleService.deleteBatchRoleByIds(ids);
+                handleResult.success("批量删除角色成功！");
+            }else{
+                handleResult.error("批量删除角色失败，批量选择的角色有用户在使用！");
+            }
         } catch (Exception e) {
             handleResult.error("批量删除角色失败");
             logger.error("批量删除角色失败", e);

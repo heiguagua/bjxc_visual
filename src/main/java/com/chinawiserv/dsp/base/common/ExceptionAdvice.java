@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ValidationException;
 
 /**
@@ -88,6 +89,16 @@ public class ExceptionAdvice {
         model.addAttribute("error","空指针异常,"+e.getMessage());
         return "error/500";
     }
+    
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(org.apache.shiro.authz.UnauthorizedException.class)
+    public String handleUnauthorizedException(Exception e,Model model,HttpServletRequest request) {
+        logger.error("访问权限异常", e);
+        model.addAttribute("error","访问权限异常,"+e.getMessage());
+        model.addAttribute("url",request.getRequestURI());
+        return "error/illegalAccess";
+    }
+    
     
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)

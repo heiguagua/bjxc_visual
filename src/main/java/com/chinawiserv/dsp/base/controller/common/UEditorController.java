@@ -1,18 +1,22 @@
 package com.chinawiserv.dsp.base.controller.common;
 
-import com.baidu.ueditor.ActionEnter;
-import com.chinawiserv.dsp.base.common.MD5Util;
-import net.sf.json.JSONObject;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.Date;
+import com.baidu.ueditor.ActionEnter;
+
+import net.sf.json.JSONObject;
 
 /**
  * Created by lianrongfa on 2017/9/13.

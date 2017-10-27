@@ -69,6 +69,7 @@
 <script src="<%=basePath%>/plugins/jquery-confirm/jquery-confirm.min.js"></script>
 <!-- Select2 -->
 <script src="<%=basePath%>/plugins/select2/select2.full.min.js"></script>
+<script src="<%=basePath%>/plugins/select2/i18n/zh-CN.js"></script>
 <!-- date -->
 <script src="<%=basePath%>/plugins/daterangepicker/moment.min.js"></script>
 <script src="<%=basePath%>/plugins/daterangepicker/daterangepicker.js"></script>
@@ -83,6 +84,9 @@
 <%-- <script src="<%=basePath%>/plugins/layui/layui.js"></script> --%>
 <!-- ztree -->
 <script src="<%=basePath%>/plugins/zTree/js/jquery.ztree.all.min.js"></script>
+
+<!-- md5 -->
+<script src="<%=basePath%>/plugins/jquery.md5.js"></script>
 
 <!-- AdminLTE App -->
 <script src="<%=basePath%>/app/js/app.js"></script>

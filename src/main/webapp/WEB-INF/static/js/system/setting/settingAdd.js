@@ -1,5 +1,5 @@
 function runBeforeSubmit(form) {
-    console.log("runBeforeSubmit");
+    console.log("runBeforeSubmit");//1
     return true ;
 }
 

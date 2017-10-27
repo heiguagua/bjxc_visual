@@ -1,24 +1,27 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
-import com.chinawiserv.dsp.base.entity.po.system.SysUserRole;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
-import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.stream.Collectors;
+import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
 
 /**
  * <p>

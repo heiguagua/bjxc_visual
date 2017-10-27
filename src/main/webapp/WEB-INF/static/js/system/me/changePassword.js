@@ -1,5 +1,5 @@
 /**
- * 修改用户密码
+ * 修改用户密码 1
  */
 function changePassword(id) {
     update('修改密码', basePathJS + '/system/me/changePwd');

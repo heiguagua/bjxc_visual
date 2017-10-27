@@ -19,6 +19,8 @@ import java.util.Map;
 public interface SysLogMapper extends BaseMapper<SysLog> {
 
     List<SysLogVo> selectVoPage(Page<SysLogVo> page, Map<String, Object> paramMap);
+    //TODO 爬虫代码
+    List<SysLogVo> selectVoList(Page<SysLogVo> page, Map<String, Object> paramMap)  throws Exception;
 
     SysLogVo selectVoById(String id);
 

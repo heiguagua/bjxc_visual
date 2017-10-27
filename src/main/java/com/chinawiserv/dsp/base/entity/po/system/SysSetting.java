@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 系统配置表
+ * 系统配置表1
  * </p>
  *
  * @author zhanf

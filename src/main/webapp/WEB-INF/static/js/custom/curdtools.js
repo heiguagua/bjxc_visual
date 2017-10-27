@@ -1,7 +1,17 @@
 ﻿/**
  * 增删改工具栏
  */
-
+function getOffset(height){
+    if (!height){
+        height = 150;
+    }
+    var windowHeight = document.body.clientHeight;
+    var offset = (windowHeight - height)/2;
+    if (offset < 0){
+        offset = 0;
+    }
+    return offset;
+}
 /**
  * 返回 window的 zIndex
  * @param parentWin
