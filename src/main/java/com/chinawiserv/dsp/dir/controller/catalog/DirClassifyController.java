@@ -283,7 +283,7 @@ public class DirClassifyController extends BaseController {
     /**
      * 根据登录用户的权限获取目录类别树结构的数据
      */
-    @RequiresPermissions("catalog:classify:list")
+//    @RequiresPermissions("catalog:classify:list")
     @RequestMapping("/subAuthorityList")
     @ResponseBody
     public HandleResult getSubClassifyListForLoginUser(@RequestParam Map<String, Object> paramMap) {
