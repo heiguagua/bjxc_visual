@@ -102,7 +102,7 @@ jQuery(document).ready(function () {
 			   +	"<ul id='diyBtn_space3_" +treeNode.id+ "' class='dropdown-menu' role='menu' style='padding-bottom: 100px'>"
 
 				+"<li><a href='javascript:void(0)' class='"+treeNode.fidforadd+"' id='addSibling'  data-pcode="+treeNode.fidforadd+" href='#'  >添加同级</a></li>"
-				+"<li><a href='javascript:void(0)' class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
+				+"<li><a href='javascript:void(0)' class='"+treeNode.id+"S' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"
 		var editStr5 = "<div class='btn-group'>"
 					+"<button id='diyBtn_space2_" +treeNode.id+ "' type='button' class='btn btn-add dropdown-toggle'"
@@ -111,7 +111,7 @@ jQuery(document).ready(function () {
 				   +	"<ul id='diyBtn_space3_" +treeNode.id+ "' class='dropdown-menu' role='menu'>"
 
 					
-					+"<li><a href='javascript:void(0)' class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
+					+"<li><a href='javascript:void(0)' class='"+treeNode.id+"S' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 					+"</div>"
 		
 				if( treeNode.classifyType=='2-3' && treeNode.isLocal=='1'){	
@@ -195,7 +195,7 @@ jQuery(document).ready(function () {
 							
 		});
 		//添加子级
-	    $("."+treeNode.id+"").on("click", function () {
+	    $("."+treeNode.id+"S").on("click", function () {
 	    	var curThis=this;
 			var fid=$(curThis).attr('data-id');
 //			$('#parent_id').val(api_fcode);
