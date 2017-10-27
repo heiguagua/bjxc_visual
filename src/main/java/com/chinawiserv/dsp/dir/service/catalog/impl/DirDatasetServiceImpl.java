@@ -759,6 +759,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                         List<SysRegionDeptVo> sysRegionDeptList = sysRegionDeptMapper.selectVoList(regionMap);
                         if(!sysRegionDeptList.isEmpty()){
                             dataset.setBelongDeptType(sysRegionDeptList.get(0).getId());
+                            dataset.setChargeDeptId(sysRegionDeptList.get(0).getId());
                             Map deptMap = new HashMap<>();
                             deptMap.put("deptName",name);
                             deptMap.put("fName",region);
