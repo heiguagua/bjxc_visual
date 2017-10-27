@@ -65,13 +65,6 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 -- INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010801','0108','监控列表','','','1','3','010801','system:monitor:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0109','01','组织机构数据权限管理','/system/deptAuthority','fa fa-cogs','5','2','0109','system:deptAuthority:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010901','0109','编辑组织机构数据权限','','','2','3','010901','system:deptAuthority:edit','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010902','0109','1','','fa-folder','1','1','010902','','0');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010903','0109','1','','fa-folder','1','1','010903','','0');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010904','0109','1','','fa-folder','1','1','010904','','0');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010905','0109','1','','fa-folder','1','1','010905','','0');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010906','0109','1','','fa-folder','1','1','010906','','0');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010907','0109','1','','fa-folder','1','1','010907','','0');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010908','0109','1','','fa-folder','1','1','010908','','0');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0110','01','用户数据权限管理','/system/userAuthority','fa-cogs','6','2','0110','system:userAuthority:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('011001','0110','编辑用户数据权限','','','2','3','011001','system:userAuthority:edit','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0111','01','组织机构数据权限申请管理','/system/deptAuthorityApply','fa-cogs','7','2','0111','apply:dirDataitemApply:list','1');
@@ -133,25 +126,35 @@ delete from sys_role_menu;
   INSERT INTO sys_role_menu SELECT UUID() AS id,(SELECT id FROM sys_role WHERE role_name='区域管理员') AS role_id,id AS menu_id FROM sys_menu;
 
 
+-- 产品集成模块
+delete from sys_product_integrate;
+INSERT INTO sys_product_integrate (id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon) VALUES ('30d466ff-baf7-11e7-b780-000c2909b055','rc','资源梳理','资源梳理','','http://ip:port/rc','http://ip:port/rc/index/',1,1,1,'/images/userImg/sourceimgicon2.png');
+INSERT INTO sys_product_integrate (id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon) VALUES ('30d48bfd-baf7-11e7-b780-000c2909b055','dm','目录管理','目录管理','','http://ip:port/dm','http://ip:port/dm/index/',2,1,1,'/images/userImg/sourceimgicon2.png');
+INSERT INTO sys_product_integrate (id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon) VALUES ('30d4b225-baf7-11e7-b780-000c2909b055','dcm','数据采集','数据采集','','http://ip:port/dcm','http://ip:port/dcm/index/',3,1,0,'/images/userImg/sourceimgicon2.png');
+INSERT INTO sys_product_integrate (id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon) VALUES ('30d4e28f-baf7-11e7-b780-000c2909b055','cms','爬虫采集','爬虫采集','','http://ip:port/cms','http://ip:port/cms/index/',4,1,0,'/images/userImg/sourceimgicon2.png');
+INSERT INTO sys_product_integrate (id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon) VALUES ('30d50ae1-baf7-11e7-b780-000c2909b055','sw','服务封装','服务封装','','http://ip:port/sw','http://ip:port/sw/index/',5,1,1,'/images/userImg/sourceimgicon2.png');
+INSERT INTO sys_product_integrate (id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon) VALUES ('30d8463b-baf7-11e7-b780-000c2909b055','am','分析监管','分析监管','','http://ip:port/am','http://ip:port/am/index/',6,1,0,'/images/userImg/sourceimgicon2.png');
+INSERT INTO sys_product_integrate (id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon) VALUES ('30d871cb-baf7-11e7-b780-000c2909b055','sharedportal','共享门户','共享门户','','http://ip:port/','http://ip:port/sharedportal/login',7,1,0,'/images/userImg/sourceimgicon2.png');
+
+
+
 -- 系统配置类别表
   delete from sys_setting_category;
-  insert into sys_setting_category (category_code,category_name) values
-	('1','系统基本配置'),
-	('2','接口配置');
+  insert into sys_setting_category (category_code,category_name) values	('1','系统基本配置');
+	insert into sys_setting_category (category_code,category_name) values('2','接口配置');
 
 -- 系统配置表
-  delete from sys_setting;
+delete from sys_setting;
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a8731fb94511e7a38b00ffe04ac734','','1','projectPortalName','项目门户名称','成都市大数据资源服务网',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a874f7b94511e7a38b00ffe04ac734','','1','projectPortalEnName','项目门户英文名称','Chengdu Big Data Resource Service Network',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a8756eb94511e7a38b00ffe04ac734','','1','projectPortalLogo','项目门户Logo图标','/img/logo.png',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a875c1b94511e7a38b00ffe04ac734','','1','systemName','系统名称','政务信息资源管理',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87602b94511e7a38b00ffe04ac734','','1','systemShortName','系统英文简称','DIR',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87648b94511e7a38b00ffe04ac734','','1','systemSubName','系统子名称','目录管理系统',NULL,1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87681b94511e7a38b00ffe04ac734','','1','defaultIcon','系统默认Icon图标','',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87681b94511e7a38b00ffe04ac734','','1','defaultIcon','系统默认Icon图标','/img/logo.png',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a876bbb94511e7a38b00ffe04ac734','','1','localRegion','系统所属行政区划','510100',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a876f4b94511e7a38b00ffe04ac734','','1','bottomCopyright','许可说明','Copyright © 2017 勤智数码. All rights reserved.',NULL,1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87732b94511e7a38b00ffe04ac734','','1','integrateCurNo','系统集成当前标识','','',1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87732b94511e7a38b00ffe04ac734','','2','crawlerInterface','爬虫接口地址','http://127.0.0.1:8080/crawler/wbsiteStore','',1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87732694511e7a38700ffe04ac734','','1','integrateCurNo','系统集成当前标识','dm','',1);
 
 -- 系统字典分类表
   delete from sys_dict_category;
