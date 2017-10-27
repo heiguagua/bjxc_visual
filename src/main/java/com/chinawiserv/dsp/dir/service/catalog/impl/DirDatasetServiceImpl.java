@@ -746,6 +746,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     dataset.setId(CommonUtil.get32UUID());
 //                    dataset.setDatasetCode(dataset.getId());
                     dataset.setSourceType(sourceType);
+                    //信息资源代码
+                    try {
+                        row.getCell(1).setCellType(CellType.STRING);
+                        dataset.setDatasetCode(row.getCell(1).getStringCellValue());
+                    } catch (Exception e) {
+                        dataset.setDatasetCode(null);
+                    }
                     //信息资源提供方代码
                     String region=null,name=null;
                     try {
@@ -771,7 +778,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                         dataset.setBelongDeptName(name);
                     } catch (Exception e) {
                     }
-
+                    //资源提供方代码
+                    try {
+                        row.getCell(4).setCellType(CellType.STRING);
+                        dataset.setBelongDeptNo(row.getCell(4).getStringCellValue());
+                    } catch (Exception e) {
+                        dataset.setBelongDeptNo(null);
+                    }
                     //摘要
                     try {
                         row.getCell(5).setCellType(CellType.STRING);
@@ -784,7 +797,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     dirDatasetExtFormat.setId(CommonUtil.get32UUID());
                     dirDatasetExtFormat.setDatasetId(dataset.getId());
                     try {
-                        dirDatasetExtFormat.setFormatCategory(getDictCode(sysDictVoList, "resourceFormat","root", row.getCell(6).getStringCellValue()));
+                        dirDatasetExtFormat.setFormatCategory(getDictCode(sysDictVoList, "resourceFormat","", row.getCell(6).getStringCellValue()));
                     } catch (Exception e) {
 
                     }
