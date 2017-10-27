@@ -15,16 +15,6 @@ insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,passw
 insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status,user_img,token) values
 	('09f4fef9249c457ca67b4a7a45823732','510000','','1','scadmin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/img/userImg/avatar5.png','B0BC0491A7FE27D4');
 
--- 用户角色表
-delete from sys_user_role;
-insert into sys_user_role(id,user_id,role_id)
-    values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'admin'),(select id from sys_role where role_name='超级管理员'));
-insert into sys_user_role(id,user_id,role_id)
-    values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'nadmin'),(select id from sys_role where role_name='超级管理员'));
-insert into sys_user_role(id,user_id,role_id)
-    values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'scadmin'),(select id from sys_role where role_name='超级管理员'));
-
-
 -- 菜单表
 -- select id,menu_name,pid,url,icon,sort,menu_type,code,resource_name,status from sys_menu order by pid ;
 delete from sys_menu;
@@ -120,10 +110,20 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0801','08','目录/服务上报','/dirupload/dirAudit','fa-cog','3','2','0801','dirupload:dirAudit','1');
 
 
+-- 用户角色表
+delete from sys_user_role;
+insert into sys_user_role(id,user_id,role_id)
+    values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'admin'),(select id from sys_role where role_name='超级管理员'));
+insert into sys_user_role(id,user_id,role_id)
+    values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'nadmin'),(select id from sys_role where role_name='超级管理员'));
+insert into sys_user_role(id,user_id,role_id)
+    values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'scadmin'),(select id from sys_role where role_name='超级管理员'));
+
+
 -- 角色菜单表
 delete from sys_role_menu;
-  INSERT INTO sys_role_menu SELECT UUID() AS id,(SELECT id FROM sys_role WHERE role_name='超级管理员') AS role_id,id AS menu_id FROM sys_menu;
-  INSERT INTO sys_role_menu SELECT UUID() AS id,(SELECT id FROM sys_role WHERE role_name='区域管理员') AS role_id,id AS menu_id FROM sys_menu;
+  INSERT INTO sys_role_menu SELECT uuid() AS id,(SELECT id FROM sys_role WHERE role_name='超级管理员') AS role_id,id AS menu_id FROM sys_menu;
+  INSERT INTO sys_role_menu SELECT uuid() AS id,(SELECT id FROM sys_role WHERE role_name='区域管理员') AS role_id,id AS menu_id FROM sys_menu;
 
 
 -- 产品集成模块
