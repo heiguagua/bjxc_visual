@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.controller.feedback;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
@@ -52,6 +53,12 @@ public class DirDataCommentController extends BaseController {
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
+        String deptId = ShiroUtils.getLoginUserDeptId();
+        String regionCode = ShiroUtils.getLoginUser().getRegionCode();
+        String userName = ShiroUtils.getLoginUserName();
+        paramMap.put("userName",userName);
+        paramMap.put("deptId",deptId);
+        paramMap.put("regionCode",regionCode);
 		try {
 		    Page<DirDataCommentVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);

@@ -181,14 +181,17 @@ private String serviceName;
  
 	public String getRequestInfo() {
 	 
-		return requestInfo;
-	 
+		return "field_description="+requestInfo;
+
 	}
  
 	public void setRequestInfo(String requestInfo) {
- 
+
+		if(null != requestInfo && requestInfo.startsWith("field_description=")){
+
+			requestInfo = requestInfo.replaceFirst("field_description=","");
+		}
 		this.requestInfo = requestInfo;
-	 
 }
 	 
  
