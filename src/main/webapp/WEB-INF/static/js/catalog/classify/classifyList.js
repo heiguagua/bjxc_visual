@@ -169,7 +169,7 @@ jQuery(document).ready(function () {
 //			var apiCatgegory=$(curThis).attr('data-category');
 //			var orderNumber=$(curThis).attr('data-orderNumber');
 //			$('#parent_id').val(api_fcode);	
-			updateApi('编辑目录--同级',basePathJS + '/dirClassify/edit' , id,800,500);
+			updateApi('编辑目录--同级',basePathJS + '/dirClassify/edit' , id,900,500);
 //			$('#api_name').val(apiName);
 //			$('#api_category').val(apiCatgegory);
 //			$('#api_url').val(apiUrl);
@@ -186,7 +186,7 @@ jQuery(document).ready(function () {
 				 tip("无权限添加初始目录类别，请联系管理员。" );
 				 return false;
 			 }
-			addDir('新增目录--同级',basePathJS + '/dirClassify/add' , fid,800,500);
+			addDir('新增目录--同级',basePathJS + '/dirClassify/add' , fid,900,500);
 //			$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');
@@ -199,7 +199,7 @@ jQuery(document).ready(function () {
 	    	var curThis=this;
 			var fid=$(curThis).attr('data-id');
 //			$('#parent_id').val(api_fcode);
-			addDir('新增目录--子级',basePathJS + '/dirClassify/add',fid,800,500);
+			addDir('新增目录--子级',basePathJS + '/dirClassify/add',fid,900,500);
 //	    	$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');

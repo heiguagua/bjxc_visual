@@ -20,18 +20,18 @@ function initAllSelect(){
     DictData.selects('dirClassifyCategory',['#classify_type']);
     
 }
-	$(function(){
-		$(":radio").click(function(){
-		 	var val_depnode = $('#Dep input[name="depnode"]:checked').val();
-		     if(val_depnode == "yes"){
-		         $("#deptGroup").removeClass('hidden');
-		     }else if(val_depnode == "no"){   	
-		     	 $("#deptGroup").addClass('hidden');
-		     }
-		
-		 });
-		
-	 });
+//	$(function(){
+//		$(":radio").click(function(){
+//		 	var val_depnode = $('#Dep input[name="depnode"]:checked').val();
+//		     if(val_depnode == "yes"){
+//		         $("#deptGroup").removeClass('hidden');
+//		     }else if(val_depnode == "no"){   	
+//		     	 $("#deptGroup").addClass('hidden');
+//		     }
+//		
+//		 });
+//		
+//	 });
 	
 function initSelectData() {
 	$.initDeptTreeSelect('treeDemo','deptName','deptId','menuContent');
@@ -64,8 +64,8 @@ function checkDep(fid){
                 var vo = result.content.vo;
                 if(vo){                	
                 	var ss = vo.classifyStructureName;
-					if(ss.substr(0,10)!='政务部门信息资源目录'){
-						 $("#Dep").addClass('hidden');
+					if(ss.substr(0,10)=='政务部门信息资源目录'){
+						 $("#deptGroup").removeClass('hidden');
 						 $("#fname").val(vo.classifyName);
 						 
 					}else{
