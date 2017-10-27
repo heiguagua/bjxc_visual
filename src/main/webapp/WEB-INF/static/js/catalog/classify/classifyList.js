@@ -93,7 +93,7 @@ jQuery(document).ready(function () {
 		if ($("#diyBtn_"+treeNode.id).length>0) return;
 //		var editStr1 = "<span id='diyBtn_space_" +treeNode.dir_code+ "' >&nbsp;</span><select class='selDemo ' id='diyBtn_" +treeNode.dir_code+ "'><option value=1>1</option><option value=2>2</option><option value=3>3</option></select>";
 		var editStr1 = "<span id='diyBtn_space_" +treeNode.id+ "'><a href='javascript:void(0)' class='btn btn-edit "+treeNode.classifyName+"' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-desc= "+treeNode.apiDesc+" data-orderNumber= "+treeNode.orderNumber+" data-url= "+treeNode.apiUrl+" data-category= "+treeNode.apiCategory+">编辑</a></span>"
-		var editStr4 = "<span id='diyBtn_space5_" +treeNode.id+ "'><a href='javascript:void(0)' class='btn btn-addNational "+treeNode.type+"' id='diyBtn_" +treeNode.id+ "' data-type ="+treeNode.type+" data-id ="+treeNode.id+" >导入国家库目录</a></span>"
+		var editStr4 = "<span id='diyBtn_space5_" +treeNode.id+ "'><a href='javascript:void(0)' class='btn btn-addNational "+treeNode.type+""+treeNode.classifyName+"' id='diyBtn_" +treeNode.id+ "' data-type ="+treeNode.type+" data-id ="+treeNode.id+" >导入国家库目录</a></span>"
 		var editStr3 = "<span id='diyBtn_space4_" +treeNode.id+ "'><a href='javascript:void(0)' class='btn btn-delete s4' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-code = "+treeNode.classifyCode+" >删除</a></span>"
 		var editStr2 = "<div class='btn-group'>"
 				+"<button id='diyBtn_space2_" +treeNode.id+ "' type='button' class='btn btn-add dropdown-toggle'"
@@ -209,7 +209,7 @@ jQuery(document).ready(function () {
 	    });
 	    
 	  //添加国家库
-	    $("."+treeNode.type+"").on("click", function () {
+	    $("."+treeNode.type+""+treeNode.classifyName+"").on("click", function () {
 	    	var curThis=this;
 			var fid=$(curThis).attr('data-id');
 			var classifyType = $(curThis).attr('data-type');
