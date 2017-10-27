@@ -119,7 +119,54 @@
             </if>
         </where>
     </sql>
+    <!--编目列表目录类别权限过滤 -->
+    <sql id="classifyAuthorityConditions">
+        <where>
+            m.delete_flag =0
+            <if test="classifyId!= null and classifyId !='' ">
+                and m.classify_id in (select id from dir_classify where delete_flag=0 and tree_code like concat((select tree_code from dir_classify where delete_flag=0 and id=#{classifyId, jdbcType=VARCHAR}),'%'))
+            </if>
+            <if test="loginUserIdForAuthority != null and loginUserIdForAuthority!='' ">
+                and (m.classify_id in(
+                        select id  from dir_classify t,
+                        (select dc.tree_code from dir_classify_authority dca
+                        left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
+                        where dca.auth_obj_type ='2' and dca.auth_obj_id = #{loginUserIdForAuthority,jdbcType=VARCHAR}
+                        ) a where t.delete_flag=0 and t.tree_code like CONCAT(a.tree_code, '%')
+                        union
+                        select id  from dir_classify c,
+                        (select dc.tree_code from dir_classify_authority dca
+                        left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
+                        where dca.auth_obj_type ='1' and dca.auth_obj_id =  (select su.dept_id from sys_user su where su.delete_flag=0 and su.id = #{loginUserIdForAuthority,jdbcType=VARCHAR})
+                        )b where c.delete_flag=0 and c.tree_code like CONCAT(b.tree_code, '%')
+                    )
+                    or m.dataset_id in (select id from dir_dataset where charge_dept_id in(
+                            select id from sys_dept sd1,(
+                            select de.tree_code from sys_dept de
+                            where de.delete_flag=0 and de.id=(select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR} )
+                            ) a where sd1.delete_flag=0 and sd1.tree_code like concat(a.tree_code, '%')
+                            union
+                            select id from sys_dept sd2,(
+                            select de.tree_code from sys_dept de
+                            left join sys_dept_authority sda on de.id=sda.dept_id and auth_obj_type='2'
+                            where de.delete_flag=0 and sda.auth_obj_id=#{loginUserIdForAuthority,jdbcType=VARCHAR}
+                            ) b where sd2.delete_flag=0 and sd2.tree_code like concat(b.tree_code, '%')
+                            union
+                            select id from sys_dept sd3,(
+                            select de.tree_code from sys_dept de
+                            left join sys_dept_authority sda on de.id=sda.dept_id and auth_obj_type='1'
+                            where de.delete_flag=0 and sda.auth_obj_id=(select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR} )
+                            ) c where sd3.delete_flag=0 and sd3.tree_code like concat(c.tree_code, '%')
+                        )
+                    )
+                )
+            </if>
+            <if test="mstatus!=null and mstatus!=''">
+                and m.status>=#{mstatus}
 
+            </if>
+        </where>
+    </sql>
     <!--编目列表目录类别查询条件过滤 -->
     <sql id="classifyConditions">
         <where>
@@ -226,7 +273,7 @@
         <include refid="queryConditions"></include>
     </select>
 
-    <select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    <!--<select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         select sub.*,MAX(IFNULL(m.status,0)) AS classify_status,GROUP_CONCAT(c.classify_structure_name) AS classify_name from(
         select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.region_dept_name as dept_name,
         di.dict_name as source_type_name,count(it.dataset_id) as item_nums FROM dir_dataset t
@@ -239,6 +286,22 @@
         left join dir_classify c on m.classify_id=c.id and c.delete_flag=0
         <include refid="classifyConditions"></include>
         group by sub.id
+    </select>-->
+    <select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        select sub.*,MAX(IFNULL(cla.status,0)) AS classify_status,GROUP_CONCAT(cla.classify_structure_name) AS classify_name from
+        (select m.dataset_id,m.status,c.classify_structure_name from dir_dataset_classify_map m
+            left join dir_classify c on m.classify_id=c.id and c.delete_flag=0
+            <include refid="classifyAuthorityConditions"></include>) cla
+        left join
+        (select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.region_dept_name as dept_name,
+            di.dict_name as source_type_name,count(it.dataset_id) as item_nums FROM dir_dataset t
+            left join v_sys_region_dept de on t.belong_dept_type=de.id
+            left join sys_dict di on t.source_type=di.dict_code and di.category='datasetSourceType'
+            left join dir_dataitem it on t.id=it.dataset_id and it.delete_flag=0
+            <include refid="queryConditions"></include>
+            group by t.id
+        ) sub on cla.dataset_id = sub.id
+        group by cla.dataset_id
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="ExtResultVoMap">
