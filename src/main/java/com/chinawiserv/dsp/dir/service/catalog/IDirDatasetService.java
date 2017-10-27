@@ -7,6 +7,7 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import java.util.List;
 import java.util.Map;
@@ -62,6 +63,7 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
     Page<DirDatasetVo> selectDirTransferPage(Map<String, Object> paramMap);
     
     HandleResult updateDirReport(Map<String,Object> paramMap);
-    
-    
+
+
+    boolean addDirDatasetWithOutDir(Sheet sheetAt, String regionCode, String classifyId);
 }
