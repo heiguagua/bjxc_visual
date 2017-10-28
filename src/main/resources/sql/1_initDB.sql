@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/10/26 21:53:25                            */
+/* Created on:     17/10/28 18:51:58                            */
 /*==============================================================*/
 
 
@@ -187,8 +187,6 @@ drop table if exists drap_sx_table_sync;
 drop table if exists drap_system_service;
 
 drop table if exists drap_system_use_dept;
-
-drop table if exists drap_system_use_info;
 
 drop table if exists sys_dept;
 
@@ -958,7 +956,7 @@ create table dir_dataset
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user_id       varchar(36) comment '更新人',
-   update_time          datetime default CURRENT_TIMESTAMP comment '更新时间',
+   update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
@@ -1946,12 +1944,12 @@ create table drap_info_system
 (
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
-   belong_dept          varchar(36) comment '【国】所属组织',
+   belong_dept          varchar(36) comment '【国】所属组织[NO]',
    source_type          varchar(36) comment '添加类型',
-   system_code          varchar(36) comment '【国】业务系统编码',
+   system_code          varchar(36) comment '【国】业务系统编码[NO]',
    system_name          varchar(64) comment '【国】业务系统名称',
-   system_phase         varchar(36) comment '系统阶段',
-   system_phase_desc    varchar(1000) comment '系统阶段补充说明',
+   system_phase         varchar(36) comment '系统阶段[NO]',
+   system_phase_desc    varchar(1000) comment '系统阶段补充说明[NO]',
    security_level       varchar(36) comment '【国】信息系统安全等级定级情况',
    project_fund_source  varchar(36) comment '【国】项目建设资金来源',
    project_name         varchar(128) comment '【国】预算项目名称',
@@ -1961,10 +1959,10 @@ create table drap_info_system
    maintain_money       varchar(64) comment '【国】运维费用总支出',
    cleaned_situation    varchar(1000) comment '【国】清理后情况',
    data_status          varchar(256) comment '【国】数据状态',
-   main_feature         varchar(1000) comment '主要功能',
-   main_data            text comment '主要数据',
+   main_feature         varchar(1000) comment '主要功能[NO]',
+   main_data            text comment '主要数据[NO]',
    enable_time          date comment '【国】启用时间',
-   disable_time         date comment '停用时间',
+   disable_time         date comment '停用时间[NO]',
    system_level         varchar(256) comment '系统归属级别(建设性质)',
    belong_network       varchar(256) comment '【国】承载网络',
    phisical_location    varchar(256) comment '系统物理位置',
@@ -1972,41 +1970,41 @@ create table drap_info_system
    self_build_flag      varchar(36) comment '是否本地部门建设',
    build_dept           varchar(36) comment '系统建设单位',
    system_structure     varchar(36) comment '系统架构',
-   login_type           varchar(36) comment '系统登录方式',
-   system_usage_info    varchar(36) comment '系统应用情况',
+   login_type           varchar(36) comment '系统登录方式[NO]',
+   system_usage_info    varchar(36) comment '系统应用情况[NO]',
    charge_dept          varchar(64) comment '【国】主管单位',
    charge_contacts      varchar(64) comment '【国】主管单位联系人',
    charge_contacts_phone varchar(64) comment '【国】主管单位联系电话',
-   system_usage_desc    varchar(1000) comment '系统应用情况说明',
-   support_company      varchar(64) comment '系统开发商',
-   support_contacts     varchar(64) comment '系统开发商联系人',
-   support_contacts_phone varchar(64) comment '系统开发商联系人电话',
-   support_contacts_email varchar(128) comment '系统开发商联系人邮箱',
-   support_other_contacts varchar(64) comment '系统开发商其他联系方式',
+   system_usage_desc    varchar(1000) comment '系统应用情况说明[NO]',
+   support_company      varchar(64) comment '系统开发商[NO]',
+   support_contacts     varchar(64) comment '系统开发商联系人[NO]',
+   support_contacts_phone varchar(64) comment '系统开发商联系人电话[NO]',
+   support_contacts_email varchar(128) comment '系统开发商联系人邮箱[NO]',
+   support_other_contacts varchar(64) comment '系统开发商其他联系方式[NO]',
    maintain_dept        varchar(64) comment '【国】运维单位',
-   maintain_contacts    varchar(64) comment '运维单位联系人',
-   maintain_contacts_phone varchar(64) comment '运维单位联系人电话',
-   maintain_contacts_email varchar(64) comment '运维单位联系人邮箱',
-   maintain_other_contacts varchar(64) comment '运维单位其他联系方式',
-   customer_service_info varchar(1000) comment '系统售后支持情况',
-   data_range_begin     varchar(100) comment '数据跨度起',
-   data_range_end       varchar(100) comment '数据跨度止',
-   calculate_date       date comment '存储量统计截止时间',
-   data_storage         numeric(8) comment '数据存储量',
-   year_increment       numeric(8) comment '数据年增长量',
-   visit_url            varchar(256) comment '通用访问地址',
-   visit_username       varchar(64) comment '通用访问账号',
-   visit_password       varchar(64) comment '通用访问密码',
-   has_interface        varchar(36) comment '是否提供服务接口',
-   is_online_external   varchar(36) comment '是否有在线对外业务',
-   is_service_called    varchar(36) comment '是否提供服务调用',
-   is_service_standard  varchar(36) comment '是否提供服务调用规范说明',
-   is_export            varchar(36) comment '是否有导出功能',
-   has_old_system       varchar(36) comment '是否有旧系统',
-   old_system_name      varchar(36) comment '旧系统名称',
-   old_system_desc      varchar(1000) comment '旧系统补充说明',
+   maintain_contacts    varchar(64) comment '运维单位联系人[NO]',
+   maintain_contacts_phone varchar(64) comment '运维单位联系人电话[NO]',
+   maintain_contacts_email varchar(64) comment '运维单位联系人邮箱[NO]',
+   maintain_other_contacts varchar(64) comment '运维单位其他联系方式[NO]',
+   customer_service_info varchar(1000) comment '系统售后支持情况[NO]',
+   data_range_begin     varchar(100) comment '数据跨度起[NO]',
+   data_range_end       varchar(100) comment '数据跨度止[NO]',
+   calculate_date       date comment '存储量统计截止时间[NO]',
+   data_storage         numeric(8) comment '数据存储量[NO]',
+   year_increment       numeric(8) comment '数据年增长量[NO]',
+   visit_url            varchar(256) comment '通用访问地址[NO]',
+   visit_username       varchar(64) comment '通用访问账号[NO]',
+   visit_password       varchar(64) comment '通用访问密码[NO]',
+   has_interface        varchar(36) comment '是否提供服务接口[NO]',
+   is_online_external   varchar(36) comment '是否有在线对外业务[NO]',
+   is_service_called    varchar(36) comment '是否提供服务调用[NO]',
+   is_service_standard  varchar(36) comment '是否提供服务调用规范说明[NO]',
+   is_export            varchar(36) comment '是否有导出功能[NO]',
+   has_old_system       varchar(36) comment '是否有旧系统[NO]',
+   old_system_name      varchar(36) comment '旧系统名称[NO]',
+   old_system_desc      varchar(1000) comment '旧系统补充说明[NO]',
    system_desc          varchar(1000) comment '【国】系统描述',
-   code_index           int comment '编码序号',
+   code_index           int comment '编码序号[NO]',
    status               int(3) comment '状态',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -2143,22 +2141,9 @@ create table drap_system_use_dept
    id                   varchar(36) not null comment 'ID',
    system_id            varchar(36) comment '系统ID',
    dept_id              varchar(36) comment '使用单位ID',
-   primary key (id)
-);
-
-alter table drap_system_use_dept comment '信息系统使用单位';
-
-/*==============================================================*/
-/* Table: drap_system_use_info                                  */
-/*==============================================================*/
-create table drap_system_use_info
-(
-   id                   varchar(36) not null comment 'ID',
-   info_system_id       varchar(36) comment '信息系统ID',
    visit_url            varchar(256) comment '系统访问地址',
    username             varchar(256) comment '系统访问账号',
    password             varchar(64) comment '系统访问密码',
-   belong_dept          varchar(36) comment '分配部门',
    start_use_date       date comment '开始使用日期',
    use_frequence        varchar(36) comment '使用频率',
    key_business         varchar(256) comment '关键业务',
@@ -2166,7 +2151,7 @@ create table drap_system_use_info
    primary key (id)
 );
 
-alter table drap_system_use_info comment '信息系统使用信息';
+alter table drap_system_use_dept comment '信息系统使用单位';
 
 /*==============================================================*/
 /* Table: sys_dept                                              */
