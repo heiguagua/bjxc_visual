@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.dir.service.catalog.impl;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -780,8 +781,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     }
                     //资源提供方代码
                     try {
-                        row.getCell(4).setCellType(CellType.STRING);
-                        dataset.setBelongDeptNo(row.getCell(4).getStringCellValue());
+                        DecimalFormat df = new DecimalFormat("0");
+                        String cellText = df.format(row.getCell(4).getNumericCellValue());
+                        dataset.setBelongDeptNo(cellText);
                     } catch (Exception e) {
                         dataset.setBelongDeptNo(null);
                     }
