@@ -56,7 +56,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="deptName" id="deptName"
                                            placeholder="组织机构名称"
-                                           data-rule="组织机构名称:required;deptName;remote(<%=basePath%>/system/dept/checkDeptName, fid:#fid)">
+                                           data-rule="组织机构名称:required;deptName;remote(<%=basePath%>/system/dept/checkDeptName, fname:#fname, deptId:#deptId)">
                                 </div>
                             </div>
                             <div class="form-group">
