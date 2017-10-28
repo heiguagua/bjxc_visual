@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
 import com.chinawiserv.dsp.dir.entity.po.catalog.ExportDatasetExcel;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -67,11 +68,14 @@ public class ExportExcelUtil {
             }
             cell = row.createCell(26);//数据集名称
             cell.setCellValue(info.getDataset_name());
-
-            //cell = row.createCell(28);//信息资源提供方
-            ///cell.setCellValue(info.get);
+            cell = row.createCell(27);//信息资源代码
+            cell.setCellValue(info.getDataset_code());
+            cell = row.createCell(28);//信息资源提供方
+            cell.setCellValue(info.getRegion_dept_name());
             cell = row.createCell(29);//资源提供方部门
-            cell.setCellValue(info.getDept_name());
+            cell.setCellValue(info.getBelong_dept_name());
+            cell = row.createCell(30);//资源提供方代码
+            cell.setCellValue(info.getBelong_dept_no());
 
             cell = row.createCell(31);//描述
             cell.setCellValue(info.getDataset_desc());
@@ -123,6 +127,9 @@ public class ExportExcelUtil {
 
             cell = row.createCell(50);
             cell.setCellValue(info.getUpdate_frequency());
+
+            cell = row.createCell(51);
+            cell.setCellValue(DateTimeUtils.convertDateTime_YYYYMMDD_SLASHES(info.getCreate_time()));
             i++;
         }
         return wb;

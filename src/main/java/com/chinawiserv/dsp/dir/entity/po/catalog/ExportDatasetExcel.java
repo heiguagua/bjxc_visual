@@ -1,5 +1,7 @@
 package com.chinawiserv.dsp.dir.entity.po.catalog;
 
+import java.util.Date;
+
 /**
  * Created by lianrongfa on 2017/10/2.
  */
@@ -15,11 +17,15 @@ public class ExportDatasetExcel {
     private String open_condition;
     private String update_frequency;
     private String dataset_name;
-    private String dept_name;
+    private String dataset_code;
     private String dataset_desc;
+    private String region_dept_name;
+    private String belong_dept_name;
+    private String belong_dept_no;
     private String format_category;
     private String format_type;
     private String classify_structure_name;
+    private Date create_time;
 
     //大普查
     private int total_storage;
@@ -165,12 +171,12 @@ public class ExportDatasetExcel {
         this.dataset_name = dataset_name;
     }
 
-    public String getDept_name() {
-        return dept_name;
+    public String getRegion_dept_name() {
+        return region_dept_name;
     }
 
-    public void setDept_name(String dept_name) {
-        this.dept_name = dept_name;
+    public void setRegion_dept_name(String region_dept_name) {
+        this.region_dept_name = region_dept_name;
     }
 
     public String getDataset_desc() {
@@ -203,5 +209,37 @@ public class ExportDatasetExcel {
 
     public void setClassify_structure_name(String classify_structure_name) {
         this.classify_structure_name = classify_structure_name;
+    }
+
+    public String getDataset_code() {
+        return dataset_code;
+    }
+
+    public void setDataset_code(String dataset_code) {
+        this.dataset_code = dataset_code;
+    }
+
+    public String getBelong_dept_name() {
+        return belong_dept_name;
+    }
+
+    public void setBelong_dept_name(String belong_dept_name) {
+        this.belong_dept_name = belong_dept_name;
+    }
+
+    public String getBelong_dept_no() {
+        return belong_dept_no;
+    }
+
+    public void setBelong_dept_no(String belong_dept_no) {
+        this.belong_dept_no = belong_dept_no;
+    }
+
+    public Date getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
     }
 }
