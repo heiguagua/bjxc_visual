@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.base.mapper.common.ICommonMapper">
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+    <sql id="pagination">
+        <if test="offset != null and offset >= 0 and limit != null and limit > 0">
+            limit ${offset},${limit}
+        </if>
+    </sql>
+
+    <select id="checkExists" parameterType="java.util.Map" resultType="java.lang.Boolean">
+        select exists(<include refid="selectSql"/>)
+    </select>
+
+</mapper>
