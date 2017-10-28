@@ -1089,6 +1089,7 @@ public class DirDatasetController extends BaseController {
                     handleResult.error("导入失败!");
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 handleResult.error("导入失败，请检查excel文件！");
             }
         }
