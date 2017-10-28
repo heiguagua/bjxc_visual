@@ -88,14 +88,10 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
-    public JSONObject checkDeptName(String deptName, String fid) {
+    public JSONObject checkDeptName(String deptName, String fname, String deptId) {
         List<SysDept> list;
         JSONObject result = new JSONObject();
-        if (StringUtils.isNotBlank(fid)) {
-            list = selectList(new EntityWrapper<SysDept>().where("dept_name = {0}", deptName).and("fid = {0}", fid).and("delete_flag = {0}", "0"));
-        } else {
-            list = selectList(new EntityWrapper<SysDept>().addFilter("dept_name = {0}", deptName).and("delete_flag = {0}", "0"));
-        }
+        list = selectList(new EntityWrapper<SysDept>().where("dept_name = {0}", deptName).and("fname = {0}", fname).and("id != {0}", deptId).and("delete_flag = {0}", "0"));
         if (list != null && !list.isEmpty()) {
             result.put("error", "该组织机构名称已存在");
         }

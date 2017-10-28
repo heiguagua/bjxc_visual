@@ -23,7 +23,7 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 
     SysDeptVo selectVoById(String id) throws Exception;
 
-    JSONObject checkDeptName(String deptName, String deptId) throws Exception;
+    JSONObject checkDeptName(String deptName, String fname, String deptId) throws Exception;
 
     List<SysDeptVo> getDeptSelectDataList(Map<String, Object> paramMap) throws Exception;
 	//TODO pacong
