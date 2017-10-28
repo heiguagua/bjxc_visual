@@ -877,22 +877,20 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
 
         //数据集
-        int i = mapper.insertListDataset(datasetList);
-        if(i>0) {
-            if(!dirDatasetExtFormatList.isEmpty()){
-                dirDatasetExtFormatMapper.batchInsert(dirDatasetExtFormatList);
-            }
-            if(!dirDatasetSurveyList.isEmpty()){
-                surveyMapper.batchInsert(dirDatasetSurveyList);
-            }
-            if (!datamapList.isEmpty()) {
-                dirDatasetClassifyMapMapper.insertListItem(datamapList);
-            }
-            if (!items.isEmpty()) {
-                itemMapper.insertListItem(items);
-            }
-        }else{
-            return false;
+        if(!datasetList.isEmpty()) {
+            mapper.insertListDataset(datasetList);
+        }
+        if(!dirDatasetExtFormatList.isEmpty()){
+            dirDatasetExtFormatMapper.batchInsert(dirDatasetExtFormatList);
+        }
+        if(!dirDatasetSurveyList.isEmpty()){
+            surveyMapper.batchInsert(dirDatasetSurveyList);
+        }
+        if (!datamapList.isEmpty()) {
+            dirDatasetClassifyMapMapper.insertListItem(datamapList);
+        }
+        if (!items.isEmpty()) {
+            itemMapper.insertListItem(items);
         }
         return true;
     }
