@@ -7,6 +7,7 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirNationalClassify;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirNationalClassifyVo;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyAuthorityMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirNationalClassifyMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
@@ -20,10 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 
 
@@ -46,6 +44,9 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 
     @Autowired
     private ISysRegionService sysRegionService;
+
+    @Autowired
+    private DirClassifyAuthorityMapper authorityMapper;
 
     private Striped<Lock> locks = Striped.lazyWeakLock(100);
 
@@ -218,14 +219,70 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 
     @Override
     public List<DirClassifyVo> selectSubVoList(Map<String, Object> paramMap) throws Exception {
+        String userId = ShiroUtils.getLoginUserId();
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
         //非超管和区域管理员，则要做权限过滤
-//        if(minRoleLevl>0){
-//            //查找当前用户拥有权限的目录类别
-//            paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
-//        }
+        if(minRoleLevl>0){
+            //查询有权限的目录分类
+            String chooseClassifyTreeCode = (String) paramMap.get("treeCode");
+            String authorityNode = (String) paramMap.get("authorityNode");
+            List<String> authorityClassifyTreeCodeList = authorityMapper.selectAuthorityIdForLoginUser(userId);
+            if(!ObjectUtils.isEmpty(authorityClassifyTreeCodeList)){
+                if(!StringUtils.isEmpty(chooseClassifyTreeCode)){ //第一层节点不用过滤
+                    if("n".equals(authorityNode)){ //如果是n，表示未明确是否是授权或授权下级节点，需要去验证是否授权节点
+                        boolean hasThisNodeAuthority = false;
+                        for(String authorityClassifyTreeCode : authorityClassifyTreeCodeList){
+                            if(chooseClassifyTreeCode.equals(authorityClassifyTreeCode)){
+                                hasThisNodeAuthority = true;
+                                break;
+                            }
+                        }
+                        if(hasThisNodeAuthority){ //如果该点击节点被授权了，则后面所有节点都可以显示
+                            paramMap.put("authorityNode","y");
+                        }else{ //如果该节点没有授权,则下级节点只是去验证是否在授权节点的父级节点路线上
+                            Map<String,String> parentCodesMap = new HashMap<>();
+                            for(String treeCode : authorityClassifyTreeCodeList){
+                                getAllParentTreecodes(treeCode, parentCodesMap);
+                            }
+                            Set<String> keySet = parentCodesMap.keySet();
+                            StringBuffer parentCodesBuffer = new StringBuffer();
+                            for(String code : keySet){
+                                parentCodesBuffer.append("'").append(code).append("',");
+                            }
+                            String allParentTreeCodes = parentCodesBuffer.toString();
+                            if(!StringUtils.isEmpty(allParentTreeCodes)){
+                                allParentTreeCodes = allParentTreeCodes.substring(0,allParentTreeCodes.length()-1);
+                            }
+                            paramMap.put("allParentTreeCodes",allParentTreeCodes);
+                            paramMap.put("authorityNode","n");
+                        }
+                    }else{ //该点击节点被授权了，后面所有节点都可以显示
+                        paramMap.put("authorityNode","y");
+                    }
+                }else{
+                    paramMap.put("authorityNode","n");
+                }
+            }else{
+                return null;
+            }
+        }
         return mapper.selectSubVoListForTreeData(paramMap);
+    }
+
+    /**
+     * 解析某个节点的treecode的，得到其所有父级节点,最终用于拼成一个可供sql直接查询的字符串
+     * @param treeCode
+     * @return
+     */
+    private static void getAllParentTreecodes(String treeCode,Map<String,String> parentCodesMap){
+        if(!StringUtils.isEmpty(treeCode) && treeCode.indexOf(";")!=-1){
+            if(!parentCodesMap.containsKey(treeCode)){
+                parentCodesMap.put(treeCode, "1");
+            }
+            String prentTreeCode = treeCode.substring(0,treeCode.lastIndexOf(";"));
+            getAllParentTreecodes(prentTreeCode, parentCodesMap);
+        }
     }
     
 //    public List<String> getFdir_codes(String dir_code){
