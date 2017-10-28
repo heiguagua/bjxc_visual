@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.dir.service.catalog.impl;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -746,6 +747,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     dataset.setId(CommonUtil.get32UUID());
 //                    dataset.setDatasetCode(dataset.getId());
                     dataset.setSourceType(sourceType);
+                    dataset.setChargeDeptId(ShiroUtils.getLoginUser().getDeptId());
                     //信息资源代码
                     try {
                         row.getCell(1).setCellType(CellType.STRING);
@@ -762,11 +764,10 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                         name= row.getCell(3).getStringCellValue();
                         Map regionMap = new HashMap<>();
                         regionMap.put("regionDeptName",region);
-                        regionMap.put("regionCode",regionCode);
+//                        regionMap.put("regionCode",regionCode);
                         List<SysRegionDeptVo> sysRegionDeptList = sysRegionDeptMapper.selectVoList(regionMap);
                         if(!sysRegionDeptList.isEmpty()){
                             dataset.setBelongDeptType(sysRegionDeptList.get(0).getId());
-                            dataset.setChargeDeptId(sysRegionDeptList.get(0).getId());
                             Map deptMap = new HashMap<>();
                             deptMap.put("deptName",name);
                             deptMap.put("fName",region);
@@ -780,8 +781,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     }
                     //资源提供方代码
                     try {
-                        row.getCell(4).setCellType(CellType.STRING);
-                        dataset.setBelongDeptNo(row.getCell(4).getStringCellValue());
+                        DecimalFormat df = new DecimalFormat("0");
+                        String cellText = df.format(row.getCell(4).getNumericCellValue());
+                        dataset.setBelongDeptNo(cellText);
                     } catch (Exception e) {
                         dataset.setBelongDeptNo(null);
                     }

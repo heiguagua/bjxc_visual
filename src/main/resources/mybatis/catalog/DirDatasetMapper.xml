@@ -59,11 +59,11 @@
             <result column="format_type" property="formatType"/>
             <result column="format_info" property="formatInfo"/>
         </association>
-		<association property="transfer" column="transferId"
-			javaType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer"
-			select="selectDirTransferList"></association>
-		<association property="serviceNum" column="transferId" javaType="Integer" select="getServiceNum"></association>	
-		
+        <association property="transfer" column="transferId"
+                     javaType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer"
+                     select="selectDirTransferList"></association>
+        <association property="serviceNum" column="transferId" javaType="Integer" select="getServiceNum"></association>
+
         <association property="survey" javaType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSurvey">
             <result column="total_storage" property="totalStorage" />
             <result column="structure_count" property="structureCount" />
@@ -73,17 +73,17 @@
             <result column="opened_structure_count" property="openedStructureCount" />
         </association>
     </resultMap>
-    
-	<resultMap id="DirDataTransferBaseResultMap"
-		type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
-		<id column="id" property="id" />
-		<result column="dcm_id" property="dcmId" />
-		<result column="transfer_user_id" property="transferUserId" />
-		<result column="transfer_user_name" property="transferUserName" />
-		<result column="transfer_time" property="transferTime" />
-		<result column="trasnfer_scope" property="trasnferScope" />
-		<result column="transfer_status" property="transferStatus" />
-	</resultMap>
+
+    <resultMap id="DirDataTransferBaseResultMap"
+               type="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
+        <id column="id" property="id" />
+        <result column="dcm_id" property="dcmId" />
+        <result column="transfer_user_id" property="transferUserId" />
+        <result column="transfer_user_name" property="transferUserName" />
+        <result column="transfer_time" property="transferTime" />
+        <result column="trasnfer_scope" property="trasnferScope" />
+        <result column="transfer_status" property="transferStatus" />
+    </resultMap>
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
@@ -102,71 +102,34 @@
                     select id from sys_dept sd1,(
                     select de.tree_code from sys_dept de
                     where de.delete_flag=0 and de.id=(select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR} )
-                    ) a where sd1.delete_flag=0 and sd1.tree_code like concat(a.tree_code, '%')
+                    ) a where sd1.delete_flag=0 and sd1.tree_code like concat(a.tree_code, ';%')
+                    union
+                    select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR}
                     union
                     select id from sys_dept sd2,(
-                    select de.tree_code from sys_dept de
-                    left join sys_dept_authority sda on de.id=sda.dept_id and auth_obj_type='2'
-                    where de.delete_flag=0 and sda.auth_obj_id=#{loginUserIdForAuthority,jdbcType=VARCHAR}
-                    ) b where sd2.delete_flag=0 and sd2.tree_code like concat(b.tree_code, '%')
+                    select de.tree_code from sys_dept_authority sda
+                    left join sys_dept de on de.id=sda.dept_id and de.delete_flag=0
+                    where sda.auth_obj_type='2' and sda.auth_obj_id=#{loginUserIdForAuthority,jdbcType=VARCHAR}
+                    ) b where sd2.delete_flag=0 and sd2.tree_code like concat(b.tree_code, ';%')
+                    union
+                    select sda1.dept_id from sys_dept_authority sda1
+                        left join sys_dept de1 on sda1.dept_id = de1.id and de1.delete_flag=0
+                        where sda1.auth_obj_type='2' and sda1.auth_obj_id=#{loginUserIdForAuthority,jdbcType=VARCHAR}
                     union
                     select id from sys_dept sd3,(
-                    select de.tree_code from sys_dept de
-                    left join sys_dept_authority sda on de.id=sda.dept_id and auth_obj_type='1'
-                    where de.delete_flag=0 and sda.auth_obj_id=(select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR} )
-                    ) c where sd3.delete_flag=0 and sd3.tree_code like concat(c.tree_code, '%')
+                    select de.tree_code from sys_dept_authority sda
+                    left join sys_dept de on de.id=sda.dept_id and de.delete_flag=0
+                    where sda.auth_obj_type='1' and sda.auth_obj_id=(select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR} )
+                    ) c where sd3.delete_flag=0 and sd3.tree_code like concat(c.tree_code, ';%')
+                    union
+                    select sda2.dept_id from sys_dept_authority sda2
+                    left join sys_dept de2 on sda2.dept_id = de2.id and de2.delete_flag=0
+                    where sda2.auth_obj_type='1' and sda2.auth_obj_id=(select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR} )
                 )
             </if>
         </where>
     </sql>
-    <!--编目列表目录类别权限过滤 -->
-    <sql id="classifyAuthorityConditions">
-        <where>
-            m.delete_flag =0
-            <if test="classifyId!= null and classifyId !='' ">
-                and m.classify_id in (select id from dir_classify where delete_flag=0 and tree_code like concat((select tree_code from dir_classify where delete_flag=0 and id=#{classifyId, jdbcType=VARCHAR}),'%'))
-            </if>
-            <if test="loginUserIdForAuthority != null and loginUserIdForAuthority!='' ">
-                and (m.classify_id in(
-                        select id  from dir_classify t,
-                        (select dc.tree_code from dir_classify_authority dca
-                        left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
-                        where dca.auth_obj_type ='2' and dca.auth_obj_id = #{loginUserIdForAuthority,jdbcType=VARCHAR}
-                        ) a where t.delete_flag=0 and t.tree_code like CONCAT(a.tree_code, '%')
-                        union
-                        select id  from dir_classify c,
-                        (select dc.tree_code from dir_classify_authority dca
-                        left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
-                        where dca.auth_obj_type ='1' and dca.auth_obj_id =  (select su.dept_id from sys_user su where su.delete_flag=0 and su.id = #{loginUserIdForAuthority,jdbcType=VARCHAR})
-                        )b where c.delete_flag=0 and c.tree_code like CONCAT(b.tree_code, '%')
-                    )
-                    or m.dataset_id in (select id from dir_dataset where charge_dept_id in(
-                            select id from sys_dept sd1,(
-                            select de.tree_code from sys_dept de
-                            where de.delete_flag=0 and de.id=(select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR} )
-                            ) a where sd1.delete_flag=0 and sd1.tree_code like concat(a.tree_code, '%')
-                            union
-                            select id from sys_dept sd2,(
-                            select de.tree_code from sys_dept de
-                            left join sys_dept_authority sda on de.id=sda.dept_id and auth_obj_type='2'
-                            where de.delete_flag=0 and sda.auth_obj_id=#{loginUserIdForAuthority,jdbcType=VARCHAR}
-                            ) b where sd2.delete_flag=0 and sd2.tree_code like concat(b.tree_code, '%')
-                            union
-                            select id from sys_dept sd3,(
-                            select de.tree_code from sys_dept de
-                            left join sys_dept_authority sda on de.id=sda.dept_id and auth_obj_type='1'
-                            where de.delete_flag=0 and sda.auth_obj_id=(select dept_id from sys_user where delete_flag=0 and id=#{loginUserIdForAuthority,jdbcType=VARCHAR} )
-                            ) c where sd3.delete_flag=0 and sd3.tree_code like concat(c.tree_code, '%')
-                        )
-                    )
-                )
-            </if>
-            <if test="mstatus!=null and mstatus!=''">
-                and m.status>=#{mstatus}
 
-            </if>
-        </where>
-    </sql>
     <!--编目列表目录类别查询条件过滤 -->
     <sql id="classifyConditions">
         <where>
@@ -179,101 +142,109 @@
                     (select dc.tree_code from dir_classify_authority dca
                     left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
                     where dca.auth_obj_type ='2' and dca.auth_obj_id = #{loginUserIdForAuthority,jdbcType=VARCHAR}
-                    ) a where t.delete_flag=0 and t.tree_code like CONCAT(a.tree_code, '%')
+                    ) a where t.delete_flag=0 and t.tree_code like CONCAT(a.tree_code, ';%')
+                    union
+                    select dca1.classify_id from dir_classify_authority dca1
+                    left join dir_classify dc1 on dca1.classify_id = dc1.id and dc1.delete_flag=0
+                    where dca1.auth_obj_type ='2' and dca1.auth_obj_id = #{loginUserIdForAuthority,jdbcType=VARCHAR}
                     union
                     select id  from dir_classify c,
                     (select dc.tree_code from dir_classify_authority dca
                     left join dir_classify dc on dca.classify_id = dc.id and dc.delete_flag=0
                     where dca.auth_obj_type ='1' and dca.auth_obj_id =  (select su.dept_id from sys_user su where su.delete_flag=0 and su.id = #{loginUserIdForAuthority,jdbcType=VARCHAR})
-                    )b where c.delete_flag=0 and c.tree_code like CONCAT(b.tree_code, '%')
+                    )b where c.delete_flag=0 and c.tree_code like CONCAT(b.tree_code, ';%')
+                    union
+                    select dca2.classify_id from dir_classify_authority dca2
+                    left join dir_classify dc2 on dca2.classify_id = dc2.id and dc2.delete_flag=0
+                    where dca2.auth_obj_type ='1' and dca2.auth_obj_id =  (select su.dept_id from sys_user su where su.delete_flag=0 and su.id = #{loginUserIdForAuthority,jdbcType=VARCHAR})
                 )
             </if>
             <if test="mstatus!=null and mstatus!=''">
-            and m.status>=#{mstatus}
-            
+                and m.status>=#{mstatus}
+
             </if>
         </where>
     </sql>
-	<!-- 查询已审核待上传报告 -->
-	<select id="selectDirReportPage" parameterType="java.util.Map" resultMap="ExtResultVoMap">
-		select sub.*,MAX(IFNULL(m.status,0)) AS classify_status,
+    <!-- 查询已审核待上传报告 -->
+    <select id="selectDirReportPage" parameterType="java.util.Map" resultMap="ExtResultVoMap">
+        select sub.*,MAX(IFNULL(m.status,0)) AS classify_status,
         GROUP_CONCAT(c.classify_structure_name) AS classify_name,m.id as transferId from(
-            select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
-            di.dict_name as source_type_name,count(it.dataset_id) as item_nums
-            FROM dir_dataset t
-            left join sys_dept de on t.belong_dept_id=de.id and
-            de.delete_flag=0
-            left join sys_dict di on t.source_type=di.dict_code
-            and
-            di.category='datasetSourceType'
-            left join dir_dataitem it on
-            t.id=it.dataset_id and it.delete_flag=0
-            <include refid="queryConditions"></include>
-            group by t.id ) sub
-		left join dir_dataset_classify_map m on
-		sub.id=m.dataset_id and
-		m.delete_flag=0
-		left join dir_classify c on
-		m.classify_id=c.id and c.delete_flag=0
-		<include refid="classifyConditions"></include>
-		group by sub.id
-	</select>
-
-	<select id="selectDirReportCount" resultType="Integer"
-		parameterType="map">
-
-		SELECT COUNT(A.id) FROM (
-		select sub.id,sub.create_time from(
-		select
-		t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
-		di.dict_name as source_type_name,count(it.dataset_id) as item_nums
-		FROM dir_dataset t
-		left join sys_dept de on t.belong_dept_id=de.id and
-		de.delete_flag=0
-		left join sys_dict di on t.source_type=di.dict_code
-		and
-		di.category='datasetSourceType'
-		left join dir_dataitem it on
-		t.id=it.dataset_id and it.delete_flag=0
-		<include refid="queryConditions"></include>
-		group by t.id ) sub
-		left join dir_dataset_classify_map m on
-		sub.id=m.dataset_id and
-		m.delete_flag=0
-		left join dir_classify c on
-		m.classify_id=c.id and c.delete_flag=0
-		<include refid="classifyConditions"></include>
-		group by sub.id
-
-		) as A
-	</select>
-	<select id="selectDirTransferList" parameterType="String"
-		resultMap="DirDataTransferBaseResultMap">
-		SELECT IFNULL(trasnfer_scope,"")
-		trasnfer_scope,IFNULL(transfer_status,"") transfer_status FROM
-		dir_data_transfer WHERE dcm_id=#{transferId} ORDER BY transfer_time DESC LIMIT
-		0,1;
-	</select>
-    <select id="getServiceNum" parameterType="map" resultType="Integer">
-    select count(*) from dir_dataset_service_map where obj_id=#{transferId}
+        select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
+        di.dict_name as source_type_name,count(it.dataset_id) as item_nums
+        FROM dir_dataset t
+        left join sys_dept de on t.belong_dept_id=de.id and
+        de.delete_flag=0
+        left join sys_dict di on t.source_type=di.dict_code
+        and
+        di.category='datasetSourceType'
+        left join dir_dataitem it on
+        t.id=it.dataset_id and it.delete_flag=0
+        <include refid="queryConditions"></include>
+        group by t.id ) sub
+        left join dir_dataset_classify_map m on
+        sub.id=m.dataset_id and
+        m.delete_flag=0
+        left join dir_classify c on
+        m.classify_id=c.id and c.delete_flag=0
+        <include refid="classifyConditions"></include>
+        group by sub.id
     </select>
-	<select id="getTransferLst" parameterType="map"
-		resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
-		select * from dir_data_transfer where dcm_id=#{transferId}
-	</select>
-	<insert id="insertDirTransfer"
-		parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
-		INSERT INTO dir_data_transfer
-		(id,dcm_id,transfer_user_id,transfer_user_name,transfer_time,trasnfer_scope,transfer_status)
-		VALUES
-		(#{id},#{dcmId},#{transferUserId},#{transferUserName},#{transferTime},#{trasnferScope},#{transferStatus})
-	</insert>
+
+    <select id="selectDirReportCount" resultType="Integer"
+            parameterType="map">
+
+        SELECT COUNT(A.id) FROM (
+        select sub.id,sub.create_time from(
+        select
+        t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name,
+        di.dict_name as source_type_name,count(it.dataset_id) as item_nums
+        FROM dir_dataset t
+        left join sys_dept de on t.belong_dept_id=de.id and
+        de.delete_flag=0
+        left join sys_dict di on t.source_type=di.dict_code
+        and
+        di.category='datasetSourceType'
+        left join dir_dataitem it on
+        t.id=it.dataset_id and it.delete_flag=0
+        <include refid="queryConditions"></include>
+        group by t.id ) sub
+        left join dir_dataset_classify_map m on
+        sub.id=m.dataset_id and
+        m.delete_flag=0
+        left join dir_classify c on
+        m.classify_id=c.id and c.delete_flag=0
+        <include refid="classifyConditions"></include>
+        group by sub.id
+
+        ) as A
+    </select>
+    <select id="selectDirTransferList" parameterType="String"
+            resultMap="DirDataTransferBaseResultMap">
+        SELECT IFNULL(trasnfer_scope,"")
+        trasnfer_scope,IFNULL(transfer_status,"") transfer_status FROM
+        dir_data_transfer WHERE dcm_id=#{transferId} ORDER BY transfer_time DESC LIMIT
+        0,1;
+    </select>
+    <select id="getServiceNum" parameterType="map" resultType="Integer">
+        select count(*) from dir_dataset_service_map where obj_id=#{transferId}
+    </select>
+    <select id="getTransferLst" parameterType="map"
+            resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
+        select * from dir_data_transfer where dcm_id=#{transferId}
+    </select>
+    <insert id="insertDirTransfer"
+            parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataTransfer">
+        INSERT INTO dir_data_transfer
+        (id,dcm_id,transfer_user_id,transfer_user_name,transfer_time,trasnfer_scope,transfer_status)
+        VALUES
+        (#{id},#{dcmId},#{transferUserId},#{transferUserName},#{transferTime},#{trasnferScope},#{transferStatus})
+    </insert>
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.* FROM dir_dataset t
         <include refid="queryConditions"></include>
     </select>
 
-    <!--<select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    <select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         select sub.*,MAX(IFNULL(m.status,0)) AS classify_status,GROUP_CONCAT(c.classify_structure_name) AS classify_name from(
         select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.region_dept_name as dept_name,
         di.dict_name as source_type_name,count(it.dataset_id) as item_nums FROM dir_dataset t
@@ -286,30 +257,14 @@
         left join dir_classify c on m.classify_id=c.id and c.delete_flag=0
         <include refid="classifyConditions"></include>
         group by sub.id
-    </select>-->
-    <select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        select sub.*,MAX(IFNULL(cla.status,0)) AS classify_status,GROUP_CONCAT(cla.classify_structure_name) AS classify_name from
-        (select m.dataset_id,m.status,c.classify_structure_name from dir_dataset_classify_map m
-            left join dir_classify c on m.classify_id=c.id and c.delete_flag=0
-            <include refid="classifyAuthorityConditions"></include>) cla
-        left join
-        (select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.region_dept_name as dept_name,
-            di.dict_name as source_type_name,count(it.dataset_id) as item_nums FROM dir_dataset t
-            left join v_sys_region_dept de on t.belong_dept_type=de.id
-            left join sys_dict di on t.source_type=di.dict_code and di.category='datasetSourceType'
-            left join dir_dataitem it on t.id=it.dataset_id and it.delete_flag=0
-            <include refid="queryConditions"></include>
-            group by t.id
-        ) sub on cla.dataset_id = sub.id
-        group by cla.dataset_id
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="ExtResultVoMap">
         SELECT t.*,f.format_category,f.format_type,f.format_info,su.total_storage,su.structure_count,
-            su.shared_storage,su.shared_structure_count,su.opened_storage,su.opened_structure_count FROM dir_dataset t
-            left join dir_dataset_ext_format f on t.id=f.dataset_id
-            left join dir_dataset_survey su on t.id=su.dataset_id
-            WHERE t.delete_flag =0 and t.id = #{id}
+        su.shared_storage,su.shared_structure_count,su.opened_storage,su.opened_structure_count FROM dir_dataset t
+        left join dir_dataset_ext_format f on t.id=f.dataset_id
+        left join dir_dataset_survey su on t.id=su.dataset_id
+        WHERE t.delete_flag =0 and t.id = #{id}
     </select>
 
     <select id="selectDatasetInfoById" parameterType="java.lang.String" resultMap="ExtResultVoMap">
@@ -337,14 +292,14 @@
     <insert id="batchInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDataset">
         insert into dir_dataset(id,region_code,charge_dept_id,dataset_code,dataset_name,alias,belong_dept_type,belong_dept_id,belong_dept_name,belong_dept_no,dataset_desc,share_type,share_condition,share_method_category,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,secret_flag,source_type,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values
         <foreach collection="list" item="item" separator=",">
-        (
+            (
             #{item.id},#{item.regionCode},#{item.chargeDeptId},#{item.datasetCode},#{item.datasetName},#{item.alias},#{item.belongDeptType},
             #{item.belongDeptId},#{item.belongDeptName},#{item.belongDeptNo},#{item.datasetDesc},#{item.shareType},#{item.shareCondition},#{item.shareMethodCategory},
             #{item.shareMethod},#{item.shareMethodDesc},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},
             #{item.relDatasetCode},#{item.storageMedium},#{item.storageLocation},#{item.dataLevel},#{item.dataIndexSystem},
             #{item.secretFlag},#{item.sourceType},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},
             #{item.updateTime},#{item.deleteFlag}
-        )
+            )
         </foreach>
     </insert>
 
@@ -512,12 +467,12 @@
 
     <select id="selectDatasetByActivityId" resultType="map">
         SELECT
-            id,
-            dataset_name
+        id,
+        dataset_name
         FROM
-            drap_dataset
+        drap_dataset
         WHERE
-            TRUE
+        TRUE
         AND belong_dept_id = #{activity_id}
     </select>
 
@@ -566,9 +521,9 @@
 
     <select id="selectDatasetItemByIds" resultMap="itemVo">
         SELECT
-            ddi.*,sd.dept_short_name,dd.dataset_name,dis.system_name,dis.id AS system_id
+        ddi.*,sd.dept_short_name,dd.dataset_name,dis.system_name,dis.id AS system_id
         FROM
-            drap_dataset_item ddi
+        drap_dataset_item ddi
         LEFT JOIN sys_dept sd ON ddi.belong_dept = sd.id
         LEFT JOIN drap_dataset_item_map ddim ON ddi.id = ddim.item_id
         LEFT JOIN drap_dataset dd ON ddim.dataset_id = dd.id
@@ -623,15 +578,15 @@
     </resultMap>
     <select id="getDrapDatasetDetail" resultMap="result_DrapDataset_Map">
         SELECT
-            dd.*,sd.dept_short_name,sd.dept_code,dis.system_name,dis.id AS system_id,ddef.format_category,ddef.format_type
+        dd.*,sd.dept_short_name,sd.dept_code,dis.system_name,dis.id AS system_id,ddef.format_category,ddef.format_type
         FROM
-            drap_dataset dd
+        drap_dataset dd
         LEFT JOIN sys_dept sd ON dd.belong_dept_id = sd.id
         LEFT JOIN drap_dataset_system_map ddsm ON dd.id = ddsm.dataset_id
         LEFT JOIN drap_info_system dis ON ddsm.system_id = dis.id
         LEFT JOIN drap_dataset_ext_format ddef ON ddef.dataset_id=dd.id
         WHERE
-            dd.id = #{id}
+        dd.id = #{id}
     </select>
 
     <resultMap id="ExcelMap" type="com.chinawiserv.dsp.dir.entity.po.catalog.ExportDatasetExcel">
@@ -661,97 +616,97 @@
     </resultMap>
     <select id="selectExportLists" resultMap="ExcelMap">
         SELECT
-            dd.item_name,
-            (
-                SELECT
-                    dict_name
-                FROM
-                    sys_dict
-                WHERE
-                    category = 'dataitemType'
-                AND dict_code = dd.item_type
-            ) AS item_type,
-            dd.item_length,
-            (
-                SELECT
-                    dict_name
-                FROM
-                    sys_dict
-                WHERE
-                    category = 'dataSetShareType'
-                AND dict_code = dd.share_type
-            ) AS share_type,
-            dd.share_condition,
-            (
-                SELECT
-                    dict_name
-                FROM
-                    sys_dict
-                WHERE
-                    category = 'requirementExpectGetType'
-                AND dict_code = dd.share_method_category
-            ) AS share_method_category,
-            (
-                SELECT
-                    dict_name
-                FROM
-                    sys_dict
-                WHERE
-                    category = 'requirementExpectGetType'
-                AND dict_code = dd.share_method
-            ) AS share_method,
-            (
-                CASE dd.is_open
-                WHEN 0 THEN
-                    '否'
-                WHEN 1 THEN
-                    '是'
-                END
-            ) AS is_open,
-            dd.open_condition,
-            (
-                SELECT
-                    dict_name
-                FROM
-                    sys_dict
-                WHERE
-                    category = 'requirementExpectUpdateFrequence'
-                AND dict_code = dd.update_frequency
-            ) AS update_frequency,
-            d.dataset_name,
-            sd.dept_name,
-            d.dataset_desc,
-            (
-                SELECT
-                    dict_name
-                FROM
-                    sys_dict,
-                    dir_dataset_ext_format ddef
-                WHERE
-                    category = 'setItemStoreMedia'
-                AND ddef.dataset_id = d.id
-                AND dict_code = ddef.format_category
-            ) AS format_category,
-            (
-                SELECT
-                    dict_name
-                FROM
-                    sys_dict,
-                    dir_dataset_ext_format ddef
-                WHERE
-                    category = 'setItemStoreMedia'
-                AND ddef.dataset_id = d.id
-                AND dict_code = ddef.format_type
-            ) AS format_type,
-            dnc.classify_structure_name,
-            total_storage,
-            structure_count,
-            shared_storage,
-            shared_structure_count,
-            opened_storage,
-            opened_structure_count
+        dd.item_name,
+        (
+        SELECT
+        dict_name
         FROM
-            dir_dataitem dd
+        sys_dict
+        WHERE
+        category = 'dataitemType'
+        AND dict_code = dd.item_type
+        ) AS item_type,
+        dd.item_length,
+        (
+        SELECT
+        dict_name
+        FROM
+        sys_dict
+        WHERE
+        category = 'dataSetShareType'
+        AND dict_code = dd.share_type
+        ) AS share_type,
+        dd.share_condition,
+        (
+        SELECT
+        dict_name
+        FROM
+        sys_dict
+        WHERE
+        category = 'requirementExpectGetType'
+        AND dict_code = dd.share_method_category
+        ) AS share_method_category,
+        (
+        SELECT
+        dict_name
+        FROM
+        sys_dict
+        WHERE
+        category = 'requirementExpectGetType'
+        AND dict_code = dd.share_method
+        ) AS share_method,
+        (
+        CASE dd.is_open
+        WHEN 0 THEN
+        '否'
+        WHEN 1 THEN
+        '是'
+        END
+        ) AS is_open,
+        dd.open_condition,
+        (
+        SELECT
+        dict_name
+        FROM
+        sys_dict
+        WHERE
+        category = 'requirementExpectUpdateFrequence'
+        AND dict_code = dd.update_frequency
+        ) AS update_frequency,
+        d.dataset_name,
+        sd.dept_name,
+        d.dataset_desc,
+        (
+        SELECT
+        dict_name
+        FROM
+        sys_dict,
+        dir_dataset_ext_format ddef
+        WHERE
+        category = 'setItemStoreMedia'
+        AND ddef.dataset_id = d.id
+        AND dict_code = ddef.format_category
+        ) AS format_category,
+        (
+        SELECT
+        dict_name
+        FROM
+        sys_dict,
+        dir_dataset_ext_format ddef
+        WHERE
+        category = 'setItemStoreMedia'
+        AND ddef.dataset_id = d.id
+        AND dict_code = ddef.format_type
+        ) AS format_type,
+        dnc.classify_structure_name,
+        total_storage,
+        structure_count,
+        shared_storage,
+        shared_structure_count,
+        opened_storage,
+        opened_structure_count
+        FROM
+        dir_dataitem dd
         LEFT JOIN dir_dataset d ON d.id = dd.dataset_id
         LEFT JOIN sys_dept sd ON sd.id = d.belong_dept_id
         LEFT JOIN dir_dataset_classify_map ddcm ON d.id = ddcm.dataset_id
@@ -773,14 +728,14 @@
     <insert id="insertListDataset">
         insert into dir_dataset(id,region_code,charge_dept_id,dataset_code,dataset_name,alias,belong_dept_type,belong_dept_id,belong_dept_name,belong_dept_no,dataset_desc,share_type,share_condition,share_method_category,share_method,share_method_desc,is_open,open_condition,update_frequency,rel_dataset_code,storage_medium,storage_location,data_level,data_index_system,secret_flag,source_type,status,create_user_id,create_time,update_user_id,update_time) values
         <foreach collection="list" item="item" separator=",">
-        (
-        #{item.id},#{item.regionCode},#{item.chargeDeptId},#{item.datasetCode},#{item.datasetName},#{item.alias},#{item.belongDeptType},
-        #{item.belongDeptId},#{item.belongDeptName},#{item.belongDeptNo},#{item.datasetDesc},#{item.shareType},#{item.shareCondition},#{item.shareMethodCategory},
-        #{item.shareMethod},#{item.shareMethodDesc},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},
-        #{item.relDatasetCode},#{item.storageMedium},#{item.storageLocation},#{item.dataLevel},#{item.dataIndexSystem},
-        #{item.secretFlag},#{item.sourceType},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},
-        #{item.updateTime}
-        )
+            (
+            #{item.id},#{item.regionCode},#{item.chargeDeptId},#{item.datasetCode},#{item.datasetName},#{item.alias},#{item.belongDeptType},
+            #{item.belongDeptId},#{item.belongDeptName},#{item.belongDeptNo},#{item.datasetDesc},#{item.shareType},#{item.shareCondition},#{item.shareMethodCategory},
+            #{item.shareMethod},#{item.shareMethodDesc},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},
+            #{item.relDatasetCode},#{item.storageMedium},#{item.storageLocation},#{item.dataLevel},#{item.dataIndexSystem},
+            #{item.secretFlag},#{item.sourceType},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},
+            #{item.updateTime}
+            )
         </foreach>
     </insert>
 
