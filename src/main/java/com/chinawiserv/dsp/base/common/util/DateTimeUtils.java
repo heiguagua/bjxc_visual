@@ -118,6 +118,15 @@ public class DateTimeUtils {
 	}
 	/**
 	 * 转换时间
+	 * 格式：yyyy/MM/dd
+	 * @param currentDate 等转换日期
+	 * @return 当前时间的字符串形式
+	 */
+	public static String convertDateTime_YYYYMMDD_SLASHES(Date currentDate) {
+		return convertDateTime(currentDate, "yyyy/MM/dd");
+	}
+	/**
+	 * 转换时间
 	 * 格式：HH:mm:ss
 	 * @param currentDate 等转换日期
 	 * @return 当前时间的字符串形式

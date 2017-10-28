@@ -106,16 +106,16 @@ public class SysDeptAuthorityController extends BaseController {
             if(StringUtils.isNoneBlank(authType, authObjId)){
                 if("dept".equals(authType)){
                     String deptIds = (String) paramMap.get("deptIds");
-                    if(StringUtils.isNotBlank(deptIds)){
+//                    if(StringUtils.isNotBlank(deptIds)){
                         SysDeptAuthorityVo sysDeptAuthorityVo = new SysDeptAuthorityVo();
                         sysDeptAuthorityVo.setDeptIds(deptIds);
                         sysDeptAuthorityVo.setAuthObjType(AuthObjTypeEnum.DEPT.getKey());
                         sysDeptAuthorityVo.setAuthObjId(authObjId);
                         service.updateVO(sysDeptAuthorityVo);
-                    }
+//                    }
                 }else if("dir".equals(authType)){
                     String classifyIds = (String) paramMap.get("classifyIds");
-                    if(StringUtils.isNotBlank(classifyIds)){
+//                    if(StringUtils.isNotBlank(classifyIds)){
                         String authDetail = (String) paramMap.get("authDetail");
                         DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
                         dirClassifyAuthorityVo.setClassifyIds(classifyIds);
@@ -123,7 +123,7 @@ public class SysDeptAuthorityController extends BaseController {
                         dirClassifyAuthorityVo.setAuthObjId(authObjId);
                         dirClassifyAuthorityVo.setAuthDetail(authDetail);
                         dirClassifyAuthorityService.updateVO(dirClassifyAuthorityVo);
-                    }
+//                    }
                 }else throw new Exception("未识别的数据分配类型");
             }else throw new Exception("未识别被分配的数据");
             handleResult.success("编辑部门数据权限分配表成功");
