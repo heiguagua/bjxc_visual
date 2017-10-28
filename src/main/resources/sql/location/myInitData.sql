@@ -10,7 +10,7 @@ insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,passw
 insert into sys_user_role(id,user_id,role_id)
     values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'myadmin'),(select id from sys_role where role_name='超级管理员'));
 
-
+delete from sys_dept where region_code = '510700';
 insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,
 		dept_level,dept_function,order_number,delete_flag,tree_index,tree_code)
 select UUID(),'510700',category_code,CONCAT('510700_',category_code) as dept_code,
@@ -22,3 +22,5 @@ from sys_dept_category_template;
 
 
 update sys_setting set setting_value = '510700' where setting_code = 'localRegion' and setting_type = '1';
+update sys_setting set setting_value = '绵阳市大数据资源服务网' where setting_code = 'projectPortalName' and setting_type = '1';
+update sys_setting set setting_value = 'Mianyang Big Data Resource Service Network' where setting_code = 'projectPortalEnName' and setting_type = '1';
