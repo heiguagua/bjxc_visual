@@ -138,6 +138,7 @@
                 putStatus({"id": v, "opration": true}, function (dd) {
                     layer.msg(dd.msg || '未知信息', {icon: 1})
                     getData('1')
+                    $('#userregisterTable').bootstrapTable('refresh', null)
                 })
             }, '操作');
 
@@ -148,19 +149,21 @@
                 putStatus({"id": v, "opration": false}, function (dd) {
                     layer.msg(dd.msg || '未知信息', {icon: 1})
                     getData('2')
+                    $('#userregisterTable').bootstrapTable('refresh', null)
                 })
             }, '操作');
         }
         if (v && b === 0) {
             cmf('删除操作', function () {
                 $.ajax({
-                    url: '/dir/dirRegistUser/delete?id=' + v || '',
+                    url: basePathJS + '/dirRegistUser/delete?id=' + v || '',
                     contentType: "application/json; charset=utf-8",
                     type: 'DELETE',
                     success: function (dd) {
                         layer.msg(dd.msg || '未知信息', {icon: 1})
                         getData()
                         $('#ugChangeSel').eq(0).attr('selected', true)
+                        $('#userregisterTable').bootstrapTable('refresh', null);
                     }
                 });
             }, '删除操作');
@@ -189,9 +192,9 @@
      * @param num 类型
      */
     function getData(num) {
-        var url = "/dir/dirRegistUser/list";
+        var url = basePathJS + "/dirRegistUser/list";
         if (num) {
-            url = "/dir/dirRegistUser/list?status=" + num;
+            url = basePathJS + "/dirRegistUser/list?status=" + num;
         }
         $.get(url, function (d) {
 //            if (d.rows.length) {
@@ -207,12 +210,13 @@
      */
     function putStatus(parms, fn) {
         $.ajax({
-            url: '/dir/dirRegistUser/doEdit',
+            url: basePathJS + '/dirRegistUser/doEdit',
             contentType: "application/json; charset=utf-8",
             type: 'PUT',
             data: JSON.stringify(parms),
             success: function (d) {
-                fn(d)
+                fn(d);
+
             }
         });
     }
@@ -221,7 +225,7 @@
         var val = $('#ugChangeSel').children('option:selected').val();//选择类型
         var soKey = $('#ugChangeSearch').children('option:selected').val();//搜索下拉
         var serVal = $("#editSearch").val();//搜索框
-        var url = "/dir/dirRegistUser/list";
+        var url = basePathJS + "/dirRegistUser/list";
         if (serVal != "") {
             if (val === "100") {
                 url = url + '?' + soKey + '=' + serVal;
