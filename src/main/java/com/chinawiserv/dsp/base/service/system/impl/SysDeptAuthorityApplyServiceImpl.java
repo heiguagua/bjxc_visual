@@ -89,7 +89,8 @@ public class SysDeptAuthorityApplyServiceImpl extends CommonServiceImpl<SysDeptA
                 sysDeptAuthority.setId(CommonUtil.get32UUID());
                 sysDeptAuthority.setAuthObjType(AuthObjTypeEnum.USER.getKey());
                 sysDeptAuthority.setAuthObjId(vo.getApplicant());
-                sysDeptAuthority.setDeptId(ShiroUtils.getLoginUserDeptId());
+//                sysDeptAuthority.setDeptId(ShiroUtils.getLoginUserDeptId());
+                sysDeptAuthority.setDeptId(vo.getToDeptId());
                 sysDeptAuthority.setDistributorId(vo.getAuditor());
                 sysDeptAuthority.setDistributeDate(new Date());
                 sysDeptAuthority.setDistributeOpinion(vo.getAuditOpinion());
