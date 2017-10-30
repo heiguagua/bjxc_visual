@@ -86,6 +86,21 @@
 				                        </div>
 			                        </div>
 			                        
+			                        <div class="col-sm-6 ">
+		                                <label class="col-sm-3 control-label" for="leadDeptName">牵头部门</label>
+		                                <div class="col-sm-9">
+		                                    <%--<input type="text" class="form-control" id="i_dir_name" name="dir_codes" placeholder="信息资源名称">--%>
+		                                    <input type="text" id="leadDeptName" required="required"
+		                                           data-parsley-required-message="该项为必填" class="form-control">
+		                                    <input type="hidden" id="leadDeptId" name="leadDeptId">
+		                                    <div class="menu-wrap">
+		                                        <div id="menuContent23" class="menuContent" style="display:none;">
+		                                            <ul id="treeDemo23" class="ztree"
+		                                                style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+		                                        </div>
+		                                    </div>
+		                                   </div>
+	                                   </div>
 			                        
 				                    </div>
 				                </div>
