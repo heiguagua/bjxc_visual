@@ -969,7 +969,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     private String getDictCode(List<SysDictVo> sysDictVoList,String category, String sysDictName){
         for (SysDictVo sysDictVo : sysDictVoList){
-            if(category != null && sysDictName != null && category.equals(sysDictVo.getCategory()) && sysDictName.equals(sysDictVo.getDictName())){
+            if(category != null && sysDictName != null && Objects.equals(category,sysDictVo.getCategory()) && Objects.equals(sysDictName,sysDictVo.getDictName())){
                 return sysDictVo.getDictCode();
             }
         }
@@ -978,7 +978,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     private String getDictCode(List<SysDictVo> sysDictVoList,String category,String parentCode, String sysDictName){
         for (SysDictVo sysDictVo : sysDictVoList){
-            if(category != null && sysDictName != null && category.equals(sysDictVo.getCategory())
+            if(category != null && sysDictName != null && Objects.equals(category,sysDictVo.getCategory())
                     && Objects.equals(parentCode,sysDictVo.getParentCode()) &&  Objects.equals(sysDictName,sysDictVo.getDictName())){
                 return sysDictVo.getDictCode();
             }
