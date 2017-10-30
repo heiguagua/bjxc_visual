@@ -3,12 +3,7 @@ package com.chinawiserv.dsp.dir.service.catalog.impl;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.entity.po.system.SysRegionDept;
@@ -984,7 +979,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     private String getDictCode(List<SysDictVo> sysDictVoList,String category,String parentCode, String sysDictName){
         for (SysDictVo sysDictVo : sysDictVoList){
             if(category != null && sysDictName != null && category.equals(sysDictVo.getCategory())
-                    && parentCode.equals(sysDictVo.getParentCode()) && sysDictName.equals(sysDictVo.getDictName())){
+                    && Objects.equals(parentCode,sysDictVo.getParentCode()) &&  Objects.equals(sysDictName,sysDictVo.getDictName())){
                 return sysDictVo.getDictCode();
             }
         }
