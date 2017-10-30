@@ -38,6 +38,9 @@
             <if test="regionDeptName != null">
                 and t.region_dept_name = #{regionDeptName,jdbcType=VARCHAR}
             </if>
+            <if test="category != null">
+                and t.category = #{category,jdbcType=VARCHAR}
+            </if>
         </where>
     </sql>
 
@@ -121,6 +124,7 @@
         FROM v_sys_region_dept t
         LEFT JOIN (SELECT DISTINCT(fcode) AS dcode FROM v_sys_region_dept) b ON t.region_dept_code=b.dcode
         <include refid="queryConditions"></include>
+        order by t.category,t.region_code
     </select>
 
 

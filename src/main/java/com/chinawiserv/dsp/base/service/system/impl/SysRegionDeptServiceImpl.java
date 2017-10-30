@@ -72,7 +72,7 @@ public class SysRegionDeptServiceImpl extends CommonServiceImpl<SysRegionDeptMap
     @Override
     public List<SysRegionDeptVo> selectVoList(Map<String, Object> paramMap) throws Exception {
         //根据当前区域进行过滤(获取当前选择的区域的所有下属区域，以及父级区域【避免异步树显示不出过滤后的上级数据】)
-        String regionCode = (String)paramMap.get("regionCode");
+        /*String regionCode = (String)paramMap.get("regionCode");
         if(!StringUtils.isEmpty(regionCode)){
             StringBuffer allRegionCodeBuffer = new StringBuffer();
             List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
@@ -92,7 +92,7 @@ public class SysRegionDeptServiceImpl extends CommonServiceImpl<SysRegionDeptMap
                     paramMap.remove("regionCode");
                 }
             }
-        }
+        }*/
         return mapper.selectVoListForTreeData(paramMap);
     }
 }
