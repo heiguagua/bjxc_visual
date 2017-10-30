@@ -5,7 +5,7 @@ jQuery(document).ready(function () {
     var paramsObj = {};
 
     jQuery(tableSelector).customTable({
-        url: basePathJS + '/system/dept/list',
+        url: basePathJS + '/system/deptAuthority/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
@@ -27,7 +27,8 @@ jQuery(document).ready(function () {
             title: '组织机构简称',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            visible:false
         }, {
             field: 'deptCode',
             title: '组织机构编码',
@@ -39,19 +40,22 @@ jQuery(document).ready(function () {
             title: '联系人',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            visible:false
         }, {
             field: 'deptContactPhone',
             title: '联系电话',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            visible:false
         }, {
             field: 'deptAddress',
             title: '地址',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            visible:false
         }, {
         	 field: 'deptDesc',
              title: '描述',
@@ -59,6 +63,7 @@ jQuery(document).ready(function () {
              align: 'center',
              valign: 'middle',
              sortable: false,
+             visible:false,
              formatter: function (value) {
                  var desc;
                  if (value) {

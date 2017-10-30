@@ -22,9 +22,13 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     List<SysDeptVo> selectVoPage(Page<SysDeptVo> page, Map<String, Object> paramMap);
 
+    List<SysDeptVo> selectBaseVoPage(Page<SysDeptVo> page, Map<String, Object> paramMap);
+
     SysDeptVo selectVoById(String id);
 
     int selectVoCount(Map<String, Object> paramMap);
+
+    int selectBaseVoCount(Map<String, Object> paramMap);
 
     List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
 

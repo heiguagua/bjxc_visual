@@ -1,13 +1,17 @@
 package com.chinawiserv.dsp.base.controller.system;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
 //import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 //import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
+import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +43,9 @@ public class SysDeptAuthorityController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
+    private ISysDeptService sysDeptService;
+
+    @Autowired
     private ISysDeptAuthorityService service;
 
     @Autowired
@@ -49,6 +56,25 @@ public class SysDeptAuthorityController extends BaseController {
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
     	return "system/deptAuthority/deptAuthorityList";
+    }
+
+    /**
+     * 分页查询组织机构
+     */
+    @RequiresPermissions("system:dept:list")
+    @RequestMapping("/list")
+    @ResponseBody
+    public PageResult list(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            paramMap.put("excludeRoot", "1");
+            Page<SysDeptVo> page = sysDeptService.selectBaseVoPage(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询组织机构出错");
+            logger.error("分页查询组织机构出错", e);
+        }
+        return pageResult;
     }
 
     /**

@@ -117,8 +117,15 @@
 		LEFT JOIN sys_region r ON t.region_code = r.region_code
 		left join dir_classify_dept_map d on t.id = d.dept_id
 	</sql>
+	<sql id="simpleSelectVo">
+		SELECT t.* FROM sys_dept t
+	</sql>
 	<select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
 		<include refid="baseSelectVo"></include>
+		<include refid="queryConditions"></include>
+	</select>
+	<select id="selectBaseVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
+		<include refid="simpleSelectVo"></include>
 		<include refid="queryConditions"></include>
 	</select>
 
@@ -128,6 +135,10 @@
 
 	<select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
 		SELECT count(1) FROM sys_dept t  LEFT JOIN sys_region r on t.region_code = r.region_code
+		<include refid="queryConditions"></include>
+	</select>
+	<select id="selectBaseVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(1) FROM sys_dept t
 		<include refid="queryConditions"></include>
 	</select>
 

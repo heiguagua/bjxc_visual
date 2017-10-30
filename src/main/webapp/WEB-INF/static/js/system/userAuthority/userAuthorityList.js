@@ -27,6 +27,7 @@ jQuery(document).ready(function () {
             align: 'center',
             valign: 'middle',
             sortable: false,
+            visible:false,
             formatter: function (value) {
                 var ret = '';
                 if (value === 1) {
@@ -41,7 +42,8 @@ jQuery(document).ready(function () {
                 title: '描述',
                 align: 'center',
                 valign: 'middle',
-                sortable: false
+                sortable: false,
+                visible:false
         }, {
                 field: 'regionName',
                 title: '区域名称',
@@ -75,13 +77,15 @@ jQuery(document).ready(function () {
                 title: '电话号码',
                 align: 'center',
                 valign: 'middle',
-                sortable: false
+                sortable: false,
+                visible:false
             }, {
                 field: 'cellPhoneNumber',
                 title: '手机号码',
                 align: 'center',
                 valign: 'middle',
-                sortable: false
+                sortable: false,
+                visible:false
             },
             {
                 field: 'createName',
@@ -90,8 +94,8 @@ jQuery(document).ready(function () {
                 valign: 'middle',
                 sortable: false
             }, {
-                field: 'createTime',
-                title: '创建用户时间',
+                field: 'updateTime',
+                title: '更新时间',
                 align: 'center',
                 valign: 'middle',
                 width: '160',

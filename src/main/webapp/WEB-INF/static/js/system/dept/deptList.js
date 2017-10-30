@@ -37,9 +37,10 @@ jQuery(document).ready(function () {
             title: '组织机构名称',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            visible:false
         }, {
-            field: 'deptAlias',
+            field: 'deptShortName',
             title: '组织机构简称',
             align: 'center',
             valign: 'middle',
@@ -51,8 +52,26 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
+            field: 'regionName',
+            title: '所属行政区域',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        }, {
             field: 'fname',
             title: '上级组织机构名称',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        }, {
+            field: 'cNum',
+            title: '下级机构数量',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        }, {
+            field: 'updateTime',
+            title: '更新时间',
             align: 'center',
             valign: 'middle',
             sortable: false
@@ -62,6 +81,7 @@ jQuery(document).ready(function () {
             align: 'center',
             valign: 'middle',
             sortable: false,
+            visible:false,
             formatter: function (value) {
                 var desc;
                 if (value) {
@@ -79,13 +99,15 @@ jQuery(document).ready(function () {
             title: '联系电话',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            visible:false
         }, {
             field: 'deptAddress',
             title: '地址',
             align: 'center',
             valign: 'middle',
             sortable: false,
+            visible:false,
             formatter: function (value) {
                 var desc;
                 if (value) {
@@ -105,6 +127,7 @@ jQuery(document).ready(function () {
              align: 'center',
              valign: 'middle',
              sortable: false,
+             visible:false,
              formatter: function (value) {
                  var desc;
                  if (value) {
@@ -123,6 +146,7 @@ jQuery(document).ready(function () {
             align: 'center',
             valign: 'middle',
             sortable: false,
+            visible:false,
             formatter : function (value){
                 if(value == '0'){
                 	return "否";                	
@@ -139,8 +163,10 @@ jQuery(document).ready(function () {
             width: '20%',
             formatter : function (value) {
                 var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:allotDept(\"" + value + "\")'><i class='fa fa-chain'></i>创建下级</a>";
+                var showBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:showDept(\"" + value + "\")'><i class='fa fa-chain'></i>查看下级</a>";
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editDept(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                 var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteDept(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
+            // return allotBtn + OPERATION_SEPARATOR + showBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR +  deleteBtn  ;
             return allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR +  deleteBtn  ;
             }
         }],
@@ -188,6 +214,9 @@ function addDept() {
 }
 
 function allotDept(id) {
+    update('创建下级组织机构',basePathJS + '/system/dept/allot', id);
+}
+function showDept(id) {
     update('创建下级组织机构',basePathJS + '/system/dept/allot', id);
 }
 

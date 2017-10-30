@@ -21,6 +21,8 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 
     Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception;
 
+    Page<SysDeptVo> selectBaseVoPage(Map<String, Object> paramMap) throws Exception;
+
     SysDeptVo selectVoById(String id) throws Exception;
 
     JSONObject checkDeptName(String deptName, String fname, String deptId) throws Exception;

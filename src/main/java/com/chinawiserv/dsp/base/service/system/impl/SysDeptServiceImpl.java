@@ -83,6 +83,22 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
+    public Page<SysDeptVo> selectBaseVoPage(Map<String, Object> paramMap) throws Exception {
+        Map<String, Object> param = this.getDeptCondition(null);
+        if (param != null && !param.isEmpty()) {
+            paramMap.putAll(param);
+            Page<SysDeptVo> page = getPage(paramMap);
+            page.setOrderByField("update_time");
+            page.setAsc(false);
+            List<SysDeptVo> sysDeptVos = sysDeptMapper.selectBaseVoPage(page, paramMap);
+            page.setTotal(sysDeptMapper.selectBaseVoCount(paramMap));
+            page.setRecords(sysDeptVos);
+            return page;
+        }
+        return getPage(paramMap);
+    }
+
+    @Override
     public SysDeptVo selectVoById(String id) throws Exception {
         return sysDeptMapper.selectVoById(id);
     }
