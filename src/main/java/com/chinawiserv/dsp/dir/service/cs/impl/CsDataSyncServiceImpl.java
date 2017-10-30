@@ -64,26 +64,28 @@ public class CsDataSyncServiceImpl implements ICsDataSyncService {
                 csDataSyncCollectMapper.insert(csDataSyncCollect);
             }
 
-            List<CsDataSyncCollectColumn> csDataSyncCollectBlockColumns = JSON.parseArray(jsonObject.get("columnDesc").toString(), CsDataSyncCollectColumn.class);
-            if (csDataSyncCollectBlockColumns != null && !csDataSyncCollectBlockColumns.isEmpty()) {
-                csDataSyncCollectBlockColumns.forEach(csDataSyncCollectBlockColumn -> {
-                            csDataSyncCollectBlockColumn.setTableId(csDataSyncCollect.getId());
-                            csDataSyncCollectColumnMapper.delete(
-                                    Condition.create().where("table_id = {0}", csDataSyncCollect.getId()).and("cloumn_name = {0}", csDataSyncCollectBlockColumn.getCloumnName()));
-                            csDataSyncCollectColumnMapper.insert(csDataSyncCollectBlockColumn);
-                        }
-                );
+            if (jsonObject.get("columnDesc") != null && !"".equals(jsonObject.get("columnDesc").toString())) {
+                List<CsDataSyncCollectColumn> csDataSyncCollectBlockColumns = JSON.parseArray(jsonObject.get("columnDesc").toString(), CsDataSyncCollectColumn.class);
+                if (csDataSyncCollectBlockColumns != null && !csDataSyncCollectBlockColumns.isEmpty()) {
+                    csDataSyncCollectBlockColumns.forEach(csDataSyncCollectBlockColumn -> {
+                                csDataSyncCollectBlockColumn.setTableId(csDataSyncCollect.getId());
+                                csDataSyncCollectColumnMapper.delete(
+                                        Condition.create().where("table_id = {0}", csDataSyncCollect.getId()).and("cloumn_name = {0}", csDataSyncCollectBlockColumn.getCloumnName()));
+                                csDataSyncCollectColumnMapper.insert(csDataSyncCollectBlockColumn);
+                            }
+                    );
+                }
             }
-
-            List<CsDataSyncCollectBlock> csDataSyncCollectBlocks = JSON.parseArray(jsonObject.get("tableWebsitBlockList").toString(), CsDataSyncCollectBlock.class);
-            if (csDataSyncCollectBlocks != null && !csDataSyncCollectBlocks.isEmpty()) {
-                csDataSyncCollectBlocks.forEach(csDataSyncCollectBlock -> {
-                    csDataSyncCollectBlockMapper.delete(
-                            Condition.create().where("table_id = {0}", csDataSyncCollect.getId()).and("block_url = {0}", csDataSyncCollectBlock.getBlockUrl()));
-                    csDataSyncCollectBlockMapper.insert(csDataSyncCollectBlock);
-                });
+            if (jsonObject.get("tableWebsitBlockList") != null && !"".equals(jsonObject.get("tableWebsitBlockList").toString())) {
+                List<CsDataSyncCollectBlock> csDataSyncCollectBlocks = JSON.parseArray(jsonObject.get("tableWebsitBlockList").toString(), CsDataSyncCollectBlock.class);
+                if (csDataSyncCollectBlocks != null && !csDataSyncCollectBlocks.isEmpty()) {
+                    csDataSyncCollectBlocks.forEach(csDataSyncCollectBlock -> {
+                        csDataSyncCollectBlockMapper.delete(
+                                Condition.create().where("table_id = {0}", csDataSyncCollect.getId()).and("block_url = {0}", csDataSyncCollectBlock.getBlockUrl()));
+                        csDataSyncCollectBlockMapper.insert(csDataSyncCollectBlock);
+                    });
+                }
             }
-
         } else if ("mapping".equals(type)) {
             //映射数据
             CsDataSyncMapping csDataSyncMapping = JSON.parseObject(jsonObject.toString(), CsDataSyncMapping.class);
@@ -106,14 +108,14 @@ public class CsDataSyncServiceImpl implements ICsDataSyncService {
                     csDataSyncMappingMapper.insert(csDataSyncMapping);
                 }
             }
-
-            List<CsDataSyncMappingProperty> csDataSyncMappingPropertys = JSON.parseArray(jsonObject.get("websitePropertyList").toString(), CsDataSyncMappingProperty.class);
-            csDataSyncMappingPropertyMapper.delete(
-                    Condition.create().where("conf_id = {0}", csDataSyncMapping.getId()));
-            csDataSyncMappingPropertys.forEach(csDataSyncMappingProperty ->
-                    csDataSyncMappingPropertyMapper.insert(csDataSyncMappingProperty)
-            );
-
+            if (jsonObject.get("websitePropertyList") != null && !"".equals(jsonObject.get("websitePropertyList").toString())) {
+                List<CsDataSyncMappingProperty> csDataSyncMappingPropertys = JSON.parseArray(jsonObject.get("websitePropertyList").toString(), CsDataSyncMappingProperty.class);
+                csDataSyncMappingPropertyMapper.delete(
+                        Condition.create().where("conf_id = {0}", csDataSyncMapping.getId()));
+                csDataSyncMappingPropertys.forEach(csDataSyncMappingProperty ->
+                        csDataSyncMappingPropertyMapper.insert(csDataSyncMappingProperty)
+                );
+            }
         }
         return 1;
     }

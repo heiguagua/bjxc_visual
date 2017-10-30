@@ -40,7 +40,7 @@ public class DirDataSyncApiController {
      * @return
      */
     @RequestMapping(value = "/sync", method = RequestMethod.POST)
-    public HandleResult syncData(@RequestParam Map<String, Object> param) {
+    public HandleResult syncData(@RequestParam(required = false) Map<String, Object> param) {
         HandleResult result = new HandleResult();
         String type = "";
         String data = "";
@@ -67,6 +67,7 @@ public class DirDataSyncApiController {
                     logger.warn(e.getMessage());
                     result.setState(false);
                     result.setMsg("数据同步失败," + e.getMessage());
+                    e.printStackTrace();
                 }
             }
         } else {

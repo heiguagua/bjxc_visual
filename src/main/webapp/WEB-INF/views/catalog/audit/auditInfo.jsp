@@ -21,11 +21,11 @@
                                 <div class="m-l-n-xxl">
                                 
                                 <div class="redio-box">
-                                    <input type="radio" name="status" value="3"><span></span>
+                                    <input type="radio" name="status" checked value="3"><span></span>
                                 </div>
                                 <label style="display: inline-block;" >通过</label>
                                 <div class="redio-box">
-                                    <input type="radio" name="status" checked value="2"><span></span>
+                                    <input type="radio" name="status"  value="2"><span></span>
                                 </div>
                                 <label style="display: inline-block;">不通过</label> 
                                 <!--  <label class="checkbox-inline i-checks"> <input
