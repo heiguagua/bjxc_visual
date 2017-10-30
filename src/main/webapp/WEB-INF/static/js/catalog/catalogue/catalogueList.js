@@ -307,6 +307,9 @@ function excelImportUI() {
     }
     detail('导入',basePathJS +'/catalog/catalogue/excelImportUI?classifyId='+ $('#searchClassifyId').val(),900,350,parent);
 }
+function excelDownloadUI() {
+    detail('模板下载',basePathJS +'/catalog/catalogue/excelDownloadUI',900,350,parent);
+}
 function checkClassfyId(searchClassifyId){
     if(searchClassifyId){
         return true;
