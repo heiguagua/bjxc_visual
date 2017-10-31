@@ -23,6 +23,8 @@ public class SysDeptVo extends SysDept {
     
     private String isSync;
 
+    private Long cNum;
+
     private List<SysDeptVo> childs;
 
     public String getValidateFromStr() {
@@ -84,5 +86,12 @@ public class SysDeptVo extends SysDept {
 	public void setIsSync(String isSync) {
 		this.isSync = isSync;
 	}
-        
+
+    public Long getcNum() {
+        return cNum;
+    }
+
+    public void setcNum(Long cNum) {
+        this.cNum = cNum;
+    }
 }
