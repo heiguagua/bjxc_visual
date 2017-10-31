@@ -249,79 +249,79 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         return sysDeptMapper.selectVoList(paramMap);
     }
     
-    @Override
-    public String insertIntoDir(Map<String, Object> params){
-    	
-    	
-    	String Ids = (String) params.get("dcmIds");
-    	String [] dcmIdArray = Ids.split(",");
-    	List<String> dcmIds = Arrays.asList(dcmIdArray);  
-    	
-    	String messageInfo = "";
-    	for (Iterator iterator = dcmIds.iterator(); iterator.hasNext();) {
-    		
-			String dcmId = (String) iterator.next();			
-			
-			if(dirClassifyMapper.selectMapByDeptId(dcmId)!= null){
-				
-				    messageInfo= "0";
-					break;
-					
-			}else if(dirClassifyMapper.selectBy23Region(sysDeptMapper.selectById(dcmId).getRegionCode())==null){
-					
-					messageInfo= "1";
-					break;
-					
-			}else if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))==null && !dirClassifyMapper.selectFidById(dcmId).equals("root") && !dirClassifyMapper.selectFidById(dirClassifyMapper.selectFidById(dcmId)).equals("root") ){
-					messageInfo= "2";
-					break;
-					
-			}else if(dirClassifyMapper.selectFidById(dcmId).equals("root")){
-					messageInfo= "3";
-					break;
-					
-			}else{	
-//					dirService.
-				String fid = "";
-				if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))!=null){
-					 fid = dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId)).getClassifyId();
-				}else{
-					 fid = dirClassifyMapper.selectBy3Region(sysDeptMapper.selectById(dcmId).getRegionCode()).getId();
-				}
-					SysDept sysDept = dirClassifyMapper.selectDeptById(dcmId);
-//					DirNationalClassifyVo dirNationalClassifyVo = mapper2.selectFclassify(fcode);
-			  		DirClassifyVo dirclassifyVo = new DirClassifyVo();
-			  		
-			  		dirclassifyVo.setClassifyName(sysDept.getDeptName());		  		
-			  		dirclassifyVo.setFid(fid);
-			  		
-			  		DirClassifyVo vo = dirService.prepareClassifyVo(dirclassifyVo);
-//				  		if(type.equals("2-1")){
-//				  			vo.setClassifyType("5");
-//				  		}else if(type.equals("2-2")){
-//				  			vo.setClassifyType("6");	
-//				  		}else if(type.equals("3")){
-//				  			vo.setClassifyType("7");
-//				  		}
-			  		vo.setClassifyType("7");
-			  		
-			  		dirClassifyMapper.baseInsert(vo);
-			  		
-			  		DirDeptMap d = new DirDeptMap();
-			  		d.setClassifyId(vo.getId());
-			  		d.setDeptId(dcmId);
-			  		d.setId(CommonUtil.get32UUID());
-			  		dirDeptMapMapper.baseInsert(d);
-			  		
-			  		messageInfo = "4";
-			  		
-			}
-			
-		}
-    	
-	    return messageInfo;
-    	
-    }
+//    @Override
+//    public String insertIntoDir(Map<String, Object> params){
+//
+//
+//    	String Ids = (String) params.get("dcmIds");
+//    	String [] dcmIdArray = Ids.split(",");
+//    	List<String> dcmIds = Arrays.asList(dcmIdArray);
+//
+//    	String messageInfo = "";
+//    	for (Iterator iterator = dcmIds.iterator(); iterator.hasNext();) {
+//
+//			String dcmId = (String) iterator.next();
+//
+//			if(dirClassifyMapper.selectMapByDeptId(dcmId)!= null){
+//
+//				    messageInfo= "0";
+//					break;
+//
+//			}else if(dirClassifyMapper.selectBy23Region(sysDeptMapper.selectById(dcmId).getRegionCode())==null){
+//
+//					messageInfo= "1";
+//					break;
+//
+//			}else if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))==null && !dirClassifyMapper.selectFidById(dcmId).equals("root") && !dirClassifyMapper.selectFidById(dirClassifyMapper.selectFidById(dcmId)).equals("root") ){
+//					messageInfo= "2";
+//					break;
+//
+//			}else if(dirClassifyMapper.selectFidById(dcmId).equals("root")){
+//					messageInfo= "3";
+//					break;
+//
+//			}else{
+////					dirService.
+//				String fid = "";
+//				if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))!=null){
+//					 fid = dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId)).getClassifyId();
+//				}else{
+//					 fid = dirClassifyMapper.selectBy3Region(sysDeptMapper.selectById(dcmId).getRegionCode()).getId();
+//				}
+//					SysDept sysDept = dirClassifyMapper.selectDeptById(dcmId);
+////					DirNationalClassifyVo dirNationalClassifyVo = mapper2.selectFclassify(fcode);
+//			  		DirClassifyVo dirclassifyVo = new DirClassifyVo();
+//
+//			  		dirclassifyVo.setClassifyName(sysDept.getDeptName());
+//			  		dirclassifyVo.setFid(fid);
+//
+//			  		DirClassifyVo vo = dirService.prepareClassifyVo(dirclassifyVo);
+////				  		if(type.equals("2-1")){
+////				  			vo.setClassifyType("5");
+////				  		}else if(type.equals("2-2")){
+////				  			vo.setClassifyType("6");
+////				  		}else if(type.equals("3")){
+////				  			vo.setClassifyType("7");
+////				  		}
+//			  		vo.setClassifyType("7");
+//
+//			  		dirClassifyMapper.baseInsert(vo);
+//
+//			  		DirDeptMap d = new DirDeptMap();
+//			  		d.setClassifyId(vo.getId());
+//			  		d.setDeptId(dcmId);
+//			  		d.setId(CommonUtil.get32UUID());
+//			  		dirDeptMapMapper.baseInsert(d);
+//
+//			  		messageInfo = "4";
+//
+//			}
+//
+//		}
+//
+//	    return messageInfo;
+//
+//    }
 
     @Override
     public boolean insertVO(SysDeptVo sysDeptVo) throws Exception {

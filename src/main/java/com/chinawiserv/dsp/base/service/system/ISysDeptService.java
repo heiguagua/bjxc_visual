@@ -41,7 +41,7 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 
     boolean isParentDept(String id);
     
-    String insertIntoDir(Map<String, Object> paramMap);
+//    String insertIntoDir(Map<String, Object> paramMap);
 
     List<SysDeptVo> selectDeptListLikeTreeCode(List<String> list);
 

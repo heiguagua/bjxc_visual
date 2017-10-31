@@ -10,7 +10,6 @@ jQuery(document).ready(function () {
 
 function intDict(param) {
     $("#tableList").html('<table id="systemDataDictTableId" class="table table-hover"></table>');
-
     $("#addDict2").addClass("hidden")
     $("#addDict1").removeClass("hidden")
     $("#back").addClass("hidden")
@@ -18,7 +17,6 @@ function intDict(param) {
     $("#searchDetail").addClass("hidden")
     "use strict";
     var paramsObj = param||{};
-
     jQuery("#systemDataDictTableId").customTable({
         url: basePathJS + '/sysDict/list',
         queryParams: function (params) {
@@ -199,7 +197,6 @@ function getDictDetails(categoryCode,dd,searchKey) {
 
 function addDetailDict() {
     var category = $("#category").val();
-    console.log(category)
     add('新增字典',basePathJS + '/sysDict/detailAdd?category='+category);
 }
 function editDictDetails(id) {
