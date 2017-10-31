@@ -58,6 +58,9 @@
         <if test="null != searchKey and '' != searchKey">
             AND dt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
         </if>
+        <if test="null != classifyId and '' != classifyId">
+            AND dc.`id` = #{classifyId}
+        </if>
         <choose>
             <when test="'admin' == userName">
                 AND 1=1
