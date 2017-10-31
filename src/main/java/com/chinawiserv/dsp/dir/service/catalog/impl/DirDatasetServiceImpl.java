@@ -794,7 +794,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     dirDatasetExtFormat.setId(CommonUtil.get32UUID());
                     dirDatasetExtFormat.setDatasetId(dataset.getId());
                     try {
-                        dirDatasetExtFormat.setFormatCategory(getDictCode(sysDictVoList, "resourceFormat","", row.getCell(6).getStringCellValue()));
+                        dirDatasetExtFormat.setFormatCategory(getDictCode(sysDictVoList, "resourceFormat",null, row.getCell(6).getStringCellValue()));
                     } catch (Exception e) {
 
                     }

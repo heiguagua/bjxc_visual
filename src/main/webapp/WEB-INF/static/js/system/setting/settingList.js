@@ -43,7 +43,8 @@ jQuery(document).ready(function () {
             title: '所属区域',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            visible:false
         },
             {
             field: 'settingDesc',
@@ -51,6 +52,7 @@ jQuery(document).ready(function () {
             align: 'center',
             valign: 'middle',
             sortable: false,
+            visible:false,
             formatter : function (value) {
                 var display = null;
                 if (value && value.length > 15){
@@ -65,7 +67,8 @@ jQuery(document).ready(function () {
             title: '状态',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            visible:false
         },
             {
                 field: 'createUserName',
@@ -79,14 +82,16 @@ jQuery(document).ready(function () {
                 title: '创建时间',
                 align: 'center',
                 valign: 'middle',
-                sortable: false
+                sortable: false,
+                visible:false
             },
             {
             field: 'updateUserName',
             title: '更新人',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            visible:false
         }, {
             field: 'updateTime',
             title: '更新时间',

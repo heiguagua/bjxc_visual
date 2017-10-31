@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/dept/deptList.js"></script>
+    <script src="<%=basePath%>/js/system/deptSyn/deptSynList.js"></script>
 
 </head>
 <style type="text/css">
@@ -20,7 +20,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    <small>系统管理 > 组织机构管理</small>
+                    <small>系统管理 > 组织机构同步</small>
                 </h1>
             </section>
             <!-- Main content -->
@@ -31,25 +31,12 @@
                         <div class="box">
                             <div class="form-inline">
                                 <div class="box-header">
-                                    <%--<#if permissions?seq_contains('addDept')>--%>
-                                        <div class="input-group">
-                                            <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:addDept()" id="createDeptA">
-                                                <img src="<%=basePath%>/images/userImg/addimg.png"/>
-                                                创建一级组织机构
-                                            </a>
-                                        </div>
-                                        <%--<div class="input-group">--%>
-                                            <%--<a class="btn btn-primary btn-flat btn-myself" onclick="javascript:syncDeptClassify()" id="sysDeptA">--%>
-                                                <%--<img src="<%=basePath%>/images/userImg/changeAdress.png"/>--%>
-                                                <%--同步目录--%>
-                                            <%--</a>--%>
-                                        <%--</div>--%>
-                                        <div class="input-group">
-                                            <a class="btn btn-default btn-flat  btn-myself  hidden" id="back" onclick="javascript:backPreDeptList()">
-                                                < 返回
-                                            </a>
-                                        </div>
-                                    <%--</#if>--%>
+                                    <div class="input-group">
+                                        <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:syncDeptClassify()" id="sysDeptA">
+                                            <img src="<%=basePath%>/images/userImg/changeAdress.png"/>
+                                            同步目录
+                                        </a>
+                                    </div>
                                     <div class="input-group pull-right">
                                         <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="组织机构名称" >
                                         <div class="input-group-btn">
@@ -61,7 +48,7 @@
                             </div>
 
                             <div class="box-body table-responsive" id="tableList">
-                                <table id="systemDeptTableId" class="table table-hover">
+                                <table id="systemDeptSynTableId" class="table table-hover">
 
                                 </table>
                             </div><!-- /.box-body -->

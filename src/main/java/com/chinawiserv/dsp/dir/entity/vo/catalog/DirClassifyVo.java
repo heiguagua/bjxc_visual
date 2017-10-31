@@ -10,6 +10,10 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
  * @author wuty
  * @since 2017-09-08
  */
+/**
+ * @author admin
+ *
+ */
 public class DirClassifyVo extends DirClassify{
 	
     /**
@@ -25,6 +29,7 @@ public class DirClassifyVo extends DirClassify{
     private String nationalClassifyName;
     private String isLocal;
     private String authorityNode;
+    private String leadDeptName;
     
     public String getHasLeaf() {
         return hasLeaf;
@@ -89,6 +94,16 @@ public class DirClassifyVo extends DirClassify{
     public void setAuthorityNode(String authorityNode) {
         this.authorityNode = authorityNode;
     }
+
+	public String getLeadDeptName() {
+		return leadDeptName;
+	}
+
+	public void setLeadDeptName(String leadDeptName) {
+		this.leadDeptName = leadDeptName;
+	}
+    
+    
 
 //	public static void main(String[] args) {
 //		

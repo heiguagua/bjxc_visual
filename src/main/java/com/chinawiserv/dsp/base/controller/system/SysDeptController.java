@@ -114,34 +114,34 @@ public class SysDeptController extends BaseController {
      * 同步组织机构到目录
      */
 //    @RequiresPermissions("")
-    @Log("同步组织机构到目录")
-    @RequestMapping("/doSycn")
-    @ResponseBody
-    public  HandleResult doSycn(@RequestParam String dcmIds){
-        HandleResult handleResult = new HandleResult();
-        try {
-            Map<String,Object> params = new HashMap<>();
-            params.put("dcmIds",dcmIds);
-            
-/*          params.put("publishType", Dataset.PublishType.ToAll.getKey());*/
-            String releaseResult = sysDeptService.insertIntoDir(params);
-            if(releaseResult.equals("0")){
-            	handleResult.success("同步完成,但存在已同步部门,请重新选择");            
-            }else if(releaseResult.equals("1")) {
-            	handleResult.success("同步完成,但存在没有对应区域目录部门库分类部门，无法同步到目录");
-            }else if(releaseResult.equals("2")) {
-            	handleResult.success("同步完成,但存在父级未同步部门，无法同步到目录");
-            }else if(releaseResult.equals("3")) {
-            	handleResult.success("同步完成,但存在不能同步部委到目录");
-            }else if(releaseResult.equals("4")) {
-            	 handleResult.success("同步成功");
-            }
-        } catch (Exception e) {
-            handleResult.error("部门同步到目录失败");
-            logger.error("部门同步到目录失败", e);
-        }
-        return handleResult;
-    }
+//    @Log("同步组织机构到目录")
+//    @RequestMapping("/doSycn")
+//    @ResponseBody
+//    public  HandleResult doSycn(@RequestParam String dcmIds){
+//        HandleResult handleResult = new HandleResult();
+//        try {
+//            Map<String,Object> params = new HashMap<>();
+//            params.put("dcmIds",dcmIds);
+//
+///*          params.put("publishType", Dataset.PublishType.ToAll.getKey());*/
+//            String releaseResult = sysDeptService.insertIntoDir(params);
+//            if(releaseResult.equals("0")){
+//            	handleResult.success("同步完成,但存在已同步部门,请重新选择");
+//            }else if(releaseResult.equals("1")) {
+//            	handleResult.success("同步完成,但存在没有对应区域目录部门库分类部门，无法同步到目录");
+//            }else if(releaseResult.equals("2")) {
+//            	handleResult.success("同步完成,但存在父级未同步部门，无法同步到目录");
+//            }else if(releaseResult.equals("3")) {
+//            	handleResult.success("同步完成,但存在不能同步部委到目录");
+//            }else if(releaseResult.equals("4")) {
+//            	 handleResult.success("同步成功");
+//            }
+//        } catch (Exception e) {
+//            handleResult.error("部门同步到目录失败");
+//            logger.error("部门同步到目录失败", e);
+//        }
+//        return handleResult;
+//    }
     
     
     
@@ -247,6 +247,27 @@ public class SysDeptController extends BaseController {
     public HandleResult getDeptSelectDataList(@RequestParam Map<String, Object> paramMap) {
         HandleResult handleResult = new HandleResult();
         try {
+            List<SysDeptVo> result = sysDeptService.getDeptSelectDataList(paramMap);
+            handleResult.put("selectData", result);
+        } catch (Exception e) {
+            handleResult.error("获取组织机构列表失败");
+            logger.error("获取组织机构列表失败", e);
+        }
+        return handleResult;
+    }
+    
+    /**
+     * 组织机构的下拉数据
+     * @param paramMap
+     * @return
+     */
+    @RequestMapping("/getDeptSelectDataListForLeadDept")
+    @ResponseBody
+    public HandleResult getDeptSelectDataListForLeadDept(@RequestParam Map<String, Object> paramMap) {
+        HandleResult handleResult = new HandleResult();
+        try {
+        	String regionCode = ShiroUtils.getLoginUser().getRegionCode();
+        	paramMap.put("regionCode", regionCode);
             List<SysDeptVo> result = sysDeptService.getDeptSelectDataList(paramMap);
             handleResult.put("selectData", result);
         } catch (Exception e) {

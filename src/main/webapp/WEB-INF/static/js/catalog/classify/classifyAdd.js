@@ -35,6 +35,7 @@ function initAllSelect(){
 	
 function initSelectData() {
 	$.initDeptTreeSelect('treeDemo','deptName','deptId','menuContent');
+	$.initDeptTreeSelectForLeadDept('treeDemo21','leadDeptName','leadDeptId','menuContent21');
     initUserTypeList();
     
 //    initDeptSelectDataList();
@@ -66,6 +67,7 @@ function checkDep(fid){
                 	var ss = vo.classifyStructureName;
 					if(ss.substr(0,10)=='政务部门信息资源目录'){
 						 $("#deptGroup").removeClass('hidden');
+						 $("#deptGroupLead").removeClass('hidden');
 						 $("#fname").val(vo.classifyName);
 						 
 					}else{

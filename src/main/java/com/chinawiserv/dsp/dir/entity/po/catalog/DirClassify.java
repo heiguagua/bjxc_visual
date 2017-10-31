@@ -119,6 +119,9 @@ public class DirClassify implements Serializable {
 	@TableField("national_code")
 	private String nationalCode;
 	
+	@TableField("lead_dept_id")
+	private String leadDeptId;
+	
 	
 	public String getId() {
 		return id;
@@ -303,6 +306,16 @@ public class DirClassify implements Serializable {
 	public void setNationalCode(String nationalCode) {
 		this.nationalCode = nationalCode;
 	}
+
+	public String getLeadDeptId() {
+		return leadDeptId;
+	}
+
+	public void setLeadDeptId(String leadDeptId) {
+		this.leadDeptId = leadDeptId;
+	}
+	
+	
 	
 	
 	

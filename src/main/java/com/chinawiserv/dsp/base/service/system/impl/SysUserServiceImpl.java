@@ -109,6 +109,7 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     @Override
     public boolean updateVO(SysUserVo sysUserVo) throws Exception {
         //更新用户
+        sysUserVo.setUpdateTime(new Date());
         userMapper.updateById(sysUserVo);
         String userId = sysUserVo.getId();
         String[] roleIds = sysUserVo.getRoleIds();

@@ -87,7 +87,20 @@
 			                </div>
                         	<div class="form-group">
 			                    <div class="row">
-			                        
+			                        <div class="col-sm-6 hidden" id="deptGroupLead">
+			                            <label  class="col-sm-3 control-label" for="leadDeptName">牵头部门</label>
+			                            <div class="col-sm-9">
+			                                <input type="text" id="leadDeptName" required="required"
+                                           data-parsley-required-message="该项为必填" class="form-control">
+                                    <input type="hidden" id="leadDeptId" name="leadDeptId">
+                                    <div class="menu-wrap">
+                                        <div id="menuContent21" class="menuContent" style="display:none;">
+                                            <ul id="treeDemo21" class="ztree"
+                                                style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                        </div>
+                                    </div>
+			                            </div>
+			                        </div>
 			                        <div class="col-sm-6">
 			                            <label  class="col-sm-3 control-label" for="orderNumber">排序号*</label>
 			                            <div class="col-sm-9">
@@ -95,6 +108,7 @@
                                        placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=basePath%>/dirClassify/CheckOrderNumber)">
 			                            </div>
 			                        </div>
+			                        
 			                        <!-- <div class="col-sm-6" >
 			                            <label  class="col-sm-3 control-label"  for="icon">目录类别*</label>
 			                            <div class="col-sm-9">
@@ -130,6 +144,9 @@
                                     </div>
 			                            </div>
 			                        </div>
+			                        
+			                        
+			                        
 			                    </div>
 			                </div>
 			                

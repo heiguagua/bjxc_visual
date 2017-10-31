@@ -2269,6 +2269,182 @@ function initGlobalCustom(tempUrlPrefix) {
                 $.fn.zTree.init($("#" + treeDomId), setting);
             }
         },
+        
+        /**
+        *
+        * 获取组织机构的下拉树对象
+        * @param treeDomId         ztree对象的id
+        * @param nameInputDomId    显示选中目录类别的名称的input框的id
+        * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
+        * @param treeDivDomId      树形展开区域的DIV的id
+        * @param multiple          复选还是单选
+        * @param param             异步加载url参数
+        * @param selects           初始化选中值
+        * @param canOrNotSelectIds 指定节点可选择
+        * @param canNotSelectIds   指定节点不可选择
+        */
+       initDeptTreeSelectForLeadDept: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects, canSelectIds, canNotSelectIds) {
+           var chkStyle = multiple ? "checkbox" : "radio";
+           if(!param || typeof param != 'object') param = {};
+           if(!selects || !$.isArray(selects)) selects = [];
+           if(!canSelectIds || !$.isArray(canSelectIds)) canSelectIds = [];
+           if(!canNotSelectIds || !$.isArray(canNotSelectIds)) canNotSelectIds = [];
+           var selectIds = [];
+           if(selects.length > 0){
+               for(var i in selects){
+                   var select = selects[i];
+                   if(select.id){
+                       selectIds.push(select.id);
+                   }
+               }
+           }
+           var setting = {
+               async: {
+                   enable: true,
+                   url: basePathJS + "/system/dept/getDeptSelectDataListForLeadDept",
+                   autoParam: ["id"],
+                   otherParam: param,
+                   dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
+                       var params = [];
+                       var nodeObjs = childNodes.content.selectData;
+                       if (!nodeObjs) {
+                           return null;
+                       }
+                       for (var i in nodeObjs) {
+                           var nocheck = nodeObjs[i].deptLevel == 1;
+                           if(!nocheck){
+                               if(canSelectIds.length > 0){
+                                   if(nodeObjs[i].deptLevel == 2){
+                                       nocheck = canSelectIds.indexOf(nodeObjs[i].id) < 0;
+                                   }else if(nodeObjs[i].deptLevel > 2){
+                                       nocheck = canSelectIds.indexOf(nodeObjs[i].fid) < 0;
+                                       if(nocheck){
+                                           nocheck = canSelectIds.indexOf(nodeObjs[i].id) < 0;
+                                       }
+                                   }
+                               }
+                               if(canNotSelectIds.length > 0){
+                                   if(nodeObjs[i].deptLevel == 2){
+                                       nocheck = canNotSelectIds.indexOf(nodeObjs[i].id) >= 0;
+                                   }else if(nodeObjs[i].deptLevel > 2){
+                                       nocheck = canNotSelectIds.indexOf(nodeObjs[i].fid) >= 0;
+                                       if(!nocheck){
+                                           nocheck = canNotSelectIds.indexOf(nodeObjs[i].id) >= 0;
+                                       }
+                                   }
+                               }
+                           }
+                           params[i] = {
+                               'id': nodeObjs[i].id,
+                               'name': nodeObjs[i].deptName,
+                               'fid': nodeObjs[i].fid,
+                               'checked': selectIds.indexOf(nodeObjs[i].id) >= 0,
+                               'isParent': (nodeObjs[i].isLeaf ? false : true),
+                               'nocheck': nocheck
+                           }
+                       }
+                       return params;
+                   }
+               },
+               check: {enable: true,chkStyle: chkStyle,chkboxType: { "Y":"ps","N":"ps"}},
+               callback: {
+                   beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+                       var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
+                       if (treeNode.isParent) {
+                           if (treeNode.open) {
+                               zTreeObj.expandNode(treeNode, false);
+                           } else {
+                               zTreeObj.expandNode(treeNode, true);
+                           }
+                           return false;
+                       } else {
+                           return true;
+                       }
+                   },
+                   onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的名称，显示到输入框中
+                       var ids = [], names = [];
+                       if(multiple){
+                           var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId), selectNodes = zTreeObj.getCheckedNodes(true)
+                           var resultList = [];
+                           if(!treeNode.checked){
+                               for(var i in selects){
+                                   if(treeNode.id == selects[i].id){
+                                       delete selects[i];
+                                       var selectIdIndex = selectIds.indexOf(treeNode.id);
+                                       if(selectIdIndex >= 0){
+                                           delete selectIds[selectIdIndex];
+                                       }
+                                       break;
+                                   }
+                               }
+                           }
+                           var tempList = selects.slice();
+                           for(var i in selectNodes){
+                               var node = selectNodes[i];
+                               if(node.check_Child_State!=1 && selectIds.indexOf(node.id) < 0){
+                                   tempList.push({id: node.id, fid: node.fid, name: node.name})
+                               }
+                           }
+                           if(tempList.length > 0){
+                               for(var i in tempList){
+                                   var flag = false;
+                                   var tempNode = tempList[i];
+                                   for(var j in tempList){
+                                       if(tempNode.fid == tempList[j].id){
+                                           flag = true;
+                                           break;
+                                       }
+                                   }
+                                   if(!flag){
+                                       resultList.push(tempNode);
+                                   }
+                               }
+                           }
+                           for(var i in resultList){
+                               var selectedNode = resultList[i];
+                               var id = selectedNode.id;
+                               var name = selectedNode.name;
+                               if(id && name){
+                                   ids.push(id);
+                                   names.push(name);
+                               }
+                           }
+                       }else{
+                           var id = treeNode.id;
+                           var name = treeNode.name;
+                           if(id && name){
+                               ids.push(id);
+                               names.push(name);
+                           }
+                       }
+                       $('#' + codeInputDomId).val(ids.join(","));
+                       if(nameInputDomId){
+                           $('#' + nameInputDomId).val(names.join(","));
+                       }
+                   }
+               }
+           };
+           if(nameInputDomId){
+               $('#' + nameInputDomId).click(function () {
+                   $.fn.zTree.init($("#" + treeDomId), setting);
+                   var cityOffset = $("#" + nameInputDomId).offset();
+                   $("#" + treeDivDomId).css({
+                       left: cityOffset.left + "px",
+                       top: cityOffset.top + $("#" + nameInputDomId).outerHeight() + "px"
+                   }).slideDown("fast");
+                   $("body").bind("mousedown", function (event) {
+                       if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#" + treeDivDomId).length > 0)) {
+                           $("#" + treeDivDomId).fadeOut("fast");
+                           $("body").unbind("mousedown");
+                       }
+                   });
+               })
+           }else{
+               $.fn.zTree.init($("#" + treeDomId), setting);
+           }
+       },
+        
+        
 
         /**
          * 用户管理
