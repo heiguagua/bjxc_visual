@@ -192,7 +192,7 @@ public class ApiServiceImpl implements IApiService {
                     String classifyId = (String) serviceInfo.get("classifyId");
                     String serviceInfoParams = "";
                     try {
-                        serviceInfoParams = "field_description=" + serviceInfo.get("serviceInfoParams").toString();
+                        serviceInfoParams = serviceInfo.get("serviceInfoParams").toString();
                     } catch (Exception e) {
                         serviceInfoParams = "";
                     }
@@ -581,7 +581,6 @@ public class ApiServiceImpl implements IApiService {
                 handleResult.setState(false);
             }
         }
-
 
         return handleResult;
     }
