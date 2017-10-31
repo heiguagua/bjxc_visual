@@ -146,7 +146,7 @@ DELIMITER ;
 -- call del_idx('dsp_dir','drap_requirement_resources','Index_draprequirementresources_docid');
 -- call del_idx('dsp_dir','drap_system_use_dept','Index_drapsystemusedept_systemid');
 -- call del_idx('dsp_dir','drap_system_use_dept','Index_drapsystemusedept_deptid');
--- call del_idx('dsp_dir','drap_system_use_info','Index_drapsystemuseinfo_infosystemid');
+-- -- call del_idx('dsp_dir','drap_system_use_info','Index_drapsystemuseinfo_infosystemid');
 
 
 
@@ -275,4 +275,4 @@ ALTER TABLE drap_requirement_resources ADD INDEX Index_draprequirementresources_
 ALTER TABLE drap_requirement_resources ADD INDEX Index_draprequirementresources_docid (doc_id);
 ALTER TABLE drap_system_use_dept ADD INDEX Index_drapsystemusedept_systemid (system_id);
 ALTER TABLE drap_system_use_dept ADD INDEX Index_drapsystemusedept_deptid (dept_id);
-ALTER TABLE drap_system_use_info ADD INDEX Index_drapsystemuseinfo_infosystemid (info_system_id);
+-- ALTER TABLE drap_system_use_info ADD INDEX Index_drapsystemuseinfo_infosystemid (info_system_id);

@@ -284,11 +284,11 @@ INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('141','','dbCategory','1','关系型数据库',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('142','','dbCategory','2','普通文件系统',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('af2a88cbf7fb4c629d6e7f331fb2a7ed','','dbCategory','3','非关系型数据库',NULL,NULL,NULL,NULL,1);
-INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('143','','dbType','1','MYSQL',NULL,NULL,NULL,NULL,1);
-INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('144','','dbType','2','SQLSERVER',NULL,NULL,NULL,NULL,1);
-INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('145','','dbType','3','ORACLE',NULL,NULL,NULL,NULL,1);
-INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('146','','dbType','4','ACCESS',NULL,NULL,NULL,NULL,1);
-INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('c1b63b7d0e0a470bbd926e68d6e6cb2a','','dbType','1','MONGODB',NULL,'af2a88cbf7fb4c629d6e7f331fb2a7ed',NULL,NULL,1);
+INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('143','','dbType','1','MYSQL',NULL,'141',NULL,NULL,1);
+INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('144','','dbType','2','SQLSERVER',NULL,'141',NULL,NULL,1);
+INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('145','','dbType','3','ORACLE',NULL,'141',NULL,NULL,1);
+INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('146','','dbType','4','ACCESS',NULL,'141',NULL,NULL,1);
+INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('c1b63b7d0e0a470bbd926e68d6e6cb2a','','dbType','5','MONGODB',NULL,'af2a88cbf7fb4c629d6e7f331fb2a7ed',NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('3121b4ee-afcc-11e7-b780-000c2909b055','','dirClassifyCategory','1','行政区域数据',NULL,'',1,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('3122954d-afcc-11e7-b780-000c2909b055','','dirClassifyCategory','2-1','分类（基础库 ）',NULL,'',2,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('3122954d-afcc-11e7-b780-000c2909b056','','dirClassifyCategory','2-2','分类（主题库 ）',NULL,'',3,NULL,1);

@@ -181,6 +181,17 @@
 -- from dir_classify where region_code = '510100' and classify_type in ('5','6','7')
 --  order by classify_type,classify_level,fid,order_number;
 -- 以上为基础数据，以下为业务数据，需要转的
+-- 现场的用户数据
+delete from sys_user;
+delete from sys_user_role;
+insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status)
+		select uuid,region_code,(select o.uuid from rz_dir.dir_organize o where o.org_code=t.organize_code), '1',login_name,user_name,`password`,status
+		from rz_dir.DIR_USER t;
+update sys_user set region_code = '510100' where region_code is null or region_code = '';
+insert into sys_user_role(id,user_id,role_id)
+    select REPLACE(uuid(),'-',''),id,(select id from sys_role where role_name='超级管理员')
+    from sys_user where user_name in ('admin','sysadmin');
+
 
 	-- 目录系统的信息资源（数据集）
 	delete from dir_dataset;
@@ -219,6 +230,11 @@
 	from rz_dir.dir_lists_datasetmap t;
 	update dir_dataset_classify_map t set rel_flag = '1' where t.classify_id in (select id from dir_classify where classify_type = '7' and region_code = '510100');
 
+
+-- 数据集来源信息(new)
+delete from dir_dataitem_source_info;
+
+
 	-- 目录注册、审核、发布、下架表
 	delete from dir_data_registe;
 	delete from dir_data_audit;
@@ -232,6 +248,32 @@
 	insert into dir_data_publish (id,dcm_id,publisher_id,publish_date,publish_type)		-- ???
 		select REPLACE(uuid(),'-',''),uuid,(select id from sys_user where user_name = 'admin'),null,release_status from rz_dir.dir_lists_datasetmap;	-- ???
 	-- 下架表怎么取 ？？？？
+
+
+-- 数据访问记录(new)
+delete from dir_data_visit;
+insert into dir_data_visit (id,obj_type,obj_id,visitor_id,visit_ip,visit_date)
+		select id,type,resource_id,visitor_id,null,visit_time
+		from rz_dir.PORTAL_RESOURCE_VISIT_LOG;
+
+-- 数据集权限申请记录(new)
+delete from dir_data_item_apply;
+delete from dir_data_apply;
+  --  status值需要再确认 ？
+insert into dir_data_apply(id,dcm_id,applicant_id,apply_info,apply_date,limit_visit_cnt,
+				limit_visit_date_period,auditor_id,
+				status,audit_visit_cnt,audit_visit_date_period,audit_opinion,audit_date)
+		select  uuid(),m.uuid,t.applicant_id,null as apply_info,t.apply_datetime,0,null as limit_period,t.audit_user_id,'1' as status,
+			0,null as audit_period,null,t.last_update_datetime as audit_time
+		from rz_dir.DIR_DATAITEM_APPLYINFO t left join rz_dir.dir_lists_datasetmap m on t.set_code=m.set_code
+		group by m.uuid,t.applicant_id,t.apply_datetime		order by m.uuid ;
+
+ -- status ? 需要再确认
+insert into dir_data_item_apply (id,data_apply_id,item_id,status)
+		select uuid(),(select a.id from dir_data_apply a
+							where a.applicant_id = t.applicant_id and a.dcm_id = m.uuid  ) as data_apply_id,
+				(select uuid from rz_dir.dir_dataitem a where a.item_code = t.item_code) as item_id,status
+		from rz_dir.DIR_DATAITEM_APPLYINFO t left join rz_dir.dir_lists_datasetmap m on t.set_code=m.set_code  ;
 
 
 	-- 数据纠错、收藏、浏览、评分、评论表
@@ -255,6 +297,8 @@
 		from rz_dir.USER_RATING_DATASET t;
 
 
+
+
 -- 其他门户相关信息表
 	delete from dir_news;
 	delete from dir_policy;
@@ -262,6 +306,7 @@
 	delete from dir_develop_apis;
 	delete from dir_suggestion;
 	delete from dir_regist_user;
+
 
 	-- 新闻表
 	insert into dir_news(id,region_code,title,news_pic,pic_name,pic_type,pic_order,pic_size,news_content,publisher,publish_date,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
@@ -334,6 +379,24 @@
 		select
 			id,system_id,activity_id
 		from rz_dir.ACTIVITY_SYSTEM_MAP  t;
+--
+-- -- 资料相关表 ??? 资料的名称怎么来的，怎么会有那么长？
+--  delete from drap_business_doc;
+--  insert into drap_business_doc (id,region_code,belong_dept,source_type,doc_code,doc_name,doc_desc,category,doc_sample,
+-- 				sync_flag,template_flag,code_index,status,create_user,create_time,update_user,update_time,delete_flag)
+--  		select
+-- 				id,'510100',null as belong_dept,null as source_type,doc_code,doc_name,doc_desc,category,null as doc_sample,
+-- 				null as sync_flag, template_flag,0 as code_index,3 as status,create_user,create_time,update_user,update_time,0 as delete_flag
+-- -- 		select *
+-- 		from rz_dir.BUSINESS_DOC  t ;
+-- -- 		 order by length(doc_name) desc
+-- -- 	业务活动关联资料表
+--  	delete from drap_activity_doc_map;
+--  	insert into drap_activity_doc_map(id,activity_id,doc_id,doc_io_type)
+-- 		select
+-- 				id,activity_id,doc_id,doc_io_type
+-- 		from rz_dir.ACTIVITY_DOC_MAP t;
+
 
 	-- 数据集
 	delete from drap_dataset;
@@ -406,11 +469,11 @@
 			id,system_id,dep_id
 		from rz_dir.SYSTEM_USE_DEP  t;
 	-- 	信息系统使用信息
-	delete from drap_system_use_info;
-	insert into drap_system_use_info(id,info_system_id,visit_url,username,password,belong_dept,start_use_date,use_frequence,key_business,code_index)
-		select
-			id,info_system_id,visit_url,username,password,belong_dep,start_use_date,use_frequence,key_business,code_index
-		from rz_dir.SYSTEM_USE_INFO t;
+-- 	delete from drap_system_use_info;
+-- 	insert into drap_system_use_info(id,info_system_id,visit_url,username,password,belong_dept,start_use_date,use_frequence,key_business,code_index)
+-- 		select
+-- 			id,info_system_id,visit_url,username,password,belong_dep,start_use_date,use_frequence,key_business,code_index
+-- 		from rz_dir.SYSTEM_USE_INFO t;
 
 	-- 	数据库业务系统关系表
 	delete from drap_db_system_map;
@@ -457,6 +520,12 @@
 			column_type,sensitive_remark,update_frequency,column_desc,data_precision,code_index
 		from rz_dir.Dictionary_table_column  t;
 
+-- 梳理的数据集与数据表的关系
+delete from drap_data_column_map;
+insert into drap_data_column_map (id,dataset_id,business_item_id,system_column_id,info_system_id,db_id,table_id)
+		select
+			id,BUSINESS_DATASET_ID,business_item_id,system_column_id,info_system_id,db_info_id,table_info_id
+		from rz_dir.DATA_COLUMN_MAP t;
 
 
 	-- 	业务资源需求表
