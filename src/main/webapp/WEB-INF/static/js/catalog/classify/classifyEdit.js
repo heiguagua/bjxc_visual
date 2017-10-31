@@ -49,10 +49,17 @@ function initFormerDate(classifyId) {
 
                     $("#Eclassify_name").val(vo.classifyName);
 //                    if(vo.deptId == "" || vo.deptId==undefined){
-//                    	 $("#Edep").addClass('hidden');
+//                    	 
 //                    }else{
 //                    	$("#Edep").removeClass('hidden');
 //                    }
+                    
+                    var ss = vo.classifyStructureName;
+					if(ss.substr(0,10)=='政务部门信息资源目录'){
+						$("#Edep").removeClass('hidden');						 
+					}else{
+						$("#Edep").addClass('hidden');						
+					}
                     $("#deptName").val(vo.deptName);
                     $("#Eorder_number").val(vo.orderNumber);
                     $("#deptId").val(vo.deptId);
