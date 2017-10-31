@@ -80,4 +80,5 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
 
     public String selectClassifyByStructrue(@Param("structure") String structure);
 
+    void updateDcmIndexbyId(String id);
 }

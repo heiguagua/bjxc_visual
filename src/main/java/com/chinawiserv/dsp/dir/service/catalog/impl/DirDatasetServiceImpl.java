@@ -865,7 +865,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     datasetmap.setDeleteFlag(0);
                     datasetmap.setUpdateTime(new Date());
                     datamapList.add(datasetmap);
-                    dirClassifyMapper.updateClassifyIndexbyFid(classifyId);
+                    dirClassifyMapper.updateDcmIndexbyId(classifyId);
 
                     //存放需要新增的数据集
                     datasetList.add(dataset);
