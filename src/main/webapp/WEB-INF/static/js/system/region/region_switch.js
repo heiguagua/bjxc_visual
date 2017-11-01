@@ -20,12 +20,12 @@ function initRegion(){
                     }
                 }
                 //添加内容
-                var htmlArray = new Array();
+                /*var htmlArray = new Array();
                 for(var i = 0 ; i <data.length;i++){
                     htmlArray.push("<li region_code="+data[i].regionCode+">"+data[i].regionName+"</li>");
                 }
                 $("#box1").html(htmlArray.join(""));
-                regionSwitch();
+                regionSwitch();*/
     		}
         },
         error: function(xhr) {
