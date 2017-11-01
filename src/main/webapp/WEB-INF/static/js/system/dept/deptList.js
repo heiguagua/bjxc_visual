@@ -37,9 +37,10 @@ jQuery(document).ready(function () {
             title: '组织机构名称',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            visible:false
         }, {
-            field: 'deptAlias',
+        	field: 'deptShortName',
             title: '组织机构简称',
             align: 'center',
             valign: 'middle',
@@ -57,11 +58,18 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
+            field: 'updateTime',
+            title: '更新时间',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        }, {
             field: 'deptContactMan',
             title: '联系人',
             align: 'center',
             valign: 'middle',
             sortable: false,
+            visible:false,
             formatter: function (value) {
                 var desc;
                 if (value) {
@@ -79,13 +87,15 @@ jQuery(document).ready(function () {
             title: '联系电话',
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            visible:false
         }, {
             field: 'deptAddress',
             title: '地址',
             align: 'center',
             valign: 'middle',
             sortable: false,
+            visible:false,
             formatter: function (value) {
                 var desc;
                 if (value) {
@@ -105,6 +115,7 @@ jQuery(document).ready(function () {
              align: 'center',
              valign: 'middle',
              sortable: false,
+             visible:false,
              formatter: function (value) {
                  var desc;
                  if (value) {
