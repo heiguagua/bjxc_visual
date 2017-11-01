@@ -150,7 +150,7 @@ function initTable(){
         }, {
             field: 'id',
             title: '操作',
-            width: '12%',
+            width: '120px',
             align: 'center',
             valign: 'middle',
             sortable: false,
