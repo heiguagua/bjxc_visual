@@ -3,7 +3,7 @@ var paramsObj = {};
 
 jQuery(document).ready(function () {
     initTable();
-    //initAllSelect();
+    initAllSelect();
     initButtonClickEvent();
 });
 
@@ -175,8 +175,8 @@ function initTable(){
 
 
 function initAllSelect(){
-    //目录类别下拉查询框
-    $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
+    //区域下拉查询框
+    $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode','searchRegionMenuContent',true);
 }
 
 
