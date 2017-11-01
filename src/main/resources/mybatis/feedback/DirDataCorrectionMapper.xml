@@ -36,7 +36,8 @@
         ddc.`dcm_id`,
         ddc.`correct_date`,
         dc.`classify_structure_name` AS classify_name,
-        dt.`dataset_name`
+        dt.`dataset_name`,
+        COUNT(ddc.`corrector_id`) AS corrector_count
         FROM
         (SELECT
         *

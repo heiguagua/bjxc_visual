@@ -283,6 +283,8 @@
             {field: 'classifyName', title: '评分目录'},
             {field: 'datasetName', title: '目录下数据集'},
             {field: 'rateDate', title: '最后评分时间'},
+            {field: 'raterCount', title: '评分人数'},
+            {field: 'avgRateScore', title: '平均分'},
             {
                 field: 'dcmId', title: '操作',
                 align: 'center',

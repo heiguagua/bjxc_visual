@@ -101,10 +101,6 @@ function runAfterSubmitSuccess(response) {
 function runAfterSubmit(response) {
     console.log("runAfterSubmit");
 }
-function createToken(){
-
-}
-
 
 $(function(){
     $("#createToken").click(function() {

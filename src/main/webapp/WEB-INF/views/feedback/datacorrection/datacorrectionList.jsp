@@ -282,6 +282,7 @@
             {field: 'classifyName', title: '纠错目录'},
             {field: 'datasetName', title: '目录下数据集'},
             {field: 'correctDate', title: '最后纠错时间'},
+            {field: 'correctorCount', title: '纠错人数'},
             {
                 field: 'dcmId', title: '操作',
                 align: 'center',

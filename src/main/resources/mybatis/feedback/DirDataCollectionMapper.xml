@@ -31,7 +31,8 @@
         ddc.`dcm_id`,
         ddc.`collect_date`,
         dc.`classify_structure_name` AS classify_name,
-        dt.`dataset_name`
+        dt.`dataset_name`,
+        COUNT(DISTINCT ddc.`collector_id`) AS collector_count
         FROM
         (SELECT
         *

@@ -59,7 +59,7 @@
                                 <label></label>
                                 <div class="form-group">
                                     <button type="button" class="btn btn_blue" id="createToken" disabled>
-                                        重新生成用户接口验证码
+                                        生成用户接口验证码
                                     </button>
                                 </div>
                             </div>
