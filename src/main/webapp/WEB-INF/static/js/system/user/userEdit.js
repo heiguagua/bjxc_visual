@@ -42,7 +42,11 @@ function initFormerDate(userId) {
             if (result.state) {
                 var user = result.content.user;
                 if(user){
-
+                    var token = user.token;
+                    $("#token").val(token);
+                    if(token==undefined || token=="" || token==null){
+                        $("#createToken").removeAttr("disabled");
+                    }
                     $("#userName").val(user.userName);
                     $("#realName").val(user.realName);
                     $("#userType").val(user.userType).trigger("change");
@@ -97,3 +101,25 @@ function runAfterSubmitSuccess(response) {
 function runAfterSubmit(response) {
     console.log("runAfterSubmit");
 }
+function createToken(){
+
+}
+
+
+$(function(){
+    $("#createToken").click(function() {
+        var id = $("#userId").val();
+        var userName = $("#userName").val();
+        $.commonAjax({
+            url: basePathJS + "/system/user/createToken",
+            data: {id:id,userName:userName},
+            success: function (result) {
+                if (result.state) {
+                    var token = result.content.token;
+                    $("#token").val(token);
+                    $("#createToken").attr("disabled","disabled");
+                }
+            }
+        });
+    });
+});
