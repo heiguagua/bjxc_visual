@@ -90,6 +90,11 @@ public class DirDatasetController extends BaseController {
         return "catalog/catalogue/excelImportUI";
     }
 
+    @RequestMapping("/catalogue/excelDownloadUI")
+    public  String excelDownloadUI(){
+        return "catalog/catalogue/excelDownloadUI";
+    }
+
     @RequestMapping("/catalogue")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -1158,6 +1163,43 @@ public class DirDatasetController extends BaseController {
                     }
                 }
             }
+        return null;
+    }
+    @RequestMapping("/downloadWithoutDir")
+    public String downloadWithoutDirFile(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        response.setContentType("application/force-download");// 设置强制下载不打开
+        response.addHeader("Content-Disposition",
+                "attachment;fileName=" + URLEncoder.encode("没有目录分类的模板.xlsx", "utf-8"));// 设置文件名
+        byte[] buffer = new byte[1024];
+        InputStream inputStream = null;
+        BufferedInputStream bis = null;
+        try {
+            inputStream = this.getClass().getClassLoader().getResource("/excelTemplate/excelTemplateWithOutDir.xlsx").openStream();
+            bis = new BufferedInputStream(inputStream);
+            OutputStream os = response.getOutputStream();
+            int i = bis.read(buffer);
+            while (i != -1) {
+                os.write(buffer, 0, i);
+                i = bis.read(buffer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return null;
     }
 }

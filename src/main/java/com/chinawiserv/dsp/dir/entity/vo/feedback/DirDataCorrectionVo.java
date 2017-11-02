@@ -29,6 +29,11 @@ public class DirDataCorrectionVo extends DirDataCorrection {
      * */
     private String auditorName;
 
+    /**
+     * 纠错人数
+     * */
+    private int correctorCount;
+
     public String getClassifyName() {
         return classifyName;
     }
@@ -59,5 +64,13 @@ public class DirDataCorrectionVo extends DirDataCorrection {
 
     public void setAuditorName(String auditorName) {
         this.auditorName = auditorName;
+    }
+
+    public int getCorrectorCount() {
+        return correctorCount;
+    }
+
+    public void setCorrectorCount(int correctorCount) {
+        this.correctorCount = correctorCount;
     }
 }

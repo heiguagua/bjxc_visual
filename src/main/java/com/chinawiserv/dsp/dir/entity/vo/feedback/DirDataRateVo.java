@@ -3,6 +3,8 @@ package com.chinawiserv.dsp.dir.entity.vo.feedback;
 
 import com.chinawiserv.dsp.dir.entity.po.feedback.DirDataRate;
 
+import java.math.BigDecimal;
+
 /**
  * <p>
  * 数据集评分记录 Vo对象
@@ -24,6 +26,16 @@ public class DirDataRateVo extends DirDataRate {
      * 评分者名称
      * */
     private String raterName;
+
+    /**
+     * 评分人数统计
+     * */
+    private int raterCount;
+
+    /**
+     * 平均分
+     * */
+    private BigDecimal avgRateScore;
 
     public String getClassifyName() {
         return classifyName;
@@ -47,5 +59,24 @@ public class DirDataRateVo extends DirDataRate {
 
     public void setRaterName(String raterName) {
         this.raterName = raterName;
+    }
+
+    public int getRaterCount() {
+        return raterCount;
+    }
+
+    public void setRaterCount(int raterCount) {
+        this.raterCount = raterCount;
+    }
+
+    public BigDecimal getAvgRateScore() {
+        if(null != avgRateScore){
+            avgRateScore = avgRateScore.setScale(1,BigDecimal.ROUND_HALF_UP);
+        }
+        return avgRateScore;
+    }
+
+    public void setAvgRateScore(BigDecimal avgRateScore) {
+        this.avgRateScore = avgRateScore;
     }
 }

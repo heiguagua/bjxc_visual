@@ -157,6 +157,7 @@ ALTER TABLE dir_classify ADD INDEX Index_dirclassify_treecode (tree_code (255));
 ALTER TABLE dir_classify ADD INDEX Index_dirclassify_classifyname (classify_name);
 ALTER TABLE dir_classify_authority ADD INDEX Index_dirclassifyauthority_authobjid (auth_obj_id);
 ALTER TABLE dir_classify_authority ADD INDEX Index_dirclassifyauthority_classifyid (classify_id);
+ALTER TABLE dir_classify_dept_map ADD INDEX Index_deptid (dept_id);
 ALTER TABLE dir_data_audit ADD INDEX Index_dirdataaudit_dcmid (dcm_id);
 ALTER TABLE dir_data_collection ADD INDEX Index_dirdatacollection_dcmid (dcm_id);
 ALTER TABLE dir_data_comment ADD INDEX Index_dirdatacomment_dcmid (dcm_id);

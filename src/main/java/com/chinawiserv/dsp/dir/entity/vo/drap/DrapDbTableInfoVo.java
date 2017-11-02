@@ -18,7 +18,38 @@ public class DrapDbTableInfoVo extends DrapDbTableInfo{
 
     private String updateChangeType;
     
-    public List<DrapDbTableColumnVo> getColumnVos() {
+    private int clomnCount;
+    
+    private String cjStatus;
+    
+    private String resouceCount;
+    
+    
+    public int getClomnCount() {
+		return clomnCount;
+	}
+
+	public void setClomnCount(int clomnCount) {
+		this.clomnCount = clomnCount;
+	}
+
+	public String getCjStatus() {
+		return cjStatus;
+	}
+
+	public void setCjStatus(String cjStatus) {
+		this.cjStatus = cjStatus;
+	}
+
+	public String getResouceCount() {
+		return resouceCount;
+	}
+
+	public void setResouceCount(String resouceCount) {
+		this.resouceCount = resouceCount;
+	}
+
+	public List<DrapDbTableColumnVo> getColumnVos() {
         return columnVos;
     }
 

@@ -88,12 +88,12 @@
                                         </a>
                                     </div>
                                     <div class="input-group">
-                                        <a class="btn btn-primary btn-flat dropdown-toggle  btn-myself" href="<%=basePath%>/catalog/download" >模板下载</a>
-                                       <%-- <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
-                                                data-toggle="dropdown" onclick="javascript:excelImportUI()">
-                                            <img src="<%=basePath%>/images/userImg/importimg.png"/>
+                                        <%--<a class="btn btn-primary btn-flat dropdown-toggle  btn-myself" href="<%=basePath%>/catalog/download" >模板下载</a>--%>
+                                       <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
+                                                data-toggle="dropdown" onclick="javascript:excelDownloadUI()">
+                                            <%--<img src="<%=basePath%>/images/userImg/importimg.png"/>--%>
                                             <!-- <i class="fa fa-plus"></i> -->模板下载
-                                        </button>--%>
+                                        </button>
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"

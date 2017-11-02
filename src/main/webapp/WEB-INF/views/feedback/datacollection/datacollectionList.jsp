@@ -296,9 +296,18 @@
                     return index + 1;
                 }
             },
-            {field: 'classifyName', title: '收藏目录'},
+            {field: 'classifyName',
+                title: '收藏目录',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
             {field: 'datasetName', title: '目录下数据集'},
             {field: 'collectDate', title: '最后收藏时间'},
+            {field: 'collectorCount', title: '收藏人数'},
             {
                 field: 'dcmId', title: '操作',
                 align: 'center',

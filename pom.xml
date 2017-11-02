@@ -217,6 +217,11 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
+	<dependency>
+		<groupId>com.qwserv.wiservlic</groupId>
+		<artifactId>licmanage</artifactId>
+		<version>1.0</version>
+	</dependency>
     </dependencies>
 
     <build>

@@ -106,9 +106,10 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0702','07','政策发布','/dirPolicy','fa-cog','1','2','0702','','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0703','07','开发者工具管理','/dirDevelopApis','fa-cog','2','2','0703','','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0704','07','专题应用管理','/dirSpecialApps','fa-cog','3','2','0704','','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0705','07','门户简介管理','/dirIntrude','fa-cog','5','2','0705','','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('08','0','上报管理','','fa-list','4','1','08','system','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0801','08','目录/服务上报','/dirupload/dirAudit','fa-cog','3','2','0801','dirupload:dirAudit','1');
-
+INSERT INTO `sys_menu` (`id`, `menu_name`, `pid`, `url`, `icon`, `sort`, `menu_type`, `code`, `resource_name`, `status`, `create_user_id`, `create_time`, `update_user_id`, `update_time`, `delete_flag`) VALUES ('0113', 'License管理', '01', '/license/licensePage', '', '2', '2', '0113', 'license:licensePage', '1', NULL, NULL, NULL, NULL, '0');
 
 -- 用户角色表
 delete from sys_user_role;
@@ -474,6 +475,11 @@ INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('112','','systemStatus','2','良好',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('113','','systemStatus','3','一般',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('114','','systemStatus','4','差',NULL,NULL,NULL,NULL,1);
+
+
+INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('00040f8ca7f111e7b780000c2909b123','','categoryIntrude','footer','底部信息',NULL,NULL,NULL,NULL,1);
+INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('00040f8ca7f111e7b780000c2909b231','','categoryIntrude','portalIntruduce','网站简介',NULL,NULL,NULL,NULL,1);
+INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('00040f8ca7f111e7b780000c2909b321','','categoryIntrude','aboutUs','关于我们',NULL,NULL,NULL,NULL,1);
 
 
   -- 行政区划相关初始化数据

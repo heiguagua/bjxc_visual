@@ -173,11 +173,11 @@ public class DrapDbInfoServiceImpl extends
 
 	@Override
 	public void receiveTableChange(Map<String, Object> map) {
-
+		System.out.println("===============================");
+		System.out.println(map);
 		if (null != map.get("oldTable")) {
-			@SuppressWarnings("unchecked")
-			List<DrapDbTableInfoVo> list = (List<DrapDbTableInfoVo>) map
-					.get("oldTable");
+//			@SuppressWarnings("unchecked")
+			List<DrapDbTableInfoVo> list = JSON.parseArray(map.get("oldTable").toString(), DrapDbTableInfoVo.class);
 
 			for (DrapDbTableInfoVo dbTableInfoVo : list) {
 				if (null != dbTableInfoVo.getUpdateChangeType()
@@ -196,10 +196,11 @@ public class DrapDbInfoServiceImpl extends
 		}
 
 		if (null != map.get("newTable")) {
-			@SuppressWarnings("unchecked")
-			List<DrapDbTableInfoVo> list = (List<DrapDbTableInfoVo>) map
-					.get("newTable");
-
+//			@SuppressWarnings("unchecked")
+//			List<DrapDbTableInfoVo> list = (List<DrapDbTableInfoVo>) map
+//					.get("newTable");
+			List<DrapDbTableInfoVo> list = JSON.parseArray(map.get("newTable").toString(), DrapDbTableInfoVo.class);
+			
 			for (DrapDbTableInfoVo dbTableInfoVo : list) {
 				if (null != dbTableInfoVo.getUpdateChangeType()
 						&& dbTableInfoVo.getUpdateChangeType().equals("add")) {
@@ -227,8 +228,9 @@ public class DrapDbInfoServiceImpl extends
 		     
 		    
 		     
-		 @SuppressWarnings("unchecked")
-        List<DrapDictTableInfoVo> listJson=(List<DrapDictTableInfoVo>)map.get("dicTable");
+//		 @SuppressWarnings("unchecked")
+//        List<DrapDictTableInfoVo> listJson=(List<DrapDictTableInfoVo>)map.get("dicTable");
+		List<DrapDictTableInfoVo> listJson = JSON.parseArray(map.get("dicTable").toString(), DrapDictTableInfoVo.class);
 		 
 		List<DrapDictTableInfoVo> list=JSON.parseArray(JSON.toJSONString(listJson), DrapDictTableInfoVo.class);
 		 

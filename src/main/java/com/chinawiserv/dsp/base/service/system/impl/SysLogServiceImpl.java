@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.base.service.system.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.IpUtil;
 import com.chinawiserv.dsp.base.entity.po.system.SysLog;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysLogVo;
@@ -14,7 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Map;
 
@@ -38,8 +42,9 @@ public class SysLogServiceImpl extends CommonServiceImpl<SysLogMapper, SysLog , 
 		if (sysUser == null) {
 			return;
 		}
-
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SysLog sysLog  =new SysLog();
+		sysLog.setOperateIp(IpUtil.getIpAddr(request));
 		sysLog.setOperatorId(sysUser.getId());
 		sysLog.setOperateTime(new Date());
 		//todo

@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.dir.controller.drap;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
@@ -7,6 +8,8 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbTableColumnVo;
 import com.chinawiserv.dsp.dir.service.drap.IDrapDbTableColumnService;
+
+import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,7 +32,7 @@ import java.util.Map;
  * @since 2017-09-27
  */
 @Controller
-@RequestMapping("/drapDbTableColumn")
+@RequestMapping("/drap/drapDbTableColumn")
 //todo 将所有的XXX修改为真实值
 public class DrapDbTableColumnController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -145,5 +148,26 @@ public class DrapDbTableColumnController extends BaseController {
 		    logger.error("编辑数据表字段信息失败", e);
 		}
 		return handleResult;
+    }
+    
+    @RequestMapping("/api/receiveTableColumnData")
+    @ResponseBody
+    public  Object receiveTableColumnData(@RequestParam Map<String,Object> paramMap){
+//    	HashMap<String, Object> result = Maps.newHashMap();
+    	try {
+    		if(paramMap !=null && !paramMap.isEmpty()){
+    			String data = MapUtils.getString(paramMap, "dbTableColumnVos");
+    			List<DrapDbTableColumnVo> dbTableColumnVos = JSONObject.parseArray(data,DrapDbTableColumnVo.class);
+    			this.service.updateDbTableColumnVos(dbTableColumnVos);
+    		}
+//    		result.put("status", "200");
+    		return "200";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("接收drap的业务数据", e);
+//			result.put("status", "500");
+			return "500";
+		}
+//    	return result;
     }
 }

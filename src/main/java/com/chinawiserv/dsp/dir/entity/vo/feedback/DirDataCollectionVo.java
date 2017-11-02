@@ -25,6 +25,11 @@ public class DirDataCollectionVo extends DirDataCollection {
      * */
     private String collectorName;
 
+    /**
+     * 收藏人数
+     * */
+    private int collectorCount;
+
     public String getClassifyName() {
         return classifyName;
     }
@@ -47,5 +52,13 @@ public class DirDataCollectionVo extends DirDataCollection {
 
     public void setCollectorName(String collectorName) {
         this.collectorName = collectorName;
+    }
+
+    public int getCollectorCount() {
+        return collectorCount;
+    }
+
+    public void setCollectorCount(int collectorCount) {
+        this.collectorCount = collectorCount;
     }
 }
