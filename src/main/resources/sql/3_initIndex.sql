@@ -146,7 +146,7 @@ DELIMITER ;
 -- call del_idx('dsp_dir','drap_requirement_resources','Index_draprequirementresources_docid');
 -- call del_idx('dsp_dir','drap_system_use_dept','Index_drapsystemusedept_systemid');
 -- call del_idx('dsp_dir','drap_system_use_dept','Index_drapsystemusedept_deptid');
--- call del_idx('dsp_dir','drap_system_use_info','Index_drapsystemuseinfo_infosystemid');
+-- -- call del_idx('dsp_dir','drap_system_use_info','Index_drapsystemuseinfo_infosystemid');
 
 
 
@@ -157,6 +157,7 @@ ALTER TABLE dir_classify ADD INDEX Index_dirclassify_treecode (tree_code (255));
 ALTER TABLE dir_classify ADD INDEX Index_dirclassify_classifyname (classify_name);
 ALTER TABLE dir_classify_authority ADD INDEX Index_dirclassifyauthority_authobjid (auth_obj_id);
 ALTER TABLE dir_classify_authority ADD INDEX Index_dirclassifyauthority_classifyid (classify_id);
+ALTER TABLE dir_classify_dept_map ADD INDEX Index_deptid (dept_id);
 ALTER TABLE dir_data_audit ADD INDEX Index_dirdataaudit_dcmid (dcm_id);
 ALTER TABLE dir_data_collection ADD INDEX Index_dirdatacollection_dcmid (dcm_id);
 ALTER TABLE dir_data_comment ADD INDEX Index_dirdatacomment_dcmid (dcm_id);
@@ -275,4 +276,4 @@ ALTER TABLE drap_requirement_resources ADD INDEX Index_draprequirementresources_
 ALTER TABLE drap_requirement_resources ADD INDEX Index_draprequirementresources_docid (doc_id);
 ALTER TABLE drap_system_use_dept ADD INDEX Index_drapsystemusedept_systemid (system_id);
 ALTER TABLE drap_system_use_dept ADD INDEX Index_drapsystemusedept_deptid (dept_id);
-ALTER TABLE drap_system_use_info ADD INDEX Index_drapsystemuseinfo_infosystemid (info_system_id);
+-- ALTER TABLE drap_system_use_info ADD INDEX Index_drapsystemuseinfo_infosystemid (info_system_id);

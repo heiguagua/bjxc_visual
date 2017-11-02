@@ -98,7 +98,18 @@
      	where  id = #{fid}  
 	
 	</update>
-	<select id="selectCountLevel1"> 
+
+	 <update id="updateDcmIndexbyId" >
+
+		update dir_classify
+
+    		set dcm_index = dcm_index+1
+
+     	where  id = #{id}
+
+	</update>
+
+	<select id="selectCountLevel1">
 		
 		select count(*) from dir_classify where classify_level = 1
 		
