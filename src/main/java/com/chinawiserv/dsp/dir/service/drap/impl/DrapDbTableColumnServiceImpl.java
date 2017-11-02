@@ -6,8 +6,11 @@ import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbTableColumnVo;
 import com.chinawiserv.dsp.dir.mapper.drap.DrapDbTableColumnMapper;
 import com.chinawiserv.dsp.dir.service.drap.IDrapDbTableColumnService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,5 +61,18 @@ public class DrapDbTableColumnServiceImpl extends CommonServiceImpl<DrapDbTableC
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
 		//todo
 		return 0;
+	}
+
+	@Override
+	public void updateDbTableColumnVos(
+			List<DrapDbTableColumnVo> dbTableColumnVos) throws Exception {
+		if(dbTableColumnVos != null){
+			for(int i = 0 , size = dbTableColumnVos.size(); i < size; i ++){
+				DrapDbTableColumnVo drapDbTableColumnVo = dbTableColumnVos.get(i);
+				this.mapper.updateById(drapDbTableColumnVo);
+			}
+		}
+		
+		
 	}
 }
