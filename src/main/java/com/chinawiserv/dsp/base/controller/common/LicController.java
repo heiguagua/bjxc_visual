@@ -36,7 +36,7 @@ import com.qwserv.wiservlic.impl.LicAuthorizeImpl;
 @Controller
 @RequestMapping("/lic")
 @Configuration
-public class LicController {
+public class LicController extends BaseController{
 
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -57,6 +57,7 @@ public class LicController {
 	public String goToLinceseErrorPage(HttpServletRequest req,
 			HttpServletResponse res, @RequestParam Map<String, Object> param,
 			Model model) {
+		setCurrentMenuInfo(param);
 		param.put("status", "error");
 		model.addAllAttributes(param);
 		LicAuthorize lic = new LicAuthorizeImpl();
