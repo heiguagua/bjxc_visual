@@ -73,7 +73,7 @@ public class LoginController extends BaseController {
     public String login(String return_url, Model model) throws UnsupportedEncodingException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         if(SpringInteceptor.licHashMap.get(df.format(new Date())) == null){
-            return redirectTo("/license/licenseErrorPage");
+            return redirectTo("/lic/licErrorPage");
         }
         /**自留代码
          * String index = "/catalog/catalogue";

@@ -53,7 +53,7 @@ public class SpringInteceptor implements HandlerInterceptor {
             if (request != null) {
                 String url = request.getServletPath();
                 //过滤关于lic上传的所有请求
-                if (("" + url).contains("/license/licenseErrorPage") || ("" + url).contains("/license/uploadLicense") ) {
+                if (("" + url).contains("/lic/licErrorPage") || ("" + url).contains("/lic/uploadLic") ) {
                     return true;
                 }else{
                     //获取项目标识简称 此简称与lic中的要一致才能通过
@@ -65,7 +65,7 @@ public class SpringInteceptor implements HandlerInterceptor {
                     String settingValue = sysSetting.getSettingValue();
                     //lic验证
                     LicAuthorize licAuthorize = new LicAuthorizeImpl();
-                    String licInfoStr = licAuthorize.doLicAuthorize(settingValue, "licInfo/");
+                    String licInfoStr = licAuthorize.doLicAuthorize(settingValue, "lic/");
                     LicInfo licInfo = JSONObject.parseObject(licInfoStr, LicInfo.class);
                     if(licInfo.getIsValidity() == 0){
                         //重定向到license上传页面
@@ -121,7 +121,7 @@ public class SpringInteceptor implements HandlerInterceptor {
     private void turnToLicUploadPage(HttpServletRequest request, HttpServletResponse response) {
         if (request != null) {
             try {
-                RequestDispatcher rd = request.getRequestDispatcher("/license/licenseErrorPage");
+                RequestDispatcher rd = request.getRequestDispatcher("/lic/licErrorPage");
                 rd.forward(request, response);
             } catch (Exception e) {
                 logger.error(e.getMessage());

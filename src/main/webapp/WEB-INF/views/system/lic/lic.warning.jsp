@@ -14,7 +14,7 @@
 				errorMsgTip("请先选择license.");
 				return;
 			}
-			var uploadLicenseUrl = "/license/uploadLicense"
+			var uploadLicenseUrl = "/lic/uploadLic"
 			uploadFile(uploadLicenseUrl, "uploadLicense");
 		})
 		$(document).on("click",".goLogin",function(){
