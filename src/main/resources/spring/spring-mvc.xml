@@ -154,7 +154,7 @@
 	</bean>
 
 	<!-- 拦截器 -->
-	<!--<mvc:interceptors>-->
+	<mvc:interceptors>
 
 		<!--&lt;!&ndash; 登录拦截器 &ndash;&gt;-->
 		<!--<mvc:interceptor>-->
@@ -163,14 +163,14 @@
 		<!--</mvc:interceptor>-->
 
 		<!--&lt;!&ndash; 权限拦截器 &ndash;&gt;-->
-		<!--<mvc:interceptor>-->
-			<!--<mvc:mapping path="/**" />-->
-			<!--<bean class="com.chinawiserv.dsp.dcs.dcm.interceptor.PermissionInterceptor">-->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.chinawiserv.dsp.base.common.inteceptor.SpringInteceptor">
 				<!--<property name="permissionService" ref="permissionServiceImpl"></property>-->
-			<!--</bean>-->
-		<!--</mvc:interceptor>-->
+			</bean>
+		</mvc:interceptor>
 
-	<!--</mvc:interceptors>-->
+	</mvc:interceptors>
 
 	<!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>-->
 
