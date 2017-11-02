@@ -33,9 +33,6 @@
             <if test="null != regionCode and '' != regionCode">
                 AND ds.`region_code` = #{regionCode}
             </if>
-            <if test="1 != userType">
-                AND ds.`id` IS NULL
-            </if>
         </where>
     </sql>
 

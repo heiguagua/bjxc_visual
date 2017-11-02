@@ -68,7 +68,7 @@
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM (    
+        SELECT count(1) FROM (
         <include refid="baseSelectVo"></include>
         <include refid="queryConditions"></include>
         ) a
