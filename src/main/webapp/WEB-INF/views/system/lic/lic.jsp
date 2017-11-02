@@ -24,13 +24,12 @@ $(document).ready(function() {
 		uploadFile(uploadLicenseUrl, "uploadLicense");
 	})
 	$(document).on("click",".goLogin",function(){
-		window.location.href=basePathJS+"/login/login"
+		window.location.href=basePathJS+"/login"
 	})
 })
 
 function uploadFile(url, inputId) {
-	$
-			.ajaxFileUpload({
+	$.ajaxFileUpload({
 				fileElementId : inputId, //需要上传的文件域的ID，即<input type="file">的ID。
 				url : basePathJS + url, //后台方法的路径
 				type : 'post', //当要提交自定义参数时，这个参数要设置成post
@@ -63,7 +62,7 @@ function uploadFile(url, inputId) {
 			});
 }
 
-var lic = ${lic}
+var lic = ${lic};
 if (lic.isValidity == 0 || lic.isValidity == '0') {
 	errorMsgTip(lic.errorMessage);
 } else {
