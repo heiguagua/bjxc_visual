@@ -3,8 +3,7 @@ package com.chinawiserv.dsp.base.controller.common;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chinawiserv.dsp.base.common.SystemConst;
-import com.chinawiserv.dsp.base.common.anno.Log;
-import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.inteceptor.SpringInteceptor;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
@@ -34,6 +33,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,10 @@ public class LoginController extends BaseController {
      */
     @RequestMapping(value = {"", "/", "/index"})
     public String login(String return_url, Model model) throws UnsupportedEncodingException {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        if(SpringInteceptor.licHashMap.get(df.format(new Date())) == null){
+            return redirectTo("/license/licenseErrorPage");
+        }
         /**自留代码
          * String index = "/catalog/catalogue";
         model.addAttribute("return_url", StringUtils.isNotBlank(return_url) ? URLDecoder.decode(return_url, "UTF-8") : index);

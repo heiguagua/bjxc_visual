@@ -33,7 +33,7 @@ public class SpringInteceptor implements HandlerInterceptor {
      * 拦截器
      */
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private static Map licHashMap = new ConcurrentHashMap();
+    public static Map licHashMap = new ConcurrentHashMap();
     @Autowired
     private ISysSettingService sysSettingService;
     /**
@@ -53,7 +53,7 @@ public class SpringInteceptor implements HandlerInterceptor {
             if (request != null) {
                 String url = request.getServletPath();
                 //过滤关于lic上传的所有请求
-                if (("" + url).contains("/licUpload") ) {
+                if (("" + url).contains("/license/licenseErrorPage") || ("" + url).contains("/license/uploadLicense") ) {
                     return true;
                 }else{
                     //获取项目标识简称 此简称与lic中的要一致才能通过
@@ -121,7 +121,7 @@ public class SpringInteceptor implements HandlerInterceptor {
     private void turnToLicUploadPage(HttpServletRequest request, HttpServletResponse response) {
         if (request != null) {
             try {
-                RequestDispatcher rd = request.getRequestDispatcher("/licUpload");
+                RequestDispatcher rd = request.getRequestDispatcher("/license/licenseErrorPage");
                 rd.forward(request, response);
             } catch (Exception e) {
                 logger.error(e.getMessage());
