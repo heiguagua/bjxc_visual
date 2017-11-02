@@ -66,13 +66,9 @@ function uploadFile(url, inputId) {
 var isValidity=${lic.isValidity};
 if (isValidity == 0 || isValidity == '0') {
 	errorMsgTip(${lic.errorMessage});
-} else {
-	$(".periodOfValidity").text(${lic.periodOfValidity});
-	$(".sysName").text(${lic.sysName});
-	$(".sysVersion").text(${lic.sysVersion});
 }
 </script>
-</script>
+
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 		<%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -96,7 +92,7 @@ if (isValidity == 0 || isValidity == '0') {
 										<label class="col-sm-2 control-label" style="width: 12.2%">当前系统名称:</label>
 
 										<div class="col-sm-10" style="width: 85.8%">
-											<label class="form-control sysName"></label>
+											<label class="form-control sysName">${lic.sysName}</label>
 										</div>
 									</div>
 
@@ -106,7 +102,7 @@ if (isValidity == 0 || isValidity == '0') {
 										<label class="col-sm-2 control-label" style="width: 12.2%">license过期日期:</label>
 
 										<div class="col-sm-10" style="width: 85.8%">
-											<label class="form-control periodOfValidity"></label>
+											<label class="form-control periodOfValidity">${lic.periodOfValidity}</label>
 										</div>
 									</div>
 
@@ -116,7 +112,7 @@ if (isValidity == 0 || isValidity == '0') {
 										<label class="col-sm-2 control-label" style="width: 12.2%">当前系统版本:</label>
 
 										<div class="col-sm-10" style="width: 85.8%">
-											<label class="form-control sysVersion"></label>
+											<label class="form-control sysVersion">${lic.sysVersion}</label>
 										</div>
 									</div>
 
