@@ -63,13 +63,13 @@ function uploadFile(url, inputId) {
 			});
 }
 
-var lic = ${lic};
-if (lic.isValidity == 0 || lic.isValidity == '0') {
-	errorMsgTip(lic.errorMessage);
+var isValidity=${lic.isValidity};
+if (isValidity == 0 || isValidity == '0') {
+	errorMsgTip(${lic.errorMessage});
 } else {
-	$(".periodOfValidity").text(lic.periodOfValidity);
-	$(".sysName").text(lic.sysName);
-	$(".sysVersion").text(lic.sysVersion);
+	$(".periodOfValidity").text(${lic.periodOfValidity});
+	$(".sysName").text(${lic.sysName});
+	$(".sysVersion").text(${lic.sysVersion});
 }
 </script>
 </script>
