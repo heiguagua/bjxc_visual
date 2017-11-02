@@ -25,6 +25,7 @@
         <result column="code_index" property="codeIndex"/>
         <result column="status" property="status"/>
         <result column="delete_flag" property="deleteFlag"/>
+        <result column="is_shared" property="isShared"/>
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
@@ -57,9 +58,9 @@
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableColumn">
         insert into
-        drap_db_table_column(id,table_id,column_code,column_cn_name,default_value,column_length,column_en_name,is_business_data,is_pk,is_null,column_type,sensitive_remark,update_frequency,column_desc,data_precision,code_index,status,delete_flag)
+        drap_db_table_column(id,table_id,column_code,column_cn_name,default_value,column_length,column_en_name,is_business_data,is_pk,is_null,column_type,sensitive_remark,update_frequency,column_desc,data_precision,code_index,status,delete_flag,is_shared)
         values(
-        #{id},#{tableId},#{columnCode},#{columnCnName},#{defaultValue},#{columnLength},#{columnEnName},#{isBusinessData},#{isPk},#{isNull},#{columnType},#{sensitiveRemark},#{updateFrequency},#{columnDesc},#{dataPrecision},#{codeIndex},#{status},#{deleteFlag}
+        #{id},#{tableId},#{columnCode},#{columnCnName},#{defaultValue},#{columnLength},#{columnEnName},#{isBusinessData},#{isPk},#{isNull},#{columnType},#{sensitiveRemark},#{updateFrequency},#{columnDesc},#{dataPrecision},#{codeIndex},#{status},#{deleteFlag},#{isShared}}
         )
     </insert>
 
@@ -119,6 +120,9 @@
             </if>
             <if test="deleteFlag != null">
                 delete_flag = #{deleteFlag},
+            </if>
+             <if test="isShared != null">
+                is_shared = #{isShared},
             </if>
         </set>
         where id = #{id}

@@ -70,8 +70,7 @@ public class DrapDbTableInfo implements Serializable {
      */
 	@TableField("delete_flag")
 	private Integer deleteFlag;
-
-
+	
 	public String getId() {
 		return id;
 	}
