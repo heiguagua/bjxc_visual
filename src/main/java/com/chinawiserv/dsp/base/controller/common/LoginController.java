@@ -267,7 +267,7 @@ public class LoginController extends BaseController {
      * @return
      * @throws java.io.IOException
      */
-    @Log("用户注销登录")
+//    @Log("用户注销登录")
     @RequestMapping(value = "/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SysUser sysUser = ShiroUtils.getLoginUser();
