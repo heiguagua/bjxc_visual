@@ -217,7 +217,7 @@ public class SysUserController extends BaseController {
     @ResponseBody
     public JSONObject insertCheckName(String userName){
         JSONObject resultJson = new JSONObject();
-        List<SysUser> list = sysUserService.selectList(new EntityWrapper<SysUser>().addFilter("user_name = {0}", userName));
+        List<SysUser> list = sysUserService.selectList(new EntityWrapper<SysUser>().addFilter("user_name = {0} and delete_flag=0", userName));
         if(list.size() > 0){
             resultJson.put("error" , userName+" 用户名已存在,请换一个尝试。" );
         } else {

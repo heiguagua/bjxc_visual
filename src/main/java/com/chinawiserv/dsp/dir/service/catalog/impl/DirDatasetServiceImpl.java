@@ -12,6 +12,7 @@ import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRegionDeptMapper;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
+import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.*;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
 import org.apache.poi.ss.usermodel.CellType;
@@ -103,6 +104,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Autowired
     private SysDeptMapper sysDeptMapper;
+
+    @Autowired
+    private DirClassifyMapper dirClassifyMapper;
 
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
@@ -851,14 +855,17 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     dataset.setStatus("0");
 
                     //数据集目录中间表
+                    final DirClassify dirClassify = dirClassifyMapper.selectFclassify(classifyId);
                     DirDatasetClassifyMapVo datasetmap = new DirDatasetClassifyMapVo();
                     datasetmap.setClassifyId(classifyId);
                     datasetmap.setDatasetId(dataset.getId());
                     datasetmap.setId(UUID.randomUUID().toString());
-                    datasetmap.setStatus("0");
+                    datasetmap.setInfoResourceCode(dirClassify.getClassifyCode() + "/" + (dirClassify.getDcmIndex() + 1));
+                    datasetmap.setStatus(Dataset.DatasetStatus.UnRegister.getKey());
                     datasetmap.setDeleteFlag(0);
                     datasetmap.setUpdateTime(new Date());
                     datamapList.add(datasetmap);
+                    dirClassifyMapper.updateDcmIndexbyId(classifyId);
 
                     //存放需要新增的数据集
                     datasetList.add(dataset);
