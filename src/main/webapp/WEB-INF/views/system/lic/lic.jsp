@@ -67,9 +67,9 @@ var lic = ${lic};
 if (lic.isValidity == 0 || lic.isValidity == '0') {
 	errorMsgTip(lic.errorMessage);
 } else {
-	$(".periodOfValidity").text(successMsg.periodOfValidity);
-	$(".sysName").text(successMsg.sysName);
-	$(".sysVersion").text(successMsg.sysVersion);
+	$(".periodOfValidity").text(lic.periodOfValidity);
+	$(".sysName").text(lic.sysName);
+	$(".sysVersion").text(lic.sysVersion);
 }
 </script>
 </script>
