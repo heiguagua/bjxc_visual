@@ -36,7 +36,7 @@ public class LicenseController {
 	/**
 	 * license路径,不含服务路径
 	 */
-	private static String LICENSE_PATH = "/licInfo/";
+	private static String LICENSE_PATH = "licInfo/";
 	
 	/**
 	 * license名称
@@ -68,7 +68,7 @@ public class LicenseController {
 		model.addAllAttributes(param);
 		LicAuthorize lic = new LicAuthorizeImpl();
 		String checkResult = lic.doLicAuthorize(servletPath,
-				LICENSE_PATH+LICENSE_PATH);
+				LICENSE_PATH);
 		JSON json = JSON.parseObject(checkResult);
 		model.addAttribute("lic", json);
 		return "system/license/license.warning";
@@ -91,7 +91,7 @@ public class LicenseController {
 		model.addAllAttributes(param);
 		LicAuthorize lic = new LicAuthorizeImpl();
 		String checkResult = lic.doLicAuthorize(servletPath,
-				LICENSE_PATH+LICENSE_NAME);
+				LICENSE_PATH);
 		JSON json = JSON.parseObject(checkResult);
 		model.addAttribute("lic", json);
 		return "system/license/license";
@@ -134,7 +134,7 @@ public class LicenseController {
 				LicAuthorize lic = new LicAuthorizeImpl();
 				// TODO 服务名称待定
 				String checkResult = lic.doLicAuthorize(servletPath,
-						licenseFilePath.getPath());
+						LICENSE_PATH);
 				handleResult.success(checkResult);
 				return handleResult;
 			} catch (Exception e) {
