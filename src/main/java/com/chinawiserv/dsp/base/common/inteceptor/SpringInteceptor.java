@@ -2,11 +2,13 @@ package com.chinawiserv.dsp.base.common.inteceptor;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.chinawiserv.dsp.base.common.config.Config;
 import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
 import com.chinawiserv.dsp.base.service.system.ISysSettingService;
 import com.qwserv.wiservlic.LicAuthorize;
 import com.qwserv.wiservlic.bean.LicInfo;
 import com.qwserv.wiservlic.impl.LicAuthorizeImpl;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -65,7 +68,7 @@ public class SpringInteceptor implements HandlerInterceptor {
                     String settingValue = sysSetting.getSettingValue();
                     //lic验证
                     LicAuthorize licAuthorize = new LicAuthorizeImpl();
-                    String licInfoStr = licAuthorize.doLicAuthorize(settingValue, "lic/");
+                    String licInfoStr = licAuthorize.doLicAuthorize(settingValue, Config.LIC_PATH);
                     LicInfo licInfo = JSONObject.parseObject(licInfoStr, LicInfo.class);
                     if(licInfo.getIsValidity() == 0){
                         //重定向到license上传页面

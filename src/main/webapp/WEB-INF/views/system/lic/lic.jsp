@@ -13,7 +13,6 @@
 }
 </style>
 <script type="text/javascript">
-<script type="text/javascript">
 $(document).ready(function() {
 	$(document).on("click", ".upload_license", function() {
 		var fileName = $("input[name='licenseFile']").val();
