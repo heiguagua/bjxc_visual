@@ -114,7 +114,7 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <script type="text/javascript">
-    var tableSelector = '#datacorrectionListTable';
+    var tableSelector = '#datarateListTable';
     var paramsObj = {};
 
     function setParams() {
@@ -169,23 +169,9 @@
             },
             onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
 
-                //var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                //treeObj.cancelSelectedNode();
-
                 $('#searchClassifyId').val(treeNode.id);
                 setParams();
                 reloadTable();
-                /*$.commonAjax({
-                 url: basePathJS + "/dirClassify/editLoad",
-                 data: {id: treeNode.id},
-                 success: function (result) {
-                 if (result.state) {
-                 var classifyObj = result.content.vo;
-                 $('#' + nameInputDomId).val(classifyObj.classifyStructureName);
-                 $('#' + codeInputDomId).val(treeNode.id);
-                 }
-                 }
-                 });*/
             }
         }
     };
@@ -280,7 +266,16 @@
                     return index + 1;
                 }
             },
-            {field: 'classifyName', title: '评分目录'},
+            {
+                field: 'classifyName',
+                title: '评分目录',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
             {field: 'datasetName', title: '目录下数据集'},
             {field: 'rateDate', title: '最后评分时间'},
             {field: 'raterCount', title: '评分人数'},

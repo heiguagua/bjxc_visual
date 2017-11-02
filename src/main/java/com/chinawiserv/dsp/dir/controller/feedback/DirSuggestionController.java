@@ -6,6 +6,7 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.dir.entity.vo.feedback.DirSuggestionVo;
 import com.chinawiserv.dsp.dir.service.feedback.IDirSuggestionService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -53,12 +54,15 @@ public class DirSuggestionController extends BaseController {
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
-        Integer userType = ShiroUtils.getLoginUser().getUserType();
-        String regionCode = ShiroUtils.getLoginUser().getRegionCode();
-        String userName = ShiroUtils.getLoginUserName();
-        paramMap.put("userName",userName);
-        paramMap.put("userType",userType);
-        paramMap.put("regionCode",regionCode);
+        SysUserVo user = ShiroUtils.getLoginUser();
+        String deptId;
+        if(null != user.getUserType() &&  1 == user.getUserType()){
+            deptId = null;
+        }else{
+            deptId = user.getDeptId();
+        }
+        paramMap.put("deptId",deptId);
+        paramMap.put("regionCode",user.getRegionCode());
 		try {
 		    Page<DirSuggestionVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);

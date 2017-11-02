@@ -279,7 +279,16 @@
                     return index + 1;
                 }
             },
-            {field: 'classifyName', title: '纠错目录'},
+            {
+                field: 'classifyName',
+                title: '纠错目录',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
             {field: 'datasetName', title: '目录下数据集'},
             {field: 'correctDate', title: '最后纠错时间'},
             {field: 'correctorCount', title: '纠错人数'},

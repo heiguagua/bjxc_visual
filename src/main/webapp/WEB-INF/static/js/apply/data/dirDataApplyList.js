@@ -8,6 +8,122 @@ jQuery(document).ready(function () {
     var isAudited = '0';
     $('#isAudited').val(isAudited);
     var paramsObj = {isAudited: isAudited};
+    function setParams() {
+        var searchKeyVal = $('#searchKeyId').val();
+        var isAudited = $('#isAudited').val();
+        var searchClassifyId = $('#searchClassifyId').val();
+        var regionCode = $.getSelectedRegionCode();
+        paramsObj = {classifyId:searchClassifyId,regionCode:regionCode,isAudited: isAudited, searchKey: searchKeyVal};
+    }
+
+    function reloadTable() {
+        $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
+        $(tableSelector).data("bootstrap.table").refresh();
+    }
+
+    var setting = {
+        async: {
+            enable: true,
+            url: basePathJS + "/dirClassify/subAuthorityList",
+            autoParam: ["fid","treeCode","authorityNode"],
+            dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
+                var params = [];
+                var nodeObjs = childNodes.content.vo;
+                if (!nodeObjs) {
+                    return null;
+                }
+                for (var i in nodeObjs) {
+                    params[i] = {
+                        'id': nodeObjs[i].id,
+                        'name': nodeObjs[i].classifyName,
+                        'fid': nodeObjs[i].id,
+                        'treeCode': nodeObjs[i].treeCode,
+                        'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
+                        'authorityNode':nodeObjs[i].authorityNode
+                    }
+                }
+                return params;
+            }
+        },
+        callback: {
+            beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+                var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                if (treeNode.isParent) {
+                    if (treeNode.open) {
+                        zTreeObj.expandNode(treeNode, false);
+                    } else {
+                        zTreeObj.expandNode(treeNode, true);
+                    }
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+            onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+
+                $('#searchClassifyId').val(treeNode.id);
+                setParams();
+                reloadTable();
+            }
+        }
+    };
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting);
+    });
+
+
+    //目录类别下拉查询框
+    $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
+
+    function hideDirMgr() {
+        $("#min-aside").animate({
+            width:"40px",
+        },200);
+        $("#dir-Manger").hide();
+        $("#forward").show(400);
+        $("#backward").hide(500);
+        $("#treeDemo").hide(200);
+        $("#min-aside").css("border","none")
+        $("div.box div.table-myself").animate({
+            paddingLeft: "50px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "60px"
+        })
+        $(".user-panel").css("background","#f4f6f9");
+    }
+
+    function showDirMgr() {
+        $("#min-aside").animate({
+            width:"230px",
+        },200);
+        $("#dir-Manger").show();
+        $("#forward").hide(400);
+        $("#backward").show(500);
+        $("#treeDemo").show(200);
+        $("#min-aside").css("border","1px solid #ddd");
+        $(".box-body").animate({
+            paddingLeft: "240px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "270px"
+        })
+        $(".user-panel").css("background","none");
+    }
+
+
+    $(function(){
+        $("#forward").hide();
+        $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+        $("#backward").click(function(){
+            hideDirMgr();
+        })
+        $("#forward").click(function(){
+            showDirMgr();
+        })
+    })
+
+
 
     jQuery(tableSelector).customTable({
         url: basePathJS + '/dirDataApply/list',
@@ -30,14 +146,26 @@ jQuery(document).ready(function () {
             align: 'center',
             valign: 'middle',
             width: '160',
-            sortable: false
+            sortable: false,
+            formatter:function(value){
+                if(value == undefined){
+                    value="";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'datasetName',
             title: '所属信息资源',
             align: 'center',
             valign: 'middle',
             width: '120',
-            sortable: false
+            sortable: false,
+            formatter:function(value){
+                if(value == undefined){
+                    value="";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'limitVisitCnt',
             title: '期望使用次数',
@@ -116,13 +244,6 @@ jQuery(document).ready(function () {
         setParams();
         reloadTable();
     });
-
-    function setParams() {
-        var searchKeyVal = $('#searchKeyId').val();
-        var isAudited = $('#isAudited').val();
-        paramsObj = {isAudited: isAudited, searchKey: searchKeyVal};
-    }
-
 });
 
 function reloadTable() {

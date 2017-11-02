@@ -6,6 +6,8 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCollectionVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -52,12 +54,15 @@ public class DirDataCollectionController extends BaseController {
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
-        String deptId = ShiroUtils.getLoginUserDeptId();
-        String regionCode = ShiroUtils.getLoginUser().getRegionCode();
-        String userName = ShiroUtils.getLoginUserName();
-        paramMap.put("userName",userName);
+        SysUserVo user = ShiroUtils.getLoginUser();
+        String deptId;
+        if(null != user.getUserType() &&  1 == user.getUserType()){
+            deptId = null;
+        }else{
+            deptId = user.getDeptId();
+        }
         paramMap.put("deptId",deptId);
-        paramMap.put("regionCode",regionCode);
+        paramMap.put("regionCode",user.getRegionCode());
 		try {
 		    Page<DirDataCollectionVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);
