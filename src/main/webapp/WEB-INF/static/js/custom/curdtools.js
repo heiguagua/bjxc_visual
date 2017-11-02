@@ -625,6 +625,7 @@ function _getDefaultWinOptionsForaddNational( title , url , width, height) {
 
             } finally {
                 submitBtn.show();
+                layer.close(3);
             }
         	
 //            location.reload();
@@ -870,6 +871,7 @@ function _submitFormForApi(index, layero , options){
 
                    // 提交表单成功后，释放hold
                    // me.holdSubmit(false);
+                   layer.closeAll('loading');
                }
            });
 
