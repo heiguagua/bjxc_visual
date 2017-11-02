@@ -31,7 +31,8 @@
         ddc.`dcm_id`,
         ddc.`collect_date`,
         dc.`classify_structure_name` AS classify_name,
-        dt.`dataset_name`
+        dt.`dataset_name`,
+        COUNT(DISTINCT ddc.`collector_id`) AS collector_count
         FROM
         (SELECT
         *
@@ -52,6 +53,9 @@
         <!-- 搜索关键字 -->
         <if test="null != searchKey and '' != searchKey">
             AND dt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
+        </if>
+        <if test="null != classifyId and '' != classifyId">
+            AND dc.`id` = #{classifyId}
         </if>
         <choose>
             <when test="'admin' == userName">

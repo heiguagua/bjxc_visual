@@ -152,6 +152,13 @@ public class SysUserController extends BaseController {
         SysUserVo userVo;
         try {
             userVo = sysUserService.selectVoById(id);
+            String token = userVo.getToken();
+            if(StringUtils.isNotBlank(token)){
+                /**
+                 * 再次加密
+                 * */
+                userVo.setToken(DesUtil.encrypt(userVo.getToken()));
+            }
             result.put("user", userVo);
         } catch (Exception e) {
             result.error("加载用户信息出错");
@@ -185,6 +192,24 @@ public class SysUserController extends BaseController {
         return result;
     }
 
+    /**
+     * 生成TOKEN
+     * */
+    @RequestMapping("/createToken")
+    @ResponseBody
+    public HandleResult createToken(@RequestParam Map<String,String> paramMap){
+        HandleResult result = new HandleResult();
+        String token = DesUtil.encrypt(paramMap.get("userName"));
+        paramMap.put("token",token);
+        if(sysUserService.createToken(paramMap)){
+            String showToken = DesUtil.encrypt(token);
+            result.setState(true);
+            result.put("token",showToken);
+        }else{
+            result.setState(false);
+        }
+        return result;
+    }
     /**
      * 验证注册用户名是否已存在
      */

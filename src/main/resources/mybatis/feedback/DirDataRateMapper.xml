@@ -32,7 +32,9 @@
         ddr.`dcm_id`,
         ddr.`rate_date`,
         dc.`classify_structure_name` AS classify_name,
-        dt.`dataset_name`
+        dt.`dataset_name`,
+        COUNT(ddr.`rater_id`) AS rater_count,
+        AVG(ddr.`rate_score`) AS avg_rate_score
         FROM
         (SELECT
         *
@@ -53,6 +55,9 @@
         <!-- 搜索关键字 -->
         <if test="null != searchKey and '' != searchKey">
             AND dt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
+        </if>
+        <if test="null != classifyId and '' != classifyId">
+            AND dc.`id` = #{classifyId}
         </if>
         <choose>
             <when test="'admin' == userName">

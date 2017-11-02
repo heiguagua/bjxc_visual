@@ -466,14 +466,8 @@
     </select>
 
     <select id="selectDatasetByActivityId" resultType="map">
-        SELECT
-        id,
-        dataset_name
-        FROM
-        drap_dataset
-        WHERE
-        TRUE
-        AND belong_dept_id = #{activity_id}
+        SELECT id,dataset_name,(SELECT COUNT(*) FROM drap_dataset_table_relation a WHERE a.dataset_id = id) as relationCount
+        FROM drap_dataset WHERE belong_dept_id = #{activity_id}
     </select>
 
     <resultMap id="result_DrapDatasetItem_Map" type="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem">

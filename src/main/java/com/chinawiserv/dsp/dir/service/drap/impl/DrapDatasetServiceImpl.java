@@ -193,7 +193,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 				dirDatasetClassifyMap.setStatus(Dataset.DatasetStatus.UnRegister.getKey());
 				dirDatasetClassifyMap.setDeleteFlag(0);
 				dirDatasetClassifyMapMapper.baseInsert(dirDatasetClassifyMap);
-				dirClassifyMapper.updateClassifyIndexbyFid(classifyId);
+				dirClassifyMapper.updateDcmIndexbyId(classifyId);
 			}
 
 			final DirDataset dirDataset = getDirDataset(drapDatasetVo,dataSetSourceType);

@@ -50,6 +50,20 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label>用户接口验证码</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control"  id="token"  readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label></label>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn_blue" id="createToken" disabled>
+                                        生成用户接口验证码
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label>角色</label>
                                 <div class="form-group">
                                 <select id="roleIds" name="roleIds" class="form-control select2" style="width: 100%;"></select>

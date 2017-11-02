@@ -170,4 +170,9 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     public int selectUserRoleType(String user_id) {
         return userMapper.selectUserRoleType(user_id);
     }
+
+    @Override
+    public boolean createToken(Map<String,String> paramMap) {
+        return userMapper.createToken(paramMap)>0;
+    }
 }

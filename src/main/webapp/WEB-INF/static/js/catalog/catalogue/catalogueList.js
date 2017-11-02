@@ -3,7 +3,7 @@ var paramsObj = {};
 
 jQuery(document).ready(function () {
     initTable();
-    //initAllSelect();
+    initAllSelect();
     initButtonClickEvent();
 });
 
@@ -175,8 +175,8 @@ function initTable(){
 
 
 function initAllSelect(){
-    //目录类别下拉查询框
-    $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
+    //区域下拉查询框
+    $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode','searchRegionMenuContent',true);
 }
 
 
@@ -306,6 +306,9 @@ function excelImportUI() {
         return;
     }
     detail('导入',basePathJS +'/catalog/catalogue/excelImportUI?classifyId='+ $('#searchClassifyId').val(),900,350,parent);
+}
+function excelDownloadUI() {
+    detail('模板下载',basePathJS +'/catalog/catalogue/excelDownloadUI',900,350,parent);
 }
 function checkClassfyId(searchClassifyId){
     if(searchClassifyId){

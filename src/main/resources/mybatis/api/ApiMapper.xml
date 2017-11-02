@@ -552,27 +552,47 @@
     <!-- 查询用户的数据集权限 -->
     <select id="getDataAuthorityByUserId" parameterType="map" resultType="map">
         SELECT
-        dda.`id` AS dataApplyId,
-        dda.`audit_visit_cnt` AS limitVisitCnt,
-        dda.`audit_visit_date_period` AS limitVisitDatePeriod,
-        CASE
-        WHEN dda.`status` = '1'
-        THEN 'true'
-        ELSE 'false'
-        END AS 'status'
+          a.*
         FROM
-        dir_data_apply dda
-        LEFT JOIN dir_dataset_classify_map dcm
-        ON dcm.`id` = dda.`dcm_id`
-        WHERE TRUE
-        AND dda.`applicant_id` = #{userId}
-        AND dcm.`id` = #{dcmId}
+          (SELECT
+            dda.`id` AS dataApplyId,
+            dda.`audit_visit_cnt` AS limitVisitCnt,
+            dda.`audit_visit_date_period` AS limitVisitDatePeriod,
+            CASE
+              WHEN dda.`status` = '1'
+              THEN 'true'
+              ELSE 'false'
+            END AS 'status'
+          FROM
+            dir_data_apply dda
+            LEFT JOIN dir_dataset_classify_map dcm
+              ON dcm.`id` = dda.`dcm_id`
+          WHERE TRUE
+            AND dda.`applicant_id` = #{userId}
+            AND dcm.`id` =  #{dcmId}
+          UNION
+          ALL
+          SELECT
+            NULL AS dataApplyId,
+            NULL AS limitVisitCnt,
+            NULL AS limitVisitDatePeriod,
+            CASE
+              WHEN dd.`share_type` = '0'
+              THEN 'true'
+              ELSE 'false'
+            END AS 'status'
+          FROM
+            dir_dataset_classify_map dcm
+            LEFT JOIN dir_dataset dd
+              ON dd.`id` = dcm.`dataset_id`
+          WHERE TRUE
+            AND dcm.`id` =  #{dcmId}) a
         LIMIT 0, 1
     </select>
 
     <!-- 查询用户申请的数据集拥有的数据字段 -->
     <select id="getDataitemAuthorityByUserIdAndDatasetId" parameterType="map" resultType="map">
-        <!-- 系统梳理 -->
+        <!-- 系统梳理有条件共享 -->
 
         SELECT
           dti.`table_name` AS tableName,
@@ -605,20 +625,26 @@
           AND dtc.`id` IS NOT NULL
           <include refid = "datasetApplyWhereClause"/>
           GROUP BY dtc.`id`
-        <!--
+
+        UNION ALL
+
+        <!-- 系统梳理无条件共享 -->
+
         SELECT
-        ddti.`table_name` AS tableName,
-        ddtc.`column_en_name` AS columnName
+        dti.`table_name` AS tableName,
+        dtc.`column_en_name` AS columnName
         FROM
-        dir_data_item_apply dia
-        LEFT JOIN dir_data_apply dda ON dda.`id` = dia.`data_apply_id`
-        LEFT JOIN dir_dataset_classify_map ddcm ON ddcm.`id` = dda.`dcm_id`
-        LEFT JOIN dir_dataset dd ON dd.`id` = ddcm.`dataset_id`
-        LEFT JOIN dir_dataset_source_info ddsi ON ddsi.`dataset_id` = dd.`id`
-        LEFT JOIN drap_dataset ddst ON ddst.`id` = ddsi.`source_obj_id`
-        LEFT JOIN drap_data_column_map ddcmp ON ddcmp.`dataset_id` = ddst.`id`
-        LEFT JOIN drap_db_table_column ddtc ON ddtc.`id` = ddcmp.`system_column_id`
-        LEFT JOIN drap_db_table_info ddti ON ddti.`id` = ddcmp.`table_id`
+        dir_dataset_classify_map ddcm
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = ddcm.`dataset_id`
+        LEFT JOIN dir_dataitem ddm
+        ON ddm.`dataset_id` = dd.`id`
+        LEFT JOIN dir_dataitem_source_info dsi
+        ON dsi.`item_id` = ddm.`id`
+        LEFT JOIN drap_db_table_column dtc
+        ON dtc.`id` = dsi.`source_obj_id`
+        LEFT JOIN drap_db_table_info dti
+        ON dti.`id` = dtc.`table_id`
         LEFT JOIN
         (SELECT
         *
@@ -629,10 +655,10 @@
         WHERE TRUE
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '2'
-        AND dia.`status` = '1'
-        <include refid = "datasetApplyWhereClause"/>
-        GROUP BY ddtc.`id`
-        -->
+        AND ddm.`share_type` = '0'
+        AND dtc.`id` IS NOT NULL
+        AND ddcm.`id` = #{dcmId}
+        GROUP BY dtc.`id`
 
         UNION ALL
 
@@ -673,20 +699,30 @@
           AND dtc.`id` IS NOT NULL
           <include refid = "datasetApplyWhereClause"/>
           GROUP BY dtc.`id`
-        <!--
+
+        UNION ALL
+
+        <!-- 资源梳理无条件共享 -->
+
         SELECT
-        ddti.`table_name` AS tableName,
-        ddtc.`column_en_name` AS columnName
+        dti.`table_name` AS tableName,
+        dtc.`column_en_name` AS columnName
         FROM
-        dir_data_item_apply dia
-        LEFT JOIN dir_data_apply dda ON dda.`id` = dia.`data_apply_id`
-        LEFT JOIN dir_dataset_classify_map ddcm ON ddcm.`id` = dda.`dcm_id`
-        LEFT JOIN dir_dataset dd ON dd.`id` = ddcm.`dataset_id`
-        LEFT JOIN dir_dataset_source_info ddsi ON ddsi.`dataset_id` = dd.`id`
-        LEFT JOIN drap_dataset ddst ON ddst.`id` = ddsi.`source_obj_id`
-        LEFT JOIN drap_data_column_map ddcmp ON ddcmp.`dataset_id` = ddst.`id`
-        LEFT JOIN drap_db_table_column ddtc ON ddtc.`id` = ddcmp.`system_column_id`
-        LEFT JOIN drap_db_table_info ddti ON ddti.`id` = ddcmp.`table_id`
+        dir_dataset_classify_map ddcm
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = ddcm.`dataset_id`
+        LEFT JOIN dir_dataitem ddm
+        ON ddm.`dataset_id` = dd.`id`
+        LEFT JOIN dir_dataitem_source_info dsi
+        ON dsi.`item_id` = ddm.`id`
+        LEFT JOIN drap_dataset_item ddi
+        ON ddi.`id` = dsi.`source_obj_id`
+        LEFT JOIN drap_data_column_map dcm
+        ON dcm.`business_item_id` = ddi.`id`
+        LEFT JOIN drap_db_table_column dtc
+        ON dtc.`id` = dcm.`system_column_id`
+        LEFT JOIN drap_db_table_info dti
+        ON dti.`id` = dtc.`table_id`
         LEFT JOIN
         (SELECT
         *
@@ -697,15 +733,14 @@
         WHERE TRUE
         AND dd.`delete_flag` = 0
         AND sd.`dict_code` = '3'
-        AND dia.`status` = '1'
-
-        <include refid = "datasetApplyWhereClause"/>
-        GROUP BY ddtc.`id`
-        -->
+        AND ddm.`share_type` = '0'
+        AND dtc.`id` IS NOT NULL
+        AND ddcm.`id` = #{dcmId}
+        GROUP BY dtc.`id`
 
         UNION ALL
 
-        <!-- 爬虫系统 -->
+        <!-- 爬虫系统有条件共享 -->
         SELECT
         dti.`table_name` AS tableName,
         dtc.`cloumn_name` AS columnName
@@ -736,6 +771,40 @@
         AND dia.`status` = '1'
         AND dtc.`id` IS NOT NULL
         <include refid = "datasetApplyWhereClause"/>
+        GROUP BY dtc.`id`
+
+        UNION ALL
+
+        <!-- 爬虫无条件共享 -->
+
+        SELECT
+        dti.`table_name` AS tableName,
+        dtc.`cloumn_name` AS columnName
+        FROM
+        dir_dataset_classify_map ddcm
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = ddcm.`dataset_id`
+        LEFT JOIN dir_dataitem ddm
+        ON ddm.`dataset_id` = dd.`id`
+        LEFT JOIN dir_dataitem_source_info dsi
+        ON dsi.`item_id` = ddm.`id`
+        LEFT JOIN cs_data_sync_collect_column dtc
+        ON dtc.`id` = dsi.`source_obj_id`
+        LEFT JOIN cs_data_sync_collect dti
+        ON dti.`id` = dtc.`table_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dd.`source_type`
+        WHERE TRUE
+        AND dd.`delete_flag` = 0
+        AND sd.`dict_code` = '4'
+        AND ddm.`share_type` = '0'
+        AND dtc.`id` IS NOT NULL
+        AND ddcm.`id` = #{dcmId}
         GROUP BY dtc.`id`
 
         UNION ALL
@@ -772,6 +841,41 @@
         AND dtc.`id` IS NOT NULL
         <include refid = "datasetApplyWhereClause"/>
         GROUP BY dtc.`id`
+
+        UNION ALL
+
+        <!-- 采集系统无条件 -->
+
+        SELECT
+        dti.`target_obj_code` AS tableName,
+        dtc.`column_name` AS columnName
+        FROM
+        dir_dataset_classify_map ddcm
+        LEFT JOIN dir_dataset dd
+        ON dd.`id` = ddcm.`dataset_id`
+        LEFT JOIN dir_dataitem ddm
+        ON ddm.`dataset_id` = dd.`id`
+        LEFT JOIN dir_dataitem_source_info dsi
+        ON dsi.`item_id` = ddm.`id`
+        LEFT JOIN dcm_table_column dtc
+        ON dtc.`id` = dsi.`source_obj_id`
+        LEFT JOIN dcm_table_info dti
+        ON dti.`id` = dtc.`table_id`
+        LEFT JOIN
+        (SELECT
+        *
+        FROM
+        sys_dict
+        WHERE category = 'dataSetSourceType') sd
+        ON sd.`dict_code` = dd.`source_type`
+        WHERE TRUE
+        AND dd.`delete_flag` = 0
+        AND sd.`dict_code` = '5'
+        AND ddm.`share_type` = '0'
+        AND dtc.`id` IS NOT NULL
+        AND ddcm.`id` = #{dcmId}
+        GROUP BY dtc.`id`
+
 
     </select>
 
