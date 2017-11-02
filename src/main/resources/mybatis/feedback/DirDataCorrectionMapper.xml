@@ -27,6 +27,25 @@
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
+            <if test="null != searchKey and '' != searchKey">
+                AND dt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
+            </if>
+            <if test="null != classifyId and '' != classifyId">
+                AND dc.`id` = #{classifyId}
+            </if>
+            <if test="null != regionCode and '' != regionCode">
+                AND su.`region_code` = #{regionCode}
+            </if>
+            <if test="null != deptId and '' != deptId">
+                AND sd.`dept_code` LIKE CONCAT(
+                (SELECT
+                dept_code
+                FROM
+                sys_dept
+                WHERE id = #{deptId}),
+                '%'
+                )
+            </if>
         </where>
     </sql>
     <!---->
@@ -36,7 +55,8 @@
         ddc.`dcm_id`,
         ddc.`correct_date`,
         dc.`classify_structure_name` AS classify_name,
-        dt.`dataset_name`
+        dt.`dataset_name`,
+        COUNT(ddc.`corrector_id`) AS corrector_count
         FROM
         (SELECT
         *
@@ -53,31 +73,6 @@
         ON su.`id` = ddc.`corrector_id`
         LEFT JOIN sys_dept sd
         ON sd.`id` = su.`dept_id`
-        WHERE TRUE
-        <!-- 搜索关键字 -->
-        <if test="null != searchKey and '' != searchKey">
-            AND dt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
-        </if>
-        <choose>
-            <when test="'admin' == userName">
-                AND 1=1
-            </when>
-            <otherwise>
-                <if test="null != regionCode and '' != regionCode">
-                    AND su.`region_code` = #{regionCode}
-                </if>
-                <if test="null != deptId and '' != deptId">
-                    AND sd.`dept_code` LIKE CONCAT(
-                    (SELECT
-                    dept_code
-                    FROM
-                    sys_dept
-                    WHERE id = #{deptId}),
-                    '%'
-                    )
-                </if>
-            </otherwise>
-        </choose>
         <include refid="queryConditions"></include>
         GROUP BY ddc.`dcm_id`
         ORDER BY ddc.`correct_date` DESC

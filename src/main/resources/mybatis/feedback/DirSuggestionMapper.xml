@@ -27,7 +27,16 @@
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
-                                                                                                                                                                                                                                    </where>
+            <if test="null != searchKey and '' != searchKey">
+                AND ds.`title` LIKE CONCAT('%',#{searchKey},'%')
+            </if>
+            <if test="null != regionCode and '' != regionCode">
+                AND ds.`region_code` = #{regionCode}
+            </if>
+            <if test="1 != userType">
+                AND ds.`id` IS NULL
+            </if>
+        </where>
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirSuggestionVo">
@@ -38,23 +47,6 @@
         dir_suggestion ds
         LEFT JOIN sys_user su
         ON su.`id` = ds.`responser`
-        WHERE TRUE
-        <if test="null != searchKey and '' != searchKey">
-            AND ds.`title` LIKE CONCAT('%',#{searchKey},'%')
-        </if>
-        <choose>
-            <when test="'admin' == userName">
-                AND 1=1
-            </when>
-            <otherwise>
-                <if test="null != regionCode and '' != regionCode">
-                    AND ds.`region_code` = #{regionCode}
-                </if>
-                <if test="1 != userType">
-                    AND ds.`id` IS NULL
-                </if>
-            </otherwise>
-        </choose>
         <include refid="queryConditions"></include>
         ORDER BY ds.`submit_date` DESC
     </select>

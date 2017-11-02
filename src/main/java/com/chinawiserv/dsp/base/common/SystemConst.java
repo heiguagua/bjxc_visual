@@ -48,4 +48,10 @@ public final class SystemConst {
      */
     public static final int DEFAULT_PAGE_SIZE = 15;
 
+    /**
+     * 资源提供方的类型
+     */
+    public static final String CATEGORY_REGION = "1";
+    public static final String CATEGORY_DEPT = "2";
+
 }

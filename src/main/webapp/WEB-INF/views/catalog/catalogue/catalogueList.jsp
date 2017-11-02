@@ -88,12 +88,12 @@
                                         </a>
                                     </div>
                                     <div class="input-group">
-                                        <a class="btn btn-primary btn-flat dropdown-toggle  btn-myself" href="<%=basePath%>/catalog/download" >模板下载</a>
-                                       <%-- <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
-                                                data-toggle="dropdown" onclick="javascript:excelImportUI()">
-                                            <img src="<%=basePath%>/images/userImg/importimg.png"/>
+                                        <%--<a class="btn btn-primary btn-flat dropdown-toggle  btn-myself" href="<%=basePath%>/catalog/download" >模板下载</a>--%>
+                                       <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
+                                                data-toggle="dropdown" onclick="javascript:excelDownloadUI()">
+                                            <%--<img src="<%=basePath%>/images/userImg/importimg.png"/>--%>
                                             <!-- <i class="fa fa-plus"></i> -->模板下载
-                                        </button>--%>
+                                        </button>
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
@@ -111,15 +111,15 @@
                                     </div>
                                     <div class="pull-right">
                                         <input type="hidden" id="searchClassifyId">
-	                                    <%--<div class="input-group" style="margin-right:4px;min-width:240px">
-	                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
-	                                        <input type="hidden" id="searchClassifyId">
+	                                    <div class="input-group" style="margin-right:4px;min-width:240px">
+	                                        <input type="text" id="searchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
+	                                        <input type="hidden" id="searchRegionCode">
 	                                        <div class="menu-wrap">
-	                                            <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
-	                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+	                                            <div id="searchRegionMenuContent" class="menuContent" style="display:none;">
+	                                                <ul id="searchRegionTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
 	                                            </div>
 	                                        </div>
-	                                    </div>--%>
+	                                    </div>
 	                                    <div class="input-group">
 	                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
 	                                        <div class="input-group-btn">

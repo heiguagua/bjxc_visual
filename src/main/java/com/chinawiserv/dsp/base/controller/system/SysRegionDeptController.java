@@ -3,6 +3,8 @@ package com.chinawiserv.dsp.base.controller.system;
 import java.util.List;
 import java.util.Map;
 
+import com.chinawiserv.dsp.base.common.SystemConst;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -160,7 +162,10 @@ public class SysRegionDeptController extends BaseController {
         try {
             String fid = (String) paramMap.get("fcode");
             if (StringUtils.isEmpty(fid)) {
-                paramMap.put("fcode", "000000");
+                paramMap.put("category", SystemConst.CATEGORY_REGION);
+                paramMap.put("regionCode", ShiroUtils.getLoginUser().getRegionCode());
+            }else{
+                paramMap.remove("regionCode");
             }
             List<SysRegionDeptVo> dirClassifyVoList = service.selectVoList(paramMap);
             handleResult.put("vo", dirClassifyVoList);

@@ -220,4 +220,9 @@
         WHERE TRUE AND su.id=#{user_id}
     </select>
 
+    <update id="createToken" parameterType="java.util.Map">
+        UPDATE sys_user SET token = #{token}
+        WHERE id = #{id}
+    </update>
+
 </mapper>

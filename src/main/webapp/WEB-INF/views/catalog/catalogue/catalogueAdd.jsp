@@ -28,7 +28,6 @@
                                 <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="" disabled>
                                 <input type="hidden" value="${vo.id}" id="classifyId" name="classifyIds">
-
                                 <%--<input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">

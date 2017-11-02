@@ -29,9 +29,32 @@
             <div class="row">
                 <div class="col-xs-12 seventy-percent-height">
                     <div class="box">
+
+                        <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                            <section class="sidebar">
+                                <div class="user-panel">
+                                    <b id="dir-Manger">目录分类</b>
+                                    <div class="pull-right image">
+                                        <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
+
+                                            <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                            <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                        </a>
+
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <ul id="treeDemo" class="ztree"></ul>
+                                </div>
+                            </section>
+
+                        </aside>
+
                         <form class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group pull-right">
+                                    <input type="hidden" id="searchClassifyId">
                                     <input class="form-control" id="editListSearch" name="searchEdit" placeholder="资源名称" type="text">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary btn-flat btn_blue" id="queryListBtnEdit" type="button">
@@ -43,9 +66,9 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="box-body table-responsive ">
+                        <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
-                            <table class="table-striped" id="datacorrectionListTable" lay-even="" lay-skin="row">
+                            <table class="table table-hover" id="datacorrectionListTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -74,9 +97,9 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="box-body table-responsive no-padding">
+                        <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
-                            <table class="table-striped" id="datacorrectionDetailTable" lay-even="" lay-skin="row">
+                            <table class="table table-hover" id="datacorrectionDetailTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -90,6 +113,138 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <script type="text/javascript">
+    var tableSelector = '#datacorrectionListTable';
+    var paramsObj = {};
+
+    function setParams() {
+        var searchClassifyId = $('#searchClassifyId').val();
+        var searchName = $('#searchName').val();
+        var regionCode = $.getSelectedRegionCode();
+        paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    }
+
+    function reloadTable() {
+        $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
+        $(tableSelector).data("bootstrap.table").refresh();
+    }
+
+    var setting = {
+        async: {
+            enable: true,
+            url: basePathJS + "/dirClassify/subAuthorityList",
+            autoParam: ["fid","treeCode","authorityNode"],
+            dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
+                var params = [];
+                var nodeObjs = childNodes.content.vo;
+                if (!nodeObjs) {
+                    return null;
+                }
+                for (var i in nodeObjs) {
+                    params[i] = {
+                        'id': nodeObjs[i].id,
+                        'name': nodeObjs[i].classifyName,
+                        'fid': nodeObjs[i].id,
+                        'treeCode': nodeObjs[i].treeCode,
+                        'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
+                        'authorityNode':nodeObjs[i].authorityNode
+                    }
+                }
+                return params;
+            }
+        },
+        callback: {
+            beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+                var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                if (treeNode.isParent) {
+                    if (treeNode.open) {
+                        zTreeObj.expandNode(treeNode, false);
+                    } else {
+                        zTreeObj.expandNode(treeNode, true);
+                    }
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+            onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+
+                //var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                //treeObj.cancelSelectedNode();
+
+                $('#searchClassifyId').val(treeNode.id);
+                setParams();
+                reloadTable();
+                /*$.commonAjax({
+                 url: basePathJS + "/dirClassify/editLoad",
+                 data: {id: treeNode.id},
+                 success: function (result) {
+                 if (result.state) {
+                 var classifyObj = result.content.vo;
+                 $('#' + nameInputDomId).val(classifyObj.classifyStructureName);
+                 $('#' + codeInputDomId).val(treeNode.id);
+                 }
+                 }
+                 });*/
+            }
+        }
+    };
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting);
+    });
+
+
+    //目录类别下拉查询框
+    $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
+
+    function hideDirMgr() {
+        $("#min-aside").animate({
+            width:"40px",
+        },200);
+        $("#dir-Manger").hide();
+        $("#forward").show(400);
+        $("#backward").hide(500);
+        $("#treeDemo").hide(200);
+        $("#min-aside").css("border","none")
+        $("div.box div.table-myself").animate({
+            paddingLeft: "50px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "60px"
+        })
+        $(".user-panel").css("background","#f4f6f9");
+    }
+
+    function showDirMgr() {
+        $("#min-aside").animate({
+            width:"230px",
+        },200);
+        $("#dir-Manger").show();
+        $("#forward").hide(400);
+        $("#backward").show(500);
+        $("#treeDemo").show(200);
+        $("#min-aside").css("border","1px solid #ddd");
+        $(".box-body").animate({
+            paddingLeft: "240px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "270px"
+        })
+        $(".user-panel").css("background","none");
+    }
+
+
+    $(function(){
+        $("#forward").hide();
+        $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+        $("#backward").click(function(){
+            hideDirMgr();
+        })
+        $("#forward").click(function(){
+            showDirMgr();
+        })
+    })
+
+
     /**
      * 纠错搜索框
      * */
@@ -111,6 +266,9 @@
         responseHandler: function (res) {
             return res.rows;
         },
+        queryParams: function (params) {
+            return $.extend(params, paramsObj);
+        },
         pagination: true, //分页
         pageNum: 1,
         pageSize: 10,
@@ -121,9 +279,19 @@
                     return index + 1;
                 }
             },
-            {field: 'classifyName', title: '纠错目录'},
+            {
+                field: 'classifyName',
+                title: '纠错目录',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
             {field: 'datasetName', title: '目录下数据集'},
             {field: 'correctDate', title: '最后纠错时间'},
+            {field: 'correctorCount', title: '纠错人数'},
             {
                 field: 'dcmId', title: '操作',
                 align: 'center',
@@ -153,6 +321,7 @@
     function dcView(v) {
         dcViewTable(v);
         $('#drMg').addClass('hidden');
+        hideDirMgr();
         $('#drMg-dd').removeClass('hidden');
     }
     /**
@@ -162,6 +331,7 @@
     function retdcView() {
         $('#drMg-dd').addClass('hidden');
         $('#drMg-dd .box-body').html('<table class="layui-table" id="datacorrectionDetailTable" lay-even="" lay-skin="row"></table>');
+        showDirMgr();
         $('#drMg').removeClass('hidden');
     }
     /**

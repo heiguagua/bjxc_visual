@@ -110,7 +110,13 @@ var Model = {
                     $("#dataset_item_container").empty();
                     var html = '';
                     $.each(this.datas, function(idx, itm){
-                        html += '<a class="list-group-item no-border" data-id="'+itm.id+'">'+itm.dataset_name+'</a>';
+                        var str = "";
+                        if(itm["relationCount"]==0){
+                            str = "【未梳理关系】"
+                        }else{
+                            str = "【已梳理关系】"
+                        }
+                        html += '<a class="list-group-item no-border" data-id="'+itm.id+'">'+itm.dataset_name+str+'</a>';
                     });
                     $("#dataset_item_container").html(html);
                 }

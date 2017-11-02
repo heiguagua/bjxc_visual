@@ -49,7 +49,7 @@
    <span class="logo-mini"><b>${systemShortName}</b></span>
    <!-- logo for regular state and mobile devices -->
   <!-- <span class="logo-lg"><span><img src="<%=basePath%>/images/userImg/logoSmall.png"/>&nbsp;${systemName}-${systemSubName}</span></span> -->
-   <a href="<%=basePath%>/catalog/catalogue" style="color: #fff" ><span class="logo-lg"><span><img src="<%=basePath%>/images/userImg/logoSmall.png"/>&nbsp;
+   <a href="<%=basePath%>/catalog/catalogue" style="color: #fff" ><span class="logo-lg"><span><img src="<%=basePath%>${defaultIcon}"/>&nbsp;
        <span id="logo" style="font-size: 12px">${systemName}-${systemSubName}</span></span></span></a>
  </div>
 
@@ -115,9 +115,10 @@
         <li>
          <!-- Menu Toggle Button -->
           <a class="citytitle">
-			<span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span"></span>&emsp;<img class="changeAdress" src="<%=basePath%>/images/userImg/changeAdress.png" /></span>
+            <span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span"></span></span>
+			<%--<span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span"></span>&emsp;<img class="changeAdress" src="<%=basePath%>/images/userImg/changeAdress.png" /></span>
 			<ul class="innerul" id="box1">
-			</ul>
+			</ul>--%>
 		  </a>
        </li>
        
