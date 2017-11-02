@@ -30,6 +30,22 @@
             <if test="isAudited != null and isAudited == '1'.toString()">
                 AND (t.status = '1' OR t.status = '2')
             </if>
+            <if test="regionCode != null and regionCode != ''">
+                AND u.region_code = #{regionCode}
+            </if>
+            <if test="classifyId != null and classifyId != ''">
+                AND c.id = #{classifyId}
+            </if>
+            <if test="null != deptId and '' != deptId">
+                AND de.dept_code LIKE CONCAT(
+                (SELECT
+                dept_code
+                FROM
+                sys_dept
+                WHERE id = #{deptId}),
+                '%'
+                )
+            </if>
         </where>
     </sql>
 
@@ -52,11 +68,10 @@
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM dir_data_apply t
-        LEFT JOIN dir_dataset_classify_map dc ON t.dcm_id = dc.id
-        LEFT JOIN dir_classify c ON c.id = dc.classify_id
-        LEFT JOIN dir_dataset d ON d.id = dc.dataset_id
+        SELECT count(1) FROM (
+        <include refid="baseSelectVo"></include>
         <include refid="queryConditions"></include>
+        ) a
     </select>
 
 </mapper>

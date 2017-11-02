@@ -20,7 +20,7 @@ public interface IDirClassifyService extends ICommonService<DirClassify, DirClas
 	
 	DirClassifyVo prepareClassifyVo(DirClassifyVo vo);
 	
-	void insertbatchNational(DirClassifyVo vo);
+	void insertbatchNational(DirClassifyVo vo) throws Exception;
 
 	List<DirClassifyVo> selectVoList(Map<String,Object> paramMap) throws Exception;
 

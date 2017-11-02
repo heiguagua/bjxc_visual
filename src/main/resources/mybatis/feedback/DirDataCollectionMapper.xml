@@ -22,6 +22,25 @@
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
+            <if test="null != searchKey and '' != searchKey">
+                AND dt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
+            </if>
+            <if test="null != classifyId and '' != classifyId">
+                AND dc.`id` = #{classifyId}
+            </if>
+            <if test="null != regionCode and '' != regionCode">
+                AND su.`region_code` = #{regionCode}
+            </if>
+            <if test="null != deptId and '' != deptId">
+                AND sd.`dept_code` LIKE CONCAT(
+                (SELECT
+                dept_code
+                FROM
+                sys_dept
+                WHERE id = #{deptId}),
+                '%'
+                )
+            </if>
         </where>
     </sql>
     <!-- 查询收藏列表: -->
@@ -31,7 +50,8 @@
         ddc.`dcm_id`,
         ddc.`collect_date`,
         dc.`classify_structure_name` AS classify_name,
-        dt.`dataset_name`
+        dt.`dataset_name`,
+        COUNT(DISTINCT ddc.`collector_id`) AS collector_count
         FROM
         (SELECT
         *
@@ -48,34 +68,6 @@
         ON su.`id` = ddc.`collector_id`
         LEFT JOIN sys_dept sd
         ON sd.`id` = su.`dept_id`
-        WHERE TRUE
-        <!-- 搜索关键字 -->
-        <if test="null != searchKey and '' != searchKey">
-            AND dt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
-        </if>
-        <if test="null != classifyId and '' != classifyId">
-            AND dc.`id` = #{classifyId}
-        </if>
-        <choose>
-            <when test="'admin' == userName">
-                AND 1=1
-            </when>
-            <otherwise>
-                <if test="null != regionCode and '' != regionCode">
-                    AND su.`region_code` = #{regionCode}
-                </if>
-                <if test="null != deptId and '' != deptId">
-                    AND sd.`dept_code` LIKE CONCAT(
-                    (SELECT
-                    dept_code
-                    FROM
-                    sys_dept
-                    WHERE id = #{deptId}),
-                    '%'
-                    )
-                </if>
-            </otherwise>
-        </choose>
         <include refid="queryConditions"></include>
         GROUP BY ddc.`dcm_id`
         ORDER BY ddc.`collect_date` DESC

@@ -2,9 +2,11 @@ package com.chinawiserv.dsp.dir.controller.apply;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.dir.entity.vo.apply.DirRegistUserVo;
 import com.chinawiserv.dsp.dir.enums.EnumTools;
 import com.chinawiserv.dsp.dir.enums.apply.RegistUserStatus;
@@ -50,6 +52,15 @@ public class DirRegistUserController extends BaseController {
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
+        SysUserVo user = ShiroUtils.getLoginUser();
+        String deptId;
+        if(null != user.getUserType() &&  1 == user.getUserType()){
+            deptId = null;
+        }else{
+            deptId = user.getDeptId();
+        }
+        paramMap.put("deptId",deptId);
+//        paramMap.put("regionCode",user.getRegionCode());
 		try {
 		    Page<DirRegistUserVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);

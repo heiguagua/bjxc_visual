@@ -54,6 +54,14 @@ function initFormerDate(classifyId) {
 //                    }else{
 //                    	$("#Edep").removeClass('hidden');
 //                    }
+                    
+                    var ss = vo.classifyStructureName;
+					if(ss.substr(0,10)=='政务部门信息资源目录'){
+						$("#Edep").removeClass('hidden');						 
+					}else{
+						$("#Edep").addClass('hidden');						
+					}
+					
                     $("#deptName").val(vo.deptName);
                     $("#leadDeptName").val(vo.leadDeptName);
                     $("#Eorder_number").val(vo.orderNumber);

@@ -35,4 +35,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @return
      */
     int selectUserRoleType(@Param("user_id")String user_id);
+
+    int createToken(Map<String,String> paramMap);
 }

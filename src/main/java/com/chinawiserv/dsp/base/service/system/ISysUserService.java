@@ -6,6 +6,8 @@ import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
+import java.util.Map;
+
 /**
  * <p>
  * 用户表 服务类1
@@ -51,4 +53,9 @@ public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
      * @return
      */
     int selectUserRoleType(String user_id);
+
+    /**
+     * 生成TOKEN
+     * */
+    boolean createToken(Map<String,String> paramMap);
 }
