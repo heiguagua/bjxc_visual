@@ -12,6 +12,68 @@
 	top: 340px !important;
 }
 </style>
+<script type="text/javascript">
+<script type="text/javascript">
+$(document).ready(function() {
+	$(document).on("click", ".upload_license", function() {
+		var fileName = $("input[name='licenseFile']").val();
+		if (fileName == null || fileName == '' || fileName == undefined) {
+			errorMsgTip("请先选择license.");
+			return;
+		}
+		var uploadLicenseUrl = "/license/uploadLicense"
+		uploadFile(uploadLicenseUrl, "uploadLicense");
+	})
+	$(document).on("click",".goLogin",function(){
+		window.location.href=basePathJS+"/login/login"
+	})
+})
+
+function uploadFile(url, inputId) {
+	$
+			.ajaxFileUpload({
+				fileElementId : inputId, //需要上传的文件域的ID，即<input type="file">的ID。
+				url : basePathJS + url, //后台方法的路径
+				type : 'post', //当要提交自定义参数时，这个参数要设置成post
+				dataType : 'json', //服务器返回的数据类型。可以为xml,script,json,html。如果不填写，jQuery会自动判断。
+				secureuri : false, //是否启用安全提交，默认为false。
+				async : true, //是否是异步
+				success : function(data) { //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+					if (!data.state) {
+						errorMsgTip(data.msg);
+						return;
+					}
+					var successMsg = data.msg;
+					successMsg = jQuery.parseJSON(successMsg);
+					if (successMsg.isValidity == 0
+							|| successMsg.isValidity == '0') {
+						errorMsgTip(successMsg.errorMessage);
+					} else if (successMsg.isValidity == 1
+							|| successMsg.isValidity == '1') {
+						tip("license上传成功。");
+						$(".periodOfValidity").text(
+								successMsg.periodOfValidity);
+						$(".sysName").text(successMsg.sysName);
+						$(".sysVersion").text(successMsg.sysVersion);
+					}
+					console.log(successMsg);
+				},
+				error : function(data, status, e) { //提交失败自动执行的处理函数。
+					console.error(e);
+				}
+			});
+}
+
+var lic = ${lic}
+if (lic.isValidity == 0 || lic.isValidity == '0') {
+	errorMsgTip(lic.errorMessage);
+} else {
+	$(".periodOfValidity").text(successMsg.periodOfValidity);
+	$(".sysName").text(successMsg.sysName);
+	$(".sysVersion").text(successMsg.sysVersion);
+}
+</script>
+</script>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 		<%@include file="/WEB-INF/views/common/header.jsp"%>

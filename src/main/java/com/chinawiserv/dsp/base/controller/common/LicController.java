@@ -1,4 +1,4 @@
-package com.chinawiserv.dsp.base.controller.license;
+package com.chinawiserv.dsp.base.controller.common;
 
 import java.io.File;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,19 +30,19 @@ import com.qwserv.wiservlic.impl.LicAuthorizeImpl;
  *
  */
 @Controller
-@RequestMapping("/license")
+@RequestMapping("/lic")
 @Configuration
-public class LicenseController {
+public class LicController {
 
 	/**
 	 * license路径,不含服务路径
 	 */
-	private static String LICENSE_PATH = "licInfo/";
+	private static String LIC_PATH = "lic/";
 	
 	/**
 	 * license名称
 	 */
-	private static String LICENSE_NAME = "qinzhi_authorize.lic";
+	private static String LIC_NAME = "qinzhi_authorize.lic";
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
@@ -60,7 +61,7 @@ public class LicenseController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/licenseErrorPage")
+	@RequestMapping("/licErrorPage")
 	public String goToLinceseErrorPage(HttpServletRequest req,
 			HttpServletResponse res, @RequestParam Map<String, Object> param,
 			Model model) {
@@ -68,10 +69,10 @@ public class LicenseController {
 		model.addAllAttributes(param);
 		LicAuthorize lic = new LicAuthorizeImpl();
 		String checkResult = lic.doLicAuthorize(servletPath,
-				LICENSE_PATH);
+				LIC_PATH);
 		JSON json = JSON.parseObject(checkResult);
 		model.addAttribute("lic", json);
-		return "system/license/license.warning";
+		return "system/lic/lic.warning";
 	}
 
 	/**
@@ -83,7 +84,8 @@ public class LicenseController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/licensePage")
+    @RequiresPermissions("lic:licPage")
+	@RequestMapping("/licPage")
 	public String goToLincesePage(HttpServletRequest req,
 			HttpServletResponse res, @RequestParam Map<String, Object> param,
 			Model model) {
@@ -91,10 +93,10 @@ public class LicenseController {
 		model.addAllAttributes(param);
 		LicAuthorize lic = new LicAuthorizeImpl();
 		String checkResult = lic.doLicAuthorize(servletPath,
-				LICENSE_PATH);
+				LIC_PATH);
 		JSON json = JSON.parseObject(checkResult);
 		model.addAttribute("lic", json);
-		return "system/license/license";
+		return "system/lic/lic";
 	}
 
 	/**
@@ -105,7 +107,7 @@ public class LicenseController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping("/uploadLicense")
+	@RequestMapping("/uploadLic")
 	@ResponseBody
 	public Object uploadLicense(
 			@RequestParam(value = "licenseFile", required = false) MultipartFile licenseFile,
@@ -115,31 +117,31 @@ public class LicenseController {
 			handleResult.error("文件不能为空！");
 		} else {
 			final String originalFilename = licenseFile.getOriginalFilename();
-			if (!LICENSE_NAME.equals(originalFilename)) {
+			if (!LIC_NAME.equals(originalFilename)) {
 				handleResult.error("文件类型不正确。");
 				return handleResult;
 			}
 			try {
 				StringBuilder sbuilder = new StringBuilder();
-				sbuilder.append(LICENSE_PATH);
+				sbuilder.append(LIC_PATH);
                 
-				File file = new File(LICENSE_PATH);
+				File file = new File(LIC_PATH);
 				if (!file.exists()) {
 					file.mkdirs();
 				}
-				logger.info(LICENSE_PATH + originalFilename);
-				File licenseFilePath = new File(LICENSE_PATH + originalFilename);
-				licenseFilePath.delete();
-				licenseFile.transferTo(licenseFilePath);
+				logger.info(LIC_PATH + originalFilename);
+				File licFilePath = new File(LIC_PATH + originalFilename);
+				licFilePath.delete();
+				licenseFile.transferTo(licFilePath);
 				LicAuthorize lic = new LicAuthorizeImpl();
 				// TODO 服务名称待定
 				String checkResult = lic.doLicAuthorize(servletPath,
-						LICENSE_PATH);
+						LIC_PATH);
 				handleResult.success(checkResult);
 				return handleResult;
 			} catch (Exception e) {
-				logger.error("license上传失败。", e.toString());
-				handleResult.error("license上传失败。");
+				logger.error("文件上传失败。", e.toString());
+				handleResult.error("文件上传失败。");
 			}
 		}
 		return handleResult;

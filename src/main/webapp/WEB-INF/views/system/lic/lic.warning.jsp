@@ -17,6 +17,9 @@
 			var uploadLicenseUrl = "/license/uploadLicense"
 			uploadFile(uploadLicenseUrl, "uploadLicense");
 		})
+		$(document).on("click",".goLogin",function(){
+			window.location.href=basePathJS+"/login/login"
+		})
 	})
 
 	function uploadFile(url, inputId) {
@@ -40,7 +43,7 @@
 							errorMsgTip(successMsg.errorMessage);
 						} else if (successMsg.isValidity == 1
 								|| successMsg.isValidity == '1') {
-							successMsgTip("license上传成功。");
+							tip("license上传成功。");
 							$(".periodOfValidity").text(
 									successMsg.periodOfValidity);
 							$(".sysName").text(successMsg.sysName);
@@ -54,10 +57,7 @@
 				});
 	}
 
-	var lic = $
-	{
-		lic
-	}
+	var lic = ${lic}
 	if (lic.isValidity == 0 || lic.isValidity == '0') {
 		errorMsgTip(lic.errorMessage);
 	} else {
@@ -122,7 +122,7 @@
 										<label class="col-sm-2 control-label" style="width: 12.2%">上传lincense:</label>
 
 										<div class="col-sm-6" style="width: 65.8%;margin-right:0px;padding-right:0px">
-											<input type="file" id="uploadLicense" name="licenseFile"
+											<input type="file" id="uploadLicense" data-rule="required" name="licenseFile"
 												class="form-control">
 
 										</div>
