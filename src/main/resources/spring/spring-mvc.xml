@@ -154,30 +154,31 @@
 	</bean>
 
 	<!-- 拦截器 -->
-	<mvc:interceptors>
+	<!--<mvc:interceptors>-->
 
-		<!--&lt;!&ndash; 登录拦截器 &ndash;&gt;-->
+		<!--&lt;!&ndash;&lt;!&ndash; 登录拦截器 &ndash;&gt;&ndash;&gt;-->
+		<!--&lt;!&ndash;<mvc:interceptor>&ndash;&gt;-->
+			<!--&lt;!&ndash;<mvc:mapping path="/**" />&ndash;&gt;-->
+			<!--&lt;!&ndash;<bean class="com.chinawiserv.dsp.dcs.dcm.interceptor.LoginInterceptor" />&ndash;&gt;-->
+		<!--&lt;!&ndash;</mvc:interceptor>&ndash;&gt;-->
+
+		<!--&lt;!&ndash;&lt;!&ndash; 权限拦截器 &ndash;&gt;&ndash;&gt;-->
 		<!--<mvc:interceptor>-->
 			<!--<mvc:mapping path="/**" />-->
-			<!--<bean class="com.chinawiserv.dsp.dcs.dcm.interceptor.LoginInterceptor" />-->
+            <!--<mvc:exclude-mapping path="/**/fonts/*"/>-->
+            <!--<mvc:exclude-mapping path="/**/*.css"/>-->
+            <!--<mvc:exclude-mapping path="/**/*.js"/>-->
+            <!--<mvc:exclude-mapping path="/**/*.png"/>-->
+            <!--<mvc:exclude-mapping path="/**/*.gif"/>-->
+            <!--<mvc:exclude-mapping path="/plugins/**"/>-->
+            <!--<mvc:exclude-mapping path="/**/*.jpg"/>-->
+            <!--<mvc:exclude-mapping path="/**/*.jpeg"/>-->
+			<!--<bean class="com.chinawiserv.dsp.base.common.inteceptor.SpringInteceptor">-->
+
+            <!--</bean>-->
 		<!--</mvc:interceptor>-->
 
-		<!--&lt;!&ndash; 权限拦截器 &ndash;&gt;-->
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-            <mvc:exclude-mapping path="/**/fonts/*"/>
-            <mvc:exclude-mapping path="/**/*.css"/>
-            <mvc:exclude-mapping path="/**/*.js"/>
-            <mvc:exclude-mapping path="/**/*.png"/>
-            <mvc:exclude-mapping path="/**/*.gif"/>
-            <mvc:exclude-mapping path="/**/*.jpg"/>
-            <mvc:exclude-mapping path="/**/*.jpeg"/>
-			<bean class="com.chinawiserv.dsp.base.common.inteceptor.SpringInteceptor">
-
-            </bean>
-		</mvc:interceptor>
-
-	</mvc:interceptors>
+	<!--</mvc:interceptors>-->
 
 	<!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>-->
 
