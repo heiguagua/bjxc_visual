@@ -43,6 +43,8 @@
 	        <value>
 	        	<!--/=anon-->
 	        	/login/**=anon
+	        	/license/licenseErrorPage=anon
+	        	/license/uploadLicense=anon
 	        	/app/**=anon
 	        	/js/**=anon
 	        	/css/**=anon
