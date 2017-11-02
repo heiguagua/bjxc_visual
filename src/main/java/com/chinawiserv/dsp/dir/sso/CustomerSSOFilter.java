@@ -1,5 +1,18 @@
 package com.chinawiserv.dsp.dir.sso;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.ContextLoader;
+
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
@@ -10,22 +23,11 @@ import com.chinawiserv.dsp.base.service.system.ISysMenuService;
 import com.chinawiserv.dsp.base.service.system.ISysSettingService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import com.free.oss.filter.SSOFilter;
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.ContextLoader;
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Component
 public class CustomerSSOFilter extends SSOFilter {
 
-    public CustomerSSOFilter() {
-    }
+    public CustomerSSOFilter() {}
 
     /**
      * 获取当前系统登录的账号
@@ -34,44 +36,8 @@ public class CustomerSSOFilter extends SSOFilter {
     @Override
     public String curAcc(HttpSession session) {
         SysUser currentLoginUser = ShiroUtils.getLoginUser();
-        if (null != currentLoginUser) {
-            return currentLoginUser.getUserName();
-        }
+        if (null != currentLoginUser) return currentLoginUser.getUserName();
         return "";
-    }
-
-    /**
-     * 设置当前系统登录的账号
-     */
-    @Override
-    public void setAcc(HttpSession session, String account) {
-        try {
-            ISysUserService iSysUserService = ContextLoader.getCurrentWebApplicationContext().getBean(ISysUserService.class);
-            Map<String, Object> paramMap = new HashMap<>();
-            SysUserVo sysUserVo = iSysUserService.selectVoByUserName(account);
-            if (null != sysUserVo) {
-                Subject subject = ShiroUtils.getSubject();
-                //sha256加密
-                paramMap.put("userName", account);
-                paramMap.put("password", sysUserVo.getPassword());
-                UsernamePasswordToken token = new UsernamePasswordToken(account, sysUserVo.getPassword());
-                subject.login(token);
-                loginSuccess(paramMap);
-            }else{
-
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 登出
-     */
-    @Override
-    public void logOut(HttpSession session) {
-        ShiroUtils.logout();
     }
 
     public void loginSuccess(Map<String, Object> paramMap) {
@@ -116,12 +82,45 @@ public class CustomerSSOFilter extends SSOFilter {
             list2 = sysMenuService.selectMenuIdsByuserId(currentLoginUser.getId());
             String[] permissions = list2.toArray(new String[list2.size()]);
             ShiroUtils.setSessionAttribute(SystemConst.PERMISSIONS, permissions);
-            //获取当前用户的区域编码
+            // 获取当前用户的区域编码
             ShiroUtils.setSessionAttribute(SystemConst.REGION, currentLoginUser.getRegionCode());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * 登出
+     */
+    @Override
+    public void logOut(HttpSession session) {
+        ShiroUtils.logout();
+    }
+
+    /**
+     * 设置当前系统登录的账号
+     */
+    @Override
+    public void setAcc(HttpSession session, String account) {
+        try {
+            ISysUserService iSysUserService = ContextLoader.getCurrentWebApplicationContext().getBean(ISysUserService.class);
+            Map<String, Object> paramMap = new HashMap<>();
+            SysUserVo sysUserVo = iSysUserService.selectVoByUserName(account);
+            if (null != sysUserVo) {
+                Subject subject = ShiroUtils.getSubject();
+                // sha256加密
+                paramMap.put("userName", account);
+                paramMap.put("password", sysUserVo.getPassword());
+                UsernamePasswordToken token = new UsernamePasswordToken(account, sysUserVo.getPassword());
+                subject.login(token);
+                this.loginSuccess(paramMap);
+            } else {
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
