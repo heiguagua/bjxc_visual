@@ -49,8 +49,12 @@
                                                 < 返回
                                             </a>
                                         </div>
+                                        <div class="input-group">
+                                            <input id="regionNameId" type="text" name="regionName" class="form-control" placeholder="行政区域" >
+                                        </div>
                                     <%--</#if>--%>
                                     <div class="input-group pull-right">
+
                                         <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="组织机构名称" >
                                         <div class="input-group-btn">
                                             <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i> 查询</button>

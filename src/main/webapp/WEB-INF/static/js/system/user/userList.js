@@ -11,6 +11,22 @@ jQuery(document).ready(function () {
             return false;//这句非常重要。如果没有这句，那么查询出结果后，会出现刷新页面动作等，导致查询结果失效。
         }
     });
+    $("#regionNameId").keydown(function(e){
+        var curKey = e.which;
+        if(curKey == 13){
+        	setParams();
+        	reloadTable();//此处可以是你要执行的功能
+            return false;//这句非常重要。如果没有这句，那么查询出结果后，会出现刷新页面动作等，导致查询结果失效。
+        }
+    });
+    $("#deptNameId").keydown(function(e){
+        var curKey = e.which;
+        if(curKey == 13){
+        	setParams();
+        	reloadTable();//此处可以是你要执行的功能
+            return false;//这句非常重要。如果没有这句，那么查询出结果后，会出现刷新页面动作等，导致查询结果失效。
+        }
+    });
     jQuery(tableSelector).customTable({
         url: basePathJS + '/system/user/list',
         queryParams: function (params) {
@@ -129,7 +145,9 @@ jQuery(document).ready(function () {
 
     function setParams() {
         var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {searchKey: searchKeyVal};
+        var regionName = $('#regionNameId').val();
+        var deptName = $('#deptNameId').val();
+        paramsObj = {searchKey: searchKeyVal,regionName: regionName,deptName:deptName};
     }
 
 });
