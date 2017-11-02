@@ -27,7 +27,7 @@
 	<div class="top_cont">
 		<section class="top_conttitle" style="text-align: center">
 				<img class="logopng" src="<%=basePath%>/images/userImg/logo.png">
-				<p>${projectPortalName}</p>
+				<p>${systemShowName}</p>
             	<div class="righttext">
             	</div>
 				<div class="section_bottom">

@@ -53,14 +53,14 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010701','0107','查看日志列表','','','0','3','010701','system:log:list','1');
 -- INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0108','01','系统监控','/system/monitor','fa-eye','12','2','0108','system:monitor','1');
 -- INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010801','0108','监控列表','','','1','3','010801','system:monitor:list','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0109','01','组织机构数据权限管理','/system/deptAuthority','fa fa-cogs','5','2','0109','system:deptAuthority:list','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0109','01','部门数据权限管理','/system/deptAuthority','fa fa-cogs','5','2','0109','system:deptAuthority:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('010901','0109','编辑组织机构数据权限','','','2','3','010901','system:deptAuthority:edit','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0110','01','用户数据权限管理','/system/userAuthority','fa-cogs','6','2','0110','system:userAuthority:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('011001','0110','编辑用户数据权限','','','2','3','011001','system:userAuthority:edit','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0111','01','组织机构数据权限申请管理','/system/deptAuthorityApply','fa-cogs','7','2','0111','apply:dirDataitemApply:list','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0111','01','部门数据权限申请','/system/deptAuthorityApply','fa-cogs','7','2','0111','apply:dirDataitemApply:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('011101','0111','组织机构数据权限申请列表','','','2','3','011101','system:deptAuthorityApply:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('011102','0111','申请组织机构数据权限','','','2','3','011102','system:deptAuthorityApply:add','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0112','01','组织机构数据权限审核管理','/system/deptAuthorityAudit','fa-cogs','8','2','0112','system:deptAuthorityAudit:list','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0112','01','部门数据权限审核','/system/deptAuthorityAudit','fa-cogs','8','2','0112','system:deptAuthorityAudit:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('011201','0112','组织机构数据权限审核列表','','','2','3','011201','system:deptAuthorityAudit:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('011202','0112','审核组织机构数据权限','','','2','3','011202','system:deptAuthorityAudit:edit','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('03','0','目录分类维护','/dirClassify','fa-cog','3','2','03','catalog:classify','1');
@@ -145,13 +145,14 @@ INSERT INTO sys_product_integrate (id,product_no,product_name,product_show_name,
 
 -- 系统配置表
 delete from sys_setting;
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a8731fb94511e7a38b00ffe04ac734','','1','projectPortalName','项目门户名称','成都市大数据资源服务网',NULL,1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a874f7b94511e7a38b00ffe04ac734','','1','projectPortalEnName','项目门户英文名称','Chengdu Big Data Resource Service Network',NULL,1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a8756eb94511e7a38b00ffe04ac734','','1','projectPortalLogo','项目门户Logo图标','/img/logo.png',NULL,1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a875c1b94511e7a38b00ffe04ac734','','1','systemName','系统名称','政务信息资源管理',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a8731fb94511e7a38b00ffe04ac734','','1','projectPortalName','项目门户名称','成都市大数据资源服务网','显示在共享门户首页的项目名称',1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a874f7b94511e7a38b00ffe04ac734','','1','projectPortalEnName','项目门户英文名称','Chengdu Big Data Resource Service Network','显示在共享门户首页的项目英文名称',1);
+-- INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a8756eb94511e7a38b00ffe04ac734','','1','projectPortalLogo','项目门户Logo图标','/img/logo.png','显示在共享门户首页的Logo图标',1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a875c1b94511e7a38b00ffe04ac734','','1','systemShowName','系统后台显示名称','成都市大数据资源服务网','',1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a875c1b04511e7a38b00ffe04ac734','','1','systemName','系统后台管理名称','政务信息资源管理',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87602b94511e7a38b00ffe04ac734','','1','systemShortName','系统英文简称','DIR',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87648b94511e7a38b00ffe04ac734','','1','systemSubName','系统子名称','目录管理系统',NULL,1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87681b94511e7a38b00ffe04ac734','','1','defaultIcon','系统默认Icon图标','/img/logo.png',NULL,1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87681b94511e7a38b00ffe04ac734','','1','defaultIcon','系统默认Icon图标路径','/img/dspLogo/','',1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a876bbb94511e7a38b00ffe04ac734','','1','localRegion','系统所属行政区划','510100',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a876f4b94511e7a38b00ffe04ac734','','1','bottomCopyright','许可说明','Copyright © 2017 勤智数码. All rights reserved.',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87732694511e7a38700ffe04ac734','','1','integrateCurNo','系统集成当前标识','dm','',1);
