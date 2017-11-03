@@ -14,6 +14,15 @@
 <title>licen管理</title>
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		var isValidity="${lic.isValidity}";
+
+		 if (isValidity == 0 || isValidity == '0') {
+				var errMessage = "${lic.errorMessage}";
+				$("#uploadLicense").parent().find(".msg-box").removeClass("hide");
+				$("#uploadLicense").parent().find(".msg-box").find(".n-msg").text(errMessage);
+				$(".form-group").addClass("has-error")
+			}
 		$(document).on("click", ".upload_license", function() {
 			var fileName = $("input[name='licenseFile']").val();
 			if (fileName == null || fileName == '' || fileName == undefined) {
@@ -73,18 +82,6 @@
 						console.error(e);
 					}
 				});
-	}
-
-	var lic = $
-	{
-		lic
-	};
-	if (lic.isValidity == 0 || lic.isValidity == '0') {
-		errorMsgTip(lic.errorMessage);
-	} else {
-		$(".periodOfValidity").text(successMsg.periodOfValidity);
-		$(".sysName").text(successMsg.sysName);
-		$(".sysVersion").text(successMsg.sysVersion);
 	}
 </script>
 </head>
