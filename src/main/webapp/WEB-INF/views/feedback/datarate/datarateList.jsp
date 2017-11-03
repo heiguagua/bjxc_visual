@@ -27,7 +27,7 @@
         <!-- Content Header (Page header) -->
         <section class="content" id="duMg">
             <div class="row">
-                <div class="col-xs-12 seventy-percent-height">
+                <div class="col-xs-12">
                     <div class="box">
 
                         <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
@@ -79,7 +79,7 @@
         </section>
         <section class="content" id="duMg-dd" class="hidden">
             <div class="row">
-                <div class="col-xs-12 seventy-percent-height">
+                <div class="col-xs-12">
                     <div class="box">
                         <form class="form-inline marginBot" method="post">
                             <div class="box-header">
