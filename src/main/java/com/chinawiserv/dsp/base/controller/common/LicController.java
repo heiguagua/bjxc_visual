@@ -89,6 +89,7 @@ public class LicController extends BaseController{
 	public String goToLincesePage(HttpServletRequest req,
 			HttpServletResponse res, @RequestParam Map<String, Object> param,
 			Model model) {
+		setCurrentMenuInfo(param);
 		param.put("status", "ok");
 		model.addAllAttributes(param);
 		LicAuthorize lic = new LicAuthorizeImpl();
