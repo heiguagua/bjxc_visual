@@ -38,6 +38,11 @@
                                                 创建一级组织机构
                                             </a>
                                         </div>
+                                        <div class="input-group">
+                                            <a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchDept()" >
+                                                <img src="<%=basePath%>/images/userImg/delImg.png"/>
+                                                批量删除</a>
+                                        </div>
                                         <%--<div class="input-group">--%>
                                             <%--<a class="btn btn-primary btn-flat btn-myself" onclick="javascript:syncDeptClassify()" id="sysDeptA">--%>
                                                 <%--<img src="<%=basePath%>/images/userImg/changeAdress.png"/>--%>

@@ -33,6 +33,11 @@ jQuery(document).ready(function () {
             return $.extend(params, paramsObj);
         },
         columns: [{
+            checkbox: true,
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        }, {
             field: 'userName',
             title: '用户名',
             align: 'center',
@@ -169,4 +174,9 @@ function deleteUser(id) {
     var url = basePathJS + "/system/user/delete";
     var parameter = {id: id};
     delObj(url, parameter);
+}
+
+function deleteBatchUser() {
+    var url = basePathJS + "/system/user/deleteBatch";
+    deleteALLSelect(url , tableSelector);
 }

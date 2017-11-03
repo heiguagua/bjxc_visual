@@ -244,6 +244,28 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         }
         return false;
     }
+    @Override
+    public String checkDeleteProperty(String id){
+        SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(id);
+        if (sysDeptVo != null) {
+            if (!sysDeptMapper.isParentDept(sysDeptVo.getId())) {
+                int count = sysUserMapper.selectUsersCountByDeptId(id);
+                if (count == 0) {
+                    return null;
+                }else{
+                    return id;
+                }
+            }else{
+                return id;
+            }
+        }
+        return id;
+    }
+
+    @Override
+    public boolean deleteBatchDeptByIds(List<String> ids) throws Exception {
+        return retBool(sysDeptMapper.deleteBatchDeptByIds(ids));
+    }
 
     @Override
     public List<SysDeptVo> selectVoList(Map<String, Object> paramMap) {

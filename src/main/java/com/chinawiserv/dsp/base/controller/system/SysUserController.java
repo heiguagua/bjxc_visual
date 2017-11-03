@@ -12,6 +12,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.base.service.system.ISysLogService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang3.StringUtils;
@@ -50,6 +51,9 @@ public class SysUserController extends BaseController {
     
     @Autowired
     private ISysUserService sysUserService;
+
+    @Autowired
+    private SysUserMapper userMapper;
 
     /**
      * 初始化用户列表
@@ -130,6 +134,43 @@ public class SysUserController extends BaseController {
         } else {
             return new HandleResult().error("删除失败，用户不能删除自己！");
         }
+    }
+
+     /*
+    * 批量删除用户
+    * */
+
+    @RequiresPermissions("system:user:deleteBatch")
+    @Log("批量删除用户")
+    @RequestMapping("/deleteBatch")
+    @ResponseBody
+    public HandleResult deleteBatch(@RequestParam("idArr[]") List<String> ids){
+        HandleResult handleResult = new HandleResult();
+        String loginUserId = ShiroUtils.getLoginUserId();
+        try {
+            String userStr = "";
+            for(String id : ids){
+                //不能删除系统管理员，不能删除自己
+                if (!"549d321508db446e9bcaa477835fe5f1".equals(id) && !id.equals(loginUserId)) {
+                    //检查该用户是否可删
+                    if(!userMapper.checkCanBeDeletedById(id)){
+                        userStr = userStr + id +",";
+                    }
+                } else {
+                    return new HandleResult().error("删除失败，用户不能删除自己！");
+                }
+            }
+            if("".equals(userStr)){
+                userMapper.deleteBatchUserByIds(ids);
+                handleResult.success("批量删除用户成功！");
+            }else{
+                handleResult.error("批量删除用户失败，批量选择的用户有系统内置的管理员用户或者在尝试删除自己！");
+            }
+        } catch (Exception e) {
+            handleResult.error("批量删除用户失败");
+            logger.error("批量删除用户失败", e);
+        }
+        return handleResult;
     }
 
     /**

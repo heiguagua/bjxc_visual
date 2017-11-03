@@ -41,4 +41,6 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
     List<SysDeptVo> selectDeptListLikeTreeCode(@Param("list")List<String> list);
 
     List<String> selectDeptByPrivilege(@Param("user_id") String user_id);
+
+    Integer deleteBatchDeptByIds(List<String> ids);
 }
