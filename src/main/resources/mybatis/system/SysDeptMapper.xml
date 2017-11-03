@@ -212,4 +212,11 @@
 		GROUP BY
 			sd.tree_code
 	</select>
+
+	<update id="deleteBatchDeptByIds" parameterType="java.util.List">
+		UPDATE sys_dept SET delete_flag = '1' WHERE id IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
 </mapper>

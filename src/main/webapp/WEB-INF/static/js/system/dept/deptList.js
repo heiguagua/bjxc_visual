@@ -288,3 +288,7 @@ function deleteDept(id) {
     var parameter = {id: id};
     delObj(url , parameter) ;
 }
+function deleteBatchDept() {
+    var url = basePathJS + "/system/dept/deleteBatch";
+    deleteALLSelect(url , tableSelector);
+}

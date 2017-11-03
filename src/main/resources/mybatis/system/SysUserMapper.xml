@@ -231,4 +231,11 @@
         WHERE id = #{id}
     </update>
 
+    <update id="deleteBatchUserByIds" parameterType="java.util.List">
+        UPDATE sys_user SET delete_flag = '1' WHERE id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
 </mapper>

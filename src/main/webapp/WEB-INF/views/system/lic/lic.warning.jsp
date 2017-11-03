@@ -5,9 +5,24 @@
 <%@include file="/WEB-INF/views/common/head.jsp"%>
 <script type="text/javascript"
 	src="<%=basePath%>/plugins/uploadFile/ajaxfileupload.js"></script>
+<style type="text/css">
+.n-success {
+    color: #00a65a;
+}
+
+</style>	
 <title>licen管理</title>
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		var isValidity="${lic.isValidity}";
+
+		 if (isValidity == 0 || isValidity == '0') {
+				var errMessage = "${lic.errorMessage}";
+				$("#uploadLicense").parent().find(".msg-box").removeClass("hide");
+				$("#uploadLicense").parent().find(".msg-box").find(".n-msg").text(errMessage);
+				$(".form-group").addClass("has-error")
+			}
 		$(document).on("click", ".upload_license", function() {
 			var fileName = $("input[name='licenseFile']").val();
 			if (fileName == null || fileName == '' || fileName == undefined) {
@@ -32,17 +47,30 @@
 					async : true, //是否是异步
 					success : function(data) { //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
 						if (!data.state) {
-							errorMsgTip(data.msg);
+							$("#uploadLicense").parent().find(".msg-box").removeClass("hide");
+							$("#uploadLicense").parent().find(".msg-box").find(".n-msg").text(data.msg);
+							$("#uploadLicense").parent().find(".msg-box").find(".n-msg").removeClass("n-success")
+							$("#uploadLicense").parent().find(".msg-box").find(".n-msg").addClass("n-error")
+							$(".form-group").addClass("has-error")
 							return;
 						}
 						var successMsg = data.msg;
 						successMsg = jQuery.parseJSON(successMsg);
 						if (successMsg.isValidity == 0
 								|| successMsg.isValidity == '0') {
-							errorMsgTip(successMsg.errorMessage);
-						} else if (successMsg.isValidity == 1
-								|| successMsg.isValidity == '1') {
-							tip("license上传成功。");
+							$("#uploadLicense").parent().find(".msg-box").removeClass("hide");
+							$("#uploadLicense").parent().find(".msg-box").find(".n-msg").text(successMsg.errorMessage);
+							$("#uploadLicense").parent().find(".msg-box").find(".n-msg").removeClass("n-success")
+							$("#uploadLicense").parent().find(".msg-box").find(".n-msg").addClass("n-error")
+							$(".form-group").addClass("has-error")
+						} else if (successMsg.isValidity == 0
+								|| successMsg.isValidity == '0') {
+							$("#uploadLicense").parent().find(".msg-box").removeClass("hide");
+							$("#uploadLicense").parent().find(".msg-box").find(".n-msg").text("license上传成功。");
+							$("#uploadLicense").parent().find(".msg-box").find(".n-msg").removeClass("n-error")
+							$("#uploadLicense").parent().find(".msg-box").find(".n-msg").addClass("n-success")
+							$(".form-group").removeClass("has-error");
+							$(".form-group").addClass("has-success");
 							$(".periodOfValidity").text(
 									successMsg.periodOfValidity);
 							$(".sysName").text(successMsg.sysName);
@@ -54,18 +82,6 @@
 						console.error(e);
 					}
 				});
-	}
-
-	var lic = $
-	{
-		lic
-	};
-	if (lic.isValidity == 0 || lic.isValidity == '0') {
-		errorMsgTip(lic.errorMessage);
-	} else {
-		$(".periodOfValidity").text(successMsg.periodOfValidity);
-		$(".sysName").text(successMsg.sysName);
-		$(".sysVersion").text(successMsg.sysVersion);
 	}
 </script>
 </head>
@@ -112,8 +128,10 @@
 								<div class="col-sm-6"
 									style="width: 65.8%; margin-right: 0px; padding-right: 0px">
 									<input type="file" id="uploadLicense" data-rule="required"
-										name="licenseFile" class="form-control">
-
+										name="licenseFile" class="form-control"> <span
+										class="msg-box n-bottom hide" for=""><span role="alert"
+										class="msg-wrap n-error"><span class="n-icon"></span><span
+											class="n-msg"></span></span></span>
 								</div>
 								<div class="col-sm-3"
 									style="width: 5.8%; margin-left: 0px; padding-left: 0px">
