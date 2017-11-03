@@ -138,7 +138,7 @@
 		SELECT t.* FROM sys_dept t
 		<include refid="queryConditions"></include>
 	</select>
-	<!--目录同步功能 start -->
+	<!--目录同步功能  非目录请注释 start -->
 	<sql id="selectVoWithDirMap">
 		SELECT t.*, d.dept_id AS isSync FROM sys_dept t
 		left join dir_classify_dept_map d on t.id = d.dept_id
@@ -148,7 +148,7 @@
 		<include refid="queryConditions"></include>
 	</select>
 
-	<!--目录同步功能 end -->
+	<!--目录同步功能  非目录请注释 end -->
 	<!-- 用 SELECT t.* FROM sys_dept t 替换掉下面 <include refid="baseSelectVo1"></include>-->
 	<select id="selectVoById" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
 		SELECT t.* FROM sys_dept t
@@ -163,7 +163,7 @@
 		SELECT count(1) FROM sys_dept t
 		<include refid="queryConditions"></include>
 	</select>
-	<!--与目录相关sql-->
+	<!--与目录相关sql  非目录请注释-->
 	<select id="selectVoList" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
 		SELECT t.*,r.region_name,CASE WHEN d.dept_id IS NULL THEN '0' ELSE '1' END AS isSync FROM sys_dept t
 		LEFT JOIN sys_region r ON t.region_code = r.region_code

@@ -4,13 +4,9 @@ import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
-import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
-//import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
-//import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import org.apache.commons.lang3.StringUtils;
@@ -28,66 +24,59 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * Created by zengpzh on 2017/9/21.
  */
 @Controller
-@RequestMapping("/system/userAuthority")
-public class SysUserAuthorityController extends BaseController {
+@RequestMapping("/system/userDirAuthority")
+public class SysUserDirAuthorityController extends BaseController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private ISysDeptAuthorityService service;
 
     @Autowired
     private ISysUserService userService;
 
-//    @Autowired
-//    private IDirClassifyAuthorityService dirClassifyAuthorityService;
+    @Autowired
+    private IDirClassifyAuthorityService dirClassifyAuthorityService;
 
-    @RequiresPermissions("system:userAuthority:list")
+    @RequiresPermissions("system:userDirAuthority:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
         setCurrentMenuInfo(paramMap);
-        return "system/userAuthority/userAuthorityList";
+        return "system/userDirAuthority/userDirAuthorityList";
     }
 
     /**
      * 编辑部门数据权限分配表
      */
-    @RequiresPermissions("system:userAuthority:edit")
+    @RequiresPermissions("system:userDirAuthority:edit")
     @RequestMapping("/edit")
-    public String edit(@RequestParam String id, @RequestParam String authType, Model model) throws Exception {
+    public String edit(@RequestParam String id, Model model) throws Exception {
         model.addAttribute("id", id);
-        model.addAttribute("authType", authType);
-        return "system/userAuthority/userAuthorityEdit";
+        return "system/userDirAuthority/userDirAuthorityEdit";
     }
 
     /**
      * 编辑组织机构权限
      */
-    @RequiresPermissions("system:userAuthority:edit")
+    @RequiresPermissions("system:userDirAuthority:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
-    public HandleResult editLoad(@RequestParam String id, @RequestParam String authType){
+    public HandleResult editLoad(@RequestParam String id){
         HandleResult handleResult = new HandleResult();
         try {
             Map<String, Object> paramMap = new HashMap();
             if(StringUtils.isBlank(id)){
-                throw new Exception("被分配的用户权限不能为空！");
+                throw new Exception("被分配权限的用户不能为空！");
             }
             if(ShiroUtils.getLoginUserDeptId().equals(id)){
                 throw new Exception("被分配的用户权限不能为登录用户所属部门！");
             }
-            List result = null;
             paramMap.put("authObjType", AuthObjTypeEnum.USER.getKey());
             paramMap.put("authObjId", id);
-//            if("dept".equals(authType)){
-                result = service.selectVoList(paramMap);
-//            }else if("dir".equals(authType)){
-//                result = dirClassifyAuthorityService.selectVoList(paramMap);
-//            }
+            List result = dirClassifyAuthorityService.selectVoList(paramMap);
             //如果为空，说明为默认数据权限用户，数据权限为所属部门分配的数据权限
             if(result.isEmpty()){
                 SysUserVo sysUserVo = userService.selectVoById(id);
@@ -95,11 +84,7 @@ public class SysUserAuthorityController extends BaseController {
                 if(StringUtils.isNotBlank(deptId)){
                     paramMap.put("authObjType", AuthObjTypeEnum.DEPT.getKey());
                     paramMap.put("authObjId", deptId);
-//                    if("dept".equals(authType)){
-                        result = service.selectVoList(paramMap);
-//                    }else if("dir".equals(authType)){
-//                        result = dirClassifyAuthorityService.selectVoList(paramMap);
-//                    }
+                    result = dirClassifyAuthorityService.selectVoList(paramMap);
                 }
             }
             handleResult.put("selected", result);
@@ -113,32 +98,22 @@ public class SysUserAuthorityController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("system:userAuthority:edit")
-    @Log("编辑用户数据权限")
+    @RequiresPermissions("system:userDirAuthority:edit")
+    @Log("编辑用户目录数据权限")
     @RequestMapping("/doEdit")
     @ResponseBody
     public  HandleResult doEdit(@RequestParam Map<String, Object> paramMap){
         HandleResult handleResult = new HandleResult();
         try {
-//            String authType = (String) paramMap.get("authType");
             String authObjId = (String) paramMap.get("authObjId");
-//            if("dept".equals(authType)){
-                String deptIds = (String) paramMap.get("deptIds");
-                SysDeptAuthorityVo sysDeptAuthorityVo = new SysDeptAuthorityVo();
-                sysDeptAuthorityVo.setDeptIds(deptIds);
-                sysDeptAuthorityVo.setAuthObjType(AuthObjTypeEnum.USER.getKey());
-                sysDeptAuthorityVo.setAuthObjId(authObjId);
-                service.updateVO(sysDeptAuthorityVo);
-//            }else if("dir".equals(authType)){
-//                String classifyIds = (String) paramMap.get("classifyIds");
-//                String authDetail = (String) paramMap.get("authDetail");
-//                DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
-//                dirClassifyAuthorityVo.setClassifyIds(classifyIds);
-//                dirClassifyAuthorityVo.setAuthObjType(AuthObjTypeEnum.USER.getKey());
-//                dirClassifyAuthorityVo.setAuthObjId(authObjId);
-//                dirClassifyAuthorityVo.setAuthDetail(authDetail);
-//                dirClassifyAuthorityService.updateVO(dirClassifyAuthorityVo);
-//            }
+            String classifyIds = (String) paramMap.get("classifyIds");
+            String authDetail = (String) paramMap.get("authDetail");
+            DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
+            dirClassifyAuthorityVo.setClassifyIds(classifyIds);
+            dirClassifyAuthorityVo.setAuthObjType(AuthObjTypeEnum.USER.getKey());
+            dirClassifyAuthorityVo.setAuthObjId(authObjId);
+            dirClassifyAuthorityVo.setAuthDetail(authDetail);
+            dirClassifyAuthorityService.updateVO(dirClassifyAuthorityVo);
             handleResult.success("编辑用户数据权限分配表成功");
         } catch (Exception e) {
             handleResult.error("编辑用户数据权限分配表失败");

@@ -48,8 +48,8 @@ public class SysDeptAuthorityController extends BaseController {
     @Autowired
     private ISysDeptAuthorityService service;
 
-    @Autowired
-    private IDirClassifyAuthorityService dirClassifyAuthorityService;
+//    @Autowired
+//    private IDirClassifyAuthorityService dirClassifyAuthorityService;
 
     @RequiresPermissions("system:deptAuthority:list")
     @RequestMapping("")
@@ -68,7 +68,7 @@ public class SysDeptAuthorityController extends BaseController {
         PageResult pageResult = new PageResult();
         try {
             paramMap.put("excludeRoot", "1");
-            Page<SysDeptVo> page = sysDeptService.selectBaseVoPage(paramMap);
+            Page<SysDeptVo> page = sysDeptService.selectVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
             pageResult.error("分页查询组织机构出错");
@@ -106,8 +106,8 @@ public class SysDeptAuthorityController extends BaseController {
             paramMap.put("authObjId", id);
             if("dept".equals(authType)){
                 result = service.selectVoList(paramMap);
-            }else if("dir".equals(authType)){
-                result = dirClassifyAuthorityService.selectVoList(paramMap);
+//            }else if("dir".equals(authType)){
+//                result = dirClassifyAuthorityService.selectVoList(paramMap);
             }
             handleResult.put("selected", result);
         } catch (Exception e) {
@@ -139,17 +139,17 @@ public class SysDeptAuthorityController extends BaseController {
                         sysDeptAuthorityVo.setAuthObjId(authObjId);
                         service.updateVO(sysDeptAuthorityVo);
 //                    }
-                }else if("dir".equals(authType)){
-                    String classifyIds = (String) paramMap.get("classifyIds");
-//                    if(StringUtils.isNotBlank(classifyIds)){
-                        String authDetail = (String) paramMap.get("authDetail");
-                        DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
-                        dirClassifyAuthorityVo.setClassifyIds(classifyIds);
-                        dirClassifyAuthorityVo.setAuthObjType(AuthObjTypeEnum.DEPT.getKey());
-                        dirClassifyAuthorityVo.setAuthObjId(authObjId);
-                        dirClassifyAuthorityVo.setAuthDetail(authDetail);
-                        dirClassifyAuthorityService.updateVO(dirClassifyAuthorityVo);
-//                    }
+//                }else if("dir".equals(authType)){
+//                    String classifyIds = (String) paramMap.get("classifyIds");
+////                    if(StringUtils.isNotBlank(classifyIds)){
+//                        String authDetail = (String) paramMap.get("authDetail");
+//                        DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
+//                        dirClassifyAuthorityVo.setClassifyIds(classifyIds);
+//                        dirClassifyAuthorityVo.setAuthObjType(AuthObjTypeEnum.DEPT.getKey());
+//                        dirClassifyAuthorityVo.setAuthObjId(authObjId);
+//                        dirClassifyAuthorityVo.setAuthDetail(authDetail);
+//                        dirClassifyAuthorityService.updateVO(dirClassifyAuthorityVo);
+////                    }
                 }else throw new Exception("未识别的数据分配类型");
             }else throw new Exception("未识别被分配的数据");
             handleResult.success("编辑部门数据权限分配表成功");

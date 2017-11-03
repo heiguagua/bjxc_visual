@@ -267,10 +267,10 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         return retBool(sysDeptMapper.deleteBatchDeptByIds(ids));
     }
 
-    @Override
-    public List<SysDeptVo> selectVoList(Map<String, Object> paramMap) {
-        return sysDeptMapper.selectVoList(paramMap);
-    }
+//    @Override
+//    public List<SysDeptVo> selectVoList(Map<String, Object> paramMap) {
+//        return sysDeptMapper.selectVoList(paramMap);
+//    }
     
 //    @Override
 //    public String insertIntoDir(Map<String, Object> params){

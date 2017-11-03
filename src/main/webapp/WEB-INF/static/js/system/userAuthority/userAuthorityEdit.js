@@ -14,19 +14,19 @@ function initSelectData() {
         if(dd.length){
             for(var i= 0;i < dd.length;i++){
                 var obj = dd[i];
-                if(authType === "dir"){
-                    selects.push({id: obj.classifyId, fid: obj.fid, name: obj.classifyName});
-                }
-                if(authType === "dept"){
+                // if(authType === "dir"){
+                //     selects.push({id: obj.classifyId, fid: obj.fid, name: obj.classifyName});
+                // }
+                // if(authType === "dept"){
                     selects.push({id: obj.deptId, fid: obj.fid, name: obj.deptName});
-                }
+                // }
             }
         }
-        if(authType === 'dept'){
+        // if(authType === 'dept'){
             $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, {withoutUserDept: authObjId, withoutAuthDept: "1"}, selects); //初始化组织机构下拉框
-        }else if(authType === 'dir'){
-            $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects);
-        }
+        // }else if(authType === 'dir'){
+        //     $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects);
+        // }
     });
 }
 

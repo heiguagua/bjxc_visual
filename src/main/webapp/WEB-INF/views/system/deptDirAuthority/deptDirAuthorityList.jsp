@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/deptAuthority/deptAuthorityList.js"></script>
+    <script src="<%=basePath%>/js/system/deptDirAuthority/deptDirAuthorityList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -15,7 +15,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <small>系统管理 > 组织机构数据权限管理</small>
+                <small>系统管理 > 组织机构目录数据权限管理</small>
             </h1>
         </section>
         <!-- Main content -->
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="box-body table-responsive ">
-                            <table id="systemAuthDeptTableId" class="table table-hover">
+                            <table id="systemAuthDeptDirTableId" class="table table-hover">
 
                             </table>
                         </div><!-- /.box-body -->

@@ -1,4 +1,4 @@
-var tableSelector = '#systemAuthDeptTableId';
+var tableSelector = '#systemAuthDeptDirTableId';
 
 jQuery(document).ready(function () {
     "use strict";
@@ -90,11 +90,8 @@ jQuery(document).ready(function () {
             sortable: false ,
             width: '220',
             formatter : function (value) {
-                var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dir\")'><i class='fa fa-chain'></i>目录数据分配</a>";
-                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dept\")'><i class='fa fa-pencil-square-o'></i> 部门数据分配</a>";
-                //var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteDept(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
-                // return allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR   ;
-               return editBtn + OPERATION_SEPARATOR   ;
+                var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAllot(\"" + value + "\")'><i class='fa fa-chain'></i>目录数据分配</a>";
+                return allotBtn + OPERATION_SEPARATOR ;
             }
         }],
     });
@@ -117,6 +114,6 @@ function reloadTable() {
     $(tableSelector).data("bootstrap.table").refresh();
 }
 
-function  dirAndDeptAllot(id,authType) {
-    update('分配数据权限', basePathJS + '/system/deptAuthority/edit?authType=' + authType, id, 500, 300);
+function  dirAllot(id) {
+    update('分配数据权限', basePathJS + '/system/deptDirAuthority/edit', id, 500, 300);
 }
