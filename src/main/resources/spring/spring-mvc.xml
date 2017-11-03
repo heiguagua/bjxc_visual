@@ -155,14 +155,6 @@
 
 	<!-- 拦截器 -->
 	<!--<mvc:interceptors>-->
-
-		<!--&lt;!&ndash;&lt;!&ndash; 登录拦截器 &ndash;&gt;&ndash;&gt;-->
-		<!--&lt;!&ndash;<mvc:interceptor>&ndash;&gt;-->
-			<!--&lt;!&ndash;<mvc:mapping path="/**" />&ndash;&gt;-->
-			<!--&lt;!&ndash;<bean class="com.chinawiserv.dsp.dcs.dcm.interceptor.LoginInterceptor" />&ndash;&gt;-->
-		<!--&lt;!&ndash;</mvc:interceptor>&ndash;&gt;-->
-
-		<!--&lt;!&ndash;&lt;!&ndash; 权限拦截器 &ndash;&gt;&ndash;&gt;-->
 		<!--<mvc:interceptor>-->
 			<!--<mvc:mapping path="/**" />-->
             <!--<mvc:exclude-mapping path="/**/fonts/*"/>-->
@@ -173,11 +165,10 @@
             <!--<mvc:exclude-mapping path="/plugins/**"/>-->
             <!--<mvc:exclude-mapping path="/**/*.jpg"/>-->
             <!--<mvc:exclude-mapping path="/**/*.jpeg"/>-->
-			<!--<bean class="com.chinawiserv.dsp.base.common.inteceptor.SpringInteceptor">-->
-
-            <!--</bean>-->
+            <!--<mvc:exclude-mapping path="/lic/licErrorPage"/>-->
+            <!--<mvc:exclude-mapping path="/lic/uploadLic"/>-->
+			<!--<bean class="com.chinawiserv.dsp.base.common.inteceptor.SpringInteceptor" />-->
 		<!--</mvc:interceptor>-->
-
 	<!--</mvc:interceptors>-->
 
 	<!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>-->
