@@ -104,15 +104,22 @@
 								|| successMsg.isValidity == '0') {
 							$("#uploadLicense").parent().find(".msg-box")
 									.removeClass("hide");
-							$(".part1").text(successMsg.errMessage);
+							console.log(successMsg.errorMessage)
+							$(".part1").text(successMsg.errorMessage);
 							$(".part1").css({"color":"#c33"})
+                            $("#uploadLicense").parent().find(".msg-box").find(
+                                ".n-msg").text("license文件上传失败。")
 							$("#uploadLicense").parent().find(".msg-box").find(
 									".n-msg").removeClass("n-success");
+                            $("#uploadLicense").parent().find(".msg-box").find(
+                                ".n-msg").addClass("n-error")
 						} else if (successMsg.isValidity == 1
 								|| successMsg.isValidity == '1') {
 							$("#uploadLicense").parent().find(".msg-box")
 									.removeClass("hide");
-							$(".part1").text("license上传成功。");
+                            $(".part1").text("license验证有效。");
+                            $("#uploadLicense").parent().find(".msg-box").find(
+                                ".n-msg").text("license上传成功。")
 							$(".part1").css({"color":"#00a65a"})
 							$("#uploadLicense").parent().find(".msg-box").find(
 									".n-msg").removeClass("n-error")
