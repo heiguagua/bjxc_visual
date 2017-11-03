@@ -69,6 +69,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
         Map<String, Object> param = this.getDeptCondition(null);
+        //regionCodeCondition =5101是否合理？
         if (param != null && !param.isEmpty()) {
             paramMap.putAll(param);
             Page<SysDeptVo> page = getPage(paramMap);

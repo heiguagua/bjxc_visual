@@ -14,14 +14,16 @@
 				errorMsgTip("请先选择license.");
 				return;
 			}
-			var uploadLicenseUrl = "/license/uploadLicense"
+			var uploadLicenseUrl = "/lic/uploadLic"
 			uploadFile(uploadLicenseUrl, "uploadLicense");
+		})
+		$(document).on("click", ".goLogin", function() {
+			window.location.href = basePathJS + "/login"
 		})
 	})
 
 	function uploadFile(url, inputId) {
-		$
-				.ajaxFileUpload({
+		$.ajaxFileUpload({
 					fileElementId : inputId, //需要上传的文件域的ID，即<input type="file">的ID。
 					url : basePathJS + url, //后台方法的路径
 					type : 'post', //当要提交自定义参数时，这个参数要设置成post
@@ -40,7 +42,7 @@
 							errorMsgTip(successMsg.errorMessage);
 						} else if (successMsg.isValidity == 1
 								|| successMsg.isValidity == '1') {
-							successMsgTip("license上传成功。");
+							tip("license上传成功。");
 							$(".periodOfValidity").text(
 									successMsg.periodOfValidity);
 							$(".sysName").text(successMsg.sysName);
@@ -57,7 +59,7 @@
 	var lic = $
 	{
 		lic
-	}
+	};
 	if (lic.isValidity == 0 || lic.isValidity == '0') {
 		errorMsgTip(lic.errorMessage);
 	} else {
@@ -72,7 +74,7 @@
 		<div class="continer">
 			<div class="row-fluid">
 				<div class="col-md-8">
-					<div class="box-body" style="font-size: medium;margin-top: 20%;">
+					<div class="box-body" style="font-size: medium; margin-top: 20%;">
 						<div class="row">
 							<div class="col-sm-12 form-group">
 								<label class="col-sm-2 control-label" style="width: 12.2%">当前系统名称:</label>
@@ -105,35 +107,21 @@
 						</div>
 						<div class="row">
 							<div class="col-sm-12 form-group">
-								<c:choose>
-									<c:when test="${status=='ok' }">
-										<label class="col-sm-2 control-label" style="width: 12.2%">上传lincense:</label>
+								<label class="col-sm-2 control-label" style="width: 12.2%">上传lincense:</label>
 
-										<div class="col-sm-6" style="width: 75.8%">
-											<input type="file" id="uploadLicense" name="licenseFile"
-												class="form-control">
+								<div class="col-sm-6"
+									style="width: 65.8%; margin-right: 0px; padding-right: 0px">
+									<input type="file" id="uploadLicense" data-rule="required"
+										name="licenseFile" class="form-control">
 
-										</div>
-										<div class="col-sm-3" style="width: 10.8%">
-											<button class="btn btn-myself upload_license">上传</button>
-										</div>
-									</c:when>
-									<c:otherwise>
-										<label class="col-sm-2 control-label" style="width: 12.2%">上传lincense:</label>
-
-										<div class="col-sm-6" style="width: 65.8%;margin-right:0px;padding-right:0px">
-											<input type="file" id="uploadLicense" name="licenseFile"
-												class="form-control">
-
-										</div>
-										<div class="col-sm-3" style="width: 5.8%;margin-left:0px;padding-left:0px">
-											<button class="btn btn-myself upload_license">上传</button>
-										</div>
-										<div class="col-sm-3" style="width: 5.8%">
-											<button class="btn btn-myself goLogin">返回登录</button>
-										</div>
-									</c:otherwise>
-								</c:choose>
+								</div>
+								<div class="col-sm-3"
+									style="width: 5.8%; margin-left: 0px; padding-left: 0px">
+									<button class="btn btn-myself upload_license">上传</button>
+								</div>
+								<div class="col-sm-3" style="width: 5.8%">
+									<button class="btn btn-myself goLogin">返回登录</button>
+								</div>
 							</div>
 
 						</div>

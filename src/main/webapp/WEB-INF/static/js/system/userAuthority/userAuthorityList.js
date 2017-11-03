@@ -129,7 +129,9 @@ jQuery(document).ready(function () {
     function setParams() {
         var defaultAuth = $('#defaultAuth').val();
         var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {"defaultAuth": defaultAuth, searchKey: searchKeyVal};
+        var regionName = $('#regionNameId').val();
+        var deptName = $('#deptNameId').val();
+        paramsObj = {"defaultAuth": defaultAuth, searchKey: searchKeyVal,regionName: regionName,deptName:deptName};
     }
 
 });

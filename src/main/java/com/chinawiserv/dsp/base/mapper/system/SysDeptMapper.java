@@ -31,7 +31,7 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
     int selectVoCount(Map<String, Object> paramMap);
 
     int selectBaseVoCount(Map<String, Object> paramMap);
-
+//    目录相关操作代码
     List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
 
     List<SysDeptVo> selectVoListForTreeData(Map<String, Object> paramMap);

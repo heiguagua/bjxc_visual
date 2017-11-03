@@ -78,6 +78,12 @@
                   )
                 </if>
             </if>
+            <if test="regionName != null">
+                AND  sr.region_name like CONCAT('%',#{regionName},'%')
+            </if>
+            <if test="deptName != null">
+                AND  d.dept_name like CONCAT('%',#{deptName},'%')
+            </if>
         </trim>
     </sql>
 

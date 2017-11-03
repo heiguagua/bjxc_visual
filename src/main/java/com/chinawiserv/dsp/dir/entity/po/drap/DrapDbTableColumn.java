@@ -106,7 +106,21 @@ public class DrapDbTableColumn implements Serializable {
      */
 	@TableField("delete_flag")
 	private Integer deleteFlag;
+	
+	 /**
+     * 逻辑删除标识
+     */
+	@TableField("is_shared")
+	private Integer isShared;
 
+
+	public Integer getIsShared() {
+		return isShared;
+	}
+
+	public void setIsShared(Integer isShared) {
+		this.isShared = isShared;
+	}
 
 	public String getId() {
 		return id;

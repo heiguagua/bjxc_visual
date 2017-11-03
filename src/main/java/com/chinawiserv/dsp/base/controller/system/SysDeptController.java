@@ -73,6 +73,10 @@ public class SysDeptController extends BaseController {
         PageResult pageResult = new PageResult();
         try {
             paramMap.put("excludeRoot", "1");
+            //只显示一级部门
+            if (null==paramMap.get("fid")){
+                paramMap.put("deptLevel", 2);
+            }
             Page<SysDeptVo> page = sysDeptService.selectVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {

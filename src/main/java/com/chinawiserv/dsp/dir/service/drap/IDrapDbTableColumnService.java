@@ -1,5 +1,7 @@
 package com.chinawiserv.dsp.dir.service.drap;
 
+import java.util.List;
+
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableColumn;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbTableColumnVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
@@ -13,5 +15,7 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  * @since 2017-09-27
  */
 public interface IDrapDbTableColumnService extends ICommonService<DrapDbTableColumn, DrapDbTableColumnVo> {
+
+	void updateDbTableColumnVos(List<DrapDbTableColumnVo> dbTableColumnVos) throws Exception;
 	
 }
