@@ -27,7 +27,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <div class="col-xs-12 seventy-percent-height">
+                <div class="col-xs-12">
                     <div class="box">
                         <form class="form-inline marginBot" method="post">
                             <div class="box-header">

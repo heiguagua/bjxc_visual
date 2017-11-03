@@ -10,9 +10,11 @@ public class Config {
 	 * license路径,不含服务路径
 	 */
 	public final static String LIC_PATH = "lic/";
-	
 	/**
 	 * license名称
 	 */
 	public final static String LIC_NAME = "qinzhi_authorize.lic";
+
+
+
 }

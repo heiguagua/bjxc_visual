@@ -1,11 +1,12 @@
 package com.chinawiserv.dsp.base.controller.common;
 
-import java.io.File;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.JSON;
+import com.chinawiserv.dsp.base.common.config.Config;
+import com.chinawiserv.dsp.base.common.filter.LicFilter;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.service.system.ISysSettingService;
+import com.qwserv.wiservlic.LicAuthorize;
+import com.qwserv.wiservlic.impl.LicAuthorizeImpl;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,14 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.chinawiserv.dsp.base.common.config.Config;
-import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
-import com.chinawiserv.dsp.base.service.system.ISysSettingService;
-import com.qwserv.wiservlic.LicAuthorize;
-import com.qwserv.wiservlic.impl.LicAuthorizeImpl;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.util.Map;
 
 /**
  * license检查
@@ -62,15 +59,15 @@ public class LicController extends BaseController{
 		model.addAllAttributes(param);
 		LicAuthorize lic = new LicAuthorizeImpl();
 		 //获取项目标识简称 此简称与lic中的要一致才能通过
-        EntityWrapper<SysSetting> wrapper = new EntityWrapper<>();
-        SysSetting sysSetting = new SysSetting();
-        sysSetting.setSettingCode("integrateCurNo");
-        wrapper.setEntity(sysSetting);
-        sysSetting = sysSettingService.selectOne(wrapper);
-        String settingValue = sysSetting.getSettingValue();
-		String checkResult = lic.doLicAuthorize(settingValue,
+//        EntityWrapper<SysSetting> wrapper = new EntityWrapper<>();
+//        SysSetting sysSetting = new SysSetting();
+//        sysSetting.setSettingCode("integrateCurNo");
+//        wrapper.setEntity(sysSetting);
+//        sysSetting = sysSettingService.selectOne(wrapper);
+//        String settingValue = sysSetting.getSettingValue();
+        String checkResult = lic.doLicAuthorize(LicFilter.licSysName,
 				Config.LIC_PATH);
-		JSON json = JSON.parseObject(checkResult);
+        JSON json = JSON.parseObject(checkResult);
 		model.addAttribute("lic", json);
 		return "system/lic/lic.warning";
 	}
@@ -89,17 +86,18 @@ public class LicController extends BaseController{
 	public String goToLincesePage(HttpServletRequest req,
 			HttpServletResponse res, @RequestParam Map<String, Object> param,
 			Model model) {
+		setCurrentMenuInfo(param);
 		param.put("status", "ok");
 		model.addAllAttributes(param);
 		LicAuthorize lic = new LicAuthorizeImpl();
 		 //获取项目标识简称 此简称与lic中的要一致才能通过
-        EntityWrapper<SysSetting> wrapper = new EntityWrapper<>();
-        SysSetting sysSetting = new SysSetting();
-        sysSetting.setSettingCode("integrateCurNo");
-        wrapper.setEntity(sysSetting);
-        sysSetting = sysSettingService.selectOne(wrapper);
-        String settingValue = sysSetting.getSettingValue();
-		String checkResult = lic.doLicAuthorize(settingValue,
+//        EntityWrapper<SysSetting> wrapper = new EntityWrapper<>();
+//        SysSetting sysSetting = new SysSetting();
+//        sysSetting.setSettingCode("integrateCurNo");
+//        wrapper.setEntity(sysSetting);
+//        sysSetting = sysSettingService.selectOne(wrapper);
+//        String settingValue = sysSetting.getSettingValue();
+		String checkResult = lic.doLicAuthorize(LicFilter.licSysName,
 				Config.LIC_PATH);
 		JSON json = JSON.parseObject(checkResult);
 		model.addAttribute("lic", json);
@@ -109,7 +107,7 @@ public class LicController extends BaseController{
 	/**
 	 * lincense导入
 	 * 
-	 * @param excelFile
+	 * @param licenseFile
 	 * @param request
 	 * @param response
 	 * @return
@@ -143,13 +141,13 @@ public class LicController extends BaseController{
 				LicAuthorize lic = new LicAuthorizeImpl();
 				// TODO 服务名称待定
 				 //获取项目标识简称 此简称与lic中的要一致才能通过
-		        EntityWrapper<SysSetting> wrapper = new EntityWrapper<>();
-		        SysSetting sysSetting = new SysSetting();
-		        sysSetting.setSettingCode("integrateCurNo");
-		        wrapper.setEntity(sysSetting);
-		        sysSetting = sysSettingService.selectOne(wrapper);
-		        String settingValue = sysSetting.getSettingValue();
-				String checkResult = lic.doLicAuthorize(settingValue,
+//		        EntityWrapper<SysSetting> wrapper = new EntityWrapper<>();
+//		        SysSetting sysSetting = new SysSetting();
+//		        sysSetting.setSettingCode("integrateCurNo");
+//		        wrapper.setEntity(sysSetting);
+//		        sysSetting = sysSettingService.selectOne(wrapper);
+//		        String settingValue = sysSetting.getSettingValue();
+				String checkResult = lic.doLicAuthorize(LicFilter.licSysName,
 						Config.LIC_PATH);
 				handleResult.success(checkResult);
 				return handleResult;

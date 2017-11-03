@@ -34,6 +34,11 @@
                                     </a>
                                 </div>
                                 <div class="input-group">
+                                    <a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchUser()" >
+                                        <img src="<%=basePath%>/images/userImg/delImg.png"/>
+                                        批量删除</a>
+                                </div>
+                                <div class="input-group">
                                     <input id="regionNameId" type="text" name="regionName" class="form-control" placeholder="区域">
                                 </div>
                                 <div class="input-group">

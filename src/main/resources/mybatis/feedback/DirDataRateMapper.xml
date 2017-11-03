@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.feedback.DirDataRateMapper">
 
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataRate">
@@ -27,7 +29,14 @@
                 AND dt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
             </if>
             <if test="null != classifyId and '' != classifyId">
-                AND dc.`id` = #{classifyId}
+                AND dc.`classify_code` LIKE CONCAT(
+                (SELECT
+                classify_code
+                FROM
+                dir_classify
+                WHERE id = #{classifyId}),
+                '%'
+                )
             </if>
             <if test="null != regionCode and '' != regionCode">
                 AND su.`region_code` = #{regionCode}
