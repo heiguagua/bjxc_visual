@@ -108,11 +108,14 @@
 							$(".part1").text(successMsg.errorMessage);
 							$(".part1").css({"color":"#c33"})
                             $("#uploadLicense").parent().find(".msg-box").find(
-                                ".n-msg").text("license文件上传失败。")
+                                ".n-msg").text("license文件上传成功。")
+                            $(".periodOfValidity").text("-");
+                            $(".sysName").text("-");
+                            $(".sysVersion").text("-");
 							$("#uploadLicense").parent().find(".msg-box").find(
-									".n-msg").removeClass("n-success");
+									".n-msg").removeClass("n-error");
                             $("#uploadLicense").parent().find(".msg-box").find(
-                                ".n-msg").addClass("n-error")
+                                ".n-msg").addClass("n-success")
 						} else if (successMsg.isValidity == 1
 								|| successMsg.isValidity == '1') {
 							$("#uploadLicense").parent().find(".msg-box")
@@ -147,7 +150,7 @@
 					<div class="box-body" style="font-size: medium;">
 						<div class="row part1 n-success"></div>
 						<div class="row part2 ">
-							<div class="col-md-12 part2-header">Lincense信息</div>
+							<div class="col-md-12 part2-header">license信息</div>
 							<div class="col-md-12">
 								<div class="row">
 									<div class="col-sm-12 form-group">
@@ -185,7 +188,7 @@
 							<div class="col-md-12 part2-header"></div>
 
 							<div class="col-sm-12 form-group">
-								<label class="col-sm-2 control-label" style="width: 16%">上传lincense:</label>
+								<label class="col-sm-2 control-label" style="width: 16%">上传license:</label>
 
 								<div class="col-sm-6"
 									style="width: 65.8%; margin-right: 0px; padding-right: 0px">
