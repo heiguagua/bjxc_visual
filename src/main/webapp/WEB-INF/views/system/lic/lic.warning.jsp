@@ -54,9 +54,13 @@
 							"hide");
 					$(".part1").text(errMessage);
 					$(".part1").css({"color":"#c33"})
-				}else if (isValidity=="1" || isValidity==1){
+                    $(".goLogin").attr("disabled",true);
+
+                }else if (isValidity=="1" || isValidity==1){
                     $(".part1").text("license证书有效。");
                     $(".part1").css({"color":"#00a65a"});
+                    $(".goLogin").attr("disabled",true);
+
                 }
 				$(document).on(
 								"click",
@@ -96,7 +100,8 @@
 									".n-msg").removeClass("n-success")
 							$("#uploadLicense").parent().find(".msg-box").find(
 									".n-msg").addClass("n-error")
-							return;
+                            $(".goLogin").attr("disabled",true);
+                            return;
 						}
 						var successMsg = data.msg;
 						successMsg = jQuery.parseJSON(successMsg);
@@ -115,7 +120,8 @@
 							$("#uploadLicense").parent().find(".msg-box").find(
 									".n-msg").removeClass("n-error");
                             $("#uploadLicense").parent().find(".msg-box").find(
-                                ".n-msg").addClass("n-success")
+                                ".n-msg").addClass("n-success");
+                            $(".goLogin").attr("disabled",true);
 						} else if (successMsg.isValidity == 1
 								|| successMsg.isValidity == '1') {
 							$("#uploadLicense").parent().find(".msg-box")
@@ -132,7 +138,9 @@
 									successMsg.periodOfValidity);
 							$(".sysName").text(successMsg.sysName);
 							$(".sysVersion").text(successMsg.sysVersion);
-						}
+                            $(".goLogin").attr("disabled",false);
+
+                        }
 						console.log(successMsg);
 					},
 					error : function(data, status, e) { //提交失败自动执行的处理函数。
