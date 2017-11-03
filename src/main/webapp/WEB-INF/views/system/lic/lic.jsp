@@ -56,7 +56,10 @@ $(document).ready(
 						"hide");
 				$(".part1").text(errMessage);
 				$(".part1").css({"color":"#c33"})
-			}
+            }else if (isValidity=="1" || isValidity==1){
+                $(".part1").text("license证书有效。");
+                $(".part1").css({"color":"#00a65a"});
+            }
 			$(document).on(
 							"click",
 							".upload_license",
@@ -105,8 +108,8 @@ function uploadFile(url, inputId) {
 						$(".part1").css({"color":"#c33"})
 						$("#uploadLicense").parent().find(".msg-box").find(
 								".n-msg").removeClass("n-success");
-					} else if (successMsg.isValidity == 0
-							|| successMsg.isValidity == '0') {
+					} else if (successMsg.isValidity == 1
+							|| successMsg.isValidity == '1') {
 						$("#uploadLicense").parent().find(".msg-box")
 								.removeClass("hide");
 						$(".part1").text("license上传成功。");
@@ -146,7 +149,7 @@ function uploadFile(url, inputId) {
 			<div class="row-fluid">
 				<div class="col-md-12">
 					<div class="box-body" style="font-size: medium;">
-						<div class="row part1 n-success">license结果</div>
+						<div class="row part1 n-success"></div>
 						<div class="row part2 ">
 							<div class="col-md-12 part2-header">Lincense信息</div>
 							<div class="col-md-12">
