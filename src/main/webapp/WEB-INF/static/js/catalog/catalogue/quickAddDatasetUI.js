@@ -187,6 +187,7 @@ var Model = {
                 this.group.reset();
                 this.bus.reset();
                 this.data.reset();
+                this.item.reset();
             }
         },
         open: function(dirId){
