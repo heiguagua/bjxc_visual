@@ -156,6 +156,11 @@
         callback: {
             beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
                 var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                if($('#searchClassifyId').val() != treeNode.id){
+                    $('#searchClassifyId').val(treeNode.id);
+                    setParams();
+                    reloadTable();
+                }
                 if (treeNode.isParent) {
                     if (treeNode.open) {
                         zTreeObj.expandNode(treeNode, false);
@@ -167,12 +172,12 @@
                     return true;
                 }
             },
-            onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
-
-                $('#searchClassifyId').val(treeNode.id);
-                setParams();
-                reloadTable();
-            }
+//            onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+//
+//                $('#searchClassifyId').val(treeNode.id);
+//                setParams();
+//                reloadTable();
+//            }
         }
     };
     $(document).ready(function(){
