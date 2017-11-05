@@ -19,6 +19,7 @@ public interface ISysDictService extends ICommonService<SysDict, SysDictVo> {
 
     Map<String, Map<String, SysDictVo>> getDictDataForSelect(Map<String, Object> paramMap) throws Exception;
     List<SysDictVo> selectVoCategoryList(Map<String, Object> paramMap);
+    List<SysDictVo> selectVoListForTreeDataForApp(Map<String, Object> paramMap);
     String selectDictcodeByCategoryAndName(String dict_name, String category);
     boolean updateDetailVO(SysDictVo vo) throws Exception;
     SysDictVo selectVoDetailById(String id) throws Exception;

@@ -1,14 +1,10 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.common.util.CommonUtil;
-import com.chinawiserv.dsp.base.common.util.IpUtil;
-import com.chinawiserv.dsp.base.entity.po.system.SysLog;
-import com.chinawiserv.dsp.base.entity.po.system.SysUser;
-import com.chinawiserv.dsp.base.entity.vo.system.SysLogVo;
-import com.chinawiserv.dsp.base.mapper.system.SysLogMapper;
-import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
-import com.chinawiserv.dsp.base.service.system.ISysLogService;
+import java.util.Date;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,9 +14,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.Map;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.IpUtil;
+import com.chinawiserv.dsp.base.entity.po.system.SysLog;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.vo.system.SysLogVo;
+import com.chinawiserv.dsp.base.mapper.system.SysLogMapper;
+import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.chinawiserv.dsp.base.service.system.ISysLogService;
 
 /**
  * <p>
@@ -42,6 +44,7 @@ public class SysLogServiceImpl extends CommonServiceImpl<SysLogMapper, SysLog , 
 		if (sysUser == null) {
 			return;
 		}
+
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SysLog sysLog  =new SysLog();
 		sysLog.setOperateIp(IpUtil.getIpAddr(request));

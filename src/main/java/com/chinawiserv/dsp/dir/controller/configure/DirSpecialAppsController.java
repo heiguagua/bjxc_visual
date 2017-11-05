@@ -172,9 +172,9 @@ public class DirSpecialAppsController extends BaseController {
 		try {
 			String parentCode = (String) paramMap.get("parentCode");
 			if (StringUtils.isEmpty(parentCode)) {
-				paramMap.put("parentCode", "root");
+				paramMap.put("parentCode", null);
 			}
-			List<SysDictVo> sysDictVoList = service2.selectVoCategoryList(paramMap);
+			List<SysDictVo> sysDictVoList = service2.selectVoListForTreeDataForApp(paramMap);
 			handleResult.put("vo", sysDictVoList);
 		} catch (Exception e) {
 			handleResult.error("根据登录用户的权限获取应用分类信息失败");

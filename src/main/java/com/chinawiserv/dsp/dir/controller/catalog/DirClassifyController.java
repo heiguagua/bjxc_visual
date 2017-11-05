@@ -160,14 +160,14 @@ public class DirClassifyController extends BaseController {
 			}
 						
 		} catch (Exception e) {
-						if(e.getMessage().equals("此目录下无可导入内容，请从新选择")){		
-							handleResult.error("此目录下无可导入内容，请从新选择");			 	
-						logger.error("此目录下无可导入内容，请从新选择", e);							 
-						}else{			 	
-						handleResult.error("创建目录分类表失败");			 
-					logger.error("创建目录分类表失败", e);			
-					}
-		}finally{
+			if(e.getMessage().equals("此目录下无可导入内容，请从新选择")){
+				handleResult.error("此目录下无可导入内容，请从新选择");
+				logger.error("此目录下无可导入内容，请从新选择", e);				
+			}else{
+				handleResult.error("创建目录分类表失败");
+				logger.error("创建目录分类表失败", e);
+			}			
+		}finally {
 			return handleResult;
 		}
 		
