@@ -27,7 +27,7 @@
         <!-- Content Header (Page header) -->
         <section class="content" id="drMg">
             <div class="row">
-                <div class="col-xs-12 seventy-percent-height">
+                <div class="col-xs-12">
                     <div class="box">
 
                         <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
@@ -78,7 +78,7 @@
         </section>
         <section class="content" id="drMg-dd" class="hidden">
             <div class="row">
-                <div class="col-xs-12 seventy-percent-height">
+                <div class="col-xs-12">
                     <div class="box">
                         <form class="form-inline marginBot" method="post">
                             <div class="box-header">
@@ -155,6 +155,11 @@
         callback: {
             beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
                 var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                if($('#searchClassifyId').val() != treeNode.id){
+                    $('#searchClassifyId').val(treeNode.id);
+                    setParams();
+                    reloadTable();
+                }
                 if (treeNode.isParent) {
                     if (treeNode.open) {
                         zTreeObj.expandNode(treeNode, false);
@@ -166,26 +171,12 @@
                     return true;
                 }
             },
-            onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
-
-                //var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                //treeObj.cancelSelectedNode();
-
-                $('#searchClassifyId').val(treeNode.id);
-                setParams();
-                reloadTable();
-                /*$.commonAjax({
-                 url: basePathJS + "/dirClassify/editLoad",
-                 data: {id: treeNode.id},
-                 success: function (result) {
-                 if (result.state) {
-                 var classifyObj = result.content.vo;
-                 $('#' + nameInputDomId).val(classifyObj.classifyStructureName);
-                 $('#' + codeInputDomId).val(treeNode.id);
-                 }
-                 }
-                 });*/
-            }
+//            onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+//
+//                $('#searchClassifyId').val(treeNode.id);
+//                setParams();
+//                reloadTable();
+//            }
         }
     };
     $(document).ready(function(){

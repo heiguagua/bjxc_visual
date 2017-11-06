@@ -69,6 +69,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
         Map<String, Object> param = this.getDeptCondition(null);
+        //regionCodeCondition =5101是否合理？
         if (param != null && !param.isEmpty()) {
             paramMap.putAll(param);
             Page<SysDeptVo> page = getPage(paramMap);
@@ -243,11 +244,33 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         }
         return false;
     }
+    @Override
+    public String checkDeleteProperty(String id){
+        SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(id);
+        if (sysDeptVo != null) {
+            if (!sysDeptMapper.isParentDept(sysDeptVo.getId())) {
+                int count = sysUserMapper.selectUsersCountByDeptId(id);
+                if (count == 0) {
+                    return null;
+                }else{
+                    return id;
+                }
+            }else{
+                return id;
+            }
+        }
+        return id;
+    }
 
     @Override
-    public List<SysDeptVo> selectVoList(Map<String, Object> paramMap) {
-        return sysDeptMapper.selectVoList(paramMap);
+    public boolean deleteBatchDeptByIds(List<String> ids) throws Exception {
+        return retBool(sysDeptMapper.deleteBatchDeptByIds(ids));
     }
+
+//    @Override
+//    public List<SysDeptVo> selectVoList(Map<String, Object> paramMap) {
+//        return sysDeptMapper.selectVoList(paramMap);
+//    }
     
 //    @Override
 //    public String insertIntoDir(Map<String, Object> params){

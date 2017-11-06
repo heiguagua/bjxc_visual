@@ -34,7 +34,14 @@
                 AND u.region_code = #{regionCode}
             </if>
             <if test="classifyId != null and classifyId != ''">
-                AND c.id = #{classifyId}
+                AND c.`classify_code` LIKE CONCAT(
+                (SELECT
+                classify_code
+                FROM
+                dir_classify
+                WHERE id = #{classifyId}),
+                '%'
+                )
             </if>
             <if test="null != deptId and '' != deptId">
                 AND de.dept_code LIKE CONCAT(
@@ -68,7 +75,7 @@
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM (    
+        SELECT count(1) FROM (
         <include refid="baseSelectVo"></include>
         <include refid="queryConditions"></include>
         ) a

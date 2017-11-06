@@ -6,4 +6,15 @@ package com.chinawiserv.dsp.base.common.config;
  */
 public class Config {
 	public static final String SSO_ENCODING = "UTF-8";
+	/**
+	 * license路径,不含服务路径
+	 */
+	public final static String LIC_PATH = "lic";
+	/**
+	 * license名称
+	 */
+	public final static String LIC_NAME = "qinzhi_authorize.lic";
+
+
+
 }

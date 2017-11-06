@@ -36,6 +36,12 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false
         }, {
+            field: 'regionName',
+            title: '所属行政区域',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        }, {
             field: 'deptContactMan',
             title: '联系人',
             align: 'center',
@@ -87,8 +93,8 @@ jQuery(document).ready(function () {
                 var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dir\")'><i class='fa fa-chain'></i>目录数据分配</a>";
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dept\")'><i class='fa fa-pencil-square-o'></i> 部门数据分配</a>";
                 //var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteDept(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
-                return allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR   ;
-//                return editBtn + OPERATION_SEPARATOR   ;
+                // return allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR   ;
+               return editBtn + OPERATION_SEPARATOR   ;
             }
         }],
     });
@@ -100,7 +106,8 @@ jQuery(document).ready(function () {
 
     function setParams() {
         var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {searchKey : searchKeyVal};
+        var regionName = $('#regionNameId').val();
+        paramsObj = {searchKey : searchKeyVal,regionName:regionName};
     }
 
 });

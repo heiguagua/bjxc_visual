@@ -1,12 +1,14 @@
 package com.chinawiserv.dsp.base.controller.system;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysUserRole;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
@@ -73,6 +75,10 @@ public class SysDeptController extends BaseController {
         PageResult pageResult = new PageResult();
         try {
             paramMap.put("excludeRoot", "1");
+            //只显示一级部门
+            if (null==paramMap.get("fid")){
+                paramMap.put("deptLevel", 2);
+            }
             Page<SysDeptVo> page = sysDeptService.selectVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
@@ -163,6 +169,38 @@ public class SysDeptController extends BaseController {
         }catch (Exception e){
             handleResult.error("删除组织机构失败：" + e.getMessage());
             logger.error("删除组织机构失败", e);
+        }
+        return handleResult;
+    }
+
+    /*
+    * 批量删除组织机构
+    * */
+
+    @RequiresPermissions("system:dept:deleteBatch")
+    @Log("批量删除组织机构")
+    @RequestMapping("/deleteBatch")
+    @ResponseBody
+    public HandleResult deleteBatch(@RequestParam("idArr[]") List<String> ids){
+        HandleResult handleResult = new HandleResult();
+        try {
+            String deptStr = "";
+            for(String id : ids){
+                //检查该部门是否可删
+                String retId = sysDeptService.checkDeleteProperty(id);
+                if(retId != null){
+                    deptStr = deptStr + retId +",";
+                }
+            }
+            if("".equals(deptStr)){
+                sysDeptService.deleteBatchDeptByIds(ids);
+                handleResult.success("批量删除组织机构成功！");
+            }else{
+                handleResult.error("批量删除组织机构失败，批量选择的组织机构有用户或有下级组织机构！");
+            }
+        } catch (Exception e) {
+            handleResult.error("批量删除组织机构失败");
+            logger.error("批量删除组织机构失败", e);
         }
         return handleResult;
     }

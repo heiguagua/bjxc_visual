@@ -13,6 +13,15 @@ jQuery(document).ready(function () {
             return false;//这句非常重要。如果没有这句，那么查询出结果后，会出现刷新页面动作等，导致查询结果失效。
         }
     });
+    $("#regionNameId").keydown(function(e){
+        var curKey = e.which;
+        if(curKey == 13){
+        	// setParams();
+        	// reloadTable();//此处可以是你要执行的功能
+            initDept();
+            return false;//这句非常重要。如果没有这句，那么查询出结果后，会出现刷新页面动作等，导致查询结果失效。
+        }
+    });
     initDept();
 
     jQuery('#queryBtnId').click(function () {
@@ -32,12 +41,15 @@ function setParams(pid) {
     if(pid){
         //查看下级时，清空searchKeyId
         $('#searchKeyId').val("");
+        $('#regionNameId').val("");
         paramsObj.fid=pid;
     }else{
         paramsObj.fid=undefined;
     }
     var searchKeyVal = $('#searchKeyId').val();
+    var regionName = $('#regionNameId').val();
     paramsObj.searchKey=searchKeyVal;
+    paramsObj.regionName=regionName;
 }
 function showOrHideButton(pid) {
     if(pid){
@@ -275,4 +287,8 @@ function deleteDept(id) {
     var url = basePathJS + "/system/dept/delete";
     var parameter = {id: id};
     delObj(url , parameter) ;
+}
+function deleteBatchDept() {
+    var url = basePathJS + "/system/dept/deleteBatch";
+    deleteALLSelect(url , tableSelector);
 }

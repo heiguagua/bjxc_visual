@@ -1041,7 +1041,7 @@ function _submitForm(index, layero , options){
             }
 
             // var me = this;
-            // // 提交表单之前，hold住表单，防止重复提交
+            // 提交表单之前，hold住表单，防止重复提交
             // me.holdSubmit(true);
 
             var action = form.attr("action");

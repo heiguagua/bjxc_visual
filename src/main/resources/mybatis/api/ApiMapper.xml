@@ -35,7 +35,7 @@
         </choose>
     </select>
 
-    <!-- 查询指定目录下面的的数据集/排除自定义 -->
+    <!-- 只过滤已有关系的资源、或者从系统梳理添加的资源 -->
     <select id="getDatasetByClassifyId" parameterType="map" resultType="map">
         SELECT
         t.*
@@ -45,9 +45,15 @@
         ON dcm.`dataset_id` = t.`id`
         LEFT JOIN dir_classify dc
         ON dc.`id` = dcm.`classify_id`
+        LEFT JOIN dir_dataset_classify_map ddcm
+        ON ddcm.`classify_id` = dc.`id`
+        AND ddcm.`dataset_id` = t.`id`
+        LEFT JOIN dir_dataset_source_info ddsi
+        ON ddsi.`dataset_id` = t.`id`
         WHERE TRUE
         AND t.`delete_flag` = 0
-        AND t.`source_type` != '1'
+        AND ddcm.`status` = '5'
+        AND ddsi.`id` IS NOT NULL
         <choose>
             <when test="null != classifyId and '' != classifyId">
                 AND dc.`id` = #{classifyId}
@@ -59,7 +65,7 @@
         <if test="null != regionCode and '' != regionCode">
             AND t.`region_code` = #{regionCode}
         </if>
-        GROUP BY t.`id`
+        GROUP BY dcm.`id`
     </select>
 
     <!-- 查询指定数据集下面的数据库信息 -->

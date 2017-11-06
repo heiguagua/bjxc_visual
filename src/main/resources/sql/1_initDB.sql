@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/10/28 18:51:58                            */
+/* Created on:     17/11/4 8:55:30                              */
 /*==============================================================*/
 
 
@@ -204,13 +204,23 @@ drop table if exists sys_dict_category;
 
 drop table if exists sys_guid_dept;
 
+drop table if exists sys_icon_category;
+
 drop table if exists sys_icon_lib;
 
 drop table if exists sys_log;
 
 drop table if exists sys_menu;
 
+drop table if exists sys_product_dept_map;
+
+drop table if exists sys_product_dict_map;
+
+drop table if exists sys_product_icon_map;
+
 drop table if exists sys_product_integrate;
+
+drop table if exists sys_product_user_map;
 
 drop table if exists sys_region;
 
@@ -1254,6 +1264,7 @@ create table dir_portal_content_setting
    content              text comment '发布内容',
    publisher            varchar(36) comment '政策发布人',
    publish_date         date comment '发布时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
@@ -1310,6 +1321,7 @@ create table dir_special_apps
    icon                 varchar(256) comment '图标',
    visit_count          int(10) comment '浏览量',
    order_number         int(4) comment '排序',
+   is_show              int(4) comment '是否在门户显示',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -2333,6 +2345,19 @@ create table sys_guid_dept
 alter table sys_guid_dept comment '业务指导部门记录表';
 
 /*==============================================================*/
+/* Table: sys_icon_category                                     */
+/*==============================================================*/
+create table sys_icon_category
+(
+   category_code        varchar(36) not null comment '类别编号',
+   category_name        varchar(64) comment '类别名称',
+   category_desc        varchar(256) comment '类别描述',
+   primary key (category_code)
+);
+
+alter table sys_icon_category comment '系统图标类型表';
+
+/*==============================================================*/
 /* Table: sys_icon_lib                                          */
 /*==============================================================*/
 create table sys_icon_lib
@@ -2397,11 +2422,57 @@ DEFAULT CHARSET = utf8;
 alter table sys_menu comment '系统菜单表';
 
 /*==============================================================*/
+/* Table: sys_product_dept_map                                  */
+/*==============================================================*/
+create table sys_product_dept_map
+(
+   id                   varchar(36) not null comment 'id',
+   product_id           varchar(36) not null comment '产品ID',
+   dept_id              varchar(36) not null comment '部门ID',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_product_dept_map comment '产品部门关系表';
+
+/*==============================================================*/
+/* Table: sys_product_dict_map                                  */
+/*==============================================================*/
+create table sys_product_dict_map
+(
+   id                   varchar(36) not null comment 'id',
+   product_id           varchar(36) not null comment '产品ID',
+   dict_category        varchar(36) not null comment '字典类型',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_product_dict_map comment '产品字典关系表';
+
+/*==============================================================*/
+/* Table: sys_product_icon_map                                  */
+/*==============================================================*/
+create table sys_product_icon_map
+(
+   id                   varchar(36) not null comment 'id',
+   product_id           varchar(36) not null comment '产品ID',
+   icon_category        varchar(36) not null comment '图标类型',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_product_icon_map comment '产品图标关系';
+
+/*==============================================================*/
 /* Table: sys_product_integrate                                 */
 /*==============================================================*/
 create table sys_product_integrate
 (
    id                   varchar(36) not null comment 'ID',
+   fid                  varchar(36) comment '父节点ID',
    product_no           varchar(64) comment '产品标识',
    product_name         varchar(64) comment '产品名称',
    product_show_name    varchar(64) comment '产品显示名称',
@@ -2416,6 +2487,21 @@ create table sys_product_integrate
 );
 
 alter table sys_product_integrate comment '产品集成表';
+
+/*==============================================================*/
+/* Table: sys_product_user_map                                  */
+/*==============================================================*/
+create table sys_product_user_map
+(
+   id                   varchar(36) not null comment 'id',
+   product_id           varchar(36) not null comment '产品ID',
+   user_id              varchar(36) not null comment '用户ID',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_product_user_map comment '产品用户关系表';
 
 /*==============================================================*/
 /* Table: sys_region                                            */
@@ -2587,6 +2673,7 @@ ENGINE = InnoDB
 DEFAULT CHARSET = utf8;
 
 alter table sys_user_role comment '用户角色表';
+
 
 
 

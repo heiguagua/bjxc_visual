@@ -33,6 +33,17 @@
                                         创建用户
                                     </a>
                                 </div>
+                                <div class="input-group">
+                                    <a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchUser()" >
+                                        <img src="<%=basePath%>/images/userImg/delImg.png"/>
+                                        批量删除</a>
+                                </div>
+                                <div class="input-group">
+                                    <input id="regionNameId" type="text" name="regionName" class="form-control" placeholder="区域">
+                                </div>
+                                <div class="input-group">
+                                    <input id="deptNameId" type="text" name="deptName" class="form-control" placeholder="部门">
+                                </div>
                                 <%--</#if>--%>
                                 <div class="input-group  pull-right">
                                     <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="用户名称">
