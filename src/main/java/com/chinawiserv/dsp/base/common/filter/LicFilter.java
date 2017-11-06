@@ -15,6 +15,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,6 +36,8 @@ public class LicFilter extends OncePerRequestFilter{
     public static Map licHashMap = new ConcurrentHashMap();
     //lic系统名称
     public static String licSysName;
+    //lic路径
+    public static String licPath;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -47,10 +50,10 @@ public class LicFilter extends OncePerRequestFilter{
                 if ( checkUrlExclude(url) ) {
                     //获取项目标识简称 此简称与lic中的要一致才能通过
                     licSysName = getFilterConfig().getInitParameter("licSysName");
-
+                    licPath = Config.LIC_PATH + File.separator + licSysName+ File.separator;
                     //lic验证
                     LicAuthorize licAuthorize = new LicAuthorizeImpl();
-                    String licInfoStr = licAuthorize.doLicAuthorize(licSysName, Config.LIC_PATH);
+                    String licInfoStr = licAuthorize.doLicAuthorize(licSysName, licPath);
                     LicInfo licInfo = JSONObject.parseObject(licInfoStr, LicInfo.class);
                     if(licInfo.getIsValidity() == 0){
                         //重定向到license上传页面
