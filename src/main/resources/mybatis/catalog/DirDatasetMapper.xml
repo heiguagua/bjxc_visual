@@ -97,6 +97,9 @@
             <if test="allRegionCode!= null and allRegionCode !='' ">
                 and t.region_code in (${allRegionCode})
             </if>
+            <if test="searchRegionCode!= null and searchRegionCode !='' ">
+                and t.region_code in (${searchRegionCode})
+            </if>
             <if test="loginUserIdForAuthority != null and loginUserIdForAuthority!='' ">
                 and t.charge_dept_id in(
                     select id from sys_dept sd1,(

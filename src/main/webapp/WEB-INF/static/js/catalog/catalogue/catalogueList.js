@@ -2,77 +2,55 @@ var tableSelector = '#catalogueTable';
 var paramsObj = {};
 
 jQuery(document).ready(function () {
+    initCss();
     initTable();
     initAllSelect();
     initButtonClickEvent();
 });
 
-var setting = {
-    async: {
-        enable: true,
-        url: basePathJS + "/dirClassify/subAuthorityList",
-        autoParam: ["fid","treeCode","authorityNode"],
-        dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
-            var params = [];
-            var nodeObjs = childNodes.content.vo;
-            if (!nodeObjs) {
-                return null;
-            }
-            for (var i in nodeObjs) {
-                params[i] = {
-                    'id': nodeObjs[i].id,
-                    'name': nodeObjs[i].classifyName,
-                    'fid': nodeObjs[i].id,
-                    'treeCode': nodeObjs[i].treeCode,
-                    'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
-                    'authorityNode':nodeObjs[i].authorityNode
-                }
-            }
-            return params;
-        }
-    },
-    callback: {
-        beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
-            var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
-            if (treeNode.isParent) {
-                if (treeNode.open) {
-                    zTreeObj.expandNode(treeNode, false);
-                } else {
-                    zTreeObj.expandNode(treeNode, true);
-                }
-                return false;
-            } else {
-                return true;
-            }
-        },
-        onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+function initCss(){
+    // 目录编目收缩小侧边栏,用的adminlte
+    $("#forward").hide();
+    $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+    $("#backward").click(function(){
+        $("#min-aside").animate({
+            width:"40px"
+        },200);
+        $("#dir-Manger").hide();
+        $("#forward").show(400);
+        $("#backward").hide(500);
+        $("#treeDemo").hide(200);
+        $("#min-aside").css("border","none")
+        $("div.box div.table-myself").animate({
+            paddingLeft: "50px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "60px"
+        })
+        $(".user-panel").css("background","#f4f6f9");
+    })
+    $("#forward").click(function(){
+        $("#min-aside").animate({
+            width:"230px"
+        },200);
+        $("#dir-Manger").show();
+        $("#forward").hide(400);
+        $("#backward").show(500);
+        $("#treeDemo").show(200);
+        $("#min-aside").css("border","1px solid #ddd");
+        $(".box-body").animate({
+            paddingLeft: "240px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "270px"
+        })
+        $(".user-panel").css("background","none");
+    })
+}
 
-                //var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                //treeObj.cancelSelectedNode();
-
-            $('#searchClassifyId').val(treeNode.id);
-            setParams();
-            reloadTable();
-            /*$.commonAjax({
-                url: basePathJS + "/dirClassify/editLoad",
-                data: {id: treeNode.id},
-                success: function (result) {
-                    if (result.state) {
-                        var classifyObj = result.content.vo;
-                        $('#' + nameInputDomId).val(classifyObj.classifyStructureName);
-                        $('#' + codeInputDomId).val(treeNode.id);
-                    }
-                }
-            });*/
-        }
-    }
-};
-$(document).ready(function(){
-    $.fn.zTree.init($("#treeDemo"), setting);
-});
 function initTable(){
-    var regionCode = $.getSelectedRegionCode();
-    paramsObj["regionCode"] = regionCode;
+    //var regionCode = $.getSelectedRegionCode();
+    //paramsObj["regionCode"] = regionCode;
     jQuery(tableSelector).customTable({
         url: basePathJS + '/catalog/catalogue/list',
         queryParams: function (params) {
@@ -150,7 +128,7 @@ function initTable(){
         }, {
             field: 'id',
             title: '操作',
-            width: '12%',
+            width: '120px',
             align: 'center',
             valign: 'middle',
             sortable: false,
@@ -175,6 +153,8 @@ function initTable(){
 
 
 function initAllSelect(){
+    //初始化中间目录分类树
+    $.initClassifyTree('treeDemo','searchClassifyId');
     //区域下拉查询框
     $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode','searchRegionMenuContent',true);
 }
@@ -232,7 +212,7 @@ function initButtonClickEvent(){
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    var regionCode = $.getSelectedRegionCode();
+    var regionCode = $('#searchRegionCode').val();
     paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
 }
 
