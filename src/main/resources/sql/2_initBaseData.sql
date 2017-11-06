@@ -107,6 +107,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0703','07','开发者工具管理','/dirDevelopApis','fa-cog','2','2','0703','','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0704','07','专题应用管理','/dirSpecialApps','fa-cog','3','2','0704','','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0705','07','门户简介管理','/dirIntrude','fa-cog','5','2','0705','','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0706','07','首页图片管理','/dirHome','fa-cog','6','2','0706','','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('08','0','上报管理','','fa-list','4','1','08','system','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0801','08','目录/服务上报','/dirupload/dirAudit','fa-cog','3','2','0801','dirupload:dirAudit','1');
 
