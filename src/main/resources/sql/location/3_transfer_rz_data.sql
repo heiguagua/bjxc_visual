@@ -453,7 +453,7 @@ insert into dir_data_item_apply (id,data_apply_id,item_id,status)
 			create_user,create_time,update_user,update_time)
 		select
 			id,'510100','' as source_type,system_code,system_name,system_phase,system_phase_desc,main_feature,main_data,enable_time,
-			disable_time,system_level,belong_network,phisical_location,'' as create_dept,self_build_flag,build_dep,system_structure,login_type,
+			disable_time,system_level,belong_network,phisical_location,build_dep as create_dept,self_build_flag,null as build_dep,system_structure,login_type,
 			system_usage_info,system_usage_desc,support_company,support_contacts,support_contacts_phone,support_contacts_email,support_other_contacts,
 			maintain_dep,maintain_contacts,maintain_contacts_phone,maintain_contacts_email,maintain_other_contacts,customer_service_info,
 			data_range_begin,data_range_end,null,data_storage,year_increment,'' as visit_url,'' as visit_username,'' as visit_password,'' as has_interface,
