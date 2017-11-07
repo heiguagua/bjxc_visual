@@ -22,8 +22,25 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
+                        <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                            <section class="sidebar">
+                                <div class="user-panel">
+                                    <b id="dir-Manger">目录分类</b>
+                                    <div class="pull-right image">
+                                        <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
+                                            <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                            <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <ul id="treeDemo" class="ztree"></ul>
+                                </div>
+                            </section>
+                        </aside>
+
                         <form class="form-inline" method="post">
-                            <div class="box-header">
+                            <div class="box-header box-header-myself">
                                 <div class="input-group">
                                     <button type="button" id="downloadExcel" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
                                             data-toggle="dropdown">
@@ -31,27 +48,30 @@
                                     </button>
                                 </div>
                                 <div class="input-group pull-right">
-                                    <input class="form-control" id="searchName" placeholder="资源名称" type="text">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
-                                            <i class="fa fa-search">
-                                            </i> 查询
-                                        </button>
-                                    </div>
-                                    </input>
-                                </div>
-                                <div class="input-group pull-right" style="margin-right:4px;width: 240px">
-                                    <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                     <input type="hidden" id="searchClassifyId">
-                                    <div class="menu-wrap">
-                                        <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
-                                            <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                    <div class="input-group" style="margin-right:4px;min-width:240px">
+                                        <input type="text" id="searchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
+                                        <input type="hidden" id="searchRegionCode">
+                                        <div class="menu-wrap">
+                                            <div id="searchRegionMenuContent" class="menuContent" style="display:none;">
+                                                <ul id="searchRegionTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
+                                                <i class="fa fa-search">
+                                                </i> 查询
+                                            </button>
+                                        </div>
+                                        </input>
                                     </div>
                                 </div>
                             </div>
                         </form>
-                        <div class="box-body table-responsive ">
+                        <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
                             <table id="queryTable" class="table table-hover"></table>
                             <!-- 表格 end-->

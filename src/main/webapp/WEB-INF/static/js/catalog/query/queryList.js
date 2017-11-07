@@ -2,10 +2,51 @@ var tableSelector = '#queryTable';
 var paramsObj = {};
 
 jQuery(document).ready(function () {
+    initCss();
     initTable();
     initAllSelect();
     initButtonClickEvent();
 });
+
+function initCss(){
+    // 目录编目收缩小侧边栏,用的adminlte
+    $("#forward").hide();
+    $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+    $("#backward").click(function(){
+        $("#min-aside").animate({
+            width:"40px"
+        },200);
+        $("#dir-Manger").hide();
+        $("#forward").show(400);
+        $("#backward").hide(500);
+        $("#treeDemo").hide(200);
+        $("#min-aside").css("border","none")
+        $("div.box div.table-myself").animate({
+            paddingLeft: "50px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "60px"
+        })
+        $(".user-panel").css("background","#f4f6f9");
+    })
+    $("#forward").click(function(){
+        $("#min-aside").animate({
+            width:"230px"
+        },200);
+        $("#dir-Manger").show();
+        $("#forward").hide(400);
+        $("#backward").show(500);
+        $("#treeDemo").show(200);
+        $("#min-aside").css("border","1px solid #ddd");
+        $(".box-body").animate({
+            paddingLeft: "240px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "270px"
+        })
+        $(".user-panel").css("background","none");
+    })
+}
 
 function initTable(){
     var regionCode = $.getSelectedRegionCode();
@@ -93,8 +134,10 @@ function initTable(){
 }
 
 function initAllSelect(){
-    //目录类别下拉查询框
-    $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
+    //初始化中间目录分类树
+    $.initClassifyTree('treeDemo','searchClassifyId');
+    //区域下拉查询框
+    $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode','searchRegionMenuContent',true);
 }
 
 function catalogueTableShow(id){
@@ -113,7 +156,7 @@ function initButtonClickEvent(){
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    var regionCode = $.getSelectedRegionCode();
+    var regionCode = $('#searchRegionCode').val();
     paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
 }
 

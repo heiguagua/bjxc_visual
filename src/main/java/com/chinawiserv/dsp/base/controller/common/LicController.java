@@ -66,7 +66,7 @@ public class LicController extends BaseController{
 //        sysSetting = sysSettingService.selectOne(wrapper);
 //        String settingValue = sysSetting.getSettingValue();
         String checkResult = lic.doLicAuthorize(LicFilter.licSysName,
-				Config.LIC_PATH);
+				LicFilter.licPath);
         JSON json = JSON.parseObject(checkResult);
 		model.addAttribute("lic", json);
 		return "system/lic/lic.warning";
@@ -98,7 +98,7 @@ public class LicController extends BaseController{
 //        sysSetting = sysSettingService.selectOne(wrapper);
 //        String settingValue = sysSetting.getSettingValue();
 		String checkResult = lic.doLicAuthorize(LicFilter.licSysName,
-				Config.LIC_PATH);
+				LicFilter.licPath);
 		JSON json = JSON.parseObject(checkResult);
 		model.addAttribute("lic", json);
 		return "system/lic/lic";
@@ -128,14 +128,14 @@ public class LicController extends BaseController{
 			}
 			try {
 				StringBuilder sbuilder = new StringBuilder();
-				sbuilder.append(Config.LIC_PATH);
+				sbuilder.append(LicFilter.licPath);
                 
-				File file = new File(Config.LIC_PATH);
+				File file = new File(LicFilter.licPath);
 				if (!file.exists()) {
 					file.mkdirs();
 				}
-				logger.info(Config.LIC_PATH + originalFilename);
-				File licFilePath = new File(Config.LIC_PATH + originalFilename);
+				logger.info(LicFilter.licPath + originalFilename);
+				File licFilePath = new File(LicFilter.licPath + originalFilename);
 				licFilePath.delete();
 				licenseFile.transferTo(licFilePath);
 				LicAuthorize lic = new LicAuthorizeImpl();
@@ -148,7 +148,7 @@ public class LicController extends BaseController{
 //		        sysSetting = sysSettingService.selectOne(wrapper);
 //		        String settingValue = sysSetting.getSettingValue();
 				String checkResult = lic.doLicAuthorize(LicFilter.licSysName,
-						Config.LIC_PATH);
+						LicFilter.licPath);
 				handleResult.success(checkResult);
 				return handleResult;
 			} catch (Exception e) {
