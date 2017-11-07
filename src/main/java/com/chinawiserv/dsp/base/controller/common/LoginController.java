@@ -73,7 +73,7 @@ public class LoginController extends BaseController {
         model.addAttribute("return_url", StringUtils.isNotBlank(return_url) ? URLDecoder.decode(return_url, "UTF-8") : index);
         return "login";
         **/
-    	 String index = "/catalog/catalogue";
+    	 String index = "/index";
          if(ShiroUtils.isLogin()){ // already login
              return redirectTo(index);
          }
@@ -118,7 +118,7 @@ public class LoginController extends BaseController {
         String captcha = MapUtils.getString(paramMap, "captcha");
         String return_url = MapUtils.getString(paramMap, "return_url");
         
-        String index = "/catalog/catalogue";
+        String index = "/index";
         if (StringUtils.isBlank(return_url)) {
             return_url = index;
         }
