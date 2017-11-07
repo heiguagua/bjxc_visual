@@ -35,6 +35,11 @@ function add(title, addurl, width, height) {
     createWindow(options);
 }
 
+function addApi(title, addurl, width, height) {
+    var options = _getDefaultWinOptionsForUpdateapiList(title , addurl , width, height) ;
+    createWindow(options);
+}
+
 function addPolicy(title, addurl, width, height) {
     var options = _getDefaultWinOptionsForPolicy(title , addurl , width, height) ;
     createWindow(options);
@@ -620,6 +625,7 @@ function _getDefaultWinOptionsForaddNational( title , url , width, height) {
             	layer.load(3);
                 submitBtn.hide();
                 _submitFormForApi(index , layero);
+                
 //                $("#loading").empty(); 
             } catch (e) {
 
@@ -1041,7 +1047,7 @@ function _submitForm(index, layero , options){
             }
 
             // var me = this;
-            // 提交表单之前，hold住表单，防止重复提交
+            // // 提交表单之前，hold住表单，防止重复提交
             // me.holdSubmit(true);
 
             var action = form.attr("action");
