@@ -32,7 +32,7 @@ public class FTPUtil {
         return ftp;
     }
 
-    public boolean uploadCaseFiles(String folderName, List<MultipartFile> caseFiles) throws Exception {
+    public boolean uploadCaseFiles(String folderName, List<MultipartFile> caseFiles, String fileName) throws Exception {
         if (StringUtils.isNotBlank(folderName) && null != caseFiles && caseFiles.size() > 0) {
 //            Properties properties = PropertiesUtil.load("cors.properties");
 //            String url = properties.getProperty("ftp.case.url", "192.168.13.176");
@@ -60,7 +60,7 @@ public class FTPUtil {
 
                 for (MultipartFile file : caseFiles) {
                     InputStream fileInputStream = file.getInputStream();
-                    String fileName = file.getOriginalFilename();//URLEncoder.encode(file.getOriginalFilename(), "utf-8");
+//                    String fileName = file.getOriginalFilename();//URLEncoder.encode(file.getOriginalFilename(), "utf-8");
                     ftp.storeFile(new String(fileName.getBytes("utf-8"), "8859_1"), fileInputStream);
                     fileInputStream.close();
                 }
