@@ -54,4 +54,6 @@ public final class SystemConst {
     public static final String CATEGORY_REGION = "1";
     public static final String CATEGORY_DEPT = "2";
 
+    public static final String SYS_INTEGRATE_NO="integrateCurNo";
+
 }

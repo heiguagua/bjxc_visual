@@ -36,7 +36,7 @@ public class SysSettingServiceImpl extends CommonServiceImpl<SysSettingMapper, S
     }
 
     @Override
-    public String findValueByCode(String code) throws Exception {
+    public String findValueByCode(String code)  {
         String value = "";
         SysSettingVo sysSettingVo = sysSettingMapper.selectVoByCode(code);
         if(sysSettingVo != null){

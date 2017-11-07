@@ -43,4 +43,12 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
     List<String> selectDeptByPrivilege(@Param("user_id") String user_id);
 
     Integer deleteBatchDeptByIds(List<String> ids);
+
+    List<SysDept> listBySystemId(String systemId);
+
+    List<SysDept> listByList(List<String> list);
+
+    List<String> listIdsByList(List<String> list);
+
+    long batchInsert(List<SysDept> list);
 }

@@ -175,4 +175,22 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     public boolean createToken(Map<String,String> paramMap) {
         return userMapper.createToken(paramMap)>0;
     }
+
+    @Override
+    public List<SysUser> listBySystemId(String systemId) {
+        return userMapper.listBySystemId(systemId);
+    }
+
+    @Override
+    public boolean insertOrUpdate(List<SysUser> list) {
+        for (SysUser sysUser : list) {
+            SysUser u= userMapper.selectById(sysUser.getId());
+            if(null ==u){
+                userMapper.insert(sysUser);
+            }else{
+                userMapper.updateById(sysUser);
+            }
+        }
+        return true;
+    }
 }

@@ -240,4 +240,9 @@
         </foreach>
     </update>
 
+    <select id="listBySystemId" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.po.system.SysUser">
+        SELECT u.* FROM sys_user u
+        -- 		WHERE
+    </select>
+
 </mapper>

@@ -51,4 +51,8 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 
     boolean deleteBatchDeptByIds(List<String> ids) throws Exception;
 
+    List<SysDept> listBySystemId(String systemId);
+
+    boolean insertOrUpdate(List<SysDept> list);
+
 }

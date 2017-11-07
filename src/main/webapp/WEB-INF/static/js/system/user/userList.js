@@ -162,6 +162,10 @@ function reloadTable() {
     $(tableSelector).data("bootstrap.table").refresh();
 }
 
+function synRemoteData(){
+    getMasterData(basePathJS + '/system/user/getMasterData');
+}
+
 function addUser() {
     add('新增用户', basePathJS + '/system/user/add',900,600);
 }

@@ -219,4 +219,60 @@
 			#{item}
 		</foreach>
 	</update>
+	<select id="listBySystemId" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDept">
+		SELECT t.* FROM sys_dept t
+-- 		WHERE
+	</select>
+	<select id="listByList" parameterType="java.util.List" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDept">
+		SELECT t.* FROM sys_dept t WHERE id IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<select id="listIdsByList" parameterType="java.util.List" resultType="java.lang.String">
+		SELECT t.id FROM sys_dept t WHERE id IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into sys_dept(
+		id,
+		region_code,
+		dept_type,
+		dept_code,
+		dept_name,
+		dept_short_name,
+		fid,
+		fname,
+		dept_structure_name,
+		dept_level,
+		dept_function,
+		order_number,
+		delete_flag,
+		tree_index,
+		tree_code
+		)
+
+		VALUES
+		<foreach collection="list" item="item" index="index"  separator="," >
+			(#{item.id},
+			#{item.regionCode},
+			#{item.deptType},
+			#{item.deptCode},
+			#{item.deptName},
+			#{item.deptShortName},
+			#{item.fid},
+			#{item.fname},
+			#{item.deptStructureName},
+			#{item.deptLevel},
+			#{item.deptFunction},
+			#{item.orderNumber},
+			#{item.deleteFlag},
+			#{item.treeIndex},
+			#{item.treeCode})
+
+		</foreach>
+	</insert>
+
 </mapper>

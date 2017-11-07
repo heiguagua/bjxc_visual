@@ -71,4 +71,5 @@ public interface ICommonService<P , V> extends IService<P> {
 	//TODO
     String getRegionCodeCondition(String regionCode, Integer regionLevel);
 
+
 }
