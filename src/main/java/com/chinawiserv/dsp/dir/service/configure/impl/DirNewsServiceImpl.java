@@ -7,6 +7,7 @@ import com.chinawiserv.dsp.dir.entity.vo.configure.DirPolicyVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirNewsMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirNewsService;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.FTPUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 
@@ -19,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -97,6 +100,11 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 //        String picTitle = request.getParameter("pic_title");
 //        String picContent = request.getParameter("pic_content");
         //由于ie中上传文件时是以图片的绝对路径全称作为文件名所以必需截取后面的文件名
+		
+		try{
+			
+		
+		
 		String fileName = file.getOriginalFilename();
         String picName =((new Date()).getTime())+fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
         String picSize = String.valueOf(file.getSize());
@@ -106,26 +114,27 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
             return "samePic";
         }else{
             //上传图片
-                        Properties properties = new Properties();
+             Properties properties = new Properties();
          	
-                       properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+             properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
          	
         //                Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
             String mapUrl = properties.getProperty("datastreet.upload.native.image_path");
-            String lunboDir = properties.getProperty("datastreet.upload.native.image_path.lunboDir");
+            String lunboDir = properties.getProperty("datastreet.upload.native.image_path.news");
+            String folderName = mapUrl+"/"+ lunboDir;
             if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
-                String dirPath = "";
-                if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
-                    dirPath = request.getSession().getServletContext().getRealPath("")
-                    		+ mapUrl+lunboDir;
-                }else{
-                    dirPath = request.getSession().getServletContext().getRealPath("")
-                    		+ mapUrl + "/" + lunboDir;
-                }
-                File dirFile = new File(dirPath);
-                if(!dirFile.exists()){
-                    dirFile.mkdirs();
-                }
+//                String dirPath = "";
+//                if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
+//                    dirPath = request.getSession().getServletContext().getRealPath("")
+//                    		+ mapUrl+lunboDir;
+//                }else{
+//                    dirPath = request.getSession().getServletContext().getRealPath("")
+//                    		+ mapUrl + "/" + lunboDir;
+//                }
+//                File dirFile = new File(dirPath);
+//                if(!dirFile.exists()){
+//                    dirFile.mkdirs();
+//                }
                 int index = 0;
                 for(int i = 0; i < picName.length(); i++){
                     if (!Character.isDigit(picName.charAt(i))){
@@ -133,14 +142,20 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
                         break;
                     }
                 }
-                String newFileName = dirPath + "/" + picName;
-                file.transferTo(new File(newFileName));//上传文件到指定目录
+                
+                List<MultipartFile>	caseFiles = new ArrayList<MultipartFile>();	
+                caseFiles.add(file);
+                
+                FTPUtil FtpUtil = new FTPUtil();                
+                FtpUtil.uploadCaseFiles(folderName, caseFiles, picName);
+//                String newFileName = dirPath + "/" + picName;
+//                file.transferTo(new File(newFileName));//上传文件到指定目录
                 //把所有表单数据保存到数据库表中
 //                Pic picObj = new Pic();
                 entity.setId(UUID.randomUUID().toString());
                 entity.setPicName(picName);               
                 entity.setPicType(file.getContentType());               
-                entity.setNewsPic("/img" + "/"+lunboDir+"/"+picName);
+                entity.setNewsPic(folderName+"/"+picName);
                 entity.setPicSize(picSize);
                 entity.setStatus("1");
                 String loginUserId = ShiroUtils.getLoginUserId();
@@ -150,9 +165,14 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
                 mapper.baseInsert(entity);
             }else{
                 throw new Exception("请查看common.properties配置文件中，datastreet.upload.native.image_path以及" +
-                        "datastreet.upload.native.image_path.lunboDir的值是否配置");
+                        "datastreet.upload.native.image_path.news的值是否配置");
             }
 
+        }
+		}catch (SocketException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return resultStr;
 
@@ -204,34 +224,40 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
                 return "samePic";
             }else{
                 //上传图片
-                            Properties properties = new Properties();
+            Properties properties = new Properties();
              	
-                            properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+            properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
              	
             //                Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
-                String mapUrl = properties.getProperty("datastreet.upload.native.image_path");
-                String lunboDir = properties.getProperty("datastreet.upload.native.image_path.lunboDir");
-                if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
-                    String dirPath = "";
-                    if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
-                        dirPath =  request.getSession().getServletContext().getRealPath("")
-                        		+mapUrl+lunboDir;
-                    }else{
-                        dirPath =  request.getSession().getServletContext().getRealPath("")
-                        		+mapUrl + "/" + lunboDir;
-                    }
-                    File dirFile = new File(dirPath);
-                    if(!dirFile.exists()){
-                        dirFile.mkdirs();
-                    }
-                    String newFileName = dirPath + "/" + picName;
-                    file.transferTo(new File(newFileName));//上传文件到指定目录
+            String mapUrl = properties.getProperty("datastreet.upload.native.image_path");
+            String lunboDir = properties.getProperty("datastreet.upload.native.image_path.news");
+            String folderName = mapUrl+"/"+ lunboDir;   
+            if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
+//                    String dirPath = "";
+//                    if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
+//                        dirPath =  request.getSession().getServletContext().getRealPath("")
+//                        		+mapUrl+lunboDir;
+//                    }else{
+//                        dirPath =  request.getSession().getServletContext().getRealPath("")
+//                        		+mapUrl + "/" + lunboDir;
+//                    }
+//                    File dirFile = new File(dirPath);
+//                    if(!dirFile.exists()){
+//                        dirFile.mkdirs();
+//                    }
+	            	List<MultipartFile> caseFiles = new ArrayList<MultipartFile>();	
+	             	caseFiles.add(file);
+	             
+	             	FTPUtil FtpUtil = new FTPUtil();                
+	             	FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
+//                    String newFileName = dirPath + "/" + picName;
+//                    file.transferTo(new File(newFileName));//上传文件到指定目录
                     //把所有表单数据保存到数据库表中
 //                    Pic picObj = new Pic();
-
+                	
                     dirNewsVo.setPicName(picName);               
                     dirNewsVo.setPicType(file.getContentType());               
-                    dirNewsVo.setNewsPic("/img" + "/"+lunboDir+"/"+picName);
+                    dirNewsVo.setNewsPic(folderName+"/"+picName);
                     dirNewsVo.setPicSize(picSize);
 //                    dirNewsVo.setStatus("1");
                     String loginUserId = ShiroUtils.getLoginUserId();
@@ -244,7 +270,7 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
                     mapper.baseUpdate(dirNewsVo);
                 }else{
                     throw new Exception("请查看common.properties配置文件中，datastreet.upload.native.image_path以及" +
-                            "datastreet.upload.native.image_path.lunboDir的值是否配置");
+                            "datastreet.upload.native.image_path.news的值是否配置");
                 }        	
         }
         }  

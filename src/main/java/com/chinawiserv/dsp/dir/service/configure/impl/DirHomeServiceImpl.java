@@ -7,11 +7,9 @@ import com.chinawiserv.dsp.dir.entity.vo.configure.DirHomeVo;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirNewsVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirHomeMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirHomeService;
-import com.mysql.fabric.xmlrpc.base.Array;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -141,7 +139,7 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
                 caseFiles.add(file);
                 
                 FTPUtil FtpUtil = new FTPUtil();                
-                FtpUtil.uploadCaseFiles(folderName, caseFiles);
+                FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
                 
 //                String newFileName = dirPath + "/" + picName;
 //                ftp.changeWorkingDirectory(mapUrl + "/" + lunboDir);
@@ -155,7 +153,7 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
                 entity.setId(UUID.randomUUID().toString());
                 entity.setPicName(picName);               
                 entity.setPicType(file.getContentType());  //             
-                entity.setPicPath("/Dir/images/home/"+picName);
+                entity.setPicPath(folderName+"/"+picName);
                 entity.setPicSize(picSize);
                 entity.setStatus("1");
                 String loginUserId = ShiroUtils.getLoginUserId();
@@ -165,7 +163,7 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
                 mapper.baseInsert(entity);
             }else{
                 throw new Exception("请查看common.properties配置文件中，datastreet.upload.native.image_path以及" +
-                        "datastreet.upload.native.image_path.lunboDir的值是否配置");
+                        "datastreet.upload.native.image_path.homePage的值是否配置");
             }
 
         }
@@ -256,12 +254,12 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
                  	caseFiles.add(file);
                  
                  	FTPUtil FtpUtil = new FTPUtil();                
-                 	FtpUtil.uploadCaseFiles(folderName, caseFiles);
+                 	FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
             	 
 
                  	dirHomeVo.setPicName(picName);               
                  	dirHomeVo.setPicType(file.getContentType());               
-                 	dirHomeVo.setPicPath("/Dir/images/home/"+picName);
+                 	dirHomeVo.setPicPath(folderName+"/"+picName);
                  	dirHomeVo.setPicSize(picSize);
 //                    dirNewsVo.setStatus("1");
                     String loginUserId = ShiroUtils.getLoginUserId();

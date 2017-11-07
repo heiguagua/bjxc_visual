@@ -304,11 +304,11 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     	String fid = vo.getFid();   
     	String type = vo.getClassifyType();
     	List<DirNationalClassifyVo>  listClassifies = mapper2.selectSonClassify(vo.getNationalCode());
-    	   	if(listClassifies.isEmpty()){
-
-    	   		throw new Exception("此目录下无可导入内容，请从新选择");
-    	   		
-	    }
+    	if(listClassifies.isEmpty()){
+    		
+    		throw new Exception("此目录下无可导入内容，请从新选择");
+    		
+    	}
     	for (Iterator iterator = listClassifies.iterator(); iterator.hasNext();) {
     		
 			DirNationalClassifyVo dirNationalClassifyVo = (DirNationalClassifyVo) iterator.next();

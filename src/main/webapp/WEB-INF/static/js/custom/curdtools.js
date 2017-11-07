@@ -620,6 +620,7 @@ function _getDefaultWinOptionsForaddNational( title , url , width, height) {
             	layer.load(3);
                 submitBtn.hide();
                 _submitFormForApi(index , layero);
+                
 //                $("#loading").empty(); 
             } catch (e) {
 

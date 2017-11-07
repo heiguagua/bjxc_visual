@@ -126,6 +126,12 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
 	public List<SysDictVo> selectVoCategoryList(Map<String, Object> paramMap) {
 		return mapper.selectVoListForTreeData(paramMap);
 	}
+    
+    @Override
+	public List<SysDictVo> selectVoListForTreeDataForApp(Map<String, Object> paramMap) {
+		return mapper.selectVoListForTreeDataForApp(paramMap);
+	}
+    
     @Override
     public String selectDictcodeByCategoryAndName(String dict_name,String category){
         String dictCode=null;

@@ -163,11 +163,11 @@ function reloadTable() {
 }
 
 function addUser() {
-    add('新增用户', basePathJS + '/system/user/add');
+    add('新增用户', basePathJS + '/system/user/add',900,600);
 }
 
 function editUser(id) {
-    update('编辑用户', basePathJS + '/system/user/edit', id);
+    update('编辑用户', basePathJS + '/system/user/edit', id,900,600);
 }
 
 function deleteUser(id) {
