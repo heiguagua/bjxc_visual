@@ -126,7 +126,7 @@ function initButtonClickEvent(){
         +'<td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
         +'<td><input name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType")+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number"  min="1" type="text" class="form-control">'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number"  min="1" type="text" class="form-control">'
         +'<input type="hidden" name="items['+thisTrNum+'].belongDeptId" >  </td>'
         //+'<td><input class="form-control" type="text"  value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
