@@ -41,7 +41,7 @@
 <!-- 自定义 css -->
 <link rel="stylesheet"  href="<%=basePath%>/plugins/layui/css/layui.css">
 <link rel="stylesheet" href="<%=basePath%>/css/custom.css">
-<link rel="stylesheet" href="<%=basePath%>/css/Rebaseadmin.css">
+<link rel="stylesheet" href="<%=basePath%>/css/Rebaseadmin1.css">
 <link rel="stylesheet" href="<%=basePath%>/css/catalogue.css">
 <link rel="stylesheet" href="<%=basePath%>/css/release.css">
 

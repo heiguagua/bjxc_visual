@@ -26,7 +26,7 @@
                 <!-- Your Page Content Here -->
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="box">
+                        <div class="box clear">
 
 
                             <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
@@ -36,8 +36,8 @@
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
 
-                                                <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
-                                                <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                                <i style="color: rgb(51, 51, 51);" class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                             </a>
 
                                         </div>
@@ -50,8 +50,9 @@
 
                             </aside>
                         
-                        
-                            <form class="form-inline" method="post">
+                          <div class="content_table">
+                          
+                          	 <form class="form-inline" method="post">
                                 <div class="box-header box-header-myself">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
@@ -109,7 +110,13 @@
                                             <!-- <i class="fa fa-plus"></i> -->删除
                                         </button>
                                     </div>
-                                    <div class="pull-right">
+                                    
+                                    
+
+                                    
+                                    
+                                </div>
+                                <div class="box-header">
                                         <input type="hidden" id="searchClassifyId">
 	                                    <%--<div class="input-group" style="margin-right:4px;min-width:240px">
 	                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
@@ -120,7 +127,7 @@
 	                                            </div>
 	                                        </div>
 	                                    </div>--%>
-	                                    <div class="input-group">
+	                                    <div class="input-group pull-right">
 	                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
 	                                        <div class="input-group-btn">
 	                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
@@ -130,11 +137,6 @@
 	                                        </input>
 	                                    </div>
                                     </div>
-                                    
-
-                                    
-                                    
-                                </div>
                             </form>
 		
 
@@ -145,6 +147,8 @@
                                 <table id="catalogueTable" class="table table-hover"></table>
                                 <!-- 表格 end-->
                             </div>
+                          </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -158,44 +162,41 @@
 </body>
 <script>
 /* 目录编目收缩小侧边栏,用的adminlte */
-	$(function(){
-		$("#forward").hide();
-		$("#dir-Manger").parent("div.user-panel").css("text-align","center")
-		$("#backward").click(function(){
-			$("#min-aside").animate({
-				width:"40px",
-			},200);
-			$("#dir-Manger").hide();
-			$("#forward").show(400);
-			$("#backward").hide(500);
-			$("#treeDemo").hide(200);
-			$("#min-aside").css("border","none")
-			 $("div.box div.table-myself").animate({
-				paddingLeft: "50px"
-			})
-			$('.box-header').animate({
-				paddingLeft: "60px"
-			})
-			$(".user-panel").css("background","#f4f6f9");
+$(function(){
+	$("#forward").hide();
+	$("#dir-Manger").parent("div.user-panel").css("text-align","center")
+	$("#backward").click(function(){
+		$("#min-aside").animate({
+			width:"2%",
+		},200);
+		$("#dir-Manger").hide();
+		$("#forward").show(400);
+		$("#backward").hide(500);
+		$("#treeDemo").hide(200);
+		$("#min-aside").css("border","none")
+		 $("div.box div.content_table").animate({
+			width: "98%"
 		})
-		$("#forward").click(function(){
-			$("#min-aside").animate({
-				width:"230px",
-			},200);
-			$("#dir-Manger").show();
-			$("#forward").hide(400);
-			$("#backward").show(500);
-			$("#treeDemo").show(200);
-			$("#min-aside").css("border","1px solid #ddd");
-			$(".box-body").animate({
-				paddingLeft: "240px"
-			})
-			$('.box-header').animate({
-				paddingLeft: "270px"
-			})
-			$(".user-panel").css("background","none");
-		})
+	
+		$(this).parents("div.user-panel").css("background","#f4f6f9");
 	})
+	$("#forward").click(function(){
+		$("div.box div.content_table").animate({
+			width: "86%"
+		},400)
+		$("#min-aside").animate({
+			width:"14%",
+		},500);
+		$("#dir-Manger").show();
+		$("#forward").hide(400);
+		$("#backward").show(500);
+		$("#treeDemo").show(200);
+		$("#min-aside").css("border","1px solid #ddd");
+		 
+		$(".user-panel").css("background","none");
+	})
+})
+
 
 </script>
 </html>
