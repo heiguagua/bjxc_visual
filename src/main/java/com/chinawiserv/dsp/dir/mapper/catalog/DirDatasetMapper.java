@@ -75,4 +75,6 @@ public interface DirDatasetMapper extends BaseMapper<DirDataset> {
    List<DirDataTransfer> getTransferLst(Map<String,Object> paramMap);
     
    Integer getServiceNum(Map<String,Object> paramMap);
+
+   int selectServiceTotalCount(String regionCode);
 }

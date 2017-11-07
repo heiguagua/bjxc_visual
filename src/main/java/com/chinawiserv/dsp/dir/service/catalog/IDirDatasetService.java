@@ -66,4 +66,16 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
 
 
     boolean addDirDatasetWithOutDir(Sheet sheetAt, String regionCode, String classifyId);
+
+    int getDatasetTotalCountForClassify(String regionCode, String classifyType);
+
+    Map<String,Integer> getDatasetCountForClassify(String regionCode, String classifyType);
+
+    Map<String,Integer> getDatasetTopCountForClassify(String regionCode, String classifyType, int topNum);
+
+    int getDatasetTotalCount(String regionCode);
+
+    int getServiceTotalCount(String regionCode);
+
+    Map<String,Integer> getDatasetCountForStatus(String regionCode);
 }
