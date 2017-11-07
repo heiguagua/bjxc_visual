@@ -675,7 +675,7 @@
         WHERE d.delete_flag = 0
         <if test="tree_codes != null">
             <foreach collection="tree_codes" item="item" open="AND (" separator=" OR " close=")">
-                dc.tree_code LIKE  CONCAT(#{item},"%")
+                (dc.tree_code = #{item} AND dc.tree_code LIKE CONCAT(#{item},";%"))
             </foreach>
         </if>
         <if test="dataset_name != null and dataset_name != '' ">
