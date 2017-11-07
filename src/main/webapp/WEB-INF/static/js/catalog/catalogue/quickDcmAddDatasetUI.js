@@ -632,7 +632,7 @@ function formatTable(aaData) {
     var objArr = [];
     aaData.forEach(function (v, n) {
         var temp_json = {};
-        temp_json.text = v.db_name;
+        temp_json.text = v.db_name == null || v.db_name == "" ? v.sid : v.db_name;
         temp_json.dir_code = v.id;
         temp_json.nodes=null;
         objArr.push(temp_json);
