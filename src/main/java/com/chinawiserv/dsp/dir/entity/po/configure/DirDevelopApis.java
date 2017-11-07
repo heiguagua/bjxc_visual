@@ -92,6 +92,9 @@ public class DirDevelopApis implements Serializable {
 	@TableField("delete_flag")
 	private Integer deleteFlag;
 
+	@TableField("is_show")
+	private Integer isShow;
+	
 
 	public String getId() {
 		return id;
@@ -212,5 +215,15 @@ public class DirDevelopApis implements Serializable {
 	public void setDeleteFlag(Integer deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
+
+	public Integer getIsShow() {
+		return isShow;
+	}
+
+	public void setIsShow(Integer isShow) {
+		this.isShow = isShow;
+	}
+	
+	
 
 }

@@ -35,6 +35,11 @@ function add(title, addurl, width, height) {
     createWindow(options);
 }
 
+function addApi(title, addurl, width, height) {
+    var options = _getDefaultWinOptionsForUpdateapiList(title , addurl , width, height) ;
+    createWindow(options);
+}
+
 function addPolicy(title, addurl, width, height) {
     var options = _getDefaultWinOptionsForPolicy(title , addurl , width, height) ;
     createWindow(options);

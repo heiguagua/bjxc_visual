@@ -43,7 +43,27 @@ function initFormerDate(apiId) {
             if (result.state) {
                 var vo = result.content.vo;
                 if(vo){
-
+                	if(vo.isShow==1){
+                		$("#Eis_show").append("<div class='redio-box'>" +
+                        "<input type='radio' name='isShow'  value='0' ><span></span>" +
+	                    "</div>"+
+	                    "<label style='display:inline-block'>否</label>" +
+	                    "<div class='redio-box'>" +
+	                    "<input type='radio' name='isShow'  value='1' checked><span></span>"+
+						"</div>"+
+	                    "<label style='display:inline-block'>是</label>")
+                	}else{
+                		$("#Eis_show").append("<div class='redio-box'>" +
+                                "<input type='radio' name='isShow'  value='0' checked><span></span>" +
+        	                    "</div>"+
+        	                    "<label style='display:inline-block'>否</label>" +
+        	                    "<div class='redio-box'>" +
+        	                    "<input type='radio' name='isShow' value='1'><span></span>"+
+        						"</div>"+
+        	                    "<label style='display:inline-block'>是</label>")
+                	}
+              
+                	
                     $("#Eapi_name").val(vo.apiName);
                     $("#Eapi_category").val(vo.apiCategory);
                     $("#Eapi_url").val(vo.apiUrl);

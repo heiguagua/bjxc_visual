@@ -333,7 +333,7 @@ jQuery(document).ready(function () {
 //}
 
 function addUser() {
-    add('新增api',basePathJS + '/dirDevelopApis/add' , id);
+	addApi('新增api',basePathJS + '/dirDevelopApis/add' , id);
 }
 
 function editUser(id) {
