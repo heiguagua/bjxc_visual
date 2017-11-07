@@ -698,6 +698,6 @@
         SELECT dd.*
         FROM dir_dataset dd
         LEFT JOIN dir_dataset_classify_map ddcm ON dd.id=ddcm.dataset_id
-        WHERE dd.dataset_name=#{datasetName} AND ddcm.classify_id=#{classifyId}
+        WHERE dd.delete_flag = 1 AND dd.dataset_name=#{datasetName} AND ddcm.classify_id=#{classifyId}
     </select>
 </mapper>
