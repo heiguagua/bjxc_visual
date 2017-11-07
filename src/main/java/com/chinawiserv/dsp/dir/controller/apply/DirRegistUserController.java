@@ -47,8 +47,8 @@ public class DirRegistUserController extends BaseController {
     /**
      * 分页查询用户注册表
      */
-    @RequiresPermissions("apply:registUser:list")
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+//    @RequiresPermissions("apply:registUser:list")
+    @RequestMapping(value = "/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
