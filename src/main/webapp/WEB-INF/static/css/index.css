@@ -1,0 +1,163 @@
+
+.box{
+	background:transparent;
+}
+.box-body{
+	padding: 10px !important;
+}
+
+.headtitle{
+	margin-bottom:15px;
+}
+.headtitle span.rightTime{
+	font-family: PingFangSC-Regular;
+font-size: 12px;
+color: #A3A3A3;
+}
+
+.box-body .left-top_div{
+	/* border:1px solid red; */
+}
+.box-body .left-top_div .left_content{
+	float:left;
+	width:50%;
+	    padding-right: 10px;
+}
+ .left_content .imgdiv{
+	background-image:url("../images/userImg/lansedi.png");
+	    width: 100%;
+    height: 130px;
+    text-align:center;
+        padding-top: 34px;
+}
+
+ .left_content .imgdiv p.chntile{
+	font-family: PingFangSC-Regular;
+font-size: 14px;
+color: #FFFFFF;
+line-height: 21px;
+}
+.left_content .imgdiv p.num{
+	font-family: PingFangSC-Medium;
+font-size: 36px;
+color: #FFFFFF;
+line-height: 36px;
+}
+
+.left_content .imgdiv_title{
+	/* border:1px solid pink; */
+	    width: 100%;
+    height: 130px;
+        background: #fff;
+}
+.left_content .imgdiv_title .share{
+	    padding-left: 30px;
+}
+.left_content .imgdiv_title .open{
+	  padding-right: 30px;
+}
+
+/*2222222  */
+.box-body .left-top_div .right_content{
+	float:right;
+	width:50%;
+	padding-left:10px;
+}
+.box-body .left-top_div .right_content .imgdiv{
+	background-image:url("../images/userImg/lansedi.png");
+	    width: 100%;
+    height: 120px;
+    text-align:center;
+        padding-top: 34px;
+}
+
+.box-body .left-top_div .right_content .imgdiv p.chntile{
+	font-family: PingFangSC-Regular;
+font-size: 14px;
+color: #FFFFFF;
+line-height: 21px;
+}
+.box-body .left-top_div .right_content .imgdiv p.num{
+	font-family: PingFangSC-Medium;
+font-size: 36px;
+color: #FFFFFF;
+line-height: 36px;
+}
+
+.box-body .left-top_div .right_content .imgdiv_title{
+	/* border:1px solid pink; */
+	    width: 100%;
+	        background: #fff;
+    height: 80px;
+}
+.box-body .left-top_div .right_content .imgdiv_title .share{
+	    padding-left: 30px;
+}
+.box-body .left-top_div .right_content .imgdiv_title .open{
+	  padding-right: 30px;
+}
+
+
+
+.box-body .left-footer-p{
+	    text-align: center;
+	margin-top:15px;
+	height:200px;
+	background-image:url("../images/userImg/lansedi.png");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.num{
+	font-weight:600;
+font-family: PingFangSC-Medium;
+font-size: 24px;
+color: #595959;
+line-height: 24px;
+}
+
+
+
+
+.bg-white{
+	    background: #fff;
+    height: 130px;
+}
+.spanDis{
+	    display: inline-table;
+    width: 106px;
+    margin-left:20px;
+}
+.spanDis>a{
+	font-family: PingFangSC-Regular;
+font-size: 15px;
+color: #595959;
+line-height: 21px
+}
+
+.small-box{
+	margin-bottom:0;
+	box-shadow:none;
+}
+.small-box > .inner{
+	    padding: 36px;
+	        margin-left: 20px;
+	        
+}
+.content .TOngji{
+	margin-bottom:15px;
+	font-family: PingFangSC-Medium;
+font-size: 15px;
+color: #595959;
+}
+

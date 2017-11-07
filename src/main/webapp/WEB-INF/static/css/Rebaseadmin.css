@@ -84,7 +84,12 @@
 .select2-container--default .select2-selection--single, .select2-selection .select2-selection--single{
 	    border-radius: 4px;
 }
-
+.clear {
+    content: "";
+    display: block;
+    overflow: hidden;
+    clear: both;
+}
 /* 表格整体布局 */
 
 .box-body{
