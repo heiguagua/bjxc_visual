@@ -1050,7 +1050,6 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 return null;
             }
         }
-//        paramMap.put("relFlag",0);//查询目录分类去掉关联目录分类
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));

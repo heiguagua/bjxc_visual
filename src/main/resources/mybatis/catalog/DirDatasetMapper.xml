@@ -668,7 +668,7 @@
             dir_dataset d
         LEFT JOIN dir_dataitem dd ON (d.id = dd.dataset_id AND dd.delete_flag = 0)
         LEFT JOIN v_sys_region_dept sd ON sd.id = d.belong_dept_Type
-        LEFT JOIN dir_dataset_classify_map ddcm ON (d.id = ddcm.dataset_id AND ddcm.delete_flag = 0 AND ddcm.rel_flag = 0)
+        LEFT JOIN dir_dataset_classify_map ddcm ON (d.id = ddcm.dataset_id AND ddcm.delete_flag = 0)
         LEFT JOIN dir_classify dc ON ddcm.classify_id = dc.id
         <!-- LEFT JOIN dir_national_classify dnc ON dnc.classify_code=dc.national_code -->
         LEFT JOIN dir_dataset_survey dds ON dds.dataset_id = d.id
