@@ -35,6 +35,11 @@ function add(title, addurl, width, height) {
     createWindow(options);
 }
 
+function addApi(title, addurl, width, height) {
+    var options = _getDefaultWinOptionsForUpdateapiList(title , addurl , width, height) ;
+    createWindow(options);
+}
+
 function addPolicy(title, addurl, width, height) {
     var options = _getDefaultWinOptionsForPolicy(title , addurl , width, height) ;
     createWindow(options);
@@ -387,6 +392,10 @@ function delObj(url,parameter, func, parentWin) {
 
 function sync(url,parameter, func, parentWin) {
     createDialog('同步确认', '您『确定』同步当前选中的记录吗？', url, parameter, func, parentWin);
+}
+
+function getMasterData(url,parameter, func, parentWin) {
+    createDialog('同步确认', '您『确定』获取主系统数据吗？', url, parameter, func, parentWin);
 }
 
 function updateStatus(url,parameter, func, parentWin) {
@@ -1042,7 +1051,7 @@ function _submitForm(index, layero , options){
             }
 
             // var me = this;
-            // 提交表单之前，hold住表单，防止重复提交
+            // // 提交表单之前，hold住表单，防止重复提交
             // me.holdSubmit(true);
 
             var action = form.attr("action");

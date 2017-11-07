@@ -37,6 +37,10 @@
                                        placeholder="请输入排序号" data-rule="排序号:required;order_number;">
                             </div>
                             <div class="form-group">
+                            	<label  class="" for="isShow" id="Eis_show">是否显示到首页</label>
+                                
+                            </div>
+                            <div class="form-group">
                                 <label for="apiDesc">api描述:</label>
                                 <textarea class="form-control" 
 									id="Eapi_desc"  name="apiDesc" data-rule="目录类别描述:required;order_number;"></textarea>                                

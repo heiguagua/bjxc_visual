@@ -1179,6 +1179,7 @@ create table dir_develop_apis
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
+   is_show				int(11) default 1 comment '是否首页显示',
    primary key (id)
 );
 

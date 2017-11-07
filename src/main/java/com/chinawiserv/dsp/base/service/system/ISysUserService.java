@@ -2,10 +2,12 @@ package com.chinawiserv.dsp.base.service.system;
 
 
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,4 +60,8 @@ public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
      * 生成TOKEN
      * */
     boolean createToken(Map<String,String> paramMap);
+
+    List<SysUser>  listBySystemId(String systemId);
+
+    boolean insertOrUpdate(List<SysUser> list);
 }

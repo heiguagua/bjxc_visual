@@ -603,6 +603,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
             paramMap.put("searchRegionCode",stringBuffer.toString());
+            paramMap.remove("regionCode");
         }else{
             //如果没有选择区域查询条件，则获取当前登录人所属区域及子区域的编码
             String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
@@ -647,6 +648,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     String allRegionCode = allRegionCodeBuffer.toString();
                     allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
                     paramMap.put("allRegionCode",allRegionCode);
+                    paramMap.remove("regionCode");
                 }
             }
         }
@@ -1027,6 +1029,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
             paramMap.put("allRegionCode",stringBuffer.toString());
+            paramMap.remove("regionCode");
         }else{
             //如果没有选择区域查询条件，则获取当前登录人所属区域及子区域的编码
             String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
@@ -1072,6 +1075,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 }
             }
             paramMap.put("allRegionCode",stringBuffer.toString());
+            paramMap.remove("regionCode");
         }else{
             //如果没有选择区域查询条件，则获取当前登录人所属区域及子区域的编码
             String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
@@ -1386,5 +1390,86 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             dirDataset=mapper.selectDatasetByNameAndClassifyId(datasetName,classifyId);
         }
         return dirDataset;
+    }
+
+    @Override
+    public int getDatasetTotalCountForClassify(String regionCode, String classifyType){
+        if(StringUtils.isEmpty(regionCode)){
+            return 0;
+        }
+        return dirDatasetClassifyMapMapper.selectDatasetTotalCountForClassify(regionCode, classifyType);
+    }
+
+
+    @Override
+    public Map<String,Integer> getDatasetCountForClassify(String regionCode, String classifyType){
+        Map<String,Integer> resultMap = new HashMap<>();
+        if(StringUtils.isEmpty(regionCode)){
+            return null;
+        }
+        List<DirClassify> showDirClassifyList = dirClassifyMapper.selectChildByType(regionCode, classifyType);
+        for(DirClassify dirClassify : showDirClassifyList){
+            int classifyCount = 0;
+            String classifyName = dirClassify.getClassifyName();
+            String treeCode = dirClassify.getTreeCode();
+            if(!StringUtils.isEmpty(treeCode)){
+                classifyCount = dirDatasetClassifyMapMapper.selectDatasetCountForClassify(treeCode);
+            }
+            resultMap.put(classifyName,classifyCount);
+        }
+        return resultMap;
+    }
+
+    @Override
+    public Map<String,Integer> getDatasetTopCountForClassify(String regionCode, String classifyType, int topNum){
+        Map<String,Integer> topNResultMap = new HashMap<>();
+        Map<String,Integer> resultMap = new HashMap<>();
+        if(StringUtils.isEmpty(regionCode)){
+            return null;
+        }
+        List<DirClassify> showDirClassifyList = dirClassifyMapper.selectChildByType(regionCode, classifyType);
+        for(DirClassify dirClassify : showDirClassifyList){
+            int classifyCount = 0;
+            String classifyName = dirClassify.getClassifyName();
+            String treeCode = dirClassify.getTreeCode();
+            if(!StringUtils.isEmpty(treeCode)){
+                classifyCount = dirDatasetClassifyMapMapper.selectDatasetCountForClassify(treeCode);
+            }
+            resultMap.put(classifyName,classifyCount);
+        }
+        //按照值的大小,将结果Map进行排序,以便取得topN
+        if(!ObjectUtils.isEmpty(resultMap)){
+            List<Map.Entry<String, Integer>> entryList = new ArrayList<>(resultMap.entrySet());
+            Collections.sort(entryList, new Comparator<Map.Entry<String, Integer>>() {
+                public int compare(Map.Entry<String, Integer> o1,Map.Entry<String, Integer> o2) {
+                    return ( o1.getValue()-o2.getValue());
+                }
+            });
+            for(int i=0;i<topNum;i++){
+                Map.Entry<String, Integer> entry = entryList.get(i);
+                topNResultMap.put(entry.getKey(),entry.getValue());
+            }
+        }
+        return topNResultMap;
+    }
+
+    @Override
+    public int getDatasetTotalCount(String regionCode){
+        Map<String,Object> param = new HashMap<>();
+        param.put("regionCode",regionCode);
+        return mapper.selectVoCount(param);
+    }
+
+    @Override
+    public int getServiceTotalCount(String regionCode){
+        return mapper.selectServiceTotalCount(regionCode);
+    }
+
+    @Override
+    public Map<String, Integer> getDatasetCountForStatus(String regionCode) {
+        if(StringUtils.isEmpty(regionCode)){
+            return null;
+        }
+        return dirDatasetClassifyMapMapper.selectDatasetCountForStatus(regionCode);
     }
 }

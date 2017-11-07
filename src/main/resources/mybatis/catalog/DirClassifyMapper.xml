@@ -384,4 +384,9 @@
             classify_structure_name = #{structure}
     </select>
 
+    <select id="selectChildByType" resultMap="BaseResultMap">
+        SELECT * FROM dir_classify WHERE fid=(
+            SELECT id FROM dir_classify WHERE region_code=#{regionCode} AND classify_type=#{classifyType})
+    </select>
+
 </mapper>

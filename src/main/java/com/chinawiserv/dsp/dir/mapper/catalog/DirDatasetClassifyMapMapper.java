@@ -41,4 +41,10 @@ public interface DirDatasetClassifyMapMapper extends BaseMapper<DirDatasetClassi
     int baseDelete(String id);
 
     int insertListItem(List<DirDatasetClassifyMapVo> classifyMapVoList);
+
+    int selectDatasetTotalCountForClassify(@Param("regionCode") String regionCode, @Param("classifyType")String classifyType);
+
+    int selectDatasetCountForClassify(String treeCode);
+
+    Map<String, Integer> selectDatasetCountForStatus(String regionCode);
 }
