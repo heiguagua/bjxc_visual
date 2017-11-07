@@ -74,6 +74,7 @@ jQuery(document).ready(function () {
     };
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting);
+        hideAndShow();
     });
 
 
@@ -117,7 +118,7 @@ jQuery(document).ready(function () {
     }
 
 
-    $(function(){
+    function hideAndShow(){
         $("#forward").hide();
         $("#dir-Manger").parent("div.user-panel").css("text-align","center")
         $("#backward").click(function(){
@@ -126,7 +127,7 @@ jQuery(document).ready(function () {
         $("#forward").click(function(){
             showDirMgr();
         })
-    })
+    }
 
 
 

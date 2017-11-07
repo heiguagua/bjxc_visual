@@ -45,13 +45,15 @@ public class DrapRequirementResourcesServiceImpl extends CommonServiceImpl<DrapR
 
     @Override
     public DrapRequirementResourcesVo selectVoById(String id) throws Exception {
-		return null;
+		return mapper.selectVoById(id);
 	}
 
     @Override
     public Page<DrapRequirementResourcesVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
 		//todo
-		return null;
+        Page<DrapRequirementResourcesVo> page = getPage(paramMap);
+        page.setRecords(mapper.selectVoPage(page, paramMap));
+        return page;
 	}
 
     @Override

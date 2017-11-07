@@ -37,17 +37,17 @@ public class DrapRequirementResourcesController extends BaseController {
     @Autowired
     private IDrapRequirementResourcesService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "feedback/requirement/requirementList";
     }
 
     /**
      * 分页查询需求资源信息表
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -63,12 +63,13 @@ public class DrapRequirementResourcesController extends BaseController {
     }
 
     /**
-     * 新增需求资源信息表
+     * 跳转需求资源详情表
      */
-    @RequiresPermissions("XXX:XXX:add")
-    @RequestMapping("/add")
-    public  String add(){
-		return "XXX/XXX/XXXAdd";
+//    @RequiresPermissions("XXX:XXX:add")
+    @RequestMapping("/loadDetailPage")
+    public  String loadDetailPage(@RequestParam String id,Model model){
+        model.addAttribute("requirementId",id);
+		return "feedback/requirement/requirementDetail";
     }
 
     /**
@@ -113,10 +114,10 @@ public class DrapRequirementResourcesController extends BaseController {
 		return "XXX/XXX/XXXEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
-    @RequestMapping("/editLoad")
+//    @RequiresPermissions("XXX:XXX:edit")
+    @RequestMapping("/loadDetail")
     @ResponseBody
-    public  HandleResult editLoad(@RequestParam String id){
+    public  HandleResult loadDetail(@RequestParam String id){
 		HandleResult handleResult = new HandleResult();
 		try {
             DrapRequirementResourcesVo vo = service.selectVoById(id);
