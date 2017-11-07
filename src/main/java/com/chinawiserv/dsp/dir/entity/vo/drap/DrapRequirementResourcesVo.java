@@ -35,6 +35,23 @@ public class DrapRequirementResourcesVo extends DrapRequirementResources {
 	private Map<String, String> expectUpdateFrequenceMap;
 	
 	private List<DrapRequirementDatasetMap> requirementDatasetMapLst;
+	/**
+	 * 需求组织名称
+	 */
+	private String requirementDeptName;
+    /**
+	 * 需求人姓名
+	 * */
+	private String demanderName;
+	/**
+	 * 需求人单位
+	 * */
+	private String demanderDeptName;
+	/**
+	 * 提供组织名称
+	 * */
+	private String providerDeptName;
+
 	public String getDatasetIdString() {
 		return datasetIdString;
 	}
@@ -101,6 +118,35 @@ public class DrapRequirementResourcesVo extends DrapRequirementResources {
 		this.requirementDatasetMapLst = requirementDatasetMapLst;
 	}
 
+	public String getRequirementDeptName() {
+		return requirementDeptName;
+	}
 
-	
+	public void setRequirementDeptName(String requirementDeptName) {
+		this.requirementDeptName = requirementDeptName;
+	}
+
+	public String getDemanderName() {
+		return demanderName;
+	}
+
+	public void setDemanderName(String demanderName) {
+		this.demanderName = demanderName;
+	}
+
+	public String getDemanderDeptName() {
+		return demanderDeptName;
+	}
+
+	public void setDemanderDeptName(String demanderDeptName) {
+		this.demanderDeptName = demanderDeptName;
+	}
+
+	public String getProviderDeptName() {
+		return providerDeptName;
+	}
+
+	public void setProviderDeptName(String providerDeptName) {
+		this.providerDeptName = providerDeptName;
+	}
 }

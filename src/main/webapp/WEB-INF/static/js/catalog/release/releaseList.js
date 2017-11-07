@@ -8,10 +8,12 @@ jQuery(document).ready(function () {
         if($(this).text().trim() == "待发布"){
             $("#releasedSearchDiv").hide();
             $("#unReleaseSearchDiv").show();
+            initUnReleaseCss();
             initUnReleaseTable();
         }else if($(this).text().trim() === "已发布"){
             $("#unReleaseSearchDiv").css("display","none");
             $("#releasedSearchDiv").css("display","block");
+            initReleasedCss();
             initReleasedTable();
         }
     });
@@ -20,11 +22,90 @@ jQuery(document).ready(function () {
     $("#unReleaseTab").click();
 });
 
+function initUnReleaseCss(){
+    // 目录编目收缩小侧边栏,用的adminlte
+    $("#forward").hide();
+    $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+    $("#backward").click(function(){
+        $("#min-aside").animate({
+            width:"40px"
+        },200);
+        $("#dir-Manger").hide();
+        $("#forward").show(400);
+        $("#backward").hide(500);
+        $("#treeDemo").hide(200);
+        $("#min-aside").css("border","none")
+        $("div.box div.table-myself").animate({
+            paddingLeft: "50px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "60px"
+        })
+        $(".user-panel").css("background","#f4f6f9");
+    })
+    $("#forward").click(function(){
+        $("#min-aside").animate({
+            width:"230px"
+        },200);
+        $("#dir-Manger").show();
+        $("#forward").hide(400);
+        $("#backward").show(500);
+        $("#treeDemo").show(200);
+        $("#min-aside").css("border","1px solid #ddd");
+        $(".box-body").animate({
+            paddingLeft: "240px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "270px"
+        })
+        $(".user-panel").css("background","none");
+    })
+}
+
+function initReleasedCss(){
+    // 目录编目收缩小侧边栏,用的adminlte
+    $("#forward2").hide();
+    $("#dir-Manger2").parent("div.user-panel").css("text-align","center")
+    $("#backward2").click(function(){
+        $("#min-aside2").animate({
+            width:"40px"
+        },200);
+        $("#dir-Manger2").hide();
+        $("#forward2").show(400);
+        $("#backward2").hide(500);
+        $("#treeDemo2").hide(200);
+        $("#min-aside2").css("border","none")
+        $("div.box div.table-myself").animate({
+            paddingLeft: "50px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "60px"
+        })
+        $(".user-panel").css("background","#f4f6f9");
+    })
+    $("#forward2").click(function(){
+        $("#min-aside2").animate({
+            width:"230px"
+        },200);
+        $("#dir-Manger2").show();
+        $("#forward2").hide(400);
+        $("#backward2").show(500);
+        $("#treeDemo2").show(200);
+        $("#min-aside2").css("border","1px solid #ddd");
+        $(".box-body").animate({
+            paddingLeft: "240px"
+        })
+        $('.box-header').animate({
+            paddingLeft: "270px"
+        })
+        $(".user-panel").css("background","none");
+    })
+}
 
 function initUnReleaseTable(){
     var searchName = $("#unReleaseSearchName").val();
     var searchClassify = $("#unReleaseSearchClassifyId").val();
-    var regionCode = $.getSelectedRegionCode();
+    var regionCode = $('#unReleaseSearchRegionCode').val();
     paramsObj = {datasetName:searchName,classifyId:searchClassify,regionCode:regionCode};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
@@ -110,7 +191,7 @@ function initUnReleaseTable(){
 function initReleasedTable(){
     var searchName = $("#releasedSearchName").val();
     var searchClassify = $("#releasedSearchClassifyId").val();
-    var regionCode = $.getSelectedRegionCode();
+    var regionCode = $('#releasedSearchRegionCode').val();
     paramsObj = {datasetName:searchName,classifyId:searchClassify,regionCode:regionCode};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
@@ -188,10 +269,14 @@ function initReleasedTable(){
 }
 
 function initAllSelect(){
-    //未发布目录类别下拉查询框
-    $.initQueryClassifyTreeSelect('unReleaseSearchClassifyTreeDemo','unReleaseSearchClassifyName','unReleaseSearchClassifyId','unReleaseSearchClassifyMenuContent');
-    //已发布目录类别下拉查询框
-    $.initQueryClassifyTreeSelect('releasedSearchClassifyTreeDemo','releasedSearchClassifyName','releasedSearchClassifyId','releasedSearchClassifyMenuContent');
+    //初始化未发布中间目录分类树
+    $.initClassifyTree('unReleaseTreeDemo','unReleaseSearchClassifyId','unRelease');
+    //初始化已发布中间目录分类树
+    $.initClassifyTree('releasedTreeDemo','releasedSearchClassifyId','released');
+    //未发布区域下拉查询框
+    $.initRegionQueryTreeSelect('unReleaseSearchRegionTreeDemo','unReleaseSearchRegionName','unReleaseSearchRegionCode','unReleaseSearchRegionMenuContent',true);
+    //已发布区域下拉查询框
+    $.initRegionQueryTreeSelect('releasedSearchRegionTreeDemo','releasedSearchRegionName','releasedSearchRegionCode','releasedSearchRegionMenuContent',true);
 }
 
 
@@ -257,14 +342,14 @@ function catalogueTableShow(id){
 function setUnReleaseParams(){
     var searchName = $("#unReleaseSearchName").val();
     var searchClassifyId = $("#unReleaseSearchClassifyId").val();
-    var regionCode = $.getSelectedRegionCode();
+    var regionCode = $('#unReleaseSearchRegionCode').val();
     paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
 }
 
 function setReleasedParams() {
     var searchName = $("#releasedSearchName").val();
     var searchClassifyId = $("#releasedSearchClassifyId").val();
-    var regionCode = $.getSelectedRegionCode();
+    var regionCode = $('#releasedSearchRegionCode').val();
     paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
 }
 
