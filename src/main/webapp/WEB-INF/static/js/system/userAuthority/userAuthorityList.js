@@ -108,10 +108,10 @@ jQuery(document).ready(function () {
                 width: '220',
                 sortable: false,
                 formatter: function (value) {
-                    var allotBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dir\")'><i class='fa fa-chain'></i> 目录数据分配</a>";
+                    // var allotBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dir\")'><i class='fa fa-chain'></i> 目录数据分配</a>";
                     var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dept\")'><i class='fa fa-pencil-square-o'></i> 部门数据分配</a>";
-                    //return editBtn + OPERATION_SEPARATOR   ;
-                    return allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR   ;
+                    return editBtn + OPERATION_SEPARATOR   ;
+                    // return allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR   ;
                 }
             }]
     });

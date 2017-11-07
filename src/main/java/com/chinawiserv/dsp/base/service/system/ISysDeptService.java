@@ -33,7 +33,7 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 	
     boolean deleteDeptById(String id) throws Exception;
 
-    List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
+//    List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
 
     Map<String, Object> getDeptCondition(String regionCode, boolean excludeTreeCodeCondition);
 

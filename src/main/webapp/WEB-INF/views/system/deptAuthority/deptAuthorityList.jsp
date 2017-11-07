@@ -26,6 +26,9 @@
                     <div class="box">
                         <div class="form-inline">
                             <div class="box-header">
+                                <div class="input-group">
+                                    <input id="regionNameId" type="text" name="regionName" class="form-control" placeholder="行政区域" >
+                                </div>
                                 <div class="input-group pull-right">
                                     <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="组织机构名称">
                                     <div class="input-group-btn">

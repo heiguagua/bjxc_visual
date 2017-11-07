@@ -28,6 +28,18 @@
     <filter-name>shiroFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+    <!--<filter>-->
+        <!--<filter-name>licFilter</filter-name>-->
+        <!--<filter-class>com.chinawiserv.dsp.base.common.filter.LicFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>licSysName</param-name>-->
+            <!--<param-value>DM</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>licFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
   <filter>
     <filter-name>SSOFILTER</filter-name>
     <filter-class>com.chinawiserv.dsp.dir.sso.CustomerSSOFilter</filter-class>

@@ -28,29 +28,23 @@
                     <div class="col-xs-12">
                         <div class="box">
 
-
                             <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
                                 <section class="sidebar">
                                     <div class="user-panel">
                                         <b id="dir-Manger">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
-
                                                 <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
                                                 <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                             </a>
-
                                         </div>
-
                                     </div>
                                     <div>
                                         <ul id="treeDemo" class="ztree"></ul>
                                     </div>
                                 </section>
-
                             </aside>
-                        
-                        
+
                             <form class="form-inline" method="post">
                                 <div class="box-header box-header-myself">
                                     <div class="btn-group">
@@ -130,15 +124,8 @@
 	                                        </input>
 	                                    </div>
                                     </div>
-                                    
-
-                                    
-                                    
                                 </div>
                             </form>
-		
-
-                            
                            <!-- 00000 -->
                             <div class="box-body table-responsive table-myself">
                                 <!-- 表格 -->
@@ -156,46 +143,4 @@
     </div>
 
 </body>
-<script>
-/* 目录编目收缩小侧边栏,用的adminlte */
-	$(function(){
-		$("#forward").hide();
-		$("#dir-Manger").parent("div.user-panel").css("text-align","center")
-		$("#backward").click(function(){
-			$("#min-aside").animate({
-				width:"40px",
-			},200);
-			$("#dir-Manger").hide();
-			$("#forward").show(400);
-			$("#backward").hide(500);
-			$("#treeDemo").hide(200);
-			$("#min-aside").css("border","none")
-			 $("div.box div.table-myself").animate({
-				paddingLeft: "50px"
-			})
-			$('.box-header').animate({
-				paddingLeft: "60px"
-			})
-			$(".user-panel").css("background","#f4f6f9");
-		})
-		$("#forward").click(function(){
-			$("#min-aside").animate({
-				width:"230px",
-			},200);
-			$("#dir-Manger").show();
-			$("#forward").hide(400);
-			$("#backward").show(500);
-			$("#treeDemo").show(200);
-			$("#min-aside").css("border","1px solid #ddd");
-			$(".box-body").animate({
-				paddingLeft: "240px"
-			})
-			$('.box-header').animate({
-				paddingLeft: "270px"
-			})
-			$(".user-panel").css("background","none");
-		})
-	})
-
-</script>
 </html>
