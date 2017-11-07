@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
+import com.alibaba.druid.sql.visitor.functions.If;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -7,6 +8,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
@@ -480,5 +482,42 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public List<String> selectDeptByPrivilege(String user_id) {
         return sysDeptMapper.selectDeptByPrivilege(user_id);
+    }
+
+    @Override
+    public List<SysDept> listBySystemId(String systemId) {
+        return sysDeptMapper.listBySystemId(systemId);
+    }
+
+    @Override
+    public boolean insertOrUpdate(List<SysDept> list) {
+        //获取Ids集合
+        List<String> firstds=list.stream().map(e -> e.getId()).collect(Collectors.toList());
+        //已经存在的数据
+        List<SysDept> existList=sysDeptMapper.listByList(firstds);
+        //删除无需操作的数据
+        list.removeAll(existList);
+        if (list.size()==0){
+            return false;
+        }
+        List<String> secondIds=list.stream().map(e -> e.getId()).collect(Collectors.toList());
+
+        //获取需要更新的Id
+        List<String> needUpdateIds=sysDeptMapper.listIdsByList(secondIds);
+
+        if (needUpdateIds!=null&&needUpdateIds.size()>0){
+            for (SysDept dept : list) {
+                if (needUpdateIds.contains(dept.getId())){
+                    sysDeptMapper.updateById(dept);
+                }else{
+                    sysDeptMapper.insert(dept);
+                }
+            }
+        }else{
+            //批量插入
+            sysDeptMapper.batchInsert(list);
+        }
+
+        return true;
     }
 }

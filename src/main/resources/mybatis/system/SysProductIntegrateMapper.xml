@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysProductIntegrateMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate">
+                    <id column="id" property="id" />
+                                                                                                                                                                    <result column="product_no" property="productNo" />
+                            <result column="product_name" property="productName" />
+                            <result column="product_show_name" property="productShowName" />
+                            <result column="product_desc" property="productDesc" />
+                            <result column="root_path" property="rootPath" />
+                            <result column="sso_path" property="ssoPath" />
+                            <result column="order_number" property="orderNumber" />
+                            <result column="integrate_flag" property="integrateFlag" />
+                            <result column="cur_open_flag" property="curOpenFlag" />
+                            <result column="icon" property="icon" />
+            	</resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+                                <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+                                                                                                                                                                                                                                    </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM sys_product_integrate t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM sys_product_integrate t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM sys_product_integrate t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate">
+        insert into sys_product_integrate(id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon,) values(
+            #{id},#{productNo},#{productName},#{productShowName},#{productDesc},#{rootPath},#{ssoPath},#{orderNumber},#{integrateFlag},#{curOpenFlag},#{icon},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate">
+        update sys_product_integrate
+        <set>
+                    <if test="id != null">
+                id = #{id},
+            </if>
+                    <if test="productNo != null">
+                product_no = #{productNo},
+            </if>
+                    <if test="productName != null">
+                product_name = #{productName},
+            </if>
+                    <if test="productShowName != null">
+                product_show_name = #{productShowName},
+            </if>
+                    <if test="productDesc != null">
+                product_desc = #{productDesc},
+            </if>
+                    <if test="rootPath != null">
+                root_path = #{rootPath},
+            </if>
+                    <if test="ssoPath != null">
+                sso_path = #{ssoPath},
+            </if>
+                    <if test="orderNumber != null">
+                order_number = #{orderNumber},
+            </if>
+                    <if test="integrateFlag != null">
+                integrate_flag = #{integrateFlag},
+            </if>
+                    <if test="curOpenFlag != null">
+                cur_open_flag = #{curOpenFlag},
+            </if>
+                    <if test="icon != null">
+                icon = #{icon},
+            </if>
+                </set>
+        where  id = #{id}                          </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from sys_product_integrate <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+                                <if test="id != null">
+                id = #{id}
+            </if>
+                                                                                                                                                                                                                                    </where>
+    </sql>
+
+    <select id="getTheMaster"  resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_product_integrate t WHERE t.master_flag='1'
+    </select>
+
+</mapper>

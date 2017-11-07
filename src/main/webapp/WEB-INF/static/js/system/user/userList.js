@@ -162,12 +162,16 @@ function reloadTable() {
     $(tableSelector).data("bootstrap.table").refresh();
 }
 
+function synRemoteData(){
+    getMasterData(basePathJS + '/system/user/getMasterData');
+}
+
 function addUser() {
-    add('新增用户', basePathJS + '/system/user/add');
+    add('新增用户', basePathJS + '/system/user/add',900,600);
 }
 
 function editUser(id) {
-    update('编辑用户', basePathJS + '/system/user/edit', id);
+    update('编辑用户', basePathJS + '/system/user/edit', id,900,600);
 }
 
 function deleteUser(id) {

@@ -99,7 +99,7 @@ public class LoginController extends BaseController {
 //         model.addAttribute("loginViewName", sysNameMap.get("projectPortalName"));
 //         model.addAttribute("indexLogoName", sysNameMap.get("systemName") + "-" + sysNameMap.get("systemSubName"));
 
-        model.addAttribute("projectPortalName", sysNameMap.get("projectPortalName"));
+        model.addAttribute("systemShowName", sysNameMap.get("systemShowName"));
         model.addAttribute("systemName", sysNameMap.get("systemName"));
         model.addAttribute("systemSubName", sysNameMap.get("systemSubName"));
         model.addAttribute("systemShortName", sysNameMap.get("systemShortName"));

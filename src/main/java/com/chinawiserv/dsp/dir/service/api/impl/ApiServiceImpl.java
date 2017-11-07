@@ -192,7 +192,7 @@ public class ApiServiceImpl implements IApiService {
                     String classifyId = (String) serviceInfo.get("classifyId");
                     String serviceInfoParams = "";
                     try {
-                        serviceInfoParams = "field_description=" + serviceInfo.get("serviceInfoParams").toString();
+                        serviceInfoParams = serviceInfo.get("serviceInfoParams").toString();
                     } catch (Exception e) {
                         serviceInfoParams = "";
                     }
@@ -349,10 +349,10 @@ public class ApiServiceImpl implements IApiService {
 
                         dirDatasetClassifyMap.setClassifyId(classifyId);
                         dirDatasetClassifyMap.setDatasetId(dirOrDrapTypeId);
-                        DirDatasetClassifyMap dirDatasetClassifyMapIf = dirDatasetClassifyMapMapper.selectOne(dirDatasetClassifyMap);
-                        if (null != dirDatasetClassifyMapIf) {
-                            dirOrDrapTypeId = dirDatasetClassifyMapIf.getId();
-                        } else if (null == dirDatasetClassifyMapIf && !"hackle".equalsIgnoreCase(dirOrDrapType)) {
+                        List<DirDatasetClassifyMap> list = dirDatasetClassifyMapMapper.selectList(new EntityWrapper<DirDatasetClassifyMap>().addFilter("classify_id = {0}",classifyId).addFilter("dataset_id = {0}",dirOrDrapTypeId));
+                        if (null != list && list.size() == 1) {
+                            dirOrDrapTypeId = list.get(0).getId();
+                        } else if ((null == list||list.size()>1) && !"hackle".equalsIgnoreCase(dirOrDrapType)) {
                             handleResult.setMsg("发布失败，信息资源、目录信息查询失败，请检查是否存在或同步");
                             handleResult.setState(false);
                             return handleResult;
@@ -581,7 +581,6 @@ public class ApiServiceImpl implements IApiService {
                 handleResult.setState(false);
             }
         }
-
 
         return handleResult;
     }

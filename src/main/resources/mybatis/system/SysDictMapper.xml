@@ -92,6 +92,21 @@
         LEFT JOIN (SELECT DISTINCT(parent_code) AS dcode FROM sys_dict) b ON t.dict_code=b.dcode
         where t.parent_code = #{parentCode} and t.delete_flag = 0 and t.category = 'categoryApp'        
     </select>
+    
+    <select id="selectVoListForTreeDataForApp" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf
+        FROM sys_dict t
+        LEFT JOIN (SELECT DISTINCT(parent_code) AS dcode FROM sys_dict) b ON t.dict_code=b.dcode
+        where
+        <if test="parentCode == null">
+             t.parent_code is null
+        </if>
+        <if test="parentCode != null">
+       		 t.parent_code = #{parentCode}        	
+        </if>
+         and t.delete_flag = 0 and t.category = 'categoryApp'        
+    </select>
+    
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDict">
         insert into

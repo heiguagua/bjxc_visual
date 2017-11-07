@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.base.controller.system;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.DesUtil;
@@ -10,10 +11,12 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.base.service.system.ISysLogService;
+import com.chinawiserv.dsp.base.service.system.ISysSettingService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -25,8 +28,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +59,8 @@ public class SysUserController extends BaseController {
 
     @Autowired
     private SysUserMapper userMapper;
+
+
 
     /**
      * 初始化用户列表
@@ -294,6 +301,55 @@ public class SysUserController extends BaseController {
         }
 
         return resultJson ;
+    }
+
+    /**
+     * 同步主系统用户信息
+     */
+//    @RequiresPermissions("system:user:add")
+    @Log("获取主系统用户数据")
+    @RequestMapping("/getMasterData")
+    @ResponseBody
+    public  HandleResult getMasterData(){
+        HandleResult handleResult = new HandleResult();
+
+        try {
+            String result = getDataFromMaster("/system/user/provideData");
+            HandleResult jsb = JSONObject.parseObject(result, HandleResult.class);
+            HashMap<String, Object> map = jsb.getContent();
+            List<SysUser> list = JSONObject.parseArray(map.get("list").toString(), SysUser.class);
+            if (sysUserService.insertOrUpdate(list)) {
+                handleResult.success("更新成功");
+            } else {
+                handleResult.error("更新失败");
+            }
+        }catch (ErrorInfoException e){
+            handleResult.error(e.getMessage());
+            logger.error(e.getMessage(), e);
+        } catch (Exception e) {
+            handleResult.error("获取数据失败");
+            logger.error("获取sys_user表数据失败", e);
+        }
+
+
+
+        return handleResult;
+    }
+
+
+    @Log("提供主数据")
+    @RequestMapping("/provideData")
+    @ResponseBody
+    public  HandleResult provideData(@RequestParam String systemId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            List<SysUser> result = sysUserService.listBySystemId(systemId);
+            handleResult.put("list", result);
+        } catch (Exception e) {
+            handleResult.error("获取sys_user表数据失败");
+            logger.error("获取sys_user表数据失败", e);
+        }
+        return handleResult;
     }
 
 }

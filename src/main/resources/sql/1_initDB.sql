@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/11/4 8:55:30                              */
+/* Created on:     17/11/7 14:10:13                             */
 /*==============================================================*/
 
 
@@ -2481,6 +2481,7 @@ create table sys_product_integrate
    root_path            varchar(256) comment '产品访问根路径地址',
    sso_path             varchar(256) comment '单点登录跳转地址',
    order_number         int(6) default 0 comment '显示顺序',
+   master_flag          int(3) comment '是否主节点',
    integrate_flag       int(3) default 1 comment '是否集成',
    cur_open_flag        int(3) default 1 comment '是否在当前页面打开',
    icon                 varchar(64) comment '显示图标',
@@ -2674,6 +2675,7 @@ ENGINE = InnoDB
 DEFAULT CHARSET = utf8;
 
 alter table sys_user_role comment '用户角色表';
+
 
 
 

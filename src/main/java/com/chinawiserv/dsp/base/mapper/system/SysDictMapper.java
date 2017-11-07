@@ -28,6 +28,8 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
     List<SysDictVo> selectDictDetailList(Page<SysDictVo> page, Map<String, Object> paramMap);
     
     List<SysDictVo> selectVoListForTreeData(Map<String, Object> paramMap);
+    
+    List<SysDictVo> selectVoListForTreeDataForApp(Map<String, Object> paramMap);
 
     SysDictCategoryVo selectVoById(String categoryCode);
 
