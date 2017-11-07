@@ -266,7 +266,7 @@ function reloadTable() {
 }
 
 function addDept() {
-    add('新增组织机构',basePathJS + '/system/dept/add');
+    add('新增组织机构',basePathJS + '/system/dept/add',900,600);
 }
 
 function allotDept(id) {
@@ -279,7 +279,7 @@ function showDept(id) {
 
 
 function editDept(id) {
-    update('编辑组织机构',basePathJS + '/system/dept/edit', id );
+    update('编辑组织机构',basePathJS + '/system/dept/edit', id ,900,600);
     // update('编辑组织机构',basePathJS + '/system/dept/edit?deptLevel=1&treeIndex=0&treeCode=', id );
 }
 
