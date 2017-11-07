@@ -121,7 +121,7 @@
         <li >
          <!-- Menu Toggle Button -->
           <a class="citytitle">
-			<span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span"></span>&emsp;<img class="changeAdress" src="<%=basePath%>/images/userImg/changeAdress.png" /></span>
+			<span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span"></span></span>
 			<!-- <ul class="innerul" id="box1">
 			</ul> -->
 		  </a>
@@ -153,8 +153,8 @@
         
        <li>
          <a href="#" onclick="javascript:isOut()" class="dropdown-toggle" data-toggle="tooltip" title="退出" data-placement="bottom">
-           <img src="<%=basePath%>/images/userImg/adminDeltimg.png" class="adminDeltimg"/>
-			
+          <%--  <img src="<%=basePath%>/images/userImg/adminDeltimg.png" class="adminDeltimg"/> --%>
+			<i class="fa fa-sign-out"></i>
          </a>
        </li> 
        
