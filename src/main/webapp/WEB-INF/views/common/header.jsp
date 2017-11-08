@@ -49,7 +49,7 @@
    <span class="logo-mini"><b>${systemShortName}</b></span>
    <!-- logo for regular state and mobile devices -->
   <!-- <span class="logo-lg"><span><img src="<%=basePath%>/images/userImg/logoSmall.png"/>&nbsp;${systemName}-${systemSubName}</span></span> -->
-   <a href="<%=basePath%>/catalog/catalogue" style="color: #fff" ><span class="logo-lg"><span><img src="<%=basePath%>${defaultIcon}"/>&nbsp;
+   <a href="<%=basePath%>/index" style="color: #fff" ><span class="logo-lg"><span><img src="<%=basePath%>${defaultIcon}"/>&nbsp;
        <span id="logo" style="font-size: 12px">${systemName}-${systemSubName}</span></span></span></a>
  </div>
 

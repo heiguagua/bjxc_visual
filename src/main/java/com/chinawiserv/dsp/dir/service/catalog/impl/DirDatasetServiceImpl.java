@@ -1444,6 +1444,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     return ( o1.getValue()-o2.getValue());
                 }
             });
+            if(entryList.size()<topNum){
+                topNum = entryList.size();
+            }
             for(int i=0;i<topNum;i++){
                 Map.Entry<String, Integer> entry = entryList.get(i);
                 topNResultMap.put(entry.getKey(),entry.getValue());
