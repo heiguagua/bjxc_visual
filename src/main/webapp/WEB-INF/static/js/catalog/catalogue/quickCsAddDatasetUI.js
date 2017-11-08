@@ -404,7 +404,7 @@ function getTrNum(){
         var maxNum=0;
         $.each($('#dataitemList>tr'),function(idx,item){
             var i= $(item).find('input:first').attr('trNum');
-            if(i>maxNum){
+            if(parseInt(i)>parseInt(maxNum)){
                 maxNum=i;
             }
         })
