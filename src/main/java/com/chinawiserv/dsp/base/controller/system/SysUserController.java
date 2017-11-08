@@ -67,8 +67,9 @@ public class SysUserController extends BaseController {
      */
     @RequiresPermissions("system:user:list")
     @RequestMapping("")
-    public String init(@RequestParam Map<String , Object> paramMap){
+    public String init(@RequestParam Map<String , Object> paramMap,Model model){
         setCurrentMenuInfo(paramMap);
+        model.addAttribute("master",isMaster());
         return "system/user/userList";
     }
     /**

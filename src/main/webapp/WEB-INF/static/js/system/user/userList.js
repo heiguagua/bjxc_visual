@@ -3,6 +3,8 @@ var tableSelector = '#systemUserTableId';
 jQuery(document).ready(function () {
     "use strict";
     var paramsObj = {};
+    var isMaster=$("#masterId").val();
+
     $("#searchKeyId").keydown(function(e){
         var curKey = e.which;
         if(curKey == 13){
@@ -137,8 +139,11 @@ jQuery(document).ready(function () {
                 formatter: function (value) {
                     var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                     var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteUser(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
-
-                    return editBtn + OPERATION_SEPARATOR + deleteBtn;
+                    if(isMaster==="true") {
+                        return editBtn + OPERATION_SEPARATOR + deleteBtn;
+                    }else{
+                        return "子系统只能同步";
+                    }
                 }
             }]
     });
