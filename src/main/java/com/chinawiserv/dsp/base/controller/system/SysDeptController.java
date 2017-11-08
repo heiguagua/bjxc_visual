@@ -56,8 +56,9 @@ public class SysDeptController extends BaseController {
 
     @RequiresPermissions("system:dept:list")
     @RequestMapping("")
-    public  String init(@RequestParam Map<String , Object> paramMap){
+    public  String init(@RequestParam Map<String , Object> paramMap ,Model model){
         setCurrentMenuInfo(paramMap);
+        model.addAttribute("master",isMaster());
         return "system/dept/deptList";
     }
 

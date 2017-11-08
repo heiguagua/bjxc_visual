@@ -349,10 +349,10 @@ public class ApiServiceImpl implements IApiService {
 
                         dirDatasetClassifyMap.setClassifyId(classifyId);
                         dirDatasetClassifyMap.setDatasetId(dirOrDrapTypeId);
-                        List<DirDatasetClassifyMap> list = dirDatasetClassifyMapMapper.selectList(new EntityWrapper<DirDatasetClassifyMap>().addFilter("classify_id = {0}",classifyId).addFilter("dataset_id = {0}",dirOrDrapTypeId));
+                        List<DirDatasetClassifyMap> list = dirDatasetClassifyMapMapper.selectList(new EntityWrapper<DirDatasetClassifyMap>().addFilter("classify_id = {0}", classifyId).addFilter("dataset_id = {0}", dirOrDrapTypeId));
                         if (null != list && list.size() == 1) {
                             dirOrDrapTypeId = list.get(0).getId();
-                        } else if ((null == list||list.size()>1) && !"hackle".equalsIgnoreCase(dirOrDrapType)) {
+                        } else if ((null == list || list.size() > 1) && !"hackle".equalsIgnoreCase(dirOrDrapType)) {
                             handleResult.setMsg("发布失败，信息资源、目录信息查询失败，请检查是否存在或同步");
                             handleResult.setState(false);
                             return handleResult;
@@ -402,40 +402,70 @@ public class ApiServiceImpl implements IApiService {
     @Override
     public HandleResult unReleaseService(Map<String, Object> paramMap) {
         HandleResult handleResult = new HandleResult();
+        handleResult.setState(false);
         if (null == paramMap || paramMap.size() == 0) {
             handleResult.setMsg("未传入参数");
-            handleResult.setState(false);
             return handleResult;
-        } else {
-            String serviceInfoStr = (String) paramMap.get("serviceInfo");
-            if (null != serviceInfoStr && serviceInfoStr.startsWith("[")) {
-                JSONArray serviceInfoArr = JSONArray.fromObject(serviceInfoStr);
-                //解析JSON字符串,获取服务相关信息
-                for (int i = 0; i < serviceInfoArr.size(); i++) {
-                    DirDatasetServiceMap dirDatasetServiceMapParam = new DirDatasetServiceMap();
-                    JSONObject serviceInfo = serviceInfoArr.getJSONObject(i);
-                    String status = (String) serviceInfo.get("status");
-                    String serviceId = (String) serviceInfo.get("serviceNo");
-                    dirDatasetServiceMapParam.setServiceId(serviceId);
-                    Wrapper wrapper = new EntityWrapper();
-                    wrapper.eq("service_id", serviceId);
-                    List<DirDatasetServiceMap> mapList = dirDatasetServiceMapMapper.selectList(wrapper);
-                    if (null != mapList && !mapList.isEmpty()) {
-                        for (DirDatasetServiceMap map : mapList) {
-                            map.setStatus(status);
-                            map.setOperateTime(new Date());
-                            dirDatasetServiceMapMapper.updateById(map);
-                        }
-                        handleResult.setState(true);
-                        handleResult.setMsg("下架成功");
-                    } else {
-                        logger.error(serviceId + "的服务不存在");
-                        handleResult.setState(false);
-                        handleResult.setMsg(serviceId + "的服务不存在");
+        }
+
+        String serviceInfoStr = (String) paramMap.get("serviceInfo");
+        if (null != serviceInfoStr && serviceInfoStr.startsWith("[")) {
+            JSONArray serviceInfoArr = JSONArray.fromObject(serviceInfoStr);
+            //解析JSON字符串,获取服务相关信息
+            for (int i = 0; i < serviceInfoArr.size(); i++) {
+                JSONObject serviceInfo = serviceInfoArr.getJSONObject(i);
+                String status = (String) serviceInfo.get("status");
+                String serviceId = (String) serviceInfo.get("serviceNo");
+                String serviceType = (String) serviceInfo.get("serviceType");
+                String objId = null;
+                if(!"hackle".equalsIgnoreCase(serviceType)){
+                    String classifyId = (String) serviceInfo.get("classifyId");
+                    String datasetId = (String) serviceInfo.get("setDataId");
+                    /**
+                     * 查询dcmId
+                     * */
+                    List<DirDatasetClassifyMap> list = dirDatasetClassifyMapMapper.selectList(new EntityWrapper<DirDatasetClassifyMap>().addFilter("dataset_id = {0}", datasetId).addFilter("classify_id = {0}", classifyId));
+                    if(null != list && list.size() == 1){
+                        objId = list.get(0).getId();
+                    }else{
+                        handleResult.setMsg("查询资源目录出错，资源不存在或存在相同资源");
+                        return handleResult;
                     }
                 }
-            }
 
+                if("hackle".equalsIgnoreCase(serviceType)){
+                    /**
+                     * 查询表ID
+                     * */
+                    Map<String,Object> tableParamMap = Maps.newHashMap();
+                    tableParamMap.put ("systemId",serviceInfo.get("systemId"));
+                    tableParamMap.put ("dbId",serviceInfo.get("dbId"));
+                    tableParamMap.put ("systemId",serviceInfo.get("tableName"));
+                    DrapDbTableInfo table = null;
+                    try {
+                        table =  apiMapper.getTableInfoBySystemIdAndDbId(tableParamMap);
+                    } catch (Exception e) {
+                        handleResult.setMsg("数据表"+serviceInfo.get("tableName")+"查询错误，请检查是否存在或存在多个");
+                    }
+                    if(null != table){
+                        objId = table.getId();
+                    }
+                }
+
+                List<DirDatasetServiceMap> mapList = dirDatasetServiceMapMapper.selectList(new EntityWrapper<DirDatasetServiceMap>().addFilter("obj_id = {0}",objId).addFilter("service_id = {0}",serviceId));
+
+                if(null != mapList && mapList.size()==1){
+                    DirDatasetServiceMap map = mapList.get(0);
+                    map.setStatus(status);
+                    map.setOperateTime(new Date());
+                    dirDatasetServiceMapMapper.updateById(map);
+                    handleResult.setState(true);
+                    handleResult.setMsg("下架成功");
+                }else{
+                    logger.error("服务号service_no:"+ serviceId + "[obj_id:"+ objId +"]的服务不存在或存在多个");
+                    handleResult.setMsg("服务号service_no:"+ serviceId + "[obj_id:"+ objId +"]的服务不存在或存在多个");
+                }
+            }
         }
         return handleResult;
     }
