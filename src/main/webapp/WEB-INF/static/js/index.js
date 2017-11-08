@@ -70,6 +70,7 @@ function initDeptDiv(){
         url:basePathJS + "/catalog/dept/topCount",
         success:function(result){
             if(result.state){
+            	console.log("result",result)
                 initBarChart(result.content.top,"deptCountPicDiv");
             }
         }

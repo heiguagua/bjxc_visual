@@ -21,15 +21,15 @@
             <!-- Your Page Content Here -->
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="box">
+                    <div class="box clear">
                         <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
                             <section class="sidebar">
                                 <div class="user-panel">
                                     <b id="dir-Manger">目录分类</b>
                                     <div class="pull-right image">
                                         <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
-                                            <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
-                                            <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                             <i style="color: rgb(51, 51, 51);" class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -38,8 +38,8 @@
                                 </div>
                             </section>
                         </aside>
-
-                        <form class="form-inline" method="post">
+						 <div class="content_table">
+						 	                        <form class="form-inline" method="post">
                             <div class="box-header box-header-myself">
                                 <div class="input-group">
                                     <button type="button" id="downloadExcel" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
@@ -76,6 +76,8 @@
                             <table id="queryTable" class="table table-hover"></table>
                             <!-- 表格 end-->
                         </div>
+						 </div>
+
                     </div>
                 </div>
             </div>

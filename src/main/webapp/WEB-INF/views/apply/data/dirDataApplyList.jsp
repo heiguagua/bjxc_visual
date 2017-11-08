@@ -29,7 +29,7 @@
             <!-- Your Page Content Here -->
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="box">
+                    <div class="box clear">
 
                         <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
                             <section class="sidebar">
@@ -38,8 +38,8 @@
                                     <div class="pull-right image">
                                         <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
 
-                                            <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
-                                            <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                            <i style="color: rgb(51, 51, 51);" class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                         </a>
 
                                     </div>
@@ -51,8 +51,8 @@
                             </section>
 
                         </aside>
-
-                        <div class="form-inline">
+							 <div class="content_table">
+							 		     <div class="form-inline">
                             <div class="box-header">
                             	<div class="input-group pull-right">
                                     <input type="hidden" id="searchClassifyId">
@@ -77,6 +77,8 @@
 
                             </table>
                         </div><!-- /.box-body -->
+							 </div>
+                   
 
                     </div><!-- /.box -->
                 </div>
