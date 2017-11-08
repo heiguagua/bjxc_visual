@@ -208,6 +208,23 @@ public class BaseController {
 //		SysProductIntegrateVo master = productIntegrateService.getTheMaster();
 //		return  master.getRootPath();
 //	}
+	//主次检查异常当未集成处理，表现为主
+	protected boolean isMaster(){
+		String systemId = sysSettingService.findValueByCode(SystemConst.SYS_INTEGRATE_NO);
+
+		SysProductIntegrateVo master = null;
+		try {
+			master = productIntegrateService.getTheMaster();
+		} catch (ErrorInfoException e) {
+
+			logger.error("集成异常，未获得唯一主系统");
+			return true;
+		}
+		if(master!=null&&!master.getProductNo().equals(systemId)){
+			return false;
+		}
+		return true;
+	}
 
 
 }

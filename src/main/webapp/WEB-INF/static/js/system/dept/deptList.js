@@ -1,9 +1,13 @@
 var tableSelector = '#systemDeptTableId';
 var paramsObj = {};
 var ids=new Array();
+// var isMaster=$("#masterId").val();
+// console.log(isMaster);
 //1
 jQuery(document).ready(function () {
     "use strict";
+    // var isMaster=$("#masterId").val();
+    // console.log(isMaster);
     $("#searchKeyId").keydown(function(e){
         var curKey = e.which;
         if(curKey == 13){
@@ -23,7 +27,6 @@ jQuery(document).ready(function () {
         }
     });
     initDept();
-
     jQuery('#queryBtnId').click(function () {
         // setParams();
         // reloadTable();
