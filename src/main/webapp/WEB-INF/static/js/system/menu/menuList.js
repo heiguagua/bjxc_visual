@@ -78,6 +78,7 @@ jQuery(document).ready(function () {
             width: '100px',
             valign: 'middle',
             sortable: false,
+            visible:false,
             formatter : function (value) {
                 var statusDesc;
                 if(value == 1){
