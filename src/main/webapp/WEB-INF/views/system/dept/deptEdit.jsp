@@ -70,7 +70,7 @@
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="deptShortName" id="deptShortName"
 		                                           placeholder="组织机构简称"
-		                                           data-rule="组织机构简称:simpleName;length[~64, true]">
+		                                           data-rule="组织机构简称:simpleName;length[~64, true];required">
 		                                </div>
 		                            </div>
 								</div>

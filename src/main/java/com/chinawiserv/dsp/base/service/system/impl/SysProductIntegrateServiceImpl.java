@@ -2,8 +2,12 @@ package com.chinawiserv.dsp.base.service.system.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate;
+import com.chinawiserv.dsp.base.entity.po.system.SysRole;
+import com.chinawiserv.dsp.base.entity.vo.system.SysMenuVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.mapper.system.SysProductIntegrateMapper;
 import com.chinawiserv.dsp.base.service.system.ISysProductIntegrateService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
@@ -53,8 +57,10 @@ public class SysProductIntegrateServiceImpl extends CommonServiceImpl<SysProduct
 
     @Override
     public Page<SysProductIntegrateVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return null;
+        Page<SysProductIntegrateVo> page = getPage(paramMap);
+        List<SysProductIntegrateVo> pageList = mapper.selectVoPage(page, paramMap);
+        page.setRecords(pageList);
+        return page;
 	}
 
     @Override

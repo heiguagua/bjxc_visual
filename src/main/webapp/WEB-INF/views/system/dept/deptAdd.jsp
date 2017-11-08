@@ -113,11 +113,11 @@
                         <div class="row">
                         	<div class="col-sm-6 col-xs-6">
 	                        	<div class="form-group">
-	                                <label for="deptShortName" class="control-label col-sm-4 col-xs-4">组织机构简称</label>
+	                                <label for="deptShortName" class="control-label col-sm-4 col-xs-4">组织机构简称<i style="color: red">*</i></label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="deptShortName" name="deptShortName"
 	                                           placeholder="请输入组织机构简称"
-	                                           data-rule="组织机构简称:simpleName;length[~64, true]">
+	                                           data-rule="组织机构简称:simpleName;length[~64, true];required;">
 	                                </div>
 	                            </div>
                         	</div>

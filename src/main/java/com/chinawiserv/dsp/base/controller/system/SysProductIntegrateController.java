@@ -28,7 +28,7 @@ import java.util.Map;
  * @since 2017-11-07
  */
 @Controller
-@RequestMapping("/sysProductIntegrate")
+@RequestMapping("/system/productIntegrate")
 //todo 将所有的XXX修改为真实值
 public class SysProductIntegrateController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -36,17 +36,17 @@ public class SysProductIntegrateController extends BaseController {
     @Autowired
     private ISysProductIntegrateService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("system:productIntegrate:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "system/productIntegrate/productIntegrateList";
     }
 
     /**
      * 分页查询产品集成表
      */
-    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("system:productIntegrate:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){

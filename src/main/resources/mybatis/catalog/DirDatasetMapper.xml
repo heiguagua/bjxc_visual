@@ -94,6 +94,9 @@
             <if test="datasetName != null and datasetName !='' ">
                 and t.dataset_name like concat('%',#{datasetName,jdbcType=VARCHAR},'%')
             </if>
+            <if test="regionCode != null and regionCode !='' ">
+                and t.region_code = #{regionCode,jdbcType=VARCHAR}
+            </if>
             <if test="allRegionCode!= null and allRegionCode !='' ">
                 and t.region_code in (${allRegionCode})
             </if>
@@ -665,14 +668,14 @@
             dir_dataset d
         LEFT JOIN dir_dataitem dd ON (d.id = dd.dataset_id AND dd.delete_flag = 0)
         LEFT JOIN v_sys_region_dept sd ON sd.id = d.belong_dept_Type
-        LEFT JOIN dir_dataset_classify_map ddcm ON (d.id = ddcm.dataset_id AND ddcm.delete_flag = 0 AND ddcm.rel_flag = 0)
+        LEFT JOIN dir_dataset_classify_map ddcm ON (d.id = ddcm.dataset_id AND ddcm.delete_flag = 0)
         LEFT JOIN dir_classify dc ON ddcm.classify_id = dc.id
         <!-- LEFT JOIN dir_national_classify dnc ON dnc.classify_code=dc.national_code -->
         LEFT JOIN dir_dataset_survey dds ON dds.dataset_id = d.id
         WHERE d.delete_flag = 0
         <if test="tree_codes != null">
             <foreach collection="tree_codes" item="item" open="AND (" separator=" OR " close=")">
-                (dc.tree_code = #{item} AND dc.tree_code LIKE CONCAT(#{item},";%"))
+                (dc.tree_code = #{item} or dc.tree_code LIKE CONCAT(#{item},";%"))
             </foreach>
         </if>
         <if test="dataset_name != null and dataset_name != '' ">
@@ -698,6 +701,12 @@
         SELECT dd.*
         FROM dir_dataset dd
         LEFT JOIN dir_dataset_classify_map ddcm ON dd.id=ddcm.dataset_id
-        WHERE dd.delete_flag = 1 AND dd.dataset_name=#{datasetName} AND ddcm.classify_id=#{classifyId}
+        WHERE dd.delete_flag = 0 AND dd.dataset_name=#{datasetName} AND ddcm.classify_id=#{classifyId}
+    </select>
+    
+    <select id="selectServiceTotalCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT(service_id)) FROM dir_dataset_service_map WHERE obj_type='dir'
+            AND obj_id IN (SELECT id FROM dir_dataset_classify_map WHERE classify_id IN(
+                SELECT id FROM dir_classify WHERE region_code=#{regionCode}));
     </select>
 </mapper>

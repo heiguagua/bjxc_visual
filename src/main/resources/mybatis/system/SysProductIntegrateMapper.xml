@@ -18,6 +18,7 @@
                             <result column="integrate_flag" property="integrateFlag" />
                             <result column="cur_open_flag" property="curOpenFlag" />
                             <result column="icon" property="icon" />
+                            <result column="master_flag" property="masterFlag" />
             	</resultMap>
 
 	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo">
@@ -46,8 +47,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate">
-        insert into sys_product_integrate(id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon,) values(
-            #{id},#{productNo},#{productName},#{productShowName},#{productDesc},#{rootPath},#{ssoPath},#{orderNumber},#{integrateFlag},#{curOpenFlag},#{icon},        )
+        insert into sys_product_integrate(id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon,master_flag) values(
+            #{id},#{productNo},#{productName},#{productShowName},#{productDesc},#{rootPath},#{ssoPath},#{orderNumber},#{integrateFlag},#{curOpenFlag},#{icon}, #{masterFlag})
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate">
@@ -85,6 +86,9 @@
             </if>
                     <if test="icon != null">
                 icon = #{icon},
+            </if>
+                    <if test="masterFlag != null">
+                master_flag = #{masterFlag},
             </if>
                 </set>
         where  id = #{id}                          </update>

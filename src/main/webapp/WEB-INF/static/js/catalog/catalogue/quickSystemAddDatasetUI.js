@@ -554,7 +554,7 @@ $(document).on('click','#add_item',function () {
         '<td><input trNum='+thisTrNum+' data-rule="字段名:required;" type="text" class="form-control"></td>'+
         '<td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
         '<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType")+'</select></td>'+
-        '<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" min="1" type="text" class="form-control"></td>'+
+        '<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" min="1" type="text" class="form-control"></td>'+
         '<td></td>'+
         '<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
         '<td><input name="items['+thisTrNum+'].shareCondition" type="text" class="form-control" ></td>'+
@@ -573,8 +573,9 @@ function getTrNum(){
         var maxNum=0;
         $.each($('#dataitemList>tr'),function(idx,item){
             var i= $(item).find('input:first').attr('trNum');
-            if(i>maxNum){
+            if(parseInt(i)>parseInt(maxNum)){
                 maxNum=i;
+                return false;
             }
         })
         thisTrNum=parseInt(maxNum)+1;
@@ -584,12 +585,15 @@ function getTrNum(){
 
 function buildItem(thisTrNum,data){
     var str='<tr id="tr_'+thisTrNum+'">'+'<td><input table-id="'+(data.table_id?data.table_id:'')+'" trNum='+thisTrNum+' type="checkbox"></td>'
-        +'<td><input value="'+(data.column_en_name?data.column_en_name:'')+'" data-rule="字段名:required;" type="text" class="form-control"></td>'
-        +'<td><input value="'+(data.column_cn_name?data.column_cn_name:'')+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
+        +'<td><input value="'+(data.column_en_name?data.column_en_name:'')+'" data-rule="字段名:required;" type="hidden" class="form-control">'
+        //+'<td><input value="'+(data.column_en_name?data.column_en_name:'')+'" data-rule="字段名:required;" type="text" class="form-control"></td>'
+        +'<input value="'+(data.column_cn_name?data.column_cn_name:'')+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.column_type?data.column_type:'')+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.column_length?data.column_length:'')+'" min="1" type="text" class="form-control"></td>'
-        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.dept_id?data.dept_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_name?data.dept_name:'')+'" > </td>'
-        +'<td><input class="form-control dataset-name" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" value="'+(data.column_length?data.column_length:'')+'" min="1" type="text" class="form-control">'
+        +'<input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.dept_id?data.dept_id:'')+'"> '
+        +'<input class="form-control dataset-name" type="hidden" value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
+        //+'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.dept_id?data.dept_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_name?data.dept_name:'')+'" > </td>'
+        //+'<td><input class="form-control dataset-name" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         /*+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'*/
         +'<td><input type="hidden" table-id="true" value="'+(data.table_id?data.table_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.table_name?data.table_name:'')+'" > </td>'
         +'<td><select name="items['+thisTrNum+'].secretFlag" data-rule="涉密标识:required;" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
