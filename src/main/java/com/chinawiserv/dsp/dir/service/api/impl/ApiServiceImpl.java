@@ -10,6 +10,7 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetClassifyMap;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetServiceMap;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo;
 import com.chinawiserv.dsp.dir.entity.po.service.DirServiceInfo;
+import com.chinawiserv.dsp.dir.enums.service.ServiceType;
 import com.chinawiserv.dsp.dir.mapper.api.ApiMapper;
 import com.chinawiserv.dsp.dir.mapper.api.DirServiceInfoMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
@@ -19,6 +20,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -418,7 +421,7 @@ public class ApiServiceImpl implements IApiService {
                 String serviceId = (String) serviceInfo.get("serviceNo");
                 String serviceType = (String) serviceInfo.get("serviceType");
                 String objId = null;
-                if(!"hackle".equalsIgnoreCase(serviceType)){
+                if(ServiceType.DIR.getValue().equalsIgnoreCase(serviceType)){
                     String classifyId = (String) serviceInfo.get("classifyId");
                     String datasetId = (String) serviceInfo.get("setDataId");
                     /**
@@ -433,7 +436,7 @@ public class ApiServiceImpl implements IApiService {
                     }
                 }
 
-                if("hackle".equalsIgnoreCase(serviceType)){
+                if(ServiceType.HACKLE.getValue().equalsIgnoreCase(serviceType)){
                     /**
                      * 查询表ID
                      * */
@@ -446,10 +449,34 @@ public class ApiServiceImpl implements IApiService {
                         table =  apiMapper.getTableInfoBySystemIdAndDbId(tableParamMap);
                     } catch (Exception e) {
                         handleResult.setMsg("数据表"+serviceInfo.get("tableName")+"查询错误，请检查是否存在或存在多个");
+                        return handleResult;
                     }
                     if(null != table){
                         objId = table.getId();
                     }
+                }
+
+                /**
+                 * MongoDB 无datasetId和classifyId,单独处理
+                 * */
+
+                if(ServiceType.MONGODB.getValue().equalsIgnoreCase(serviceType)){
+                    List<DirDatasetServiceMap> mongoServiceList = dirDatasetServiceMapMapper.selectList(new EntityWrapper<DirDatasetServiceMap>().addFilter("service_id = {0}",serviceId));
+                    if(!CollectionUtils.isEmpty(mongoServiceList)){
+                        int a = 0;
+                        for (DirDatasetServiceMap map:mongoServiceList) {
+                            map.setStatus(status);
+                            map.setOperateTime(new Date());
+                            a += dirDatasetServiceMapMapper.updateById(map);
+                        }
+                        if(a == mongoServiceList.size()){
+                            handleResult.setState(true);
+                            handleResult.setMsg("下架成功");
+                        }else{
+                            handleResult.setMsg("下架失败");
+                        }
+                    }
+                    return handleResult;
                 }
 
                 List<DirDatasetServiceMap> mapList = dirDatasetServiceMapMapper.selectList(new EntityWrapper<DirDatasetServiceMap>().addFilter("obj_id = {0}",objId).addFilter("service_id = {0}",serviceId));
