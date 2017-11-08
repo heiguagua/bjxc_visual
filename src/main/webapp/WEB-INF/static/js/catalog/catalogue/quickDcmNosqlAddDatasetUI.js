@@ -407,6 +407,7 @@ function getTrNum(){
             var i= $(item).find('input:first').attr('trNum');
             if(parseInt(i)>parseInt(maxNum)){
                 maxNum=i;
+                return false;
             }
         })
         thisTrNum=parseInt(maxNum)+1;
