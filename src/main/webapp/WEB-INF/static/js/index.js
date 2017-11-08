@@ -70,8 +70,7 @@ function initDeptDiv(){
         url:basePathJS + "/catalog/dept/topCount",
         success:function(result){
             if(result.state){
-            	console.log("result",result)
-                initBarChart(result.content.top,"deptCountPicDiv");
+                initReverseBarChart(result.content.top,"deptCountPicDiv");
             }
         }
     });
@@ -150,14 +149,67 @@ function initBarChart(dataArry,id){
                 },
                 xAxis: {
                     type: 'category',
-                    data: nameArray
+                    data: nameArray,
+                    axisLabel:{
+                        interval:0,
+                        rotate:45,//倾斜度 -90 至 90 默认为0
+                        margin:2
+                        /*textStyle:{
+                            fontWeight:"bolder",
+                            color:"#000000"
+                        }*/
+                    }
                 },
                 yAxis: {
                     type: 'value'
                 },
                 series: [
                     {
-                        name: "xx",
+                        name: "资源数",
+                        type: 'bar',
+                        data: valueArray
+                    }
+                ]
+            };
+            myChart.setOption(option);
+        }
+    );
+}
+//x轴和y轴反转的柱状图
+function initReverseBarChart(dataArry,id){
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar'
+        ],
+        function (ec,theme) {
+            var myChart = ec.init(document.getElementById(id),theme);
+            var nameArray=new Array();
+            var valueArray=new Array();
+            for(var i= 0,ii=dataArry.length;i<ii;i++){
+                var data = dataArry[i];
+                var dataName = data["name"];
+                var dataValue = data["value"];
+                nameArray.push(dataName);
+                valueArray.push(dataValue);
+            }
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                xAxis: {
+                    type: 'value'
+                },
+                yAxis: {
+                    type: 'category',
+                    data: nameArray
+                },
+                series: [
+                    {
+                        name: "资源数",
                         type: 'bar',
                         data: valueArray
                     }
