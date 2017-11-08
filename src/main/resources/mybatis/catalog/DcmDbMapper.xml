@@ -7,7 +7,7 @@
 
     <select id="selectDbByDeptId" resultType="map">
         SELECT
-            dpr.id,dpr.db_name
+            dpr.id,dpr.db_name,dpr.sid
         FROM
             dcm_pool_rmdb dpr
         WHERE dpr.belong_dept_id=#{dept_id}

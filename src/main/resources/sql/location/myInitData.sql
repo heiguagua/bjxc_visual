@@ -22,5 +22,6 @@ from sys_dept_category_template;
 
 
 update sys_setting set setting_value = '510700' where setting_code = 'localRegion' and setting_type = '1';
+update sys_setting set setting_value = '绵阳市大数据资源服务网' where setting_code = 'systemShowName' and setting_type = '1';
 update sys_setting set setting_value = '绵阳市大数据资源服务网' where setting_code = 'projectPortalName' and setting_type = '1';
 update sys_setting set setting_value = 'Mianyang Big Data Resource Service Network' where setting_code = 'projectPortalEnName' and setting_type = '1';
