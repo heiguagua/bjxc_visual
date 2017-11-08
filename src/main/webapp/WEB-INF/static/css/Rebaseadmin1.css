@@ -340,6 +340,26 @@ input.input_test{
     xtransition: transform 0.3s ease-in-out, width 0.3s ease-in-out; */
 
 }
+.main-sidebar—Du1{
+
+	 position:absolute;
+	z-index: 100;
+	left:0;
+	top:0;
+	padding-top: 68px;
+	width: 14%;
+	height:100%;
+    xtransition: transform 0.3s ease-in-out, width 0.3s ease-in-out; 
+
+}
+.box-header-myself1{
+	    padding-left: 240px;
+}
+.table-myself1{
+	padding-left: 240px;
+}
+
+
 .content_table{
 	    float: right;
     width: 86%;
