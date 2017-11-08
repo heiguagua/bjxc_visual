@@ -64,7 +64,7 @@
 
     color: #fff;
 }
-.skin-blue .main-header .log span{
+.skin-blue .main-header .log a{
 	    font-family: ArialMT;
     color: #fff;
     letter-spacing: 0;
@@ -269,6 +269,7 @@
 
 /*侧边section相对定位*/
 section .sidebar{
+    height:100%;
 	postion:relative;
 }
 /* 点击缩放标签绝对定位 */
@@ -326,6 +327,8 @@ input.input_test{
 .main-sidebar—Du{
 	    float: left;
     width: 14%;
+   height: 100%;
+
 	/* position:absolute;
 	overflow: auto;
 	z-index: 100;
@@ -527,12 +530,12 @@ letter-spacing: 0;
 .wrapper{
 	    overflow-y: hidden;
 }
+
+
+
 .ztree{
-	    max-height: 600px;
+    height:100%;
 }
-
-
-
 
 
 

@@ -30,7 +30,7 @@
 
                             <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
                                 <section class="sidebar">
-                                    <div class="user-panel">
+                                    <div class="user-panel"  style="height: 4%;">
                                         <b id="dir-Manger">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
@@ -40,7 +40,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div style="height: 96%;">
                                         <ul id="treeDemo" class="ztree"></ul>
                                     </div>
                                 </section>
@@ -127,6 +127,7 @@
 	                                        </input>
 	                                    </div>
                                     </div>
+                                </div>
                             </form>
                            <!-- 00000 -->
                             <div class="box-body table-responsive table-myself">
