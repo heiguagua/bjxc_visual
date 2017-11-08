@@ -71,7 +71,7 @@ public class SysUserDirAuthorityController extends BaseController {
             if(StringUtils.isBlank(id)){
                 throw new Exception("被分配权限的用户不能为空！");
             }
-            if(ShiroUtils.getLoginUserDeptId().equals(id)){
+            if(ShiroUtils.getLoginUserDeptId()!=null&&ShiroUtils.getLoginUserDeptId().equals(id)){
                 throw new Exception("被分配的用户权限不能为登录用户所属部门！");
             }
             paramMap.put("authObjType", AuthObjTypeEnum.USER.getKey());

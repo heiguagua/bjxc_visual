@@ -1230,7 +1230,16 @@ public class DirDatasetController extends BaseController {
         HandleResult handleResult = new HandleResult();
         try {
             Map<String,Integer> topCount = service.getDatasetCountForClassify(ShiroUtils.getLoginUser().getRegionCode(), DirConst.BASICS_CLASSIFY_TYPE);
-            handleResult.put("top", topCount);
+            //包装成echarts接收的数据格式
+            List<Map<String,Object>> dataMapList = new ArrayList<>();
+            Set<Map.Entry<String,Integer>> entrySet = topCount.entrySet();
+            for(Map.Entry<String,Integer> entry : entrySet){
+                Map<String,Object> dataMap = new HashMap<>();
+                dataMap.put("name",entry.getKey());
+                dataMap.put("value",entry.getValue());
+                dataMapList.add(dataMap);
+            }
+            handleResult.put("top", dataMapList);
         } catch (Exception e) {
             handleResult.error("获取政务基础二级节点信息资源数量明细失败");
             logger.error("获取政务基础二级节点信息资源数量明细失败", e);
@@ -1266,7 +1275,16 @@ public class DirDatasetController extends BaseController {
         try {
             Map<String,Integer> topCount = service.getDatasetTopCountForClassify(
                     ShiroUtils.getLoginUser().getRegionCode(), DirConst.THEME_CLASSIFY_TYPE,10);
-            handleResult.put("top", topCount);
+            //包装成echarts接收的数据格式
+            List<Map<String,Object>> dataMapList = new ArrayList<>();
+            Set<Map.Entry<String,Integer>> entrySet = topCount.entrySet();
+            for(Map.Entry<String,Integer> entry : entrySet){
+                Map<String,Object> dataMap = new HashMap<>();
+                dataMap.put("name",entry.getKey());
+                dataMap.put("value",entry.getValue());
+                dataMapList.add(dataMap);
+            }
+            handleResult.put("top", dataMapList);
         } catch (Exception e) {
             handleResult.error("获取政务主题二级节点信息资源数量明细失败");
             logger.error("获取政务主题二级节点信息资源数量明细失败", e);
@@ -1302,7 +1320,16 @@ public class DirDatasetController extends BaseController {
         try {
             Map<String,Integer> topCount = service.getDatasetTopCountForClassify(
                     ShiroUtils.getLoginUser().getRegionCode(), DirConst.DEPT_CLASSIFY_TYPE,10);
-            handleResult.put("top", topCount);
+            //包装成echarts接收的数据格式
+            List<Map<String,Object>> dataMapList = new ArrayList<>();
+            Set<Map.Entry<String,Integer>> entrySet = topCount.entrySet();
+            for(Map.Entry<String,Integer> entry : entrySet){
+                Map<String,Object> dataMap = new HashMap<>();
+                dataMap.put("name",entry.getKey());
+                dataMap.put("value",entry.getValue());
+                dataMapList.add(dataMap);
+            }
+            handleResult.put("top", dataMapList);
         } catch (Exception e) {
             handleResult.error("获取部门政务二级节点信息资源数量明细失败");
             logger.error("获取部门政务二级节点信息资源数量明细失败", e);

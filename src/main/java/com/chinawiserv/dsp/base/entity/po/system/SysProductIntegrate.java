@@ -71,6 +71,9 @@ public class SysProductIntegrate implements Serializable {
      */
 	private String icon;
 
+	@TableField("master_flag")
+	private Integer masterFlag;
+
 
 	public String getId() {
 		return id;
@@ -160,4 +163,11 @@ public class SysProductIntegrate implements Serializable {
 		this.icon = icon;
 	}
 
+	public Integer getMasterFlag() {
+		return masterFlag;
+	}
+
+	public void setMasterFlag(Integer masterFlag) {
+		this.masterFlag = masterFlag;
+	}
 }

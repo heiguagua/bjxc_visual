@@ -1050,7 +1050,6 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 return null;
             }
         }
-//        paramMap.put("relFlag",0);//查询目录分类去掉关联目录分类
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
@@ -1445,6 +1444,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     return ( o1.getValue()-o2.getValue());
                 }
             });
+            if(entryList.size()<topNum){
+                topNum = entryList.size();
+            }
             for(int i=0;i<topNum;i++){
                 Map.Entry<String, Integer> entry = entryList.get(i);
                 topNResultMap.put(entry.getKey(),entry.getValue());
