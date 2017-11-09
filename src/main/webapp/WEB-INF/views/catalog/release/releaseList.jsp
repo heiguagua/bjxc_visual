@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="input-group pull-right">
                                         <input type="hidden" id="unReleaseSearchClassifyId">
-                                        <div class="input-group" style="margin-right:4px;min-width:240px">
+                                        <%--<div class="input-group" style="margin-right:4px;min-width:240px">
                                             <input type="text" id="unReleaseSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="unReleaseSearchRegionCode">
                                             <div class="menu-wrap">
@@ -84,7 +84,7 @@
                                                     <ul id="unReleaseSearchRegionTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--%>
                                         <div class="input-group">
                                             <input class="form-control" id="unReleaseSearchName" placeholder="资源名称" type="text">
                                             <div class="input-group-btn">
@@ -139,7 +139,7 @@
                                     </div>
                                     <div class="input-group pull-right">
                                         <input type="hidden" id="releasedSearchClassifyId">
-                                        <div class="input-group" style="margin-right:4px;min-width:240px">
+                                        <%--<div class="input-group" style="margin-right:4px;min-width:240px">
                                             <input type="text" id="releasedSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="releasedSearchRegionCode">
                                             <div class="menu-wrap">
@@ -147,7 +147,7 @@
                                                     <ul id="releasedSearchRegionTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--%>
                                         <div class="input-group">
                                             <input class="form-control" id="releasedSearchName" placeholder="资源名称" type="text">
                                             <div class="input-group-btn">

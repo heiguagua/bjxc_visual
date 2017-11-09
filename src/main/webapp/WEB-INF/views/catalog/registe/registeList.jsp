@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="input-group pull-right">
                                         <input type="hidden" id="searchClassifyId">
-                                        <div class="input-group" style="margin-right:4px;min-width:240px">
+                                        <%--<div class="input-group" style="margin-right:4px;min-width:240px">
                                             <input type="text" id="searchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="searchRegionCode">
                                             <div class="menu-wrap">
@@ -61,7 +61,7 @@
                                                     <ul id="searchRegionTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--%>
                                         <div class="input-group">
                                             <input class="form-control" id="searchName" placeholder="资源名称" type="text">
                                             <div class="input-group-btn">

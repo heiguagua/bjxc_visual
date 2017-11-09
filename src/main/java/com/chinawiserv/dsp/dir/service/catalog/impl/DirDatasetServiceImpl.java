@@ -591,7 +591,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         page.setOrderByField("create_time");
         page.setAsc(false);
         //获取区域查询框选择的值,这个值是精确查询(多选),不会查其子区域的值
-        String searchRegionCode = (String)paramMap.get("regionCode");
+       /* String searchRegionCode = (String)paramMap.get("regionCode");
         if(!StringUtils.isEmpty(searchRegionCode)){
             StringBuffer stringBuffer = new StringBuffer();
             String [] searchRegionCodeArray = searchRegionCode.split(",");
@@ -611,6 +611,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             if(!StringUtils.isEmpty(allRegionCode)){
                 paramMap.put("allRegionCode",allRegionCode);
             }
+        }*/
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
         }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
@@ -1017,7 +1023,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         page.setOrderByField("update_time");
         page.setAsc(false);
         //获取区域查询框选择的值,这个值是精确查询(多选),不会查其子区域的值
-        String searchRegionCode = (String)paramMap.get("regionCode");
+        /*String searchRegionCode = (String)paramMap.get("regionCode");
         if(!StringUtils.isEmpty(searchRegionCode)){
             StringBuffer stringBuffer = new StringBuffer();
             String [] searchRegionCodeArray = searchRegionCode.split(",");
@@ -1037,6 +1043,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             if(!StringUtils.isEmpty(allRegionCode)){
                 paramMap.put("allRegionCode",allRegionCode);
             }
+        }*/
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
         }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
@@ -1062,7 +1074,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         page.setOrderByField("update_time");
         page.setAsc(false);
         //获取区域查询框选择的值,这个值是精确查询(多选),不会查其子区域的值
-        String searchRegionCode = (String)paramMap.get("regionCode");
+        /*String searchRegionCode = (String)paramMap.get("regionCode");
         if(!StringUtils.isEmpty(searchRegionCode)){
             StringBuffer stringBuffer = new StringBuffer();
             String [] searchRegionCodeArray = searchRegionCode.split(",");
@@ -1082,6 +1094,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             if(!StringUtils.isEmpty(allRegionCode)){
                 paramMap.put("allRegionCode",allRegionCode);
             }
+        }*/
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
         }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();

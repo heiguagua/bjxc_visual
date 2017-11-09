@@ -117,9 +117,10 @@ function initReleasedCss(){
 
 function initUnReleaseTable(){
     var searchName = $("#unReleaseSearchName").val();
-    var searchClassify = $("#unReleaseSearchClassifyId").val();
-    var regionCode = $('#unReleaseSearchRegionCode').val();
-    paramsObj = {datasetName:searchName,classifyId:searchClassify,regionCode:regionCode};
+    var searchClassifyId = $("#unReleaseSearchClassifyId").val();
+    //var regionCode = $('#unReleaseSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/unRelease/list',
@@ -203,9 +204,10 @@ function initUnReleaseTable(){
 
 function initReleasedTable(){
     var searchName = $("#releasedSearchName").val();
-    var searchClassify = $("#releasedSearchClassifyId").val();
-    var regionCode = $('#releasedSearchRegionCode').val();
-    paramsObj = {datasetName:searchName,classifyId:searchClassify,regionCode:regionCode};
+    var searchClassifyId = $("#releasedSearchClassifyId").val();
+    //var regionCode = $('#releasedSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/released/list',
@@ -355,15 +357,17 @@ function catalogueTableShow(id){
 function setUnReleaseParams(){
     var searchName = $("#unReleaseSearchName").val();
     var searchClassifyId = $("#unReleaseSearchClassifyId").val();
-    var regionCode = $('#unReleaseSearchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //var regionCode = $('#unReleaseSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function setReleasedParams() {
     var searchName = $("#releasedSearchName").val();
     var searchClassifyId = $("#releasedSearchClassifyId").val();
-    var regionCode = $('#releasedSearchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //var regionCode = $('#releasedSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {
