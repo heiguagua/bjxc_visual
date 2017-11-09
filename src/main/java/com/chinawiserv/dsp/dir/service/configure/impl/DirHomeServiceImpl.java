@@ -105,10 +105,16 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
         //  Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
             String switchToFtp = properties.getProperty("datastreet.switch");
             String mapUrl = null;
-            String lunboDir =	null; 
+            String lunboDir =null; 
+            String mapUrlShow = null;
+            String lunboDirShow =null; 
             if(switchToFtp.equals("yes")){
            	  mapUrl = properties.getProperty("datastreet.upload.native.image_path");
               lunboDir = properties.getProperty("datastreet.upload.native.image_path.homePage");
+              
+              mapUrlShow = properties.getProperty("datastreet.show.native.image_path");
+              lunboDirShow = properties.getProperty("datastreet.show.native.image_path.homePage");
+              
             }else{
            	  mapUrl = properties.getProperty("datastreet.upload.native.image_path.local");
               lunboDir = properties.getProperty("datastreet.upload.native.image_path.local.homePage");
@@ -151,6 +157,7 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
                 //判定存储到ftp还是local
                 if(switchToFtp.equals("yes")){
                 	FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
+                	folderName = mapUrlShow+"/"+ lunboDirShow;
                 }else{
                 	file.transferTo(new File(newFileName));//上传文件到指定目录
                 	folderName = "/img/" + lunboDir;
@@ -249,9 +256,15 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
              String switchToFtp = properties.getProperty("datastreet.switch");
              String mapUrl = null;
              String lunboDir =	null; 
+             String mapUrlShow = null;
+             String lunboDirShow = null;
              if(switchToFtp.equals("yes")){
             	  mapUrl = properties.getProperty("datastreet.upload.native.image_path");
                   lunboDir = properties.getProperty("datastreet.upload.native.image_path.homePage");
+                  
+                  mapUrlShow = properties.getProperty("datastreet.show.native.image_path");
+                  lunboDirShow = properties.getProperty("datastreet.show.native.image_path.homePage");
+                  
              }else{
             	  mapUrl = properties.getProperty("datastreet.upload.native.image_path.local");
                   lunboDir = properties.getProperty("datastreet.upload.native.image_path.local.homePage");
@@ -284,6 +297,7 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
                  	//判定存储到ftp还是local
                     if(switchToFtp.equals("yes")){
                     	FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
+                    	folderName = mapUrlShow+"/"+ lunboDirShow;   
                     }else{
                     	file.transferTo(new File(newFileName));//上传文件到指定目录
                     	folderName = "/img/" + lunboDir;
