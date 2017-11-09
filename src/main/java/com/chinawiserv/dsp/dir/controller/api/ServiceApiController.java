@@ -6,6 +6,7 @@ import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -275,5 +276,14 @@ public class ServiceApiController extends BaseController {
     public HandleResult serviceAuthority(@RequestParam Map<String, Object> paramMap) {
         return service.serviceAuthority(paramMap);
 
+    }
+
+    /**
+     * 开放门户同步数据
+     * */
+    @RequestMapping("syncDataToOpenPortal")
+    @ResponseBody
+    public Map<String,Object> syncDataToOpenPortal(@RequestParam Map<String, Object> paramMap){
+        return service.syncDataToOpenPortal(null);
     }
 }

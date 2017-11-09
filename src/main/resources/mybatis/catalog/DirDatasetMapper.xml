@@ -472,7 +472,7 @@
     </select>
 
     <select id="selectDatasetByActivityId" resultType="map">
-        SELECT id,dataset_name,(SELECT COUNT(*) FROM drap_dataset_table_relation a WHERE a.dataset_id = id) as relationCount
+        SELECT id,dataset_name,(SELECT COUNT(*) FROM drap_data_column_map a WHERE a.dataset_id = id) as relationCount
         FROM drap_dataset WHERE belong_dept_id = #{activity_id}
     </select>
 

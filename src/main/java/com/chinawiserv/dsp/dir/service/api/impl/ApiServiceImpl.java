@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.system.*;
+import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
+import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassifyDeptMap;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetClassifyMap;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetServiceMap;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo;
@@ -13,6 +16,8 @@ import com.chinawiserv.dsp.dir.entity.po.service.DirServiceInfo;
 import com.chinawiserv.dsp.dir.enums.service.ServiceType;
 import com.chinawiserv.dsp.dir.mapper.api.ApiMapper;
 import com.chinawiserv.dsp.dir.mapper.api.DirServiceInfoMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyDeptMapMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetServiceMapMapper;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
@@ -55,6 +60,18 @@ public class ApiServiceImpl implements IApiService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private SysDeptMapper sysDeptMapper;
+
+    @Autowired
+    private SysDictMapper sysDictMapper;
+
+    @Autowired
+    private DirClassifyMapper dirClassifyMapper;
+
+    @Autowired
+    private DirClassifyDeptMapMapper dirClassifyDeptMapMapper;
 
     @Autowired
     private DirDatasetClassifyMapMapper dirDatasetClassifyMapMapper;
@@ -640,6 +657,39 @@ public class ApiServiceImpl implements IApiService {
         }
 
         return handleResult;
+    }
+
+    @Override
+    public Map<String, Object> syncDataToOpenPortal(Map<String, Object> paramMap) {
+        Map<String,Object> result =  Maps.newHashMap();
+        /**
+         * 组织表
+         * */
+        List<SysDept> sysDeptList = sysDeptMapper.selectList(null);
+
+        result.put("sysDeptList",sysDeptList);
+
+        /**
+         * 字典表
+         * */
+        List<SysDict> sysDictList = sysDictMapper.selectList(null);
+
+        result.put("sysDictList",sysDictList);
+        /**
+         * 目录分类表
+         * */
+        List<DirClassify> dirClassifyList = dirClassifyMapper.selectList(null);
+
+        result.put("dirClassifyList",dirClassifyList);
+
+        /**
+         * 部门分类关联表
+         * */
+        List<DirClassifyDeptMap> dirClassifyDeptMapList = dirClassifyDeptMapMapper.selectList(null);
+
+        result.put("dirClassifyDeptMapList",dirClassifyDeptMapList);
+
+        return result;
     }
 
 
