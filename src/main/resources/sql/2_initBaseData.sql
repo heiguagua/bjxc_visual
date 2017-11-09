@@ -112,6 +112,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0604','06','纠错管理','/feedback/dirdatacorrection','fa-cog','1','2','0604','system','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0605','06','评分管理','/feedback/dirdatarate','fa-cog','2','2','0605','system','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0606','06','用户咨询','/feedback/dirsuggestion','fa-cog','3','2','0606','system','1');
+INSERT INTO sys_menu (id,menu_name,pid,url,icon,sort,menu_type,code,resource_name,status) VALUES('0607', '需求管理', '06', '/drapRequirementResources', 'fa-cog', '4', '2', '0607', 'system', '1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('07','0','门户配置管理','','fa-list','7','1','07','system','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0701','07','新闻图片管理','/dirNews','fa-cog','4','2','0701','','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0702','07','政策发布','/dirPolicy','fa-cog','1','2','0702','','1');
