@@ -5,8 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import com.chinawiserv.dsp.base.common.util.CommonUtil;
-import com.chinawiserv.dsp.base.entity.po.system.SysRegionDept;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.chinawiserv.dsp.base.common.util.*;
 import com.chinawiserv.dsp.base.entity.vo.system.*;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
@@ -15,18 +15,20 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.*;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.gson.Gson;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
-import com.chinawiserv.dsp.base.common.util.Helper;
-import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
@@ -1280,6 +1282,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 if (insertResult == dcmIdArray.length) {
                     result = true;
                     //todo 调用门户的接口，同步数据到互联网门户的数据库
+                    if(Dataset.PublishType.ToDzzw.getKey().equalsIgnoreCase(publishType)||Dataset.PublishType.ToAll.getKey().equalsIgnoreCase(publishType)){
+//                        try {
+//                            boolean b = syncPublishDatasetToOpenPortal(dcmIdArray);
+//                        } catch (Exception e) {
+//                            System.out.println("同步到开放门户失败");
+//                        }
+                    }
                 }
             }
         }
@@ -1492,4 +1501,42 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         }
         return dirDatasetClassifyMapMapper.selectDatasetCountForStatus(regionCode);
     }
+
+    /**
+     * 推送发布数据到开放门户的方法
+     * */
+    @Value("open.portal.push.address")
+    private String openPortalUrl;
+    private boolean syncPublishDatasetToOpenPortal(String... dcmIdArray){
+
+        Map<String,Object> pushMap = Maps.newHashMap();
+
+        List<String> dcmIdList = Arrays.asList(dcmIdArray);
+
+        List<DirDatasetClassifyMap> dirDatasetClassifyMapList = dirDatasetClassifyMapMapper.selectBatchIds(dcmIdList);
+        pushMap.put("dirDatasetClassifyMapList",dirDatasetClassifyMapList);
+
+        List<String> datasetIdList = Lists.newArrayList();
+        if(CollectionUtils.isNotEmpty(dirDatasetClassifyMapList)){
+            dirDatasetClassifyMapList.forEach(dirDatasetClassifyMap -> {
+                datasetIdList.add(dirDatasetClassifyMap.getDatasetId());
+            });
+        }
+
+        List<DirDataset> dirDatasetList = mapper.selectBatchIds(datasetIdList);
+        pushMap.put("dirDatasetList",dirDatasetList);
+
+        List<DirDataitem> dirDataitemList = itemMapper.selectList(new EntityWrapper<DirDataitem>().in("dataset_id",datasetIdList));
+        pushMap.put("dirDataitemList",dirDataitemList);
+
+        List<DirDatasetExtFormat> dirDatasetExtFormatList = dirDatasetExtFormatMapper.selectList(new EntityWrapper<DirDatasetExtFormat>().in("dataset_id",datasetIdList));
+        pushMap.put("dirDatasetExtFormatList",dirDatasetExtFormatList);
+
+        String pushJson = new Gson().toJson(pushMap);
+
+        HttpUtil.sendPostJson(openPortalUrl,pushJson);
+
+        return true;
+    }
+
 }
