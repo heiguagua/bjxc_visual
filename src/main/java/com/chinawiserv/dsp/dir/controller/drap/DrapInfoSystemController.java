@@ -189,12 +189,12 @@ public class DrapInfoSystemController extends BaseController {
             service.insertBatch(systems);
         }
 
-        List<DrapSystemUseInfo> useInfos =  JSON.parseObject(paraMap.get("systemUseInfos"), new TypeReference<List<DrapSystemUseInfo>>(){});
-        useInfos = useInfos.stream().filter(a->a.getId()!=null).collect(toList());
-
-        if (useInfos.size()!=0){
-            useInfoService.insertBatch(useInfos);
-        }
+//        List<DrapSystemUseInfo> useInfos =  JSON.parseObject(paraMap.get("systemUseInfos"), new TypeReference<List<DrapSystemUseInfo>>(){});
+//        useInfos = useInfos.stream().filter(a->a.getId()!=null).collect(toList());
+//
+//        if (useInfos.size()!=0){
+//            useInfoService.insertBatch(useInfos);
+//        }
 
         List<DrapSystemUseDept> systemUseDepts = JSON.parseObject(paraMap.get("systemUseDepts"), new TypeReference<List<DrapSystemUseDept>>(){});
         systemUseDepts = systemUseDepts.stream().filter(a->a.getId()!=null).collect(toList());
