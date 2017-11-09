@@ -444,9 +444,9 @@
                 <div class="checkh1">
                 	<span class="checkspan">已选字段列表</span>
                 	
-	                	<input type="button" id="deleteItems" class="pull-right btn-del hide" value="删除">
+	                	<%--<input type="button" id="deleteItems" class="pull-right btn-del hide" value="删除">--%>
 
-                		</input>
+                		<%--</input>--%>
                 </div>
                 <div class="form-group " style="overflow-x: auto;min-height:200px;">
                     <table style="width:135%" class="table-striped">

@@ -98,6 +98,12 @@ function initInputValue(){
                     $("#openedStructureCount").val(obj.survey.openedStructureCount);
                 }
                 //生成信息项
+                if(obj.sourceType != "1" && obj.sourceType != "7"){
+                    $("#N_add_itemH").hide();
+                }
+                if(obj.sourceType == '4' || obj.sourceType == '6'|| obj.sourceType == '8'){
+                    $("#deleteItems").hide();
+                }
                 if(obj.sourceType == '2' || obj.sourceType == '5'){
                     $("#firstTh").after("<th>字段名</th>");
                 }
