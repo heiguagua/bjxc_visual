@@ -98,10 +98,13 @@ function initInputValue(){
                     $("#openedStructureCount").val(obj.survey.openedStructureCount);
                 }
                 //生成信息项
+                if(obj.sourceType == '2' || obj.sourceType == '5'){
+                    $("#firstTh").after("<th>字段名</th>");
+                }
                 var itemList = obj.items;
                 for (var i in itemList){
                     var thisTrNum = getTrNum();
-                    buildItem(thisTrNum,itemList[i]);
+                    buildItem(thisTrNum,itemList[i],obj.sourceType);
                 }
             }
         }
@@ -183,9 +186,13 @@ function getTrNum(){
     return thisTrNum;
 }
 
-function buildItem(thisTrNum,data){
-    var str='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
-        +'<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control">'
+function buildItem(thisTrNum,data,sourceType){
+    var str2 = "";
+    if(sourceType == '2' || sourceType == '5'){
+        str2 = '<td><input trNum='+thisTrNum+' value="'+(data.columnName?data.columnName:'')+'" data-rule="字段名:required;" disabled type="text" class="form-control"></td>';
+    }
+    var str1='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>';
+    var str3='<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control">'
         +'<input type="hidden" name="items['+thisTrNum+'].id" value="'+data.id+'"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control">'
@@ -202,7 +209,12 @@ function buildItem(thisTrNum,data){
         +'<td><select name="items['+thisTrNum+'].storageLocation" class="form-control">'+Dict.selectsDom("setItemStoreLocation",data.storageLocation?data.storageLocation:'')+'</select></td>'
         +'<td><select name="items['+thisTrNum+'].updateFrequency" class="form-control">'+Dict.selectsDom("setItemFrequency",data.updateFrequency?data.updateFrequency:'')+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
-    $('#dataitemList').prepend(str)
+    if(str2 != ""){
+        $('#dataitemList').prepend(str1+str2+str3);
+    }else{
+        $('#dataitemList').prepend(str1+str3);
+    }
+
 }
 
 function infoTableDel(trNum){

@@ -62,8 +62,12 @@
     </select>
 
     <select id="selectInfoList" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.*,de.dept_name FROM dir_dataitem t
+        SELECT t.*,de.dept_name,(case dsi.source_obj_type when '2' then
+        (select a.column_en_name from drap_db_table_column a where a.id = dsi.source_obj_id)
+        when '5' then (select b.column_name from dcm_table_column b where b.id=dsi.source_obj_id)
+        else null end) as columnName FROM dir_dataitem t
         left join sys_dept de on t.belong_dept_id=de.id and de.delete_flag=0
+        left join dir_dataitem_source_info dsi on dsi.item_id = t.id
         <include refid="queryConditions"></include>
     </select>
 

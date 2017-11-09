@@ -15,4 +15,22 @@ import java.util.List;
 public class DirDataitemVo extends DirDataitem{
 
     private String deptName;
+
+    private String columnName;
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
 }
