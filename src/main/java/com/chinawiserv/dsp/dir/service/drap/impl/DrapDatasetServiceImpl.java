@@ -215,6 +215,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 			final DirDataitemSourceInfo dirDataitemSourceInfo = new DirDataitemSourceInfo();
 			dirDataitemSourceInfo.setId(CommonUtil.get32UUID());
 			dirDataitemSourceInfo.setItemId(dirDataitem.getId());
+			dirDataitemSourceInfo.setSourceObjType("8");
 			dirDataitemSourceInfo.setSourceObjId(drapDatasetItem.getId());
 			dirDataitemSourceInfoList.add(dirDataitemSourceInfo);
 		}
