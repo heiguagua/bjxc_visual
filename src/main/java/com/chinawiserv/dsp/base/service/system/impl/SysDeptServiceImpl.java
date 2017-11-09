@@ -491,18 +491,20 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 
     @Override
     public boolean insertOrUpdate(List<SysDept> list) {
-        //获取Ids集合
+        //1获取Ids集合
         List<String> firstds=list.stream().map(e -> e.getId()).collect(Collectors.toList());
-        //已经存在的数据
+        //2删除已被删除的数据（逻辑删除无需此操作）
+
+        //3获取已经存在的数据
         List<SysDept> existList=sysDeptMapper.listByList(firstds);
-        //删除无需操作的数据
+        //4删除无需操作的数据
         list.removeAll(existList);
         if (list.size()==0){
             return false;
         }
         List<String> secondIds=list.stream().map(e -> e.getId()).collect(Collectors.toList());
 
-        //获取需要更新的Id
+        //5获取需要更新的Id
         List<String> needUpdateIds=sysDeptMapper.listIdsByList(secondIds);
 
         if (needUpdateIds!=null&&needUpdateIds.size()>0){
