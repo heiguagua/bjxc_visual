@@ -117,7 +117,7 @@ function initReleasedCss(){
 
 function initUnReleaseTable(){
     var searchName = $("#unReleaseSearchName").val();
-    var searchClassify = $("#unReleaseSearchClassifyId").val();
+    var searchClassifyId = $("#unReleaseSearchClassifyId").val();
     //var regionCode = $('#unReleaseSearchRegionCode').val();
     //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
     paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
@@ -204,7 +204,7 @@ function initUnReleaseTable(){
 
 function initReleasedTable(){
     var searchName = $("#releasedSearchName").val();
-    var searchClassify = $("#releasedSearchClassifyId").val();
+    var searchClassifyId = $("#releasedSearchClassifyId").val();
     //var regionCode = $('#releasedSearchRegionCode').val();
     //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
     paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
