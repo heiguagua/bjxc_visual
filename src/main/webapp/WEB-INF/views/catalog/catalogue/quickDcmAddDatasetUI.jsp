@@ -349,11 +349,11 @@
                         <thead>
                         <tr class='table_title_tr'>
                             <th style="width:50px;"><input type="checkbox" id="selectAllItem"> 全选</th>
-                            <%--<th>字段名</th>--%>
+                            <th>字段名</th>
                             <th>信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>
-                            <%--<th>责任部门</th>--%>
+                            <th>责任部门</th>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <%--<th>所属表</th>--%>
