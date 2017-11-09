@@ -211,8 +211,9 @@ function initButtonClickEvent(){
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    var regionCode = $('#searchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //var regionCode = $('#searchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {
