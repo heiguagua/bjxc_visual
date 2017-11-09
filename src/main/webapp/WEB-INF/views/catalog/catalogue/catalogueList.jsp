@@ -30,7 +30,7 @@
 
                             <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
                                 <section class="sidebar">
-                                    <div class="user-panel"  style="height: 4%;">
+                                    <div class="user-panel"  style="height: 6%;">
                                         <b id="dir-Manger">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
@@ -40,7 +40,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div style="height: 96%;">
+                                    <div style="height: 94%;">
                                         <ul id="treeDemo" class="ztree"></ul>
                                     </div>
                                 </section>

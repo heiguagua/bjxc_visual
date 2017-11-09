@@ -269,10 +269,11 @@ function _init() {
         var postSetWidth;
         if (window_height >= sidebar_height) {
         	//$(".content-wrapper, .right-side").css('min-height', window_height - neg);
-        	$(".content-wrapper, .right-side").css('min-height', "100%");
+        	$(".content-wrapper, .right-side").css('min-height', "966px");
           postSetWidth = window_height - neg;
         } else {
-          $(".content-wrapper, .right-side").css('min-height', sidebar_height);
+          //$(".content-wrapper, .right-side").css('min-height', sidebar_height);
+            $(".content-wrapper, .right-side").css('min-height', "966px");
           postSetWidth = sidebar_height;
         }
 
