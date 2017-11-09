@@ -19,6 +19,8 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  */
 public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 
+    String synUrl="/system/dept/provideData";
+
     Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception;
 
     Page<SysDeptVo> selectBaseVoPage(Map<String, Object> paramMap) throws Exception;

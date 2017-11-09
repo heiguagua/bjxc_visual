@@ -19,6 +19,9 @@ import java.util.Map;
  * @since 2017-04-16
  */
 public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
+
+    String synUrl="/system/user/provideData";
+
     /**
      * 根据id查找vo用户
      */

@@ -36,14 +36,14 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div id="unReleaseSearchDiv">
-                            <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                            <aside class="main-sidebar—Du1 sidebar-myself" id="min-aside">
                                 <section class="sidebar">
                                     <div class="user-panel">
                                         <b id="dir-Manger">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
-                                                <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
-                                                <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                                <i  style="color: rgb(51, 51, 51);"  class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                             </aside>
 
                             <form class="form-inline" method="post" >
-                                <div class="box-header box-header-myself">
+                                <div class="box-header box-header-myself1">
                                     <div class="input-group">
                                         <a class="btn btn-primary btn-flat btn-myself" id="auditRejectButton">
                                             <!-- <i class="fa fa-plus">
@@ -112,14 +112,14 @@
 
                         <div style="display:none" id="releasedSearchDiv">
                             <!-- 复制二级标题 已经发布 -->
-                            <aside class="main-sidebar—Du sidebar-myself" id="min-aside2">
+                            <aside class="main-sidebar—Du1 sidebar-myself" id="min-aside2">
                                 <section class="sidebar">
                                     <div class="user-panel">
                                         <b id="dir-Manger2">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
-                                                <i class="fa fa-backward pull-right" id="backward2" title="收起"></i>
-                                                <i class="fa fa-forward pull-right" id="forward2"  title="扩展"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-backward pull-right" id="backward2" title="收起"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward2"  title="扩展"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -130,7 +130,7 @@
                             </aside>
 
                             <form class="form-inline" method="post">
-                                <div class="box-header box-header-myself">
+                                <div class="box-header box-header-myself1">
 
                                     <div class="input-group">
                                         <a class="btn btn-default btn-flat  btn-myself" id="offlineButton">
@@ -173,7 +173,7 @@
                             </form>
                         </div>
 
-                        <div class="box-body table-responsive table-myself">
+                        <div class="box-body table-responsive table-myself1">
                             <!-- 表格 -->
                             <table id="releaseTable" class="table table-hover"></table>
                             <!-- 表格 end-->
