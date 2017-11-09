@@ -270,7 +270,7 @@
 /*侧边section相对定位*/
 section .sidebar{
     height:100%;
-	postion:relative;
+	position:relative;
 }
 /* 点击缩放标签绝对定位 */
 .trapezoid-1{
@@ -557,7 +557,9 @@ letter-spacing: 0;
     height:100%;
 }
 
-
+.ztree li .btn-delete{
+	background:red !important;
+}
 
 
 
