@@ -34,14 +34,14 @@ public class MpGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         //todo 修改本地已存在的文件夹目录
-        gc.setOutputDir("E:/newFile");
+        gc.setOutputDir("/Users/tangxiong/git");
         gc.setFileOverride(true);
         gc.setActiveRecord(false);
         gc.setEnableCache(true);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
         gc.setBaseColumnList(true);// XML columList
         //todo 修改作者
-        gc.setAuthor("wuty");
+        gc.setAuthor("tx");
 
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
         // gc.setMapperName("%sDao");
@@ -79,7 +79,7 @@ public class MpGenerator {
 
         //todo 需要生成的表以逗号连接
 //        String includeTableStr = "dcm_task_api_conf,dcm_task_crawler_conf,dcm_task_db_conf,dcm_task_scan_record,dcm_task_sd_column_conf,dcm_task_sf_conf,dcm_task_uf_record,dcm_task_usf_conf";
-        String includeTableStr = "dir_dataset_ext_format";
+        String includeTableStr = "sys_product_integrate";
 
         if (org.apache.commons.lang.StringUtils.isNotBlank(includeTableStr)) {
             String includeTableArr[] =  includeTableStr.trim().split(",");
@@ -112,7 +112,7 @@ public class MpGenerator {
         // 包配置
         PackageConfig packageConfig = new PackageConfig();
         //todo 项目包名
-        packageConfig.setParent("com.chinawiserv.dsp.dir");
+        packageConfig.setParent("com.chinawiserv.dsp.base");
         packageConfig.setController("controller");
 //        packageConfig.setModuleName("dataset");
         mpg.setPackageInfo(packageConfig);
@@ -123,7 +123,7 @@ public class MpGenerator {
             public void initMap() {
                 Map<String, Object> map = new HashMap<String, Object>();
                 //todo 设置子模块名称
-                map.put("subModuleName", "drap");
+                map.put("subModuleName", "system");
                 this.setMap(map);
             }
         };

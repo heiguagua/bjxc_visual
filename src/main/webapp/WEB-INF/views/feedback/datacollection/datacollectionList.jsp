@@ -36,7 +36,7 @@
         <section class="content" id="dcMg">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="box">
+                    <div class="box clear">
 
                         <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
                             <section class="sidebar">
@@ -45,8 +45,9 @@
                                     <div class="pull-right image">
                                         <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
 
-                                            <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
-                                            <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                          
+                                                <i style="color: rgb(51, 51, 51);" class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                         </a>
 
                                     </div>
@@ -58,8 +59,8 @@
                             </section>
 
                         </aside>
-
-                        <form class="form-inline marginBot" method="post">
+							 <div class="content_table">
+							     <form class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group pull-right">
                                     <input type="hidden" id="searchClassifyId">
@@ -81,6 +82,8 @@
                             </table>
                             <!-- 表格 end-->
                         </div>
+							 </div>
+                    
                     </div>
                 </div>
             </div>
@@ -198,39 +201,35 @@
     $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
 
     function hideDirMgr() {
-        $("#min-aside").animate({
-            width:"40px",
-        },200);
-        $("#dir-Manger").hide();
-        $("#forward").show(400);
-        $("#backward").hide(500);
-        $("#treeDemo").hide(200);
-        $("#min-aside").css("border","none")
-        $("div.box div.table-myself").animate({
-            paddingLeft: "50px"
-        })
-        $('.box-header').animate({
-            paddingLeft: "60px"
-        })
-        $(".user-panel").css("background","#f4f6f9");
+    	 $("#min-aside").animate({
+             width:"2%"
+         },200);
+         $("#dir-Manger").hide();
+         $("#forward").show(400);
+         $("#backward").hide(500);
+         $("#treeDemo").hide(200);
+         $("#min-aside").css("border","none")
+         $("div.box div.content_table").animate({
+             width: "98%"
+         })
+
+         $(this).parents("div.user-panel").css("background","#f4f6f9");
     }
 
     function showDirMgr() {
-        $("#min-aside").animate({
-            width:"230px",
-        },200);
-        $("#dir-Manger").show();
-        $("#forward").hide(400);
-        $("#backward").show(500);
-        $("#treeDemo").show(200);
-        $("#min-aside").css("border","1px solid #ddd");
-        $(".box-body").animate({
-            paddingLeft: "240px"
-        })
-        $('.box-header').animate({
-            paddingLeft: "270px"
-        })
-        $(".user-panel").css("background","none");
+    	 $("div.box div.content_table").animate({
+             width: "86%"
+         },400)
+         $("#min-aside").animate({
+             width:"14%"
+         },500);
+         $("#dir-Manger").show();
+         $("#forward").hide(400);
+         $("#backward").show(500);
+         $("#treeDemo").show(200);
+         $("#min-aside").css("border","1px solid #ddd");
+
+         $(".user-panel").css("background","none");
     }
 
 

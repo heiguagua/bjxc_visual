@@ -67,8 +67,9 @@ public class SysUserController extends BaseController {
      */
     @RequiresPermissions("system:user:list")
     @RequestMapping("")
-    public String init(@RequestParam Map<String , Object> paramMap){
+    public String init(@RequestParam Map<String , Object> paramMap,Model model){
         setCurrentMenuInfo(paramMap);
+        model.addAttribute("master",isMaster());
         return "system/user/userList";
     }
     /**
@@ -314,7 +315,7 @@ public class SysUserController extends BaseController {
         HandleResult handleResult = new HandleResult();
 
         try {
-            String result = getDataFromMaster("/system/user/provideData");
+            String result = getDataFromMaster(ISysUserService.synUrl);
             HandleResult jsb = JSONObject.parseObject(result, HandleResult.class);
             HashMap<String, Object> map = jsb.getContent();
             List<SysUser> list = JSONObject.parseArray(map.get("list").toString(), SysUser.class);

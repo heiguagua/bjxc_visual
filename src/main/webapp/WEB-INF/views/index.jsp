@@ -3,6 +3,8 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <link rel="stylesheet" href="<%=basePath%>/css/index.css" />
+    <script src="<%=basePath%>/js/index.js"></script>
+    <script src="<%=basePath%>/plugins/echarts-2.2.7/dist/echarts.js"></script>
 </head>
 	
 <body class="hold-transition skin-blue sidebar-mini">
@@ -11,14 +13,6 @@
     <%@include file="common/menu.jsp" %>
 
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>  
-             
-                <small>统计</small>
-          </h1>
-        </section>
-
         <!-- Main content -->
         <section class="content">
 			<div>
@@ -31,24 +25,24 @@
                  <div class="col-sm-12 col-md-4">
 	                <div class="box box-solid"  style="background:#fff">
 	                    <div class="box-body">
-	                       
-	                        <div id="countDatasetByDept" style="height:400px;"></div>
+                            <div id="basicCountDiv" style="height:20px;"></div>
+	                        <div id="basicCountPicDiv" style="height:300px;"></div>
 	                    </div>
 	                </div>
             	</div>
                  <div class="col-sm-12 col-md-4">
 	                <div class="box box-solid"  style="background:#fff">
 	                    <div class="box-body">
-	                       
-	                        <div id="countDatasetByDept" style="height:400px;"></div>
+                            <div id="themeCountDiv" style="height:20px;"></div>
+                            <div id="themeCountPicDiv" style="height:300px;"></div>
 	                    </div>
 	                </div>
             	</div>
                  <div class="col-sm-12 col-md-4" >
 	                <div class="box box-solid"  style="background:#fff">
 	                    <div class="box-body">
-	                      
-	                        <div id="countDatasetByDept" style="height:400px;"></div>
+                            <div id="deptCountDiv" style="height:20px;"></div>
+                            <div id="deptCountPicDiv" style="height:300px;"></div>
 	                    </div>
 	                </div>
             	</div>
@@ -70,15 +64,9 @@
                						<p class="num" id="datasetTotal">0</p>
                					</div>
                					<div class="imgdiv_title clear">
-               						<div class="share pull-left">
-               								<p style="font-family: PingFangSC-Medium;padding-top: 46px;font-size: 14px;color: #595959;line-height: 21px;">可共享受资源</p>
-               								<p id="datasetTotalShare" style="font-family: PingFangSC-Medium;font-size: 24px;color: #595959;line-height: 21px;">0</p>
-               								
-               						</div>
-               						<div class="open pull-right">
-               							<p style="font-family: PingFangSC-Medium;padding-top: 46px;font-size: 14px;color: #595959;line-height: 21px;">可共享受资源</p>
-               								<p id="datasetTotalOpen" style="font-family: PingFangSC-Medium;font-size: 24px;color: #595959;line-height: 21px;">0</p>	
-               								
+               						<div class="share">
+               								<p style="text-align: center;font-family: PingFangSC-Medium;padding-top: 46px;font-size: 14px;color: #595959;line-height: 21px;">已有接口服务</p>
+               								<p id="serviceTotal" style="text-align: center;font-family: PingFangSC-Medium;font-size: 24px;color: #595959;line-height: 21px;">0</p>
                						</div>
                					</div>
                				</div>
@@ -96,10 +84,9 @@
                             	<span>
                             		<img src="<%=basePath%>/images/userImg/weizhuce.png"/>
                             	</span>
-                            	
                             	<span class="spanDis">
-                            		<a style="padding">未注册信息资源</a>
-                            		<a class="num" id="businessTotal">0</a>
+                            		<a>未注册信息资源</a>
+                            		<a class="num" id="unRegisteNum">0</a>
                             	</span>
                             </p>
                         </div>
@@ -113,8 +100,8 @@
                             	</span>
                             	
                             	<span class="spanDis">
-                            		<a style="padding">未发布信息资源</a>
-                            		<a class="num" id="businessTotal">0</a>
+                            		<a>未发布信息资源</a>
+                            		<a class="num" id="unReleaseNum">0</a>
                             	</span>
                             </p>
                         </div>
@@ -135,8 +122,8 @@
                             	</span>
                             	
                             	<span class="spanDis">
-                            		<a style="padding">未审核信息资源</a>
-                            		<a class="num" id="requirementTotal">0</a>
+                            		<a>未审核信息资源</a>
+                            		<a class="num" id="unAuditNum">0</a>
                             	</span>
                             </p>
                         </div>
@@ -150,8 +137,8 @@
                             	</span>
                             	
                             	<span class="spanDis">
-                            		<a style="padding">已发布信息资源</a>
-                            		<a class="num" id="requirementTotal">0</a>
+                            		<a>已发布信息资源</a>
+                            		<a class="num" id="releasedNum">0</a>
                             	</span>
                             </p>
                         </div>

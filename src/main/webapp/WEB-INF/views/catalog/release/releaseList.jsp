@@ -36,14 +36,14 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div id="unReleaseSearchDiv">
-                            <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                            <aside class="main-sidebar—Du1 sidebar-myself" id="min-aside">
                                 <section class="sidebar">
                                     <div class="user-panel">
                                         <b id="dir-Manger">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
-                                                <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
-                                                <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                                <i  style="color: rgb(51, 51, 51);"  class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                             </aside>
 
                             <form class="form-inline" method="post" >
-                                <div class="box-header box-header-myself">
+                                <div class="box-header box-header-myself1">
                                     <div class="input-group">
                                         <a class="btn btn-primary btn-flat btn-myself" id="auditRejectButton">
                                             <!-- <i class="fa fa-plus">
@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="input-group pull-right">
                                         <input type="hidden" id="unReleaseSearchClassifyId">
-                                        <div class="input-group" style="margin-right:4px;min-width:240px">
+                                        <%--<div class="input-group" style="margin-right:4px;min-width:240px">
                                             <input type="text" id="unReleaseSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="unReleaseSearchRegionCode">
                                             <div class="menu-wrap">
@@ -84,7 +84,7 @@
                                                     <ul id="unReleaseSearchRegionTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--%>
                                         <div class="input-group">
                                             <input class="form-control" id="unReleaseSearchName" placeholder="资源名称" type="text">
                                             <div class="input-group-btn">
@@ -112,14 +112,14 @@
 
                         <div style="display:none" id="releasedSearchDiv">
                             <!-- 复制二级标题 已经发布 -->
-                            <aside class="main-sidebar—Du sidebar-myself" id="min-aside2">
+                            <aside class="main-sidebar—Du1 sidebar-myself" id="min-aside2">
                                 <section class="sidebar">
                                     <div class="user-panel">
                                         <b id="dir-Manger2">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
-                                                <i class="fa fa-backward pull-right" id="backward2" title="收起"></i>
-                                                <i class="fa fa-forward pull-right" id="forward2"  title="扩展"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-backward pull-right" id="backward2" title="收起"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward2"  title="扩展"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -130,7 +130,7 @@
                             </aside>
 
                             <form class="form-inline" method="post">
-                                <div class="box-header box-header-myself">
+                                <div class="box-header box-header-myself1">
 
                                     <div class="input-group">
                                         <a class="btn btn-default btn-flat  btn-myself" id="offlineButton">
@@ -139,7 +139,7 @@
                                     </div>
                                     <div class="input-group pull-right">
                                         <input type="hidden" id="releasedSearchClassifyId">
-                                        <div class="input-group" style="margin-right:4px;min-width:240px">
+                                        <%--<div class="input-group" style="margin-right:4px;min-width:240px">
                                             <input type="text" id="releasedSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="releasedSearchRegionCode">
                                             <div class="menu-wrap">
@@ -147,7 +147,7 @@
                                                     <ul id="releasedSearchRegionTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--%>
                                         <div class="input-group">
                                             <input class="form-control" id="releasedSearchName" placeholder="资源名称" type="text">
                                             <div class="input-group-btn">
@@ -173,7 +173,7 @@
                             </form>
                         </div>
 
-                        <div class="box-body table-responsive table-myself">
+                        <div class="box-body table-responsive table-myself1">
                             <!-- 表格 -->
                             <table id="releaseTable" class="table table-hover"></table>
                             <!-- 表格 end-->

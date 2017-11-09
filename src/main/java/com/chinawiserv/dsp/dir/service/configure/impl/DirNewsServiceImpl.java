@@ -118,23 +118,32 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
          	
              properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
          	
-        //                Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
-            String mapUrl = properties.getProperty("datastreet.upload.native.image_path");
-            String lunboDir = properties.getProperty("datastreet.upload.native.image_path.news");
-            String folderName = mapUrl+"/"+ lunboDir;
-            if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
-//                String dirPath = "";
-//                if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
-//                    dirPath = request.getSession().getServletContext().getRealPath("")
-//                    		+ mapUrl+lunboDir;
-//                }else{
-//                    dirPath = request.getSession().getServletContext().getRealPath("")
-//                    		+ mapUrl + "/" + lunboDir;
-//                }
-//                File dirFile = new File(dirPath);
-//                if(!dirFile.exists()){
-//                    dirFile.mkdirs();
-//                }
+             //Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
+             
+             String switchToFtp = properties.getProperty("datastreet.switch");
+             String mapUrl = null;
+             String lunboDir =	null; 
+             if(switchToFtp.equals("yes")){
+            	  mapUrl = properties.getProperty("datastreet.upload.native.image_path");
+               lunboDir = properties.getProperty("datastreet.upload.native.image_path.news");
+             }else{
+            	  mapUrl = properties.getProperty("datastreet.upload.native.image_path.local");
+               lunboDir = properties.getProperty("datastreet.upload.native.image_path.local.news");
+             }            
+             String folderName = mapUrl+"/"+ lunboDir;
+             if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
+                String dirPath = "";
+                if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
+                    dirPath = request.getSession().getServletContext().getRealPath("")
+                    		+ mapUrl+lunboDir;
+                }else{
+                    dirPath = request.getSession().getServletContext().getRealPath("")
+                    		+ mapUrl + "/" + lunboDir;
+                }
+                File dirFile = new File(dirPath);
+                if(!dirFile.exists()){
+                    dirFile.mkdirs();
+                }
                 int index = 0;
                 for(int i = 0; i < picName.length(); i++){
                     if (!Character.isDigit(picName.charAt(i))){
@@ -143,11 +152,19 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
                     }
                 }
                 
+                String newFileName = dirPath + "/" + picName;
                 List<MultipartFile>	caseFiles = new ArrayList<MultipartFile>();	
                 caseFiles.add(file);
                 
-                FTPUtil FtpUtil = new FTPUtil();                
-                FtpUtil.uploadCaseFiles(folderName, caseFiles, picName);
+                FTPUtil FtpUtil = new FTPUtil();  
+//                String switchToFtp = properties.getProperty("datastreet.switch");
+                //判定存储到ftp还是local
+                if(switchToFtp.equals("yes")){
+                	FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
+                }else{
+                	file.transferTo(new File(newFileName));//上传文件到指定目录
+                	folderName = "/img/" + lunboDir;
+                }
 //                String newFileName = dirPath + "/" + picName;
 //                file.transferTo(new File(newFileName));//上传文件到指定目录
                 //把所有表单数据保存到数据库表中
@@ -228,28 +245,48 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
              	
             properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
              	
-            //                Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
-            String mapUrl = properties.getProperty("datastreet.upload.native.image_path");
-            String lunboDir = properties.getProperty("datastreet.upload.native.image_path.news");
+            //Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
+            
+            String switchToFtp = properties.getProperty("datastreet.switch");
+            String mapUrl = null;
+            String lunboDir =	null; 
+            if(switchToFtp.equals("yes")){
+           	  mapUrl = properties.getProperty("datastreet.upload.native.image_path");
+                 lunboDir = properties.getProperty("datastreet.upload.native.image_path.news");
+            }else{
+           	  mapUrl = properties.getProperty("datastreet.upload.native.image_path.local");
+                 lunboDir = properties.getProperty("datastreet.upload.native.image_path.local.news");
+            }            
+            
             String folderName = mapUrl+"/"+ lunboDir;   
             if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
-//                    String dirPath = "";
-//                    if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
-//                        dirPath =  request.getSession().getServletContext().getRealPath("")
-//                        		+mapUrl+lunboDir;
-//                    }else{
-//                        dirPath =  request.getSession().getServletContext().getRealPath("")
-//                        		+mapUrl + "/" + lunboDir;
-//                    }
-//                    File dirFile = new File(dirPath);
-//                    if(!dirFile.exists()){
-//                        dirFile.mkdirs();
-//                    }
-	            	List<MultipartFile> caseFiles = new ArrayList<MultipartFile>();	
-	             	caseFiles.add(file);
-	             
-	             	FTPUtil FtpUtil = new FTPUtil();                
-	             	FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
+                    String dirPath = "";
+                    if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
+                        dirPath =  request.getSession().getServletContext().getRealPath("")
+                        		+mapUrl+lunboDir;
+                    }else{
+                        dirPath =  request.getSession().getServletContext().getRealPath("")
+                        		+mapUrl + "/" + lunboDir;
+                    }
+                    File dirFile = new File(dirPath);
+                    if(!dirFile.exists()){
+                        dirFile.mkdirs();
+                    }
+                    
+                    String newFileName = dirPath + "/" + picName;
+                    
+                    List<MultipartFile> caseFiles = new ArrayList<MultipartFile>();	
+                 	caseFiles.add(file);
+                 
+                 	FTPUtil FtpUtil = new FTPUtil();         
+                 	
+                 	//判定存储到ftp还是local
+                    if(switchToFtp.equals("yes")){
+                    	FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
+                    }else{                    	
+                    	file.transferTo(new File(newFileName));//上传文件到指定目录
+                    	folderName = "/img/" + lunboDir;
+                    }
 //                    String newFileName = dirPath + "/" + picName;
 //                    file.transferTo(new File(newFileName));//上传文件到指定目录
                     //把所有表单数据保存到数据库表中

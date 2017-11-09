@@ -6,11 +6,24 @@ jQuery(document).ready(function () {
     $("#releaseTab >li").click(function(){
         $(this).addClass("active").siblings().removeClass("active");
         if($(this).text().trim() == "待发布"){
+        	$("div.box div.table-myself1").css("paddingLeft","240px")
+            $('.box-header').css("paddingLeft","240px");
+        	 $("#min-aside").css("width","230px");
+             $("#dir-Manger").stop().show();
+             $("#forward").stop().hide(400);
+             $("#backward").stop().stop().show(500);
+             $("#min-aside").css("border","1px solid #ddd");
             $("#releasedSearchDiv").hide();
             $("#unReleaseSearchDiv").show();
             initUnReleaseCss();
             initUnReleaseTable();
         }else if($(this).text().trim() === "已发布"){
+        	$("div.box div.table-myself1").css("paddingLeft","240px")
+            $('.box-header').css("paddingLeft","240px");
+        	 $("#min-aside2").css({"width":"230px","border":"1px solid #ddd"});
+             $("#dir-Manger2").stop().show();
+             $("#forward2").stop().hide(400);
+             $("#backward2").stop().show(500);
             $("#unReleaseSearchDiv").css("display","none");
             $("#releasedSearchDiv").css("display","block");
             initReleasedCss();
@@ -35,8 +48,8 @@ function initUnReleaseCss(){
         $("#backward").hide(500);
         $("#treeDemo").hide(200);
         $("#min-aside").css("border","none")
-        $("div.box div.table-myself").animate({
-            paddingLeft: "50px"
+        $("div.box div.table-myself1").animate({
+            paddingLeft: "60px"
         })
         $('.box-header').animate({
             paddingLeft: "60px"
@@ -56,7 +69,7 @@ function initUnReleaseCss(){
             paddingLeft: "240px"
         })
         $('.box-header').animate({
-            paddingLeft: "270px"
+            paddingLeft: "240px"
         })
         $(".user-panel").css("background","none");
     })
@@ -75,8 +88,8 @@ function initReleasedCss(){
         $("#backward2").hide(500);
         $("#treeDemo2").hide(200);
         $("#min-aside2").css("border","none")
-        $("div.box div.table-myself").animate({
-            paddingLeft: "50px"
+        $("div.box div.table-myself1").animate({
+            paddingLeft: "60px"
         })
         $('.box-header').animate({
             paddingLeft: "60px"
@@ -96,7 +109,7 @@ function initReleasedCss(){
             paddingLeft: "240px"
         })
         $('.box-header').animate({
-            paddingLeft: "270px"
+            paddingLeft: "240px"
         })
         $(".user-panel").css("background","none");
     })
@@ -105,8 +118,9 @@ function initReleasedCss(){
 function initUnReleaseTable(){
     var searchName = $("#unReleaseSearchName").val();
     var searchClassify = $("#unReleaseSearchClassifyId").val();
-    var regionCode = $('#unReleaseSearchRegionCode').val();
-    paramsObj = {datasetName:searchName,classifyId:searchClassify,regionCode:regionCode};
+    //var regionCode = $('#unReleaseSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/unRelease/list',
@@ -191,8 +205,9 @@ function initUnReleaseTable(){
 function initReleasedTable(){
     var searchName = $("#releasedSearchName").val();
     var searchClassify = $("#releasedSearchClassifyId").val();
-    var regionCode = $('#releasedSearchRegionCode').val();
-    paramsObj = {datasetName:searchName,classifyId:searchClassify,regionCode:regionCode};
+    //var regionCode = $('#releasedSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/released/list',
@@ -342,15 +357,17 @@ function catalogueTableShow(id){
 function setUnReleaseParams(){
     var searchName = $("#unReleaseSearchName").val();
     var searchClassifyId = $("#unReleaseSearchClassifyId").val();
-    var regionCode = $('#unReleaseSearchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //var regionCode = $('#unReleaseSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function setReleasedParams() {
     var searchName = $("#releasedSearchName").val();
     var searchClassifyId = $("#releasedSearchClassifyId").val();
-    var regionCode = $('#releasedSearchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //var regionCode = $('#releasedSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {

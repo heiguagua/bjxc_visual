@@ -26,26 +26,29 @@
                 <!-- Your Page Content Here -->
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="box">
+                        <div class="box clear">
 
                             <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
                                 <section class="sidebar">
-                                    <div class="user-panel">
+                                    <div class="user-panel"  style="height: 4%;">
                                         <b id="dir-Manger">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
-                                                <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
-                                                <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+
+                                                <i style="color: rgb(51, 51, 51);" class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                             </a>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div style="height: 96%;">
                                         <ul id="treeDemo" class="ztree"></ul>
                                     </div>
                                 </section>
                             </aside>
-
-                            <form class="form-inline" method="post">
+                        
+                          <div class="content_table">
+                          
+                          	 <form class="form-inline" method="post">
                                 <div class="box-header box-header-myself">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
@@ -105,7 +108,7 @@
                                     </div>
                                     <div class="pull-right">
                                         <input type="hidden" id="searchClassifyId">
-	                                    <div class="input-group" style="margin-right:4px;min-width:240px">
+	                                    <%--<div class="input-group" style="margin-right:4px;min-width:240px">
 	                                        <input type="text" id="searchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
 	                                        <input type="hidden" id="searchRegionCode">
 	                                        <div class="menu-wrap">
@@ -113,7 +116,7 @@
 	                                                <ul id="searchRegionTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
 	                                            </div>
 	                                        </div>
-	                                    </div>
+	                                    </div>--%>
 	                                    <div class="input-group">
 	                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
 	                                        <div class="input-group-btn">
@@ -132,6 +135,8 @@
                                 <table id="catalogueTable" class="table table-hover"></table>
                                 <!-- 表格 end-->
                             </div>
+                          </div>
+                           
                         </div>
                     </div>
                 </div>

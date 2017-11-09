@@ -1,9 +1,12 @@
 package com.chinawiserv.dsp.base.controller.common;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo;
 import com.chinawiserv.dsp.base.service.system.ISysProductIntegrateService;
 import com.chinawiserv.dsp.base.service.system.ISysSettingService;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -208,6 +213,22 @@ public class BaseController {
 //		SysProductIntegrateVo master = productIntegrateService.getTheMaster();
 //		return  master.getRootPath();
 //	}
+	//主次检查异常当未集成处理，表现为主
+	protected boolean isMaster(){
+		String systemId = sysSettingService.findValueByCode(SystemConst.SYS_INTEGRATE_NO);
 
+		SysProductIntegrateVo master = null;
+		try {
+			master = productIntegrateService.getTheMaster();
+		} catch (ErrorInfoException e) {
+
+			logger.error("集成异常，未获得唯一主系统");
+			return true;
+		}
+		if(master!=null&&!master.getProductNo().equals(systemId)){
+			return false;
+		}
+		return true;
+	}
 
 }

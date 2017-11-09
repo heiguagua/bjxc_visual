@@ -56,8 +56,9 @@ public class SysDeptController extends BaseController {
 
     @RequiresPermissions("system:dept:list")
     @RequestMapping("")
-    public  String init(@RequestParam Map<String , Object> paramMap){
+    public  String init(@RequestParam Map<String , Object> paramMap ,Model model){
         setCurrentMenuInfo(paramMap);
+        model.addAttribute("master",isMaster());
         return "system/dept/deptList";
     }
 
@@ -163,7 +164,7 @@ public class SysDeptController extends BaseController {
 //        RestTemplate restTemplate = new RestTemplate();
 //        String result = restTemplate.getForObject("http://localhost:8080/dm/system/dept/provideData/?systemId=dm", String.class);
         try {
-            String result =getDataFromMaster("/system/dept/provideData");
+            String result =getDataFromMaster(ISysDeptService.synUrl);
             HandleResult jsb= JSONObject.parseObject(result,HandleResult.class);
             HashMap<String, Object> map= jsb.getContent();
             List<SysDept> list= JSONObject.parseArray(map.get("list").toString(),SysDept.class) ;

@@ -30,6 +30,7 @@ public class SysDict implements Serializable {
     /**
      * 类型
      */
+	@TableField("category")
 	private String category;
     /**
      * 字典编码
@@ -56,9 +57,20 @@ public class SysDict implements Serializable {
      */
 	@TableField("order_number")
 	private Integer orderNumber;
+	/**
+	 * 图标
+	 */
+	@TableField("icon")
+	private String icon;
+	/**
+	 * 字典级别
+	 */
+	@TableField("dict_level")
+	private Integer dictLevel;
     /**
      * 状态
      */
+	@TableField("status")
 	private Integer status;
     /**
      * 创建人
@@ -148,6 +160,22 @@ public class SysDict implements Serializable {
 
 	public void setOrderNumber(Integer orderNumber) {
 		this.orderNumber = orderNumber;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public Integer getDictLevel() {
+		return dictLevel;
+	}
+
+	public void setDictLevel(Integer dictLevel) {
+		this.dictLevel = dictLevel;
 	}
 
 	public Integer getStatus() {

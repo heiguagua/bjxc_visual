@@ -103,28 +103,36 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
             properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
          	
         //  Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
-            String mapUrl = properties.getProperty("datastreet.upload.native.image_path");
-            String lunboDir = properties.getProperty("datastreet.upload.native.image_path.homePage");
+            String switchToFtp = properties.getProperty("datastreet.switch");
+            String mapUrl = null;
+            String lunboDir =	null; 
+            if(switchToFtp.equals("yes")){
+           	  mapUrl = properties.getProperty("datastreet.upload.native.image_path");
+              lunboDir = properties.getProperty("datastreet.upload.native.image_path.homePage");
+            }else{
+           	  mapUrl = properties.getProperty("datastreet.upload.native.image_path.local");
+              lunboDir = properties.getProperty("datastreet.upload.native.image_path.local.homePage");
+            }            
             String folderName = mapUrl+"/"+ lunboDir;
             if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
-//                String dirPath = "";
-//                if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
-//                    dirPath = request.getSession().getServletContext().getRealPath("")
-//                    		+ mapUrl+lunboDir;
-//                }else{
-//                    dirPath = request.getSession().getServletContext().getRealPath("")
-//                    		+ mapUrl + "/" + lunboDir;
-//                }
+                String dirPath = "";
+                if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
+                    dirPath = request.getSession().getServletContext().getRealPath("")
+                    		+ mapUrl+lunboDir;
+                }else{
+                    dirPath = request.getSession().getServletContext().getRealPath("")
+                    		+ mapUrl + "/" + lunboDir;
+                }
             	//检查上传路径是否存在 如果不存在返回false
 //                boolean flag = ftp.changeWorkingDirectory(mapUrl + "/" + lunboDir);
 //                if(!flag){
 //                    //创建上传的路径  该方法只能创建一级目录，在这里如果/home/ftpuser存在则可创建image
 //                    ftp.makeDirectory(mapUrl + "/" + lunboDir);
 //                }
-//                File dirFile = new File(dirPath);
-//                if(!dirFile.exists()){
-//                    dirFile.mkdirs();
-//                }
+                File dirFile = new File(dirPath);
+                if(!dirFile.exists()){
+                    dirFile.mkdirs();
+                }
                 int index = 0;
                 for(int i = 0; i < picName.length(); i++){
                     if (!Character.isDigit(picName.charAt(i))){
@@ -134,20 +142,28 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
                 }
 //                MultipartFile[] files = {};
 //                files[0] = 
-                
+                String newFileName = dirPath + "/" + picName;
                 List<MultipartFile>	caseFiles = new ArrayList<MultipartFile>();	
                 caseFiles.add(file);
                 
-                FTPUtil FtpUtil = new FTPUtil();                
-                FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
+                FTPUtil FtpUtil = new FTPUtil();  
+//                String switchToFtp = properties.getProperty("datastreet.switch");
+                //判定存储到ftp还是local
+                if(switchToFtp.equals("yes")){
+                	FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
+                }else{
+                	file.transferTo(new File(newFileName));//上传文件到指定目录
+                	folderName = "/img/" + lunboDir;
+                }
                 
-//                String newFileName = dirPath + "/" + picName;
+                
+                
 //                ftp.changeWorkingDirectory(mapUrl + "/" + lunboDir);
 //                File file1 = new File(file);
 //                local = new FileInputStream(file);
                 //第一个参数是文件名
 //                ftp.storeFile(picName, file.getInputStream());
-//                file.transferTo(new File(newFileName));//上传文件到指定目录
+                
                 //把所有表单数据保存到数据库表中
 //                Pic picObj = new Pic();
                 entity.setId(UUID.randomUUID().toString());
@@ -228,34 +244,51 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
              	
              properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
              	
-            //                Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
-             String mapUrl = properties.getProperty("datastreet.upload.native.image_path");
-             String lunboDir = properties.getProperty("datastreet.upload.native.image_path.homePage");
+            //Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
+             
+             String switchToFtp = properties.getProperty("datastreet.switch");
+             String mapUrl = null;
+             String lunboDir =	null; 
+             if(switchToFtp.equals("yes")){
+            	  mapUrl = properties.getProperty("datastreet.upload.native.image_path");
+                  lunboDir = properties.getProperty("datastreet.upload.native.image_path.homePage");
+             }else{
+            	  mapUrl = properties.getProperty("datastreet.upload.native.image_path.local");
+                  lunboDir = properties.getProperty("datastreet.upload.native.image_path.local.homePage");
+             }
+             
              String folderName = mapUrl+"/"+ lunboDir;   
              if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
-//                    String dirPath = "";
-//                    if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
-//                        dirPath =  request.getSession().getServletContext().getRealPath("")
-//                        		+mapUrl+lunboDir;
-//                    }else{
-//                        dirPath =  request.getSession().getServletContext().getRealPath("")
-//                        		+mapUrl + "/" + lunboDir;
-//                    }
-//                    File dirFile = new File(dirPath);
-//                    if(!dirFile.exists()){
-//                        dirFile.mkdirs();
-//                    }
-//                    String newFileName = dirPath + "/" + picName;
-//                    file.transferTo(new File(newFileName));//上传文件到指定目录
+                    String dirPath = "";
+                    if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
+                        dirPath =  request.getSession().getServletContext().getRealPath("")
+                        		+mapUrl+lunboDir;
+                    }else{
+                        dirPath =  request.getSession().getServletContext().getRealPath("")
+                        		+mapUrl + "/" + lunboDir;
+                    }
+                    File dirFile = new File(dirPath);
+                    if(!dirFile.exists()){
+                        dirFile.mkdirs();
+                    }
+                    String newFileName = dirPath + "/" + picName;
+                    
                     //把所有表单数据保存到数据库表中
 //                    Pic picObj = new Pic();
             	 
             	 	List<MultipartFile> caseFiles = new ArrayList<MultipartFile>();	
                  	caseFiles.add(file);
                  
-                 	FTPUtil FtpUtil = new FTPUtil();                
-                 	FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
-            	 
+                 	FTPUtil FtpUtil = new FTPUtil();         
+                 	
+                 	//判定存储到ftp还是local
+                    if(switchToFtp.equals("yes")){
+                    	FtpUtil.uploadCaseFiles(folderName, caseFiles,picName);
+                    }else{
+                    	file.transferTo(new File(newFileName));//上传文件到指定目录
+                    	folderName = "/img/" + lunboDir;
+                    }
+                 	
 
                  	dirHomeVo.setPicName(picName);               
                  	dirHomeVo.setPicType(file.getContentType());               

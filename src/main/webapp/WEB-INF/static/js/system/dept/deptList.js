@@ -1,9 +1,11 @@
 var tableSelector = '#systemDeptTableId';
 var paramsObj = {};
 var ids=new Array();
+var isMaster={};
 //1
 jQuery(document).ready(function () {
     "use strict";
+    isMaster=$("#masterId").val();
     $("#searchKeyId").keydown(function(e){
         var curKey = e.which;
         if(curKey == 13){
@@ -23,7 +25,6 @@ jQuery(document).ready(function () {
         }
     });
     initDept();
-
     jQuery('#queryBtnId').click(function () {
         // setParams();
         // reloadTable();
@@ -235,7 +236,13 @@ function initDept(pid) {
                 var showBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:showDept(\"" + value + "\")'><i class='fa fa-chain'></i>查看下级</a>";
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editDept(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                 var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteDept(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
-                return allotBtn + OPERATION_SEPARATOR + showBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR +  deleteBtn  ;
+                var ret=showBtn;
+                if(isMaster==="true"){
+
+                    ret=ret+OPERATION_SEPARATOR + allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR +  deleteBtn
+                }
+
+                return ret  ;
                 // return allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR +  deleteBtn  ;
             }
         }],

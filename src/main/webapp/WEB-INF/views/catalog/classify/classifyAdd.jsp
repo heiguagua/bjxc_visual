@@ -87,7 +87,7 @@
 			                </div>
                         	<div class="form-group">
 			                    <div class="row">
-			                        <div class="col-sm-6 hidden" id="deptGroupLead">
+			                        <div class="col-sm-6" id="deptGroupLead">
 			                            <label  class="col-sm-3 control-label" for="leadDeptName">牵头部门</label>
 			                            <div class="col-sm-9">
 			                                <input type="text" id="leadDeptName" required="required"
