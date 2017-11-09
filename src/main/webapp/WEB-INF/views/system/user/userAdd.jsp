@@ -13,6 +13,16 @@
                  .form-group{
 			            margin-bottom:25px;
 			      }
+
+				.menu-wrap .menuContent {
+					top: 0 !important;
+					display: block;
+					position: absolute;
+					left: 0 !important;
+					z-index: 1999;
+					background: #FFF;
+					width: 100%;
+				}
             </style>
 </head>
 <body>
@@ -65,7 +75,7 @@
 			                            <input type="text" id="regionName" data-rule="所属区域:required;regionCode;" class="form-control" readonly style="background-color:#fff">
 			                            <input type="hidden" id="regionCode" name="regionCode">
 			                            <div class="menu-wrap">
-			                                <div id="menuRegionContent" class="menuRegionContent" style="display:none;">
+			                                <div id="menuRegionContent" class="menuContent" style="display:none;">
 			                                    <ul id="treeRegionDemo" class="ztree"
 			                                        style="margin-top:0;border: 1px solid #98b7a8;"></ul>
 			                                </div>
