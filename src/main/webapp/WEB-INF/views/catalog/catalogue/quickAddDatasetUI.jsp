@@ -72,7 +72,7 @@
                 <div class="form-group">
                		<div class="row">
                			<div class="col-sm-6">
-			                    <label  class="col-sm-3 control-label">信息资源名称:</label>
+			                    <label  class="col-sm-3 control-label">信息资源名称<span class="redStar">*</span>:</label>
 			                    <div class="col-sm-9">
 			                        <input type="text" class="form-control" id="datasetName" name="datasetName" data-rule="信息资源名称:required;">
 									<input type="hidden" id="sourceObjType" name="datasetSourceInfo.sourceObjType" value="3">
@@ -160,7 +160,7 @@
                  <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-6">
-		                	<label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式:</label>
+		                	<label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式<span class="redStar">*</span>:</label>
 		                    <div class="col-sm-9">
 								<div class="col-sm-6" style="padding:0">
 									<select class="form-control" data-rule="所属资源格式:required;" id="format_category" name="ext.formatCategory">
@@ -217,9 +217,9 @@
                  <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-6">
-		                	<label for="shareType" class="col-sm-3 control-label">共享类型:</label>
+		                	<label for="shareType" class="col-sm-3 control-label">共享类型<span class="redStar">*</span>:</label>
 		                    <div class="col-sm-9">
-								<select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" >
+								<select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" data-rule="共享类型:required;" >
 								</select>
 								<div id="shareMethodDiv">
 								   <label for="shareMethod" class="col-sm-4 control-label">共享方式:</label>
@@ -349,17 +349,17 @@
                         <thead>
                         <tr class='table_title_tr'>
                             <th><input type="checkbox" id="selectAllItem"> 全选</th>
-                            <th>信息项名称</th>
-                            <th>类型</th>
-                            <th>长度</th>
-                            <th style="width: 240px;">责任部门</th>
+                            <th>信息项名称<span class="redStar">*</span></th>
+                            <th>类型<span class="redStar">*</span></th>
+                            <th>长度<span class="redStar">*</span></th>
+                            <th style="width: 240px;">责任部门<span class="redStar">*</span></th>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>涉密标识</th>
-                            <th>共享类型</th>
+                            <th>共享类型<span class="redStar">*</span></th>
                             <th>共享条件</th>
                             <th>共享方式</th>
-                            <th>是否向社会开放</th>
+                            <th>是否向社会开放<span class="redStar">*</span></th>
                             <th>开放条件</th>
                             <th>存储位置</th>
                             <th>更新周期</th>
