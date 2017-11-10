@@ -10,49 +10,49 @@ jQuery(document).ready(function () {
         },
         columns: [{
             field: 'productNo',
-            title: '产品标识',
+            title: '标识',
             align: 'left',
             width: '75px',
             valign: 'middle',
             sortable: false
         },{
             field: 'productName',
-            title: '产品名称',
+            title: '名称',
             align: 'center',
             width: '75px',
             valign: 'middle',
             sortable: false
         },{
             field: 'productShowName',
-            title: '产品显示名称',
+            title: '显示名称',
             align: 'center',
             width: '100px',
             valign: 'middle',
             sortable: false
         }, {
             field: 'rootPath',
-            title: '产品访问根路径地址',
+            title: '根路径',
             align: 'center',
             width: '100px',
             valign: 'middle',
             sortable: false
         }, {
             field: 'ssoPath',
-            title: '单点登录跳转地址',
+            title: '单点登录地址',
             align: 'center',
             width: '100px',
             valign: 'middle',
             sortable: false
         }, {
             field: 'orderNumber',
-            title: '显示顺序',
+            title: '顺序',
             align: 'center',
             width: '75px',
             valign: 'middle',
             sortable: false
         }, {
             field: 'integrateFlag',
-            title: '是否集成',
+            title: '集成否',
             align: 'center',
             width: '75px',
             valign: 'middle',
@@ -68,7 +68,7 @@ jQuery(document).ready(function () {
             }
         }, {
             field: 'curOpenFlag',
-            title: '前页面打开',
+            title: '本页打开',
             align: 'center',
             width: '75px',
             valign: 'middle',
@@ -84,11 +84,15 @@ jQuery(document).ready(function () {
             }
         }, {
             field: 'icon',
-            title: '显示图标',
+            title: '图标',
             align: 'center',
-            width: '100px',
+            width: '50px',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter : function (value) {
+                var url=basePathJS+value;
+                return '<img src="'+url+'"/>';
+            }
 
         }, {
             field: 'masterFlag',
@@ -107,22 +111,13 @@ jQuery(document).ready(function () {
                 return statusDesc;
             }
         }, {
-            field: 'status',
-            title: '状态',
+            field: 'jumpUrl',
+            title: '跳转URL',
             align: 'center',
             width: '100px',
             valign: 'middle',
             sortable: false,
-            visible:false,
-            formatter : function (value) {
-                var statusDesc;
-                if(value == 1){
-                    statusDesc = "启用";
-                }else if(value == 0){
-                    statusDesc = "禁用";
-                }
-                return statusDesc;
-            }
+            visible:false
         }]
     });
 

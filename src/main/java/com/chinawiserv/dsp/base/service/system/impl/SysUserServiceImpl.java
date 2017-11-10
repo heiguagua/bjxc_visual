@@ -64,6 +64,7 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
             SysUser sysUser = new SysUser();
             sysUser.setId(id);
             sysUser.setDeleteFlag(1);
+            sysUser.setUpdateTime(new Date());
             this.updateById(sysUser);
         }else{
             throw new ErrorInfoException("admin为系统内置的管理员用户，不能删除");
