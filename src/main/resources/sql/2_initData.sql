@@ -1,45 +1,6 @@
--- 如在Oracle执行下列SQL，需要将下方的uuid()函数替换为sys_guid()
 
--- 配置产品与部门集成关系表
-delete from sys_product_dept_map;
-insert into sys_product_dept_map(id,product_id,dept_id) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'rc'),id from sys_dept;
-insert into sys_product_dept_map(id,product_id,dept_id) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'sw'),id from sys_dept;
-insert into sys_product_dept_map(id,product_id,dept_id) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'dcm'),id from sys_dept;
-	
--- 配置产品与用户集成关系表
-delete from sys_product_user_map;
-insert into sys_product_user_map(id,product_id,user_id) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'rc'),id from sys_user;
-insert into sys_product_user_map(id,product_id,user_id) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'sw'),id from sys_user;
-insert into sys_product_user_map(id,product_id,user_id) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'dcm'),id from sys_user;
-	
-	
--- 配置产品与字典集成关系表
-delete from sys_product_dict_map;
-insert into sys_product_dict_map(id,product_id,dict_category) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'rc'),category_code from sys_dict_category;
-insert into sys_product_dict_map(id,product_id,dict_category) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'sw'),category_code from sys_dict_category;
-insert into sys_product_dict_map(id,product_id,dict_category) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'dcm'),category_code from sys_dict_category;
-	
-	
--- 配置产品与图标库集成关系表
-delete from sys_product_icon_map;
-insert into sys_product_icon_map(id,product_id,icon_category) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'rc'),category_code from sys_icon_category;
-insert into sys_product_icon_map(id,product_id,icon_category) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'sw'),category_code from sys_icon_category;
-insert into sys_product_icon_map(id,product_id,icon_category) 
-	select uuid(),(select id from sys_product_integrate where product_no = 'dcm'),category_code from sys_icon_category;
-	
-	
--- 配置开发者工具初始化数据
+
+
 delete from dir_develop_apis; 
 -- SELECT id,region_code,api_name,api_category,'http://' as api_url,parent_id,parent_name,order_number,`status` FROM `dir_develop_apis`
 INSERT INTO dir_develop_apis (id,region_code,api_name,api_category,api_url,parent_id,parent_name,order_number,status) VALUES ('0faf5260db5c469983342bdb7ed01d03','510100','目录发布','2','http://','d206f66976bd45aa8790957d3a38f3c4','目录管理',3,'1');
