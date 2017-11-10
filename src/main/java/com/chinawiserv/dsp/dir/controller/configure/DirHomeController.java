@@ -88,6 +88,8 @@ public class DirHomeController extends BaseController {
 			String rs = service.fileUpload(entity, file, request);
             if("samePic".equals(rs)){
             	handleResult.error("该图片已存在，请重新选择图片上传");
+            }else if("type".equals(rs)){
+            	handleResult.error("上传格式不正确，请重新选择图片上传") ;
             }else{
             	handleResult.success("图片上传成功");
             }
