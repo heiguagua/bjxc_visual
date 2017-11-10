@@ -282,6 +282,7 @@ INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('312c6388afcc11e7b780000c2909b055','','dataSetSourceType','5','关系型采集添加',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('312d2909afcc11e7b780000c2909b055','','dataSetSourceType','6','非关系型采集添加',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('312d2910afcc11e7b780000c2909b055','','dataSetSourceType','7','excel导入',NULL,NULL,NULL,NULL,1);
+INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('312d2912afcc11e7b780000c2909b055','','dataSetSourceType','8','从资源梳理同步',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('147','','dataSetStatus','0','待注册',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('148','','dataSetStatus','1','待审核',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('149','','dataSetStatus','2','审核不通过',NULL,NULL,NULL,NULL,1);

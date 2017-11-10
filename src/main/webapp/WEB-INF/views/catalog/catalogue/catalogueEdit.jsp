@@ -305,8 +305,14 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <p>
-                            <a class="btn btn-primary btn-flat pull-right btn_blue" id="N_add_itemH"><i class="fa fa-plus"></i> 添加信息项</a>
-                            <a class="btn btn-primary btn-flat pull-right btn_blue" id="deleteItems" style="margin-right: 10px;"><i class="fa fa-plus"></i> 删除</a>
+                            <button type="button" class="btn btn-default btn-flat pull-right dropdown-toggle btn-myself"
+                                    data-toggle="dropdown" id="N_add_itemH">
+                                <img src="<%=basePath%>/images/userImg/addimg.png"/>添加信息项
+                            </button>
+                            <button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
+                                    data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
+                                <img src="<%=basePath%>/images/userImg/delImg.png"/>删除
+                            </button>
                         </p>
                     </div>
                 </div>
@@ -314,7 +320,7 @@
                     <table style="width:135%" class="table-striped">
                         <thead>
                         <tr class='table_title_tr'>
-                            <th><input type="checkbox" id="selectAllItem"> 全选</th>
+                            <th id="firstTh"><input type="checkbox" id="selectAllItem"> 全选</th>
                             <th>信息项名称<span class="redStar">*</span></th>
                             <th>类型<span class="redStar">*</span></th>
                             <th>长度<span class="redStar">*</span></th>
