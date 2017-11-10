@@ -73,7 +73,7 @@
                			<div class="col-sm-6">
 			                    <label  class="col-sm-3 control-label">信息资源名称:</label>
 			                    <div class="col-sm-9">
-			                        <input type="text" class="form-control" id="datasetName" name="datasetName">
+			                        <input type="text" class="form-control" id="datasetName" name="datasetName" data-rule="信息资源名称:required;">
 									<input type="hidden" id="sourceObjType" name="datasetSourceInfo.sourceObjType" value="6">
 									<input type="hidden" id="sourceObjId" name="datasetSourceInfo.sourceObjId">
 			                    </div>
