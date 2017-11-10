@@ -44,7 +44,6 @@ public class CustomerSSOFilter extends SSOFilter {
     private static final String profile = "sso-config.properties";
     private static final Long TIME_OUT = 3600000L;
 
-    @Autowired
     private ISysProductIntegrateService sysProductIntegrateService;
 
     @Override
