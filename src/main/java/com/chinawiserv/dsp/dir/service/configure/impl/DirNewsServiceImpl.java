@@ -24,6 +24,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -104,9 +105,22 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 		try{
 			
 		
-		
+		int state = 0;
 		String fileName = file.getOriginalFilename();
         String picName =((new Date()).getTime())+fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
+        List<String> listType = new ArrayList<>();
+        listType.add("jpg");listType.add("peg");listType.add("png");listType.add("gif");
+        for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
+			String string = (String) iterator.next();
+			if(string.equals(picName.substring(picName.length()-3))){
+				state++;
+			}
+		}
+        if(state!=1){
+        	return "type";
+        }
+        
+        
         String picSize = String.valueOf(file.getSize());
         //根据图片名称，查询数据库，看是否已经有相同名称的图片存在服务器上了，如果有则不能进行本次图片上传
         boolean isSamePic = hasThisPic(picName);
@@ -237,6 +251,20 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 		String resultStr = "";
 		String fileName = file.getOriginalFilename();
         String picName =((new Date()).getTime())+fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
+        
+        int state = 0;
+        List<String> listType = new ArrayList<>();
+        listType.add("jpg");listType.add("peg");listType.add("png");listType.add("gif");
+        for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
+			String string = (String) iterator.next();
+			if(string.equals(picName.substring(picName.length()-3))){
+				state++;
+			}
+		}
+        if(state!=1){
+        	return "type";
+        }
+        
         String picSize = String.valueOf(file.getSize());
         DirNewsVo dirNewsVo = mapper.selectVoById(entity.getId());
         if(file!= null && !StringUtils.isEmpty(fileName)){

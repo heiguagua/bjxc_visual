@@ -74,6 +74,8 @@
 			                    <label  class="col-sm-3 control-label">信息资源名称:</label>
 			                    <div class="col-sm-9">
 			                        <input type="text" class="form-control" id="datasetName" name="datasetName">
+									<input type="hidden" id="sourceObjType" name="datasetSourceInfo.sourceObjType" value="6">
+									<input type="hidden" id="sourceObjId" name="datasetSourceInfo.sourceObjId">
 			                    </div>
 	                    </div>
                			<div class="col-sm-6">
@@ -333,21 +335,25 @@
                 
                 <div class="checkh1">
                 	<span class="checkspan">已选字段列表</span>
-                	
-	                	<%--<input type="button" id="deleteItems" class="pull-right btn-del hide" value="删除">--%>
-
-                		<%--</input>--%>
+					<button type="button" class="btn btn-default btn-flat pull-right dropdown-toggle btn-myself"
+							data-toggle="dropdown" id="addItem">
+						<img src="<%=basePath%>/images/userImg/addimg.png"/>添加信息项
+					</button>
+					<button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
+							data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
+						<img src="<%=basePath%>/images/userImg/delImg.png"/>删除
+					</button>
                 </div>
                 <div class="form-group " style="overflow-x: auto;min-height:200px;">
                     <table style="width:135%" class="table-striped">
                         <thead>
                         <tr class='table_title_tr'>
-                            <%--<th><input type="checkbox" id="selectAllItem"> 全选</th>--%>
+                            <th><input type="checkbox" id="selectAllItem"> 全选</th>
 							<%--<th>字段名</th>--%>
 							<th>信息项名称</th>
 							<th>类型</th>
 							<th>长度</th>
-							<th>责任部门</th>
+							<th style="width: 240px;">责任部门</th>
 							<%--<th>所属信息资源</th>--%>
 							<%--<th>所属系统</th>
 							<th>所属表</th>--%>

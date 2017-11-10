@@ -330,6 +330,7 @@
      */
     function retdcView() {
         $('#duMg-dd').addClass('hidden');
+        $('#duMg-dd .box-body').html('<table class="table table-hover" id="datarateDetailTable"></table>');
         showDirMgr();
         $('#duMg').removeClass('hidden');
     }

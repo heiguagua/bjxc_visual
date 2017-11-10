@@ -337,6 +337,7 @@
      */
     function retdcView() {
         $('#dcMg-dd').addClass('hidden');
+        $('#dcMg-dd .box-body').html('<table class="table table-hover" id="datacollectionDetailTable"></table>');
         showDirMgr();
         $('#dcMg').removeClass('hidden');
     }

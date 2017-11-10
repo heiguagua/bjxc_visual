@@ -340,10 +340,10 @@
 
                 <div class="checkh1">
                     <span class="checkspan">已选字段列表</span>
-
-                    <input type="button" id="deleteItems" class="pull-right btn-del" value="删除">
-
-                    </input>
+                    <button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
+                            data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
+                        <img src="<%=basePath%>/images/userImg/delImg.png"/>删除
+                    </button>
                 </div>
                 <div class="form-group " style="overflow-x: auto;min-height:200px;">
                     <table style="width:150%" class="table-striped">
@@ -354,7 +354,7 @@
                             <th>信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>
-                            <th>责任部门</th>
+                            <th style="width: 240px;">责任部门</th>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>所属表</th>
