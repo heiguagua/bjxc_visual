@@ -103,7 +103,7 @@ public class DirPortalContentSettingController extends BaseController {
      * 删除开发者工具
      */
 //    @RequiresPermissions("XXX:XXX:delete")
-    @Log("删除开发者工具")
+    @Log("删除门户网站简介内容")
     @RequestMapping("/delete")
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
@@ -115,7 +115,7 @@ public class DirPortalContentSettingController extends BaseController {
     		return new HandleResult().error("此节点下有子集，无法删除");   
     	}
     	service.DeleteByFlag(id);
-		return new HandleResult().success("删除开发者工具成功");
+		return new HandleResult().success("删除门户网站简介内容成功");
     }
     
     /**
