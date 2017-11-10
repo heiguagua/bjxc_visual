@@ -328,6 +328,7 @@
      */
     function retdcView() {
         $('#drMg-dd').addClass('hidden');
+        $('#drMg-dd .box-body').html('<table class="table table-hover" id="datacorrectionDetailTable"></table>');
         showDirMgr();
         $('#drMg').removeClass('hidden');
     }
