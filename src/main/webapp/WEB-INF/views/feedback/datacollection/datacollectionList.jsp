@@ -113,7 +113,7 @@
                         </form>
                         <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
-                            <table class="table table-hover" id="datacollectionDetailTable" lay-even="" lay-skin="row">
+                            <table class="table table-hover" id="datacollectionDetailTable">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -287,7 +287,16 @@
                     return '<p title="'+value+'">'+value+'</p>';
                 }
             },
-            {field: 'datasetName', title: '目录下数据集'},
+            {
+                field: 'datasetName',
+                title: '目录下数据集',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
             {field: 'collectDate', title: '最后收藏时间'},
             {field: 'collectorCount', title: '收藏人数'},
             {
@@ -328,7 +337,6 @@
      */
     function retdcView() {
         $('#dcMg-dd').addClass('hidden');
-        $('#dcMg-dd .box-body').html('<table class="layui-table" id="datacollectionDetailTable" lay-even="" lay-skin="row"></table>');
         showDirMgr();
         $('#dcMg').removeClass('hidden');
     }

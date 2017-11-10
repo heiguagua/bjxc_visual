@@ -279,7 +279,16 @@
                     return '<p title="'+value+'">'+value+'</p>';
                 }
             },
-            {field: 'datasetName', title: '目录下数据集'},
+            {
+                field: 'datasetName',
+                title: '目录下数据集',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
             {field: 'rateDate', title: '最后评分时间'},
             {field: 'raterCount', title: '评分人数'},
             {field: 'avgRateScore', title: '平均分'},
@@ -321,7 +330,6 @@
      */
     function retdcView() {
         $('#duMg-dd').addClass('hidden');
-        $('#duMg-dd .box-body').html('<table class="layui-table" id="datarateDetailTable" lay-even="" lay-skin="row"></table>');
         showDirMgr();
         $('#duMg').removeClass('hidden');
     }
