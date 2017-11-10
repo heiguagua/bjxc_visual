@@ -71,7 +71,6 @@ var Model = {
                 reset: function(){
                     this.datas = [];
                     this.select = null;
-                    this.tree = tree;
                 }
             },
             bus:{
@@ -81,7 +80,12 @@ var Model = {
                 reset: function(){
                     this.datas = [];
                     this.select = null;
-                    this.tree = tree;
+                    $('#bus_tree').treeview({
+                        data: [],
+                        color: "#428bca",
+                        nodeIcon: 'fa fa-tag',
+                        showBorder: false
+                    });
                 }
             },
             data:{
