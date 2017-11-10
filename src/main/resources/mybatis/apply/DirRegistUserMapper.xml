@@ -59,11 +59,15 @@
     <sql id="baseSelectVo">
         SELECT
           t.*,
-          t1.dept_name
+          CASE WHEN t1.`fname` = 'root'
+          THEN t1.`dept_name`
+          ELSE CONCAT(t1.`fname`,'>',t1.`dept_name`)
+          END
+          AS dept_name
         FROM
           dir_regist_user t
         LEFT JOIN sys_dept t1
-          ON t.belong_dept = t1.dept_code
+          ON t.belong_dept = t1.`id`
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
