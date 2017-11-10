@@ -74,6 +74,9 @@ public class SysProductIntegrate implements Serializable {
 	@TableField("master_flag")
 	private Integer masterFlag;
 
+	@TableField("jump_url")
+	private String jumpUrl;
+
 
 	public String getId() {
 		return id;
@@ -169,5 +172,13 @@ public class SysProductIntegrate implements Serializable {
 
 	public void setMasterFlag(Integer masterFlag) {
 		this.masterFlag = masterFlag;
+	}
+
+	public String getJumpUrl() {
+		return jumpUrl;
+	}
+
+	public void setJumpUrl(String jumpUrl) {
+		this.jumpUrl = jumpUrl;
 	}
 }

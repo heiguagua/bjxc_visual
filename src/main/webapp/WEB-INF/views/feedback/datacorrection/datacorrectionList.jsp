@@ -278,7 +278,16 @@
                     return '<p title="'+value+'">'+value+'</p>';
                 }
             },
-            {field: 'datasetName', title: '目录下数据集'},
+            {
+                field: 'datasetName',
+                title: '目录下数据集',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
             {field: 'correctDate', title: '最后纠错时间'},
             {field: 'correctorCount', title: '纠错人数'},
             {
@@ -319,7 +328,7 @@
      */
     function retdcView() {
         $('#drMg-dd').addClass('hidden');
-        $('#drMg-dd .box-body').html('<table class="layui-table" id="datacorrectionDetailTable" lay-even="" lay-skin="row"></table>');
+        $('#drMg-dd .box-body').html('<table class="table table-hover" id="datacorrectionDetailTable"></table>');
         showDirMgr();
         $('#drMg').removeClass('hidden');
     }

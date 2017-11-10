@@ -240,6 +240,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
                     SysDept sysDept = new SysDept();
                     sysDept.setId(id);
                     sysDept.setDeleteFlag(1);
+                    sysDept.setUpdateTime(new Date());
                     return updateById(sysDept);
                 }else throw new Exception("有用户所属该组织机构");
             }else throw new Exception("该组织机构有下级组织机构");

@@ -16,4 +16,6 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
 public interface ISysProductIntegrateService extends ICommonService<SysProductIntegrate, SysProductIntegrateVo> {
 
     SysProductIntegrateVo getTheMaster() throws ErrorInfoException;
+
+
 }

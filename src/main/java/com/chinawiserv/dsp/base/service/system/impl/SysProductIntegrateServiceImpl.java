@@ -52,12 +52,13 @@ public class SysProductIntegrateServiceImpl extends CommonServiceImpl<SysProduct
 
     @Override
     public SysProductIntegrateVo selectVoById(String id) throws Exception {
-		return null;
+		return mapper.selectVoById(id);
 	}
 
     @Override
     public Page<SysProductIntegrateVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
         Page<SysProductIntegrateVo> page = getPage(paramMap);
+        page.setOrderByField("order_number");
         List<SysProductIntegrateVo> pageList = mapper.selectVoPage(page, paramMap);
         page.setRecords(pageList);
         return page;
