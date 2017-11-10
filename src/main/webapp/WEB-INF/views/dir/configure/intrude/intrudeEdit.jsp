@@ -19,10 +19,10 @@
                         <input id="IntrudeId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                         <div class="form-group">  
-                        	<div class="row"> 
-                                    <div class="col-sm-6">        
-	                                <label  class="col-sm-3 control-label" for="category">选择种类</label>	                                
-	                                <div class="col-sm-9">
+                        	
+                                        
+	                                <label  for="category">选择种类</label>	                                
+	                                
 	                                <select id="Ecategory" name="category" class="form-control select2" style="width: 100%;" >             
 	                                		  <!-- <option value =""></option>
 	                                		  <option value ="volvo">Volvo</option>
@@ -31,9 +31,9 @@
 											  <option value="audi">Audi</option>   -->
 	                                </select>	
 	                              
-	                                </div>
-	                      			</div>                                                          
-                        	</div>
+	                                
+	                      			                                                        
+                        	
                         </div>
                         <div class="form-group">                            
                                 <label >内容</label>
