@@ -365,7 +365,7 @@ $(document).on("click", "button#field_add", function(){
             dataType:"json",
             success:function(data){
                 if(data.state){
-                    $('#drapDatasetId').val(data.content.result.id);
+                    $('#sourceObjId').val(data.content.result.id);
                     //数据集
                     buildDataset(data.content.result);
                     //大普查

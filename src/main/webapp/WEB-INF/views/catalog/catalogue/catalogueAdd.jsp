@@ -322,8 +322,14 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <p>
-                            <a class="btn btn-primary btn-flat pull-right btn-datas" id="addItem"><i class="fa fa-plus"></i> 添加信息项</a>
-                            <a class="btn btn-primary btn-flat pull-right btn-datas" id="deleteItems" style="margin-right: 10px;"><i class="fa fa-plus"></i> 删除</a>
+                            <button type="button" class="btn btn-default btn-flat pull-right dropdown-toggle btn-myself"
+                                    data-toggle="dropdown" id="addItem">
+                                <img src="<%=basePath%>/images/userImg/addimg.png"/>添加信息项
+                            </button>
+                            <button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
+                                    data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
+                                <img src="<%=basePath%>/images/userImg/delImg.png"/>删除
+                            </button>
                         </p>
                     </div>
                 </div>
@@ -335,7 +341,7 @@
                             <th>信息项名称<span class="redStar">*</span></th>
                             <th>类型<span class="redStar">*</span></th>
                             <th>长度<span class="redStar">*</span></th>
-                            <%--<th>责任部门</th>--%>
+                            <th style="width: 240px;">责任部门</th>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>涉密标识</th>
