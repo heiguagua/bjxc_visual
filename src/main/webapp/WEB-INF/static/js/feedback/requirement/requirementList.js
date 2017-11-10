@@ -30,13 +30,43 @@ function getRequirementTable(dd) {
                 return index + 1;
             }
             },
-            {field: 'requirementDeptName', title: '需求组织', width: '15%'},
-            {field: 'providerDeptName', title: '提供组织', width: '15%'},
-            {field: 'requireName', title: '需求资源', width: '15%',},
+            {
+                field: 'requirementDeptName',
+                title: '需求组织',
+                width: '12%',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
+            {
+                field: 'providerDeptName',
+                title: '提供组织',
+                width: '12%',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
+            {
+                field: 'requireName',
+                title: '需求资源',
+                width: '12%',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
             {
                 field: 'requireType',
                 title: '需求类型',
-                width: '15%',
+                width: '10%',
                 formatter: function (value) {
                     if(1==value){
                         return '手动添加';
@@ -52,7 +82,7 @@ function getRequirementTable(dd) {
             {
                 field: 'id',
                 title: '操作',
-                width: '5%',
+                width: '8%',
                 valign: 'middle',
                 sortable: false,
                 formatter: function (value) {

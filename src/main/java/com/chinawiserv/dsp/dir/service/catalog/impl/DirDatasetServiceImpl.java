@@ -1281,14 +1281,14 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 int insertResult = releaseMapper.insertListData(dataPublishList);
                 if (insertResult == dcmIdArray.length) {
                     result = true;
-                    //todo 调用门户的接口，同步数据到互联网门户的数据库
-                    if(Dataset.PublishType.ToDzzw.getKey().equalsIgnoreCase(publishType)||Dataset.PublishType.ToAll.getKey().equalsIgnoreCase(publishType)){
+                    //todo 调用门户的接口，同步数据到互联网门户的数据库,需要时放开即可
+//                    if(Dataset.PublishType.ToDzzw.getKey().equalsIgnoreCase(publishType)||Dataset.PublishType.ToAll.getKey().equalsIgnoreCase(publishType)){
 //                        try {
 //                            boolean b = syncPublishDatasetToOpenPortal(dcmIdArray);
 //                        } catch (Exception e) {
 //                            System.out.println("同步到开放门户失败");
 //                        }
-                    }
+//                    }
                 }
             }
         }
@@ -1505,7 +1505,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     /**
      * 推送发布数据到开放门户的方法
      * */
-    @Value("open.portal.push.address")
+    @Value("${open.portal.push.address}")
     private String openPortalUrl;
     private boolean syncPublishDatasetToOpenPortal(String... dcmIdArray){
 
@@ -1533,10 +1533,15 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         pushMap.put("dirDatasetExtFormatList",dirDatasetExtFormatList);
 
         String pushJson = new Gson().toJson(pushMap);
+        Boolean result = false;
+        try {
+            String s = HttpUtil.sendPostJson(openPortalUrl,pushJson);
+            result = Boolean.valueOf(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
 
-        HttpUtil.sendPostJson(openPortalUrl,pushJson);
-
-        return true;
+        return result;
     }
-
 }
