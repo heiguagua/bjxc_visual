@@ -19,6 +19,7 @@
                             <result column="cur_open_flag" property="curOpenFlag" />
                             <result column="icon" property="icon" />
                             <result column="master_flag" property="masterFlag" />
+                            <result column="jump_url" property="jumpUrl" />
             	</resultMap>
 
 	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo">
@@ -28,8 +29,11 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-                                <if test="id != null">
+            <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="integrateFlag != null">
+                t.integrate_flag = #{integrateFlag}
             </if>
                                                                                                                                                                                                                                     </where>
     </sql>
@@ -47,8 +51,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate">
-        insert into sys_product_integrate(id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon,master_flag) values(
-            #{id},#{productNo},#{productName},#{productShowName},#{productDesc},#{rootPath},#{ssoPath},#{orderNumber},#{integrateFlag},#{curOpenFlag},#{icon}, #{masterFlag})
+        insert into sys_product_integrate(id,product_no,product_name,product_show_name,product_desc,root_path,sso_path,order_number,integrate_flag,cur_open_flag,icon,master_flag,jump_url) values(
+            #{id},#{productNo},#{productName},#{productShowName},#{productDesc},#{rootPath},#{ssoPath},#{orderNumber},#{integrateFlag},#{curOpenFlag},#{icon}, #{masterFlag},#{jumpUrl})
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate">
@@ -89,6 +93,9 @@
             </if>
                     <if test="masterFlag != null">
                 master_flag = #{masterFlag},
+            </if>
+                    <if test="jumpUrl != null">
+                        jump_url = #{jumpUrl},
             </if>
                 </set>
         where  id = #{id}                          </update>
