@@ -284,14 +284,19 @@ function initReleasedTable(){
 }
 
 function initAllSelect(){
-    //初始化未发布中间目录分类树
-    $.initClassifyTree('unReleaseTreeDemo','unReleaseSearchClassifyId','unRelease');
-    //初始化已发布中间目录分类树
-    $.initClassifyTree('releasedTreeDemo','releasedSearchClassifyId','released');
     //未发布区域下拉查询框
-    $.initRegionQueryTreeSelect('unReleaseSearchRegionTreeDemo','unReleaseSearchRegionName','unReleaseSearchRegionCode','unReleaseSearchRegionMenuContent',true);
+    var initUnReleaseClassifyTreeParam = ["unReleaseTreeDemo","unReleaseSearchClassifyId","unRelease","unReleaseClassifyType"];
+    $.initRegionQueryTreeSelect('unReleaseSearchRegionTreeDemo','unReleaseSearchRegionName','unReleaseSearchRegionCode',
+        'unReleaseSearchRegionMenuContent',false,newRegionCode,initUnReleaseClassifyTreeParam);
+    //初始化未发布中间目录分类树
+    $.initClassifyTree('unReleaseTreeDemo','unReleaseSearchClassifyId','unRelease','unReleaseClassifyType',newRegionCode);
+
     //已发布区域下拉查询框
-    $.initRegionQueryTreeSelect('releasedSearchRegionTreeDemo','releasedSearchRegionName','releasedSearchRegionCode','releasedSearchRegionMenuContent',true);
+    var initReleasedClassifyTreeParam = ["releasedTreeDemo","releasedSearchClassifyId","released","releasedClassifyType"];
+    $.initRegionQueryTreeSelect('releasedSearchRegionTreeDemo','releasedSearchRegionName','releasedSearchRegionCode',
+        'releasedSearchRegionMenuContent',false,newRegionCode,initReleasedClassifyTreeParam);
+    //初始化已发布中间目录分类树
+    $.initClassifyTree('releasedTreeDemo','releasedSearchClassifyId','released','releasedClassifyType',newRegionCode);
 }
 
 

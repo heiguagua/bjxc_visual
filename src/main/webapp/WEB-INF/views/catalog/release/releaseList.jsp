@@ -38,7 +38,7 @@
                         <div id="unReleaseSearchDiv">
                             <aside class="main-sidebar—Du1 sidebar-myself" id="min-aside">
                                 <section class="sidebar">
-                                    <div class="user-panel">
+                                    <div class="user-panel" style="height: 6%">
                                         <b id="dir-Manger">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
@@ -47,7 +47,18 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div style="height: 6%">
+                                        <div class="input-group" style="margin:2px;;min-width:200px">
+                                            <input type="text" id="unReleaseSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
+                                            <input type="hidden" id="unReleaseSearchRegionCode">
+                                            <div class="menu-wrap">
+                                                <div id="unReleaseSearchRegionMenuContent" class="menuContent" style="display:none;">
+                                                    <ul id="unReleaseSearchRegionTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="height: 88%">
                                         <ul id="unReleaseTreeDemo" class="ztree"></ul>
                                     </div>
                                 </section>
@@ -76,6 +87,7 @@
                                     </div>
                                     <div class="input-group pull-right">
                                         <input type="hidden" id="unReleaseSearchClassifyId">
+                                        <input type="hidden" id="unReleaseClassifyType">
                                         <%--<div class="input-group" style="margin-right:4px;min-width:240px">
                                             <input type="text" id="unReleaseSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="unReleaseSearchRegionCode">
@@ -114,7 +126,7 @@
                             <!-- 复制二级标题 已经发布 -->
                             <aside class="main-sidebar—Du1 sidebar-myself" id="min-aside2">
                                 <section class="sidebar">
-                                    <div class="user-panel">
+                                    <div class="user-panel" style="height: 6%">
                                         <b id="dir-Manger2">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
@@ -123,7 +135,18 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div style="height: 6%">
+                                        <div class="input-group" style="margin:2px;min-width:200px">
+                                            <input type="text" id="releasedSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
+                                            <input type="hidden" id="releasedSearchRegionCode">
+                                            <div class="menu-wrap">
+                                                <div id="releasedSearchRegionMenuContent" class="menuContent" style="display:none;">
+                                                    <ul id="releasedSearchRegionTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="height: 88%">
                                         <ul id="releasedTreeDemo" class="ztree"></ul>
                                     </div>
                                 </section>
@@ -139,6 +162,7 @@
                                     </div>
                                     <div class="input-group pull-right">
                                         <input type="hidden" id="releasedSearchClassifyId">
+                                        <input type="hidden" id="releasedClassifyType">
                                         <%--<div class="input-group" style="margin-right:4px;min-width:240px">
                                             <input type="text" id="releasedSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="releasedSearchRegionCode">
