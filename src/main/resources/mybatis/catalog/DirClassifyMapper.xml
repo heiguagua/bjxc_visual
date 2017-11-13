@@ -59,6 +59,9 @@
             <if test="classifyType != null">
                 AND t.classify_type = #{classifyType,jdbcType=VARCHAR}
             </if>
+            <if test="excludeClassifyType != null">
+                AND t.classify_type != #{excludeClassifyType,jdbcType=VARCHAR}
+            </if>
             <if test="regionCode!= null and allRegionCode !='' ">
                 and t.region_code = #{regionCode,jdbcType=VARCHAR}
             </if>

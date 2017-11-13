@@ -132,10 +132,12 @@ function initTable(){
 }
 
 function initAllSelect(){
-    //初始化中间目录分类树
-    $.initClassifyTree('treeDemo','searchClassifyId');
     //区域下拉查询框
-    $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode','searchRegionMenuContent',true);
+    var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+    $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
+        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
+    //初始化中间目录分类树
+    $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
 }
 
 function catalogueTableShow(id){

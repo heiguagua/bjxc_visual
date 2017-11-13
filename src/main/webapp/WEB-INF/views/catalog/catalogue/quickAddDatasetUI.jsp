@@ -51,6 +51,7 @@
 		                        <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="目录分类:required;" class="form-control"
 		                         placeholder="" disabled>
 		                        <input type="hidden" value="${vo.id}" id="classifyId" name="classifyIds">
+                                <input type="hidden" value="${vo.regionCode}" id="regionCode" name="regionCode">
 		                        <%--<div class="menu-wrap">
 		                            <div id="menuContent" class="menuContent" style="display:none;">
 		                                <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>

@@ -13,6 +13,7 @@
                 <div class="form-group">
                     <div class="row">
                         <input type="hidden" id="id" name="id" value="${id}">
+                        <input type="hidden" id="regionCode" name="regionCode">
                         <div class="col-sm-12">
                             <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">目录分类<span class="redStar">*</span>:</label>
                             <div class="col-sm-10"  style="width:87.8%">

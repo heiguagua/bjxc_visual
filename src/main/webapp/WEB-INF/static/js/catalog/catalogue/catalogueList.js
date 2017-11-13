@@ -6,6 +6,7 @@ jQuery(document).ready(function () {
     initTable();
     initAllSelect();
     initButtonClickEvent();
+    initInputValue();
 });
 
 function initCss(){
@@ -152,10 +153,12 @@ function initTable(){
 
 
 function initAllSelect(){
-    //初始化中间目录分类树
-    $.initClassifyTree('treeDemo','searchClassifyId');
     //区域下拉查询框
-    $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode','searchRegionMenuContent',true);
+    var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+    $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
+        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
+    //初始化中间目录分类树
+    $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
 }
 
 
@@ -205,6 +208,9 @@ function initButtonClickEvent(){
             errorMsgTip("请先选择要删除的信息资源");
         }
     });
+}
+
+function initInputValue(){
 
 }
 
@@ -221,10 +227,23 @@ function reloadTable() {
     $(tableSelector).data("bootstrap.table").refresh();
 }
 
+function checkClassifyType(){
+    var checkResult = true;
+    var classifyType = $('#classifyType').val();
+    if(classifyType=='1' || classifyType=='2-1' || classifyType=='2-2' || classifyType=='2-3'){
+        checkResult = false;
+    }
+    return checkResult
+}
+
 function addCustom() {
     var searchClassifyId = $('#searchClassifyId').val();
     if(!checkClassfyId(searchClassifyId)){
         tip("请先选择目录分类!",parent,null,null);
+        return;
+    }
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
         return;
     }
     add('新增信息资源',basePathJS + '/catalog/catalogue/add'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
@@ -244,6 +263,10 @@ function quickAddDatasetUI() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
+        return;
+    }
     add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 
@@ -251,6 +274,10 @@ function quickSystemAddDatasetUI() {
     var searchClassifyId = $('#searchClassifyId').val();
     if(!checkClassfyId(searchClassifyId)){
         tip("请先选择目录分类!",parent,null,null);
+        return;
+    }
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
         return;
     }
     add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
@@ -261,12 +288,20 @@ function quickCsAddDatasetUI() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
+        return;
+    }
     add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 function quickDcmAddDatasetUI() {
     var searchClassifyId = $('#searchClassifyId').val();
     if(!checkClassfyId(searchClassifyId)){
         tip("请先选择目录分类!",parent,null,null);
+        return;
+    }
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
         return;
     }
     add('从关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
@@ -277,12 +312,20 @@ function quickNosqlDcmAddDatasetUI() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
+        return;
+    }
     add('从非关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmNosqlAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
 }
 function excelImportUI() {
     var searchClassifyId = $('#searchClassifyId').val();
     if(!checkClassfyId(searchClassifyId)){
         tip("请先选择目录分类!",parent,null,null);
+        return;
+    }
+    if(!checkClassifyType()){
+        tip("不能在这个分类下导入资源!!",parent,null,null);
         return;
     }
     detail('导入',basePathJS +'/catalog/catalogue/excelImportUI?classifyId='+ $('#searchClassifyId').val(),900,350,parent);
