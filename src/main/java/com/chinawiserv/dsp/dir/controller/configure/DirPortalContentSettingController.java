@@ -93,8 +93,13 @@ public class DirPortalContentSettingController extends BaseController {
 		    service.insertVO(entity);
 		    handleResult.success("创建网站简介内容成功");
 		} catch (Exception e) {
-		    handleResult.error("创建网站简介内容失败");
-		    logger.error("创建网站简介内容失败", e);
+			if(e.getMessage().equals("内容太长，无法保存")){
+				handleResult.error("内容太长，无法保存");
+			    logger.error("内容太长，无法保存", e);
+			}else{
+				handleResult.error("创建门户内容失败");
+			    logger.error("创建门户内容失败", e);
+			}
 		}
 		return handleResult;
     }
@@ -170,8 +175,13 @@ public class DirPortalContentSettingController extends BaseController {
 		    service.updateVO(entity);
 		    handleResult.success("编辑网站简介内容成功");
 		} catch (Exception e) {
-		    handleResult.error("编辑网站简介内容失败");
-		    logger.error("编辑网站简介内容失败", e);
+			if(e.getMessage().equals("内容太长，无法保存")){
+				handleResult.error("内容太长，无法保存");
+			    logger.error("内容太长，无法保存", e);
+			}else{
+				handleResult.error("创建门户内容失败");
+			    logger.error("创建门户内容失败", e);
+			}
 		}
 		return handleResult;
     }

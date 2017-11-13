@@ -96,8 +96,14 @@ public class DirNewsController extends BaseController {
             }
 //		    service.insertVO(entity);		    
 		} catch (Exception e) {
-		    handleResult.error("创建新闻表失败");
-		    logger.error("创建新闻表失败", e);
+			
+			if(e.getMessage().equals("新闻内容太长，无法保存")){
+				handleResult.error("新闻内容太长，无法保存");
+			    logger.error("新闻内容太长，无法保存", e);
+			}else{
+				handleResult.error("创建新闻图片失败");
+			    logger.error("创建新闻图片失败", e);
+			}
 		}
 		return handleResult;
     }
@@ -183,8 +189,13 @@ public class DirNewsController extends BaseController {
             }
 //		    service.insertVO(entity);		    
 		} catch (Exception e) {
-		    handleResult.error("更新新闻表失败");
-		    logger.error("更新新闻表失败", e);
+			if(e.getMessage().equals("新闻内容太长，无法保存")){
+				handleResult.error("新闻内容太长，无法保存");
+			    logger.error("新闻内容太长，无法保存", e);
+			}else{
+				handleResult.error("创建新闻图片失败");
+			    logger.error("创建新闻图片失败", e);
+			}
 		}
 		
 		return handleResult;

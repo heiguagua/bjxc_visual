@@ -102,6 +102,9 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 //        String picContent = request.getParameter("pic_content");
         //由于ie中上传文件时是以图片的绝对路径全称作为文件名所以必需截取后面的文件名
 		
+		if(entity.getNewsContent().length()>32116){
+    		throw new Exception("新闻内容太长，无法保存");
+    	}
 		try{
 			
 		
@@ -251,6 +254,9 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 		String resultStr = "";
 		String fileName = file.getOriginalFilename();
         String picName =((new Date()).getTime())+fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
+        if(entity.getNewsContent().length()>32116){
+    		throw new Exception("新闻内容太长，无法保存");
+    	}
         
         int state = 0;
         List<String> listType = new ArrayList<>();

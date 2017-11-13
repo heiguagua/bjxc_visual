@@ -54,6 +54,9 @@ public class DirIntrudeServiceImpl extends CommonServiceImpl<DirIntrudeMapper, D
 	@Override
 	public boolean insertVO(DirIntrudeVo vo) throws Exception {
 		//todo
+		if(vo.getContent().length()>32116){
+    		throw new Exception("内容太长，无法保存");
+    	}
         boolean b=true;
         vo.setId(CommonUtil.get32UUID());
 //        vo.setCreateTime(new Date());
@@ -70,6 +73,9 @@ public class DirIntrudeServiceImpl extends CommonServiceImpl<DirIntrudeMapper, D
 	@Override
 	public boolean updateVO(DirIntrudeVo vo) throws Exception {
 		//todo
+		if(vo.getContent().length()>32116){
+    		throw new Exception("内容太长，无法保存");
+    	}
         boolean b=true;
 //        vo.setUpdateTime(new Date());
 //        String loginUserId = ShiroUtils.getLoginUserId();
