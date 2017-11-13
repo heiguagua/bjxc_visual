@@ -4108,6 +4108,10 @@ INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUE
 INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ('04bf94c4b8a211e78e4300ffe04ac734','classify_icon','topic8','/img/index/topic8.png','');
 INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ('04bf94f2b8a211e78e4300ffe04ac734','classify_icon','topic9','/img/index/topic9.png','');
 INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ('04bf951bb8a211e78e4300ffe04ac734','classify_icon','total','/img/index/total.png','');
+INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ("510a4188c84511e7b780000c2909b055","integrate_icon","sourceimgicon2","/images/userImg/sourceimgicon2.png","");
+INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ("510af0bec84511e7b780000c2909b055","integrate_icon","directimgicon1","/images/userImg/directimgicon1.png","");
+INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ("510b4adfc84511e7b780000c2909b055","integrate_icon","collectimgicon2","/images/userImg/collectimgicon2.png","");
+INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ("510b9e9cc84511e7b780000c2909b055","integrate_icon","serverimgicon1","/images/userImg/serverimgicon1.png","");
 
 
  -- 基础部门模板表

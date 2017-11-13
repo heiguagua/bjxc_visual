@@ -5,15 +5,18 @@ import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate;
 import com.chinawiserv.dsp.base.entity.po.system.SysRole;
+import com.chinawiserv.dsp.base.entity.vo.system.SysIconVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysMenuVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.mapper.system.SysIconMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysProductIntegrateMapper;
 import com.chinawiserv.dsp.base.service.system.ISysProductIntegrateService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +34,9 @@ public class SysProductIntegrateServiceImpl extends CommonServiceImpl<SysProduct
     @Autowired
     private SysProductIntegrateMapper mapper;
 
+    @Autowired
+    private SysIconMapper iconMapper;
+
 
     @Override
     public boolean insertVO(SysProductIntegrateVo vo) throws Exception {
@@ -40,8 +46,7 @@ public class SysProductIntegrateServiceImpl extends CommonServiceImpl<SysProduct
 
     @Override
     public boolean updateVO(SysProductIntegrateVo vo) throws Exception {
-		//todo
-		return false;
+		return updateById(vo);
 	}
 
     @Override
@@ -80,5 +85,12 @@ public class SysProductIntegrateServiceImpl extends CommonServiceImpl<SysProduct
             return list.get(0);
         }
         throw  new ErrorInfoException("系统错误，主系统不止一个");
+    }
+
+    @Override
+    public List<SysIconVo> selectIcon() {
+        Map paramMap = new HashMap();
+        paramMap.put("iconType", "integrate_icon");
+        return iconMapper.selectIconList(paramMap);
     }
 }

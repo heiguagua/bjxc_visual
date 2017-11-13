@@ -3,6 +3,8 @@ var tableSelector = '#productIntegrateTableId';
 jQuery(document).ready(function () {
 
     var paramsObj = {};
+
+    var isMaster=$("#masterId").val();
     jQuery(tableSelector).customTable({
         url: basePathJS + '/system/productIntegrate/list',
         queryParams: function (params) {
@@ -111,13 +113,20 @@ jQuery(document).ready(function () {
                 return statusDesc;
             }
         }, {
-            field: 'jumpUrl',
-            title: '跳转URL',
+            field: 'id',
+            title: '操作',
             align: 'center',
-            width: '100px',
             valign: 'middle',
+            width: '12%',
             sortable: false,
-            visible:false
+            formatter: function (value) {
+                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editProInt(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+                if(isMaster==="true") {
+                    return editBtn;
+                }else{
+                    return "子系统只能同步";
+                }
+            }
         }]
     });
 
@@ -133,21 +142,16 @@ jQuery(document).ready(function () {
 
 });
 
+function synRemoteData(){
+    getMasterData(basePathJS + '/system/user/getMasterData');
+}
+
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
     $(tableSelector).data("bootstrap.table").refresh();
 }
 
-function addMenu() {
-    add('新增菜单', basePathJS + '/system/menu/add');
-}
 
-function editMenu(id) {
-    update('编辑菜单', basePathJS + '/system/menu/edit' , id );
-}
-
-function deleteMenu(id) {
-    var url = basePathJS + "/system/menu/delete";
-    var parameter = {id: id};
-    delObj(url , parameter) ;
+function editProInt(id) {
+    update('编辑', basePathJS + '/system/productIntegrate/edit' , id );
 }
