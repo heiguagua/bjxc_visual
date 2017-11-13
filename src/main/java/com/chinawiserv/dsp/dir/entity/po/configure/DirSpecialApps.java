@@ -18,62 +18,76 @@ public class DirSpecialApps implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * ID
-     */
+	/**
+	 * ID
+	 */
 	private String id;
-    /**
-     * 所属行政区划
-     */
+	/**
+	 * 所属行政区划
+	 */
 	@TableField("region_code")
 	private String regionCode;
-    /**
-     * 所属类别
-     */
+	/**
+	 * 所属类别
+	 */
 	@TableField("app_category")
 	private String appCategory;
-    /**
-     * 应用名称
-     */
+	/**
+	 * 应用名称
+	 */
 	@TableField("app_name")
 	private String appName;
-    /**
-     * 应用URL
-     */
+	/**
+	 * 应用URL
+	 */
 	@TableField("app_url")
 	private String appUrl;
-    /**
-     * 排序
-     */
+	/**
+	 * 图标
+	 */
+	private String icon;
+	/**
+	 * 浏览量
+	 */
+	@TableField("visit_count")
+	private Integer visitCount;
+	/**
+	 * 排序
+	 */
 	@TableField("order_number")
 	private Integer orderNumber;
-    /**
-     * 状态
-     */
+	/**
+	 * 是否在门户显示
+	 */
+	@TableField("is_show")
+	private Integer isShow;
+	/**
+	 * 状态
+	 */
 	private String status;
-    /**
-     * 创建人
-     */
+	/**
+	 * 创建人
+	 */
 	@TableField("create_user_id")
 	private String createUserId;
-    /**
-     * 创建时间
-     */
+	/**
+	 * 创建时间
+	 */
 	@TableField("create_time")
 	private Date createTime;
-    /**
-     * 更新人
-     */
+	/**
+	 * 更新人
+	 */
 	@TableField("update_user_id")
 	private String updateUserId;
-    /**
-     * 更新时间
-     */
+	/**
+	 * 更新时间
+	 */
 	@TableField("update_time")
 	private Date updateTime;
-    /**
-     * 逻辑删除标识
-     */
+	/**
+	 * 逻辑删除标识
+	 */
 	@TableField("delete_flag")
 	private Integer deleteFlag;
 
@@ -126,6 +140,14 @@ public class DirSpecialApps implements Serializable {
 		this.orderNumber = orderNumber;
 	}
 
+	public Integer getIsShow() {
+		return isShow;
+	}
+
+	public void setIsShow(Integer isShow) {
+		this.isShow = isShow;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -174,4 +196,19 @@ public class DirSpecialApps implements Serializable {
 		this.deleteFlag = deleteFlag;
 	}
 
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public Integer getVisitCount() {
+		return visitCount;
+	}
+
+	public void setVisitCount(Integer visitCount) {
+		this.visitCount = visitCount;
+	}
 }
