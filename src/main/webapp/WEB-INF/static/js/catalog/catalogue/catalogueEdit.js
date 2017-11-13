@@ -125,7 +125,7 @@ function initButtonClickEvent(){
         if(trNums>0){
             $('#dataitemList tr').each(function(){
                 var maxTrNum=$(this).find('input:first').attr('trNum');
-                if(maxTrNum>thisTrNum){
+                if(parseInt(maxTrNum)>parseInt(thisTrNum)){
                     thisTrNum=maxTrNum;
                 }
             });
@@ -136,8 +136,9 @@ function initButtonClickEvent(){
         +'<td><input name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType")+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number"  min="1" type="text" class="form-control">'
-        +'<input type="hidden" name="items['+thisTrNum+'].belongDeptId" >  </td>'
-        //+'<td><input class="form-control" type="text"  value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
+        +'<td><input type="text" id="deptName_'+thisTrNum+'" data-rule="责任部门:required;" readonly="readonly" class="form-control"><input type="hidden" id="deptId_'+thisTrNum+'" name="items['+thisTrNum+'].belongDeptId" >' +
+            '<div class="menu-wrap"><div id="menuContent_'+thisTrNum+'" class="menuContent" style="display:none;"><ul id="treeDemo_'+thisTrNum+'" class="ztree"style="margin-top:0;border: 1px solid #98b7a8;"></ul></div></div></td>'
+            //+'<td><input class="form-control" type="text"  value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
         +'<td><select name="items['+thisTrNum+'].secretFlag" class="form-control"><option value=1>是</option><option value=0>否</option></select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'
@@ -150,6 +151,7 @@ function initButtonClickEvent(){
         +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" ></td></tr>');
 
         //数据集与信息项共有的属性,如果数据集已经设值了,那新增一行时,就把这些值带入信息项
+        $.initDeptTreeSelect('treeDemo_'+thisTrNum,'deptName_'+thisTrNum,'deptId_'+thisTrNum,'menuContent_'+thisTrNum,false,{regionCode: $.getSelectedRegionCode()},null,null,null);
         $("select[name='items["+thisTrNum+"].secretFlag']").val($("input[name='secretFlag']:checked").val());
         $("select[name='items["+thisTrNum+"].shareType']").val($("#shareType").val());
         $("select[name='items["+thisTrNum+"].shareMethod']").val($("#shareMethod").val());
@@ -183,7 +185,7 @@ function getTrNum(){
         var maxNum=0;
         $.each($('#dataitemList>tr'),function(idx,item){
             var i= $(item).find('input:first').attr('trNum');
-            if(i>maxNum){
+            if(parseInt(i)>parseInt(maxNum)){
                 maxNum=i;
             }
         })
@@ -201,11 +203,8 @@ function buildItem(thisTrNum,data,sourceType){
     var str3='<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control">'
         +'<input type="hidden" name="items['+thisTrNum+'].id" value="'+data.id+'"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control">'
-        +'<input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"></td>'
-        //+'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
-        //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
-        //+'<td><select name="items['+thisTrNum+'].secretFlag" class="form-control"><option value=1'+(data.secretFlag==1?'selected="selected"':'')+' >是</option><option value=0 '+(data.secretFlag==0?'selected="selected"':'')+'>否</option></select></td>'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control"></td>'
+        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDeptId?data.belongDeptId:'')+'"><input class="form-control" type="text" disabled value="'+(data.deptName?data.deptName:'')+'" ></td>'
         +'<td><select name="items['+thisTrNum+'].secretFlag" class="form-control">'+Dict.selectsDom("ordinary",data.isOpen?data.isOpen:'')+'</select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
         +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" value="'+(data.shareCondition?data.shareCondition:'')+'"></td>'

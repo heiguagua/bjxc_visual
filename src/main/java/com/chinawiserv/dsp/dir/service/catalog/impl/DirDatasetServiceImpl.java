@@ -127,11 +127,10 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         int datasetResult = mapper.baseInsert(vo);
         if(datasetResult>0){
             //数据集来源
-            if(!StringUtils.isEmpty(vo.getDrapDatasetId())){
-                DirDatasetSourceInfo sourceInfo = new DirDatasetSourceInfo();
+            if(vo.getDatasetSourceInfo() != null && vo.getDatasetSourceInfo().getSourceObjId() != null){
+                DirDatasetSourceInfo sourceInfo = vo.getDatasetSourceInfo();
                 sourceInfo.setId(UUID.randomUUID().toString());
                 sourceInfo.setDatasetId(datasetId);
-                sourceInfo.setSourceObjId(vo.getDrapDatasetId());
                 datasetSourceInfoMapper.baseInsert(sourceInfo);
             }
             //插入信息资源格式

@@ -248,8 +248,24 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
 	@Override
 	public String fileUpdate(DirHomeVo entity, MultipartFile file, HttpServletRequest request) throws Exception {
 		String resultStr = "";
+		
+		int state = 0;
 		String fileName = file.getOriginalFilename();
         String picName =((new Date()).getTime())+fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
+        List<String> listType = new ArrayList<>();
+        listType.add("jpg");listType.add("peg");listType.add("png");listType.add("gif");
+        for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
+			String string = (String) iterator.next();
+			if(string.equals(picName.substring(picName.length()-3))){
+				state++;
+			}
+		}
+        if(state!=1){
+        	return "type";
+        }
+        
+        
+        
         String picSize = String.valueOf(file.getSize());
         DirHomeVo dirHomeVo = mapper.selectVoById(entity.getId());
         if(file!= null && !StringUtils.isEmpty(fileName)){

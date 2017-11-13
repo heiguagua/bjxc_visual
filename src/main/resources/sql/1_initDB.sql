@@ -2472,19 +2472,20 @@ alter table sys_product_icon_map comment '产品图标关系';
 /*==============================================================*/
 create table sys_product_integrate
 (
-   id                   varchar(36) not null comment 'ID',
-   fid                  varchar(36) comment '父节点ID',
-   product_no           varchar(64) comment '产品标识',
-   product_name         varchar(64) comment '产品名称',
-   product_show_name    varchar(64) comment '产品显示名称',
-   product_desc         varchar(256) comment '产品描述',
-   root_path            varchar(256) comment '产品访问根路径地址',
-   sso_path             varchar(256) comment '单点登录跳转地址',
-   order_number         int(6) default 0 comment '显示顺序',
-   master_flag          int(3) comment '是否主节点',
-   integrate_flag       int(3) default 1 comment '是否集成',
-   cur_open_flag        int(3) default 1 comment '是否在当前页面打开',
-   icon                 varchar(64) comment '显示图标',
+  `id` varchar(36) NOT NULL COMMENT 'ID',
+  `fid` varchar(36) DEFAULT NULL COMMENT '父节点ID',
+  `product_no` varchar(64) DEFAULT NULL COMMENT '产品标识',
+  `product_name` varchar(64) DEFAULT NULL COMMENT '产品名称',
+  `product_show_name` varchar(64) DEFAULT NULL COMMENT '产品显示名称',
+  `product_desc` varchar(256) DEFAULT NULL COMMENT '产品描述',
+  `root_path` varchar(256) DEFAULT NULL COMMENT '产品访问根路径地址',
+  `sso_path` varchar(256) DEFAULT NULL COMMENT '单点登录跳转地址',
+  `order_number` int(6) DEFAULT '0' COMMENT '显示顺序',
+  `master_flag` int(3) DEFAULT NULL COMMENT '是否主节点',
+  `integrate_flag` int(3) DEFAULT '1' COMMENT '是否集成',
+  `cur_open_flag` int(3) DEFAULT '1' COMMENT '是否在当前页面打开',
+  `icon` varchar(64) DEFAULT NULL COMMENT '显示图标',
+  `jump_url` varchar(64) DEFAULT NULL COMMENT '前端跳转地址',
    primary key (id)
 );
 
