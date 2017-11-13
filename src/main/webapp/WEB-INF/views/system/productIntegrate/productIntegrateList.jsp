@@ -40,14 +40,14 @@
                                             <%--<button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i> 查询</button>--%>
                                         <%--</div>--%>
                                     <%--</div>--%>
-                                        <c:if test="${!master}">
-                                            <div class="input-group">
-                                                <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:synRemoteData()" id="synRemoteDataId">
-                                                    <img src="<%=basePath%>/images/userImg/changeAdress.png"/>
-                                                    获取集成配置信息
-                                                </a>
-                                            </div>
-                                        </c:if>
+                                        <%--<c:if test="${!master}">--%>
+                                            <%--<div class="input-group">--%>
+                                                <%--<a class="btn btn-primary btn-flat btn-myself" onclick="javascript:synRemoteData()" id="synRemoteDataId">--%>
+                                                    <%--<img src="<%=basePath%>/images/userImg/changeAdress.png"/>--%>
+                                                    <%--获取集成配置信息--%>
+                                                <%--</a>--%>
+                                            <%--</div>--%>
+                                        <%--</c:if>--%>
                                 </div><!-- /.box-header -->
                             </div>
 
