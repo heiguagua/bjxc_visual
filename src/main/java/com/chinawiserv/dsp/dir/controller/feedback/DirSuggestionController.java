@@ -62,7 +62,7 @@ public class DirSuggestionController extends BaseController {
             deptId = user.getDeptId();
         }
         paramMap.put("deptId",deptId);
-        paramMap.put("regionCode",user.getRegionCode());
+//        paramMap.put("regionCode",user.getRegionCode());
 		try {
 		    Page<DirSuggestionVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);
