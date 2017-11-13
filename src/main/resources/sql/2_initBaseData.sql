@@ -74,12 +74,12 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0115','01','用户目录权限管理','/system/userDirAuthority','fa-cogs',14,2,'0115','system:userDirAuthority:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('011501','0115','编辑用户目录数据权限','','',2,3,'011501','system:userDirAuthority:edit',1);
 
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('03','0','目录分类维护','/dirClassify','fa-cog','3','2','03','catalog:classify','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('03','0','目录分类维护','/dirClassify','fa-cog','3','1','03','catalog:classify','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0301','03','查看目录分类列表','','','1','3','0301','catalog:classify:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0302','03','新增目录分类','','','2','3','0302','catalog:classify:add','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0303','03','修改目录分类','','','3','3','0303','catalog:classify:edit','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0304','03','删除目录分类','','','4','3','0304','catalog:classify:delete','1');
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('04','0','目录编目','/catalog/catalogue','fa-cog','1','2','04','catalog:catalogue','1');
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('04','0','目录编目','/catalog/catalogue','fa-cog','1','1','04','catalog:catalogue','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0401','04','查看目录列表','','','1','3','0401','catalog:catalogue:list','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0402','04','自定义新增目录','','','2','3','0402','catalog:catalogue:add','1');
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES('0403','04','快速新增目录','','','3','3','0403','catalog:catalogue:fastAdd','1');

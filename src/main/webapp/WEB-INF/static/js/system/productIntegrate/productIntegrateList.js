@@ -121,11 +121,11 @@ jQuery(document).ready(function () {
             sortable: false,
             formatter: function (value) {
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editProInt(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
-                if(isMaster==="true") {
+                // if(isMaster==="true") {
                     return editBtn;
-                }else{
-                    return "子系统只能同步";
-                }
+                // }else{
+                //     return "子系统只能同步";
+                // }
             }
         }]
     });

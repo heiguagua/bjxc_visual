@@ -88,7 +88,7 @@
                     for(var i = 0; i < treeMenus.length; i++ ) {
                         var parentMenu = treeMenus[i];
                         var childrenMenu = parentMenu.children ;
-                        var hasChild = childrenMenu && childrenMenu.length > 0 ;
+                        var hasChild = childrenMenu && childrenMenu.length > 0 && (parentMenu.sysMenu.url=="") ;
 
 
                         var treeviewLi = $('<li></li>').addClass('treeview');
