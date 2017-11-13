@@ -5,6 +5,7 @@ import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.vo.system.SysIconVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo;
 import com.chinawiserv.dsp.base.service.system.ISysProductIntegrateService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,7 +31,6 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/system/productIntegrate")
-//todo 将所有的XXX修改为真实值
 public class SysProductIntegrateController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -38,8 +39,9 @@ public class SysProductIntegrateController extends BaseController {
 
     @RequiresPermissions("system:productIntegrate:list")
     @RequestMapping("")
-    public  String init(@RequestParam Map<String , Object> paramMap){
+    public  String init(@RequestParam Map<String , Object> paramMap,Model model){
 		setCurrentMenuInfo(paramMap);
+        model.addAttribute("master",isMaster());
     	return "system/productIntegrate/productIntegrateList";
     }
 
@@ -105,14 +107,14 @@ public class SysProductIntegrateController extends BaseController {
     /**
      * 编辑产品集成表
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("system:productIntegrate:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
-		return "XXX/XXX/XXXEdit";
+		return "system/productIntegrate/productIntegrateEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("system:productIntegrate:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -130,7 +132,7 @@ public class SysProductIntegrateController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("system:productIntegrate:edit")
     @Log("编辑产品集成表")
     @RequestMapping("/doEdit")
     @ResponseBody
@@ -144,5 +146,24 @@ public class SysProductIntegrateController extends BaseController {
 		    logger.error("编辑产品集成表失败", e);
 		}
 		return handleResult;
+    }
+
+    /**
+     * 获取菜单图标下拉框内容(封装成json数组的格式)
+     */
+    @RequiresPermissions("system:productIntegrate:list")
+    @RequestMapping("/iconSelect")
+    @ResponseBody
+    public HandleResult getIconSelectData(@RequestParam Map<String, Object> paramMap){
+        HandleResult result = new HandleResult();
+        List<SysIconVo> selectDataList;
+        try {
+            selectDataList = service.selectIcon();
+            result.put("selectData",selectDataList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.error("获取菜单图标的信息列表出错");
+        }
+        return result;
     }
 }
