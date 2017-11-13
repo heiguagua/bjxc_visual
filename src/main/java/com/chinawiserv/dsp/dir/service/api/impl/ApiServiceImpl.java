@@ -11,6 +11,7 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassifyDeptMap;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetClassifyMap;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetServiceMap;
+import com.chinawiserv.dsp.dir.entity.po.configure.DirSpecialApps;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo;
 import com.chinawiserv.dsp.dir.entity.po.service.DirServiceInfo;
 import com.chinawiserv.dsp.dir.enums.service.ServiceType;
@@ -20,6 +21,7 @@ import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyDeptMapMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetServiceMapMapper;
+import com.chinawiserv.dsp.dir.mapper.configure.DirSpecialAppsMapper;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -75,6 +77,9 @@ public class ApiServiceImpl implements IApiService {
 
     @Autowired
     private DirDatasetClassifyMapMapper dirDatasetClassifyMapMapper;
+
+    @Autowired
+    private DirSpecialAppsMapper dirSpecialAppsMapper;
 
     @Override
     public List<Map<String, Object>> test(Map<String, Object> paramMap) {
@@ -688,6 +693,13 @@ public class ApiServiceImpl implements IApiService {
         List<DirClassifyDeptMap> dirClassifyDeptMapList = dirClassifyDeptMapMapper.selectList(null);
 
         result.put("dirClassifyDeptMapList",dirClassifyDeptMapList);
+
+        /**
+         * 专题应用表
+         * */
+        List<DirSpecialApps> dirSpecialAppsList = dirSpecialAppsMapper.selectList(null);
+
+        result.put("dirSpecialAppsList",dirSpecialAppsList);
 
         return result;
     }

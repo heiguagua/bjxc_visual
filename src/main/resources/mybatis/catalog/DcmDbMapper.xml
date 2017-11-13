@@ -18,12 +18,9 @@
     </select>
 
     <select id="selectTableByDbId" resultType="map">
-        SELECT
-            dti.id,dti.target_obj_code as table_name
-        FROM
-            dcm_table_info dti
-        LEFT JOIN dcm_pool_rmdb dpr ON dti.belong_db_id = dpr.id
-        WHERE dpr.id=#{db_id}
+        SELECT dti.id,dti.target_obj_code as table_name,dti.target_obj_name as table_cn_name,dti.belong_dep_id,sd.dept_name
+        FROM dcm_table_info dti LEFT JOIN sys_dept sd ON sd.id = dti.belong_dep_id
+        WHERE dti.belong_db_id = #{db_id}
     </select>
 
     <select id="selectFieldByTableId" resultType="map">
