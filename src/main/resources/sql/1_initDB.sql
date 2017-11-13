@@ -1346,9 +1346,9 @@ create table dir_suggestion
    contact_name         varchar(64) comment '联系人称呼',
    contact_email        varchar(64) comment '联系人邮箱',
    contact_phone        varchar(64) comment '联系人电话',
-   submit_date          date comment '提交时间',
+   submit_date          datetime comment '提交时间',
    response_content     varchar(1024) comment '回复信息',
-   response_date        date comment '回复时间',
+   response_date        datetime comment '回复时间',
    responser            varchar(36) comment '回复人',
    primary key (id)
 );

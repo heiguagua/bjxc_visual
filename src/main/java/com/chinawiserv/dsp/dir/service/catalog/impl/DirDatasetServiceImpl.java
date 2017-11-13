@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chinawiserv.dsp.base.common.util.*;
@@ -1517,9 +1518,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
         List<String> datasetIdList = Lists.newArrayList();
         if(CollectionUtils.isNotEmpty(dirDatasetClassifyMapList)){
-            dirDatasetClassifyMapList.forEach(dirDatasetClassifyMap -> {
-                datasetIdList.add(dirDatasetClassifyMap.getDatasetId());
-            });
+            datasetIdList = dirDatasetClassifyMapList.stream().map( e -> e.getDatasetId()).collect(Collectors.toList());
         }
 
         List<DirDataset> dirDatasetList = mapper.selectBatchIds(datasetIdList);

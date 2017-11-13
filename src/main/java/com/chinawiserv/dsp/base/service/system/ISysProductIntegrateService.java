@@ -2,8 +2,11 @@ package com.chinawiserv.dsp.base.service.system;
 
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate;
+import com.chinawiserv.dsp.base.entity.vo.system.SysIconVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,5 +20,6 @@ public interface ISysProductIntegrateService extends ICommonService<SysProductIn
 
     SysProductIntegrateVo getTheMaster() throws ErrorInfoException;
 
+    List<SysIconVo>  selectIcon();
 
 }
