@@ -142,7 +142,7 @@ jQuery(document).ready(function () {
                     if(isMaster==="true") {
                         return editBtn + OPERATION_SEPARATOR + deleteBtn;
                     }else{
-                        return "子系统只能同步";
+                        return editBtn;
                     }
                 }
             }]
