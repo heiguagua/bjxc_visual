@@ -82,14 +82,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label>状态</label>
-                                <div class="col-sm-10">
-                                <span class="radio-inline">
+                                <label >状态</label>
+                                <div class="form-group">
+                                    <span class="radio-inline" style="padding: 4px 0 0 16px;">
                                     <input name="status" type="radio" class="minimal" value="1"> 启用
-                                </span>
+                                    </span>
                                     <span  class="radio-inline pdl0">
                                     <input name="status" type="radio" class="minimal"  value="0"> 禁用
-                                </span>
+                                    </span>
                                 </div>
                             </div>
                         </div><!-- /.box-body -->

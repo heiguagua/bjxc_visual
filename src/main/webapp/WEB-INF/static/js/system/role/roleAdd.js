@@ -33,4 +33,5 @@ function runAfterSubmitSuccess(response) {
 
 function runAfterSubmit(response) {
     console.log("runAfterSubmit");
+    parent.authRole(response.response.content.roleId);
 }

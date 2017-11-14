@@ -40,24 +40,35 @@
 
                         <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
                             <section class="sidebar">
-                                <div class="user-panel">
+                                <div class="user-panel"  style="height: 6%;">
                                     <b id="dir-Manger">目录分类</b>
                                     <div class="pull-right image">
                                         <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
 
-                                          
-                                                <i style="color: rgb(51, 51, 51);" class="fa fa-backward pull-right" id="backward" title="收起"></i>
-                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                            <i style="color: rgb(51, 51, 51);" class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                            <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                         </a>
-
                                     </div>
-
                                 </div>
-                                <div>
+                                <div style="height: 6%">
+                                    <div class="input-group" style="margin:2px;">
+                                        <input type="text" id="searchRegionName" placeholder="请选择区域"
+                                               class="form-control" readonly style="background-color: #FFFFFF">
+                                        <input type="hidden" id="searchRegionCode">
+
+                                        <div class="menu-wrap">
+                                            <div id="searchRegionMenuContent" class="menuContent"
+                                                 style="display:none;">
+                                                <ul id="searchRegionTreeDemo" class="ztree"
+                                                    style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="height: 88%;">
                                     <ul id="treeDemo" class="ztree"></ul>
                                 </div>
                             </section>
-
                         </aside>
 							 <div class="content_table">
 							     <form class="form-inline marginBot" method="post">
@@ -130,11 +141,25 @@
     var tableSelector = '#datacollectionListTable';
     var paramsObj = {};
 
+
+    $(document).ready(function(){
+        initAllSelect();
+    });
+
+    function initAllSelect(){
+        //区域下拉查询框
+        var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+        $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
+            'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
+        //初始化中间目录分类树
+        $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
+    }
+
+
     function setParams() {
         var searchClassifyId = $('#searchClassifyId').val();
-        var searchName = $('#searchName').val();
-        var regionCode = $.getSelectedRegionCode();
-        paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+        var searchName = $('#editListSearch').val();
+        paramsObj = {classifyId:searchClassifyId,searchKey:searchName};
     }
 
     function reloadTable() {
@@ -142,63 +167,6 @@
         $(tableSelector).data("bootstrap.table").refresh();
     }
 
-    var setting = {
-        async: {
-            enable: true,
-            url: basePathJS + "/dirClassify/subAuthorityList",
-            autoParam: ["fid","treeCode","authorityNode"],
-            dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
-                var params = [];
-                var nodeObjs = childNodes.content.vo;
-                if (!nodeObjs) {
-                    return null;
-                }
-                for (var i in nodeObjs) {
-                    params[i] = {
-                        'id': nodeObjs[i].id,
-                        'name': nodeObjs[i].classifyName,
-                        'fid': nodeObjs[i].id,
-                        'treeCode': nodeObjs[i].treeCode,
-                        'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
-                        'authorityNode':nodeObjs[i].authorityNode
-                    }
-                }
-                return params;
-            }
-        },
-        callback: {
-            beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
-                var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                if($('#searchClassifyId').val() != treeNode.id){
-                    $('#searchClassifyId').val(treeNode.id);
-                    setParams();
-                    reloadTable();
-                }
-                if (treeNode.isParent) {
-                    if (treeNode.open) {
-                        zTreeObj.expandNode(treeNode, false);
-                    } else {
-                        zTreeObj.expandNode(treeNode, true);
-                    }
-                    return false;
-                } else {
-                    return true;
-                }
-            },
-//            onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
-//                $('#searchClassifyId').val(treeNode.id);
-//                setParams();
-//                reloadTable();
-//            }
-        }
-    };
-    $(document).ready(function(){
-        $.fn.zTree.init($("#treeDemo"), setting);
-    });
-
-
-    //目录类别下拉查询框
-    $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
 
     function hideDirMgr() {
     	 $("#min-aside").animate({
@@ -254,12 +222,12 @@
                 searchKey:searchKey
             }
         }
-        $('#datacollectionListTable').bootstrapTable('refresh', params);
+        $(tableSelector).bootstrapTable('refresh', params);
     });
     /**
      * 初始化收藏列表
      * */
-    $('#datacollectionListTable').bootstrapTable({
+    $(tableSelector).bootstrapTable({
         url:basePathJS + "/feedback/dirdatacollection/list",
         method: 'get',
         responseHandler: function (res) {
@@ -319,6 +287,8 @@
 
 </script>
 <script type="text/javascript">
+
+    var detailTableSelector = '#datacollectionDetailTable';
     $('#dcMg-dd').addClass('hidden');
     /**
      * [dcView 点击查看]
@@ -351,13 +321,13 @@
                 searchKey:searchKey
             }
         }
-        $('#datacollectionDetailTable').bootstrapTable('refresh', params);
+        $(detailTableSelector).bootstrapTable('refresh', params);
     });
     /**
      * 详情列表
      * */
     function dcViewTable(v) {
-        $('#datacollectionDetailTable').bootstrapTable({
+        $(detailTableSelector).bootstrapTable({
             url:basePathJS + "/feedback/dirdatacollection/detail?dcmId="+v,
             method: 'get',
             responseHandler: function (res) {

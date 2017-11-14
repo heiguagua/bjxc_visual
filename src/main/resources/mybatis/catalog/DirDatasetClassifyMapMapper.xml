@@ -53,7 +53,8 @@
                 and d.dataset_name like concat('%',#{datasetName,jdbcType=VARCHAR},'%')
             </if>
             <if test="classifyId!= null and classifyId !='' ">
-                and t.classify_id in (select id from dir_classify where delete_flag=0 and tree_code like concat((select tree_code from dir_classify where id=#{classifyId, jdbcType=VARCHAR}),'%'))
+                and t.classify_id in (select id from dir_classify where delete_flag=0 and (id = #{classifyId, jdbcType=VARCHAR} or
+                tree_code like concat((select tree_code from dir_classify where id=#{classifyId, jdbcType=VARCHAR}),';%')))
             </if>
             <if test="allRegionCode!= null and allRegionCode !='' ">
                 and t.dataset_id in (select id from dir_dataset where delete_flag=0 and region_code in (${allRegionCode}))
