@@ -56,7 +56,7 @@
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM dir_policy t
+        SELECT count(1) FROM dir_portal_content_setting t
         where t.delete_flag = #{deleteFlag,jdbcType=INTEGER}
         <if test="searchKey != null and searchKey !='' ">
            and t.title LIKE CONCAT('%',#{searchKey},'%')
