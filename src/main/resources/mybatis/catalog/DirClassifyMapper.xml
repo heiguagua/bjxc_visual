@@ -161,7 +161,7 @@
             ,#{authorityNode} as authority_node
         </if>
         FROM dir_classify t
-        LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
+        LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify where delete_flag=0) b ON t.id=b.dcode
         <include refid="queryConditions"></include>
         order by order_number
     </select>
