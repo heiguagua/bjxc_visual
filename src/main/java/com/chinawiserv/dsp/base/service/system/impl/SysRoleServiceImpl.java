@@ -161,6 +161,7 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
             SysRole sysRole = new SysRole();
             sysRole.setId(id);
             sysRole.setDeleteFlag(1);
+            sysRole.setUpdateTime(new Date());
             return updateById(sysRole);
         } else throw new RuntimeException("Delete role failed, because some users are belong to it!");
     }

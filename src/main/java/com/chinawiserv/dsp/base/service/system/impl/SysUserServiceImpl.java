@@ -66,6 +66,8 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
             sysUser.setDeleteFlag(1);
             sysUser.setUpdateTime(new Date());
             this.updateById(sysUser);
+            //删除用户时，真删除用户与角色关联表
+            userRoleMapper.delete(new EntityWrapper<SysUserRole>().addFilter("user_id = {0}", id));
         }else{
             throw new ErrorInfoException("admin为系统内置的管理员用户，不能删除");
         }
