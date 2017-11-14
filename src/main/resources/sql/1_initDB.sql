@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/11/7 14:10:13                             */
+/* Created on:     17/11/13 20:23:31                            */
 /*==============================================================*/
 
 
@@ -1179,7 +1179,7 @@ create table dir_develop_apis
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
-   is_show				int(11) default 1 comment '是否首页显示',
+   is_show              int(3) comment '是否首页显示',
    primary key (id)
 );
 
@@ -1456,7 +1456,7 @@ create table drap_business_activity
    activity_name        varchar(256) comment '业务名称',
    extend_code          varchar(64) comment '扩展编码',
    short_name           varchar(64) comment '业务简称',
-   parent_code          varchar(36) comment '上级业务节点编码',
+   fid                  varchar(36) comment '上级业务节点编码',
    parent_guid_activity varchar(36) comment '上级组织指导业务',
    function_keywords    varchar(256) comment '对应职能关键字',
    is_run               varchar(36) comment '是否为具体执行业务',
@@ -1572,7 +1572,7 @@ create table drap_data_meta
 (
    id                   varchar(36) not null comment 'ID',
    category             varchar(36) comment '数据元类型',
-   parent_code          varchar(36) comment '上级数据元编码',
+   fid                  varchar(36) comment '上级数据元ID',
    meta_code            varchar(64) comment '数据元编码',
    meta_en_name         varchar(64) comment '数据元英文名',
    meta_name            varchar(64) comment '数据元中文名',
@@ -2202,6 +2202,7 @@ create table sys_dept
    order_number         int(4) comment '排序',
    validate_from        date comment '组织启用时间',
    validate_to          date comment '组织停用时间',
+   pinyin               varchar(255) comment '名称拼音',
    status               int(3) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -2472,20 +2473,20 @@ alter table sys_product_icon_map comment '产品图标关系';
 /*==============================================================*/
 create table sys_product_integrate
 (
-  `id` varchar(36) NOT NULL COMMENT 'ID',
-  `fid` varchar(36) DEFAULT NULL COMMENT '父节点ID',
-  `product_no` varchar(64) DEFAULT NULL COMMENT '产品标识',
-  `product_name` varchar(64) DEFAULT NULL COMMENT '产品名称',
-  `product_show_name` varchar(64) DEFAULT NULL COMMENT '产品显示名称',
-  `product_desc` varchar(256) DEFAULT NULL COMMENT '产品描述',
-  `root_path` varchar(256) DEFAULT NULL COMMENT '产品访问根路径地址',
-  `sso_path` varchar(256) DEFAULT NULL COMMENT '单点登录跳转地址',
-  `order_number` int(6) DEFAULT '0' COMMENT '显示顺序',
-  `master_flag` int(3) DEFAULT NULL COMMENT '是否主节点',
-  `integrate_flag` int(3) DEFAULT '1' COMMENT '是否集成',
-  `cur_open_flag` int(3) DEFAULT '1' COMMENT '是否在当前页面打开',
-  `icon` varchar(64) DEFAULT NULL COMMENT '显示图标',
-  `jump_url` varchar(64) DEFAULT NULL COMMENT '前端跳转地址',
+   id                   varchar(36) not null comment 'ID',
+   fid                  varchar(36) comment '父节点ID',
+   product_no           varchar(64) comment '产品标识',
+   product_name         varchar(64) comment '产品名称',
+   product_show_name    varchar(64) comment '产品显示名称',
+   product_desc         varchar(256) comment '产品描述',
+   root_path            varchar(256) comment '产品访问根路径地址',
+   sso_path             varchar(256) comment '单点登录跳转地址',
+   order_number         int(6) default 0 comment '显示顺序',
+   master_flag          int(3) comment '是否主节点',
+   integrate_flag       int(3) default 1 comment '是否集成',
+   cur_open_flag        int(3) default 1 comment '是否在当前页面打开',
+   icon                 varchar(64) comment '显示图标',
+   jump_url             varchar(64) comment '前端跳转地址',
    primary key (id)
 );
 
@@ -2517,6 +2518,7 @@ create table sys_region
    fcode                varchar(36) comment '上级行政区划编号',
    fname                varchar(64) comment '上级行政区划名称',
    first_charact        varchar(36) comment '首字母',
+   pinyin               varchar(255) comment '名称拼音',
    region_level_code    varchar(36) comment '行政区划级别代码',
    status               varchar(36) default '1' comment '状态',
    version_id           varchar(36) comment '版本信息表ID',
@@ -2649,6 +2651,7 @@ create table sys_user
    email                varchar(64) comment '邮箱',
    user_img             varchar(255) comment '用户头像',
    user_desc            varchar(512) comment '用户描述',
+   pinyin               varchar(255) comment '名称拼音',
    status               int(3) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',

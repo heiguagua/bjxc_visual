@@ -30,8 +30,8 @@ public class DrapDataMeta implements Serializable {
     /**
      * 上级数据元编码
      */
-	@TableField("parent_code")
-	private String parentCode;
+	@TableField("fid")
+	private String fid;
     /**
      * 数据元编码
      */
@@ -119,12 +119,12 @@ public class DrapDataMeta implements Serializable {
 		this.category = category;
 	}
 
-	public String getParentCode() {
-		return parentCode;
+	public String getFid() {
+		return fid;
 	}
 
-	public void setParentCode(String parentCode) {
-		this.parentCode = parentCode;
+	public void setFid(String fid) {
+		this.fid = fid;
 	}
 
 	public String getMetaCode() {

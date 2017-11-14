@@ -1358,8 +1358,9 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
          * @param treeDivDomId      树形展开区域的DIV的id
          * @param classifyCodeInputDomId 目录分类存储id值的input框的id
+         * @param regionCodeInputDomId 存储主目录分类所属的region_code的值的input框的id
          */
-        initRelClassifyTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, classifyCodeInputDomId) {
+        initRelClassifyTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, classifyCodeInputDomId,regionCodeInputDomId) {
             var checkedOjb = [];
             var setting = {
                 check: {
@@ -1370,6 +1371,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     enable: true,
                     url: basePathJS + "/dirClassify/subAuthorityList",
                     autoParam: ["fid","treeCode","authorityNode"],
+                    otherParam:{"regionCode":$("#"+regionCodeInputDomId).val()},
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                         var params = [];
                         var nodeObjs = childNodes.content.vo;
@@ -1688,13 +1690,16 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param treeDomId         ztree对象的id
          * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
          * @param releasePageFlag   由于发布页面分两个tab,所以要做特殊处理
+         * @param classifyTypeInputDomId 存储选中目录类别的classify_type的隐藏域input框的id
+         * @param choosedRegionCode 当前选中的区域的值
          */
-        initClassifyTree: function (treeDomId, codeInputDomId, releasePageFlag) {
+        initClassifyTree: function (treeDomId, codeInputDomId, releasePageFlag, classifyTypeInputDomId, choosedRegionCode) {
             var setting = {
                 async: {
                     enable: true,
                     url: basePathJS + "/dirClassify/subAuthorityList",
                     autoParam: ["fid","treeCode","authorityNode"],
+                    otherParam:{"regionCode":choosedRegionCode},
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                         var params = [];
                         var nodeObjs = childNodes.content.vo;
@@ -1707,6 +1712,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'name': nodeObjs[i].classifyName,
                                 'fid': nodeObjs[i].id,
                                 'treeCode': nodeObjs[i].treeCode,
+                                'classifyType': nodeObjs[i].classifyType,
                                 'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
                                 'authorityNode':nodeObjs[i].authorityNode
                             }
@@ -1715,7 +1721,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     }
                 },
                 callback: {
-                    beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+                    /*beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
                         var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
                         if (treeNode.isParent) {
                             if (treeNode.open) {
@@ -1727,9 +1733,12 @@ function initGlobalCustom(tempUrlPrefix) {
                         } else {
                             return true;
                         }
-                    },
+                    },*/
                     onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
                         $('#'+codeInputDomId).val(treeNode.id);
+                        if(classifyTypeInputDomId){
+                            $('#'+classifyTypeInputDomId).val(treeNode.classifyType);
+                        }
                         if(releasePageFlag){
                             if(releasePageFlag == "unRelease"){
                                 setUnReleaseParams();
@@ -2160,8 +2169,11 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param nameInputDomId    显示选中目录类别的名称的input框的id
          * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
          * @param treeDivDomId      树形展开区域的DIV的id
+         * @param loginUserRegionCode 当前登录人所属区域
+         * @param callBackFunctionParams 选中节点事件执行后,要调用的函数的参数（值是个数组）
          */
-        initRegionQueryTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId , multiple) {
+        initRegionQueryTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple,
+                                             loginUserRegionCode,callBackFunctionParams) {
             var checkedOjb = [];
             var chkStyle = multiple ? "checkbox" : "radio";
             //if(!selectRegions || !$.isArray(selectRegions)) selectRegions = [];
@@ -2177,11 +2189,17 @@ function initGlobalCustom(tempUrlPrefix) {
                             return null;
                         }
                         for (var i in nodeObjs) {
+                            var isChecked = false;
+                            if(loginUserRegionCode && loginUserRegionCode==nodeObjs[i].regionCode){
+                                isChecked = true;
+                                $('#' + nameInputDomId).val(nodeObjs[i].regionName);
+                                $('#' + codeInputDomId).val(nodeObjs[i].regionCode);
+                            }
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].regionName,
                                 'regionCode': nodeObjs[i].regionCode,
-                                //'checked': selectRegions.indexOf(nodeObjs[i].regionCode) >= 0,
+                                'checked': isChecked,
                                 'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
                             }
                         }
@@ -2206,12 +2224,23 @@ function initGlobalCustom(tempUrlPrefix) {
                     onClick: function (e, treeId, treeNode) { //点击节点，选中并触发oncheck事件
                         var zTree = $.fn.zTree.getZTreeObj(treeId);
                         var checkedStatus = treeNode.checked;
-                        if(!checkedStatus){
-                            zTree.checkNode(treeNode,true,true,true);
+                        if(multiple){
+                            if(!checkedStatus){
+                                zTree.checkNode(treeNode,true,true,true);
+                            }else{
+                                zTree.checkNode(treeNode,false,true,true);
+                            }
                         }else{
-                            zTree.checkNode(treeNode,false,true,true);
+                            zTree.checkNode(treeNode,true,true,true);
                         }
-
+                    },
+                    beforeCheck: function (treeId, treeNode) {//单选,点击已选中的节点让它无变化
+                        var checkedStatus = treeNode.checked;
+                        if(!multiple){
+                            if(checkedStatus){
+                                return false;
+                            }
+                        }
                     },
                     onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的全名称，显示到输入框中
                         var checkedStatus = treeNode.checked; //判断是选中还是取消选中
@@ -2262,13 +2291,14 @@ function initGlobalCustom(tempUrlPrefix) {
                                 $('#' + nameInputDomId).attr("title",newNameValue);
                             }
                         }else{
-                            if(checkedStatus){
-                                $('#' + nameInputDomId).val(treeNode.name);
-                                $('#' + codeInputDomId).val(treeNode.regionCode);
-                            }else{
-                                $('#' + nameInputDomId).val("");
-                                $('#' + codeInputDomId).val("");
+                            $('#' + nameInputDomId).val(treeNode.name);
+                            $('#' + codeInputDomId).val(treeNode.regionCode);
+                            if(callBackFunctionParams && callBackFunctionParams.length>0){
+                                //这就没写成动态调用函数了,直接调用初始化目录类别树的函数
+                                $.initClassifyTree(callBackFunctionParams[0],callBackFunctionParams[1],callBackFunctionParams[2],
+                                    callBackFunctionParams[3],treeNode.regionCode);
                             }
+                            $("#" + treeDivDomId).fadeOut("fast");
                         }
                     }
                 }

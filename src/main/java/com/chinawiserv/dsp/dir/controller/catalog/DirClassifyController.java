@@ -309,7 +309,10 @@ public class DirClassifyController extends BaseController {
             if (StringUtils.isEmpty(fid)) {
                 paramMap.put("classifyType", "1");
                 //查出第一层节点的regionCode，就相当于过滤出下面字节点的regionCode了
-                paramMap.put("regionCode",ShiroUtils.getSessionAttribute(SystemConst.REGION));
+//                paramMap.put("regionCode",ShiroUtils.getSessionAttribute(SystemConst.REGION));
+            }else{
+                //由于现在树结构的区域已分开,则不显示区域节点,如：成都市下的部门目录下的各区县这个节点就不显示了
+                paramMap.put("excludeClassifyType", "4");
             }
             List<DirClassifyVo> dirClassifyVoList = service.selectSubVoList(paramMap);
             handleResult.put("vo", dirClassifyVoList);

@@ -12,7 +12,7 @@ jQuery(document).ready(function () {
 function initAllSelect(){
     var regionCode = $.getSelectedRegionCode();
     //$.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
-    $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId'); //初始化关联目录分类下拉框
+    $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId','regionCode'); //初始化关联目录分类下拉框
     $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
     //$.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
     //信息资源格式下拉框初始化
@@ -99,7 +99,8 @@ function initButtonClickEvent(){
         +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" ></td></tr>');
 
         //数据集与信息项共有的属性,如果数据集已经设值了,那新增一行时,就把这些值带入信息项
-        $.initDeptTreeSelect('treeDemo_'+thisTrNum,'deptName_'+thisTrNum,'deptId_'+thisTrNum,'menuContent_'+thisTrNum,false,{regionCode: $.getSelectedRegionCode()},null,null,null);
+        var regionCode = $("#regionCode").val();
+        $.initDeptTreeSelect('treeDemo_'+thisTrNum,'deptName_'+thisTrNum,'deptId_'+thisTrNum,'menuContent_'+thisTrNum,false,{regionCode: regionCode},null,null,null);
         $("select[name='items["+thisTrNum+"].secretFlag']").val($("input[name='secretFlag']:checked").val());
         $("select[name='items["+thisTrNum+"].shareType']").val($("#shareType").val());
         $("select[name='items["+thisTrNum+"].shareMethod']").val($("#shareMethod").val());

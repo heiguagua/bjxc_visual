@@ -120,7 +120,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         String datasetId = UUID.randomUUID().toString();
         Date createTime = DateTimeUtils.stringToDate(DateTimeUtils.convertDateTime_YYYYMMDDHHMMSS(new Date()));
         vo.setId(datasetId);
-        vo.setRegionCode(logionUser.getRegionCode());
+//        vo.setRegionCode(logionUser.getRegionCode());
         //vo.setSourceType(SourceTypeEnum.DATA_1.getDbValue());
         vo.setStatus("0");
         vo.setCreateUserId(logionUser.getId());

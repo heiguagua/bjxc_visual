@@ -63,6 +63,7 @@ function initInputValue(){
         success: function (result) {
             if (result.state) {
                 var obj = result.content.vo;
+                $("#regionCode").val(obj.regionCode);
                 $("#classifyName").val(obj.classifyName);
                 $("#classifyId").val(obj.classifyIds);
                 $("#relDatasetName").val(obj.relClassifyName);

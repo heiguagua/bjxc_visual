@@ -70,8 +70,8 @@ public class DrapBusinessActivity implements Serializable {
     /**
      * 上级业务节点编码
      */
-	@TableField("parent_code")
-	private String parentCode;
+	@TableField("fid")
+	private String fid;
     /**
      * 上级组织指导业务
      */
@@ -342,12 +342,12 @@ public class DrapBusinessActivity implements Serializable {
 		this.shortName = shortName;
 	}
 
-	public String getParentCode() {
-		return parentCode;
+	public String getFid() {
+		return fid;
 	}
 
-	public void setParentCode(String parentCode) {
-		this.parentCode = parentCode;
+	public void setFid(String fid) {
+		this.fid = fid;
 	}
 
 	public String getParentGuidActivity() {
