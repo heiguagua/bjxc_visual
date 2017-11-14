@@ -54,8 +54,8 @@
         t.*,
         su.`real_name` AS demander_name,
         sd.`dept_short_name` AS demander_dept_name,
-        sdt.`dept_short_name` AS requirement_dept_name,
-        spt.`dept_short_name` AS provider_dept_name
+        sdt.`dept_short_name` AS provider_dept_name,
+        spt.`dept_short_name` AS requirement_dept_name
         FROM
         drap_requirement_resources t
         LEFT JOIN sys_user su ON su.`id` = t.`create_user`
