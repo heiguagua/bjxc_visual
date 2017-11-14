@@ -144,7 +144,9 @@
 									<div class="form-group">
                                 <label class="control-label col-sm-4 col-xs-4">用户描述</label>
                                 <div class="col-sm-7 col-xs-7">
-                                <textarea class="form-control" id="userDesc" name="userDesc" rows="3"></textarea>
+                                <textarea class="form-control" id="userDesc" name="userDesc" rows="3"
+                                          placeholder="请输入描述，最多512个字符,1个汉字算2个字符 ..."
+                                          data-rule="用户描述:length[~512, true]" data-msg="最多输入256个汉字或512个字符"></textarea>
                                 </div>
                             </div>
 								</div>
