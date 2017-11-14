@@ -46,6 +46,7 @@ function initFormerDate(classifyId) {
                 var vo = result.content.vo;
                 if(vo){
                 	$.initNationalQueryClassifyTreeSelect('EtreeNational','EnationalCode','EdictNationalCode','EmenuNationalContent');
+                    $.initDeptTreeSelectForLeadDept('treeDemo23','EleadDeptName','EleadDeptId','menuContent23');
 
                     $("#Eclassify_name").val(vo.classifyName);
 //                    if(vo.deptId == "" || vo.deptId==undefined){
@@ -60,6 +61,8 @@ function initFormerDate(classifyId) {
 					}else{
 						$("#Edep").addClass('hidden');						
 					}
+					$("#EleadDeptName").val(vo.leadDeptName);
+					$("#EleadDeptId").val(vo.leadDeptId);
                     $("#deptName").val(vo.deptName);
                     $("#Eorder_number").val(vo.orderNumber);
                     $("#deptId").val(vo.deptId);
