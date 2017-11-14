@@ -17,14 +17,15 @@
                         <div class="col-sm-12">
                             <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">目录分类<span class="redStar">*</span>:</label>
                             <div class="col-sm-10"  style="width:87.8%">
-                                <input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
+                                <input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control" disabled >
+                                <%--<input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">
                                 <div class="menu-wrap">
                                     <div id="menuContent" class="menuContent" style="display:none;">
                                         <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                         <%--<div class="col-sm-6">
