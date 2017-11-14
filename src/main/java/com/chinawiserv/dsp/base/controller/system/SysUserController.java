@@ -15,8 +15,10 @@ import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
+import com.chinawiserv.dsp.base.mapper.system.SysUserRoleMapper;
 import com.chinawiserv.dsp.base.service.system.ISysLogService;
 import com.chinawiserv.dsp.base.service.system.ISysSettingService;
+import com.chinawiserv.dsp.base.service.system.ISysUserRoleService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -59,6 +61,9 @@ public class SysUserController extends BaseController {
 
     @Autowired
     private SysUserMapper userMapper;
+
+    @Autowired
+    private ISysUserRoleService sysUserRoleService;
 
 
 
@@ -170,6 +175,8 @@ public class SysUserController extends BaseController {
             }
             if("".equals(userStr)){
                 userMapper.deleteBatchUserByIds(ids);
+                sysUserRoleService.deleteBatchByUserId(ids);
+
                 handleResult.success("批量删除用户成功！");
             }else{
                 handleResult.error("批量删除用户失败，批量选择的用户有系统内置的管理员用户或者在尝试删除自己！");
