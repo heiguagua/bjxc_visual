@@ -89,7 +89,6 @@
             },
             { field: 'title', title: '标题' },
             { field: 'content', title: '内容' },
-            { field: 'contactName', title: '姓名', width: '15%' },
             { field: 'contactEmail', title: '邮箱', width: '15%' },
             { field: 'contactPhone', title: '联系电话', width: '10%' },
             { field: 'submitDate', title: '提交时间', width: '10%' },
