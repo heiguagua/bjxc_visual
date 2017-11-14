@@ -140,7 +140,8 @@
     <sql id="classifyConditions">
         <where>
             <if test="classifyId!= null and classifyId !='' ">
-                and m.classify_id in (select id from dir_classify where delete_flag=0 and tree_code like concat((select tree_code from dir_classify where delete_flag=0 and id=#{classifyId, jdbcType=VARCHAR}),'%'))
+                and m.classify_id in (select id from dir_classify where delete_flag=0 and ( id=#{classifyId, jdbcType=VARCHAR} or
+                tree_code like concat((select tree_code from dir_classify where delete_flag=0 and id=#{classifyId, jdbcType=VARCHAR}),';%')))
             </if>
             <if test="loginUserIdForAuthority != null and loginUserIdForAuthority!='' ">
                 and m.classify_id in(
