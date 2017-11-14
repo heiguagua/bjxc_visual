@@ -87,9 +87,9 @@
 							<div class="row">
 								<div class="col-sm-6 col-xs-6">
 									<div class="form-group">
-			                            <label for="deptName" class="control-label col-sm-5 col-xs-5">所属组织机构 <i style="color: red">*必选</i></label>
+			                            <label for="deptName" class="control-label col-sm-5 col-xs-5">所属组织机构 </label>
 			                            <div class="col-sm-7 col-xs-7">
-			                            <input type="text" id="deptName" data-rule="所属组织机构:required;deptId;" class="form-control" readonly style="background-color:#fff">
+			                            <input type="text" id="deptName" data-rule="所属组织机构;deptId;" class="form-control" readonly style="background-color:#fff">
 			                            <input type="hidden" id="deptId" name="deptId">
 			                            <div class="menu-wrap">
 			                                <div id="menuContent" class="menuContent" style="display:none;">
