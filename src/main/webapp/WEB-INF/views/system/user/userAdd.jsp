@@ -69,9 +69,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="deptName" style='float:left;'>所属组织机构 <i style="color: red">*必选</i></label>
+                            <label for="deptName" style='float:left;'>所属组织机构 </label>
                             <div class="form-group">
-                            <input type="text" id="deptName" data-rule="所属组织机构:required;deptId;" class="form-control" readonly style="background-color:#fff">
+                            <input type="text" id="deptName" data-rule="所属组织机构;deptId;" class="form-control" readonly style="background-color:#fff">
                             <input type="hidden" id="deptId" name="deptId">
                             <div class="menu-wrap">
                                 <div id="menuContent" class="menuContent" style="display:none;">
