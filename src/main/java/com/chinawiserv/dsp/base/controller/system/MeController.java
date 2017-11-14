@@ -94,7 +94,7 @@ public class MeController extends BaseController {
 	 * 执行图片上传
 	 */
 	@RequestMapping(value = "/uploadImage",method = RequestMethod.POST)
-	//@ResponseBody
+	@ResponseBody
 	public HandleResult fileUpload(
 			@RequestParam("systemLogo") MultipartFile file,
 			HttpServletRequest request) {
