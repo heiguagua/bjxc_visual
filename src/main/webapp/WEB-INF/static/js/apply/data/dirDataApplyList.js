@@ -133,7 +133,7 @@ jQuery(document).ready(function () {
             return $.extend(params, paramsObj);
         },
         pagination: true, //分页
-        pageSize: 15,
+        pageSize: 10,
         onRefresh: function(){
             var isAudited = $('#isAudited').val();
             if(isAudited == '0'){

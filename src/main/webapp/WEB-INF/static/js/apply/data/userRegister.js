@@ -42,7 +42,22 @@ function getuserregisterTable() {
             {field: 'loginName', title: '用户名', width: '10%'},
             {field: 'phone', title: '电话号码'},
             {field: 'deptName', title: '所属组织'},
-            {field: 'stateName', title: '状态', width: '8%'},
+            {
+                field: 'status',
+                title: '状态',
+                width: '8%',
+                formatter: function (value) {
+                    if(value == '0'){
+                        return "申请中";
+                    }
+                    if(value == '1'){
+                        return "已通过";
+                    }
+                    else if(value == '2'){
+                        return "已拒绝";
+                    }
+                }
+            },
             {
                 field: 'id',
                 title: '操作',
