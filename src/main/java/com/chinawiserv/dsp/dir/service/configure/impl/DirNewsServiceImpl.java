@@ -258,22 +258,23 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
     		throw new Exception("新闻内容太长，无法保存");
     	}
         
-        int state = 0;
-        List<String> listType = new ArrayList<>();
-        listType.add("jpg");listType.add("peg");listType.add("png");listType.add("gif");
-        for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
-			String string = (String) iterator.next();
-			if(string.equals(picName.substring(picName.length()-3))){
-				state++;
-			}
-		}
-        if(state!=1){
-        	return "type";
-        }
+        
         
         String picSize = String.valueOf(file.getSize());
         DirNewsVo dirNewsVo = mapper.selectVoById(entity.getId());
         if(file!= null && !StringUtils.isEmpty(fileName)){
+        	int state = 0;
+            List<String> listType = new ArrayList<>();
+            listType.add("jpg");listType.add("peg");listType.add("png");listType.add("gif");
+            for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
+    			String string = (String) iterator.next();
+    			if(string.equals(picName.substring(picName.length()-3))){
+    				state++;
+    			}
+    		}
+            if(state!=1){
+            	return "type";
+            }
         	String exsitPicName = dirNewsVo.getPicName();
             String exsitPicSize = dirNewsVo.getPicSize();
             if(!exsitPicName.equals(picName) || !exsitPicSize.equals(picSize)){            
