@@ -50,6 +50,24 @@
                 WHERE id = #{deptId}),
                 '%'
                 )
+                OR dc.`id` IN(
+                SELECT
+                t.`classify_id`
+                FROM
+                `dir_classify_authority` t
+                WHERE t.`auth_obj_id` = #{deptId}
+                AND t.`auth_obj_type` = 1
+                )
+            </if>
+            <if test="null != userId and '' != userId">
+                OR dc.`id` IN(
+                SELECT
+                t.`classify_id`
+                FROM
+                `dir_classify_authority` t
+                WHERE t.`auth_obj_id` = #{userId}
+                AND t.`auth_obj_type` = 2
+                )
             </if>
         </where>
     </sql>

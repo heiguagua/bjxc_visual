@@ -49,12 +49,31 @@
                 WHERE id = #{deptId}),
                 '%'
                 )
+                OR dc.`id` IN(
+                    SELECT
+                    t.`classify_id`
+                    FROM
+                    `dir_classify_authority` t
+                    WHERE t.`auth_obj_id` = #{deptId}
+                    AND t.`auth_obj_type` = 1
+                )
+            </if>
+            <if test="null != userId and '' != userId">
+                OR dc.`id` IN(
+                    SELECT
+                    t.`classify_id`
+                    FROM
+                    `dir_classify_authority` t
+                    WHERE t.`auth_obj_id` = #{userId}
+                    AND t.`auth_obj_type` = 2
+                )
             </if>
         </where>
     </sql>
     <!-- 查询收藏列表: -->
     <select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCollectionVo">
         SELECT
+        DISTINCT
         ddc.`id`,
         ddc.`dcm_id`,
         ddc.`collect_date`,
