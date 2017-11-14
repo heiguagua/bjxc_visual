@@ -143,7 +143,7 @@
     <select id="selectVoListForTreeData" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT t.*,CASE WHEN b.dcode IS NULL THEN '0' ELSE '1' END AS has_leaf,case when t.region_code = #{regionCode} then '1' else '0' end as is_local
         FROM dir_classify t
-        LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify) b ON t.id=b.dcode
+        LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM dir_classify where delete_flag = 0) b ON t.id=b.dcode
 
         where fid=#{fid} and t.delete_flag = 0 and t.region_code 
 			in 
