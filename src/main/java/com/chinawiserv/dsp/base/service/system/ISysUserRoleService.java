@@ -12,5 +12,5 @@ import com.chinawiserv.dsp.base.entity.po.system.SysUserRole;
  * @since 2017-04-16
  */
 public interface ISysUserRoleService extends IService<SysUserRole> {
-	
+
 }
