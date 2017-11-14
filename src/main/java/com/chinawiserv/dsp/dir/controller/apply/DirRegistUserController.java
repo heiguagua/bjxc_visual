@@ -53,13 +53,8 @@ public class DirRegistUserController extends BaseController {
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
         SysUserVo user = ShiroUtils.getLoginUser();
-        String deptId;
-        if(null != user.getUserType() &&  1 == user.getUserType()){
-            deptId = null;
-        }else{
-            deptId = user.getDeptId();
-        }
-        paramMap.put("deptId",deptId);
+        paramMap.put("deptId",user.getDeptId());
+        paramMap.put("userId",user.getId());
 //        paramMap.put("regionCode",user.getRegionCode());
 		try {
 		    Page<DirRegistUserVo> page = service.selectVoPage(paramMap);
