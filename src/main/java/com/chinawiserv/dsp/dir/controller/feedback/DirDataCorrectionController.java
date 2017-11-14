@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,10 +55,17 @@ public class DirDataCorrectionController extends BaseController {
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
-        SysUserVo user = ShiroUtils.getLoginUser();
-        paramMap.put("deptId",user.getDeptId());
-        paramMap.put("userId",user.getId());
-        paramMap.put("regionCode",user.getRegionCode());
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String depId = ShiroUtils.getLoginUserDeptId();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(depId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("userId",ShiroUtils.getLoginUserId());
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
 		try {
 		    Page<DirDataCorrectionVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);
