@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/deptSyn/deptSynList.js"></script>
+    <script src="<%=basePath%>/js/dir/sys/deptSyn/deptSynList.js"></script>
 
 </head>
 <style type="text/css">

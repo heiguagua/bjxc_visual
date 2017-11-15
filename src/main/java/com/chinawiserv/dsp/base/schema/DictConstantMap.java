@@ -1,4 +1,4 @@
-package com.chinawiserv.dsp.dir.schema;
+package com.chinawiserv.dsp.base.schema;
 
 import org.springframework.util.StringUtils;
 

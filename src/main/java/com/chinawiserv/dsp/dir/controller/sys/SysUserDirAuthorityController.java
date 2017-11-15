@@ -1,4 +1,4 @@
-package com.chinawiserv.dsp.base.controller.system;
+package com.chinawiserv.dsp.dir.controller.sys;
 
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
@@ -45,7 +45,7 @@ public class SysUserDirAuthorityController extends BaseController {
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
         setCurrentMenuInfo(paramMap);
-        return "system/userDirAuthority/userDirAuthorityList";
+        return "dir/sys/userDirAuthority/userDirAuthorityList";
     }
 
     /**
@@ -55,7 +55,7 @@ public class SysUserDirAuthorityController extends BaseController {
     @RequestMapping("/edit")
     public String edit(@RequestParam String id, Model model) throws Exception {
         model.addAttribute("id", id);
-        return "system/userDirAuthority/userDirAuthorityEdit";
+        return "dir/sys/userDirAuthority/userDirAuthorityEdit";
     }
 
     /**

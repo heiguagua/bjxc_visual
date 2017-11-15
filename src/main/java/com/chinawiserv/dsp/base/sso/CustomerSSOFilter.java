@@ -1,4 +1,4 @@
-package com.chinawiserv.dsp.dir.sso;
+package com.chinawiserv.dsp.base.sso;
 
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.util.ApplicationContextUtil;
