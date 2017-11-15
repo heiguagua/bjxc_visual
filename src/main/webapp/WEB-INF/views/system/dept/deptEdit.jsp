@@ -258,38 +258,38 @@
 		                                </div>
 		                            </div>
 								</div>
-								<div class="col-sm-6 col-xs-6">
-									<div class="form-group">
-		                                <label for="validateFrom" class="control-label col-sm-4 col-xs-4">组织启用时间</label>
-		                                <div class="col-sm-7 col-xs-7">
-		                                    <input type="text" class="form-control" id="validateFrom" readonly>
-		                                </div>
-		                            </div>
-								</div>
+								<%--<div class="col-sm-6 col-xs-6">--%>
+									<%--<div class="form-group">--%>
+		                                <%--<label for="validateFrom" class="control-label col-sm-4 col-xs-4">组织启用时间</label>--%>
+		                                <%--<div class="col-sm-7 col-xs-7">--%>
+		                                    <%--<input type="text" class="form-control" id="validateFrom" readonly>--%>
+		                                <%--</div>--%>
+		                            <%--</div>--%>
+								<%--</div>--%>
 							</div>
-							<div class="row">
-								<div class="col-sm-6 col-xs-6">
-									 <div class="form-group">
-		                                <label for="validateTo" class="control-label col-sm-4 col-xs-4">组织停用时间</label>
-		                                <div class="col-sm-7 col-xs-7">
-		                                    <input type="text" class="form-control" id="validateTo" readonly>
-		                                </div>
-		                            </div>
-								</div>
-								<div class="col-sm-6 col-xs-6">
-									<div class="form-group">
-		                                <label  for="status" class="control-label col-sm-4 col-xs-4">状态</label>
-		                                <div class="col-sm-7 col-xs-7">
-		                              <span class="radio-inline"  style="padding: 4px 0 0 16px;">
-			                            <input type="radio" name="status" id="inlineRadio1" value="1">启用
-			                          </span>
-		                                    <span class="radio-inline  pdl0">
-			                            <input type="radio" name="status" id="inlineRadio0" value="0">停用
-			                          </span>
-		                                </div>
-		                            </div>
-								</div>
-							</div>
+							<%--<div class="row">--%>
+								<%--<div class="col-sm-6 col-xs-6">--%>
+									 <%--<div class="form-group">--%>
+		                                <%--<label for="validateTo" class="control-label col-sm-4 col-xs-4">组织停用时间</label>--%>
+		                                <%--<div class="col-sm-7 col-xs-7">--%>
+		                                    <%--<input type="text" class="form-control" id="validateTo" readonly>--%>
+		                                <%--</div>--%>
+		                            <%--</div>--%>
+								<%--</div>--%>
+								<%--<div class="col-sm-6 col-xs-6">--%>
+									<%--<div class="form-group">--%>
+		                                <%--<label  for="status" class="control-label col-sm-4 col-xs-4">状态</label>--%>
+		                                <%--<div class="col-sm-7 col-xs-7">--%>
+		                              <%--<span class="radio-inline"  style="padding: 4px 0 0 16px;">--%>
+			                            <%--<input type="radio" name="status" id="inlineRadio1" value="1">启用--%>
+			                          <%--</span>--%>
+		                                    <%--<span class="radio-inline  pdl0">--%>
+			                            <%--<input type="radio" name="status" id="inlineRadio0" value="0">停用--%>
+			                          <%--</span>--%>
+		                                <%--</div>--%>
+		                            <%--</div>--%>
+								<%--</div>--%>
+							<%--</div>--%>
                             
                         </div><!-- /.box-body -->
                         <div class="box-footer">
