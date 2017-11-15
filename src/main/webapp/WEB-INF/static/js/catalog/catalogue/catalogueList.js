@@ -227,15 +227,6 @@ function reloadTable() {
     $(tableSelector).data("bootstrap.table").refresh();
 }
 
-function checkClassifyType(){
-    var checkResult = true;
-    var classifyType = $('#classifyType').val();
-    if(classifyType=='1' || classifyType=='2-1' || classifyType=='2-2' || classifyType=='2-3'){
-        checkResult = false;
-    }
-    return checkResult
-}
-
 function addCustom() {
     var searchClassifyId = $('#searchClassifyId').val();
     if(!checkClassfyId(searchClassifyId)){
@@ -340,3 +331,12 @@ function checkClassfyId(searchClassifyId){
     return false;
 }
 
+function checkClassifyType(){
+    var checkResult = true;
+    var classifyType = $('#classifyType').val();
+    if(classifyType=='1' || classifyType=='2-1' || classifyType=='2-2' || classifyType=='2-3'
+        || classifyType=='3' || classifyType=='4'){
+        checkResult = false;
+    }
+    return checkResult
+}
