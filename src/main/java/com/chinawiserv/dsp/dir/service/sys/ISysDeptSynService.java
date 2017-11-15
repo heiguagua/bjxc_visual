@@ -1,4 +1,4 @@
-package com.chinawiserv.dsp.base.service.system;
+package com.chinawiserv.dsp.dir.service.sys;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;

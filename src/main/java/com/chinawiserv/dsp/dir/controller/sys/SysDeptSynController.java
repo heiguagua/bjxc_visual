@@ -1,4 +1,4 @@
-package com.chinawiserv.dsp.base.controller.system;
+package com.chinawiserv.dsp.dir.controller.sys;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
@@ -6,7 +6,8 @@ import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
-import com.chinawiserv.dsp.base.service.system.ISysDeptSynService;
+import com.chinawiserv.dsp.dir.service.sys.ISysDeptSynService;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,7 @@ public class SysDeptSynController extends BaseController {
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
         setCurrentMenuInfo(paramMap);
-        return "system/deptSyn/deptSynList";
+        return "dir/sys/deptSyn/deptSynList";
     }
 
 

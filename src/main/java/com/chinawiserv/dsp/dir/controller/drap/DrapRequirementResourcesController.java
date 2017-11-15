@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.controller.drap;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,6 +54,17 @@ public class DrapRequirementResourcesController extends BaseController {
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String deptId  = ShiroUtils.getLoginUser().getDeptId();
+        //非超管和区域管理员，不让管理
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(deptId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("deptId",deptId);
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
 		try {
 		    Page<DrapRequirementResourcesVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);

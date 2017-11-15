@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/userDirAuthority/userDirAuthorityList.js"></script>
+    <script src="<%=basePath%>/js/dir/sys/userDirAuthority/userDirAuthorityList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

@@ -1,4 +1,4 @@
-package com.chinawiserv.dsp.base.controller.system;
+package com.chinawiserv.dsp.dir.controller.sys;
 
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
@@ -42,7 +42,7 @@ public class SysDeptDirAuthorityController extends BaseController {
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "system/deptDirAuthority/deptDirAuthorityList";
+    	return "dir/sys/deptDirAuthority/deptDirAuthorityList";
     }
 
 
@@ -53,7 +53,7 @@ public class SysDeptDirAuthorityController extends BaseController {
     @RequestMapping("/edit")
     public String edit(@RequestParam String id, Model model) throws Exception {
 		model.addAttribute("id", id);
-        return "system/deptDirAuthority/deptDirAuthorityEdit";
+        return "dir/sys/deptDirAuthority/deptDirAuthorityEdit";
     }
 
     /**

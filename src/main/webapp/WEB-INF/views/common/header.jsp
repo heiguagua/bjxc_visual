@@ -57,7 +57,7 @@
  <nav class="navbar navbar-static-top" role="navigation">
 
  	<div class="col-sm-3 log">
-        <a href="<%=basePath%>/index" ><span style="color: #fff" ><img style="margin-top:-4px;" src="<%=basePath%>/images/userImg/logoSmall.png"/></span>${systemName}-${systemSubName}</a>
+        <a href="<%=basePath%>/index" title="${systemName}-${systemSubName}"><span style="color: #fff" ><img style="margin-top:-4px;" src="<%=basePath%>/images/userImg/logoSmall.png"/></span>${systemName}-${systemSubName}</a>
     </div>
    <!-- Sidebar toggle button-->
    <!-- <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a> -->
