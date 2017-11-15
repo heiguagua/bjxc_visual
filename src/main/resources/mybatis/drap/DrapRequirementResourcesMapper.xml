@@ -46,6 +46,10 @@
             <if test="searchKey != null and searchKey != ''">
                 AND t.require_name LIKE concat('%',#{searchKey},'%')
             </if>
+            <if test="null != deptId and '' != deptId">
+                AND sdt.`dept_code` LIKE CONCAT((SELECT dept_code FROM sys_dept WHERE id = #{deptId}),'%')
+                OR spt.`dept_code` LIKE CONCAT((SELECT dept_code FROM sys_dept WHERE id = #{deptId}),'%')
+            </if>
         </where>
     </sql>
 
@@ -54,8 +58,16 @@
         t.*,
         su.`real_name` AS demander_name,
         sd.`dept_short_name` AS demander_dept_name,
-        sdt.`dept_short_name` AS provider_dept_name,
-        spt.`dept_short_name` AS requirement_dept_name
+        CASE WHEN sdt.`fname` = 'root'
+        THEN sdt.`dept_name`
+        ELSE CONCAT(sdt.`fname`,'>',sdt.`dept_name`)
+        END
+        AS provider_dept_name,
+        CASE WHEN spt.`fname` = 'root'
+        THEN spt.`dept_name`
+        ELSE CONCAT(spt.`fname`,'>',spt.`dept_name`)
+        END
+        AS requirement_dept_name
         FROM
         drap_requirement_resources t
         LEFT JOIN sys_user su ON su.`id` = t.`create_user`
