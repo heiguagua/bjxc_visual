@@ -38,7 +38,7 @@
                         <div id="unReleaseSearchDiv">
                             <aside class="main-sidebar—Du1 sidebar-myself" id="min-aside">
                                 <section class="sidebar">
-                                    <div class="user-panel" style="height: 6%">
+                                    <div class="user-panel" style="height: 40px">
                                         <b id="dir-Manger">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
@@ -47,7 +47,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div style="height: 6%">
+                                    <div style="height: 40px">
                                         <div class="input-group" style="margin:2px;;min-width:200px">
                                             <input type="text" id="unReleaseSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="unReleaseSearchRegionCode">
@@ -126,7 +126,7 @@
                             <!-- 复制二级标题 已经发布 -->
                             <aside class="main-sidebar—Du1 sidebar-myself" id="min-aside2">
                                 <section class="sidebar">
-                                    <div class="user-panel" style="height: 6%">
+                                    <div class="user-panel" style="height: 40px">
                                         <b id="dir-Manger2">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
@@ -135,7 +135,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div style="height: 6%">
+                                    <div style="height: 40px">
                                         <div class="input-group" style="margin:2px;min-width:200px">
                                             <input type="text" id="releasedSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="releasedSearchRegionCode">

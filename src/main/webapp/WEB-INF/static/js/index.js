@@ -152,7 +152,7 @@ function initBarChart(dataArry,id){
                     data: nameArray,
                     axisLabel:{
                         interval:0,
-                        rotate:45,//倾斜度 -90 至 90 默认为0
+                        rotate:35,//倾斜度 -90 至 90 默认为0
                         margin:2
                         /*textStyle:{
                             fontWeight:"bolder",
