@@ -109,21 +109,24 @@ jQuery(document).ready(function () {
                 }
                 return '<p title="'+value+'">'+value+'</p>';
             }
-        }, {
-            field: 'limitVisitCnt',
-            title: '期望使用次数',
-            align: 'center',
-            valign: 'middle',
-            width: '120',
-            sortable: false
-        }, {
-            field: 'limitVisitDatePeriod',
-            title: '期望使用时限',
-            align: 'center',
-            valign: 'middle',
-            width: '300',
-            sortable: false
-        }, {
+        },
+            // {
+            // field: 'limitVisitCnt',
+            // title: '期望使用次数',
+            // align: 'center',
+            // valign: 'middle',
+            // width: '120',
+            // sortable: false
+            // },
+            // {
+            // field: 'limitVisitDatePeriod',
+            // title: '期望使用时限',
+            // align: 'center',
+            // valign: 'middle',
+            // width: '300',
+            // sortable: false
+            // },
+            {
             field: 'realName',
             title: '申请人',
             align: 'center',
