@@ -60,7 +60,7 @@
                 AND u1.user_name like CONCAT('%',#{searchKey,jdbcType=VARCHAR},'%')
             </if>
             <if test="deptTreeCodeCondition != null">
-                AND d.tree_code like '${deptTreeCodeCondition}%'
+                AND (d.tree_code like CONCAT(#{deptTreeCodeCondition,jdbcType=VARCHAR},';','%') or d.tree_code=#{deptTreeCodeCondition})
             </if>
             <if test="regionCodeCondition != null">
                 AND u1.region_code like '${regionCodeCondition}%'
