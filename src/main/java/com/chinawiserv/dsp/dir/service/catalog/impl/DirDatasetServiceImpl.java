@@ -1506,8 +1506,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
      * 推送发布数据到开放门户的方法
      * */
     @Value("${open.portal.push.address}")
-    private String openPortalUrl;
+    private String openPortalPushAddress;
+    @Value("${open.portal.push.method}")
+    private String openPortalPushMethod;
     private boolean syncPublishDatasetToOpenPortal(String... dcmIdArray){
+
+        if(StringUtils.isEmpty(openPortalPushAddress)) return false;
 
         Map<String,Object> pushMap = Maps.newHashMap();
 
@@ -1531,9 +1535,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         pushMap.put("dirDatasetExtFormatList",dirDatasetExtFormatList);
 
         String pushJson = new Gson().toJson(pushMap);
-        Boolean result = false;
+        Boolean result;
         try {
-            String s = HttpUtil.sendPostJson(openPortalUrl,pushJson);
+            String s = HttpUtil.sendPostJson(openPortalPushAddress+openPortalPushMethod,pushJson);
             result = Boolean.valueOf(s);
         } catch (Exception e) {
             e.printStackTrace();
