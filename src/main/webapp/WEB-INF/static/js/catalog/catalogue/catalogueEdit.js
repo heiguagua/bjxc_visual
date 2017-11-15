@@ -199,16 +199,22 @@ function getTrNum(){
 
 function buildItem(thisTrNum,data,sourceType){
     var str2 = "";
+    var str4 = "";
     if(sourceType == '2' || sourceType == '5'){
         str2 = '<td><input trNum='+thisTrNum+' value="'+(data.columnName?data.columnName:'')+'" data-rule="字段名:required;" disabled type="text" class="form-control"></td>';
+    }
+    if(sourceType == '1' || sourceType == '4'){
+        str4 = '<td><input type="text" id="deptName_'+thisTrNum+'" data-rule="责任部门:required;" readonly="readonly" class="form-control" style="background-color: #FFFFFF;"><input type="hidden" id="deptId_'+thisTrNum+'" name="items['+thisTrNum+'].belongDeptId" >' +
+        '<div class="menu-wrap"><div id="menuContent_'+thisTrNum+'" class="menuContent" style="display:none;"><ul id="treeDemo_'+thisTrNum+'" class="ztree"style="margin-top:0;border: 1px solid #98b7a8;"></ul></div></div></td>';
+    }else{
+        str4 = '<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDeptId?data.belongDeptId:'')+'"><input class="form-control" type="text" disabled value="'+(data.deptName?data.deptName:'')+'" ></td>';
     }
     var str1='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>';
     var str3='<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control">'
         +'<input type="hidden" name="items['+thisTrNum+'].id" value="'+data.id+'"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control"></td>'
-        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDeptId?data.belongDeptId:'')+'"><input class="form-control" type="text" disabled value="'+(data.deptName?data.deptName:'')+'" ></td>'
-        +'<td><select name="items['+thisTrNum+'].secretFlag" class="form-control">'+Dict.selectsDom("ordinary",data.isOpen?data.isOpen:'')+'</select></td>'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control"></td>';
+    var str5='<td><select name="items['+thisTrNum+'].secretFlag" class="form-control">'+Dict.selectsDom("ordinary",data.isOpen?data.isOpen:'')+'</select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
         +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" value="'+(data.shareCondition?data.shareCondition:'')+'"></td>'
         +'<td><select name="items['+thisTrNum+'].shareMethod" class="form-control">'+Dict.selectsDom("dataSetShareMethod",data.shareMethod?data.shareMethod:'')+'</select></td>'
@@ -218,11 +224,14 @@ function buildItem(thisTrNum,data,sourceType){
         +'<td><select name="items['+thisTrNum+'].updateFrequency" class="form-control">'+Dict.selectsDom("setItemFrequency",data.updateFrequency?data.updateFrequency:'')+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
     if(str2 != ""){
-        $('#dataitemList').prepend(str1+str2+str3);
+        $('#dataitemList').prepend(str1+str2+str3+str4+str5);
     }else{
-        $('#dataitemList').prepend(str1+str3);
+        $('#dataitemList').prepend(str1+str3+str4+str5);
     }
-
+    if(sourceType == '1' || sourceType == '4'){
+        $("#deptName_"+thisTrNum).val(data.deptName?data.deptName:'');
+        $.initDeptTreeSelect('treeDemo_'+thisTrNum,'deptName_'+thisTrNum,'deptId_'+thisTrNum,'menuContent_'+thisTrNum,false,{regionCode: $("#regionCode").val()},data.belongDeptId?[{id:data.belongDeptId}]:null,null,null);
+    }
 }
 
 function infoTableDel(trNum){
