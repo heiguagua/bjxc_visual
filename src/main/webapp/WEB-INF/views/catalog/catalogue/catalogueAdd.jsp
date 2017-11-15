@@ -17,53 +17,23 @@
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" 
-            >
+            <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" >
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-sm-12">
-                            <input type="hidden" name="sourceType" value="1">
-                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">目录分类<span class="redStar">*</span>:</label>
-                            <div class="col-sm-10"  style="width:87.8%">
-                                <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="目录分类:required;" class="form-control"
-                                       placeholder="" disabled>
-                                <input type="hidden" value="${vo.id}" id="classifyId" name="classifyIds">
-                                <input type="hidden" value="${vo.regionCode}" id="regionCode" name="regionCode">
-                                <%--<input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
-                                       placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
-                                <input type="hidden" id="classifyId" name="classifyIds">
-                                <div class="menu-wrap">
-                                    <div id="menuContent" class="menuContent" style="display:none;">
-                                        <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
-                                    </div>
-                                </div>--%>
-                            </div>
-                        </div>
-                        <%--<div class="col-sm-6">
-                            <label for="classifyName" class="col-sm-3 control-label">目录分类 :</label>
+                        <input type="hidden" name="sourceType" value="1">
+                        <input type="hidden" value="${vo.id}" id="classifyId" name="classifyIds">
+                        <input type="hidden" value="${vo.regionCode}" id="regionCode" name="regionCode">
+                        <div class="col-sm-6">
+                            <label for="classifyName" class="col-sm-3 control-label">目录分类<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
-                                       placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
-                                <input type="hidden" id="classifyId" name="classifyIds">
-                                <div class="menu-wrap">
-                                    <div id="menuContent" class="menuContent" style="display:none;">
-                                        <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
-                                    </div>
-                                </div>
+                                <input type="text" value="${vo.classifyStructureName}" title="${vo.classifyStructureName}" id="classifyName"
+                                       data-rule="目录分类:required;" class="form-control" placeholder="" disabled>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label for="relDatasetCode" class="col-sm-3 control-label">关联资源分类:</label>
-                            <div class="col-sm-9">
-                                <input type="text" id="relDatasetName" class="form-control" placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
-                                <input type="hidden" id="relDatasetCode" name="relDatasetCode">
-                                <div class="menu-wrap">
-                                    <div id="relMenuContent" class="menuContent" style="display:none;">
-                                        <ul id="relTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>--%>
+                            <label for="relDatasetCode" class="col-sm-3 control-label">录入部门<span class="redStar">*</span>:</label>
+                            <div class="col-sm-9" id="createDeptDiv"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -123,7 +93,7 @@
                             <label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 13px;">信息资源提供方代码<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo" data-rule="信息资源提供方代码:required;">
-                                <input type="hidden" id="chargeDeptId" name="chargeDeptId">
+                                <%--<input type="hidden" id="chargeDeptId" name="chargeDeptId">--%>
                             </div>
                         </div>
                     </div>
