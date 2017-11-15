@@ -1,4 +1,4 @@
-package com.chinawiserv.dsp.base.service.system.impl;
+package com.chinawiserv.dsp.dir.service.sys.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
@@ -7,12 +7,13 @@ import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
-import com.chinawiserv.dsp.base.service.system.ISysDeptSynService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDeptMapMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
+import com.chinawiserv.dsp.dir.service.sys.ISysDeptSynService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

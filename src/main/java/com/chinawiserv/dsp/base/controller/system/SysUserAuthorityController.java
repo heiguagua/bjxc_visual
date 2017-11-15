@@ -9,10 +9,6 @@ import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
-//import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
-//import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
-import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -27,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+//import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
+//import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 
 /**
  * Created by zengpzh on 2017/9/21.

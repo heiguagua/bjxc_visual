@@ -1,7 +1,12 @@
 package com.chinawiserv.dsp.base.controller.system;
 
-import java.util.Map;
-
+import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.controller.common.BaseController;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityApplyVo;
+import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityApplyService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.common.anno.Log;
-import com.chinawiserv.dsp.base.controller.common.BaseController;
-import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
-import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityApplyVo;
-import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityApplyService;
+import java.util.Map;
 
 /**
  * <p>

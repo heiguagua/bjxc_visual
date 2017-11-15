@@ -1,6 +1,5 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
-import com.alibaba.druid.sql.visitor.functions.If;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -8,30 +7,22 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
-import com.chinawiserv.dsp.base.entity.po.system.SysUser;
-import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
-import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRegionMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirNationalClassifyVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDeptMapMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
