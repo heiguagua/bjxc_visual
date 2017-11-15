@@ -67,7 +67,7 @@ jQuery(document).ready(function () {
 		var aObj = $("#" + treeNode.tId + "_a");
 		if ($("#diyBtn_"+treeNode.id).length>0) return;
 //		var editStr1 = "<span id='diyBtn_space_" +treeNode.dir_code+ "' >&nbsp;</span><select class='selDemo ' id='diyBtn_" +treeNode.dir_code+ "'><option value=1>1</option><option value=2>2</option><option value=3>3</option></select>";
-		var editStr1 = "<span id='diyBtn_space_" +treeNode.id+ "'><a class='btn btn-edit s3' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-desc= "+treeNode.apiDesc+" data-orderNumber= "+treeNode.orderNumber+" data-url= "+treeNode.apiUrl+" data-category= "+treeNode.apiCategory+">编辑</a></span>"
+		var editStr1 = "<span id='diyBtn_space_" +treeNode.id+ "'><a class='btn btn-edit "+treeNode.apiName+"' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-desc= "+treeNode.apiDesc+" data-orderNumber= "+treeNode.orderNumber+" data-url= "+treeNode.apiUrl+" data-category= "+treeNode.apiCategory+">编辑</a></span>"
 		var editStr3 = "<span id='diyBtn_space4_" +treeNode.id+ "'><a class='btn btn-edit s4' id='diyBtn_" +treeNode.id+ "' data-id ="+treeNode.id+" data-name = "+treeNode.apiName+" data-parentId = "+treeNode.parentId+" >删除</a></span>"
 		var editStr2 = "<div class='btn-group'>"
 				+"<button id='diyBtn_space2_" +treeNode.id+ "' type='button' class='btn btn-add dropdown-toggle'"
@@ -75,8 +75,8 @@ jQuery(document).ready(function () {
 			   +	"添加 <span class='caret'></span></button>"
 			   +	"<ul id='diyBtn_space3_" +treeNode.id+ "' class='dropdown-menu' role='menu'>"
 
-				+"<li><a class='"+treeNode.parentId+"' id='addSibling' data-id ="+treeNode.id+" data-pcode="+treeNode.parentId+" href='#'  >添加同级</a></li>"
-				+"<li><a class='"+treeNode.id+"' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
+				+"<li><a class='"+treeNode.parentId+""+treeNode.id+"' id='addSibling' data-id ="+treeNode.id+" data-pcode="+treeNode.parentId+" href='#'  >添加同级</a></li>"
+				+"<li><a class='"+treeNode.id+"S' id='addSon' href='#' data-id ="+treeNode.id+" >添加下级</a></li></ul>"				
 				+"</div>"	
 				aObj.after(editStr3);
 				aObj.after(editStr2);
@@ -112,7 +112,7 @@ jQuery(document).ready(function () {
 		
 		
 		//编辑
-		$(".s3").on("click", function () {
+		$("."+treeNode.apiName+"").on("click", function () {
 						        
 			var curThis=this;
 			var id=$(curThis).attr('data-id');
@@ -131,7 +131,7 @@ jQuery(document).ready(function () {
 			
 		});
 		//添加同级
-		$("."+treeNode.parentId+"").on("click", function () {
+		$("."+treeNode.parentId+""+treeNode.id+"").on("click", function () {
 			var curThis=this;
 			var parentId=$(curThis).attr('data-pcode');
 //			$('#parent_id').val(api_fcode);	
@@ -144,7 +144,7 @@ jQuery(document).ready(function () {
 							
 		});
 		//添加子级
-	    $("."+treeNode.id+"").on("click", function () {
+	    $("."+treeNode.id+"S").on("click", function () {
 	    	var curThis=this;
 			var parentId=$(curThis).attr('data-id');
 //			$('#parent_id').val(api_fcode);
