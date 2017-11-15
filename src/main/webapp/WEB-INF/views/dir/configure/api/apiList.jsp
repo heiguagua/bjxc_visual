@@ -9,6 +9,18 @@
     <%-- <script src="<%=basePath%>/plugins/jquery.ztree.core.js"></script> --%>
 	<link rel="stylesheet" href="<%=basePath%>/css/zTreeStyle/zTreeStyle.css" type="text/css">
 </head>
+
+<style type="text/css">
+.layui-layer-dialog{
+	top:180px !important;
+}
+.ztree li ul {
+    margin: 0;
+    padding: 0 0 5 18px !important;
+}
+</style>
+
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <%@include file="/WEB-INF/views/common/header.jsp" %>
