@@ -18,6 +18,7 @@ function initCss(){
                 width:"2%"
             },200);
             $("#dir-Manger").hide();
+            $("#regionDiv").hide();
             $("#forward").show(400);
             $("#backward").hide(500);
             $("#treeDemo").hide(200);
@@ -36,6 +37,7 @@ function initCss(){
                 width:"14%"
             },500);
             $("#dir-Manger").show();
+            $("#regionDiv").show();
             $("#forward").hide(400);
             $("#backward").show(500);
             $("#treeDemo").show(200);

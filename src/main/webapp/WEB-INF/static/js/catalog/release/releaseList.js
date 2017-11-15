@@ -44,6 +44,7 @@ function initUnReleaseCss(){
             width:"40px"
         },200);
         $("#dir-Manger").hide();
+        $("#unReleaseRegionDiv").hide();
         $("#forward").show(400);
         $("#backward").hide(500);
         $("#treeDemo").hide(200);
@@ -61,6 +62,7 @@ function initUnReleaseCss(){
             width:"230px"
         },200);
         $("#dir-Manger").show();
+        $("#unReleaseRegionDiv").show();
         $("#forward").hide(400);
         $("#backward").show(500);
         $("#treeDemo").show(200);
@@ -84,6 +86,7 @@ function initReleasedCss(){
             width:"40px"
         },200);
         $("#dir-Manger2").hide();
+        $("#releasedRegionDiv").hide();
         $("#forward2").show(400);
         $("#backward2").hide(500);
         $("#treeDemo2").hide(200);
@@ -101,6 +104,7 @@ function initReleasedCss(){
             width:"230px"
         },200);
         $("#dir-Manger2").show();
+        $("#releasedRegionDiv").show();
         $("#forward2").hide(400);
         $("#backward2").show(500);
         $("#treeDemo2").show(200);
