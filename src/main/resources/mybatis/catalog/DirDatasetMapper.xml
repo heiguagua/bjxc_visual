@@ -505,6 +505,7 @@
     </resultMap>
 
     <resultMap id="itemVo" type="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem" extends="result_DrapDatasetItem_Map">
+        <result column="dept_name" property="dept_name" />
         <result column="dept_short_name" property="dept_short_name" />
         <result column="dataset_name" property="dataset_name" />
         <result column="system_name" property="system_name" />
@@ -521,7 +522,7 @@
 
     <select id="selectDatasetItemByIds" resultMap="itemVo">
         SELECT
-        ddi.*,sd.dept_short_name,dd.dataset_name,dis.system_name,dis.id AS system_id
+        ddi.*,sd.dept_name,sd.dept_short_name,dd.dataset_name,dis.system_name,dis.id AS system_id
         FROM
         drap_dataset_item ddi
         LEFT JOIN sys_dept sd ON ddi.belong_dept = sd.id
