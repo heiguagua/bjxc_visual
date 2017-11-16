@@ -27,7 +27,8 @@
 	<div class="top_cont">
 		<section class="top_conttitle" style="text-align: center">
 				<img class="logopng" src="<%=basePath%>/images/userImg/logo.png">
-				<p>${systemShowName}</p>
+				<%--<p>${systemShowName}</p>--%>
+                <p><%=request.getSession().getAttribute("systemShowName")%></p>
             	<div class="righttext">
             	</div>
 				<div class="section_bottom">
