@@ -31,6 +31,8 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
 
     DirClassifyVo selectVoById(String id);
     
+    DirClassifyVo selectByNationalCode(String nationalCode);
+    
 //    String selectClassifyCodebyFid(String fid);
 //    
 //    int selectClassifyLevelbyFid(String fid);

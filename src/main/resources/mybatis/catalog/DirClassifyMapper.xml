@@ -207,6 +207,12 @@
 			WHERE t.id = #{id} ) q limit 1			
     </select>
     
+    <select id="selectByNationalCode" resultMap="BaseResultVoMap">
+    
+    	select * from dir_classify where national_code = #{nationalCode} 
+    
+    </select>
+    
     <select id="selectVoById12" parameterType="java.lang.String" resultMap="BaseResultVoMap">
         SELECT t.*, s.dept_name as dept_name,d.dept_id as dept_id,c.icon_name as icon_name FROM dir_classify t 
 			left join dir_classify_dept_map d on t.id = d.classify_id

@@ -153,8 +153,13 @@ public class DirClassifyController extends BaseController {
 		
 		try {
 			if(!entity.getFid().equals("root")){
-				service.insertbatchNational(entity);				
-				handleResult.success("导入国家库成功");
+				int state = service.insertbatchNational(entity);
+				if(state == 0){
+					handleResult.success("导入国家库成功");
+				}else if(state ==1){
+					handleResult.success("导入国家库完成，存在重复导入部分，系统已自动清除");
+				}
+				
 			}else{
 				handleResult.error("导入失败");
 			}
