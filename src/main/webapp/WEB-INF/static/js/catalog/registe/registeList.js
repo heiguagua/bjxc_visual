@@ -3,9 +3,9 @@ var paramsObj = {};
 
 jQuery(document).ready(function () {
     initCss();
-    initTable();
     initAllSelect();
     initButtonClickEvent();
+    initTable();
 });
 
 function initCss(){
@@ -49,8 +49,7 @@ function initCss(){
 }
 
 function initTable(){
-    var regionCode = $.getSelectedRegionCode();
-    paramsObj["regionCode"] = regionCode;
+    paramsObj["regionCode"] = $('#searchRegionCode').val();;
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/registe/list',
         queryParams: function (params) {
@@ -185,9 +184,9 @@ function catalogueTableShow(id){
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    //var regionCode = $('#searchRegionCode').val();
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    var regionCode = $('#searchRegionCode').val();
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {

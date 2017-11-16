@@ -122,9 +122,9 @@ function initReleasedCss(){
 function initUnReleaseTable(){
     var searchName = $("#unReleaseSearchName").val();
     var searchClassifyId = $("#unReleaseSearchClassifyId").val();
-    //var regionCode = $('#unReleaseSearchRegionCode').val();
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    var regionCode = $('#unReleaseSearchRegionCode').val();
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/unRelease/list',
@@ -209,9 +209,9 @@ function initUnReleaseTable(){
 function initReleasedTable(){
     var searchName = $("#releasedSearchName").val();
     var searchClassifyId = $("#releasedSearchClassifyId").val();
-    //var regionCode = $('#releasedSearchRegionCode').val();
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    var regionCode = $('#releasedSearchRegionCode').val();
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/released/list',
@@ -291,14 +291,14 @@ function initAllSelect(){
     //未发布区域下拉查询框
     var initUnReleaseClassifyTreeParam = ["unReleaseTreeDemo","unReleaseSearchClassifyId","unRelease","unReleaseClassifyType"];
     $.initRegionQueryTreeSelect('unReleaseSearchRegionTreeDemo','unReleaseSearchRegionName','unReleaseSearchRegionCode',
-        'unReleaseSearchRegionMenuContent',false,newRegionCode,initUnReleaseClassifyTreeParam);
+        'unReleaseSearchRegionMenuContent',false,newRegionCode,initUnReleaseClassifyTreeParam,'unRelease');
     //初始化未发布中间目录分类树
     $.initClassifyTree('unReleaseTreeDemo','unReleaseSearchClassifyId','unRelease','unReleaseClassifyType',newRegionCode);
 
     //已发布区域下拉查询框
     var initReleasedClassifyTreeParam = ["releasedTreeDemo","releasedSearchClassifyId","released","releasedClassifyType"];
     $.initRegionQueryTreeSelect('releasedSearchRegionTreeDemo','releasedSearchRegionName','releasedSearchRegionCode',
-        'releasedSearchRegionMenuContent',false,newRegionCode,initReleasedClassifyTreeParam);
+        'releasedSearchRegionMenuContent',false,newRegionCode,initReleasedClassifyTreeParam,'released');
     //初始化已发布中间目录分类树
     $.initClassifyTree('releasedTreeDemo','releasedSearchClassifyId','released','releasedClassifyType',newRegionCode);
 }
@@ -366,17 +366,17 @@ function catalogueTableShow(id){
 function setUnReleaseParams(){
     var searchName = $("#unReleaseSearchName").val();
     var searchClassifyId = $("#unReleaseSearchClassifyId").val();
-    //var regionCode = $('#unReleaseSearchRegionCode').val();
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    var regionCode = $('#unReleaseSearchRegionCode').val();
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function setReleasedParams() {
     var searchName = $("#releasedSearchName").val();
     var searchClassifyId = $("#releasedSearchClassifyId").val();
-    //var regionCode = $('#releasedSearchRegionCode').val();
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    var regionCode = $('#releasedSearchRegionCode').val();
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {
