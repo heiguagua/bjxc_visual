@@ -56,16 +56,23 @@ function initAllSelect(){
 }
 
 function initInputValue(){
-    //初始化资源提供方和提供方代码输入框的值
-    $.commonAjax({
-        url:basePathJS + "/system/dept/getDeptInfoForLoginUser",
-        success: function (result) {
-            if (result.state) {
-                var deptObj = result.content.vo;
-                $("#chargeDeptId").val(deptObj.id);
-            }
-        }
-    });
+    //如果登录用户有所属部门，则把所属部门的名称和id带入输入框
+    //如果登录用户没有所属部门，则把输入框初始化部门下拉树
+    if(loginUserDeptId && loginUserDeptId!=="null"){
+        var divContent = '<input type="text" id="chargeDeptName" value="'+loginUserDeptName+'" class="form-control" disabled>'
+            +'<input type="hidden" id="chargeDeptId" name="chargeDeptId" value="'+loginUserDeptId+'">';
+        $("#createDeptDiv").html(divContent);
+    }else{
+        var divContent = '<input type="text" id="chargeDeptName" data-rule="所属组织机构:required;" class="form-control" readonly style="background-color:#fff">'
+            +'<input type="hidden" id="chargeDeptId" name="chargeDeptId">'
+            +'<div class="menu-wrap">'
+            +'<div id="menuContent" class="menuContent" style="display:none;">'
+            +'<ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>'
+            +'</div>'
+            +'</div>';
+        $("#createDeptDiv").html(divContent);
+        $.initDeptTreeSelect('treeDemo','chargeDeptName','chargeDeptId','menuContent',false,{"regionCode":$("#regionCode").val()});
+    }
 }
 
 function initButtonClickEvent(){

@@ -1734,7 +1734,7 @@ function initGlobalCustom(tempUrlPrefix) {
                             return true;
                         }
                     },*/
-                    onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+                    onClick: function (e, treeId, treeNode) { //点击节点，刷新表格
                         $('#'+codeInputDomId).val(treeNode.id);
                         if(classifyTypeInputDomId){
                             $('#'+classifyTypeInputDomId).val(treeNode.classifyType);
@@ -1859,7 +1859,7 @@ function initGlobalCustom(tempUrlPrefix) {
             var setting = {
                 async: {
                     enable: true,
-                    url: basePathJS + "/dirClassify/subAuthorityList",
+                    url: basePathJS + "/dirClassify/subAuthorityListWithSubRegion",
                     autoParam: ["fid"],
                     otherParam: param,
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
@@ -2173,7 +2173,7 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param callBackFunctionParams 选中节点事件执行后,要调用的函数的参数（值是个数组）
          */
         initRegionQueryTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple,
-                                             loginUserRegionCode,callBackFunctionParams) {
+                                             loginUserRegionCode,callBackFunctionParams,releasePageFlag) {
             var checkedOjb = [];
             var chkStyle = multiple ? "checkbox" : "radio";
             //if(!selectRegions || !$.isArray(selectRegions)) selectRegions = [];
@@ -2299,6 +2299,17 @@ function initGlobalCustom(tempUrlPrefix) {
                                     callBackFunctionParams[3],treeNode.regionCode);
                             }
                             $("#" + treeDivDomId).fadeOut("fast");
+                            //刷新表格
+                            if(releasePageFlag){
+                                if(releasePageFlag == "unRelease"){
+                                    setUnReleaseParams();
+                                }else if(releasePageFlag == "released"){
+                                    setReleasedParams();
+                                }
+                            }else{
+                                setParams();
+                            }
+                            reloadTable();
                         }
                     }
                 }

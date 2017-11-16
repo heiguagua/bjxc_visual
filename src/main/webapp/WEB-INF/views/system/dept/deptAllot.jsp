@@ -174,17 +174,17 @@
                                     <input type="text" class="form-control" name="orderNumber" id="orderNumber" placeholder="请输入排序">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label  >状态</label>
-                                <div class="form-group" >
-                              <span class="radio-inline"  style="padding: 4px 0 0 16px;">
-	                            <input type="radio" name="status" id="inlineRadio1" value="1" checked>启用
-	                          </span>
-                                    <span class="radio-inline pd10">
-	                            <input type="radio" name="status" id="inlineRadio0" value="0" >停用
-	                          </span>
-                                </div>
-                            </div>
+                            <%--<div class="form-group">--%>
+                                <%--<label  >状态</label>--%>
+                                <%--<div class="form-group" >--%>
+                              <%--<span class="radio-inline"  style="padding: 4px 0 0 16px;">--%>
+	                            <%--<input type="radio" name="status" id="inlineRadio1" value="1" checked>启用--%>
+	                          <%--</span>--%>
+                                    <%--<span class="radio-inline pd10">--%>
+	                            <%--<input type="radio" name="status" id="inlineRadio0" value="0" >停用--%>
+	                          <%--</span>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
                         </div><!-- /.box-body -->
                         <div class="box-footer">
                             <%--<button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>--%>

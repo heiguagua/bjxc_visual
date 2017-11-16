@@ -1,4 +1,7 @@
 <%@ page import="com.chinawiserv.dsp.base.entity.vo.system.SysUserVo" %>
+<%@ page import="com.chinawiserv.dsp.base.common.SystemConst" %>
+<%@ page import="org.springframework.util.StringUtils" %>
+<%@ page import="org.springframework.util.ObjectUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -10,6 +13,8 @@
     System.out.println(basePath);
     String regionCode = (String)request.getSession().getAttribute("regionCode");
     String context_path=request.getContextPath();
+    SysUserVo loginUser = (SysUserVo)request.getSession().getAttribute(SystemConst.ME);
+    System.out.println("loginUser========"+loginUser);
 %>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -111,5 +116,7 @@
 <script type="text/javascript">
     var basePathJS = "<%=basePath%>";
     var newRegionCode = "<%=regionCode%>";
+    var loginUserDeptId = '<%=loginUser!=null?loginUser.getDeptId():""%>';
+    var loginUserDeptName = '<%=loginUser!=null?loginUser.getDeptName():""%>';
     initGlobalCustom(basePathJS);
 </script>

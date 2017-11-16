@@ -3,9 +3,9 @@ var paramsObj = {};
 
 jQuery(document).ready(function () {
     initCss();
-    initTable();
     initAllSelect();
     initButtonClickEvent();
+    initTable();
 });
 
 function initCss(){
@@ -18,6 +18,7 @@ function initCss(){
                 width:"2%"
             },200);
             $("#dir-Manger").hide();
+            $("#regionDiv").hide();
             $("#forward").show(400);
             $("#backward").hide(500);
             $("#treeDemo").hide(200);
@@ -36,6 +37,7 @@ function initCss(){
                 width:"14%"
             },500);
             $("#dir-Manger").show();
+            $("#regionDiv").show();
             $("#forward").hide(400);
             $("#backward").show(500);
             $("#treeDemo").show(200);
@@ -47,8 +49,7 @@ function initCss(){
 }
 
 function initTable(){
-    var regionCode = $.getSelectedRegionCode();
-    paramsObj["regionCode"] = regionCode;
+    paramsObj["regionCode"] = $('#searchRegionCode').val();;
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/query/list',
         queryParams: function (params) {
@@ -156,9 +157,9 @@ function initButtonClickEvent(){
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    //var regionCode = $('#searchRegionCode').val();
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    var regionCode = $('#searchRegionCode').val();
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {
