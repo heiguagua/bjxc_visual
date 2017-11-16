@@ -28,6 +28,7 @@ public class DrapDatasetItem {
     private int isSecret;//是否涉密
     private int itemFormat;//所属信息资源格式
 
+    private String dept_name;
     private String dept_short_name;
     private String dataset_name;
     private String system_name;
@@ -273,4 +274,11 @@ public class DrapDatasetItem {
         this.updateTime = updateTime;
     }
 
+    public String getDept_name() {
+        return dept_name;
+    }
+
+    public void setDept_name(String dept_name) {
+        this.dept_name = dept_name;
+    }
 }
