@@ -1859,7 +1859,7 @@ function initGlobalCustom(tempUrlPrefix) {
             var setting = {
                 async: {
                     enable: true,
-                    url: basePathJS + "/dirClassify/subAuthorityList",
+                    url: basePathJS + "/dirClassify/subAuthorityListWithSubRegion",
                     autoParam: ["fid"],
                     otherParam: param,
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
