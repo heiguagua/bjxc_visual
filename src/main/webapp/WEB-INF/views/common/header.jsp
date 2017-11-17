@@ -208,13 +208,13 @@
                     li.append(a);
                     p.append(li);
                 }
-                $('#topTabs').slick({
+                /* $('#topTabs').slick({
                 	  infinite: false,
                 	  slidesToShow: 4,
                 	  slidesToScroll: 1,
                 	  autoplay: false,
                 	  autoplaySpeed: 2000,
-                	});
+                	}); */
             }
         );
     }
