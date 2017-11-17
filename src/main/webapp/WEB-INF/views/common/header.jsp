@@ -66,18 +66,18 @@
    <div class="col-sm-5  btn-group">
    	<ul class="nav_uls" id="topTabs">
         <%--原tab--%>
-        <%--<li>--%>
-            <%--<img src="<%=basePath%>/images/userImg/sourceimgicon2.png"/>--%>
-            <%--<a href="<%=basePath%>/jp:hk_drap" style="color: #FFFFFF;">&nbsp;资源梳理</a></li>--%>
-        <%--<li class="active">--%>
-            <%--<img src="<%=basePath%>/images/userImg/directimgicon1.png"/>&nbsp;<a href="###">目录管理</a>--%>
-        <%--</li>--%>
+        <li>
+            <img src="<%=basePath%>/images/userImg/sourceimgicon2.png"/>
+            <a href="<%=basePath%>/jp:hk_drap" style="color: #FFFFFF;">&nbsp;资源梳理</a></li>
+        <li class="active">
+            <img src="<%=basePath%>/images/userImg/directimgicon1.png"/>&nbsp;<a href="###">目录管理</a>
+        </li>
         <%--<li>--%>
             <%--<img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>--%>
             <%--<a target="_blank" href="<%=basePath%>/jp:hk_dcm" style="color: #FFFFFF;" >&nbsp;数据采集</a></li>--%>
-        <%--<li>--%>
-            <%--<img src="<%=basePath%>/images/userImg/serverimgicon1.png"/>--%>
-            <%--<a href="<%=basePath%>/jp:hk_service" style="color: #FFFFFF;">&nbsp;服务封装</a></li>--%>
+        <li>
+            <img src="<%=basePath%>/images/userImg/serverimgicon1.png"/>
+            <a href="<%=basePath%>/jp:hk_service" style="color: #FFFFFF;">&nbsp;服务封装</a></li>
             <%--原tab--%>
 
      <%--    <li>
@@ -86,9 +86,9 @@
 		<%-- <li>
             <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
             <a href="<%=basePath%>/jp:hk_analysis" style="color: #FFFFFF;">&nbsp;分析监管</a></li> --%>
-        <%-- <li>
+         <li>
             <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
-            <a target="_blank" href="<%=basePath%>/jp:hk_portal" style="color: #FFFFFF;">&nbsp;门户</a></li> --%>
+            <a target="_blank" href="<%=basePath%>/jp:hk_portal" style="color: #FFFFFF;">&nbsp;门户</a></li>
    	</ul>
    </div>
   <!--  navbar-custom-menu -->

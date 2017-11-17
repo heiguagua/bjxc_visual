@@ -6,9 +6,12 @@ import com.chinawiserv.dsp.dir.entity.vo.configure.DirIntrudeVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirIntrudeMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirIntrudeService;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -52,10 +55,11 @@ public class DirIntrudeServiceImpl extends CommonServiceImpl<DirIntrudeMapper, D
     	}
         boolean b=true;
         vo.setId(CommonUtil.get32UUID());
-//        vo.setCreateTime(new Date());
-//        String loginUserId = ShiroUtils.getLoginUserId();
-//    	vo.setCreateUserId(loginUserId);
+        vo.setPublishDate(new Date());
+        String loginUserId = ShiroUtils.getLoginUserId();
+    	vo.setPublisher(loginUserId);
     	vo.setDeleteFlag(0);
+    	
         int i = mapper.baseInsert(vo);
         if(i<1){
             b=false;
