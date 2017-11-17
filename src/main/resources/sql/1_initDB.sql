@@ -962,6 +962,7 @@ create table dir_dataset
    data_index_system    varchar(36) comment '【川】信息资源指标体系',
    secret_flag          varchar(36) comment '【川】信息资源涉密性',
    source_type          varchar(36) comment '添加来源',
+   dataset_file_path    varchar(256) comment '数据文件路径',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
