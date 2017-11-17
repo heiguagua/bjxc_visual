@@ -4214,6 +4214,12 @@ INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUE
 INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ('04bf94c4b8a211e78e4300ffe04ac734','classify_icon','topic8','/img/index/topic8.png','');
 INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ('04bf94f2b8a211e78e4300ffe04ac734','classify_icon','topic9','/img/index/topic9.png','');
 INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ('04bf951bb8a211e78e4300ffe04ac734','classify_icon','total','/img/index/total.png','');
+INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ('04bf951bb8a211e78e4300ffe04ac567','tool_icon','tool5','/img/index/tool5.png','');
+INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ('04bf951bb8a211e78e4300ffe04ac456','tool_icon','tool4','/img/index/tool4.png','');
+INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ('04bf951bb8a211e78e4300ffe04ac345','tool_icon','tool3','/img/index/tool3.png','');
+INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ('04bf951bb8a211e78e4300ffe04ac234','tool_icon','tool2','/img/index/tool2.png','');
+INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ('04bf951bb8a211e78e4300ffe04ac123','tool_icon','tool1','/img/index/tool1.png','');
+
 INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ("510a4188c84511e7b780000c2909b055","integrate_icon","sourceimgicon2","/images/userImg/sourceimgicon2.png","");
 INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ("510af0bec84511e7b780000c2909b055","integrate_icon","directimgicon1","/images/userImg/directimgicon1.png","");
 INSERT INTO sys_icon_lib (id,icon_type,icon_name,icon_path,icon_css_class) VALUES ("510b4adfc84511e7b780000c2909b055","integrate_icon","collectimgicon2","/images/userImg/collectimgicon2.png","");
