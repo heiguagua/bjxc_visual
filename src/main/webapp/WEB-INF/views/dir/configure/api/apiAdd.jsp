@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/js/dir/configure/api/apiAdd.js"></script>
- 
+ 	<script src="<%=basePath%>/js/system/dict/dictIcon.js"></script>
 </head>
 <body>
 <section class="content">
@@ -36,6 +36,16 @@
                                 <label for="orderNumber">排序号</label>
                                 <input type="text" id="order_number" name="orderNumber" class="form-control"
                                        placeholder="请输入排序号" data-rule="排序号:required;order_number;">
+                            </div>
+                            <div class="form-group">
+                                <label for="icon">选择图标</label>
+                                <select id="icon" name="icon" class="form-control select2" style="width: 100%;" >             
+                                		  <<!-- option value =""></option>
+                                		  <option value ="volvo">Volvo</option>
+										  <option value ="saab">Saab</option>
+										  <option value="opel">Opel</option>
+										  <option value="audi">Audi</option> -->  
+                                </select>    
                             </div>
                             <div class="form-group">
                             	<label  class="" for="isShow">是否显示到首页</label>

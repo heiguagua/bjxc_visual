@@ -37,6 +37,7 @@ public class DirDevelopApisServiceImpl extends CommonServiceImpl<DirDevelopApisM
     	String loginUserId = ShiroUtils.getLoginUserId();
     	vo.setCreateUserId(loginUserId);
     	vo.setDeleteFlag(0);
+    	vo.setStatus("1");
     	mapper.baseInsert(vo);
 		return true;
     }

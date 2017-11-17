@@ -8,7 +8,10 @@ jQuery(document).ready(function () {
     initDeptSelectDataList();
     initRoleNameList();
     initFormerDate(apiId);
+    window.Dict1=new dict1();
 });
+
+
 
 function initUserTypeList(){
     $.commonAjax({
@@ -63,7 +66,7 @@ function initFormerDate(apiId) {
         	                    "<label style='display:inline-block'>是</label>")
                 	}
               
-                	
+                	$("#Eicon").append(Dict1.selectsDom("tool_icon",vo.iconName?vo.iconName:''));
                     $("#Eapi_name").val(vo.apiName);
                     $("#Eapi_category").val(vo.apiCategory);
                     $("#Eapi_url").val(vo.apiUrl);
