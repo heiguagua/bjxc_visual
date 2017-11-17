@@ -146,6 +146,11 @@ public class DirDataset implements Serializable {
      */
 	@TableField("source_type")
 	private String sourceType;
+	/**
+	 * 数据文件路径
+	 */
+	@TableField("dataset_file_path")
+	private String datasetFilePath;
     /**
      * 状态
      */
@@ -382,6 +387,14 @@ public class DirDataset implements Serializable {
 
 	public void setSourceType(String sourceType) {
 		this.sourceType = sourceType;
+	}
+
+	public String getDatasetFilePath() {
+		return datasetFilePath;
+	}
+
+	public void setDatasetFilePath(String datasetFilePath) {
+		this.datasetFilePath = datasetFilePath;
 	}
 
 	public String getStatus() {
