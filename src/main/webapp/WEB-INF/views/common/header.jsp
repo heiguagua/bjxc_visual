@@ -199,15 +199,22 @@
                     }else{
                         a.attr("href",basePathJS+row.jumpUrl);
                     }
-                    var img=$('<img/>').attr("src",basePathJS+row.icon);
-                    a.html("&nbsp;"+row.productShowName);
+                    //var img=$('<img/>').attr("src",basePathJS+row.icon);
+                    a.html("<img src="+ basePathJS+row.icon +"/>&nbsp;"+row.productShowName);
                     if(row.curOpenFlag !="1"){
                         //新页面打开
                         a.attr("target","_blank");
                     }
-                    li.append(img).append(a);
+                    li.append(a);
                     p.append(li);
                 }
+                /* $('#topTabs').slick({
+                	  infinite: false,
+                	  slidesToShow: 4,
+                	  slidesToScroll: 1,
+                	  autoplay: false,
+                	  autoplaySpeed: 2000,
+                	}); */
             }
         );
     }
