@@ -17,7 +17,7 @@
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.dir.entity.vo.configure.DirIntrudeVo">
-	
+				<result column="publisher_name" property="publisherName"/>
     </resultMap>
 	<update id="updateDeleteFlag" parameterType="string">
     	update dir_portal_content_setting
@@ -40,9 +40,10 @@
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT
-        t.*
+        t.*,s.user_name as publisher_name
         FROM
-        dir_portal_content_setting t       
+        dir_portal_content_setting t 
+        left join sys_user s on s.id = t.publisher      
         where t.delete_flag = #{deleteFlag,jdbcType=INTEGER}
         
         <if test="searchKey != null and searchKey !='' ">
@@ -89,6 +90,7 @@
             <if test="deleteFlag != null">
                 delete_flag = #{deleteFlag}
             </if>
+            
             
         </set>
         where id = #{id}

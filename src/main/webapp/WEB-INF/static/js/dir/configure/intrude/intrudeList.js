@@ -10,14 +10,7 @@ jQuery(document).ready(function () {
             return $.extend(params, paramsObj);
         },
         columns: [
-			{
-			    field: 'content',
-			    title: '内容',
-			    align: 'center',
-			    valign: 'middle',
-			    sortable: false,
-			               
-			},     
+			  
            {
             field: 'category',
             title: '简介分类',
@@ -26,7 +19,7 @@ jQuery(document).ready(function () {
             sortable: false,
                        
         }, {
-            field: 'publisher',
+            field: 'publisherName',
             title: '发布人',
             align: 'center',
             valign: 'middle',

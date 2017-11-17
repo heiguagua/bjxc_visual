@@ -11,5 +11,15 @@ import com.chinawiserv.dsp.dir.entity.po.configure.DirIntrude;
  * @since 2017-09-11
  */
 public class DirIntrudeVo extends DirIntrude{
+	
+	private String publisherName;
+
+	public String getPublisherName() {
+		return publisherName;
+	}
+
+	public void setPublisherName(String publisherName) {
+		this.publisherName = publisherName;
+	}
     
 }
