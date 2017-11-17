@@ -5,7 +5,13 @@
 jQuery(document).ready(function () {
 	 var parentId = $("#parentId").val();	
      initSelectData();
+     window.Dict=new dict1();
+     initAllSelect();
 });
+
+function initAllSelect(){
+	 Dict.selects('tool_icon',['#icon']);
+}
 
 function initSelectData() {
     initUserTypeList();

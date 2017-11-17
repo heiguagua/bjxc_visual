@@ -2,11 +2,13 @@ package com.chinawiserv.dsp.dir.controller.apply;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.MailSenderUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.dir.entity.po.apply.DirRegistUser;
 import com.chinawiserv.dsp.dir.entity.vo.apply.DirRegistUserVo;
 import com.chinawiserv.dsp.dir.enums.EnumTools;
 import com.chinawiserv.dsp.dir.enums.apply.RegistUserStatus;
@@ -140,9 +142,10 @@ public class DirRegistUserController extends BaseController {
     @ResponseBody
     public  HandleResult doEdit(@RequestBody DirRegistUserVo dirRegistUserVo){
 		HandleResult handleResult = new HandleResult();
+        DirRegistUser dru = service.selectById(dirRegistUserVo.getId());
 		try {
 			if (dirRegistUserVo.getOpration()){
-				dirRegistUserVo.setStatus("1");
+                dirRegistUserVo.setStatus("1");
 			}
 		    else {
 		        dirRegistUserVo.setStatus("2");
@@ -150,10 +153,26 @@ public class DirRegistUserController extends BaseController {
             dirRegistUserVo.setStateName(RegistUserStatus.valueOf(EnumTools.getName(dirRegistUserVo.getStatus())).getChValue());
 		    service.updateVO(dirRegistUserVo);
 		    handleResult.success("审核用户注册表成功");
+            return handleResult;
 		} catch (Exception e) {
 		    handleResult.error("审核用户注册表失败");
 		    logger.error("审核用户注册表失败", e);
-		}
-		return handleResult;
+		}finally {
+		    /**
+             * 发送邮件的处理，需要时放开代码
+             * */
+//		    if("1" == dirRegistUserVo.getStatus()){
+//		        // 往用户表里插入申请用户的数据
+//
+//
+//                //发送邮件
+//                MailSenderUtil.sendMail(dru.getEmail(),dru.getRealName(),"审核结果",dru.getRealName()+"先生（女士）:恭喜您，您的账号申请已通过");
+//
+//            }else if("2" == dirRegistUserVo.getStatus()){
+//		        //发送邮件
+//                MailSenderUtil.sendMail(dru.getEmail(),dru.getRealName(),"审核结果",dru.getRealName()+"先生（女士）:抱歉，您的账号申请未通过");
+//            }
+        }
+        return handleResult;
     }
 }
