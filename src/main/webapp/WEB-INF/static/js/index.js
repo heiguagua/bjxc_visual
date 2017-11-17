@@ -147,6 +147,12 @@ function initBarChart(dataArry,id){
                         type: 'shadow'
                     }
                 },
+                grid:{
+                    x:'15%',
+                    y:'5%',
+                    x2:'10%',
+                    y2:'80px'
+                },
                 xAxis: {
                     type: 'category',
                     data: nameArray,
@@ -198,6 +204,17 @@ function initReverseBarChart(dataArry,id){
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
+                    }
+                },
+                grid:{
+                    x:'20%',
+                    y:'5%',
+                    x2:'10%',
+                    y2:'80px'
+                },
+                axis:{
+                    splitLine:{
+                        show:false
                     }
                 },
                 xAxis: {

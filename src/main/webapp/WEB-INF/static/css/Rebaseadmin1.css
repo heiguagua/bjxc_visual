@@ -574,3 +574,26 @@ letter-spacing: 0;
 .skin-blue .main-header .navbar .nav > li > a:hover, .skin-blue .main-header .navbar .nav > li > a:active, .skin-blue .main-header .navbar .nav > li > a:focus, .skin-blue .main-header .navbar .nav .open > a, .skin-blue .main-header .navbar .nav .open > a:hover, .skin-blue .main-header .navbar .nav .open > a:focus, .skin-blue .main-header .navbar .nav > .active > a{
 	background:transparent;
 }
+
+/* 头部菜单增加轮播切换 */
+.slick-list{
+	width:100%;
+}
+.nav_uls .slick-slide{
+	height:auto !important;
+	text-align:center;
+}
+.nav_uls .slick-slide img{
+	display:inline-block !important;
+}
+.nav_uls .slick-slide a{
+    color: #FFFFFF;
+    opacity: .6;
+    display: inline-block;
+}
+.nav_uls .slick-slide.active a{
+	opacity: 1;
+	border-bottom: 3px solid #FFF;
+}
+
+

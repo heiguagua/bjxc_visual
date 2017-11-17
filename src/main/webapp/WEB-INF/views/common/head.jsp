@@ -42,6 +42,9 @@
 <link rel="stylesheet" href="<%=basePath%>/app/css/skins/skin-blue.css">
 <!-- zTree style -->
 <link rel="stylesheet" href="<%=basePath%>/plugins/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<!-- slick style -->
+<link rel="stylesheet" type="text/css" href="<%=basePath%>/plugins/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="<%=basePath%>/plugins/slick/slick-theme.css"/>
 
 <!-- 自定义 css -->
 <link rel="stylesheet"  href="<%=basePath%>/plugins/layui/css/layui.css">
@@ -106,6 +109,7 @@
 <link href="<%=basePath%>/plugins/smartWizard/css/smart_wizard_theme_dots.css" rel="stylesheet" type="text/css" />
 
 <script src="<%=basePath%>/plugins/smartWizard/js/jquery.smartWizard.js"></script>
+<script src="<%=basePath%>/plugins/slick/slick.min.js"></script>
 <!-- 自定义系统初始化话JS -->
 <%--<script src="<%=basePath%>/plugins/layui/layui.all.js"></script>
 <script src="<%=basePath%>/js/custom/mock.min.js"></script>--%>

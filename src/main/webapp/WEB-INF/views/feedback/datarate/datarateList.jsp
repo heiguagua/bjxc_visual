@@ -257,7 +257,15 @@
                     return '<p title="'+value+'">'+value+'</p>';
                 }
             },
-            {field: 'rateDate', title: '最后评分时间'},
+            {
+                field: 'rateDate',
+                title: '最后评分日期',
+                formatter:function (value) {
+                    if(value.length>10){
+                        return value.substring(1,10);
+                    }
+                }
+            },
             {field: 'raterCount', title: '评分人数'},
             {field: 'avgRateScore', title: '平均分'},
             {
@@ -337,7 +345,16 @@
                 {field: 'raterName', title: '评分用户'},
                 {field: 'datasetName', title: '资源名称'},
                 {field: 'rateScore', title: '评分值', width: '15%'},
-                {field: 'rateDate', title: '最后评分时间', width: '15%'}
+                {
+                    field: 'rateDate',
+                    title: '评分日期',
+                    width: '15%',
+                    formatter:function (value) {
+                        if(value.length>10){
+                            return value.substring(1,10);
+                        }
+                    }
+                }
             ]
 
         });
