@@ -98,8 +98,8 @@ public class LoginController extends BaseController {
 //         model.addAttribute("systemShortName", sysNameMap.get("systemShortName"));
 //         model.addAttribute("loginViewName", sysNameMap.get("projectPortalName"));
 //         model.addAttribute("indexLogoName", sysNameMap.get("systemName") + "-" + sysNameMap.get("systemSubName"));
-
-        model.addAttribute("systemShowName", sysNameMap.get("systemShowName"));
+        ShiroUtils.setSessionAttribute("systemShowName", sysNameMap.get("systemShowName"));
+//        model.addAttribute("systemShowName", sysNameMap.get("systemShowName"));
         model.addAttribute("systemName", sysNameMap.get("systemName"));
         model.addAttribute("systemSubName", sysNameMap.get("systemSubName"));
         model.addAttribute("systemShortName", sysNameMap.get("systemShortName"));

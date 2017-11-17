@@ -541,7 +541,8 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             Map<String,Object> itemParams = new HashMap<>();
             itemParams.put("datasetIds", idArray);
             int itemDeleteNum = itemMapper.flagDelete(itemParams);
-            if(itemDeleteNum >=0){
+            int classifyMapDeleteNum = dirDatasetClassifyMapMapper.flagDelete(itemParams);
+            if(itemDeleteNum >=0 && classifyMapDeleteNum>=0){
                 Map<String,Object> datasetParams = new HashMap<>();
                 datasetParams.put("ids", idArray);
                 int deleteNum = mapper.flagDelete(datasetParams);
