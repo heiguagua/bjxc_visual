@@ -267,7 +267,15 @@
                     return '<p title="'+value+'">'+value+'</p>';
                 }
             },
-            {field: 'collectDate', title: '最后收藏时间'},
+            {
+                field: 'collectDate',
+                title: '最后收藏日期',
+                formatter:function (value) {
+                    if(value.length>10){
+                        return value.substring(0,10);
+                    }
+                }
+            },
             {field: 'collectorCount', title: '收藏人数'},
             {
                 field: 'dcmId', title: '操作',
@@ -347,7 +355,16 @@
                 },
                 {field: 'collectorName', title: '收藏用户'},
                 {field: 'datasetName', title: '资源名称'},
-                {field: 'collectDate', title: '最后收藏时间', width: '15%'}
+                {
+                    field: 'collectDate',
+                    title: '收藏日期',
+                    width: '15%',
+                    formatter:function (value) {
+                        if(value.length>10){
+                            return value.substring(0,10);
+                        }
+                    }
+                }
             ]
 
 //            data: Mock.mock({

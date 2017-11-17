@@ -256,7 +256,15 @@
                     return '<p title="'+value+'">'+value+'</p>';
                 }
             },
-            {field: 'correctDate', title: '最后纠错时间'},
+            {
+                field: 'correctDate',
+                title: '最后纠错日期',
+                formatter:function (value) {
+                    if(value.length>10){
+                        return value.substring(0,10);
+                    }
+                }
+            },
             {field: 'correctorCount', title: '纠错人数'},
             {
                 field: 'dcmId', title: '操作',
@@ -335,7 +343,16 @@
                 {field: 'correctorName', title: '纠错用户'},
                 {field: 'datasetName', title: '资源名称'},
                 {field: 'correctContent', title: '纠错内容'},
-                {field: 'correctDate', title: '最后纠错时间', width: '15%'}
+                {
+                    field: 'correctDate',
+                    title: '纠错日期',
+                    width: '15%',
+                    formatter:function (value) {
+                        if(value.length>10){
+                            return value.substring(0,10);
+                        }
+                    }
+                }
             ]
 
         });
