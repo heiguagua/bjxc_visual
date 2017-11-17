@@ -23,10 +23,11 @@
                             <result column="update_time" property="updateTime" />
                             <result column="delete_flag" property="deleteFlag" />
                             <result column="is_show" property="isShow" />
+                            <result column="icon" property="icon" />
             	</resultMap>
 
 	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.configure.DirDevelopApisVo">
-
+							<result column="icon_name" property="iconName" />
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -47,7 +48,9 @@
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-    	SELECT t.* FROM dir_develop_apis t WHERE t.id = #{id}
+    	SELECT t.*,c.icon_name FROM dir_develop_apis t 
+    	left join sys_icon_lib c on (c.icon_path = t.icon and c.icon_type = 'tool_icon')    	
+    	WHERE t.id = #{id}
     </select>
 
     <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -55,8 +58,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis">
-        insert into dir_develop_apis(id,region_code,api_name,api_category,api_url,api_desc,parent_id,parent_name,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag,is_show) values(
-            #{id},#{regionCode},#{apiName},#{apiCategory},#{apiUrl},#{apiDesc},#{parentId},#{parentName},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},#{isShow} )
+        insert into dir_develop_apis(id,region_code,api_name,api_category,api_url,api_desc,parent_id,parent_name,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag,is_show,icon) values(
+            #{id},#{regionCode},#{apiName},#{apiCategory},#{apiUrl},#{apiDesc},#{parentId},#{parentName},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},#{isShow},#{icon} )
     </insert>
     
     <update id="updateDeleteFlag" parameterType="string">
@@ -116,7 +119,10 @@
                 delete_flag = #{deleteFlag},
             </if>
             <if test="isShow != null">
-                is_show = #{isShow}
+                is_show = #{isShow},
+            </if>
+            <if test="icon != null">
+                icon = #{icon}
             </if>
                 </set>
         where  id = #{id}                                  </update>
