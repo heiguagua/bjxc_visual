@@ -4,16 +4,15 @@
 
 jQuery(document).ready(function () {
     window.Dict=new dict();
-    initInputValue(); //初始化所有需要设值的输入框的值
     initAllSelect();  //初始化所有下拉框
     initButtonClickEvent(); //初始化按钮点击事件
+    initInputValue(); //初始化所有需要设值的输入框的值
 
 });
 
 function initAllSelect(){
     var regionCode = $.getSelectedRegionCode();
     //$.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
-    $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId','regionCode'); //初始化关联目录分类下拉框
     $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
     //$.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
     //信息资源格式下拉框初始化
@@ -66,6 +65,8 @@ function initInputValue(){
             if (result.state) {
                 var obj = result.content.vo;
                 $("#regionCode").val(obj.regionCode);
+                //由于初始化关联目录分类下拉框时,需要用到该数据集所属区域的值，所以在这个地方来进行初始化
+                $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId','regionCode');
                 $("#classifyName").val(obj.classifyName);
                 $("#classifyId").val(obj.classifyIds);
                 $("#relDatasetName").val(obj.relClassifyName);
