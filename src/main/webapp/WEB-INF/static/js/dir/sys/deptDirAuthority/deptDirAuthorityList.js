@@ -13,52 +13,52 @@ jQuery(document).ready(function () {
         pageSize: 15,
         columns: [{
             checkbox: true,
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false
         }, {
             field: 'deptName',
             title: '组织机构名称',
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false
         }, {
             field: 'deptAlias',
             title: '组织机构简称',
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false,
             visible:false
         }, {
             field: 'deptCode',
             title: '组织机构编码',
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false
         }, {
             field: 'regionName',
             title: '所属行政区域',
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false
         }, {
             field: 'deptContactMan',
             title: '联系人',
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false,
             visible:false
         }, {
             field: 'deptContactPhone',
             title: '联系电话',
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false,
             visible:false
         }, {
             field: 'deptAddress',
             title: '地址',
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false,
             visible:false
@@ -66,7 +66,7 @@ jQuery(document).ready(function () {
         	 field: 'deptDesc',
              title: '描述',
              width: 250,
-             align: 'center',
+             //align: 'center',
              valign: 'middle',
              sortable: false,
              visible:false,
@@ -85,7 +85,7 @@ jQuery(document).ready(function () {
         }, {
             field: 'id',
             title: '操作',
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false ,
             width: '220',
@@ -93,7 +93,7 @@ jQuery(document).ready(function () {
                 var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAllot(\"" + value + "\")'><i class='fa fa-chain'></i>目录数据分配</a>";
                 return allotBtn + OPERATION_SEPARATOR ;
             }
-        }],
+        }]
     });
 
     jQuery('#queryBtnId').click(function () {

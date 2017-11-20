@@ -29,25 +29,25 @@ jQuery(document).ready(function () {
             visible:false
         },{
             checkbox: true,
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false
         }, {
             field: 'deptName',
             title: '组织机构名称',
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false
         }, {
             field: 'deptCode',
             title: '组织机构编码',
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false
         }, {
             field: 'isSync',
             title: '是否已同步目录',
-            align: 'center',
+            //align: 'center',
             valign: 'middle',
             sortable: false,
             formatter : function (value){
@@ -62,7 +62,7 @@ jQuery(document).ready(function () {
                     return "否";
                 }
             }
-        }],
+        }]
     });
 
     jQuery('#queryBtnId').click(function () {
