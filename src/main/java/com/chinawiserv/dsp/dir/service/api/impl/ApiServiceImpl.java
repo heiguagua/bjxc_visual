@@ -482,7 +482,7 @@ public class ApiServiceImpl implements IApiService {
                  * MongoDB 无datasetId和classifyId,单独处理
                  * */
 
-                if(ServiceType.MONGODB.getValue().equalsIgnoreCase(serviceType)){
+                if(ServiceType.MONGODB.getValue().equalsIgnoreCase(serviceType)||StringUtils.isBlank(serviceType)){
                     List<DirDatasetServiceMap> mongoServiceList = dirDatasetServiceMapMapper.selectList(new EntityWrapper<DirDatasetServiceMap>().addFilter("service_id = {0}",serviceId));
                     if(!CollectionUtils.isEmpty(mongoServiceList)){
                         int a = 0;
