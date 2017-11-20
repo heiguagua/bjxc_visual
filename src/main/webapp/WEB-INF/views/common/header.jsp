@@ -172,7 +172,7 @@
               $('#logo').css({"font-size":"16px"})
           }
 
-          loadTabsData();
+//          loadTabsData();
       })
     function isOut(){
       layer.confirm("是否退出系统", {icon: 3, title: "提示", offset: getOffset()}, function (index) {
