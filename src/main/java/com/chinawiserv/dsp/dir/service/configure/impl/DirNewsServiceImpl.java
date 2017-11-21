@@ -105,6 +105,7 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 		if(entity.getNewsContent().length()>32116){
     		throw new Exception("新闻内容太长，无法保存");
     	}
+
 		try{
 			
 		
