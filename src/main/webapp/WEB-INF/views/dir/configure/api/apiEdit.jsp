@@ -20,7 +20,7 @@
                            <div class="form-group">
                                 <label for="apiName">api名称</label>
                                 <input type="text" id="Eapi_name" name="apiName" class="form-control"
-                                       placeholder="请输入api名称" data-rule="api名称:required;api_name;remote(<%=basePath%>/system/user/insertCheckName)">
+                                       placeholder="请输入api名称" data-rule="api名称:required;api_name;">
                             </div>
                             <div class="form-group">
                                 <label for="apiCategory">开发者工具种类:</label>
