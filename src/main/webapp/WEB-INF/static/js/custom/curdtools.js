@@ -637,7 +637,7 @@ function _getDefaultWinOptionsForPictureNews(title , url , width, height) {
 	   return options ;
 	}
 
-
+var stateDir = 0;
 function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
     var options = {
         title:title,
@@ -647,8 +647,12 @@ function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
         btn: [ '<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
         success: _successLoad ,
         yes :function(index, layero){
-        	_submitFormForApi(index , layero) ;
-//            location.reload();
+        	if(stateDir == 0){
+        		stateDir = 1;
+        		_submitFormForApi(index , layero) ;
+//              location.reload();
+        	}
+        	
         }
     };
 
@@ -884,7 +888,7 @@ function _submitFormForApi(index, layero , options){
                    return ;
                }
            }
-
+           
            // var me = this;
            // // 提交表单之前，hold住表单，防止重复提交
            // me.holdSubmit(true);
