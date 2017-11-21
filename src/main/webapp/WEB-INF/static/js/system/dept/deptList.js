@@ -112,43 +112,43 @@ function initDept(pid) {
         }, {
             field: 'deptShortName',
             title: '组织机构简称',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'deptCode',
             title: '组织机构编码',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'regionName',
             title: '所属行政区域',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'fname',
             title: '上级组织机构名称',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'cNum',
             title: '下级机构数量',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'updateTime',
             title: '更新时间',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'deptContactMan',
             title: '联系人',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false,
@@ -167,14 +167,14 @@ function initDept(pid) {
         }, {
             field: 'deptContactPhone',
             title: '联系电话',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false
         }, {
             field: 'deptAddress',
             title: '地址',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false,
@@ -194,7 +194,7 @@ function initDept(pid) {
             field: 'deptDesc',
             title: '描述',
             width: 250,
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false,
@@ -213,7 +213,7 @@ function initDept(pid) {
         }, {
             field: 'isSync',
             title: '是否已同步目录',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false,
@@ -227,7 +227,7 @@ function initDept(pid) {
         },{
             field: 'id',
             title: '操作',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false ,
             width: '20%',

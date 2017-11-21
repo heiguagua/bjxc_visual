@@ -5,6 +5,11 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/js/catalog/catalogue/catalogueList.js"></script>
 </head>
+<style>
+div.layui-layer-iframe{
+	min-width:1000px;
+}
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -41,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div style="height: 6%" id="regionDiv">
-                                        <div class="input-group" style="margin:2px;">
+                                        <div style="margin: 0 5px">
                                             <input type="text" id="searchRegionName" placeholder="请选择区域"
                                                    class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="searchRegionCode">

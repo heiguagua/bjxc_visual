@@ -19,13 +19,13 @@ $(document).ready(function () {
         columns: [{
             field: 'operateDesc',
             title: '操作描述',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'realName',
             title: '操作人',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             formatter : function (value, row) {
@@ -55,19 +55,19 @@ $(document).ready(function () {
         }, {
             field: 'operateIp',
             title: '地址',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'operateTime',
             title: '操作时间',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'id',
             title: '操作',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false ,
             formatter : function (value) {

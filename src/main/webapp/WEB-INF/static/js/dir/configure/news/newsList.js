@@ -87,7 +87,7 @@ function reloadTable() {
 }
 
 function addUser() {
-	addPictureNews('新增图片',basePathJS + '/dirNews/add',950,600);
+	addNews('新增图片',basePathJS + '/dirNews/add',"70%",600);
 }
 
 function statusUser(id,status) {
@@ -97,7 +97,7 @@ function statusUser(id,status) {
 }
 
 function editUser(id) {
-	updateForPictureNews('编辑应用',basePathJS + '/dirNews/edit' , id,900,600);
+	updateForNews('编辑应用',basePathJS + '/dirNews/edit' , id,"70%",600);
 }
 
 function deleteUser(id) {

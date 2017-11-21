@@ -14,7 +14,7 @@
         <div class="col-md-12">
             <!-- form start -->
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <form role="form" 
                            action="<%=basePath%>/dirNews/doAdd" method="post" enctype="multipart/form-data" id="uploadNewsP">
                         <div class="box-body">

@@ -20,28 +20,28 @@ jQuery(document).ready(function () {
         columns: [{
             field: 'settingCode',
             title: '配置编码',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             // width : '150px' ,
             sortable: false
         }, {
             field: 'settingName',
             title: '配置名称',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             // width : '150px' ,
             sortable: false
         }, {
             field: 'settingValue',
             title: '配置值',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             // width : '400px' ,
             sortable: false
         }, {
             field: 'regionCode',
             title: '所属区域',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false
@@ -49,7 +49,7 @@ jQuery(document).ready(function () {
             {
             field: 'settingDesc',
             title: '配置描述',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false,
@@ -65,7 +65,7 @@ jQuery(document).ready(function () {
         }, {
             field: 'status',
             title: '状态',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false
@@ -73,14 +73,14 @@ jQuery(document).ready(function () {
             {
                 field: 'createUserName',
                 title: '创建人',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false
             },
             {
                 field: 'createTime',
                 title: '创建时间',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false,
                 visible:false
@@ -88,21 +88,21 @@ jQuery(document).ready(function () {
             {
             field: 'updateUserName',
             title: '更新人',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false
         }, {
             field: 'updateTime',
             title: '更新时间',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             // width : '180px' ,
             sortable: false
         }, {
             field: 'id',
             title: '操作',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false ,
             formatter : function (value) {
