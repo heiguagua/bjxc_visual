@@ -42,6 +42,14 @@
                                 <input type="text" id="Eorder_number" name="orderNumber" class="form-control"
                                        placeholder="请输入排序号" data-rule="排序号:required;orderNumber;">
                             </div>  
+                            <div class="form-group">
+                                <label for="editChoosePic">图片<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+                                <p style="display: inline-block" id="editPicName"></p>
+                                <input style="display:inline-block;background-color:#27DC93" type="button" class="btn btn-save" value="重选图片"  id="editChangePicButton"/>                                
+                                <div id="editPicDiv"></div>
+                                <input style="display: inline-block" type="file" name="file" value="file" id="editChoosePic" data-rule="图片:required;file">
+                                <label id="editPicNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过5M)</label>                                
+                            </div>
                         </div><!-- /.box-body -->
                         <div class="box-footer">
                             <%--<button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>--%>
