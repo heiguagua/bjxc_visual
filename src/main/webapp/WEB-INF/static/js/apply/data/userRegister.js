@@ -32,6 +32,7 @@ function getuserregisterTable() {
         },
         pagination: true, //分页
         pageSize: 10,
+        smartDisplay: false,
         columns: [
             {
                 field: 'id', title: '序号', width: '5%', align: 'center', formatter: function (value, row, index) {

@@ -78,7 +78,7 @@
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源提供方<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <input type="text" id="belongDeptTypeName" data-rule="信息资源提供方:required;" class="form-control"
                                            placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                     <input type="hidden" id="belongDeptType" name="belongDeptType">
@@ -88,7 +88,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-left:15px;">
                                     <input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="请输入提供方信息" >
                                     <%--<input type="text" id="belongDeptName" data-rule="信息资源提供方:required;" class="form-control"
                                            placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
@@ -155,11 +155,11 @@
                         <div class="col-sm-6">
                             <label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <select class="form-control" data-rule="所属资源格式:required;" id="formatCategory" name="ext.formatCategory">
                                     </select>
                                 </div>
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-left:15px;">
                                     <select class="form-control" id="formatType" name="ext.formatType" data-rule="所属资源格式:required;">
                                     </select>
                                 </div>
@@ -326,7 +326,7 @@
                             <th>信息项名称<span class="redStar">*</span></th>
                             <th>类型<span class="redStar">*</span></th>
                             <th>长度<span class="redStar">*</span></th>
-                            <th style="width: 240px;">责任部门<span class="redStar">*</span></th>
+                            <%--<th>责任部门</th>--%>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>涉密标识</th>

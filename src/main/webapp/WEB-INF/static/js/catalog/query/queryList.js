@@ -142,7 +142,7 @@ function initAllSelect(){
 }
 
 function catalogueTableShow(id){
-    show('信息资源详情',basePathJS + '/catalog/show' , id ,1300,700);
+    show('信息资源详情',basePathJS + '/catalog/show' , id ,"70%",700);
 }
 
 function initButtonClickEvent(){

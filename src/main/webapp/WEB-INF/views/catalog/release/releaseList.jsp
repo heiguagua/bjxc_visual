@@ -48,7 +48,7 @@
                                         </div>
                                     </div>
                                     <div style="height: 40px" id="unReleaseRegionDiv">
-                                        <div class="input-group" style="margin:2px;;min-width:200px">
+                                        <div  style="margin: 0 5px">
                                             <input type="text" id="unReleaseSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="unReleaseSearchRegionCode">
                                             <div class="menu-wrap">
@@ -136,7 +136,7 @@
                                         </div>
                                     </div>
                                     <div style="height: 40px" id="releasedRegionDiv">
-                                        <div class="input-group" style="margin:2px;min-width:200px">
+                                        <div  style="margin: 0 5px">
                                             <input type="text" id="releasedSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="releasedSearchRegionCode">
                                             <div class="menu-wrap">

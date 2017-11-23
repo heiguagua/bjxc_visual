@@ -217,7 +217,7 @@
 
  
 .col-xs-12 div.box{
-	    padding-bottom: 30px;
+	    padding-bottom: 63px;
 }
 
 
@@ -331,7 +331,7 @@ input.input_test{
 .main-sidebar—Du{
 	    float: left;
     width: 14%;
-   height: 100%;
+       height: 860px;
 
 	/* position:absolute;
 	overflow: auto;
@@ -352,7 +352,7 @@ input.input_test{
 	top:0;
 	padding-top: 68px;
 	width: 14%;
-	height:100%;
+	    height: 806px;
     xtransition: transform 0.3s ease-in-out, width 0.3s ease-in-out; 
 
 }
@@ -392,7 +392,7 @@ select.form-controls{
 	margin-top:0px;
 }
 /* 针对目录新添加行增加行高 以免遮挡验证样式 */
-  table.table-striped tbody>tr{
+ div.form-group  table.table-striped tbody>tr{
         	height:50px;
         }
         
@@ -558,12 +558,10 @@ letter-spacing: 0;
 
 
 .ztree{
-    height:100%;
+    height:97%;
 }
 
-.ztree li .btn-delete{
-	background:red !important;
-}
+
 
 
 
@@ -596,4 +594,27 @@ letter-spacing: 0;
 	border-bottom: 3px solid #FFF;
 }
 
-
+/* 现场整改整体布局*/
+ section.content{
+	   padding-bottom:0;
+}
+section.content>div>div.col-xs-12{
+	    padding: inherit;
+	 
+}
+.box{
+	margin-bottom:0;
+}
+/* 设置展示表格最小高度 */
+div.bootstrap-table div.fixed-table-container>div.fixed-table-body{
+	min-height:740px !important;
+	    height: 0;
+}
+.main-footer{
+	    padding: 7px;
+	        text-align: left;
+    padding-left: 20px;
+        color: #eeeeee;
+            opacity: 0.5;
+        font-weight:normal;
+} 

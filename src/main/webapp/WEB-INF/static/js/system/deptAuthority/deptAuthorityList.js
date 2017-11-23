@@ -19,46 +19,46 @@ jQuery(document).ready(function () {
         }, {
             field: 'deptName',
             title: '组织机构名称',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'deptAlias',
             title: '组织机构简称',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false
         }, {
             field: 'deptCode',
             title: '组织机构编码',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'regionName',
             title: '所属行政区域',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'deptContactMan',
             title: '联系人',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false
         }, {
             field: 'deptContactPhone',
             title: '联系电话',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false
         }, {
             field: 'deptAddress',
             title: '地址',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false
@@ -66,7 +66,7 @@ jQuery(document).ready(function () {
         	 field: 'deptDesc',
              title: '描述',
              width: 250,
-             align: 'center',
+             align: 'left',
              valign: 'middle',
              sortable: false,
              visible:false,
@@ -85,7 +85,7 @@ jQuery(document).ready(function () {
         }, {
             field: 'id',
             title: '操作',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false ,
             width: '220',
