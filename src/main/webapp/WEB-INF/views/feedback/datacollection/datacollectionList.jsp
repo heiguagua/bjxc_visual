@@ -241,6 +241,7 @@
         pagination: true, //分页
         pageNum: 1,
         pageSize: 10,
+        smartDisplay: false,
         columns: [
             {
                 field: 'a', title: '序号', width: '5%',
@@ -346,6 +347,7 @@
             pagination: true, //分页
             pageNum: 1,
             pageSize: 10,
+            smartDisplay: false,
             columns: [
                 {
                     field: 'a', title: '序号', width: '5%',
