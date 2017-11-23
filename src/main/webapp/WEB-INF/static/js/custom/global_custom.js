@@ -3115,7 +3115,7 @@ function initGlobalCustom(tempUrlPrefix) {
                 showToggle: false,
                 showPaginationSwitch: false,
                 search: false,
-                // smartDisplay: true,
+                 smartDisplay: false,
                 // showColumns: true,
                 // showRefresh: true,
                 // mobileResponsive: true,
