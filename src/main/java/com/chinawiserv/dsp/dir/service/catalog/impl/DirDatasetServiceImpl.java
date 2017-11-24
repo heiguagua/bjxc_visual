@@ -615,6 +615,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 paramMap.put("allRegionCode",allRegionCode);
             }
         }*/
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
+        }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
         String depId = ShiroUtils.getLoginUserDeptId();
@@ -1041,6 +1047,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 paramMap.put("allRegionCode",allRegionCode);
             }
         }*/
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
+        }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
         String depId = ShiroUtils.getLoginUserDeptId();
@@ -1086,6 +1098,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 paramMap.put("allRegionCode",allRegionCode);
             }
         }*/
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
+        }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
         String depId = ShiroUtils.getLoginUserDeptId();

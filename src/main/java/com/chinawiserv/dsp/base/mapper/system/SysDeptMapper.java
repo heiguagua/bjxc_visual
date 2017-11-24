@@ -21,6 +21,8 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     List<SysDeptVo> selectVoPage(Page<SysDeptVo> page, Map<String, Object> paramMap);
 
+    List<SysDeptVo> selectSubVoList(Map<String, Object> paramMap);
+
     List<SysDeptVo> selectBaseVoPage(Page<SysDeptVo> page, Map<String, Object> paramMap);
 
     List<SysDeptVo> selectSynVoPage(Page<SysDeptVo> page, Map<String, Object> paramMap);
@@ -50,4 +52,6 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
     List<String> listIdsByList(List<String> list);
 
     long batchInsert(List<SysDept> list);
+
+    Map<String,Object> selectBelongTypeByDept(String deptId);
 }

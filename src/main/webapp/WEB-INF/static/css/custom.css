@@ -235,6 +235,8 @@ table td {
     z-index: 1999;
     background: #FFF;
     width: 100%;
+    max-height: 300px;
+    overflow: auto;
 }
 
 .interNet {

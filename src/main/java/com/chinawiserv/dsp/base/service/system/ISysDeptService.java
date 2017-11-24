@@ -23,6 +23,8 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 
     Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception;
 
+    List<SysDeptVo> selectVoList(Map<String, Object> paramMap) throws Exception;
+
     Page<SysDeptVo> selectBaseVoPage(Map<String, Object> paramMap) throws Exception;
 
     SysDeptVo selectVoById(String id) throws Exception;
@@ -56,5 +58,7 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
     List<SysDept> listBySystemId(String systemId);
 
     boolean insertOrUpdate(List<SysDept> list);
+
+    Map<String,Object> getBelongTypeByDept(String deptId);
 
 }

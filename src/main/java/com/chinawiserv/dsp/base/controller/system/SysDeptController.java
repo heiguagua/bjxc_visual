@@ -526,4 +526,43 @@ public class SysDeptController extends BaseController {
         }
         return dir;
     }
+
+    /**
+     * 根据选中的一级部门id，获取子部门的树形数据
+     */
+    @RequestMapping("/subDeptTreeData")
+    @ResponseBody
+    public HandleResult getSubDeptTreeData(@RequestParam Map<String , Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        try {
+            String id = (String)paramMap.get("id");
+            if (!org.springframework.util.StringUtils.isEmpty(id)){
+                paramMap.put("fid", id);
+            }
+            List<SysDeptVo> sysDeptVoList = sysDeptService.selectVoList(paramMap);
+            handleResult.put("vo",sysDeptVoList);
+        } catch (Exception e) {
+            handleResult.error("查询子部门的树形数据出错");
+            logger.error("查询子部门的树形数据出错", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 根据部门的id，查询后获取资源提供方的部门或科室的详情
+     */
+    @RequestMapping("/belongTypeByDept")
+    @ResponseBody
+    public HandleResult getBelongTypeByDept(@RequestParam String deptId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String,Object> deptInfo = sysDeptService.getBelongTypeByDept(deptId);
+            handleResult.put("vo",deptInfo);
+        } catch (Exception e) {
+            handleResult.error("查询资源提供方的部门或科室的详情出错");
+            logger.error("查询资源提供方的部门或科室的详情出错", e);
+        }
+        return handleResult;
+    }
+
 }

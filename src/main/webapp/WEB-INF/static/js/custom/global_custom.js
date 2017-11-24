@@ -1697,9 +1697,9 @@ function initGlobalCustom(tempUrlPrefix) {
             var setting = {
                 async: {
                     enable: true,
-                    url: basePathJS + "/dirClassify/subAuthorityList",
+                    url: basePathJS + "/dirClassify/subAuthorityListWithSubRegion",
                     autoParam: ["fid","treeCode","authorityNode"],
-                    otherParam:{"regionCode":choosedRegionCode},
+                    //otherParam:{"regionCode":choosedRegionCode},
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                         var params = [];
                         var nodeObjs = childNodes.content.vo;
@@ -1985,8 +1985,9 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param nameInputDomId    显示选中目录类别的名称的input框的id
          * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
          * @param treeDivDomId      树形展开区域的DIV的id
+         * @param initBelongDeptTypeTreeParam 联动科室下拉框初始化方法的参数数组
          */
-        initRegionDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId) {
+        initRegionDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, initBelongDeptTypeTreeParam) {
             var regionCode = $.getSelectedRegionCode();
             var setting = {
                 check: {
@@ -2006,12 +2007,18 @@ function initGlobalCustom(tempUrlPrefix) {
                         if (!nodeObjs) {
                             return null;
                         }
+                        var belongDeptTypeId = $("#"+codeInputDomId).val();
                         for (var i in nodeObjs) {
+                            var checkedStatus = false;
+                            if(belongDeptTypeId!="" && belongDeptTypeId==nodeObjs[i].id){
+                                checkedStatus = true;
+                            }
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].regionDeptName,
                                 'fcode': nodeObjs[i].regionDeptCode,
-                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
+                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
+                                'checked':checkedStatus
                             }
                         }
                         return params;
@@ -2025,6 +2032,13 @@ function initGlobalCustom(tempUrlPrefix) {
                     onCheck: function (e, treeId, treeNode) { //点击radio，获取目录类别的全名称，显示到输入框中
                         $('#' + nameInputDomId).val(treeNode.name);
                         $('#' + codeInputDomId).val(treeNode.id);
+                        if(!loginUserDeptId || loginUserDeptId==="null"){
+                            $("#chargeDeptId").val(treeNode.id);
+                        }
+                        if(initBelongDeptTypeTreeParam && initBelongDeptTypeTreeParam.length>0){
+                            $.initSubDeptTreeSelect(initBelongDeptTypeTreeParam[0],initBelongDeptTypeTreeParam[1],
+                                initBelongDeptTypeTreeParam[2],initBelongDeptTypeTreeParam[3],{fid:treeNode.id});
+                        }
                     }
                 }
             };
@@ -2043,6 +2057,95 @@ function initGlobalCustom(tempUrlPrefix) {
                 });
             })
 
+        },
+
+        /**
+         *
+         * 根据选中的一级部门,获取其子部门的组织机构的下拉树对象
+         * @param treeDomId         ztree对象的id
+         * @param nameInputDomId    显示选中目录类别的名称的input框的id
+         * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
+         * @param treeDivDomId      树形展开区域的DIV的id
+         * @param param             异步加载url参数
+         */
+        initSubDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, param) {
+            if(!param || typeof param != 'object') param = {};
+            var setting = {
+                async: {
+                    enable: true,
+                    url: basePathJS + "/system/dept/subDeptTreeData",
+                    autoParam: ["id"],
+                    otherParam: param,
+                    dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
+                        var params = [];
+                        var nodeObjs = childNodes.content.vo;
+                        if (!nodeObjs) {
+                            return null;
+                        }
+                        var subDeptId = $("#"+codeInputDomId).val();
+                        for (var i in nodeObjs) {
+                            var checkedStatus = false;
+                            if(subDeptId!="" && subDeptId==nodeObjs[i].id){
+                                checkedStatus = true;
+                            }
+                            params[i] = {
+                                'id': nodeObjs[i].id,
+                                'name': nodeObjs[i].deptName,
+                                'fid': nodeObjs[i].fid,
+                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
+                                'checked':checkedStatus
+                            }
+                        }
+                        return params;
+                    }
+                },
+                check: {enable: true,chkStyle: "radio",chkboxType: { "Y":"ps","N":"ps"}},
+                callback: {
+                    /*beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+                        var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
+                        if (treeNode.isParent) {
+                            if (treeNode.open) {
+                                zTreeObj.expandNode(treeNode, false);
+                            } else {
+                                zTreeObj.expandNode(treeNode, true);
+                            }
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },*/
+                    onClick: function (e, treeId, treeNode) { //点击节点，选中并触发oncheck事件
+                        var zTree = $.fn.zTree.getZTreeObj(treeId);
+                        zTree.checkNode(treeNode,true,true,true);
+                    },
+                    onCheck: function (e, treeId, treeNode) {
+                        $('#' + codeInputDomId).val(treeNode.id);
+                        if(nameInputDomId){
+                            $('#' + nameInputDomId).val(treeNode.name);
+                        }
+                        if(!loginUserDeptId || loginUserDeptId==="null"){
+                            $("#chargeDeptId").val(treeNode.id);
+                        }
+                    }
+                }
+            };
+            $.fn.zTree.init($("#" + treeDomId), setting);
+            if(nameInputDomId){
+                $('#' + nameInputDomId).click(function () {
+                    //$.fn.zTree.init($("#" + treeDomId), setting);
+                    var cityOffset = $("#" + nameInputDomId).offset();
+                    $("#" + treeDivDomId).css({
+                        left: cityOffset.left + "px",
+                        top: cityOffset.top + $("#" + nameInputDomId).outerHeight() + "px"
+                    }).slideDown("fast");
+                    $("body").bind("mousedown", function (event) {
+                        if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#" + treeDivDomId).length > 0)) {
+                            $("#" + treeDivDomId).fadeOut("fast");
+                            $("body").unbind("mousedown");
+                        }
+                    });
+                })
+            }
         },
 
         /**
@@ -2489,7 +2592,6 @@ function initGlobalCustom(tempUrlPrefix) {
             $.fn.zTree.init($("#" + treeDomId), setting);
             if(nameInputDomId){
                 $('#' + nameInputDomId).click(function () {
-                    $.fn.zTree.init($("#" + treeDomId), setting);
                     var cityOffset = $("#" + nameInputDomId).offset();
                     $("#" + treeDivDomId).css({
                         left: cityOffset.left + "px",

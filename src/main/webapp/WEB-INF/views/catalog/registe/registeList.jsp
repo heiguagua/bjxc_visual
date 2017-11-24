@@ -35,8 +35,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div style="height: 6%" id="regionDiv">
-                                        <div  style="margin: 0 5px">
+                                    <%--<div style="height: 6%" id="regionDiv">
+                                        <div class="input-group" style="margin:2px;">
                                             <input type="text" id="searchRegionName" placeholder="请选择区域"
                                                    class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="searchRegionCode">
@@ -49,8 +49,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div style="height: 88%">
+                                    </div>--%>
+                                    <div style="height: 94%">
                                         <ul id="treeDemo" class="ztree"></ul>
                                     </div>
                                 </section>
