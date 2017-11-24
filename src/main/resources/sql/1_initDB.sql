@@ -2688,10 +2688,10 @@ alter table sys_user_role comment '用户角色表';
 
 drop view if EXISTS v_sys_region_dept;
 create view v_sys_region_dept as
-select id,region_code,'1' as category,region_code as region_dept_code,region_name as region_dept_name,fcode from sys_region
+-- select id,region_code,'1' as category,region_code as region_dept_code,region_name as region_dept_name,fcode from sys_region
 -- union
 -- select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name,region_code as fcode from sys_dept where fid='root'
-union
+-- union
 select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name ,region_code as fcode
 	from sys_dept t where fid in (select id from sys_dept where fid = 'root');
 -- union
