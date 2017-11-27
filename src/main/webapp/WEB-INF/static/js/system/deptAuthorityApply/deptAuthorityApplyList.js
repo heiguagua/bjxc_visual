@@ -15,37 +15,37 @@ jQuery(document).ready(function () {
         pagination: true, //分页
         pageSize: 15,
         columns: [{
-            field: 'id', title: '序号', width: '5%', align: 'center', formatter: function (value, row, index) {
+            field: 'id', title: '序号', width: '5%', align: 'left', formatter: function (value, row, index) {
             return index + 1;
             }
         }, {
             field: 'applicantName',
             title: '申请人',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         },   {
             field: 'deptName',
             title: '申请权限对应部门',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'applyReason',
             title: '申请理由',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         },{
             field: 'auditorName',
             title: '审核人',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         },{
             field: 'auditStatus',
             title: '审核状态',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             formatter : function (value) {
@@ -60,7 +60,7 @@ jQuery(document).ready(function () {
         },{
             field: 'applyTime',
             title: '申请时间',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }

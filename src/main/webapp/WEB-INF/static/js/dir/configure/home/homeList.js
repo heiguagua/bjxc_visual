@@ -88,7 +88,7 @@ function reloadTable() {
 }
 
 function addUser() {
-	addNews('新增图片',basePathJS + '/dirHome/add',500,300);
+	addPictureNews('新增图片',basePathJS + '/dirHome/add',500,300);
 }
 
 function statusUser(id,status) {
@@ -98,7 +98,7 @@ function statusUser(id,status) {
 }
 
 function editUser(id) {
-	updateForNews('编辑图片',basePathJS + '/dirHome/edit' , id,900,600);
+	updateForPictureNews('编辑图片',basePathJS + '/dirHome/edit' , id,900,600);
 }
 
 function deleteUser(id) {

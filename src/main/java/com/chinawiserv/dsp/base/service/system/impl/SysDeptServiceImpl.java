@@ -77,6 +77,11 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
+    public List<SysDeptVo> selectVoList(Map<String, Object> paramMap) throws Exception {
+        return sysDeptMapper.selectSubVoList(paramMap);
+    }
+
+    @Override
     public Page<SysDeptVo> selectBaseVoPage(Map<String, Object> paramMap) throws Exception {
         Map<String, Object> param = this.getDeptCondition(null);
         if (param != null && !param.isEmpty()) {
@@ -513,5 +518,9 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         }
 
         return true;
+    }
+
+    public Map<String,Object> getBelongTypeByDept(String deptId){
+        return sysDeptMapper.selectBelongTypeByDept(deptId);
     }
 }

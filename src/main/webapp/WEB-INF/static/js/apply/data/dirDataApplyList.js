@@ -77,6 +77,7 @@ jQuery(document).ready(function () {
         },
         pagination: true, //分页
         pageSize: 10,
+        smartDisplay: false,
         onRefresh: function(){
             var isAudited = $('#isAudited').val();
             if(isAudited == '0'){

@@ -5,6 +5,7 @@ import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirDevelopApisVo;
+import com.chinawiserv.dsp.dir.entity.vo.configure.DirHomeVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirDevelopApisMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirDevelopApisService;
 import net.sf.json.JSONObject;
@@ -16,9 +17,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -87,14 +92,23 @@ public class DirDevelopApisController extends BaseController {
     @Log("创建开发者工具")
     @RequestMapping("/doAdd")
     @ResponseBody
-    public HandleResult doAdd(DirDevelopApisVo entity){
+    public HandleResult doAdd(DirDevelopApisVo entity, @RequestParam(value="file",required=true)MultipartFile file,  
+            HttpServletRequest request){
 		HandleResult handleResult = new HandleResult();
 		try {
-		    service.insertVO(entity);
-		    handleResult.success("创建开发者工具成功");
+//			String rs = "samePic";
+			String rs = service.fileUpload(entity, file, request);
+            if("samePic".equals(rs)){
+            	handleResult.error("该图片已存在，请重新选择图片上传");
+            }else if("type".equals(rs)){
+            	handleResult.error("上传格式不正确，请重新选择图片上传") ;
+            }else{
+            	handleResult.success("图片上传成功");
+            }
+//		    service.insertVO(entity);		    
 		} catch (Exception e) {
-		    handleResult.error("创建开发者工具失败");
-		    logger.error("创建开发者工具失败", e);
+		    handleResult.error("图片上传失败");
+		    logger.error("图片上传失败", e);
 		}
 		return handleResult;
     }
@@ -164,15 +178,24 @@ public class DirDevelopApisController extends BaseController {
     @Log("编辑开发者工具")
     @RequestMapping("/doEdit")
     @ResponseBody
-    public  HandleResult doEdit(DirDevelopApisVo entity,Model model){
-		HandleResult handleResult = new HandleResult();
+    public  HandleResult doEdit(DirDevelopApisVo entity,@RequestParam(value="file",required=false)MultipartFile file,  
+            HttpServletRequest request){
+    	HandleResult handleResult = new HandleResult();
 		try {
-		    service.updateVO(entity);
-		    handleResult.success("编辑开发者工具成功");
+			String rs = service.fileUpdate(entity, file, request);
+            if("samePic".equals(rs)){
+            	handleResult.error("该图片已存在，请重新选择图片上传");
+            }else if("type".equals(rs)){
+            	handleResult.error("上传格式不正确，请重新选择图片上传") ;
+            }else{
+            	handleResult.success("更新首页图片表成功");
+            }
+//		    service.insertVO(entity);		    
 		} catch (Exception e) {
-		    handleResult.error("编辑开发者工具失败");
-		    logger.error("编辑开发者工具失败", e);
+		    handleResult.error("更新首页图片表失败");
+		    logger.error("更新首页图片表失败", e);
 		}
+		
 		return handleResult;
     }
 }

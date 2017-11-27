@@ -161,7 +161,7 @@ public class SysRegionDeptController extends BaseController {
         try {
             String fid = (String) paramMap.get("fcode");
             if (StringUtils.isEmpty(fid)) {
-                paramMap.put("category", SystemConst.CATEGORY_REGION);
+//                paramMap.put("category", SystemConst.CATEGORY_REGION);
                 paramMap.put("regionCode", ShiroUtils.getLoginUser().getRegionCode());
             }else{
                 paramMap.remove("regionCode");

@@ -18,14 +18,14 @@ jQuery(document).ready(function () {
         },{
             field: 'code',
             title: '编码',
-            align: 'center',
+            align: 'left',
             width: '150px',
             valign: 'middle',
             sortable: false
         },{
             field: 'menuType',
             title: '类型',
-            align: 'center',
+            align: 'left',
             width: '100px',
             valign: 'middle',
             sortable: false,
@@ -43,28 +43,28 @@ jQuery(document).ready(function () {
         }, {
             field: 'url',
             title: '访问地址',
-            align: 'center',
+            align: 'left',
             width: '200px',
             valign: 'middle',
             sortable: false
         }, {
             field: 'resourceName',
             title: '资源标识',
-            align: 'center',
+            align: 'left',
             width: '200px',
             valign: 'middle',
             sortable: false
         }, {
             field: 'sort',
             title: '排序',
-            align: 'center',
+            align: 'left',
             width: '100px',
             valign: 'middle',
             sortable: false
         }, {
             field: 'icon',
             title: '图标',
-            align: 'center',
+            align: 'left',
             width: '100px',
             valign: 'middle',
             sortable: false,
@@ -74,7 +74,7 @@ jQuery(document).ready(function () {
         }, {
             field: 'status',
             title: '状态',
-            align: 'center',
+            align: 'left',
             width: '100px',
             valign: 'middle',
             sortable: false,
@@ -91,7 +91,7 @@ jQuery(document).ready(function () {
         }, {
             field: 'id',
             title: '操作',
-            align: 'center',
+            align: 'left',
             width: '150px',
             valign: 'middle',
             sortable: false ,

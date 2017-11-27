@@ -44,7 +44,7 @@ function initUnReleaseCss(){
             width:"40px"
         },200);
         $("#dir-Manger").hide();
-        $("#unReleaseRegionDiv").hide();
+        //$("#unReleaseRegionDiv").hide();
         $("#forward").show(400);
         $("#backward").hide(500);
         $("#treeDemo").hide(200);
@@ -62,7 +62,7 @@ function initUnReleaseCss(){
             width:"230px"
         },200);
         $("#dir-Manger").show();
-        $("#unReleaseRegionDiv").show();
+        //$("#unReleaseRegionDiv").show();
         $("#forward").hide(400);
         $("#backward").show(500);
         $("#treeDemo").show(200);
@@ -86,7 +86,7 @@ function initReleasedCss(){
             width:"40px"
         },200);
         $("#dir-Manger2").hide();
-        $("#releasedRegionDiv").hide();
+        //$("#releasedRegionDiv").hide();
         $("#forward2").show(400);
         $("#backward2").hide(500);
         $("#treeDemo2").hide(200);
@@ -104,7 +104,7 @@ function initReleasedCss(){
             width:"230px"
         },200);
         $("#dir-Manger2").show();
-        $("#releasedRegionDiv").show();
+        //$("#releasedRegionDiv").show();
         $("#forward2").hide(400);
         $("#backward2").show(500);
         $("#treeDemo2").show(200);
@@ -122,9 +122,9 @@ function initReleasedCss(){
 function initUnReleaseTable(){
     var searchName = $("#unReleaseSearchName").val();
     var searchClassifyId = $("#unReleaseSearchClassifyId").val();
-    var regionCode = $('#unReleaseSearchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    //var regionCode = $('#unReleaseSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/unRelease/list',
@@ -209,9 +209,9 @@ function initUnReleaseTable(){
 function initReleasedTable(){
     var searchName = $("#releasedSearchName").val();
     var searchClassifyId = $("#releasedSearchClassifyId").val();
-    var regionCode = $('#releasedSearchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    //var regionCode = $('#releasedSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
     $(tableSelector).bootstrapTable("destroy");
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/released/list',
@@ -360,23 +360,23 @@ function invokeButton(buttonId, url, msg){
 }
 
 function catalogueTableShow(id){
-    show('信息资源详情',basePathJS + '/catalog/show' , id ,1300,700);
+    show('信息资源详情',basePathJS + '/catalog/show' , id ,"70%",700);
 }
 
 function setUnReleaseParams(){
     var searchName = $("#unReleaseSearchName").val();
     var searchClassifyId = $("#unReleaseSearchClassifyId").val();
-    var regionCode = $('#unReleaseSearchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    //var regionCode = $('#unReleaseSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function setReleasedParams() {
     var searchName = $("#releasedSearchName").val();
     var searchClassifyId = $("#releasedSearchClassifyId").val();
-    var regionCode = $('#releasedSearchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    //var regionCode = $('#releasedSearchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {

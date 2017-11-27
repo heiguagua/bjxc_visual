@@ -42,19 +42,19 @@ jQuery(document).ready(function () {
         }, {
             field: 'userName',
             title: '用户名',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'realName',
             title: '真实姓名',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
 //            field: 'userType',
 //            title: '用户类型',
-//            align: 'center',
+//            align: 'left',
 //            valign: 'middle',
 //            sortable: false,
 //            formatter: function (value) {
@@ -69,7 +69,7 @@ jQuery(document).ready(function () {
 //        }, {
             field: 'userDesc',
             title: '描述',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             visible:false
@@ -77,19 +77,19 @@ jQuery(document).ready(function () {
             {
                 field: 'regionName',
                 title: '行政区域',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false
             }, {
                 field: 'deptName',
                 title: '组织机构名称',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false
             }, {
                 field: 'status',
                 title: '用户状态',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false,
                 formatter: function (value) {
@@ -105,14 +105,14 @@ jQuery(document).ready(function () {
             }, {
                 field: 'telephoneNumber',
                 title: '电话号码',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false,
                 visible:false
             },{
                 field: 'cellPhoneNumber',
                 title: '手机号码',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false,
                 visible:false
@@ -120,19 +120,19 @@ jQuery(document).ready(function () {
             {
                 field: 'createName',
                 title: '创建者',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false
             }, {
                 field: 'updateTime',
                 title: '更新时间',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false
             }, {
                 field: 'id',
                 title: '操作',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 width: '12%',
                 sortable: false,

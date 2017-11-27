@@ -50,7 +50,8 @@ public class LicFilter extends OncePerRequestFilter{
                 if ( checkUrlExclude(url) ) {
                     //获取项目标识简称 此简称与lic中的要一致才能通过
                     licSysName = getFilterConfig().getInitParameter("licSysName");
-                    licPath = Config.LIC_PATH + File.separator + licSysName+ File.separator;
+                    licPath = Config.getLicPath() + File.separator + licSysName+ File.separator;
+                    logger.info("==licPath:"+licPath);
                     //lic验证
                     LicAuthorize licAuthorize = new LicAuthorizeImpl();
                     String licInfoStr = licAuthorize.doLicAuthorize(licSysName, licPath);

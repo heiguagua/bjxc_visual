@@ -29,14 +29,14 @@ jQuery(document).ready(function () {
         }, {
             field: 'roleName',
             title: '角色名称',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
         	 field: 'roleDesc',
              width: 320,
              title: '描述',
-             align: 'center',
+             align: 'left',
              valign: 'middle',
              sortable: false,
              formatter : function (value) {
@@ -51,13 +51,13 @@ jQuery(document).ready(function () {
         }, {
             field: 'createTime',
             title: '创建时间',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'status',
             title: '状态',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             formatter : function (value) {
@@ -70,14 +70,14 @@ jQuery(document).ready(function () {
         },  {
             field: 'roleLevel',
             title: '角色级别',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         },
             {
             field: 'id',
             title: '操作',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             width: '18%',
             sortable: false ,

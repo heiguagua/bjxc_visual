@@ -33,27 +33,27 @@ function intDict(param) {
             {
                 field: 'categoryCode',
                 title: '类型编码',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 // width : '150px' ,
                 sortable: false
             }, {
                 field: 'categoryName',
                 title: '类型名称',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 // width : '150px' ,
                 sortable: false
             }, {
                 field: 'categoryDesc',
                 title: ' 描述',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false
             }, {
                 field: 'categoryCode',
                 title: '操作',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false ,
                 formatter : function (value,row) {
@@ -121,7 +121,7 @@ function getDictDetails(categoryCode,dd,searchKey) {
             {
                 field: 'categoryName',
                 title: '字典类型',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 // width : '150px' ,
                 sortable: false,
@@ -131,7 +131,7 @@ function getDictDetails(categoryCode,dd,searchKey) {
             }, {
                 field: 'dictCode',
                 title: '配置项编码',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 // width : '150px' ,
                 sortable: false
@@ -139,7 +139,7 @@ function getDictDetails(categoryCode,dd,searchKey) {
             {
                 field: 'dictName',
                 title: '配置项名称',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 // width : '400px' ,
                 sortable: false
@@ -147,33 +147,33 @@ function getDictDetails(categoryCode,dd,searchKey) {
             {
                 field: 'regionName',
                 title: '适用范围',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false
             },
             {
                 field: 'orderNumber',
                 title: '顺序',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false
             }, {
                 field: 'stateName',
                 title: '是否生效',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 // width : '400px' ,
                 sortable: false
             }, {
                 field: 'dictDesc',
                 title: ' 描述',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false
             }, {
                 field: 'id',
                 title: '操作',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false ,
                 formatter : function (value,row) {

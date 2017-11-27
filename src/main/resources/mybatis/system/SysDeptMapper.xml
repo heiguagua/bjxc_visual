@@ -134,10 +134,34 @@
 		<include refid="selectVoWithRegion"></include>
 		<include refid="queryConditionsWithRegion"></include>
 	</select>
+
+    <select id="selectSubVoList" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
+        SELECT t.*,CASE WHEN f.dcode IS NULL THEN '0' ELSE '1' END AS hasLeaf
+        FROM sys_dept t
+        LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM sys_dept where delete_flag=0) f on t.id=f.dcode
+        where t.fid=#{fid, jdbcType=VARCHAR}
+    </select>
+
 	<select id="selectBaseVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
 		SELECT t.* FROM sys_dept t
 		<include refid="queryConditions"></include>
 	</select>
+
+    <select id="selectBelongTypeByDept" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT a.id AS deptId,a.dept_name AS deptName,b.id AS subDeptId,b.dept_name AS subDeptName FROM
+        (
+        SELECT id,dept_name,tree_code FROM sys_dept
+        WHERE dept_level=2 AND LOCATE(CONCAT(tree_code,';'),(SELECT  CONCAT(t1.tree_code,';') FROM sys_dept t1 WHERE t1.id = #{deptId,jdbcType=VARCHAR})) = 1
+        ) a
+        LEFT JOIN
+        (
+        SELECT id,dept_name,tree_code FROM sys_dept t WHERE id=#{deptId,jdbcType=VARCHAR} AND dept_level>2
+        ) b
+        ON  LOCATE(CONCAT(a.tree_code,';'),b.tree_code) = 1
+
+    </select>
+
+
 	<!--目录同步功能  非目录请注释 start -->
 	<sql id="selectVoWithDirMap">
 		SELECT t.*, d.dept_id AS isSync FROM sys_dept t
@@ -274,5 +298,7 @@
 
 		</foreach>
 	</insert>
+
+
 
 </mapper>

@@ -47,7 +47,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div style="height: 40px" id="unReleaseRegionDiv">
+                                    <%--<div style="height: 40px" id="unReleaseRegionDiv">
                                         <div class="input-group" style="margin:2px;;min-width:200px">
                                             <input type="text" id="unReleaseSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="unReleaseSearchRegionCode">
@@ -57,8 +57,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div style="height: 88%">
+                                    </div>--%>
+                                    <div style="height: 94%">
                                         <ul id="unReleaseTreeDemo" class="ztree"></ul>
                                     </div>
                                 </section>
@@ -135,7 +135,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div style="height: 40px" id="releasedRegionDiv">
+                                    <%--<div style="height: 40px" id="releasedRegionDiv">
                                         <div class="input-group" style="margin:2px;min-width:200px">
                                             <input type="text" id="releasedSearchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
                                             <input type="hidden" id="releasedSearchRegionCode">
@@ -145,8 +145,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div style="height: 88%">
+                                    </div>--%>
+                                    <div style="height: 94%">
                                         <ul id="releasedTreeDemo" class="ztree"></ul>
                                     </div>
                                 </section>

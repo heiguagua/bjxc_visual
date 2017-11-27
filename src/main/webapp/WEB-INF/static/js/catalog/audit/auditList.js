@@ -18,7 +18,7 @@ function initCss(){
                 width:"2%"
             },200);
             $("#dir-Manger").hide();
-            $("#regionDiv").hide();
+            //$("#regionDiv").hide();
             $("#forward").show(400);
             $("#backward").hide(500);
             $("#treeDemo").hide(200);
@@ -37,7 +37,7 @@ function initCss(){
                 width:"14%"
             },500);
             $("#dir-Manger").show();
-            $("#regionDiv").show();
+            //$("#regionDiv").show();
             $("#forward").hide(400);
             $("#backward").show(500);
             $("#treeDemo").show(200);
@@ -49,7 +49,7 @@ function initCss(){
 }
 
 function initTable(){
-    paramsObj["regionCode"] = $('#searchRegionCode').val();
+    //paramsObj["regionCode"] = $('#searchRegionCode').val();
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/audit/list',
         queryParams: function (params) {
@@ -131,9 +131,9 @@ function initTable(){
 
 function initAllSelect(){
     //区域下拉查询框
-    var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+    /*var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
     $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
-        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
+        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);*/
     //初始化中间目录分类树
     $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
 }
@@ -188,15 +188,15 @@ function initButtonClickEvent(){
 
 
 function catalogueTableShow(id){
-    show('信息资源详情',basePathJS + '/catalog/show' , id ,1300,700);
+    show('信息资源详情',basePathJS + '/catalog/show' , id ,"70%",700);
 }
 
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    var regionCode = $('#searchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    //var regionCode = $('#searchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {

@@ -13,7 +13,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
+                    <form role="form"  enctype="multipart/form-data"  data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/dirSpecialApps/doAdd">
                         <div class="box-body">
                             <div class="form-group">
@@ -41,6 +41,12 @@
                                 <label for="orderNumber">排序号</label>
                                 <input type="text" id="order_number" name="orderNumber" class="form-control"
                                        placeholder="请输入排序号" data-rule="排序号:required;orderNumber;">
+                            </div>
+                            <div class="form-group">
+                                <label for="choosePic">图片<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+                                <input style="display: inline-block" type="file" name="file" value="file" id="choosePic" data-rule="图片:required;file">
+                                <label id="picNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过5M)</label>
+                                <div id="addPicDiv"></div>
                             </div>
                                                     
                            

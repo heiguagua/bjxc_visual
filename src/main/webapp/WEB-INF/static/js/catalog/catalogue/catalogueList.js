@@ -18,7 +18,7 @@ function initCss(){
                 width:"2%"
             },200);
             $("#dir-Manger").hide();
-            $("#regionDiv").hide();
+            //$("#regionDiv").hide();
             $("#forward").show(400);
             $("#backward").hide(500);
             $("#treeDemo").hide(200);
@@ -37,7 +37,7 @@ function initCss(){
                 width:"14%"
             },500);
             $("#dir-Manger").show();
-            $("#regionDiv").show();
+            //$("#regionDiv").show();
             $("#forward").hide(400);
             $("#backward").show(500);
             $("#treeDemo").show(200);
@@ -50,7 +50,7 @@ function initCss(){
 }
 
 function initTable(){
-    paramsObj["regionCode"] = $("#searchRegionCode").val();
+    //paramsObj["regionCode"] = $("#searchRegionCode").val();
     jQuery(tableSelector).customTable({
         url: basePathJS + '/catalog/catalogue/list',
         queryParams: function (params) {
@@ -154,9 +154,9 @@ function initTable(){
 
 function initAllSelect(){
     //区域下拉查询框
-    var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+    /*var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
     $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
-        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
+        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);*/
     //初始化中间目录分类树
     $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
 }
@@ -214,9 +214,9 @@ function initButtonClickEvent(){
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    var regionCode = $('#searchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    //var regionCode = $('#searchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {
@@ -230,19 +230,16 @@ function addCustom() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
-    if(!checkClassifyType()){
-        tip("不能在这个分类下添加资源!!",parent,null,null);
-        return;
-    }
-    add('新增信息资源',basePathJS + '/catalog/catalogue/add'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    add('新增信息资源',basePathJS + '/catalog/catalogue/add'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
 
 function catalogueTableEdit(id) {
-    update('编辑信息资源',basePathJS + '/catalog/edit' , id ,1300,700);
+    update('编辑信息资源',basePathJS + '/catalog/edit' , id ,"70%",700);
 }
 
 function catalogueTableShow(id){
-    show('信息资源详情',basePathJS + '/catalog/show' , id ,1300,700);
+	
+    show('信息资源详情',basePathJS + '/catalog/show' , id ,"70%",700);
 }
 
 function quickAddDatasetUI() {
@@ -255,7 +252,7 @@ function quickAddDatasetUI() {
         tip("不能在这个分类下添加资源!!",parent,null,null);
         return;
     }
-    add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
 
 function quickSystemAddDatasetUI() {
@@ -268,7 +265,7 @@ function quickSystemAddDatasetUI() {
         tip("不能在这个分类下添加资源!!",parent,null,null);
         return;
     }
-    add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
 function quickCsAddDatasetUI() {
     var searchClassifyId = $('#searchClassifyId').val();
@@ -280,7 +277,7 @@ function quickCsAddDatasetUI() {
         tip("不能在这个分类下添加资源!!",parent,null,null);
         return;
     }
-    add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
 function quickDcmAddDatasetUI() {
     var searchClassifyId = $('#searchClassifyId').val();
@@ -292,7 +289,7 @@ function quickDcmAddDatasetUI() {
         tip("不能在这个分类下添加资源!!",parent,null,null);
         return;
     }
-    add('从关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    add('从关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
 function quickNosqlDcmAddDatasetUI() {
     var searchClassifyId = $('#searchClassifyId').val();
@@ -304,7 +301,7 @@ function quickNosqlDcmAddDatasetUI() {
         tip("不能在这个分类下添加资源!!",parent,null,null);
         return;
     }
-    add('从非关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmNosqlAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    add('从非关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmNosqlAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
 function excelImportUI() {
     var searchClassifyId = $('#searchClassifyId').val();
