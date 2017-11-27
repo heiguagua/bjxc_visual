@@ -9,10 +9,15 @@ jQuery(document).ready(function () {
 });
 function initAllSelect(){
     var regionCode = $.getSelectedRegionCode();
-    $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
-    //$.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent');
+    //$.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
     $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId','regionCode');//初始化关联目录分类下拉框
-    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
+    var initBelongDeptTypeTreeParam = ["belongDeptTreeDemo","belongDeptName","belongDeptId","belongDeptMenuContent"];
+    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent',initBelongDeptTypeTreeParam)//初始化资源提供方下拉框;
+    //初始化科室
+    var belongDeptTypeValue = $("#belongDeptType").val();
+    if(belongDeptTypeValue){
+        $.initSubDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',{fid:belongDeptTypeValue});
+    }
     //$.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
     $('#datasetName').on('blur',function(){
         var datasetName=$('#datasetName').val();
@@ -64,15 +69,32 @@ function initAllSelect(){
 
 function initInputValue(){
     //初始化资源提供方和提供方代码输入框的值
-    $.commonAjax({
-        url:basePathJS + "/system/dept/getDeptInfoForLoginUser",
-        success: function (result) {
-            if (result.state) {
-                var deptObj = result.content.vo;
-                $("#chargeDeptId").val(deptObj.id);
+    //$.commonAjax({
+    //    url:basePathJS + "/system/dept/getDeptInfoForLoginUser",
+    //    success: function (result) {
+    //        if (result.state) {
+    //            var deptObj = result.content.vo;
+    //            $("#chargeDeptId").val(deptObj.id);
+    //        }
+    //    }
+    //});
+    if(loginUserDeptId && loginUserDeptId!=="null"){
+        $("#chargeDeptId").val(loginUserDeptId);
+        $.commonAjax({
+            url:basePathJS + "/system/dept/belongTypeByDept",
+            data:{deptId:loginUserDeptId},
+            async:false,
+            success: function (result) {
+                if (result.state) {
+                    var obj = result.content.vo;
+                    $("#belongDeptType").val(obj.deptId);
+                    $("#belongDeptTypeName").val(obj.deptName);
+                    $("#belongDeptId").val(obj.subDeptId);
+                    $("#belongDeptName").val(obj.subDeptName);
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 var tree=new Tree();
@@ -475,7 +497,9 @@ function getTrNum(){
 }
 function buildDataset(data){
     for(var key in data){
-        if(key=='isSecret'){
+        if(key=='belongDeptId' || key=='belongDeptType'){
+            continue;
+        }else if(key=='isSecret'){
             $("input[name='secretFlag'][value='"+data[key]+"']").click();
         }else if(key=='isOpen'){
             $("input[name='isOpen'][value='"+data[key]+"']").click();
