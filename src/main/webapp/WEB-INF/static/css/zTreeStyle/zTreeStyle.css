@@ -22,7 +22,7 @@ website:	http://code.google.com/p/jquerytree/
     padding: 3px;
     margin-left: 15px;
     border: none;}
-    .ztree li .btn-delete{background: #000080;
+    .ztree li .btn-delete{background: #ff8000;
     border-radius: 100px;
     color: #FFF;
     height: 26px;
@@ -31,7 +31,7 @@ website:	http://code.google.com/p/jquerytree/
     padding: 3px;
     margin-left: 15px;
     border: none;}
-    .ztree li .btn-addNational{background: #ff0000;
+    .ztree li .btn-addNational{background: #ff8000;
     border-radius: 100px;
     color: #FFA;
     height: 26px;
