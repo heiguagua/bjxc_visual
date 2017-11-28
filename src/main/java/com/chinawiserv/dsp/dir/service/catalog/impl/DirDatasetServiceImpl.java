@@ -1286,13 +1286,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 if (insertResult == dcmIdArray.length) {
                     result = true;
                     //todo 调用门户的接口，同步数据到互联网门户的数据库,需要时放开即可
-//                    if(Dataset.PublishType.ToDzzw.getKey().equalsIgnoreCase(publishType)||Dataset.PublishType.ToAll.getKey().equalsIgnoreCase(publishType)){
-//                        try {
-//                            boolean b = syncPublishDatasetToOpenPortal(dcmIdArray);
-//                        } catch (Exception e) {
-//                            System.out.println("同步到开放门户失败");
-//                        }
-//                    }
+                    if(Dataset.PublishType.ToDzzw.getKey().equalsIgnoreCase(publishType)||Dataset.PublishType.ToAll.getKey().equalsIgnoreCase(publishType)){
+                        try {
+                            boolean b = syncPublishDatasetToOpenPortal(dcmIdArray);
+                        } catch (Exception e) {
+                            System.out.println("同步到开放门户失败");
+                        }
+                    }
                 }
             }
         }
