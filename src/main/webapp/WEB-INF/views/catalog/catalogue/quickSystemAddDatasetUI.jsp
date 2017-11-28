@@ -29,15 +29,15 @@
         <div class="layer-boxs">
             <form class="form-horizontal" id="addForm" method="post" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" 
              action="<%=basePath%>/catalog/quickAddDataset" >
-                <!-- <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right" data-toggle="modal" data-target="#myModal">
+                <%-- <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right" data-toggle="modal" data-target="#myModal">
                       配置数据集
-                  </button> -->
-                <!-- <div class="form-group">
+                  </button> --%>
+                <%-- <div class="form-group">
                     <label  class="col-sm-3 control-label">&#160;</label>
                     <div class="col-sm-9">
                         <p class="alertx alert-infox" role="alert">注：有缺失的数据，请联系相关管理员进行配置 * 为必填项</p>
                     </div>
-                </div> -->
+                </div> --%>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-11">
@@ -107,15 +107,14 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6" style="padding:0;padding-left:15px;">
-                                        <input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="请输入提供方信息" >
-                                        <%--<input type="text" id="belongDeptName" data-rule="信息资源提供方:required;" class="form-control"
-                                               placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+                                        <%--<input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="请输入提供方信息" >--%>
+                                        <input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="可选择可输入" >
                                         <input type="hidden" id="belongDeptId" name="belongDeptId">
                                         <div class="menu-wrap">
                                             <div id="belongDeptMenuContent" class="menuContent" style="display:none;">
                                                 <ul id="belongDeptTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                             </div>
-                                        </div>--%>
+                                        </div>
                                     </div>
                             </div>
                         </div>
@@ -404,7 +403,7 @@
     </div>
 
     <%@include file="./selectSystemDatasetModal.jsp" %>
-</section><!-- /.content -->
+</section>
 
 </body>
 </html>
