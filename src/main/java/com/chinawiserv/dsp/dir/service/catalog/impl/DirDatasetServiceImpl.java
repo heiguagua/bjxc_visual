@@ -111,6 +111,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     @Autowired
     private DirClassifyMapper dirClassifyMapper;
 
+    @Autowired
+    private DirDatasetAttachmentMapper dirDatasetAttachmentMapper;
+
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
         boolean insertResult = false;
@@ -1534,6 +1537,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
         List<DirDatasetExtFormat> dirDatasetExtFormatList = dirDatasetExtFormatMapper.selectList(new EntityWrapper<DirDatasetExtFormat>().in("dataset_id",datasetIdList));
         pushMap.put("dirDatasetExtFormatList",dirDatasetExtFormatList);
+
+        List<DirDatasetAttachment> dirDatasetAttachmentList = dirDatasetAttachmentMapper.selectList(new EntityWrapper<DirDatasetAttachment>().in("dataset_id",datasetIdList));
+        pushMap.put("dirDatasetAttachmentList",dirDatasetAttachmentList);
 
         String pushJson = new Gson().toJson(pushMap);
         Boolean result;
