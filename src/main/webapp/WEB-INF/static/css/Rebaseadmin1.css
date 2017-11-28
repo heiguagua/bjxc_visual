@@ -326,6 +326,7 @@ input.input_test{
 .main-sidebar—Du{
 	    float: left;
     width: 14%;
+    height:860px;
 	/* position:absolute;
 	overflow: auto;
 	z-index: 100;
@@ -365,7 +366,7 @@ select.form-controls{
 	margin-top:0px;
 }
 /* 针对目录新添加行增加行高 以免遮挡验证样式 */
-  table.table-striped tbody>tr{
+ div.form-group  table.table-striped tbody>tr{
         	height:50px;
         }
         

@@ -62,11 +62,11 @@
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源提供方 :</label>
                             <div class="col-sm-9">
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <input type="text" id="belongDeptTypeName" class="form-control"
                                            placeholder="" readonly>
                                 </div>
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-left:15px;">
                                     <input type="text" id="belongDeptName" class="form-control"
                                            placeholder="" readonly>
                                 </div>
@@ -97,11 +97,11 @@
                         <div class="col-sm-6">
                             <label for="formatCategory" class="col-sm-3 control-label">所属资源格式:</label>
                             <div class="col-sm-9">
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <select class="form-control" id="formatCategory" name="ext.formatCategory" readonly>
                                     </select>
                                 </div>
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-left:15px;">
                                     <select class="form-control" id="formatType" name="ext.formatType" readonly>
                                     </select>
                                 </div>
@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-sm-6">
                             <label  class="col-sm-3 control-label" style="padding-left:0px">涉密标识：</label>
-                            <div class="col-sm-9 control-label">
+                            <div class="col-sm-9 control-label"  style="text-align:left">
                                 <div class="redio-box">
                                     <input readonly type="radio" name="secretFlag" value="1" ><span></span>
                                 </div>
@@ -119,7 +119,7 @@
                                     <input readonly type="radio" name="secretFlag" value="0"><span></span>
                                 </div>
                                 <label style="display:inline-block">非涉密</label>
-                                <span class="updatedate">更新周期：</span>
+                                <span class="updatedate">周期：</span>
                                 <select class="form-controls updateSelec" id="updateFrequency" name="updateFrequency" readonly>
                                 </select>
                             </div>

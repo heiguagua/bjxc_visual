@@ -101,7 +101,7 @@
 									<ul id="belongDeptTypeTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
 								</div>
 							</div>--%>
-							<div class="col-sm-6" style="padding:0">
+							<div class="col-sm-6" style="padding:0;padding-right:15px;">
 								<input type="text" id="belongDeptTypeName" data-rule="信息资源提供方:required;" class="form-control"
 									   placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
 								<input type="hidden" id="belongDeptType" name="belongDeptType">
@@ -111,7 +111,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-6" style="padding:0">
+							<div class="col-sm-6" style="padding:0;padding-left:15px;">
                                 <input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="请输入提供方信息" >
 								<%--<input type="text" id="belongDeptName" data-rule="信息资源提供方:required;" class="form-control"
 									   placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
@@ -162,7 +162,7 @@
 	                	<div class="col-sm-6">
 		                	<label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式<span class="redStar">*</span>:</label>
 		                    <div class="col-sm-9">
-								<div class="col-sm-6" style="padding:0">
+								<div class="col-sm-6" style="padding:0;padding-right:15px;">
 									<select class="form-control" data-rule="所属资源格式:required;" id="format_category" name="ext.formatCategory">
 										<%--<option value="">--请选择--</option>
                                         <option value="1" name="电子文件">电子文件</option>
@@ -173,7 +173,7 @@
                                         <option value="6" name="自描述格式">自描述格式</option>--%>
 									</select>
 								</div>
-								<div class="col-sm-6" style="padding:0">
+								<div class="col-sm-6" style="padding:0;padding-left:15px;">
 									<select class="form-control" id="format_type" name="ext.formatType" >
 										<%--<option value="">--请选择--</option>
 										<option value="1" name="电子文件">电子文件</option>
@@ -206,7 +206,7 @@
 				                        		<input type="radio" name="secretFlag" value="0"><span></span>
 				                        	 </div>
 										    <label style="display:inline-block">非涉密</label>
-				                        	<span class="updatedate">更新周期：</span>
+				                        	<span class="updatedate">周期：</span>
 				                        	<select class="form-controls updateSelec" id="updateFrequency" name="updateFrequency">
 											</select>
 				                    </div>

@@ -5,6 +5,11 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/js/catalog/catalogue/catalogueList.js"></script>
 </head>
+<style>
+div.layui-layer-iframe {
+    min-width: 1094px;
+}
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -113,11 +118,7 @@
                                     
                                     
 
-                                    
-                                    
-                                </div>
-                                <div class="box-header">
-                                        <input type="hidden" id="searchClassifyId">
+                                         <input type="hidden" id="searchClassifyId">
 	                                    <%--<div class="input-group" style="margin-right:4px;min-width:240px">
 	                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
 	                                        <input type="hidden" id="searchClassifyId">
@@ -136,7 +137,11 @@
 	                                        </div>
 	                                        </input>
 	                                    </div>
-                                    </div>
+                                    
+                                </div>
+                               <!--  <div class="box-header">
+                                   
+                                    </div> -->
                             </form>
 		
 
