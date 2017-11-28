@@ -3207,6 +3207,7 @@ function initGlobalCustom(tempUrlPrefix) {
                 cache: false,
                 striped: true,
                 pagination: true,
+                showJump: false,
                 pageSize: 10,
                 pageList: [10, 25, 50, 100, 200],
                 paginationVAlign: "bottom",

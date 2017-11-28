@@ -111,6 +111,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     @Autowired
     private DirClassifyMapper dirClassifyMapper;
 
+    @Autowired
+    private DirDatasetAttachmentMapper dirDatasetAttachmentMapper;
+
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
         boolean insertResult = false;
@@ -1283,13 +1286,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 if (insertResult == dcmIdArray.length) {
                     result = true;
                     //todo 调用门户的接口，同步数据到互联网门户的数据库,需要时放开即可
-//                    if(Dataset.PublishType.ToDzzw.getKey().equalsIgnoreCase(publishType)||Dataset.PublishType.ToAll.getKey().equalsIgnoreCase(publishType)){
-//                        try {
-//                            boolean b = syncPublishDatasetToOpenPortal(dcmIdArray);
-//                        } catch (Exception e) {
-//                            System.out.println("同步到开放门户失败");
-//                        }
-//                    }
+                    if(Dataset.PublishType.ToDzzw.getKey().equalsIgnoreCase(publishType)||Dataset.PublishType.ToAll.getKey().equalsIgnoreCase(publishType)){
+                        try {
+                            boolean b = syncPublishDatasetToOpenPortal(dcmIdArray);
+                        } catch (Exception e) {
+                            System.out.println("同步到开放门户失败");
+                        }
+                    }
                 }
             }
         }
@@ -1534,6 +1537,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
         List<DirDatasetExtFormat> dirDatasetExtFormatList = dirDatasetExtFormatMapper.selectList(new EntityWrapper<DirDatasetExtFormat>().in("dataset_id",datasetIdList));
         pushMap.put("dirDatasetExtFormatList",dirDatasetExtFormatList);
+
+        List<DirDatasetAttachment> dirDatasetAttachmentList = dirDatasetAttachmentMapper.selectList(new EntityWrapper<DirDatasetAttachment>().in("dataset_id",datasetIdList));
+        pushMap.put("dirDatasetAttachmentList",dirDatasetAttachmentList);
 
         String pushJson = new Gson().toJson(pushMap);
         Boolean result;
