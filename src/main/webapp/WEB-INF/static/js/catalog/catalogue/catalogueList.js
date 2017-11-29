@@ -66,20 +66,22 @@ function initTable(){
             title: '信息资源提供方',
             sortable: false,
             width: '15%',
-            formatter:function(value, row, index){
+            formatter:function(value, row, index){            	
                 if(value == undefined){
                     value = "";
                 }
+                value = HtmlEncode(value);
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
             field: 'classifyName',
             title: '目录分类',
             sortable: false,
-            formatter:function(value, row, index){
+            formatter:function(value, row, index){            	
                 if(value == undefined){
                     value = "";
                 }
+                value = HtmlEncode(value);
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
@@ -88,6 +90,7 @@ function initTable(){
             sortable: false,
             width: '20%',
             formatter:function(value, row, index){
+            	value = HtmlEncode(value);
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
@@ -101,6 +104,7 @@ function initTable(){
             sortable: false,
             width: '10%',
             formatter:function(value, row, index){
+            	value = HtmlEncode(value);
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
@@ -133,7 +137,8 @@ function initTable(){
             valign: 'middle',
             sortable: false,
             formatter: function(value, row, index) {
-                var editBtn ="";
+            	value = HtmlEncode(value);
+            	var editBtn ="";
                 if(row.classifyStatus==0 || row.classifyStatus==2 || row.classifyStatus==4 || row.classifyStatus==6){
                     editBtn = [
                         "<p><a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",

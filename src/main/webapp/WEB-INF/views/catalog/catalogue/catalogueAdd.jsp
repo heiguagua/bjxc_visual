@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <html>
 <head>
@@ -17,7 +18,8 @@
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="addForm" action="<%=basePath%>/catalog/doAdd" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" >
+        
+            <form class="form-horizontal" htmlEscape="true" id="addForm" action="<%=basePath%>/catalog/doAdd" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" >
                 <div class="form-group">
                     <div class="row">
                         <input type="hidden" name="sourceType" value="1">
