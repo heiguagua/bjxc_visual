@@ -1,10 +1,14 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chinawiserv.dsp.base.entity.po.system.SysUserRole;
 import com.chinawiserv.dsp.base.mapper.system.SysUserRoleMapper;
 import com.chinawiserv.dsp.base.service.system.ISysUserRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +20,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements ISysUserRoleService {
-	
+
+    @Autowired
+    private SysUserRoleMapper userRoleMapper;
+
+    @Override
+    public void deleteBatchByUserId(List<String> ids) {
+        for (String id : ids) {
+            userRoleMapper.delete(new EntityWrapper<SysUserRole>().addFilter("user_id = {0}", id));
+        }
+    }
 }

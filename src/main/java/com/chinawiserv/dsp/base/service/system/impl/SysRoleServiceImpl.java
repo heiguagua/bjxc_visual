@@ -24,7 +24,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -161,6 +164,7 @@ public class SysRoleServiceImpl extends CommonServiceImpl<SysRoleMapper, SysRole
             SysRole sysRole = new SysRole();
             sysRole.setId(id);
             sysRole.setDeleteFlag(1);
+            sysRole.setUpdateTime(new Date());
             return updateById(sysRole);
         } else throw new RuntimeException("Delete role failed, because some users are belong to it!");
     }

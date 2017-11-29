@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>logo2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-105.000000, -337.000000)" fill="#FFFFFF">
+            <g id="Group-8" transform="translate(0.000000, 288.000000)">
+                <g id="Group-5-Copy-2" transform="translate(105.000000, 49.000000)">
+                    <g id="logo2">
+                        <path d="M6,10.9775785 L6,11 L42,11 C38.148677,4.42418218 30.9502747,0 22.7056692,0 C22.4987553,0 22.2925003,0.00278658699 22.0869407,0.00832383791 L22.0869407,0 L6,0 L6,0.0224215077 C8.80325001,0.275035897 11,2.63097872 11,5.5 C11,8.36902128 8.80325001,10.7249641 6,10.9775785 Z" id="Combined-Shape" opacity="0.5"></path>
+                        <path d="M6,43.2239829 L6,45 L42,45 C38.148677,38.4241822 30.9502747,34 22.7056692,34 C22.4987553,34 22.2925003,34.0027866 22.0869407,34.0083238 L22.0869407,34 L6,34 L6,43.2239829 Z" id="Combined-Shape-Copy-3" opacity="0.9" transform="translate(24.000000, 39.500000) scale(1, -1) translate(-24.000000, -39.500000) "></path>
+                        <path d="M6,17.0224215 L6,17 L44.2979026,17 C44.7562333,18.7579096 45,20.6008524 45,22.5 C45,24.3991476 44.7562333,26.2420904 44.2979026,28 L6,28 L6,27.9775785 C8.80325001,27.7249641 11,25.3690213 11,22.5 C11,19.6309787 8.80325001,17.2750359 6,17.0224215 Z" id="Combined-Shape" opacity="0.7"></path>
+                        <circle id="Oval-2-Copy-9" opacity="0.7" cx="5.5" cy="5.5" r="5.5"></circle>
+                        <circle id="Oval-2-Copy" opacity="0.9" cx="5.5" cy="22.5" r="5.5"></circle>
+                        <circle id="Oval-2-Copy-2" cx="5.5" cy="39.5" r="5.5"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

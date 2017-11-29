@@ -27,7 +27,8 @@
 	<div class="top_cont">
 		<section class="top_conttitle" style="text-align: center">
 				<img class="logopng" src="<%=basePath%>/images/userImg/logo.png">
-				<p>${projectPortalName}</p>
+				<%--<p>${systemShowName}</p>--%>
+                <p><%=request.getSession().getAttribute("systemShowName")%></p>
             	<div class="righttext">
             	</div>
 				<div class="section_bottom">
@@ -60,8 +61,8 @@
 						<div class="inputdiv reg-box">
 							<span class="spanuser">
 								<img src="<%=basePath%>/images/userImg/Password.png"/>
-							</span>
-							<input type="password" class="admin_pwd" id="password"  placeholder="密码"  data-rule="密码:required;password;"/>
+							</span
+							><input type="password" class="admin_pwd" id="password"  placeholder="密码"  data-rule="密码:required;password;"/>
                 			<input type="hidden" name="password">
                 			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 						</div>

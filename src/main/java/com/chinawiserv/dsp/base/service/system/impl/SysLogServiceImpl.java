@@ -42,6 +42,7 @@ public class SysLogServiceImpl extends CommonServiceImpl<SysLogMapper, SysLog , 
 		if (sysUser == null) {
 			return;
 		}
+
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SysLog sysLog  =new SysLog();
 		sysLog.setOperateIp(IpUtil.getIpAddr(request));

@@ -39,24 +39,61 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
+            1 = 1
             <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
+                AND t.id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="searchKey != null and searchKey != ''">
+                AND t.require_name LIKE concat('%',#{searchKey},'%')
+            </if>
+            <if test="null != deptId and '' != deptId">
+                AND sdt.`dept_code` LIKE CONCAT((SELECT dept_code FROM sys_dept WHERE id = #{deptId}),'%')
+                OR spt.`dept_code` LIKE CONCAT((SELECT dept_code FROM sys_dept WHERE id = #{deptId}),'%')
             </if>
         </where>
     </sql>
 
+    <sql id="baseSelectVo">
+        SELECT
+        t.*,
+        su.`real_name` AS demander_name,
+        sd.`dept_short_name` AS demander_dept_name,
+        CASE WHEN sdt.`fname` = 'root'
+        THEN sdt.`dept_name`
+        ELSE CONCAT(sdt.`fname`,'>',sdt.`dept_name`)
+        END
+        AS provider_dept_name,
+        CASE WHEN spt.`fname` = 'root'
+        THEN spt.`dept_name`
+        ELSE CONCAT(spt.`fname`,'>',spt.`dept_name`)
+        END
+        AS requirement_dept_name
+        FROM
+        drap_requirement_resources t
+        LEFT JOIN sys_user su ON su.`id` = t.`create_user`
+        LEFT JOIN sys_dept sd ON sd.`id` = su.`dept_id`
+        LEFT JOIN drap_business_requirement dbr ON dbr.`id` = t.`require_id`
+        LEFT JOIN sys_dept sdt ON sdt.`id` = dbr.`requre_dept_id`
+        LEFT JOIN sys_dept spt ON spt.`id` = dbr.`source_dept_id`
+    </sql>
+
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.* FROM drap_requirement_resources t
+        <include refid="baseSelectVo"></include>
         <include refid="queryConditions"></include>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM drap_requirement_resources t WHERE t.id = #{id}
+        <include refid="baseSelectVo"></include>
+        <where>
+            t.id = #{id}
+        </where>
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM drap_requirement_resources t
+        SELECT count(1) FROM (
+        <include refid="baseSelectVo"></include>
         <include refid="queryConditions"></include>
+        ) a
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapRequirementResources">

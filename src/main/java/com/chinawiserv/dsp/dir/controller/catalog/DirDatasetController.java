@@ -3,11 +3,13 @@ package com.chinawiserv.dsp.dir.controller.catalog;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
+import com.chinawiserv.dsp.base.common.util.FTPUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.service.system.ISysDictService;
+import com.chinawiserv.dsp.dir.common.DirConst;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
@@ -17,10 +19,7 @@ import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
 import com.chinawiserv.dsp.dir.schema.ExportExcelUtil;
-import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
-import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
-import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
-import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetSourceRelationService;
+import com.chinawiserv.dsp.dir.service.catalog.*;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -36,9 +35,12 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -135,6 +137,12 @@ public class DirDatasetController extends BaseController {
     public  String showInit(@RequestParam String id,Model model){
         model.addAttribute("id", id);
         return "catalog/catalogue/catalogueShow";
+    }
+
+    @RequestMapping("/uploadInfo")
+    public String uploadInit(@RequestParam String id,Model model){
+        model.addAttribute("id", id);
+        return "catalog/catalogue/fileUploadInfo";
     }
 
     /**
@@ -1202,4 +1210,225 @@ public class DirDatasetController extends BaseController {
         }
         return null;
     }
+    /**
+     * 政务基础信息资源总数
+     */
+    @RequestMapping("/basic/total")
+    @ResponseBody
+    public  HandleResult basicTotalCount(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            int count = service.getDatasetTotalCountForClassify(
+                    ShiroUtils.getLoginUser().getRegionCode(), DirConst.BASICS_CLASSIFY_TYPE);
+            handleResult.put("total", count);
+        } catch (Exception e) {
+            handleResult.error("获取政务基础信息资源总数失败");
+            logger.error("获取政务基础信息资源总数失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 政务基础二级节点信息资源数量明细
+     */
+    @RequestMapping("/basic/topCount")
+    @ResponseBody
+    public  HandleResult basicTopCount(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String,Integer> topCount = service.getDatasetCountForClassify(ShiroUtils.getLoginUser().getRegionCode(), DirConst.BASICS_CLASSIFY_TYPE);
+            //包装成echarts接收的数据格式
+            List<Map<String,Object>> dataMapList = new ArrayList<>();
+            Set<Map.Entry<String,Integer>> entrySet = topCount.entrySet();
+            for(Map.Entry<String,Integer> entry : entrySet){
+                Map<String,Object> dataMap = new HashMap<>();
+                dataMap.put("name",entry.getKey());
+                dataMap.put("value",entry.getValue());
+                dataMapList.add(dataMap);
+            }
+            handleResult.put("top", dataMapList);
+        } catch (Exception e) {
+            handleResult.error("获取政务基础二级节点信息资源数量明细失败");
+            logger.error("获取政务基础二级节点信息资源数量明细失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 政务主题信息资源总数
+     */
+    @RequestMapping("/theme/total")
+    @ResponseBody
+    public  HandleResult themeTotalCount(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            int count = service.getDatasetTotalCountForClassify(
+                    ShiroUtils.getLoginUser().getRegionCode(),DirConst.THEME_CLASSIFY_TYPE);
+            handleResult.put("total", count);
+        } catch (Exception e) {
+            handleResult.error("获取政务主题信息资源总数失败");
+            logger.error("获取政务主题信息资源总数失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 政务主题二级节点信息资源数量明细
+     */
+    @RequestMapping("/theme/topCount")
+    @ResponseBody
+    public  HandleResult themeTopCount(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String,Integer> topCount = service.getDatasetTopCountForClassify(
+                    ShiroUtils.getLoginUser().getRegionCode(), DirConst.THEME_CLASSIFY_TYPE,10);
+            //包装成echarts接收的数据格式
+            List<Map<String,Object>> dataMapList = new ArrayList<>();
+            Set<Map.Entry<String,Integer>> entrySet = topCount.entrySet();
+            for(Map.Entry<String,Integer> entry : entrySet){
+                Map<String,Object> dataMap = new HashMap<>();
+                dataMap.put("name",entry.getKey());
+                dataMap.put("value",entry.getValue());
+                dataMapList.add(dataMap);
+            }
+            handleResult.put("top", dataMapList);
+        } catch (Exception e) {
+            handleResult.error("获取政务主题二级节点信息资源数量明细失败");
+            logger.error("获取政务主题二级节点信息资源数量明细失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 部门政务信息资源总数
+     */
+    @RequestMapping("/dept/total")
+    @ResponseBody
+    public  HandleResult deptTotalCount(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            int count = service.getDatasetTotalCountForClassify(
+                    ShiroUtils.getLoginUser().getRegionCode(), DirConst.DEPT_CLASSIFY_TYPE);
+            handleResult.put("total", count);
+        } catch (Exception e) {
+            handleResult.error("获取部门政务信息资源总数失败");
+            logger.error("获取部门政务信息资源总数失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 部门政务二级节点信息资源数量明细(top10)
+     */
+    @RequestMapping("/dept/topCount")
+    @ResponseBody
+    public  HandleResult deptTopCount(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String,Integer> topCount = service.getDatasetTopCountForClassify(
+                    ShiroUtils.getLoginUser().getRegionCode(), DirConst.DEPT_CLASSIFY_TYPE,10);
+            //包装成echarts接收的数据格式
+            List<Map<String,Object>> dataMapList = new ArrayList<>();
+            Set<Map.Entry<String,Integer>> entrySet = topCount.entrySet();
+            for(Map.Entry<String,Integer> entry : entrySet){
+                Map<String,Object> dataMap = new HashMap<>();
+                dataMap.put("name",entry.getKey());
+                dataMap.put("value",entry.getValue());
+                dataMapList.add(dataMap);
+            }
+            handleResult.put("top", dataMapList);
+        } catch (Exception e) {
+            handleResult.error("获取部门政务二级节点信息资源数量明细失败");
+            logger.error("获取部门政务二级节点信息资源数量明细失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 所有信息资源总数
+     */
+    @RequestMapping("/dataset/total")
+    @ResponseBody
+    public  HandleResult datasetTotalCount(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            int totalCount = service.getDatasetTotalCount(ShiroUtils.getLoginUser().getRegionCode());
+            handleResult.put("total", totalCount);
+        } catch (Exception e) {
+            handleResult.error("获取信息资源总数失败");
+            logger.error("获取信息资源总数失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 已发布服务的资源总数
+     */
+    @RequestMapping("/service/total")
+    @ResponseBody
+    public  HandleResult serviceTotalCount(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            int totalCount = service.getServiceTotalCount(ShiroUtils.getLoginUser().getRegionCode());
+            handleResult.put("total", totalCount);
+        } catch (Exception e) {
+            handleResult.error("获取已发布服务的资源总数失败");
+            logger.error("获取已发布服务的资源总数失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 统计各个审核状态的数据资源的数量
+     */
+    @RequestMapping("/status/count")
+    @ResponseBody
+    public  HandleResult dealStatusCount(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String,Integer> statusCount = service.getDatasetCountForStatus(ShiroUtils.getLoginUser().getRegionCode());
+            handleResult.put("statusCount", statusCount);
+        } catch (Exception e) {
+            handleResult.error("获取各个审核状态的数据资源的数量失败");
+            logger.error("获取各个审核状态的数据资源的数量失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 编目页面上传文件
+     * @param request
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/upLoadFile", method = RequestMethod.POST)
+    @ResponseBody
+    public HandleResult upLoadFile(HttpServletRequest request) throws IllegalStateException, IOException {
+        HandleResult handleResult = new HandleResult();
+        try {
+            int uploadNum = service.upLoadFile(request);
+            if(uploadNum<1){
+                handleResult.error("上传失败");
+            }
+        } catch (Exception e) {
+            handleResult.error("上传失败："+e);
+            logger.error("上传失败", e);
+        }
+        return handleResult;
+    }
+
+    @RequestMapping("/uploadInfo/list")
+    @ResponseBody
+    public  HandleResult uploadInfoList(){
+        HandleResult handleResult = new HandleResult();
+        try {
+//            Map<String,Integer> statusCount = service.getDatasetCountForStatus(ShiroUtils.getLoginUser().getRegionCode());
+            handleResult.put("vo", "");
+        } catch (Exception e) {
+            handleResult.error("获取上传文件列表失败");
+            logger.error("获取上传文件列表失败", e);
+        }
+        return handleResult;
+    }
+
 }

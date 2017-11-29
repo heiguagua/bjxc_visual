@@ -4,7 +4,6 @@
 jQuery(document).ready(function () {
     var classifyId = $("#classifyId").val();
     $.initDeptTreeSelect('treeDemo','deptName','deptId','menuContent');
-    $.initDeptTreeSelect('treeDemo23','leadDeptName','leadDeptId','menuContent23');
 //    initUserTypeList();
 //    initDeptSelectDataList();
 //    initRoleNameList();
@@ -47,10 +46,11 @@ function initFormerDate(classifyId) {
                 var vo = result.content.vo;
                 if(vo){
                 	$.initNationalQueryClassifyTreeSelect('EtreeNational','EnationalCode','EdictNationalCode','EmenuNationalContent');
+                    $.initDeptTreeSelectForLeadDept('treeDemo23','EleadDeptName','EleadDeptId','menuContent23');
 
                     $("#Eclassify_name").val(vo.classifyName);
 //                    if(vo.deptId == "" || vo.deptId==undefined){
-//                    	 $("#Edep").addClass('hidden');
+//                    	 
 //                    }else{
 //                    	$("#Edep").removeClass('hidden');
 //                    }
@@ -61,9 +61,9 @@ function initFormerDate(classifyId) {
 					}else{
 						$("#Edep").addClass('hidden');						
 					}
-					
+					$("#EleadDeptName").val(vo.leadDeptName);
+					$("#EleadDeptId").val(vo.leadDeptId);
                     $("#deptName").val(vo.deptName);
-                    $("#leadDeptName").val(vo.leadDeptName);
                     $("#Eorder_number").val(vo.orderNumber);
                     $("#deptId").val(vo.deptId);
                     $("#Eicon").append(Dict1.selectsDom("classify_icon",vo.iconName?vo.iconName:''));

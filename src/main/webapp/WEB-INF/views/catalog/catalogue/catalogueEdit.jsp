@@ -13,17 +13,19 @@
                 <div class="form-group">
                     <div class="row">
                         <input type="hidden" id="id" name="id" value="${id}">
+                        <input type="hidden" id="regionCode" name="regionCode">
                         <div class="col-sm-12">
                             <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">目录分类<span class="redStar">*</span>:</label>
                             <div class="col-sm-10"  style="width:87.8%">
-                                <input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
+                                <input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control" disabled >
+                                <%--<input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">
                                 <div class="menu-wrap">
                                     <div id="menuContent" class="menuContent" style="display:none;">
                                         <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                         <%--<div class="col-sm-6">
@@ -76,7 +78,7 @@
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源提供方<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <input type="text" id="belongDeptTypeName" data-rule="信息资源提供方:required;" class="form-control"
                                            placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                     <input type="hidden" id="belongDeptType" name="belongDeptType">
@@ -86,16 +88,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6" style="padding:0">
-                                    <input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="请输入提供方信息" >
-                                    <%--<input type="text" id="belongDeptName" data-rule="信息资源提供方:required;" class="form-control"
-                                           placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+                                <div class="col-sm-6" style="padding:0;padding-left:15px;">
+                                    <%--<input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="请输入提供方信息" >--%>
+                                    <input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="可选择可输入" >
                                     <input type="hidden" id="belongDeptId" name="belongDeptId">
                                     <div class="menu-wrap">
                                         <div id="belongDeptMenuContent" class="menuContent" style="display:none;">
                                             <ul id="belongDeptTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                         </div>
-                                    </div>--%>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -153,11 +154,11 @@
                         <div class="col-sm-6">
                             <label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <select class="form-control" data-rule="所属资源格式:required;" id="formatCategory" name="ext.formatCategory">
                                     </select>
                                 </div>
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-left:15px;">
                                     <select class="form-control" id="formatType" name="ext.formatType" data-rule="所属资源格式:required;">
                                     </select>
                                 </div>
@@ -305,8 +306,14 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <p>
-                            <a class="btn btn-primary btn-flat pull-right btn_blue" id="N_add_itemH"><i class="fa fa-plus"></i> 添加信息项</a>
-                            <a class="btn btn-primary btn-flat pull-right btn_blue" id="deleteItems" style="margin-right: 10px;"><i class="fa fa-plus"></i> 删除</a>
+                            <button type="button" class="btn btn-default btn-flat pull-right dropdown-toggle btn-myself"
+                                    data-toggle="dropdown" id="N_add_itemH">
+                                <img src="<%=basePath%>/images/userImg/addimg.png"/>添加信息项
+                            </button>
+                            <button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
+                                    data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
+                                <img src="<%=basePath%>/images/userImg/delImg.png"/>删除
+                            </button>
                         </p>
                     </div>
                 </div>
@@ -314,11 +321,11 @@
                     <table style="width:135%" class="table-striped">
                         <thead>
                         <tr class='table_title_tr'>
-                            <th><input type="checkbox" id="selectAllItem"> 全选</th>
+                            <th id="firstTh"><input type="checkbox" id="selectAllItem"> 全选</th>
                             <th>信息项名称<span class="redStar">*</span></th>
                             <th>类型<span class="redStar">*</span></th>
                             <th>长度<span class="redStar">*</span></th>
-                            <%--<th>责任部门</th>--%>
+                            <th style="width: 240px;">责任部门<span class="redStar">*</span></th>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>涉密标识</th>

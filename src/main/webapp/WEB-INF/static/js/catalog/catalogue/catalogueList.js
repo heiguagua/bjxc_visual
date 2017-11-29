@@ -2,77 +2,55 @@ var tableSelector = '#catalogueTable';
 var paramsObj = {};
 
 jQuery(document).ready(function () {
-    initTable();
+    initCss();
     initAllSelect();
     initButtonClickEvent();
+    initTable();
 });
 
-var setting = {
-    async: {
-        enable: true,
-        url: basePathJS + "/dirClassify/subAuthorityList",
-        autoParam: ["fid","treeCode","authorityNode"],
-        dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
-            var params = [];
-            var nodeObjs = childNodes.content.vo;
-            if (!nodeObjs) {
-                return null;
-            }
-            for (var i in nodeObjs) {
-                params[i] = {
-                    'id': nodeObjs[i].id,
-                    'name': nodeObjs[i].classifyName,
-                    'fid': nodeObjs[i].id,
-                    'treeCode': nodeObjs[i].treeCode,
-                    'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
-                    'authorityNode':nodeObjs[i].authorityNode
-                }
-            }
-            return params;
-        }
-    },
-    callback: {
-        beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
-            var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
-            if (treeNode.isParent) {
-                if (treeNode.open) {
-                    zTreeObj.expandNode(treeNode, false);
-                } else {
-                    zTreeObj.expandNode(treeNode, true);
-                }
-                return false;
-            } else {
-                return true;
-            }
-        },
-        onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
+function initCss(){
+    /* 目录编目收缩小侧边栏,用的adminlte */
+    $(function(){
+        $("#forward").hide();
+        $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+        $("#backward").click(function(){
+            $("#min-aside").animate({
+                width:"2%"
+            },200);
+            $("#dir-Manger").hide();
+            //$("#regionDiv").hide();
+            $("#forward").show(400);
+            $("#backward").hide(500);
+            $("#treeDemo").hide(200);
+            $("#min-aside").css("border","none")
+            $("div.box div.content_table").animate({
+                width: "98%"
+            })
 
-                //var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                //treeObj.cancelSelectedNode();
+            $(this).parents("div.user-panel").css("background","#f4f6f9");
+        })
+        $("#forward").click(function(){
+            $("div.box div.content_table").animate({
+                width: "86%"
+            },400)
+            $("#min-aside").animate({
+                width:"14%"
+            },500);
+            $("#dir-Manger").show();
+            //$("#regionDiv").show();
+            $("#forward").hide(400);
+            $("#backward").show(500);
+            $("#treeDemo").show(200);
+            $("#min-aside").css("border","1px solid #ddd");
 
-            $('#searchClassifyId').val(treeNode.id);
-            setParams();
-            reloadTable();
-            /*$.commonAjax({
-                url: basePathJS + "/dirClassify/editLoad",
-                data: {id: treeNode.id},
-                success: function (result) {
-                    if (result.state) {
-                        var classifyObj = result.content.vo;
-                        $('#' + nameInputDomId).val(classifyObj.classifyStructureName);
-                        $('#' + codeInputDomId).val(treeNode.id);
-                    }
-                }
-            });*/
-        }
-    }
-};
-$(document).ready(function(){
-    $.fn.zTree.init($("#treeDemo"), setting);
-});
+            $(".user-panel").css("background","none");
+        })
+    })
+
+}
+
 function initTable(){
-    var regionCode = $.getSelectedRegionCode();
-    paramsObj["regionCode"] = regionCode;
+    //paramsObj["regionCode"] = $("#searchRegionCode").val();
     jQuery(tableSelector).customTable({
         url: basePathJS + '/catalog/catalogue/list',
         queryParams: function (params) {
@@ -150,7 +128,7 @@ function initTable(){
         }, {
             field: 'id',
             title: '操作',
-            width: '12%',
+            width: '120px',
             align: 'center',
             valign: 'middle',
             sortable: false,
@@ -158,7 +136,8 @@ function initTable(){
                 var editBtn ="";
                 if(row.classifyStatus==0 || row.classifyStatus==2 || row.classifyStatus==4 || row.classifyStatus==6){
                     editBtn = [
-                        "<p><a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                        "<p><a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableUpload(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
+                        "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
                         "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                     ].join('');
                 }else{
@@ -176,7 +155,11 @@ function initTable(){
 
 function initAllSelect(){
     //区域下拉查询框
-    $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode','searchRegionMenuContent',true);
+    /*var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+    $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
+        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);*/
+    //初始化中间目录分类树
+    $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
 }
 
 
@@ -226,14 +209,15 @@ function initButtonClickEvent(){
             errorMsgTip("请先选择要删除的信息资源");
         }
     });
-
 }
+
 
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    var regionCode = $.getSelectedRegionCode();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //var regionCode = $('#searchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {
@@ -247,15 +231,20 @@ function addCustom() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
-    add('新增信息资源',basePathJS + '/catalog/catalogue/add'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    add('新增信息资源',basePathJS + '/catalog/catalogue/add'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
+}
+
+function catalogueTableUpload(id){
+    show('信息资源附件上传详情',basePathJS + '/catalog/uploadInfo' , id ,"70%",700);
 }
 
 function catalogueTableEdit(id) {
-    update('编辑信息资源',basePathJS + '/catalog/edit' , id ,1300,700);
+    update('编辑信息资源',basePathJS + '/catalog/edit' , id ,"70%",700);
 }
 
 function catalogueTableShow(id){
-    show('信息资源详情',basePathJS + '/catalog/show' , id ,1300,700);
+	
+    show('信息资源详情',basePathJS + '/catalog/show' , id ,"70%",700);
 }
 
 function quickAddDatasetUI() {
@@ -264,7 +253,11 @@ function quickAddDatasetUI() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
-    add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
+        return;
+    }
+    add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
 
 function quickSystemAddDatasetUI() {
@@ -273,7 +266,11 @@ function quickSystemAddDatasetUI() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
-    add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
+        return;
+    }
+    add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
 function quickCsAddDatasetUI() {
     var searchClassifyId = $('#searchClassifyId').val();
@@ -281,7 +278,11 @@ function quickCsAddDatasetUI() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
-    add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
+        return;
+    }
+    add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
 function quickDcmAddDatasetUI() {
     var searchClassifyId = $('#searchClassifyId').val();
@@ -289,7 +290,11 @@ function quickDcmAddDatasetUI() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
-    add('从关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
+        return;
+    }
+    add('从关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
 function quickNosqlDcmAddDatasetUI() {
     var searchClassifyId = $('#searchClassifyId').val();
@@ -297,12 +302,20 @@ function quickNosqlDcmAddDatasetUI() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
-    add('从非关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmNosqlAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),1300,800);
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
+        return;
+    }
+    add('从非关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmNosqlAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
 function excelImportUI() {
     var searchClassifyId = $('#searchClassifyId').val();
     if(!checkClassfyId(searchClassifyId)){
         tip("请先选择目录分类!",parent,null,null);
+        return;
+    }
+    if(!checkClassifyType()){
+        tip("不能在这个分类下导入资源!!",parent,null,null);
         return;
     }
     detail('导入',basePathJS +'/catalog/catalogue/excelImportUI?classifyId='+ $('#searchClassifyId').val(),900,350,parent);
@@ -317,3 +330,12 @@ function checkClassfyId(searchClassifyId){
     return false;
 }
 
+function checkClassifyType(){
+    var checkResult = true;
+    var classifyType = $('#classifyType').val();
+    if(classifyType=='1' || classifyType=='2-1' || classifyType=='2-2' || classifyType=='2-3'
+        || classifyType=='3' || classifyType=='4'){
+        checkResult = false;
+    }
+    return checkResult
+}

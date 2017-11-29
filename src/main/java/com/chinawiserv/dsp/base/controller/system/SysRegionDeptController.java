@@ -1,10 +1,14 @@
 package com.chinawiserv.dsp.base.controller.system;
 
-import java.util.List;
-import java.util.Map;
-
+import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.SystemConst;
+import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.controller.common.BaseController;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.vo.system.SysRegionDeptVo;
+import com.chinawiserv.dsp.base.service.system.ISysRegionDeptService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.common.anno.Log;
-import com.chinawiserv.dsp.base.controller.common.BaseController;
-import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
-import com.chinawiserv.dsp.base.entity.vo.system.SysRegionDeptVo;
-import com.chinawiserv.dsp.base.service.system.ISysRegionDeptService;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -162,7 +161,7 @@ public class SysRegionDeptController extends BaseController {
         try {
             String fid = (String) paramMap.get("fcode");
             if (StringUtils.isEmpty(fid)) {
-                paramMap.put("category", SystemConst.CATEGORY_REGION);
+//                paramMap.put("category", SystemConst.CATEGORY_REGION);
                 paramMap.put("regionCode", ShiroUtils.getLoginUser().getRegionCode());
             }else{
                 paramMap.remove("regionCode");

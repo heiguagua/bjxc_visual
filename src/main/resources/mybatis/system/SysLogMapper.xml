@@ -28,10 +28,10 @@
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
-            <if test="operatorUserName != null">
+            <if test="operatorUserName != null and operatorUserName != '' ">
                 AND u.user_name like '%${operatorUserName}%'
             </if>
-            <if test="operatorRealName != null">
+            <if test="operatorRealName != null and operatorRealName != '' ">
                 AND u.real_name like '%${operatorRealName}%'
             </if>
             <if test="operateTimeStart != null">

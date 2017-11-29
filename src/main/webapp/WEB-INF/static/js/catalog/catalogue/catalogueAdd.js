@@ -4,17 +4,22 @@
 
 jQuery(document).ready(function () {
     window.Dict=new dict();
-    initAllSelect();  //初始化所有下拉框
     initInputValue(); //初始化所有需要设值的输入框的值
+    initAllSelect();  //初始化所有下拉框
     initButtonClickEvent(); //初始化按钮点击事件
 });
 
 function initAllSelect(){
     var regionCode = $.getSelectedRegionCode();
     //$.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
-    $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId'); //初始化关联目录分类下拉框
-    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
-    //$.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
+    var initBelongDeptTypeTreeParam = ["belongDeptTreeDemo","belongDeptName","belongDeptId","belongDeptMenuContent"];
+    $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId','regionCode'); //初始化关联目录分类下拉框
+    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent',initBelongDeptTypeTreeParam)//初始化资源提供方下拉框;
+    //初始化科室
+    var belongDeptTypeValue = $("#belongDeptType").val();
+    if(belongDeptTypeValue){
+        $.initSubDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',{fid:belongDeptTypeValue});
+    }
     //信息资源格式下拉框初始化
     Dict.selects('resourceFormat',['#formatCategory']);
     //共享类型
@@ -56,16 +61,40 @@ function initAllSelect(){
 }
 
 function initInputValue(){
-    //初始化资源提供方和提供方代码输入框的值
-    $.commonAjax({
-        url:basePathJS + "/system/dept/getDeptInfoForLoginUser",
-        success: function (result) {
-            if (result.state) {
-                var deptObj = result.content.vo;
-                $("#chargeDeptId").val(deptObj.id);
+    //如果登录用户有所属部门，则把所属部门的名称和id带入输入框
+    //如果登录用户没有所属部门，则根据资源提供方选择的部门来
+    if(loginUserDeptId && loginUserDeptId!=="null"){
+        $("#chargeDeptId").val(loginUserDeptId);
+        $.commonAjax({
+            url:basePathJS + "/system/dept/belongTypeByDept",
+            data:{deptId:loginUserDeptId},
+            async:false,
+            success: function (result) {
+                if (result.state) {
+                    var obj = result.content.vo;
+                    $("#belongDeptType").val(obj.deptId);
+                    $("#belongDeptTypeName").val(obj.deptName);
+                    $("#belongDeptId").val(obj.subDeptId);
+                    $("#belongDeptName").val(obj.subDeptName);
+                }
             }
-        }
-    });
+        });
+    }
+    /*if(loginUserDeptId && loginUserDeptId!=="null"){
+        *//*var divContent = '<input type="text" id="chargeDeptName" value="'+loginUserDeptName+'" class="form-control" disabled>'
+            +'<input type="hidden" id="chargeDeptId" name="chargeDeptId" value="'+loginUserDeptId+'">';
+        $("#createDeptDiv").html(divContent);*//*
+    }else{
+        var divContent = '<input type="text" id="chargeDeptName" data-rule="所属组织机构:required;" class="form-control" readonly style="background-color:#fff">'
+            +'<input type="hidden" id="chargeDeptId" name="chargeDeptId">'
+            +'<div class="menu-wrap">'
+            +'<div id="menuContent" class="menuContent" style="display:none;">'
+            +'<ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>'
+            +'</div>'
+            +'</div>';
+        $("#createDeptDiv").html(divContent);
+        $.initDeptTreeSelect('treeDemo','chargeDeptName','chargeDeptId','menuContent',false,{"regionCode":$("#regionCode").val()});
+    }*/
 }
 
 function initButtonClickEvent(){
@@ -76,7 +105,7 @@ function initButtonClickEvent(){
         if(trNums>0){
             $('#dataitemList tr').each(function(){
                 var maxTrNum=$(this).find('input:first').attr('trNum');
-                if(maxTrNum>thisTrNum){
+                if(parseInt(maxTrNum)>thisTrNum){
                     thisTrNum=maxTrNum;
                 }
             });
@@ -85,10 +114,9 @@ function initButtonClickEvent(){
         $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
         +'<td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType")+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number"  min="1" class="form-control">'
-        +'<input type="hidden" name="items['+thisTrNum+'].belongDeptId" > </td>'
-        //+'<td><input class="form-control" type="text"  value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
-        //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number"  min="1" class="form-control"></td>'
+        +'<td><input type="text" id="deptName_'+thisTrNum+'" data-rule="责任部门:required;" readonly="readonly" class="form-control" style="background-color: #FFFFFF;"><input type="hidden" id="deptId_'+thisTrNum+'" name="items['+thisTrNum+'].belongDeptId" >' +
+            '<div class="menu-wrap"><div id="menuContent_'+thisTrNum+'" class="menuContent" style="display:none;"><ul id="treeDemo_'+thisTrNum+'" class="ztree"style="margin-top:0;border: 1px solid #98b7a8;"></ul></div></div></td>'
         +'<td><select name="items['+thisTrNum+'].secretFlag" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'
         +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" ></td>'
@@ -100,6 +128,8 @@ function initButtonClickEvent(){
         +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" ></td></tr>');
 
         //数据集与信息项共有的属性,如果数据集已经设值了,那新增一行时,就把这些值带入信息项
+        var regionCode = $("#regionCode").val();
+        $.initDeptTreeSelect('treeDemo_'+thisTrNum,'deptName_'+thisTrNum,'deptId_'+thisTrNum,'menuContent_'+thisTrNum,false,{regionCode: regionCode},null,null,null);
         $("select[name='items["+thisTrNum+"].secretFlag']").val($("input[name='secretFlag']:checked").val());
         $("select[name='items["+thisTrNum+"].shareType']").val($("#shareType").val());
         $("select[name='items["+thisTrNum+"].shareMethod']").val($("#shareMethod").val());

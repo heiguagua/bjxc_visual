@@ -2,7 +2,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <style type="text/css">
+	 <style type="text/css">
         a {
             color: #dd4b39;
         }

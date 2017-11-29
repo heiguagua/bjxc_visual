@@ -3,17 +3,12 @@ package com.chinawiserv.dsp.base.controller.common;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chinawiserv.dsp.base.common.SystemConst;
-import com.chinawiserv.dsp.base.common.anno.Log;
-import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.entity.vo.system.TreeMenu;
-import com.chinawiserv.dsp.base.service.system.ISysLogService;
-import com.chinawiserv.dsp.base.service.system.ISysMenuService;
-import com.chinawiserv.dsp.base.service.system.ISysSettingService;
-import com.chinawiserv.dsp.base.service.system.ISysUserService;
+import com.chinawiserv.dsp.base.service.system.*;
 import com.google.code.kaptcha.servlet.KaptchaExtend;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -63,6 +58,8 @@ public class LoginController extends BaseController {
     private ISysMenuService sysMenuService;
 
 
+
+
     /**
      * 登录页面
      *
@@ -75,7 +72,7 @@ public class LoginController extends BaseController {
         model.addAttribute("return_url", StringUtils.isNotBlank(return_url) ? URLDecoder.decode(return_url, "UTF-8") : index);
         return "login";
         **/
-    	 String index = "/catalog/catalogue";
+    	 String index = "/index";
          if(ShiroUtils.isLogin()){ // already login
              return redirectTo(index);
          }
@@ -100,8 +97,8 @@ public class LoginController extends BaseController {
 //         model.addAttribute("systemShortName", sysNameMap.get("systemShortName"));
 //         model.addAttribute("loginViewName", sysNameMap.get("projectPortalName"));
 //         model.addAttribute("indexLogoName", sysNameMap.get("systemName") + "-" + sysNameMap.get("systemSubName"));
-
-        model.addAttribute("projectPortalName", sysNameMap.get("projectPortalName"));
+        ShiroUtils.setSessionAttribute("systemShowName", sysNameMap.get("systemShowName"));
+//        model.addAttribute("systemShowName", sysNameMap.get("systemShowName"));
         model.addAttribute("systemName", sysNameMap.get("systemName"));
         model.addAttribute("systemSubName", sysNameMap.get("systemSubName"));
         model.addAttribute("systemShortName", sysNameMap.get("systemShortName"));
@@ -120,7 +117,7 @@ public class LoginController extends BaseController {
         String captcha = MapUtils.getString(paramMap, "captcha");
         String return_url = MapUtils.getString(paramMap, "return_url");
         
-        String index = "/catalog/catalogue";
+        String index = "/index";
         if (StringUtils.isBlank(return_url)) {
             return_url = index;
         }

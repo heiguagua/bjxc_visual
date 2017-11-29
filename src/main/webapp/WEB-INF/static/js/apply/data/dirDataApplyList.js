@@ -2,117 +2,62 @@
  * Created by lenovo on 2017/5/9.
  */
 var tableSelector = '#dirDataApplyTableId';
+var isAudited = '0';
+$('#isAudited').val(isAudited);
+var paramsObj = {isAudited: isAudited};
 
 jQuery(document).ready(function () {
     "use strict";
-    var isAudited = '0';
-    $('#isAudited').val(isAudited);
-    var paramsObj = {isAudited: isAudited};
-    function setParams() {
-        var searchKeyVal = $('#searchKeyId').val();
-        var isAudited = $('#isAudited').val();
-        var searchClassifyId = $('#searchClassifyId').val();
-        var regionCode = $.getSelectedRegionCode();
-        paramsObj = {classifyId:searchClassifyId,regionCode:regionCode,isAudited: isAudited, searchKey: searchKeyVal};
-    }
-
-    function reloadTable() {
-        $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
-        $(tableSelector).data("bootstrap.table").refresh();
-    }
-
-    var setting = {
-        async: {
-            enable: true,
-            url: basePathJS + "/dirClassify/subAuthorityList",
-            autoParam: ["fid","treeCode","authorityNode"],
-            dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
-                var params = [];
-                var nodeObjs = childNodes.content.vo;
-                if (!nodeObjs) {
-                    return null;
-                }
-                for (var i in nodeObjs) {
-                    params[i] = {
-                        'id': nodeObjs[i].id,
-                        'name': nodeObjs[i].classifyName,
-                        'fid': nodeObjs[i].id,
-                        'treeCode': nodeObjs[i].treeCode,
-                        'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
-                        'authorityNode':nodeObjs[i].authorityNode
-                    }
-                }
-                return params;
-            }
-        },
-        callback: {
-            beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
-                var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                if (treeNode.isParent) {
-                    if (treeNode.open) {
-                        zTreeObj.expandNode(treeNode, false);
-                    } else {
-                        zTreeObj.expandNode(treeNode, true);
-                    }
-                    return false;
-                } else {
-                    return true;
-                }
-            },
-            onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
-
-                $('#searchClassifyId').val(treeNode.id);
-                setParams();
-                reloadTable();
-            }
-        }
-    };
     $(document).ready(function(){
-        $.fn.zTree.init($("#treeDemo"), setting);
+        initAllSelect();
+        hideAndShow();
     });
 
-
-    //目录类别下拉查询框
-    $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
+    function initAllSelect(){
+        //区域下拉查询框
+        var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+        $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
+            'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
+        //初始化中间目录分类树
+        $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
+    }
 
     function hideDirMgr() {
-        $("#min-aside").animate({
-            width:"40px",
-        },200);
-        $("#dir-Manger").hide();
-        $("#forward").show(400);
-        $("#backward").hide(500);
-        $("#treeDemo").hide(200);
-        $("#min-aside").css("border","none")
-        $("div.box div.table-myself").animate({
-            paddingLeft: "50px"
-        })
-        $('.box-header').animate({
-            paddingLeft: "60px"
-        })
-        $(".user-panel").css("background","#f4f6f9");
+   	 $("#min-aside").animate({
+         width:"2%"
+     },200);
+     $("#dir-Manger").hide();
+     $("#regionDiv").hide();
+     $("#forward").show(400);
+     $("#backward").hide(500);
+     $("#treeDemo").hide(200);
+     $("#min-aside").css("border","none")
+     $("div.box div.content_table").animate({
+         width: "98%"
+     })
+
+     $(this).parents("div.user-panel").css("background","#f4f6f9");
     }
 
     function showDirMgr() {
-        $("#min-aside").animate({
-            width:"230px",
-        },200);
-        $("#dir-Manger").show();
-        $("#forward").hide(400);
-        $("#backward").show(500);
-        $("#treeDemo").show(200);
-        $("#min-aside").css("border","1px solid #ddd");
-        $(".box-body").animate({
-            paddingLeft: "240px"
-        })
-        $('.box-header').animate({
-            paddingLeft: "270px"
-        })
-        $(".user-panel").css("background","none");
+    	 $("div.box div.content_table").animate({
+             width: "86%"
+         },400)
+         $("#min-aside").animate({
+             width:"14%"
+         },500);
+         $("#dir-Manger").show();
+         $("#regionDiv").show();
+         $("#forward").hide(400);
+         $("#backward").show(500);
+         $("#treeDemo").show(200);
+         $("#min-aside").css("border","1px solid #ddd");
+
+         $(".user-panel").css("background","none");
     }
 
 
-    $(function(){
+    function hideAndShow(){
         $("#forward").hide();
         $("#dir-Manger").parent("div.user-panel").css("text-align","center")
         $("#backward").click(function(){
@@ -121,7 +66,7 @@ jQuery(document).ready(function () {
         $("#forward").click(function(){
             showDirMgr();
         })
-    })
+    }
 
 
 
@@ -131,7 +76,8 @@ jQuery(document).ready(function () {
             return $.extend(params, paramsObj);
         },
         pagination: true, //分页
-        pageSize: 15,
+        pageSize: 10,
+        smartDisplay: false,
         onRefresh: function(){
             var isAudited = $('#isAudited').val();
             if(isAudited == '0'){
@@ -166,21 +112,24 @@ jQuery(document).ready(function () {
                 }
                 return '<p title="'+value+'">'+value+'</p>';
             }
-        }, {
-            field: 'limitVisitCnt',
-            title: '期望使用次数',
-            align: 'center',
-            valign: 'middle',
-            width: '120',
-            sortable: false
-        }, {
-            field: 'limitVisitDatePeriod',
-            title: '期望使用时限',
-            align: 'center',
-            valign: 'middle',
-            width: '300',
-            sortable: false
-        }, {
+        },
+            // {
+            // field: 'limitVisitCnt',
+            // title: '期望使用次数',
+            // align: 'center',
+            // valign: 'middle',
+            // width: '120',
+            // sortable: false
+            // },
+            // {
+            // field: 'limitVisitDatePeriod',
+            // title: '期望使用时限',
+            // align: 'center',
+            // valign: 'middle',
+            // width: '300',
+            // sortable: false
+            // },
+            {
             field: 'realName',
             title: '申请人',
             align: 'center',
@@ -246,11 +195,19 @@ jQuery(document).ready(function () {
     });
 });
 
+function audit(id) {
+    update('共享审核', basePathJS + '/dirDataApply/edit', id, 900, 700);
+}
+
+function setParams() {
+    var searchKeyVal = $('#searchKeyId').val();
+    var isAudited = $('#isAudited').val();
+    var searchClassifyId = $('#searchClassifyId').val();
+    var regionCode = $.getSelectedRegionCode();
+    paramsObj = {classifyId:searchClassifyId,regionCode:regionCode,isAudited: isAudited, searchKey: searchKeyVal};
+}
+
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
     $(tableSelector).data("bootstrap.table").refresh();
-}
-
-function audit(id) {
-    update('共享审核', basePathJS + '/dirDataApply/edit', id, 900, 700);
 }

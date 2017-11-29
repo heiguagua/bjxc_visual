@@ -1,6 +1,8 @@
 package com.chinawiserv.dsp.base.entity.po.system;
 
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -406,5 +408,101 @@ public class SysDept implements Serializable {
 
 	public void setDeptLevel(Integer deptLevel) {
 		this.deptLevel = deptLevel;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		SysDept sysDept = (SysDept) o;
+
+		return new EqualsBuilder()
+				.append(id, sysDept.id)
+				.append(regionCode, sysDept.regionCode)
+				.append(deptType, sysDept.deptType)
+				.append(deptCode, sysDept.deptCode)
+				.append(deptName, sysDept.deptName)
+				.append(deptShortName, sysDept.deptShortName)
+				.append(deptAlias, sysDept.deptAlias)
+				.append(deptListingName, sysDept.deptListingName)
+				.append(deptDesc, sysDept.deptDesc)
+				.append(functionKeyword, sysDept.functionKeyword)
+				.append(deptFunction, sysDept.deptFunction)
+				.append(fid, sysDept.fid)
+				.append(fname, sysDept.fname)
+				.append(deptLevel, sysDept.deptLevel)
+				.append(deptResponseMan, sysDept.deptResponseMan)
+				.append(deptResponsePhone, sysDept.deptResponsePhone)
+				.append(deptResponseEmail, sysDept.deptResponseEmail)
+				.append(deptContactMan, sysDept.deptContactMan)
+				.append(deptContactDept, sysDept.deptContactDept)
+				.append(deptContactPost, sysDept.deptContactPost)
+				.append(deptContactPhone, sysDept.deptContactPhone)
+				.append(deptContactFixedPhone, sysDept.deptContactFixedPhone)
+				.append(deptContactEmail, sysDept.deptContactEmail)
+				.append(deptAddress, sysDept.deptAddress)
+				.append(orgLongitude, sysDept.orgLongitude)
+				.append(orgLatitude, sysDept.orgLatitude)
+				.append(icon, sysDept.icon)
+				.append(orderNumber, sysDept.orderNumber)
+				.append(validateFrom, sysDept.validateFrom)
+				.append(validateTo, sysDept.validateTo)
+				.append(status, sysDept.status)
+				.append(createUserId, sysDept.createUserId)
+				.append(createTime, sysDept.createTime)
+				.append(updateUserId, sysDept.updateUserId)
+				.append(updateTime, sysDept.updateTime)
+				.append(deleteFlag, sysDept.deleteFlag)
+				.append(treeIndex, sysDept.treeIndex)
+				.append(treeCode, sysDept.treeCode)
+				.append(deptStructureName, sysDept.deptStructureName)
+				.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37)
+				.append(id)
+				.append(regionCode)
+				.append(deptType)
+				.append(deptCode)
+				.append(deptName)
+				.append(deptShortName)
+				.append(deptAlias)
+				.append(deptListingName)
+				.append(deptDesc)
+				.append(functionKeyword)
+				.append(deptFunction)
+				.append(fid)
+				.append(fname)
+				.append(deptLevel)
+				.append(deptResponseMan)
+				.append(deptResponsePhone)
+				.append(deptResponseEmail)
+				.append(deptContactMan)
+				.append(deptContactDept)
+				.append(deptContactPost)
+				.append(deptContactPhone)
+				.append(deptContactFixedPhone)
+				.append(deptContactEmail)
+				.append(deptAddress)
+				.append(orgLongitude)
+				.append(orgLatitude)
+				.append(icon)
+				.append(orderNumber)
+				.append(validateFrom)
+				.append(validateTo)
+				.append(status)
+				.append(createUserId)
+				.append(createTime)
+				.append(updateUserId)
+				.append(updateTime)
+				.append(deleteFlag)
+				.append(treeIndex)
+				.append(treeCode)
+				.append(deptStructureName)
+				.toHashCode();
 	}
 }

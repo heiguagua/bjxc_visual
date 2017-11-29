@@ -33,15 +33,15 @@
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
             <form class="form-horizontal" id="addForm" method="post" action="<%=basePath%>/catalog/quickAddDataset">
-              <!-- <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right" data-toggle="modal" data-target="#myModal">
+              <%-- <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right" data-toggle="modal" data-target="#myModal">
                     配置数据集
-                </button> -->
-                <!-- <div class="form-group">
+                </button> --%>
+                <%-- <div class="form-group">
                     <label  class="col-sm-3 control-label">&#160;</label>
                     <div class="col-sm-9">
                         <p class="alertx alert-infox" role="alert">注：有缺失的数据，请联系相关管理员进行配置 * 为必填项</p>
                     </div>
-                </div> -->
+                </div> --%>
                 <div class="form-group">
                 	<div class="row">
 	                	<div class="col-sm-11">
@@ -51,6 +51,7 @@
 		                        <input type="text" value="${vo.classifyStructureName}" id="classifyName" data-rule="目录分类:required;" class="form-control"
 		                         placeholder="" disabled>
 		                        <input type="hidden" value="${vo.id}" id="classifyId" name="classifyIds">
+                                <input type="hidden" value="${vo.regionCode}" id="regionCode" name="regionCode">
 		                        <%--<div class="menu-wrap">
 		                            <div id="menuContent" class="menuContent" style="display:none;">
 		                                <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
@@ -72,10 +73,11 @@
                 <div class="form-group">
                		<div class="row">
                			<div class="col-sm-6">
-			                    <label  class="col-sm-3 control-label">信息资源名称:</label>
+			                    <label  class="col-sm-3 control-label">信息资源名称<span class="redStar">*</span>:</label>
 			                    <div class="col-sm-9">
-			                        <input type="text" class="form-control" id="datasetName" name="datasetName">
-									<input type="hidden" id="drapDatasetId" name="drapDatasetId">
+			                        <input type="text" class="form-control" id="datasetName" name="datasetName" data-rule="信息资源名称:required;">
+									<input type="hidden" id="sourceObjType" name="datasetSourceInfo.sourceObjType" value="3">
+									<input type="hidden" id="sourceObjId" name="datasetSourceInfo.sourceObjId">
 			                    </div>
 	                    </div>
                			<div class="col-sm-6">
@@ -100,7 +102,7 @@
 									<ul id="belongDeptTypeTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
 								</div>
 							</div>--%>
-							<div class="col-sm-6" style="padding:0">
+							<div class="col-sm-6" style="padding:0;padding-right:15px;">
 								<input type="text" id="belongDeptTypeName" data-rule="信息资源提供方:required;" class="form-control"
 									   placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
 								<input type="hidden" id="belongDeptType" name="belongDeptType">
@@ -110,16 +112,15 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-6" style="padding:0">
-                                <input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="请输入提供方信息" >
-								<%--<input type="text" id="belongDeptName" data-rule="信息资源提供方:required;" class="form-control"
-									   placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+							<div class="col-sm-6" style="padding:0;padding-left:15px;">
+                                <%--<input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="请输入提供方信息" >--%>
+								<input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="可选择可输入" >
 								<input type="hidden" id="belongDeptId" name="belongDeptId">
 								<div class="menu-wrap">
 									<div id="belongDeptMenuContent" class="menuContent" style="display:none;">
 										<ul id="belongDeptTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
 									</div>
-								</div>--%>
+								</div>
 							</div>
 	                    </div>
 	                	</div>
@@ -159,9 +160,9 @@
                  <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-6">
-		                	<label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式:</label>
+		                	<label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式<span class="redStar">*</span>:</label>
 		                    <div class="col-sm-9">
-								<div class="col-sm-6" style="padding:0">
+								<div class="col-sm-6" style="padding:0;padding-right:15px;">
 									<select class="form-control" data-rule="所属资源格式:required;" id="format_category" name="ext.formatCategory">
 										<%--<option value="">--请选择--</option>
                                         <option value="1" name="电子文件">电子文件</option>
@@ -172,7 +173,7 @@
                                         <option value="6" name="自描述格式">自描述格式</option>--%>
 									</select>
 								</div>
-								<div class="col-sm-6" style="padding:0">
+								<div class="col-sm-6" style="padding:0;padding-left:15px;">
 									<select class="form-control" id="format_type" name="ext.formatType" >
 										<%--<option value="">--请选择--</option>
 										<option value="1" name="电子文件">电子文件</option>
@@ -216,9 +217,9 @@
                  <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-6">
-		                	<label for="shareType" class="col-sm-3 control-label">共享类型:</label>
+		                	<label for="shareType" class="col-sm-3 control-label">共享类型<span class="redStar">*</span>:</label>
 		                    <div class="col-sm-9">
-								<select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" >
+								<select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" data-rule="共享类型:required;" >
 								</select>
 								<div id="shareMethodDiv">
 								   <label for="shareMethod" class="col-sm-4 control-label">共享方式:</label>
@@ -338,27 +339,27 @@
 
                 <div class="checkh1">
                 	<span class="checkspan">已选字段列表</span>
-                	
-	                	<input type="button" id="deleteItems" class="pull-right btn-del" value="删除">
-
-                		</input>
+					<button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
+							data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
+						<img src="<%=basePath%>/images/userImg/delImg.png"/>删除
+					</button>
                 </div>
                 <div class="form-group " style="overflow-x: auto;min-height:200px;">
                     <table style="width:135%" class="table-striped">
                         <thead>
                         <tr class='table_title_tr'>
                             <th><input type="checkbox" id="selectAllItem"> 全选</th>
-                            <th>信息项名称</th>
-                            <th>类型</th>
-                            <th>长度</th>
-                            <th>责任部门</th>
-                            <th>所属信息资源</th>
+                            <th>信息项名称<span class="redStar">*</span></th>
+                            <th>类型<span class="redStar">*</span></th>
+                            <th>长度<span class="redStar">*</span></th>
+                            <th style="width: 240px;">责任部门<span class="redStar">*</span></th>
+                            <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>涉密标识</th>
-                            <th>共享类型</th>
+                            <th>共享类型<span class="redStar">*</span></th>
                             <th>共享条件</th>
                             <th>共享方式</th>
-                            <th>是否向社会开放</th>
+                            <th>是否向社会开放<span class="redStar">*</span></th>
                             <th>开放条件</th>
                             <th>存储位置</th>
                             <th>更新周期</th>
@@ -375,7 +376,7 @@
     </div>
 
     <%@include file="./selectDatasetModal.jsp" %>
-</section><!-- /.content -->
+</section>
 
 </body>
 </html>

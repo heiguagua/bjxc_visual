@@ -10,6 +10,19 @@ jQuery(document).ready(function () {
     initRoleNameList();
     initFormerDate(appId);
     
+    $("#editPicName").css("display","inline-block");
+    $("#editChoosePic").css("display","none");
+    $("#editPicNote").css("display","none");
+    
+    $('#editChangePicButton').click(function () {
+        $("#editPicName").css("display","none");
+        $("#editChangePicButton").css("display","none");
+        $("#editImgDiv").css("display","none");
+        $("#editShowImg").attr("src", "");
+        $("#editChoosePic").css("display","inline-block");
+        $("#editPicNote").css("display","inline");
+    });
+    
 });
 
 //function initAllSelect(){
@@ -57,7 +70,7 @@ function initFormerDate(appId) {
                     $("#dictCode").val(vo.appCategory);
                     $("#Eapp_url").val(vo.appUrl);
                     $("#Eorder_number").val(vo.orderNumber);                             
-
+                    $("#editPicName").html(vo.icon);
                 }
             }
         }

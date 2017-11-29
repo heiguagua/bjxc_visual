@@ -6,6 +6,16 @@
     <script src="<%=basePath%>/js/dir/configure/news/newsList.js"></script>
 
 </head>
+<style type="text/css">
+.layui-layer-dialog{
+	top:180px !important;
+}
+.ztree li ul {
+    margin: 0;
+    padding: 0 0 5 18px !important;
+}
+</style>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <%@include file="/WEB-INF/views/common/header.jsp" %>

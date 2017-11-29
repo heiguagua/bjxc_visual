@@ -14,7 +14,7 @@ function initEditPage(){
         function(data){
             if(data && data.content && data.content.vo){
                 var vo = data.content.vo;
-                $("#regionName").val(vo.regionName);
+                // $("#regionName").val(vo.regionName);
                 $("#regionCode").val(vo.regionCode);
                 $("#fname").val(vo.deptName);
 

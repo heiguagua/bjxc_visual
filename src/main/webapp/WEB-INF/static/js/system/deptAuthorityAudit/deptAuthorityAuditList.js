@@ -26,49 +26,49 @@ jQuery(document).ready(function () {
             }
         },
         columns: [{
-            title: '序号', width: '5%', align: 'center', formatter: function (value, row, index) {
+            title: '序号', width: '5%', align: 'left', formatter: function (value, row, index) {
                 return index + 1;
             }
         }, {
             field: 'applicantName',
             title: '申请人',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         },   {
             field: 'deptName',
             title: '申请权限对应部门',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'applyReason',
             title: '申请理由',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'auditorName',
             title: '审核人',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'auditOpinion',
             title: '审核意见',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'auditTime',
             title: '审核时间',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         },{
             field: 'auditStatus',
             title: '审核状态',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             formatter : function (value) {
@@ -83,13 +83,13 @@ jQuery(document).ready(function () {
         },{
             field: 'applyTime',
             title: '申请时间',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         },{
             field: 'id',
             title: '操作',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false ,
             width: '18%',

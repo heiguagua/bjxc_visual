@@ -42,17 +42,17 @@
                                           placeholder="请输入描述，最多300个字符,1个汉字按2个字符计算 ..."
                                           data-rule="系统配置描述:length[0~300, true]"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label>状态</label>
-                                <div class="col-sm-10">
-                                <span>
-                                    <input name="status" type="radio" class="minimal" value="1"> 启用
-                                </span>
-                                    <span>
-                                    <input name="status" type="radio" class="minimal"  value="-1"> 禁用
-                                </span>
-                                </div>
-                            </div>
+                            <%--<div class="form-group">--%>
+                                <%--<label>状态</label>--%>
+                                <%--<div class="col-sm-10">--%>
+                                <%--<span>--%>
+                                    <%--<input name="status" type="radio" class="minimal" value="1"> 启用--%>
+                                <%--</span>--%>
+                                    <%--<span>--%>
+                                    <%--<input name="status" type="radio" class="minimal"  value="-1"> 禁用--%>
+                                <%--</span>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
                         </div><!-- /.box-body -->
                         <div class="box-footer">
                             <%--<button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>--%>

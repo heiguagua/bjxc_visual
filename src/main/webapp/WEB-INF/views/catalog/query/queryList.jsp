@@ -21,9 +21,41 @@
             <!-- Your Page Content Here -->
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="box">
-                        <form class="form-inline" method="post">
-                            <div class="box-header">
+                    <div class="box clear">
+                        <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                            <section class="sidebar">
+                                <div class="user-panel" style="height: 6%">
+                                    <b id="dir-Manger">目录分类</b>
+                                    <div class="pull-right image">
+                                        <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
+                                             <i style="color: rgb(51, 51, 51);" class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <%--<div style="height: 6%" id="regionDiv">
+                                    <div class="input-group" style="margin:2px;">
+                                        <input type="text" id="searchRegionName" placeholder="请选择区域"
+                                               class="form-control" readonly style="background-color: #FFFFFF">
+                                        <input type="hidden" id="searchRegionCode">
+
+                                        <div class="menu-wrap">
+                                            <div id="searchRegionMenuContent" class="menuContent"
+                                                 style="display:none;">
+                                                <ul id="searchRegionTreeDemo" class="ztree"
+                                                    style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>--%>
+                                <div style="height: 94%">
+                                    <ul id="treeDemo" class="ztree"></ul>
+                                </div>
+                            </section>
+                        </aside>
+						 <div class="content_table">
+						 	                        <form class="form-inline" method="post">
+                            <div class="box-header box-header-myself">
                                 <div class="input-group">
                                     <button type="button" id="downloadExcel" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
                                             data-toggle="dropdown">
@@ -31,31 +63,28 @@
                                     </button>
                                 </div>
                                 <div class="input-group pull-right">
-                                    <input class="form-control" id="searchName" placeholder="资源名称" type="text">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
-                                            <i class="fa fa-search">
-                                            </i> 查询
-                                        </button>
-                                    </div>
-                                    </input>
-                                </div>
-                                <div class="input-group pull-right" style="margin-right:4px;width: 240px">
-                                    <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
                                     <input type="hidden" id="searchClassifyId">
-                                    <div class="menu-wrap">
-                                        <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
-                                            <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                    <input type="hidden" id="classifyType">
+                                    <div class="input-group">
+                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
+                                                <i class="fa fa-search">
+                                                </i> 查询
+                                            </button>
                                         </div>
+                                        </input>
                                     </div>
                                 </div>
                             </div>
                         </form>
-                        <div class="box-body table-responsive ">
+                        <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
                             <table id="queryTable" class="table table-hover"></table>
                             <!-- 表格 end-->
                         </div>
+						 </div>
+
                     </div>
                 </div>
             </div>

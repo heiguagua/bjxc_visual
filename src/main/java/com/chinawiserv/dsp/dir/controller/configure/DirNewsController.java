@@ -89,13 +89,21 @@ public class DirNewsController extends BaseController {
 			String rs = service.fileUpload(entity, file, request);
             if("samePic".equals(rs)){
             	handleResult.error("该图片已存在，请重新选择图片上传");
+            }else if("type".equals(rs)){
+            	handleResult.error("上传格式不正确，请重新选择图片上传") ;
             }else{
             	handleResult.success("创建新闻表成功");
             }
 //		    service.insertVO(entity);		    
 		} catch (Exception e) {
-		    handleResult.error("创建新闻表失败");
-		    logger.error("创建新闻表失败", e);
+			
+			if(e.getMessage().equals("新闻内容太长，无法保存")){
+				handleResult.error("新闻内容太长，无法保存");
+			    logger.error("新闻内容太长，无法保存", e);
+			}else{
+				handleResult.error("创建新闻图片失败");
+			    logger.error("创建新闻图片失败", e);
+			}
 		}
 		return handleResult;
     }
@@ -174,13 +182,20 @@ public class DirNewsController extends BaseController {
 			String rs = service.fileUpdate(entity, file, request);
             if("samePic".equals(rs)){
             	handleResult.error("该图片已存在，请重新选择图片上传");
+            }else if("type".equals(rs)){
+            	handleResult.error("上传格式不正确，请重新选择图片上传") ;
             }else{
             	handleResult.success("更新新闻表成功");
             }
 //		    service.insertVO(entity);		    
 		} catch (Exception e) {
-		    handleResult.error("更新新闻表失败");
-		    logger.error("更新新闻表失败", e);
+			if(e.getMessage().equals("新闻内容太长，无法保存")){
+				handleResult.error("新闻内容太长，无法保存");
+			    logger.error("新闻内容太长，无法保存", e);
+			}else{
+				handleResult.error("创建新闻图片失败");
+			    logger.error("创建新闻图片失败", e);
+			}
 		}
 		
 		return handleResult;

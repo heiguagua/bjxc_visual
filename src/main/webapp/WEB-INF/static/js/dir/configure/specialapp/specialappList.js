@@ -76,11 +76,11 @@ function reloadTable() {
 }
 
 function addUser() {
-    add('新增应用',basePathJS + '/dirSpecialApps/add');
+	addPictureNews('新增应用',basePathJS + '/dirSpecialApps/add');
 }
 
 function editUser(id) {
-    update('编辑应用',basePathJS + '/dirSpecialApps/edit' , id);
+	updateForPictureNews('编辑应用',basePathJS + '/dirSpecialApps/edit' , id);
 }
 
 function deleteUser(id) {

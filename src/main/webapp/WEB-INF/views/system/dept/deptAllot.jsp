@@ -33,12 +33,12 @@
 
                         <div class="box-body box-bodyx">
 
-                            <div class="form-group">
-                                <label for="regionName" >所属行政区域</label>
-                                <div  class="form-group">
-                                    <input type="text" class="form-control"  id="regionName"  name="regionName" readonly>
-                                </div>
-                            </div>
+                            <%--<div class="form-group">--%>
+                                <%--<label for="regionName" >所属行政区域</label>--%>
+                                <%--<div  class="form-group">--%>
+                                    <%--<input type="text" class="form-control"  id="regionName"  name="regionName" readonly>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
 
                             <div class="form-group">
                                 <label for="fname" >父组织机构名称</label>
@@ -47,22 +47,22 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="deptCode"  >组织机构编码</label>
+                                <label for="deptCode"  >组织机构编码<i style="color: red">*</i></label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="deptCode" name="deptCode" placeholder="请输入组织机构编码">
+                                    <input type="text" class="form-control" id="deptCode" name="deptCode" placeholder="请输入组织机构编码" data-rule="组织机构编码:simpleCode;required;length[~64, true]">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="deptName"  >组织机构名称</label>
+                                <label for="deptName"  >组织机构名称<i style="color: red">*</i></label>
                                 <div class="form-group">
                                     <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="组织机构名称" disabled> -->
-                                    <input type="text" class="form-control" name="deptName" id="deptName" placeholder="请输入组织机构名称">
+                                    <input type="text" class="form-control" name="deptName" id="deptName" placeholder="请输入组织机构名称"   data-rule="组织机构名称:required;deptName;remote(<%=basePath%>/system/dept/checkDeptName, fid:#fid)">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="deptShortName"   >组织机构简称</label>
+                                <label for="deptShortName"   >组织机构简称<i style="color: red">*</i></label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="deptShortName"  id="deptShortName" placeholder="请输入组织机构简称">
+                                    <input type="text" class="form-control" name="deptShortName"  id="deptShortName" placeholder="请输入组织机构简称" data-rule="组织机构简称:simpleName;length[~64, true];required;">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -86,7 +86,7 @@
                             <div class="form-group">
                                 <label for="functionKeyword"  >职能关键字</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="functionKeyword" id="functionKeyword" placeholder="请输入职能关键字">
+                                    <input type="text" class="form-control" name="functionKeyword" id="functionKeyword" placeholder="请输入职能关键字，并以、分割" data-rule="xxx" data-rule-xxx="[/^[^、][\S\s]*、?[^、]$/, '、分词，且不能用、开始或结尾']">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -174,17 +174,17 @@
                                     <input type="text" class="form-control" name="orderNumber" id="orderNumber" placeholder="请输入排序">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label  >状态</label>
-                                <div class="form-group" >
-                              <span class="radio-inline"  style="padding: 4px 0 0 16px;">
-	                            <input type="radio" name="status" id="inlineRadio1" value="1" checked>启用
-	                          </span>
-                                    <span class="radio-inline pd10">
-	                            <input type="radio" name="status" id="inlineRadio0" value="0" >停用
-	                          </span>
-                                </div>
-                            </div>
+                            <%--<div class="form-group">--%>
+                                <%--<label  >状态</label>--%>
+                                <%--<div class="form-group" >--%>
+                              <%--<span class="radio-inline"  style="padding: 4px 0 0 16px;">--%>
+	                            <%--<input type="radio" name="status" id="inlineRadio1" value="1" checked>启用--%>
+	                          <%--</span>--%>
+                                    <%--<span class="radio-inline pd10">--%>
+	                            <%--<input type="radio" name="status" id="inlineRadio0" value="0" >停用--%>
+	                          <%--</span>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
                         </div><!-- /.box-body -->
                         <div class="box-footer">
                             <%--<button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>--%>

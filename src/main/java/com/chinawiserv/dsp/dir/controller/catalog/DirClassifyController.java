@@ -153,21 +153,26 @@ public class DirClassifyController extends BaseController {
 		
 		try {
 			if(!entity.getFid().equals("root")){
-				service.insertbatchNational(entity);				
-				handleResult.success("导入国家库成功");
+				int state = service.insertbatchNational(entity);
+				if(state == 0){
+					handleResult.success("导入国家库成功");
+				}else if(state ==1){
+					handleResult.success("导入国家库完成，存在重复导入部分，系统已自动清除");
+				}
+				
 			}else{
 				handleResult.error("导入失败");
 			}
 						
 		} catch (Exception e) {
-						if(e.getMessage().equals("此目录下无可导入内容，请从新选择")){		
-							handleResult.error("此目录下无可导入内容，请从新选择");			 	
-						logger.error("此目录下无可导入内容，请从新选择", e);							 
-						}else{			 	
-						handleResult.error("创建目录分类表失败");			 
-					logger.error("创建目录分类表失败", e);			
-					}
-		}finally{
+			if(e.getMessage().equals("此目录下无可导入内容，请从新选择")){
+				handleResult.error("此目录下无可导入内容，请从新选择");
+				logger.error("此目录下无可导入内容，请从新选择", e);				
+			}else{
+				handleResult.error("创建目录分类表失败");
+				logger.error("创建目录分类表失败", e);
+			}			
+		}finally {
 			return handleResult;
 		}
 		
@@ -309,7 +314,34 @@ public class DirClassifyController extends BaseController {
             if (StringUtils.isEmpty(fid)) {
                 paramMap.put("classifyType", "1");
                 //查出第一层节点的regionCode，就相当于过滤出下面字节点的regionCode了
-                paramMap.put("regionCode",ShiroUtils.getSessionAttribute(SystemConst.REGION));
+//                paramMap.put("regionCode",ShiroUtils.getSessionAttribute(SystemConst.REGION));
+            }else{
+                //由于现在树结构的区域已分开,则不显示区域节点,如：成都市下的部门目录下的各区县这个节点就不显示了
+                paramMap.put("excludeClassifyType", "4");
+            }
+            List<DirClassifyVo> dirClassifyVoList = service.selectSubVoList(paramMap);
+            handleResult.put("vo", dirClassifyVoList);
+        } catch (Exception e) {
+            handleResult.error("根据登录用户的权限获取目录分类表信息失败");
+            logger.error("根据登录用户的权限获取目录分类表信息失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 根据登录用户的权限获取目录类别树结构的数据
+     */
+//    @RequiresPermissions("catalog:classify:list")
+    @RequestMapping("/subAuthorityListWithSubRegion")
+    @ResponseBody
+    public HandleResult getSubClassifyListForLoginUserWithSubRegion(@RequestParam Map<String, Object> paramMap) {
+        HandleResult handleResult = new HandleResult();
+        try {
+            String fid = (String) paramMap.get("fid");
+            if (StringUtils.isEmpty(fid)) {
+                paramMap.put("classifyType", "1");
+                //查出第一层节点的regionCode，就相当于过滤出下面字节点的regionCode了
+                paramMap.put("regionCode",ShiroUtils.getLoginUser().getRegionCode());
             }
             List<DirClassifyVo> dirClassifyVoList = service.selectSubVoList(paramMap);
             handleResult.put("vo", dirClassifyVoList);

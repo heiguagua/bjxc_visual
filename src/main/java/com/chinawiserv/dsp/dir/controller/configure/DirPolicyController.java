@@ -82,10 +82,17 @@ public class DirPolicyController extends BaseController {
 		HandleResult handleResult = new HandleResult();
 		try {
 		    service.insertVO(entity);
+//		    System.out.println("legnth" + entity.getContent().length()32116);
 		    handleResult.success("创建政策表成功");
 		} catch (Exception e) {
-		    handleResult.error("创建政策表失败");
-		    logger.error("创建政策表失败", e);
+			if(e.getMessage().equals("政策内容太长，无法保存")){
+				handleResult.error("政策内容太长，无法保存");
+			    logger.error("政策内容太长，无法保存", e);
+			}else{
+				handleResult.error("创建政策表失败");
+			    logger.error("创建政策表失败", e);
+			}
+		    
 		}
 		return handleResult;
     }
@@ -119,7 +126,7 @@ public class DirPolicyController extends BaseController {
     public  HandleResult editLoad(@RequestParam String id){
 		HandleResult handleResult = new HandleResult();
 		try {
-            DirPolicyVo vo = service.selectVoById(id);
+            DirPolicyVo vo = service.selectVoById(id);            
 		    handleResult.put("vo", vo);
 		} catch (Exception e) {
 		    handleResult.error("获取政策表信息失败");
@@ -139,10 +146,17 @@ public class DirPolicyController extends BaseController {
 		HandleResult handleResult = new HandleResult();
 		try {
 		    service.updateVO(entity);
+//		    System.out.println("legnth" + entity.getContent().length());
 		    handleResult.success("编辑政策表成功");
 		} catch (Exception e) {
-		    handleResult.error("编辑政策表失败");
-		    logger.error("编辑政策表失败", e);
+			if(e.getMessage().equals("政策内容太长，无法保存")){
+				handleResult.error("政策内容太长，无法保存");
+			    logger.error("政策内容太长，无法保存", e);
+			}else{
+				handleResult.error("创建政策表失败");
+			    logger.error("创建政策表失败", e);
+			}
+		    
 		}
 		return handleResult;
     }

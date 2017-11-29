@@ -30,7 +30,7 @@
 			                            <label  class="col-sm-3 control-label" for="classifyName">目录名称*</label>
 			                            <div class="col-sm-9">
 			                                <input type="text" id="classify_name" name="classifyName" class="form-control"
-                                       placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;remote(<%=basePath%>/system/user/insertCheckName)">
+                                       placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;">
 			                            </div>
 			                        </div>
 			                    </div>
@@ -87,7 +87,7 @@
 			                </div>
                         	<div class="form-group">
 			                    <div class="row">
-			                        <div class="col-sm-6 hidden" id="deptGroupLead">
+			                        <div class="col-sm-6" id="deptGroupLead">
 			                            <label  class="col-sm-3 control-label" for="leadDeptName">牵头部门</label>
 			                            <div class="col-sm-9">
 			                                <input type="text" id="leadDeptName" required="required"

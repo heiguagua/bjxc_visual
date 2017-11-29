@@ -305,6 +305,7 @@
         responseHandler: function (res) {
             return res;
         },
+        showJump: false,
         pagination: false,
         onlyInfoPagination: false,
         paginationLoop: true,
@@ -495,6 +496,12 @@
         },
         formatAllRows: function () {
             return 'All';
+        },
+        formatJumpInfo: function (){
+            return 'jump to page';
+        },
+        formatJumpInfoMark: function(){
+        	return '';
         }
     };
 
@@ -1310,6 +1317,7 @@
             $first, $pre,
             $next, $last,
             $number,
+            $pageToNumber,
             data = this.getData(),
             pageList = this.options.pageList;
 
@@ -1480,11 +1488,15 @@
                         '</li>');
                 }
             }
-
             html.push(
                 '<li class="page-next"><a href="#">' + this.options.paginationNextText + '</a></li>',
-                '</ul>',
-                '</div>');
+                '</ul>');
+            if(this.options.showJump){
+                html.push('<div class="page-to">'+ this.options.formatJumpInfo() +
+                		'<input type="text" class="page-to-number" value='+ this.options.pageNumber +' />'+this.options.formatJumpInfoMark()+'</div>');
+            }
+            html.push('</div>');
+
         }
         this.$pagination.html(html.join(''));
 
@@ -1495,6 +1507,7 @@
             $next = this.$pagination.find('.page-next');
             $last = this.$pagination.find('.page-last');
             $number = this.$pagination.find('.page-number');
+            $pageToNumber = this.$pagination.find('.page-to-number');
 
             if (this.options.smartDisplay) {
                 if (this.totalPages <= 1) {
@@ -1526,6 +1539,7 @@
             $next.off('click').on('click', $.proxy(this.onPageNext, this));
             $last.off('click').on('click', $.proxy(this.onPageLast, this));
             $number.off('click').on('click', $.proxy(this.onPageNumber, this));
+            $pageToNumber.off('keyup').on('keyup',$.proxy(this.onPageToNumberChange, this))
         }
     };
 
@@ -1557,6 +1571,22 @@
             this.options.formatAllRows() : +$this.text();
         this.$toolbar.find('.page-size').text(this.options.pageSize);
 
+        this.updatePagination(event);
+        return false;
+    };
+
+    BootstrapTable.prototype.onPageToNumberChange = function (event) {// 自定义跳转至第几页事件
+        var toPage = +$(event.currentTarget).val();
+        if(!toPage || toPage === this.options.pageNumber) {
+            return;
+        }
+        if (toPage < 1) {
+            +$(event.currentTarget).val(1);
+        }
+        if(toPage>this.options.totalPages) {
+            +$(event.currentTarget).val(this.options.totalPages);
+        }
+        this.options.pageNumber = +$(event.currentTarget).val();
         this.updatePagination(event);
         return false;
     };

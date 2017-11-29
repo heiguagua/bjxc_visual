@@ -62,11 +62,11 @@
                         <div class="col-sm-6">
                             <label for="classifyName" class="col-sm-3 control-label">信息资源提供方 :</label>
                             <div class="col-sm-9">
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <input type="text" id="belongDeptTypeName" class="form-control"
                                            placeholder="" readonly>
                                 </div>
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-left:15px;">
                                     <input type="text" id="belongDeptName" class="form-control"
                                            placeholder="" readonly>
                                 </div>
@@ -97,11 +97,11 @@
                         <div class="col-sm-6">
                             <label for="formatCategory" class="col-sm-3 control-label">所属资源格式:</label>
                             <div class="col-sm-9">
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <select class="form-control" id="formatCategory" name="ext.formatCategory" readonly>
                                     </select>
                                 </div>
-                                <div class="col-sm-6" style="padding:0">
+                                <div class="col-sm-6" style="padding:0;padding-left:15px;">
                                     <select class="form-control" id="formatType" name="ext.formatType" readonly>
                                     </select>
                                 </div>
@@ -260,7 +260,7 @@
                             <th>信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>
-                            <%--<th>责任部门</th>--%>
+                            <th style="width: 240px;">责任部门<span class="redStar">*</span></th>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>涉密标识</th>

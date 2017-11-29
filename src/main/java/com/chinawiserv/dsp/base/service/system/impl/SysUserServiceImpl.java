@@ -64,7 +64,10 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
             SysUser sysUser = new SysUser();
             sysUser.setId(id);
             sysUser.setDeleteFlag(1);
+            sysUser.setUpdateTime(new Date());
             this.updateById(sysUser);
+            //删除用户时，真删除用户与角色关联表
+            userRoleMapper.delete(new EntityWrapper<SysUserRole>().addFilter("user_id = {0}", id));
         }else{
             throw new ErrorInfoException("admin为系统内置的管理员用户，不能删除");
         }
@@ -174,5 +177,23 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     @Override
     public boolean createToken(Map<String,String> paramMap) {
         return userMapper.createToken(paramMap)>0;
+    }
+
+    @Override
+    public List<SysUser> listBySystemId(String systemId) {
+        return userMapper.listBySystemId(systemId);
+    }
+
+    @Override
+    public boolean insertOrUpdate(List<SysUser> list) {
+        for (SysUser sysUser : list) {
+            SysUser u= userMapper.selectById(sysUser.getId());
+            if(null ==u){
+                userMapper.insert(sysUser);
+            }else{
+                userMapper.updateById(sysUser);
+            }
+        }
+        return true;
     }
 }

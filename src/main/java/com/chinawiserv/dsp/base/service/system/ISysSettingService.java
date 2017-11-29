@@ -19,5 +19,5 @@ public interface ISysSettingService extends ICommonService<SysSetting,SysSetting
 
     public Page<SysSettingVo> selectVoPage(Map<String, Object> paramMap) throws Exception;
 
-    String findValueByCode(String code) throws Exception;
+    String findValueByCode(String code) ;
 }

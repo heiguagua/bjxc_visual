@@ -10,6 +10,7 @@ import com.chinawiserv.dsp.dir.entity.vo.configure.DirDevelopApisVo;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirIntrudeVo;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirPolicyVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirDevelopApisMapper;
+import com.chinawiserv.dsp.dir.mapper.configure.DirIntrudeMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirDevelopApisService;
 import com.chinawiserv.dsp.dir.service.configure.IDirIntrudeService;
 
@@ -44,7 +45,7 @@ public class DirPortalContentSettingController extends BaseController {
     private IDirIntrudeService service;
     
     @Autowired
-    private DirDevelopApisMapper mapper;
+    private DirIntrudeMapper mapper;
 
 //    @RequiresPermissions("dirDevelopApis:list")
     @RequestMapping("")
@@ -93,8 +94,13 @@ public class DirPortalContentSettingController extends BaseController {
 		    service.insertVO(entity);
 		    handleResult.success("创建网站简介内容成功");
 		} catch (Exception e) {
-		    handleResult.error("创建网站简介内容失败");
-		    logger.error("创建网站简介内容失败", e);
+			if(e.getMessage().equals("内容太长，无法保存")){
+				handleResult.error("内容太长，无法保存");
+			    logger.error("内容太长，无法保存", e);
+			}else{
+				handleResult.error("创建门户内容失败");
+			    logger.error("创建门户内容失败", e);
+			}
 		}
 		return handleResult;
     }
@@ -103,19 +109,19 @@ public class DirPortalContentSettingController extends BaseController {
      * 删除开发者工具
      */
 //    @RequiresPermissions("XXX:XXX:delete")
-    @Log("删除开发者工具")
+    @Log("删除门户网站简介内容")
     @RequestMapping("/delete")
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
 		//todo 逻辑删除
     	//service.deleteById(id);
-    	List<DirDevelopApis> list = null;
-    	list = mapper.getApiByParentId(id);
-    	if(!list.isEmpty() && list!=null ){
-    		return new HandleResult().error("此节点下有子集，无法删除");   
-    	}
+//    	List<DirDevelopApis> list = null;
+//    	list = mapper.getApiByParentId(id);
+//    	if(!list.isEmpty() && list!=null ){
+//    		return new HandleResult().error("此节点下有子集，无法删除");   
+//    	}
     	service.DeleteByFlag(id);
-		return new HandleResult().success("删除开发者工具成功");
+		return new HandleResult().success("删除门户网站简介内容成功");
     }
     
     /**
@@ -170,8 +176,13 @@ public class DirPortalContentSettingController extends BaseController {
 		    service.updateVO(entity);
 		    handleResult.success("编辑网站简介内容成功");
 		} catch (Exception e) {
-		    handleResult.error("编辑网站简介内容失败");
-		    logger.error("编辑网站简介内容失败", e);
+			if(e.getMessage().equals("内容太长，无法保存")){
+				handleResult.error("内容太长，无法保存");
+			    logger.error("内容太长，无法保存", e);
+			}else{
+				handleResult.error("创建门户内容失败");
+			    logger.error("创建门户内容失败", e);
+			}
 		}
 		return handleResult;
     }

@@ -8,6 +8,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
 import com.chinawiserv.dsp.base.service.system.ISysDictService;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
+import com.chinawiserv.dsp.dir.entity.vo.configure.DirDevelopApisVo;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirSpecialAppsVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirSpecialAppsMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirSpecialAppsService;
@@ -22,9 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -90,14 +94,23 @@ public class DirSpecialAppsController extends BaseController {
     @Log("创建专题应用表")
     @RequestMapping("/doAdd")
     @ResponseBody
-    public HandleResult doAdd(DirSpecialAppsVo entity){
-		HandleResult handleResult = new HandleResult();
+    public HandleResult doAdd(DirSpecialAppsVo entity, @RequestParam(value="file",required=true)MultipartFile file,  
+            HttpServletRequest request){
+    	HandleResult handleResult = new HandleResult();
 		try {
-		    service.insertVO(entity);
-		    handleResult.success("创建专题应用表成功");
+//			String rs = "samePic";
+			String rs = service.fileUpload(entity, file, request);
+            if("samePic".equals(rs)){
+            	handleResult.error("该图片已存在，请重新选择图片上传");
+            }else if("type".equals(rs)){
+            	handleResult.error("上传格式不正确，请重新选择图片上传") ;
+            }else{
+            	handleResult.success("图片上传成功");
+            }
+//		    service.insertVO(entity);		    
 		} catch (Exception e) {
-		    handleResult.error("创建专题应用表失败");
-		    logger.error("创建专题应用表失败", e);
+		    handleResult.error("图片上传失败");
+		    logger.error("图片上传失败", e);
 		}
 		return handleResult;
     }
@@ -148,15 +161,24 @@ public class DirSpecialAppsController extends BaseController {
     @Log("编辑专题应用表")
     @RequestMapping("/doEdit")
     @ResponseBody
-    public  HandleResult doEdit(DirSpecialAppsVo entity,Model model){
-		HandleResult handleResult = new HandleResult();
+    public  HandleResult doEdit(DirSpecialAppsVo entity,@RequestParam(value="file",required=false)MultipartFile file,  
+            HttpServletRequest request){
+    	HandleResult handleResult = new HandleResult();
 		try {
-		    service.updateVO(entity);
-		    handleResult.success("编辑专题应用表成功");
+			String rs = service.fileUpdate(entity, file, request);
+            if("samePic".equals(rs)){
+            	handleResult.error("该图片已存在，请重新选择图片上传");
+            }else if("type".equals(rs)){
+            	handleResult.error("上传格式不正确，请重新选择图片上传") ;
+            }else{
+            	handleResult.success("更新首页图片表成功");
+            }
+//		    service.insertVO(entity);		    
 		} catch (Exception e) {
-		    handleResult.error("编辑专题应用表失败");
-		    logger.error("编辑专题应用表失败", e);
+		    handleResult.error("更新首页图片表失败");
+		    logger.error("更新首页图片表失败", e);
 		}
+		
 		return handleResult;
     }
     
@@ -172,9 +194,9 @@ public class DirSpecialAppsController extends BaseController {
 		try {
 			String parentCode = (String) paramMap.get("parentCode");
 			if (StringUtils.isEmpty(parentCode)) {
-				paramMap.put("parentCode", "root");
+				paramMap.put("parentCode", null);
 			}
-			List<SysDictVo> sysDictVoList = service2.selectVoCategoryList(paramMap);
+			List<SysDictVo> sysDictVoList = service2.selectVoListForTreeDataForApp(paramMap);
 			handleResult.put("vo", sysDictVoList);
 		} catch (Exception e) {
 			handleResult.error("根据登录用户的权限获取应用分类信息失败");

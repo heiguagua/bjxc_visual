@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,15 +55,11 @@ public class DirSuggestionController extends BaseController {
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
-        SysUserVo user = ShiroUtils.getLoginUser();
-        String deptId;
-        if(null != user.getUserType() &&  1 == user.getUserType()){
-            deptId = null;
-        }else{
-            deptId = user.getDeptId();
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        //非超管和区域管理员，只能看自己部门和下属部门的数据（包括需求部门和提供部门）
+        if(minRoleLevl>0){
+            return pageResult;
         }
-        paramMap.put("deptId",deptId);
-        paramMap.put("regionCode",user.getRegionCode());
 		try {
 		    Page<DirSuggestionVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);

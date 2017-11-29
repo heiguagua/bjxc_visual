@@ -1879,6 +1879,9 @@
         },
         formatClearFilters: function () {
             return '清空过滤';
+        },
+        formatJumpInfo: function (){
+            return '跳转至';
         }
     };
 

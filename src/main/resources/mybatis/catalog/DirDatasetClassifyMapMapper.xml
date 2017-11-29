@@ -53,7 +53,8 @@
                 and d.dataset_name like concat('%',#{datasetName,jdbcType=VARCHAR},'%')
             </if>
             <if test="classifyId!= null and classifyId !='' ">
-                and t.classify_id in (select id from dir_classify where delete_flag=0 and tree_code like concat((select tree_code from dir_classify where id=#{classifyId, jdbcType=VARCHAR}),'%'))
+                and t.classify_id in (select id from dir_classify where delete_flag=0 and (id = #{classifyId, jdbcType=VARCHAR} or
+                tree_code like concat((select tree_code from dir_classify where id=#{classifyId, jdbcType=VARCHAR}),';%')))
             </if>
             <if test="allRegionCode!= null and allRegionCode !='' ">
                 and t.dataset_id in (select id from dir_dataset where delete_flag=0 and region_code in (${allRegionCode}))
@@ -238,13 +239,52 @@
         <include refid="deleteWhereCause"/>
     </delete>
 
+    <delete id="flagDelete" parameterType="java.util.Map">
+        update dir_dataset_classify_map set delete_flag=1
+        <include refid="deleteWhereCause"/>
+    </delete>
+
     <sql id="deleteWhereCause">
         <where>
             <if test="id != null">
                 and id = #{id}
             </if>
+            <if test="datasetIds!=null and datasetIds!='' ">
+                and dataset_id in
+                <foreach collection="datasetIds" open="(" close=")" item="item" separator=",">
+                    #{item, jdbcType=VARCHAR}
+                </foreach>
+            </if>
         </where>
     </sql>
+
+    <select id="selectDatasetTotalCountForClassify" resultType="java.lang.Integer">
+        SELECT count(1) FROM dir_dataset_classify_map t
+        where t.delete_flag=0 and t.classify_id in (
+        select id from dir_classify where tree_code=(select tree_code from dir_classify where classify_type=#{classifyType} and region_code=#{regionCode})
+        or tree_code like concat((select tree_code from dir_classify where classify_type=#{classifyType} and region_code=#{regionCode}),';%')
+        )
+    </select>
+
+    <select id="selectDatasetCountForClassify" resultType="java.lang.Integer">
+        SELECT count(1) FROM dir_dataset_classify_map
+        where delete_flag=0 and classify_id in (
+        select id from dir_classify where tree_code=#{treeCode} or
+        tree_code like concat(#{treeCode},';%')
+        )
+    </select>
+
+    <select id="selectDatasetCountForStatus" resultType="java.util.Map">
+        select a.num as unRegisteNum,b.num as unAuditNum,c.num as unReleaseNum,d.num as releasedNum from
+        (select count(id) as num from dir_dataset_classify_map where delete_flag=0 and status in('0','2','4','6')
+            and classify_id in(select id from dir_classify where region_code=#{regionCode})) a,
+        (select count(id) as num from dir_dataset_classify_map where delete_flag=0 and status in('1')
+            and classify_id in(select id from dir_classify where region_code=#{regionCode})) b,
+        (select count(id) as num from dir_dataset_classify_map where delete_flag=0 and status in('3')
+            and classify_id in(select id from dir_classify where region_code=#{regionCode})) c,
+        (select count(id) as num from dir_dataset_classify_map where delete_flag=0 and status in('5')
+            and classify_id in(select id from dir_classify where region_code=#{regionCode})) d
+    </select>
 
 
 </mapper>

@@ -3,16 +3,16 @@ package com.chinawiserv.dsp.base.controller.system;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
-import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -49,10 +49,12 @@ public class SysDeptController extends BaseController {
     @Autowired
     private ISysUserService sysUserService;
 
+
     @RequiresPermissions("system:dept:list")
     @RequestMapping("")
-    public  String init(@RequestParam Map<String , Object> paramMap){
+    public  String init(@RequestParam Map<String , Object> paramMap ,Model model){
         setCurrentMenuInfo(paramMap);
+        model.addAttribute("master",isMaster());
         return "system/dept/deptList";
     }
 
@@ -73,6 +75,10 @@ public class SysDeptController extends BaseController {
         PageResult pageResult = new PageResult();
         try {
             paramMap.put("excludeRoot", "1");
+            //只显示一级部门
+            if (null==paramMap.get("fid")){
+                paramMap.put("deptLevel", 2);
+            }
             Page<SysDeptVo> page = sysDeptService.selectVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
@@ -142,6 +148,56 @@ public class SysDeptController extends BaseController {
 //        }
 //        return handleResult;
 //    }
+    /**
+     * 同步主系统组织机构信息
+     */
+//    @RequiresPermissions("system:dept:add")
+    @Log("获取主系统组织机构数据")
+    @RequestMapping("/getMasterData")
+    @ResponseBody
+    public  HandleResult getMasterData(){
+        HandleResult handleResult = new HandleResult();
+//        RestTemplate restTemplate = new RestTemplate();
+//        String result = restTemplate.getForObject("http://localhost:8080/dm/system/dept/provideData/?systemId=dm", String.class);
+        try {
+            String result =getDataFromMaster(ISysDeptService.synUrl);
+            HandleResult jsb= JSONObject.parseObject(result,HandleResult.class);
+            HashMap<String, Object> map= jsb.getContent();
+            List<SysDept> list= JSONObject.parseArray(map.get("list").toString(),SysDept.class) ;
+            if(sysDeptService.insertOrUpdate(list)){
+                handleResult.success("更新成功");
+            }else{
+                handleResult.error("无需更新");
+            }
+
+        }catch (ErrorInfoException e){
+            handleResult.error(e.getMessage());
+            logger.error(e.getMessage(), e);
+        } catch (Exception e) {
+            handleResult.error("获取失败");
+            logger.error("获取sys_dept表数据失败", e);
+        }
+
+
+
+        return handleResult;
+    }
+
+
+    @Log("提供主数据")
+    @RequestMapping("/provideData")
+    @ResponseBody
+    public  HandleResult provideData(@RequestParam String systemId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            List<SysDept> result = sysDeptService.listBySystemId(systemId);
+            handleResult.put("list", result);
+        } catch (Exception e) {
+            handleResult.error("获取sys_dept表数据失败");
+            logger.error("获取sys_dept表数据失败", e);
+        }
+        return handleResult;
+    }
     
     
     
@@ -163,6 +219,38 @@ public class SysDeptController extends BaseController {
         }catch (Exception e){
             handleResult.error("删除组织机构失败：" + e.getMessage());
             logger.error("删除组织机构失败", e);
+        }
+        return handleResult;
+    }
+
+    /*
+    * 批量删除组织机构
+    * */
+
+    @RequiresPermissions("system:dept:deleteBatch")
+    @Log("批量删除组织机构")
+    @RequestMapping("/deleteBatch")
+    @ResponseBody
+    public HandleResult deleteBatch(@RequestParam("idArr[]") List<String> ids){
+        HandleResult handleResult = new HandleResult();
+        try {
+            String deptStr = "";
+            for(String id : ids){
+                //检查该部门是否可删
+                String retId = sysDeptService.checkDeleteProperty(id);
+                if(retId != null){
+                    deptStr = deptStr + retId +",";
+                }
+            }
+            if("".equals(deptStr)){
+                sysDeptService.deleteBatchDeptByIds(ids);
+                handleResult.success("批量删除组织机构成功！");
+            }else{
+                handleResult.error("批量删除组织机构失败，批量选择的组织机构有用户或有下级组织机构！");
+            }
+        } catch (Exception e) {
+            handleResult.error("批量删除组织机构失败");
+            logger.error("批量删除组织机构失败", e);
         }
         return handleResult;
     }
@@ -438,4 +526,43 @@ public class SysDeptController extends BaseController {
         }
         return dir;
     }
+
+    /**
+     * 根据选中的一级部门id，获取子部门的树形数据
+     */
+    @RequestMapping("/subDeptTreeData")
+    @ResponseBody
+    public HandleResult getSubDeptTreeData(@RequestParam Map<String , Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        try {
+            String id = (String)paramMap.get("id");
+            if (!org.springframework.util.StringUtils.isEmpty(id)){
+                paramMap.put("fid", id);
+            }
+            List<SysDeptVo> sysDeptVoList = sysDeptService.selectVoList(paramMap);
+            handleResult.put("vo",sysDeptVoList);
+        } catch (Exception e) {
+            handleResult.error("查询子部门的树形数据出错");
+            logger.error("查询子部门的树形数据出错", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 根据部门的id，查询后获取资源提供方的部门或科室的详情
+     */
+    @RequestMapping("/belongTypeByDept")
+    @ResponseBody
+    public HandleResult getBelongTypeByDept(@RequestParam String deptId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String,Object> deptInfo = sysDeptService.getBelongTypeByDept(deptId);
+            handleResult.put("vo",deptInfo);
+        } catch (Exception e) {
+            handleResult.error("查询资源提供方的部门或科室的详情出错");
+            logger.error("查询资源提供方的部门或科室的详情出错", e);
+        }
+        return handleResult;
+    }
+
 }

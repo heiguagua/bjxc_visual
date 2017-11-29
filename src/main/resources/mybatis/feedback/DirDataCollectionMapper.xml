@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinawiserv.dsp.dir.mapper.feedback.DirDataCollectionMapper">
 
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.feedback.DirDataCollection">
@@ -26,19 +28,41 @@
                 AND dt.`dataset_name` LIKE CONCAT('%',#{searchKey},'%')
             </if>
             <if test="null != classifyId and '' != classifyId">
-                AND dc.`id` = #{classifyId}
-            </if>
-            <if test="null != regionCode and '' != regionCode">
-                AND su.`region_code` = #{regionCode}
-            </if>
-            <if test="null != deptId and '' != deptId">
-                AND sd.`dept_code` LIKE CONCAT(
+                AND dcm.classify_id IN
                 (SELECT
-                dept_code
+                id
                 FROM
-                sys_dept
-                WHERE id = #{deptId}),
-                '%'
+                dir_classify
+                WHERE delete_flag = 0
+                AND tree_code LIKE CONCAT(
+                (SELECT
+                tree_code
+                FROM
+                dir_classify
+                WHERE delete_flag = 0
+                AND id = #{classifyId, jdbcType=VARCHAR}),'%'))
+            </if>
+            <if test="null != userId and '' != userId">
+                AND dcm.classify_id IN(
+                    SELECT id  FROM dir_classify t,
+                    (SELECT dc.tree_code FROM dir_classify_authority dca
+                    LEFT JOIN dir_classify dc ON dca.classify_id = dc.id AND dc.delete_flag=0
+                    WHERE dca.auth_obj_type ='2' AND dca.auth_obj_id = #{userId,jdbcType=VARCHAR}
+                    ) a WHERE t.delete_flag=0 AND t.tree_code LIKE CONCAT(a.tree_code, ';%')
+                    UNION
+                    SELECT dca1.classify_id FROM dir_classify_authority dca1
+                    LEFT JOIN dir_classify dc1 ON dca1.classify_id = dc1.id AND dc1.delete_flag=0
+                    WHERE dca1.auth_obj_type ='2' AND dca1.auth_obj_id = #{userId,jdbcType=VARCHAR}
+                    UNION
+                    SELECT id  FROM dir_classify c,
+                    (SELECT dc.tree_code FROM dir_classify_authority dca
+                    LEFT JOIN dir_classify dc ON dca.classify_id = dc.id AND dc.delete_flag=0
+                    WHERE dca.auth_obj_type ='1' AND dca.auth_obj_id =  (SELECT su.dept_id FROM sys_user su WHERE su.delete_flag=0 AND su.id = #{userId,jdbcType=VARCHAR})
+                    )b WHERE c.delete_flag=0 AND c.tree_code LIKE CONCAT(b.tree_code, ';%')
+                    UNION
+                    SELECT dca2.classify_id FROM dir_classify_authority dca2
+                    LEFT JOIN dir_classify dc2 ON dca2.classify_id = dc2.id AND dc2.delete_flag=0
+                    WHERE dca2.auth_obj_type ='1' AND dca2.auth_obj_id =  (SELECT su.dept_id FROM sys_user su WHERE su.delete_flag=0 AND su.id = #{userId,jdbcType=VARCHAR})
                 )
             </if>
         </where>
@@ -46,6 +70,7 @@
     <!-- 查询收藏列表: -->
     <select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.dir.entity.vo.feedback.DirDataCollectionVo">
         SELECT
+        DISTINCT
         ddc.`id`,
         ddc.`dcm_id`,
         ddc.`collect_date`,

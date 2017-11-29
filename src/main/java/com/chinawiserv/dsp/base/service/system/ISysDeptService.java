@@ -19,7 +19,11 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  */
 public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 
+    String synUrl="/system/dept/provideData";
+
     Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception;
+
+    List<SysDeptVo> selectVoList(Map<String, Object> paramMap) throws Exception;
 
     Page<SysDeptVo> selectBaseVoPage(Map<String, Object> paramMap) throws Exception;
 
@@ -33,7 +37,7 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 	
     boolean deleteDeptById(String id) throws Exception;
 
-    List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
+//    List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
 
     Map<String, Object> getDeptCondition(String regionCode, boolean excludeTreeCodeCondition);
 
@@ -46,5 +50,15 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
     List<SysDeptVo> selectDeptListLikeTreeCode(List<String> list);
 
     List<String> selectDeptByPrivilege(String user_id);
+    //检查是否有关联数据，有则不可删除。不可删返回id，可删返回null
+    String checkDeleteProperty(String id);
+
+    boolean deleteBatchDeptByIds(List<String> ids) throws Exception;
+
+    List<SysDept> listBySystemId(String systemId);
+
+    boolean insertOrUpdate(List<SysDept> list);
+
+    Map<String,Object> getBelongTypeByDept(String deptId);
 
 }

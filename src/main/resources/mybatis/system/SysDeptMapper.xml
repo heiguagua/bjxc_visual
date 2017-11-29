@@ -69,7 +69,7 @@
 				AND t.isLeaf = '0'
 			</if>
 			<if test="deptTreeCodeCondition != null">
-				AND t.tree_code like '${deptTreeCodeCondition}%'
+                AND (t.tree_code=#{deptTreeCodeCondition} or t.tree_code like concat(#{deptTreeCodeCondition},';%'))
 			</if>
 			<if test="regionCodeCondition != null">
 				AND t.region_code like '${regionCodeCondition}%'
@@ -96,6 +96,14 @@
 		</where>
 	</sql>
 
+	<sql id="queryConditionsWithRegion">
+		<include refid="queryConditions"></include>
+		<if test="regionName != null">
+			AND r.region_name LIKE concat(concat('%', #{regionName}), '%')
+		</if>
+	</sql>
+
+
 	<sql id="queryConditions1">
 		<where>
 			t.delete_flag = '0'
@@ -112,50 +120,78 @@
 		</where>
 	</sql>
 
-	<sql id="baseSelectVo">
-		SELECT t.*,r.region_name,CASE WHEN d.dept_id IS NULL THEN '0' ELSE '1' END AS isSync FROM sys_dept t
-		LEFT JOIN sys_region r ON t.region_code = r.region_code
-		left join dir_classify_dept_map d on t.id = d.dept_id
-	</sql>
-	<sql id="selectVo">
+	<!--<sql id="baseSelectVo1">-->
+		<!--SELECT t.*,r.region_name,CASE WHEN d.dept_id IS NULL THEN '0' ELSE '1' END AS isSync FROM sys_dept t-->
+		<!--LEFT JOIN sys_region r ON t.region_code = r.region_code-->
+		<!--left join dir_classify_dept_map d on t.id = d.dept_id-->
+	<!--</sql>-->
+	<sql id="selectVoWithRegion">
 		SELECT t.*,r.region_name,(SELECT COUNT(1) FROM sys_dept WHERE fid=t.id) as cNum FROM sys_dept t
 		LEFT JOIN sys_region r ON t.region_code = r.region_code
 	</sql>
-	<sql id="synSelectVo">
-		SELECT t.*, d.dept_id AS isSync FROM sys_dept t
-		left join dir_classify_dept_map d on t.id = d.dept_id
-	</sql>
-	<sql id="simpleSelectVo">
-		SELECT t.* FROM sys_dept t
-	</sql>
+
 	<select id="selectVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
-		<include refid="selectVo"></include>
-		<include refid="queryConditions"></include>
+		<include refid="selectVoWithRegion"></include>
+		<include refid="queryConditionsWithRegion"></include>
 	</select>
+
+    <select id="selectSubVoList" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
+        SELECT t.*,CASE WHEN f.dcode IS NULL THEN '0' ELSE '1' END AS hasLeaf
+        FROM sys_dept t
+        LEFT JOIN (SELECT DISTINCT(fid) AS dcode FROM sys_dept where delete_flag=0) f on t.id=f.dcode
+        where t.fid=#{fid, jdbcType=VARCHAR}
+    </select>
+
 	<select id="selectBaseVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
-		<include refid="simpleSelectVo"></include>
-		<include refid="queryConditions"></include>
-	</select>
-	<select id="selectSynVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
-		<include refid="synSelectVo"></include>
+		SELECT t.* FROM sys_dept t
 		<include refid="queryConditions"></include>
 	</select>
 
+    <select id="selectBelongTypeByDept" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT a.id AS deptId,a.dept_name AS deptName,b.id AS subDeptId,b.dept_name AS subDeptName FROM
+        (
+        SELECT id,dept_name,tree_code FROM sys_dept
+        WHERE dept_level=2 AND LOCATE(CONCAT(tree_code,';'),(SELECT  CONCAT(t1.tree_code,';') FROM sys_dept t1 WHERE t1.id = #{deptId,jdbcType=VARCHAR})) = 1
+        ) a
+        LEFT JOIN
+        (
+        SELECT id,dept_name,tree_code FROM sys_dept t WHERE id=#{deptId,jdbcType=VARCHAR} AND dept_level>2
+        ) b
+        ON  LOCATE(CONCAT(a.tree_code,';'),b.tree_code) = 1
+
+    </select>
+
+
+	<!--目录同步功能  非目录请注释 start -->
+	<sql id="selectVoWithDirMap">
+		SELECT t.*, d.dept_id AS isSync FROM sys_dept t
+		left join dir_classify_dept_map d on t.id = d.dept_id
+	</sql>
+	<select id="selectSynVoPage" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
+		<include refid="selectVoWithDirMap"></include>
+		<include refid="queryConditions"></include>
+	</select>
+
+	<!--目录同步功能  非目录请注释 end -->
+	<!-- 用 SELECT t.* FROM sys_dept t 替换掉下面 <include refid="baseSelectVo1"></include>-->
 	<select id="selectVoById" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
-		<include refid="baseSelectVo"></include> WHERE t.delete_flag = '0' AND t.id = #{id}
+		SELECT t.* FROM sys_dept t
+		WHERE t.delete_flag = '0' AND t.id = #{id}
 	</select>
 
 	<select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
 		SELECT count(1) FROM sys_dept t  LEFT JOIN sys_region r on t.region_code = r.region_code
-		<include refid="queryConditions"></include>
+		<include refid="queryConditionsWithRegion"></include>
 	</select>
 	<select id="selectBaseVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
 		SELECT count(1) FROM sys_dept t
 		<include refid="queryConditions"></include>
 	</select>
-
+	<!--与目录相关sql  非目录请注释-->
 	<select id="selectVoList" parameterType="java.util.Map" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
-		<include refid="baseSelectVo"></include>
+		SELECT t.*,r.region_name,CASE WHEN d.dept_id IS NULL THEN '0' ELSE '1' END AS isSync FROM sys_dept t
+		LEFT JOIN sys_region r ON t.region_code = r.region_code
+		left join dir_classify_dept_map d on t.id = d.dept_id
 		<include refid="queryConditions"></include>
 	</select>
 
@@ -180,7 +216,7 @@
 		<if test="list != null ">
 		  AND (
 			<foreach collection="list" item="item" separator=" OR ">
-				tree_code LIKE CONCAT(#{item},'%')
+				(tree_code = #{item} OR tree_code LIKE CONCAT(#{item},';%'))
 			</foreach>
 			  )
 		</if>
@@ -200,4 +236,69 @@
 		GROUP BY
 			sd.tree_code
 	</select>
+
+	<update id="deleteBatchDeptByIds" parameterType="java.util.List">
+		UPDATE sys_dept SET delete_flag = '1' WHERE id IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	<select id="listBySystemId" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDept">
+		SELECT t.* FROM sys_dept t
+-- 		WHERE
+	</select>
+	<select id="listByList" parameterType="java.util.List" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDept">
+		SELECT t.* FROM sys_dept t WHERE id IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<select id="listIdsByList" parameterType="java.util.List" resultType="java.lang.String">
+		SELECT t.id FROM sys_dept t WHERE id IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into sys_dept(
+		id,
+		region_code,
+		dept_type,
+		dept_code,
+		dept_name,
+		dept_short_name,
+		fid,
+		fname,
+		dept_structure_name,
+		dept_level,
+		dept_function,
+		order_number,
+		delete_flag,
+		tree_index,
+		tree_code
+		)
+
+		VALUES
+		<foreach collection="list" item="item" index="index"  separator="," >
+			(#{item.id},
+			#{item.regionCode},
+			#{item.deptType},
+			#{item.deptCode},
+			#{item.deptName},
+			#{item.deptShortName},
+			#{item.fid},
+			#{item.fname},
+			#{item.deptStructureName},
+			#{item.deptLevel},
+			#{item.deptFunction},
+			#{item.orderNumber},
+			#{item.deleteFlag},
+			#{item.treeIndex},
+			#{item.treeCode})
+
+		</foreach>
+	</insert>
+
+
+
 </mapper>

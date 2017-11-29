@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.base.controller.system;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
@@ -62,6 +63,22 @@ public class SysSettingController extends BaseController {
             logger.error("分页查询系统配置出错", e);
         }
         return pageResult;
+    }
+    /**
+     * 获取当前系统标识
+     */
+    @RequiresPermissions("system:setting:list")
+    @RequestMapping("/getSystemId")
+    @ResponseBody
+    public HandleResult getSystemId(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            String systemId = sysSettingService.findValueByCode(SystemConst.SYS_INTEGRATE_NO);
+            handleResult.put("systemId", systemId);
+        }catch (Exception e){
+            logger.error("查询系统Id出错", e);
+        }
+        return handleResult;
     }
 
     /**

@@ -27,7 +27,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <div class="col-xs-12 seventy-percent-height">
+                <div class="col-xs-12">
                     <div class="box">
                         <form class="form-inline marginBot" method="post">
                             <div class="box-header">
@@ -80,6 +80,7 @@
         pagination: true, //分页
         pageNum: 1,
         pageSize: 10,
+        smartDisplay: false,
         columns: [
             {
                 field: 'a', title: '序号', width: '5%',
@@ -89,7 +90,6 @@
             },
             { field: 'title', title: '标题' },
             { field: 'content', title: '内容' },
-            { field: 'contactName', title: '姓名', width: '15%' },
             { field: 'contactEmail', title: '邮箱', width: '15%' },
             { field: 'contactPhone', title: '联系电话', width: '10%' },
             { field: 'submitDate', title: '提交时间', width: '10%' },

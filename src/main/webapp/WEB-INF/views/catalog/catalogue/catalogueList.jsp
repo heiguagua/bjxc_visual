@@ -5,6 +5,11 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/js/catalog/catalogue/catalogueList.js"></script>
 </head>
+<style>
+div.layui-layer-iframe{
+	min-width:1000px;
+}
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -26,32 +31,44 @@
                 <!-- Your Page Content Here -->
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="box">
-
+                        <div class="box clear">
 
                             <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
                                 <section class="sidebar">
-                                    <div class="user-panel">
+                                    <div class="user-panel"  style="height: 6%;">
                                         <b id="dir-Manger">目录分类</b>
                                         <div class="pull-right image">
                                             <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
 
-                                                <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
-                                                <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                                <i style="color: rgb(51, 51, 51);" class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                                <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                             </a>
-
                                         </div>
-
                                     </div>
-                                    <div>
+                                    <%--<div style="height: 6%" id="regionDiv">
+                                        <div class="input-group" style="margin:2px;">
+                                            <input type="text" id="searchRegionName" placeholder="请选择区域"
+                                                   class="form-control" readonly style="background-color: #FFFFFF">
+                                            <input type="hidden" id="searchRegionCode">
+
+                                            <div class="menu-wrap">
+                                                <div id="searchRegionMenuContent" class="menuContent"
+                                                     style="display:none;">
+                                                    <ul id="searchRegionTreeDemo" class="ztree"
+                                                        style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>--%>
+                                    <div style="height: 94%;">
                                         <ul id="treeDemo" class="ztree"></ul>
                                     </div>
                                 </section>
-
                             </aside>
                         
-                        
-                            <form class="form-inline" method="post">
+                          <div class="content_table">
+                          
+                          	 <form class="form-inline" method="post">
                                 <div class="box-header box-header-myself">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
@@ -111,15 +128,7 @@
                                     </div>
                                     <div class="pull-right">
                                         <input type="hidden" id="searchClassifyId">
-	                                    <div class="input-group" style="margin-right:4px;min-width:240px">
-	                                        <input type="text" id="searchRegionName" placeholder="请选择区域" class="form-control" readonly style="background-color: #FFFFFF">
-	                                        <input type="hidden" id="searchRegionCode">
-	                                        <div class="menu-wrap">
-	                                            <div id="searchRegionMenuContent" class="menuContent" style="display:none;">
-	                                                <ul id="searchRegionTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
-	                                            </div>
-	                                        </div>
-	                                    </div>
+                                        <input type="hidden" id="classifyType">
 	                                    <div class="input-group">
 	                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
 	                                        <div class="input-group-btn">
@@ -130,21 +139,16 @@
 	                                        </input>
 	                                    </div>
                                     </div>
-                                    
-
-                                    
-                                    
                                 </div>
                             </form>
-		
-
-                            
                            <!-- 00000 -->
                             <div class="box-body table-responsive table-myself">
                                 <!-- 表格 -->
                                 <table id="catalogueTable" class="table table-hover"></table>
                                 <!-- 表格 end-->
                             </div>
+                          </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -156,46 +160,4 @@
     </div>
 
 </body>
-<script>
-/* 目录编目收缩小侧边栏,用的adminlte */
-	$(function(){
-		$("#forward").hide();
-		$("#dir-Manger").parent("div.user-panel").css("text-align","center")
-		$("#backward").click(function(){
-			$("#min-aside").animate({
-				width:"40px",
-			},200);
-			$("#dir-Manger").hide();
-			$("#forward").show(400);
-			$("#backward").hide(500);
-			$("#treeDemo").hide(200);
-			$("#min-aside").css("border","none")
-			 $("div.box div.table-myself").animate({
-				paddingLeft: "50px"
-			})
-			$('.box-header').animate({
-				paddingLeft: "60px"
-			})
-			$(".user-panel").css("background","#f4f6f9");
-		})
-		$("#forward").click(function(){
-			$("#min-aside").animate({
-				width:"230px",
-			},200);
-			$("#dir-Manger").show();
-			$("#forward").hide(400);
-			$("#backward").show(500);
-			$("#treeDemo").show(200);
-			$("#min-aside").css("border","1px solid #ddd");
-			$(".box-body").animate({
-				paddingLeft: "240px"
-			})
-			$('.box-header').animate({
-				paddingLeft: "270px"
-			})
-			$(".user-panel").css("background","none");
-		})
-	})
-
-</script>
 </html>

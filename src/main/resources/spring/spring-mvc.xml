@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:task="http://www.springframework.org/schema/task"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 						   http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 						   http://www.springframework.org/schema/context
 						   http://www.springframework.org/schema/context/spring-context-4.3.xsd
@@ -14,89 +14,98 @@
 						   http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
                            http://www.springframework.org/schema/task
 		                   http://www.springframework.org/schema/task/spring-task-4.3.xsd"
-    default-lazy-init="false">
+	default-lazy-init="false">
 
-    <context:property-placeholder location="${config.location:classpath:}conf/*.properties" />
+	<context:property-placeholder location="${config.location:classpath:}conf/*.properties" />
 
-    <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
-        <property name="supportedMediaTypes">
-            <list>
-                <value>application/json</value>
-            </list>
-        </property>
-                <!-- FastJsonConfig -->
-        <property name="fastJsonConfig" ref="fastJsonConfig" />
-    </bean>
+	<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json</value>
+			</list>
+		</property>
+		<!-- FastJsonConfig -->
+		<property name="fastJsonConfig" ref="fastJsonConfig" />
+	</bean>
 
-    <bean id="fastJsonConfig" class="com.alibaba.fastjson.support.config.FastJsonConfig">
+	<bean id="fastJsonConfig" class="com.alibaba.fastjson.support.config.FastJsonConfig">
 		<!-- Default charset -->
-        <property name="charset" value="UTF-8" />
+		<property name="charset" value="UTF-8" />
 		<!-- Default dateFormat -->
-        <property name="dateFormat" value="yyyy-MM-dd HH:mm:ss" />
+		<property name="dateFormat" value="yyyy-MM-dd HH:mm:ss" />
 		<!-- Feature -->
-		<!--<property name="features">-->
-			<!--<list>-->
-				<!--<value>Your feature</value>-->
-			<!--</list>-->
-		<!--</property>-->
-		<!--&lt;!&ndash; SerializerFeature &ndash;&gt;-->
-		<!--<property name="serializerFeatures">-->
-			<!--<list>-->
-				<!--<value>Your serializer feature</value>-->
-			<!--</list>-->
-		<!--</property>-->
-		<!--&lt;!&ndash; Global SerializeFilter &ndash;&gt;-->
-		<!--<property name="serializeFilters">-->
-			<!--<list>-->
-				<!--<ref bean="Your serializer filter"/>-->
-			<!--</list>-->
-		<!--</property>-->
-		<!--&lt;!&ndash; Class Level SerializeFilter &ndash;&gt;-->
-		<!--<property name="classSerializeFilters">-->
-			<!--<map>-->
-				<!--<entry key="Your filter class" value-ref="Your serializer filter"/>-->
-			<!--</map>-->
-		<!--</property>-->
-    </bean>
+		<!--<property name="features"> -->
+		<!--<list> -->
+		<!--<value>Your feature</value> -->
+		<!--</list> -->
+		<!--</property> -->
+		<!--&lt;!&ndash; SerializerFeature &ndash;&gt; -->
+		<!--<property name="serializerFeatures"> -->
+		<!--<list> -->
+		<!--<value>Your serializer feature</value> -->
+		<!--</list> -->
+		<!--</property> -->
+		<!--&lt;!&ndash; Global SerializeFilter &ndash;&gt; -->
+		<!--<property name="serializeFilters"> -->
+		<!--<list> -->
+		<!--<ref bean="Your serializer filter"/> -->
+		<!--</list> -->
+		<!--</property> -->
+		<!--&lt;!&ndash; Class Level SerializeFilter &ndash;&gt; -->
+		<!--<property name="classSerializeFilters"> -->
+		<!--<map> -->
+		<!--<entry key="Your filter class" value-ref="Your serializer filter"/> -->
+		<!--</map> -->
+		<!--</property> -->
+	</bean>
 
 	<!-- 拦截器 -->
-	<!-- <mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean class="com.chinawiserv.dsp.base.common.inteceptor.SpringInteceptor">
-			</bean>
-		</mvc:interceptor>
+	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/**" /> <bean class="com.chinawiserv.dsp.base.common.inteceptor.SpringInteceptor"> 
+		</bean> </mvc:interceptor> </mvc:interceptors> -->
 
-	</mvc:interceptors> -->
+	<bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="contentType" value="text/html" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 资源映射 -->
+	<mvc:resources location="/images/" mapping="/img/**" />
+	<mvc:resources location="/WEB-INF/static/app/" mapping="/app/**" />
+	<mvc:resources location="/WEB-INF/static/js/" mapping="/js/**" />
+	<mvc:resources location="/WEB-INF/static/css/" mapping="/css/**" />
+	<mvc:resources location="/WEB-INF/static/images/" mapping="/images/**" />
+	<mvc:resources location="/WEB-INF/static/plugins/" mapping="/plugins/**" />
 
 	<!-- 事务管理器 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<!-- 数据源 -->
-        <property name="dataSource" ref="dataSource_dcm" />
-    </bean>
+		<property name="dataSource" ref="dataSource_dcm" />
+	</bean>
 	<!-- 通知 -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
 			<!-- 把名称为 find、statistic、query 开头的方法配置为只读事物 -->
-            <tx:method name="find*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
-            <tx:method name="select*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
-            <tx:method name="get*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
-            <tx:method name="statistic*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
-            <tx:method name="query*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
+			<tx:method name="find*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
+			<tx:method name="select*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
+			<tx:method name="get*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
+			<tx:method name="statistic*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
+			<tx:method name="query*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
 
 			<!-- 把名称为除 find、statistic、query 开头的方法以外的所有方法配置为读写事物 -->
-            <tx:method name="*" rollback-for="Throwable" read-only="false" propagation="REQUIRED" />
-        </tx:attributes>
-    </tx:advice>
+			<tx:method name="*" rollback-for="Throwable" read-only="false" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
 	<!-- 切面 -->
-    <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.chinawiserv.dsp.*.service..*.*(..))" />
-    </aop:config>
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.chinawiserv.dsp.*.service..*.*(..))" />
+	</aop:config>
 
-    <!-- 定时任务 -->
-    <task:executor id="executor" pool-size="10"></task:executor>
-    <task:scheduler id="scheduler" pool-size="20"></task:scheduler>
-    <task:annotation-driven executor="executor" scheduler="scheduler"></task:annotation-driven>
-	
-	<import resource="spring-shiro.xml"/>
+	<import resource="spring-shiro.xml" />
+
+	<!-- 定时任务 -->
+	<!--<task:executor id="executor" pool-size="10"></task:executor> -->
+	<!--<task:scheduler id="scheduler" pool-size="20"></task:scheduler> -->
+	<!--<task:annotation-driven executor="executor" scheduler="scheduler"></task:annotation-driven> -->
+
 </beans>

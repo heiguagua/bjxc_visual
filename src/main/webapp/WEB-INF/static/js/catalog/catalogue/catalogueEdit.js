@@ -7,12 +7,12 @@ jQuery(document).ready(function () {
     initAllSelect();  //初始化所有下拉框
     initButtonClickEvent(); //初始化按钮点击事件
     initInputValue(); //初始化所有需要设值的输入框的值
+
 });
 
 function initAllSelect(){
     var regionCode = $.getSelectedRegionCode();
-    $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
-    $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId'); //初始化关联目录分类下拉框
+    //$.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
     $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
     //$.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
     //信息资源格式下拉框初始化
@@ -60,9 +60,13 @@ function initInputValue(){
     $.commonAjax({
         url:basePathJS + "/catalog/editLoad",
         data:{id:$("#id").val()},
+        async:false,
         success: function (result) {
             if (result.state) {
                 var obj = result.content.vo;
+                $("#regionCode").val(obj.regionCode);
+                //由于初始化关联目录分类下拉框时,需要用到该数据集所属区域的值，所以在这个地方来进行初始化
+                $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId','regionCode');
                 $("#classifyName").val(obj.classifyName);
                 $("#classifyId").val(obj.classifyIds);
                 $("#relDatasetName").val(obj.relClassifyName);
@@ -71,7 +75,15 @@ function initInputValue(){
                 $("#infoResourceCode").val(obj.infoResourceCode);
                 $("#belongDeptType").val(obj.belongDeptType);
                 $("#belongDeptTypeName").val(obj.regionDeptName);
-                //$("#belongDeptId").val(obj.belongDeptId);
+                $("#belongDeptId").val(obj.belongDeptId == null ? "" : obj.belongDeptId);
+                $("#belongDeptName").val(obj.belongDeptName == null ? "" : obj.belongDeptName);
+                var initBelongDeptTypeTreeParam = ["belongDeptTreeDemo","belongDeptName","belongDeptId","belongDeptMenuContent"];
+                $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent',initBelongDeptTypeTreeParam)//初始化资源提供方下拉框;
+                //初始化科室
+                var belongDeptTypeValue = $("#belongDeptType").val();
+                if(belongDeptTypeValue){
+                    $.initSubDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',{fid:belongDeptTypeValue});
+                }
                 $("#belongDeptName").val(obj.belongDeptName);
                 $("#belongDeptNo").val(obj.belongDeptNo);
                 $("#chargeDeptId").val(obj.chargeDeptId);
@@ -98,10 +110,19 @@ function initInputValue(){
                     $("#openedStructureCount").val(obj.survey.openedStructureCount);
                 }
                 //生成信息项
+                if(obj.sourceType != "1" && obj.sourceType != "7"){
+                    $("#N_add_itemH").hide();
+                }
+                if(obj.sourceType == '4' || obj.sourceType == '6'|| obj.sourceType == '8'){
+                    $("#deleteItems").hide();
+                }
+                if(obj.sourceType == '2' || obj.sourceType == '5'){
+                    $("#firstTh").after("<th>字段名</th>");
+                }
                 var itemList = obj.items;
                 for (var i in itemList){
                     var thisTrNum = getTrNum();
-                    buildItem(thisTrNum,itemList[i]);
+                    buildItem(thisTrNum,itemList[i],obj.sourceType);
                 }
             }
         }
@@ -116,20 +137,21 @@ function initButtonClickEvent(){
         if(trNums>0){
             $('#dataitemList tr').each(function(){
                 var maxTrNum=$(this).find('input:first').attr('trNum');
-                if(maxTrNum>thisTrNum){
+                if(parseInt(maxTrNum)>parseInt(thisTrNum)){
                     thisTrNum=maxTrNum;
                 }
             });
             thisTrNum++;
         }
         $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
-        +'<td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
+        //+'<td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
         +'<td><input name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType")+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number"  min="1" type="text" class="form-control">'
-        +'<input type="hidden" name="items['+thisTrNum+'].belongDeptId" >  </td>'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number"  min="1" type="text" class="form-control">'
+        +'<td><input type="text" id="deptName_'+thisTrNum+'" data-rule="责任部门:required;" readonly="readonly" class="form-control" style="background-color: #FFFFFF;"><input type="hidden" id="deptId_'+thisTrNum+'" name="items['+thisTrNum+'].belongDeptId" >' +
+            '<div class="menu-wrap"><div id="menuContent_'+thisTrNum+'" class="menuContent" style="display:none;"><ul id="treeDemo_'+thisTrNum+'" class="ztree"style="margin-top:0;border: 1px solid #98b7a8;"></ul></div></div></td>'
             //+'<td><input class="form-control" type="text"  value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
-            //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
+        //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
         +'<td><select name="items['+thisTrNum+'].secretFlag" class="form-control"><option value=1>是</option><option value=0>否</option></select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'
         +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" ></td>'
@@ -141,6 +163,7 @@ function initButtonClickEvent(){
         +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" ></td></tr>');
 
         //数据集与信息项共有的属性,如果数据集已经设值了,那新增一行时,就把这些值带入信息项
+        $.initDeptTreeSelect('treeDemo_'+thisTrNum,'deptName_'+thisTrNum,'deptId_'+thisTrNum,'menuContent_'+thisTrNum,false,{regionCode: $.getSelectedRegionCode()},null,null,null);
         $("select[name='items["+thisTrNum+"].secretFlag']").val($("input[name='secretFlag']:checked").val());
         $("select[name='items["+thisTrNum+"].shareType']").val($("#shareType").val());
         $("select[name='items["+thisTrNum+"].shareMethod']").val($("#shareMethod").val());
@@ -174,7 +197,7 @@ function getTrNum(){
         var maxNum=0;
         $.each($('#dataitemList>tr'),function(idx,item){
             var i= $(item).find('input:first').attr('trNum');
-            if(i>maxNum){
+            if(parseInt(i)>parseInt(maxNum)){
                 maxNum=i;
             }
         })
@@ -183,17 +206,24 @@ function getTrNum(){
     return thisTrNum;
 }
 
-function buildItem(thisTrNum,data){
-    var str='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
-        +'<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control">'
+function buildItem(thisTrNum,data,sourceType){
+    var str2 = "";
+    var str4 = "";
+    if(sourceType == '2' || sourceType == '5'){
+        str2 = '<td><input trNum='+thisTrNum+' value="'+(data.columnName?data.columnName:'')+'" data-rule="字段名:required;" disabled type="text" class="form-control"></td>';
+    }
+    if(sourceType == '1' || sourceType == '4'){
+        str4 = '<td><input type="text" id="deptName_'+thisTrNum+'" data-rule="责任部门:required;" readonly="readonly" class="form-control" style="background-color: #FFFFFF;"><input type="hidden" id="deptId_'+thisTrNum+'" name="items['+thisTrNum+'].belongDeptId" >' +
+        '<div class="menu-wrap"><div id="menuContent_'+thisTrNum+'" class="menuContent" style="display:none;"><ul id="treeDemo_'+thisTrNum+'" class="ztree"style="margin-top:0;border: 1px solid #98b7a8;"></ul></div></div></td>';
+    }else{
+        str4 = '<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDeptId?data.belongDeptId:'')+'"><input class="form-control" type="text" disabled value="'+(data.deptName?data.deptName:'')+'" ></td>';
+    }
+    var str1='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>';
+    var str3='<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control">'
         +'<input type="hidden" name="items['+thisTrNum+'].id" value="'+data.id+'"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control">'
-        +'<input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"></td>'
-            //+'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
-            //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
-            //+'<td><select name="items['+thisTrNum+'].secretFlag" class="form-control"><option value=1'+(data.secretFlag==1?'selected="selected"':'')+' >是</option><option value=0 '+(data.secretFlag==0?'selected="selected"':'')+'>否</option></select></td>'
-        +'<td><select name="items['+thisTrNum+'].secretFlag" class="form-control">'+Dict.selectsDom("ordinary",data.isOpen?data.isOpen:'')+'</select></td>'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control"></td>';
+    var str5='<td><select name="items['+thisTrNum+'].secretFlag" class="form-control">'+Dict.selectsDom("ordinary",data.isOpen?data.isOpen:'')+'</select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
         +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" value="'+(data.shareCondition?data.shareCondition:'')+'"></td>'
         +'<td><select name="items['+thisTrNum+'].shareMethod" class="form-control">'+Dict.selectsDom("dataSetShareMethod",data.shareMethod?data.shareMethod:'')+'</select></td>'
@@ -202,7 +232,15 @@ function buildItem(thisTrNum,data){
         +'<td><select name="items['+thisTrNum+'].storageLocation" class="form-control">'+Dict.selectsDom("setItemStoreLocation",data.storageLocation?data.storageLocation:'')+'</select></td>'
         +'<td><select name="items['+thisTrNum+'].updateFrequency" class="form-control">'+Dict.selectsDom("setItemFrequency",data.updateFrequency?data.updateFrequency:'')+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
-    $('#dataitemList').prepend(str)
+    if(str2 != ""){
+        $('#dataitemList').prepend(str1+str2+str3+str4+str5);
+    }else{
+        $('#dataitemList').prepend(str1+str3+str4+str5);
+    }
+    if(sourceType == '1' || sourceType == '4'){
+        $("#deptName_"+thisTrNum).val(data.deptName?data.deptName:'');
+        $.initDeptTreeSelect('treeDemo_'+thisTrNum,'deptName_'+thisTrNum,'deptId_'+thisTrNum,'menuContent_'+thisTrNum,false,{regionCode: $("#regionCode").val()},data.belongDeptId?[{id:data.belongDeptId}]:null,null,null);
+    }
 }
 
 function infoTableDel(trNum){

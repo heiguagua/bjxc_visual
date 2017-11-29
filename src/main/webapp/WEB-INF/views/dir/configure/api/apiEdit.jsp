@@ -5,6 +5,7 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
     <script src="<%=basePath%>/js/dir/configure/api/apiEdit.js"></script>
+    <script src="<%=basePath%>/js/system/dict/dictIcon.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <section class="content">
@@ -19,7 +20,7 @@
                            <div class="form-group">
                                 <label for="apiName">api名称</label>
                                 <input type="text" id="Eapi_name" name="apiName" class="form-control"
-                                       placeholder="请输入api名称" data-rule="api名称:required;api_name;remote(<%=basePath%>/system/user/insertCheckName)">
+                                       placeholder="请输入api名称" data-rule="api名称:required;api_name;">
                             </div>
                             <div class="form-group">
                                 <label for="apiCategory">开发者工具种类:</label>
@@ -35,6 +36,19 @@
                                 <label for="orderNumber">排序号</label>
                                 <input type="text" id="Eorder_number" name="orderNumber" class="form-control"
                                        placeholder="请输入排序号" data-rule="排序号:required;order_number;">
+                            </div>
+                            
+                            <div class="form-group col-md-12">
+                                <label for="editChoosePic">图片<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+                                <p style="display: inline-block" id="editPicName"></p>
+                                <input style="display:inline-block;background-color:#27DC93" type="button" class="btn btn-save" value="重选图片"  id="editChangePicButton"/>                                
+                                <div id="editPicDiv"></div>
+                                <input style="display: inline-block" type="file" name="file" value="file" id="editChoosePic" data-rule="图片:required;file">
+                                <label id="editPicNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过5M)</label>                                
+                            </div>
+                            <div class="form-group">
+                            	<label  class="" for="isShow" id="Eis_show">是否显示到首页</label>
+                                
                             </div>
                             <div class="form-group">
                                 <label for="apiDesc">api描述:</label>

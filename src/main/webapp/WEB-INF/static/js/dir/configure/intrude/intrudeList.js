@@ -26,7 +26,7 @@ jQuery(document).ready(function () {
             sortable: false,
                        
         }, {
-            field: 'publisher',
+            field: 'publisherName',
             title: '发布人',
             align: 'center',
             valign: 'middle',

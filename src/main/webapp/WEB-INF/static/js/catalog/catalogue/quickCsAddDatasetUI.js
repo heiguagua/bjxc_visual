@@ -3,14 +3,20 @@
  */
 jQuery(document).ready(function () {
     window.Dict=new dict();
-    initAllSelect();
     initInputValue();
+    initAllSelect();
 });
 function initAllSelect(){
-    $.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
-    $.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联目录分类下拉框
+    //$.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
+    $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId','regionCode');//初始化关联目录分类下拉框
     var regionCode = $.getSelectedRegionCode();
-    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
+    var initBelongDeptTypeTreeParam = ["belongDeptTreeDemo","belongDeptName","belongDeptId","belongDeptMenuContent"];
+    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent',initBelongDeptTypeTreeParam)//初始化资源提供方下拉框;
+    //初始化科室
+    var belongDeptTypeValue = $("#belongDeptType").val();
+    if(belongDeptTypeValue){
+        $.initSubDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',{fid:belongDeptTypeValue});
+    }
     //$.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
     $('#datasetName').on('blur',function(){
         var datasetName=$('#datasetName').val();
@@ -71,7 +77,6 @@ var Model = {
                 reset: function(){
                     this.datas = [];
                     this.select = null;
-                    this.tree = tree;
                 }
             },
             bus:{
@@ -81,7 +86,12 @@ var Model = {
                 reset: function(){
                     this.datas = [];
                     this.select = null;
-                    this.tree = tree;
+                    $('#bus_tree').treeview({
+                        data: [],
+                        color: "#428bca",
+                        nodeIcon: 'fa fa-tag',
+                        showBorder: false
+                    });
                 }
             },
             data:{
@@ -385,7 +395,7 @@ $(document).on('click','#add_item',function () {
     }
     $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'"><td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
         '<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
-        '<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" min="1" type="text" class="form-control"></td>'+
+        '<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" min="1" type="text" class="form-control"></td>'+
         '<td></td>'+
         '<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType")+'</select></td>'+
         '<td><input name="items['+thisTrNum+'].shareCondition" type="text" class="form-control" ></td>'+
@@ -404,8 +414,9 @@ function getTrNum(){
         var maxNum=0;
         $.each($('#dataitemList>tr'),function(idx,item){
             var i= $(item).find('input:first').attr('trNum');
-            if(i>maxNum){
+            if(parseInt(i)>parseInt(maxNum)){
                 maxNum=i;
+                return false;
             }
         })
         thisTrNum=parseInt(maxNum)+1;
@@ -421,9 +432,10 @@ function buildItem(thisTrNum,data){
     var str='<tr id="tr_'+thisTrNum+'">'/*+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'*/
         +'<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:1)+'</select></td>'
-        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="integer(+);" type="number" value="'+(data.Length?data.Length:'')+'" min="1" type="text" class="form-control"></td>'
-        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"> <input class="form-control" type="text" disabled value="'+(data.dept_short_name?data.dept_short_name:'')+'" > </td>'
-        +'<td><input class="form-control dataset-name" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
+        +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" value="'+(data.Length?data.Length:'')+'" min="1" type="text" class="form-control"></td>'
+        +'<td><input type="text" id="deptName_'+thisTrNum+'" data-rule="责任部门:required;" readonly="readonly" class="form-control" style="background-color: #FFFFFF;"><input type="hidden" id="deptId_'+thisTrNum+'" name="items['+thisTrNum+'].belongDeptId" >' +
+            '<div class="menu-wrap"><div id="menuContent_'+thisTrNum+'" class="menuContent" style="display:none;"><ul id="treeDemo_'+thisTrNum+'" class="ztree"style="margin-top:0;border: 1px solid #98b7a8;"></ul></div></div></td>'
+            //+'<td><input class="form-control dataset-name" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         /*+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'*/
         +'<td><select name="items['+thisTrNum+'].secretFlag" data-rule="涉密标识:required;" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
@@ -434,7 +446,9 @@ function buildItem(thisTrNum,data){
         +'<td><select name="items['+thisTrNum+'].storageLocation" data-rule="存储位置:required;" class="form-control">'+Dict.selectsDom("setItemStoreLocation",data.physicsStoreLocation?data.physicsStoreLocation:'')+'</select></td>'
         +'<td><select name="items['+thisTrNum+'].updateFrequency" data-rule="更新周期:required;" class="form-control">'+Dict.selectsDom("setItemFrequency",data.updateFrequency?data.updateFrequency:'')+'</select></td>'
         +'<td><input type="hidden" name="sourceInfos['+thisTrNum+'].sourceObjId" value="'+data.id+'"><input name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
-    $('#dataitemList').prepend(str)}
+    $('#dataitemList').prepend(str);
+    $.initDeptTreeSelect('treeDemo_'+thisTrNum,'deptName_'+thisTrNum,'deptId_'+thisTrNum,'menuContent_'+thisTrNum,false,{regionCode: $.getSelectedRegionCode()},null,null,null);
+}
 function infoTableDel(thisTrNum){
     $('#tr_'+thisTrNum).remove();
 }
@@ -485,15 +499,32 @@ $(document).on("change","#storeMedia",function(){
 
 function initInputValue(){
     //初始化资源提供方和提供方代码输入框的值
-    $.commonAjax({
-        url:basePathJS + "/system/dept/getDeptInfoForLoginUser",
-        success: function (result) {
-            if (result.state) {
-                var deptObj = result.content.vo;
-                $("#chargeDeptId").val(deptObj.id);
+    //$.commonAjax({
+    //    url:basePathJS + "/system/dept/getDeptInfoForLoginUser",
+    //    success: function (result) {
+    //        if (result.state) {
+    //            var deptObj = result.content.vo;
+    //            $("#chargeDeptId").val(deptObj.id);
+    //        }
+    //    }
+    //});
+    if(loginUserDeptId && loginUserDeptId!=="null"){
+        $("#chargeDeptId").val(loginUserDeptId);
+        $.commonAjax({
+            url:basePathJS + "/system/dept/belongTypeByDept",
+            data:{deptId:loginUserDeptId},
+            async:false,
+            success: function (result) {
+                if (result.state) {
+                    var obj = result.content.vo;
+                    $("#belongDeptType").val(obj.deptId);
+                    $("#belongDeptTypeName").val(obj.deptName);
+                    $("#belongDeptId").val(obj.subDeptId);
+                    $("#belongDeptName").val(obj.subDeptName);
+                }
             }
-        }
-    });
+        });
+    }
 }
 $(document).on("change","#storeMedia",function(){
     var selectedValue = $(this).children('option:selected').val();

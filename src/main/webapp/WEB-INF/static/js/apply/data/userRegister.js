@@ -5,20 +5,34 @@
  * [ugChange 选择获取值]
  * @return {[type]} [description]
  */
+
+var tableSelector = '#userregisterTable';
+var paramsObj;
+
+jQuery(document).ready(function () {
+    paramsObj = {};
+    getData();
+    initButtonClickEvent();
+});
+
+
+
 function ugChange(d) {
-    var val = $(d).children('option:selected').val();
-    $("#userregisterBox").html('<table class="layui-table" id="userregisterTable" lay-even="" lay-skin="row"></table>');
-    if (val === "100") {
-        getData()
-    } else {
-        getData(val)
-    }
+    setParams();
+    reloadTable();
 }
-function getuserregisterTable(dd) {
-    $("#userRegBox .box-body").html(' <table class="layui-tables" id="userregisterTable" lay-even="" lay-skin="row"></table>');
-    $('#userregisterTable').bootstrapTable({
+function getuserregisterTable() {
+    $(tableSelector).bootstrapTable({
+        url: basePathJS + '/dirRegistUser/list',
+        responseHandler: function (res) {
+            return res.rows;
+        },
+        queryParams: function (params) {
+            return $.extend(params, paramsObj);
+        },
         pagination: true, //分页
-        pageSize: 15,
+        pageSize: 10,
+        smartDisplay: false,
         columns: [
             {
                 field: 'id', title: '序号', width: '5%', align: 'center', formatter: function (value, row, index) {
@@ -29,7 +43,22 @@ function getuserregisterTable(dd) {
             {field: 'loginName', title: '用户名', width: '10%'},
             {field: 'phone', title: '电话号码'},
             {field: 'deptName', title: '所属组织'},
-            {field: 'stateName', title: '状态', width: '8%'},
+            {
+                field: 'status',
+                title: '状态',
+                width: '8%',
+                formatter: function (value) {
+                    if(value == '0'){
+                        return "申请中";
+                    }
+                    if(value == '1'){
+                        return "已通过";
+                    }
+                    else if(value == '2'){
+                        return "已拒绝";
+                    }
+                }
+            },
             {
                 field: 'id',
                 title: '操作',
@@ -47,8 +76,7 @@ function getuserregisterTable(dd) {
                     return editBtn.join('');
                 }
             }
-        ],
-        data: dd
+        ]
 //          data: Mock.mock({ 'list|22': [{ 'a|+1': 1, 'b|1': '@CNAME', 'c|1': '@NAME', 'd|1': /(13|14|15|17|18)\d{9}/, 'e|1': ['办公室', '酒店', '学校', '会展'], 'f|1':isStatus, 'g|+1': 1 }] }).list
     });
 }
@@ -106,24 +134,13 @@ function cmf(tit, fn, v) {
         layer.msg('取消' + v, {icon: 1});
     });
 }
-//默认show
-$(function () {
-    getData()
-})
+
 /**
  * 获取表格数据
  * @param num 类型
  */
-function getData(num) {
-    var url = basePathJS + "/dirRegistUser/list";
-    if (num) {
-        url = basePathJS + "/dirRegistUser/list?status=" + num;
-    }
-    $.get(url, function (d) {
-//            if (d.rows.length) {
-        getuserregisterTable(d.rows)
-//            }
-    })
+function getData() {
+    getuserregisterTable();
 }
 
 /**
@@ -142,28 +159,33 @@ function putStatus(parms, fn) {
         }
     });
 }
-$("#queryBtnEdit").on("click", function () {
+
+
+function initButtonClickEvent(){
+    $("#queryBtnEdit").click(function () {
+        setParams();
+        reloadTable();
+    });
+}
+
+
+function reloadTable() {
+    $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
+    $(tableSelector).data("bootstrap.table").refresh();
+}
+
+function setParams() {
     var val = $('#ugChangeSel').children('option:selected').val();//选择类型
     var soKey = $('#ugChangeSearch').children('option:selected').val();//搜索下拉
     var serVal = $("#editSearch").val();//搜索框
-    var url = basePathJS + "/dirRegistUser/list";
-    if (serVal != "") {
-        if (val === "100") {
-            url = url + '?' + soKey + '=' + serVal;
-        } else {
-            url = url + "?status=" + val + '&' + soKey + '=' + serVal;
-        }
+    if('100' == val){
+        val = null;
     }
-    else {
-        if (val != "100") {
-            url = url + "?status=" + val
-        }
+    if('login_name' == soKey){
+        paramsObj = {status:val,login_name:serVal};
     }
-    $.get(url, function (d) {
-        if (d.rows.length) {
-            getuserregisterTable(d.rows)
-        } else {
-            getuserregisterTable(d.rows)
-        }
-    })
-})
+    if('real_name' == soKey){
+        paramsObj = {status:val,real_name:serVal};
+    }
+    console.log(paramsObj);
+}

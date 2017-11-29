@@ -59,22 +59,13 @@ public class DirRegistUserServiceImpl extends CommonServiceImpl<DirRegistUserMap
 
     @Override
     public Page<DirRegistUserVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-        List<DirRegistUserVo> rows;
+
         Page<DirRegistUserVo> page = getPage(paramMap);
+        page.setSize(999999999);
         page.setOrderByField("create_time");
         page.setAsc(false);
         List<DirRegistUserVo> dirRegistUserVos = dirRegistUserMapper.selectVoPage(page,paramMap);
-        if (dirRegistUserVos != null && !dirRegistUserVos.isEmpty()){
-            rows = new ArrayList(dirRegistUserVos.size());
-            for (DirRegistUserVo vo : dirRegistUserVos){
-                String status = vo.getStatus();
-                vo.setStateName(RegistUserStatus.valueOf(EnumTools.getName(status)).getChValue());
-                rows.add(vo);
-            }
-        }else {
-            rows = new ArrayList(0);
-        }
-        page.setRecords(rows);
+        page.setRecords(dirRegistUserVos);
 		return page;
 	}
 

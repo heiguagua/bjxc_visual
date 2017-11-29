@@ -1,22 +1,27 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.common.util.CommonUtil;
-import com.chinawiserv.dsp.base.common.util.ShiroUtils;
-import com.chinawiserv.dsp.base.entity.po.system.SysDict;
-import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
-import com.chinawiserv.dsp.base.enums.system.DictEnum;
-import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
-import com.chinawiserv.dsp.base.service.system.ISysDictService;
-import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
-import com.chinawiserv.dsp.dir.enums.EnumTools;
-import com.chinawiserv.dsp.dir.schema.DictConstantMap;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.system.SysDict;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
+import com.chinawiserv.dsp.base.enums.EnumTools;
+import com.chinawiserv.dsp.base.enums.system.DictEnum;
+import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
+import com.chinawiserv.dsp.base.schema.DictConstantMap;
+import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.chinawiserv.dsp.base.service.system.ISysDictService;
 
 /**
  * <p>
@@ -126,6 +131,12 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
 	public List<SysDictVo> selectVoCategoryList(Map<String, Object> paramMap) {
 		return mapper.selectVoListForTreeData(paramMap);
 	}
+    
+    @Override
+	public List<SysDictVo> selectVoListForTreeDataForApp(Map<String, Object> paramMap) {
+		return mapper.selectVoListForTreeDataForApp(paramMap);
+	}
+    
     @Override
     public String selectDictcodeByCategoryAndName(String dict_name,String category){
         String dictCode=null;

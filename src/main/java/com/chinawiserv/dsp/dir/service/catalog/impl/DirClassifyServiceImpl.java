@@ -299,30 +299,30 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     
     //批量插入
     @Override
-    public void insertbatchNational(DirClassifyVo vo) throws Exception{
-    	
+    public int insertbatchNational(DirClassifyVo vo) throws Exception{
+    	int state = 0;
     	String fid = vo.getFid();   
     	String type = vo.getClassifyType();
     	List<DirNationalClassifyVo>  listClassifies = mapper2.selectSonClassify(vo.getNationalCode());
-    	   	if(listClassifies.isEmpty()){
-
-    	   		throw new Exception("此目录下无可导入内容，请从新选择");
-    	   		
-	    }
+    	if(listClassifies.isEmpty()){
+    		
+    		throw new Exception("此目录下无可导入内容，请重新选择");
+    		
+    	}
     	for (Iterator iterator = listClassifies.iterator(); iterator.hasNext();) {
     		
 			DirNationalClassifyVo dirNationalClassifyVo = (DirNationalClassifyVo) iterator.next();
-			getSClassifies(dirNationalClassifyVo.getClassifyCode(),fid,type);
+			state = state + getSClassifies(dirNationalClassifyVo.getClassifyCode(),fid,type);
 			
 		}
-    
+    	return state;
     }
     
     
     
     
-     public void getSClassifies(String fcode, String fid,String type){
-    	
+     public int getSClassifies(String fcode, String fid,String type){
+    	 	int state = 0 ;
 //	  		List<String> listsClassifies = Lists.newArrayList();
 //	  	  		
 //		  	listsClassifies.add(fcode);
@@ -341,9 +341,17 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 		  		}else if(type.equals("3") || type.equals("7")){
 		  			vo.setClassifyType("7");
 		  		}
+	  		//添加nationalcode
+		  	String NationalCode = dirNationalClassifyVo.getClassifyCode();
+		  	vo.setNationalCode(NationalCode);
+		  	DirClassifyVo votemp = null;
+		  	votemp = mapper.selectByNationalCode(NationalCode);
 	  		
-	  		
-	  		mapper.baseInsert(vo);
+		  	if(votemp!=null){
+		  		state = 1;
+		  	}else if(votemp==null){
+		  		mapper.baseInsert(vo);		  		
+		  	}
 
 	  		String pid = vo.getId();
 	  		
@@ -354,7 +362,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 	      		 for (Iterator iterator = list.iterator(); iterator.hasNext();) {
 	      			 
 					DirNationalClassifyVo dirNationalClassifyVo2 = (DirNationalClassifyVo) iterator.next();
-					getSClassifies(dirNationalClassifyVo2.getClassifyCode(),pid,type);
+					state = state + getSClassifies(dirNationalClassifyVo2.getClassifyCode(),pid,type);
 				 
 	      		 }    		 
 	      		 
@@ -364,7 +372,8 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 //				 	listsClassifies.addAll(getSClassifies(string,pid));
 //				 	
 //				}      		      		 
-      	 }    	
+      	 }
+	  	 return state;
        }
 
 

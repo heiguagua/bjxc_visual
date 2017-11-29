@@ -8,7 +8,23 @@ jQuery(document).ready(function () {
     initDeptSelectDataList();
     initRoleNameList();
     initFormerDate(apiId);
+    window.Dict1=new dict1();
+    
+    $("#editPicName").css("display","inline-block");
+    $("#editChoosePic").css("display","none");
+    $("#editPicNote").css("display","none");
+    
+    $('#editChangePicButton').click(function () {
+        $("#editPicName").css("display","none");
+        $("#editChangePicButton").css("display","none");
+        $("#editImgDiv").css("display","none");
+        $("#editShowImg").attr("src", "");
+        $("#editChoosePic").css("display","inline-block");
+        $("#editPicNote").css("display","inline");
+    });
 });
+
+
 
 function initUserTypeList(){
     $.commonAjax({
@@ -43,7 +59,27 @@ function initFormerDate(apiId) {
             if (result.state) {
                 var vo = result.content.vo;
                 if(vo){
-
+                	if(vo.isShow==1){
+                		$("#Eis_show").append("<div class='redio-box'>" +
+                        "<input type='radio' name='isShow'  value='0' ><span></span>" +
+	                    "</div>"+
+	                    "<label style='display:inline-block'>否</label>" +
+	                    "<div class='redio-box'>" +
+	                    "<input type='radio' name='isShow'  value='1' checked><span></span>"+
+						"</div>"+
+	                    "<label style='display:inline-block'>是</label>")
+                	}else{
+                		$("#Eis_show").append("<div class='redio-box'>" +
+                                "<input type='radio' name='isShow'  value='0' checked><span></span>" +
+        	                    "</div>"+
+        	                    "<label style='display:inline-block'>否</label>" +
+        	                    "<div class='redio-box'>" +
+        	                    "<input type='radio' name='isShow' value='1'><span></span>"+
+        						"</div>"+
+        	                    "<label style='display:inline-block'>是</label>")
+                	}
+                	$("#editPicName").html(vo.icon);  
+                	$("#Eicon").append(Dict1.selectsDom("tool_icon",vo.iconName?vo.iconName:''));
                     $("#Eapi_name").val(vo.apiName);
                     $("#Eapi_category").val(vo.apiCategory);
                     $("#Eapi_url").val(vo.apiUrl);

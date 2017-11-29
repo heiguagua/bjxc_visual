@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <!-- form start -->
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
                           method="post" action="<%=basePath%>/dirPolicy/doAdd">
                         <div class="box-body">

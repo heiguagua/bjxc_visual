@@ -2,13 +2,9 @@ package com.chinawiserv.dsp.dir.service.configure.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.configure.DirIntrude;
-import com.chinawiserv.dsp.dir.entity.po.configure.DirPolicy;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirIntrudeVo;
-import com.chinawiserv.dsp.dir.entity.vo.configure.DirPolicyVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirIntrudeMapper;
-import com.chinawiserv.dsp.dir.mapper.configure.DirPolicyMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirIntrudeService;
-import com.chinawiserv.dsp.dir.service.configure.IDirPolicyService;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
@@ -54,12 +50,16 @@ public class DirIntrudeServiceImpl extends CommonServiceImpl<DirIntrudeMapper, D
 	@Override
 	public boolean insertVO(DirIntrudeVo vo) throws Exception {
 		//todo
+		if(vo.getContent().length()>32116){
+    		throw new Exception("内容太长，无法保存");
+    	}
         boolean b=true;
         vo.setId(CommonUtil.get32UUID());
-//        vo.setCreateTime(new Date());
-//        String loginUserId = ShiroUtils.getLoginUserId();
-//    	vo.setCreateUserId(loginUserId);
+        vo.setPublishDate(new Date());
+        String loginUserId = ShiroUtils.getLoginUserId();
+    	vo.setPublisher(loginUserId);
     	vo.setDeleteFlag(0);
+    	
         int i = mapper.baseInsert(vo);
         if(i<1){
             b=false;
@@ -70,6 +70,9 @@ public class DirIntrudeServiceImpl extends CommonServiceImpl<DirIntrudeMapper, D
 	@Override
 	public boolean updateVO(DirIntrudeVo vo) throws Exception {
 		//todo
+		if(vo.getContent().length()>32116){
+    		throw new Exception("内容太长，无法保存");
+    	}
         boolean b=true;
 //        vo.setUpdateTime(new Date());
 //        String loginUserId = ShiroUtils.getLoginUserId();

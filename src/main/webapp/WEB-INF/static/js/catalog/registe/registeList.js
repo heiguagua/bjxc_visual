@@ -2,14 +2,54 @@ var tableSelector = '#registeTable';
 var paramsObj = {};
 
 jQuery(document).ready(function () {
-    initTable();
+    initCss();
     initAllSelect();
     initButtonClickEvent();
+    initTable();
 });
 
+function initCss(){
+    /* 目录编目收缩小侧边栏,用的adminlte */
+    $(function(){
+        $("#forward").hide();
+        $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+        $("#backward").click(function(){
+            $("#min-aside").animate({
+                width:"2%"
+            },200);
+            $("#dir-Manger").hide();
+            //$("#regionDiv").hide();
+            $("#forward").show(400);
+            $("#backward").hide(500);
+            $("#treeDemo").hide(200);
+            $("#min-aside").css("border","none")
+            $("div.box div.content_table").animate({
+                width: "98%"
+            })
+
+            $(this).parents("div.user-panel").css("background","#f4f6f9");
+        })
+        $("#forward").click(function(){
+            $("div.box div.content_table").animate({
+                width: "86%"
+            },400)
+            $("#min-aside").animate({
+                width:"14%"
+            },500);
+            $("#dir-Manger").show();
+            //$("#regionDiv").show();
+            $("#forward").hide(400);
+            $("#backward").show(500);
+            $("#treeDemo").show(200);
+            $("#min-aside").css("border","1px solid #ddd");
+
+            $(".user-panel").css("background","none");
+        })
+    })
+}
+
 function initTable(){
-    var regionCode = $.getSelectedRegionCode();
-    paramsObj["regionCode"] = regionCode;
+    //paramsObj["regionCode"] = $('#searchRegionCode').val();
     $(tableSelector).customTable({
         url: basePathJS + '/catalog/registe/list',
         queryParams: function (params) {
@@ -90,8 +130,12 @@ function initTable(){
 }
 
 function initAllSelect(){
-    //目录类别下拉查询框
-    $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
+    //区域下拉查询框
+    /*var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+    $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
+        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);*/
+    //初始化中间目录分类树
+    $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
 }
 
 
@@ -134,14 +178,15 @@ function initButtonClickEvent(){
 }
 
 function catalogueTableShow(id){
-    show('信息资源详情',basePathJS + '/catalog/show' , id ,1300,700);
+    show('信息资源详情',basePathJS + '/catalog/show' , id ,"70%",700);
 }
 
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    var regionCode = $.getSelectedRegionCode();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    //var regionCode = $('#searchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {

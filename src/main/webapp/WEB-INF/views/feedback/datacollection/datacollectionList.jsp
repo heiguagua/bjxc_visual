@@ -35,31 +35,43 @@
         <!-- Content Header (Page header) -->
         <section class="content" id="dcMg">
             <div class="row">
-                <div class="col-xs-12 seventy-percent-height">
-                    <div class="box">
+                <div class="col-xs-12">
+                    <div class="box clear">
 
                         <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
                             <section class="sidebar">
-                                <div class="user-panel">
+                                <div class="user-panel"  style="height: 6%;">
                                     <b id="dir-Manger">目录分类</b>
                                     <div class="pull-right image">
                                         <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
 
-                                            <i class="fa fa-backward pull-right" id="backward" title="收起"></i>
-                                            <i class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                            <i style="color: rgb(51, 51, 51);" class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                            <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
                                         </a>
-
                                     </div>
-
                                 </div>
-                                <div>
+                                <%--<div style="height: 6%" id="regionDiv">--%>
+                                    <%--<div  style="margin: 0 5px">--%>
+                                        <%--<input type="text" id="searchRegionName" placeholder="请选择区域"--%>
+                                               <%--class="form-control" readonly style="background-color: #FFFFFF">--%>
+                                        <%--<input type="hidden" id="searchRegionCode">--%>
+
+                                        <%--<div class="menu-wrap">--%>
+                                            <%--<div id="searchRegionMenuContent" class="menuContent"--%>
+                                                 <%--style="display:none;">--%>
+                                                <%--<ul id="searchRegionTreeDemo" class="ztree"--%>
+                                                    <%--style="margin-top:0;border: 1px solid #98b7a8;"></ul>--%>
+                                            <%--</div>--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                                <div style="height: 88%;">
                                     <ul id="treeDemo" class="ztree"></ul>
                                 </div>
                             </section>
-
                         </aside>
-
-                        <form class="form-inline marginBot" method="post">
+							 <div class="content_table">
+							     <form class="form-inline marginBot" method="post">
                             <div class="box-header">
                                 <div class="input-group pull-right">
                                     <input type="hidden" id="searchClassifyId">
@@ -81,13 +93,15 @@
                             </table>
                             <!-- 表格 end-->
                         </div>
+							 </div>
+                    
                     </div>
                 </div>
             </div>
         </section>
         <section class="content" id="dcMg-dd" class="hidden">
             <div class="row">
-                <div class="col-xs-12 seventy-percent-height">
+                <div class="col-xs-12">
                     <div class="box">
                         <form class="form-inline marginBot" method="post">
                             <div class="box-header">
@@ -110,15 +124,8 @@
                         </form>
                         <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
-                            <table class="table table-hover" id="datacollectionDetailTable" lay-even="" lay-skin="row">
+                            <table class="table table-hover" id="datacollectionDetailTable">
                             </table>
-                            <!-- 表格 end-->
-                        </div>
-
-                        <!-- 00000 -->
-                        <div class="box-body table-responsive table-myself">
-                            <!-- 表格 -->
-                            <table id="datacollectionDetailTable" class="table table-hover"></table>
                             <!-- 表格 end-->
                         </div>
                     </div>
@@ -134,11 +141,25 @@
     var tableSelector = '#datacollectionListTable';
     var paramsObj = {};
 
+
+    $(document).ready(function(){
+        initAllSelect();
+    });
+
+    function initAllSelect(){
+        //区域下拉查询框
+        var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+        $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
+            'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
+        //初始化中间目录分类树
+        $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
+    }
+
+
     function setParams() {
         var searchClassifyId = $('#searchClassifyId').val();
-        var searchName = $('#searchName').val();
-        var regionCode = $.getSelectedRegionCode();
-        paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+        var searchName = $('#editListSearch').val();
+        paramsObj = {classifyId:searchClassifyId,searchKey:searchName};
     }
 
     function reloadTable() {
@@ -146,108 +167,39 @@
         $(tableSelector).data("bootstrap.table").refresh();
     }
 
-    var setting = {
-        async: {
-            enable: true,
-            url: basePathJS + "/dirClassify/subAuthorityList",
-            autoParam: ["fid","treeCode","authorityNode"],
-            dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
-                var params = [];
-                var nodeObjs = childNodes.content.vo;
-                if (!nodeObjs) {
-                    return null;
-                }
-                for (var i in nodeObjs) {
-                    params[i] = {
-                        'id': nodeObjs[i].id,
-                        'name': nodeObjs[i].classifyName,
-                        'fid': nodeObjs[i].id,
-                        'treeCode': nodeObjs[i].treeCode,
-                        'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
-                        'authorityNode':nodeObjs[i].authorityNode
-                    }
-                }
-                return params;
-            }
-        },
-        callback: {
-            beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
-                var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                if (treeNode.isParent) {
-                    if (treeNode.open) {
-                        zTreeObj.expandNode(treeNode, false);
-                    } else {
-                        zTreeObj.expandNode(treeNode, true);
-                    }
-                    return false;
-                } else {
-                    return true;
-                }
-            },
-            onClick: function (e, treeId, treeNode) { //点击最下层子节点，获取目录类别的全名称，显示到输入框中
-
-                //var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                //treeObj.cancelSelectedNode();
-
-                $('#searchClassifyId').val(treeNode.id);
-                setParams();
-                reloadTable();
-                /*$.commonAjax({
-                 url: basePathJS + "/dirClassify/editLoad",
-                 data: {id: treeNode.id},
-                 success: function (result) {
-                 if (result.state) {
-                 var classifyObj = result.content.vo;
-                 $('#' + nameInputDomId).val(classifyObj.classifyStructureName);
-                 $('#' + codeInputDomId).val(treeNode.id);
-                 }
-                 }
-                 });*/
-            }
-        }
-    };
-    $(document).ready(function(){
-        $.fn.zTree.init($("#treeDemo"), setting);
-    });
-
-
-    //目录类别下拉查询框
-    $.initQueryClassifyTreeSelect('searchClassifyTreeDemo','searchClassifyName','searchClassifyId','searchClassifyMenuContent');
 
     function hideDirMgr() {
-        $("#min-aside").animate({
-            width:"40px",
-        },200);
-        $("#dir-Manger").hide();
-        $("#forward").show(400);
-        $("#backward").hide(500);
-        $("#treeDemo").hide(200);
-        $("#min-aside").css("border","none")
-        $("div.box div.table-myself").animate({
-            paddingLeft: "50px"
-        })
-        $('.box-header').animate({
-            paddingLeft: "60px"
-        })
-        $(".user-panel").css("background","#f4f6f9");
+    	 $("#min-aside").animate({
+             width:"2%"
+         },200);
+         $("#dir-Manger").hide();
+         $("#regionDiv").hide();
+         $("#forward").show(400);
+         $("#backward").hide(500);
+         $("#treeDemo").hide(200);
+         $("#min-aside").css("border","none")
+         $("div.box div.content_table").animate({
+             width: "98%"
+         })
+
+         $(this).parents("div.user-panel").css("background","#f4f6f9");
     }
 
     function showDirMgr() {
-        $("#min-aside").animate({
-            width:"230px",
-        },200);
-        $("#dir-Manger").show();
-        $("#forward").hide(400);
-        $("#backward").show(500);
-        $("#treeDemo").show(200);
-        $("#min-aside").css("border","1px solid #ddd");
-        $(".box-body").animate({
-            paddingLeft: "240px"
-        })
-        $('.box-header').animate({
-            paddingLeft: "270px"
-        })
-        $(".user-panel").css("background","none");
+    	 $("div.box div.content_table").animate({
+             width: "86%"
+         },400)
+         $("#min-aside").animate({
+             width:"14%"
+         },500);
+         $("#dir-Manger").show();
+         $("#regionDiv").show();
+         $("#forward").hide(400);
+         $("#backward").show(500);
+         $("#treeDemo").show(200);
+         $("#min-aside").css("border","1px solid #ddd");
+
+         $(".user-panel").css("background","none");
     }
 
 
@@ -272,12 +224,12 @@
                 searchKey:searchKey
             }
         }
-        $('#datacollectionListTable').bootstrapTable('refresh', params);
+        $(tableSelector).bootstrapTable('refresh', params);
     });
     /**
      * 初始化收藏列表
      * */
-    $('#datacollectionListTable').bootstrapTable({
+    $(tableSelector).bootstrapTable({
         url:basePathJS + "/feedback/dirdatacollection/list",
         method: 'get',
         responseHandler: function (res) {
@@ -289,6 +241,7 @@
         pagination: true, //分页
         pageNum: 1,
         pageSize: 10,
+        smartDisplay: false,
         columns: [
             {
                 field: 'a', title: '序号', width: '5%',
@@ -305,8 +258,25 @@
                     return '<p title="'+value+'">'+value+'</p>';
                 }
             },
-            {field: 'datasetName', title: '目录下数据集'},
-            {field: 'collectDate', title: '最后收藏时间'},
+            {
+                field: 'datasetName',
+                title: '目录下数据集',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
+            {
+                field: 'collectDate',
+                title: '最后收藏日期',
+                formatter:function (value) {
+                    if(value.length>10){
+                        return value.substring(0,10);
+                    }
+                }
+            },
             {field: 'collectorCount', title: '收藏人数'},
             {
                 field: 'dcmId', title: '操作',
@@ -328,6 +298,8 @@
 
 </script>
 <script type="text/javascript">
+
+    var detailTableSelector = '#datacollectionDetailTable';
     $('#dcMg-dd').addClass('hidden');
     /**
      * [dcView 点击查看]
@@ -346,7 +318,7 @@
      */
     function retdcView() {
         $('#dcMg-dd').addClass('hidden');
-        $('#dcMg-dd .box-body').html('<table class="layui-table" id="datacollectionDetailTable" lay-even="" lay-skin="row"></table>');
+        $('#dcMg-dd .box-body').html('<table class="table table-hover" id="datacollectionDetailTable"></table>');
         showDirMgr();
         $('#dcMg').removeClass('hidden');
     }
@@ -360,13 +332,13 @@
                 searchKey:searchKey
             }
         }
-        $('#datacollectionDetailTable').bootstrapTable('refresh', params);
+        $(detailTableSelector).bootstrapTable('refresh', params);
     });
     /**
      * 详情列表
      * */
     function dcViewTable(v) {
-        $('#datacollectionDetailTable').bootstrapTable({
+        $(detailTableSelector).bootstrapTable({
             url:basePathJS + "/feedback/dirdatacollection/detail?dcmId="+v,
             method: 'get',
             responseHandler: function (res) {
@@ -375,6 +347,7 @@
             pagination: true, //分页
             pageNum: 1,
             pageSize: 10,
+            smartDisplay: false,
             columns: [
                 {
                     field: 'a', title: '序号', width: '5%',
@@ -384,7 +357,16 @@
                 },
                 {field: 'collectorName', title: '收藏用户'},
                 {field: 'datasetName', title: '资源名称'},
-                {field: 'collectDate', title: '最后收藏时间', width: '15%'}
+                {
+                    field: 'collectDate',
+                    title: '收藏日期',
+                    width: '15%',
+                    formatter:function (value) {
+                        if(value.length>10){
+                            return value.substring(0,10);
+                        }
+                    }
+                }
             ]
 
 //            data: Mock.mock({

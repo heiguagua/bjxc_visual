@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/10/28 18:51:58                            */
+/* Created on:     17/11/28 17:39:17                            */
 /*==============================================================*/
 
 
@@ -79,6 +79,8 @@ drop table if exists dir_dataitem;
 drop table if exists dir_dataitem_source_info;
 
 drop table if exists dir_dataset;
+
+drop table if exists dir_dataset_attachment;
 
 drop table if exists dir_dataset_classify_map;
 
@@ -204,13 +206,23 @@ drop table if exists sys_dict_category;
 
 drop table if exists sys_guid_dept;
 
+drop table if exists sys_icon_category;
+
 drop table if exists sys_icon_lib;
 
 drop table if exists sys_log;
 
 drop table if exists sys_menu;
 
+drop table if exists sys_product_dept_map;
+
+drop table if exists sys_product_dict_map;
+
+drop table if exists sys_product_icon_map;
+
 drop table if exists sys_product_integrate;
+
+drop table if exists sys_product_user_map;
 
 drop table if exists sys_region;
 
@@ -964,6 +976,24 @@ create table dir_dataset
 alter table dir_dataset comment '数据集（信息资源）';
 
 /*==============================================================*/
+/* Table: dir_dataset_attachment                                */
+/*==============================================================*/
+create table dir_dataset_attachment
+(
+   id                   varchar(36) not null comment 'ID',
+   dataset_id           varchar(36) comment '数据集ID',
+   dataset_file_path    varchar(256) comment '数据文件路径',
+   format               varchar(36) comment '文件格式',
+   file_size            int(12) comment '文件大小',
+   file_name            varchar(255) comment '文件名称',
+   uploader             varchar(36) comment '上传人',
+   upload_time          datetime comment '上传时间',
+   primary key (id)
+);
+
+alter table dir_dataset_attachment comment '数据集对应附件表';
+
+/*==============================================================*/
 /* Table: dir_dataset_classify_map                              */
 /*==============================================================*/
 create table dir_dataset_classify_map
@@ -1169,6 +1199,7 @@ create table dir_develop_apis
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
+   is_show              int(3) comment '是否首页显示',
    primary key (id)
 );
 
@@ -1254,6 +1285,7 @@ create table dir_portal_content_setting
    content              text comment '发布内容',
    publisher            varchar(36) comment '政策发布人',
    publish_date         date comment '发布时间',
+   delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
 
@@ -1310,6 +1342,7 @@ create table dir_special_apps
    icon                 varchar(256) comment '图标',
    visit_count          int(10) comment '浏览量',
    order_number         int(4) comment '排序',
+   is_show              int(4) comment '是否在门户显示',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -1333,9 +1366,9 @@ create table dir_suggestion
    contact_name         varchar(64) comment '联系人称呼',
    contact_email        varchar(64) comment '联系人邮箱',
    contact_phone        varchar(64) comment '联系人电话',
-   submit_date          date comment '提交时间',
+   submit_date          datetime comment '提交时间',
    response_content     varchar(1024) comment '回复信息',
-   response_date        date comment '回复时间',
+   response_date        datetime comment '回复时间',
    responser            varchar(36) comment '回复人',
    primary key (id)
 );
@@ -1443,7 +1476,7 @@ create table drap_business_activity
    activity_name        varchar(256) comment '业务名称',
    extend_code          varchar(64) comment '扩展编码',
    short_name           varchar(64) comment '业务简称',
-   parent_code          varchar(36) comment '上级业务节点编码',
+   fid                  varchar(36) comment '上级业务节点编码',
    parent_guid_activity varchar(36) comment '上级组织指导业务',
    function_keywords    varchar(256) comment '对应职能关键字',
    is_run               varchar(36) comment '是否为具体执行业务',
@@ -1559,7 +1592,7 @@ create table drap_data_meta
 (
    id                   varchar(36) not null comment 'ID',
    category             varchar(36) comment '数据元类型',
-   parent_code          varchar(36) comment '上级数据元编码',
+   fid                  varchar(36) comment '上级数据元ID',
    meta_code            varchar(64) comment '数据元编码',
    meta_en_name         varchar(64) comment '数据元英文名',
    meta_name            varchar(64) comment '数据元中文名',
@@ -2189,6 +2222,7 @@ create table sys_dept
    order_number         int(4) comment '排序',
    validate_from        date comment '组织启用时间',
    validate_to          date comment '组织停用时间',
+   pinyin               varchar(255) comment '名称拼音',
    status               int(3) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -2333,6 +2367,19 @@ create table sys_guid_dept
 alter table sys_guid_dept comment '业务指导部门记录表';
 
 /*==============================================================*/
+/* Table: sys_icon_category                                     */
+/*==============================================================*/
+create table sys_icon_category
+(
+   category_code        varchar(36) not null comment '类别编号',
+   category_name        varchar(64) comment '类别名称',
+   category_desc        varchar(256) comment '类别描述',
+   primary key (category_code)
+);
+
+alter table sys_icon_category comment '系统图标类型表';
+
+/*==============================================================*/
 /* Table: sys_icon_lib                                          */
 /*==============================================================*/
 create table sys_icon_lib
@@ -2397,11 +2444,57 @@ DEFAULT CHARSET = utf8;
 alter table sys_menu comment '系统菜单表';
 
 /*==============================================================*/
+/* Table: sys_product_dept_map                                  */
+/*==============================================================*/
+create table sys_product_dept_map
+(
+   id                   varchar(36) not null comment 'id',
+   product_id           varchar(36) not null comment '产品ID',
+   dept_id              varchar(36) not null comment '部门ID',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_product_dept_map comment '产品部门关系表';
+
+/*==============================================================*/
+/* Table: sys_product_dict_map                                  */
+/*==============================================================*/
+create table sys_product_dict_map
+(
+   id                   varchar(36) not null comment 'id',
+   product_id           varchar(36) not null comment '产品ID',
+   dict_category        varchar(36) not null comment '字典类型',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_product_dict_map comment '产品字典关系表';
+
+/*==============================================================*/
+/* Table: sys_product_icon_map                                  */
+/*==============================================================*/
+create table sys_product_icon_map
+(
+   id                   varchar(36) not null comment 'id',
+   product_id           varchar(36) not null comment '产品ID',
+   icon_category        varchar(36) not null comment '图标类型',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_product_icon_map comment '产品图标关系';
+
+/*==============================================================*/
 /* Table: sys_product_integrate                                 */
 /*==============================================================*/
 create table sys_product_integrate
 (
    id                   varchar(36) not null comment 'ID',
+   fid                  varchar(36) comment '父节点ID',
    product_no           varchar(64) comment '产品标识',
    product_name         varchar(64) comment '产品名称',
    product_show_name    varchar(64) comment '产品显示名称',
@@ -2409,13 +2502,30 @@ create table sys_product_integrate
    root_path            varchar(256) comment '产品访问根路径地址',
    sso_path             varchar(256) comment '单点登录跳转地址',
    order_number         int(6) default 0 comment '显示顺序',
+   master_flag          int(3) comment '是否主节点',
    integrate_flag       int(3) default 1 comment '是否集成',
    cur_open_flag        int(3) default 1 comment '是否在当前页面打开',
    icon                 varchar(64) comment '显示图标',
+   jump_url             varchar(64) comment '前端跳转地址',
    primary key (id)
 );
 
 alter table sys_product_integrate comment '产品集成表';
+
+/*==============================================================*/
+/* Table: sys_product_user_map                                  */
+/*==============================================================*/
+create table sys_product_user_map
+(
+   id                   varchar(36) not null comment 'id',
+   product_id           varchar(36) not null comment '产品ID',
+   user_id              varchar(36) not null comment '用户ID',
+   primary key (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
+
+alter table sys_product_user_map comment '产品用户关系表';
 
 /*==============================================================*/
 /* Table: sys_region                                            */
@@ -2428,6 +2538,7 @@ create table sys_region
    fcode                varchar(36) comment '上级行政区划编号',
    fname                varchar(64) comment '上级行政区划名称',
    first_charact        varchar(36) comment '首字母',
+   pinyin               varchar(255) comment '名称拼音',
    region_level_code    varchar(36) comment '行政区划级别代码',
    status               varchar(36) default '1' comment '状态',
    version_id           varchar(36) comment '版本信息表ID',
@@ -2560,6 +2671,7 @@ create table sys_user
    email                varchar(64) comment '邮箱',
    user_img             varchar(255) comment '用户头像',
    user_desc            varchar(512) comment '用户描述',
+   pinyin               varchar(255) comment '名称拼音',
    status               int(3) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -2591,12 +2703,16 @@ alter table sys_user_role comment '用户角色表';
 
 
 
+
+
+
+
 drop view if EXISTS v_sys_region_dept;
 create view v_sys_region_dept as
-select id,region_code,'1' as category,region_code as region_dept_code,region_name as region_dept_name,fcode from sys_region
+-- select id,region_code,'1' as category,region_code as region_dept_code,region_name as region_dept_name,fcode from sys_region
 -- union
 -- select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name,region_code as fcode from sys_dept where fid='root'
-union
+-- union
 select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name ,region_code as fcode
 	from sys_dept t where fid in (select id from sys_dept where fid = 'root');
 -- union

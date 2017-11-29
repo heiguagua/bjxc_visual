@@ -1,4 +1,7 @@
 <%@ page import="com.chinawiserv.dsp.base.entity.vo.system.SysUserVo" %>
+<%@ page import="com.chinawiserv.dsp.base.common.SystemConst" %>
+<%@ page import="org.springframework.util.StringUtils" %>
+<%@ page import="org.springframework.util.ObjectUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -10,6 +13,8 @@
     System.out.println(basePath);
     String regionCode = (String)request.getSession().getAttribute("regionCode");
     String context_path=request.getContextPath();
+    SysUserVo loginUser = (SysUserVo)request.getSession().getAttribute(SystemConst.ME);
+    System.out.println("loginUser========"+loginUser);
 %>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,11 +42,14 @@
 <link rel="stylesheet" href="<%=basePath%>/app/css/skins/skin-blue.css">
 <!-- zTree style -->
 <link rel="stylesheet" href="<%=basePath%>/plugins/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<!-- slick style -->
+<link rel="stylesheet" type="text/css" href="<%=basePath%>/plugins/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="<%=basePath%>/plugins/slick/slick-theme.css"/>
 
 <!-- 自定义 css -->
 <link rel="stylesheet"  href="<%=basePath%>/plugins/layui/css/layui.css">
 <link rel="stylesheet" href="<%=basePath%>/css/custom.css">
-<link rel="stylesheet" href="<%=basePath%>/css/Rebaseadmin.css">
+<link rel="stylesheet" href="<%=basePath%>/css/Rebaseadmin1.css">
 <link rel="stylesheet" href="<%=basePath%>/css/catalogue.css">
 <link rel="stylesheet" href="<%=basePath%>/css/release.css">
 
@@ -101,6 +109,7 @@
 <link href="<%=basePath%>/plugins/smartWizard/css/smart_wizard_theme_dots.css" rel="stylesheet" type="text/css" />
 
 <script src="<%=basePath%>/plugins/smartWizard/js/jquery.smartWizard.js"></script>
+<script src="<%=basePath%>/plugins/slick/slick.min.js"></script>
 <!-- 自定义系统初始化话JS -->
 <%--<script src="<%=basePath%>/plugins/layui/layui.all.js"></script>
 <script src="<%=basePath%>/js/custom/mock.min.js"></script>--%>
@@ -111,5 +120,7 @@
 <script type="text/javascript">
     var basePathJS = "<%=basePath%>";
     var newRegionCode = "<%=regionCode%>";
+    var loginUserDeptId = '<%=loginUser!=null?loginUser.getDeptId():""%>';
+    var loginUserDeptName = '<%=loginUser!=null?loginUser.getDeptName():""%>';
     initGlobalCustom(basePathJS);
 </script>

@@ -35,6 +35,11 @@ function add(title, addurl, width, height) {
     createWindow(options);
 }
 
+function addApi(title, addurl, width, height) {
+    var options = _getDefaultWinOptionsForUpdateapiList(title , addurl , width, height) ;
+    createWindow(options);
+}
+
 function addPolicy(title, addurl, width, height) {
     var options = _getDefaultWinOptionsForPolicy(title , addurl , width, height) ;
     createWindow(options);
@@ -42,6 +47,11 @@ function addPolicy(title, addurl, width, height) {
 
 function addNews(title, addurl, width, height) {
     var options = _getDefaultWinOptionsForNews(title , addurl , width, height) ;
+    createWindow(options);
+}
+
+function addPictureNews(title, addurl, width, height) {
+    var options = _getDefaultWinOptionsForPictureNews(title , addurl , width, height) ;
     createWindow(options);
 }
 
@@ -134,6 +144,25 @@ function updateForNews(title, url, id, width, height, isRestful) {
     createWindow(options);
 }
 
+function updateForPictureNews(title, url, id, width, height, isRestful) {
+
+    if (id) {
+        if(isRestful!='undefined'&&isRestful){
+            url += '/'+id;
+        }else{
+            if (url.indexOf("?") == -1 ) {
+                url += '?id='+id;
+            } else {
+                url += '&id='+id;
+            }
+        }
+    }
+
+    var options = _getDefaultWinOptionsForPictureNews(title , url , width, height) ;
+
+    createWindow(options);
+}
+
 /**
  * 查看事件打开窗口
  * @param title 标题
@@ -173,7 +202,7 @@ function addApi(title, url, parentId, width, height, isRestful) {
         }
     }
 
-    var options = _getDefaultWinOptions(title , url , width, height) ;
+    var options = _getDefaultWinOptionsForPictureNews(title , url , width, height) ;
 
     createWindow(options);
 }
@@ -233,7 +262,7 @@ function updateApi(title, url, id, width, height, isRestful) {
         }
     }
 
-    var options = _getDefaultWinOptionsForUpdateapiList( title , url , width, height) ;
+    var options = _getDefaultWinOptionsForPictureNews( title , url , width, height) ;
 
     createWindow(options);
 }
@@ -387,6 +416,10 @@ function delObj(url,parameter, func, parentWin) {
 
 function sync(url,parameter, func, parentWin) {
     createDialog('同步确认', '您『确定』同步当前选中的记录吗？', url, parameter, func, parentWin);
+}
+
+function getMasterData(url,parameter, func, parentWin) {
+    createDialog('同步确认', '您『确定』获取主系统数据吗？', url, parameter, func, parentWin);
 }
 
 function updateStatus(url,parameter, func, parentWin) {
@@ -587,6 +620,24 @@ function _getDefaultWinOptionsForNews(title , url , width, height) {
    return options ;
 }
 
+function _getDefaultWinOptionsForPictureNews(title , url , width, height) {
+	   var options = {
+	       title:title,
+	       width : width ,
+	       height : height ,
+	       content: url ,
+	       btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
+	       success: _successLoad ,
+	       yes :function(index, layero){
+	    	   _submitFormForPictureNews(index , layero) ;
+	        
+	       }
+	   };
+
+	   return options ;
+	}
+
+var stateDir = 0;
 function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
     var options = {
         title:title,
@@ -596,8 +647,12 @@ function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
         btn: [ '<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
         success: _successLoad ,
         yes :function(index, layero){
-        	_submitFormForApi(index , layero) ;
-//            location.reload();
+        	if(stateDir == 0){
+        		stateDir = 1;
+        		_submitFormForApi(index , layero) ;
+//              location.reload();
+        	}
+        	
         }
     };
 
@@ -620,6 +675,7 @@ function _getDefaultWinOptionsForaddNational( title , url , width, height) {
             	layer.load(3);
                 submitBtn.hide();
                 _submitFormForApi(index , layero);
+                
 //                $("#loading").empty(); 
             } catch (e) {
 
@@ -832,7 +888,7 @@ function _submitFormForApi(index, layero , options){
                    return ;
                }
            }
-
+           
            // var me = this;
            // // 提交表单之前，hold住表单，防止重复提交
            // me.holdSubmit(true);
@@ -986,6 +1042,111 @@ function _submitFormForNews(index, layero , options){
         }
     }) ;
     };
+    
+    function _submitFormForPictureNews(index, layero , options){
+        options = options || {};
+        var body ;
+        var parentWin = options.parentWin ;
+        if (parentWin) {
+            body = parentWin.layer.getChildFrame('body', index);
+        } else {
+            body = layer.getChildFrame('body', index);
+        }
+
+        var form = body.find( "form:first" );
+
+        if (!form) {
+            return ;
+        }
+
+        var parentIframeName = options.parentIframeName;
+        var parentIframeWin ;
+
+        if (parentIframeName) {
+            if (parentWin) {
+                parentIframeWin = parentWin.window[parentIframeName];
+            } else {
+                parentIframeWin = window[parentIframeName];
+            }
+        }
+
+        form.isValid(function (ret) {
+            // 检查表单
+            if (ret) {
+                //todo
+                //验证通过后，才能提交
+                var iframeWin ;
+                if (parentWin) {
+                    iframeWin = parentWin.window[layero.find('iframe')[0]['name']];//得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                } else {
+                    iframeWin = window[layero.find('iframe')[0]['name']];
+                }
+
+                //runBeforeSubmit: 提交之前，可重写此方法以获取额外参数设置与数据校验
+                if ($.isFunction(iframeWin.runBeforeSubmit)) {
+                    if (!iframeWin.runBeforeSubmit(form)) {
+                        return ;
+                    }
+                }
+
+                // var me = this;
+                // // 提交表单之前，hold住表单，防止重复提交
+                // me.holdSubmit(true);
+
+                var action = form.attr("action");
+                var method = form.attr("method") || 'post';
+
+                var uploadFormData = new FormData($(form)[0]);
+                layer.load();
+                $.ajax({
+                    url: action,
+                    processData: false,
+                    contentType: false,
+//                    data: $(form).serialize(),
+                    data: uploadFormData,
+                    type: method,
+                    success: function(response) {
+                        layer.closeAll('loading');
+                        /**
+                         *  response : ajax请求的后台响应数据
+                         *  options ：弹窗的配置信息
+                         * @type {{response: *, options: *}}
+                         */
+                        var data = {response : response , options : options , parentIframeWin : parentIframeWin};
+
+                        if (response.state) {
+                            if ($.isFunction(iframeWin.runAfterSubmitSuccess)) {
+                                iframeWin.runAfterSubmitSuccess(data);
+                            }
+                            //todo
+                            parent.layer.close(index);
+                            successMsgTip(response.msg , parentWin) ;
+                            location.reload();
+                        } else {
+                            errorMsgTip(response.msg , parentWin);
+                        }
+
+                        //todo
+                        if ($.isFunction(iframeWin.runAfterSubmit)) {
+                            iframeWin.runAfterSubmit(data);
+                        }
+
+                        // 提交表单成功后，释放hold
+                        // me.holdSubmit(false);
+                    },
+                    error:function(){
+                        layer.closeAll('loading');
+                        errorMsgTip("上传文件超出最大限制，请重新选择文件上传", parentWin);
+                    }
+                });
+
+            } else {
+                tip("表单校验未通过，请检查输入。" , parentWin);
+            }
+        }) ;
+        };
+    
+    
 
 /**
  *
