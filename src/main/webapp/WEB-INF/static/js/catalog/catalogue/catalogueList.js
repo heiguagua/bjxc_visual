@@ -128,7 +128,7 @@ function initTable(){
         }, {
             field: 'id',
             title: '操作',
-            width: '120px',
+            width: '170px',
             align: 'center',
             valign: 'middle',
             sortable: false,
@@ -142,7 +142,8 @@ function initTable(){
                     ].join('');
                 }else{
                     editBtn = [
-                        "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                        "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
+                        "<a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
                         "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                     ].join('');
                 }
@@ -229,6 +230,10 @@ function addCustom() {
     var searchClassifyId = $('#searchClassifyId').val();
     if(!checkClassfyId(searchClassifyId)){
         tip("请先选择目录分类!",parent,null,null);
+        return;
+    }
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
         return;
     }
     add('新增信息资源',basePathJS + '/catalog/catalogue/add'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
