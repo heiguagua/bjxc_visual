@@ -43,21 +43,21 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div style="height: 6%" id="regionDiv">
-                                    <div style="margin: 0 5px">
-                                        <input type="text" id="searchRegionName" placeholder="请选择区域"
-                                               class="form-control" readonly style="background-color: #FFFFFF">
-                                        <input type="hidden" id="searchRegionCode">
+                                <%--<div style="height: 6%" id="regionDiv">--%>
+                                    <%--<div style="margin: 0 5px">--%>
+                                        <%--<input type="text" id="searchRegionName" placeholder="请选择区域"--%>
+                                               <%--class="form-control" readonly style="background-color: #FFFFFF">--%>
+                                        <%--<input type="hidden" id="searchRegionCode">--%>
 
-                                        <div class="menu-wrap">
-                                            <div id="searchRegionMenuContent" class="menuContent"
-                                                 style="display:none;">
-                                                <ul id="searchRegionTreeDemo" class="ztree"
-                                                    style="margin-top:0;border: 1px solid #98b7a8;"></ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                        <%--<div class="menu-wrap">--%>
+                                            <%--<div id="searchRegionMenuContent" class="menuContent"--%>
+                                                 <%--style="display:none;">--%>
+                                                <%--<ul id="searchRegionTreeDemo" class="ztree"--%>
+                                                    <%--style="margin-top:0;border: 1px solid #98b7a8;"></ul>--%>
+                                            <%--</div>--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
                                 <div style="height: 88%;">
                                     <ul id="treeDemo" class="ztree"></ul>
                                 </div>

@@ -75,7 +75,15 @@ function initInputValue(){
                 $("#infoResourceCode").val(obj.infoResourceCode);
                 $("#belongDeptType").val(obj.belongDeptType);
                 $("#belongDeptTypeName").val(obj.regionDeptName);
-                //$("#belongDeptId").val(obj.belongDeptId);
+                $("#belongDeptId").val(obj.belongDeptId == null ? "" : obj.belongDeptId);
+                $("#belongDeptName").val(obj.belongDeptName == null ? "" : obj.belongDeptName);
+                var initBelongDeptTypeTreeParam = ["belongDeptTreeDemo","belongDeptName","belongDeptId","belongDeptMenuContent"];
+                $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent',initBelongDeptTypeTreeParam)//初始化资源提供方下拉框;
+                //初始化科室
+                var belongDeptTypeValue = $("#belongDeptType").val();
+                if(belongDeptTypeValue){
+                    $.initSubDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',{fid:belongDeptTypeValue});
+                }
                 $("#belongDeptName").val(obj.belongDeptName);
                 $("#belongDeptNo").val(obj.belongDeptNo);
                 $("#chargeDeptId").val(obj.chargeDeptId);
@@ -136,7 +144,7 @@ function initButtonClickEvent(){
             thisTrNum++;
         }
         $('#dataitemList').prepend('<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' type="checkbox"></td>'
-        +'<td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
+        //+'<td><input trNum='+thisTrNum+' name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'+
         +'<td><input name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType")+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number"  min="1" type="text" class="form-control">'

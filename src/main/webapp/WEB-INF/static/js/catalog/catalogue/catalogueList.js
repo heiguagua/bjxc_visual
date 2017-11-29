@@ -18,7 +18,7 @@ function initCss(){
                 width:"2%"
             },200);
             $("#dir-Manger").hide();
-            $("#regionDiv").hide();
+            //$("#regionDiv").hide();
             $("#forward").show(400);
             $("#backward").hide(500);
             $("#treeDemo").hide(200);
@@ -37,7 +37,7 @@ function initCss(){
                 width:"14%"
             },500);
             $("#dir-Manger").show();
-            $("#regionDiv").show();
+            //$("#regionDiv").show();
             $("#forward").hide(400);
             $("#backward").show(500);
             $("#treeDemo").show(200);
@@ -50,7 +50,7 @@ function initCss(){
 }
 
 function initTable(){
-    paramsObj["regionCode"] = $("#searchRegionCode").val();
+    //paramsObj["regionCode"] = $("#searchRegionCode").val();
     jQuery(tableSelector).customTable({
         url: basePathJS + '/catalog/catalogue/list',
         queryParams: function (params) {
@@ -132,7 +132,7 @@ function initTable(){
         }, {
             field: 'id',
             title: '操作',
-            width: '120px',
+            width: '170px',
             align: 'center',
             valign: 'middle',
             sortable: false,
@@ -141,12 +141,14 @@ function initTable(){
             	var editBtn ="";
                 if(row.classifyStatus==0 || row.classifyStatus==2 || row.classifyStatus==4 || row.classifyStatus==6){
                     editBtn = [
-                        "<p><a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                        "<p><a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableUpload(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
+                        "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
                         "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                     ].join('');
                 }else{
                     editBtn = [
-                        "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                        "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
+                        "<a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
                         "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                     ].join('');
                 }
@@ -159,9 +161,9 @@ function initTable(){
 
 function initAllSelect(){
     //区域下拉查询框
-    var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+    /*var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
     $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
-        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
+        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);*/
     //初始化中间目录分类树
     $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
 }
@@ -219,9 +221,9 @@ function initButtonClickEvent(){
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
-    var regionCode = $('#searchRegionCode').val();
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    //var regionCode = $('#searchRegionCode').val();
+    //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
 }
 
 function reloadTable() {
@@ -235,7 +237,15 @@ function addCustom() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
+        return;
+    }
     add('新增信息资源',basePathJS + '/catalog/catalogue/add'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
+}
+
+function catalogueTableUpload(id){
+    show('信息资源附件上传详情',basePathJS + '/catalog/uploadInfo' , id ,"70%",700);
 }
 
 function catalogueTableEdit(id) {

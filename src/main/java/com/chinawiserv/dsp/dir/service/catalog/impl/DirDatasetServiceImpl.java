@@ -13,6 +13,7 @@ import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRegionDeptMapper;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.*;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.*;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
@@ -24,6 +25,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -33,18 +35,15 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataAuditVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataOfflineVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataPublishVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataRegisteVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetSurveyVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.enums.catalog.ReportScope;
 import com.chinawiserv.dsp.dir.enums.catalog.ReportStatus;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -110,6 +109,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Autowired
     private DirClassifyMapper dirClassifyMapper;
+
+    @Autowired
+    private DirDatasetAttachmentMapper dirDatasetAttachmentMapper;
 
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
@@ -615,6 +617,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 paramMap.put("allRegionCode",allRegionCode);
             }
         }*/
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
+        }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
         String depId = ShiroUtils.getLoginUserDeptId();
@@ -1041,6 +1049,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 paramMap.put("allRegionCode",allRegionCode);
             }
         }*/
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
+        }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
         String depId = ShiroUtils.getLoginUserDeptId();
@@ -1086,6 +1100,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 paramMap.put("allRegionCode",allRegionCode);
             }
         }*/
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
+        }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
         String depId = ShiroUtils.getLoginUserDeptId();
@@ -1265,13 +1285,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 if (insertResult == dcmIdArray.length) {
                     result = true;
                     //todo 调用门户的接口，同步数据到互联网门户的数据库,需要时放开即可
-//                    if(Dataset.PublishType.ToDzzw.getKey().equalsIgnoreCase(publishType)||Dataset.PublishType.ToAll.getKey().equalsIgnoreCase(publishType)){
-//                        try {
-//                            boolean b = syncPublishDatasetToOpenPortal(dcmIdArray);
-//                        } catch (Exception e) {
-//                            System.out.println("同步到开放门户失败");
-//                        }
-//                    }
+                    if(Dataset.PublishType.ToDzzw.getKey().equalsIgnoreCase(publishType)||Dataset.PublishType.ToAll.getKey().equalsIgnoreCase(publishType)){
+                        try {
+                            boolean b = syncPublishDatasetToOpenPortal(dcmIdArray);
+                        } catch (Exception e) {
+                            System.out.println("同步到开放门户失败");
+                        }
+                    }
                 }
             }
         }
@@ -1485,6 +1505,71 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         return dirDatasetClassifyMapMapper.selectDatasetCountForStatus(regionCode);
     }
 
+    @Override
+    public int upLoadFile(HttpServletRequest request) throws Exception{
+        int upLoadNum = 0;
+        List<MultipartFile> fileList = new ArrayList<>();
+        List<DirDatasetAttachmentVo> fileInfoList = new ArrayList<>();
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
+                request.getSession().getServletContext());
+        String datasetId = request.getParameter("id");
+        // 判断 request 是否有文件上传,即多部分请求
+        if (multipartResolver.isMultipart(request)) {
+            //获取配置文件中的上传地址,如果没配则不进行下面的上传操作
+            Properties properties = new Properties();
+            properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+            String ftpBasePath = properties.getProperty("datastreet.upload.native.dataset_file_path");
+            if(!StringUtils.isEmpty(ftpBasePath)){
+                String ftpPath;
+                if(!ftpBasePath.startsWith("/")){
+                    ftpBasePath = "/"+ftpBasePath;
+                }
+                if(!ftpBasePath.endsWith("/")){
+                    ftpBasePath = ftpBasePath+"/";
+                }
+                ftpPath = ftpBasePath + datasetId;
+                // 转换成多部分request
+                MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+                // 取得request中的所有文件名
+                Iterator<String> iter = multiRequest.getFileNames();
+                Date nowTime = DateTimeUtils.stringToDate(DateTimeUtils.nowToString());
+                while (iter.hasNext()) {
+                    // 取得上传文件
+                    MultipartFile file = multiRequest.getFile(iter.next());
+                    if (file != null) {
+                        // 取得当前上传文件的文件名称
+                        String fileName = file.getOriginalFilename();
+                        // 如果名称不为“”,说明该文件存在，否则说明该文件不存在
+                        if (fileName.trim() != "") {
+                            fileList.add(file);
+                            //记录文件的各个信息，用于上传成功后入库mysql表中
+                            long fileSize = file.getSize();
+                            DirDatasetAttachmentVo attachmentVo = new DirDatasetAttachmentVo();
+                            attachmentVo.setId(UUID.randomUUID().toString());
+                            attachmentVo.setDatasetId(datasetId);
+                            attachmentVo.setFileName(fileName);
+                            attachmentVo.setFileSize((int) fileSize);
+                            attachmentVo.setDatasetFilePath(ftpPath);
+                            attachmentVo.setUploader(ShiroUtils.getLoginUserId());
+                            attachmentVo.setUploadTime(nowTime);
+                            fileInfoList.add(attachmentVo);
+                        }
+                    }
+                }
+                //上传所有文件到ftp指定路径下
+                if(fileList.size()>0){
+                    FTPUtil ftpUtil = new FTPUtil();
+                    boolean uploadResult = ftpUtil.uploadMutilFiles(ftpPath,fileList);
+                    if(uploadResult){//上传成功,记录对应信息到mysql表中
+                        upLoadNum = dirDatasetAttachmentMapper.insertListItem(fileInfoList);
+                    }
+                }
+            }
+        }
+
+        return upLoadNum;
+    }
+
     /**
      * 推送发布数据到开放门户的方法
      * */
@@ -1516,6 +1601,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
         List<DirDatasetExtFormat> dirDatasetExtFormatList = dirDatasetExtFormatMapper.selectList(new EntityWrapper<DirDatasetExtFormat>().in("dataset_id",datasetIdList));
         pushMap.put("dirDatasetExtFormatList",dirDatasetExtFormatList);
+
+        List<DirDatasetAttachment> dirDatasetAttachmentList = dirDatasetAttachmentMapper.selectList(new EntityWrapper<DirDatasetAttachment>().in("dataset_id",datasetIdList));
+        pushMap.put("dirDatasetAttachmentList",dirDatasetAttachmentList);
 
         String pushJson = new Gson().toJson(pushMap);
         Boolean result;

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/11/13 20:23:31                            */
+/* Created on:     17/11/28 17:39:17                            */
 /*==============================================================*/
 
 
@@ -79,6 +79,8 @@ drop table if exists dir_dataitem;
 drop table if exists dir_dataitem_source_info;
 
 drop table if exists dir_dataset;
+
+drop table if exists dir_dataset_attachment;
 
 drop table if exists dir_dataset_classify_map;
 
@@ -962,7 +964,6 @@ create table dir_dataset
    data_index_system    varchar(36) comment '【川】信息资源指标体系',
    secret_flag          varchar(36) comment '【川】信息资源涉密性',
    source_type          varchar(36) comment '添加来源',
-   dataset_file_path    varchar(256) comment '数据文件路径',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -973,6 +974,24 @@ create table dir_dataset
 );
 
 alter table dir_dataset comment '数据集（信息资源）';
+
+/*==============================================================*/
+/* Table: dir_dataset_attachment                                */
+/*==============================================================*/
+create table dir_dataset_attachment
+(
+   id                   varchar(36) not null comment 'ID',
+   dataset_id           varchar(36) comment '数据集ID',
+   dataset_file_path    varchar(256) comment '数据文件路径',
+   format               varchar(36) comment '文件格式',
+   file_size            int(12) comment '文件大小',
+   file_name            varchar(255) comment '文件名称',
+   uploader             varchar(36) comment '上传人',
+   upload_time          datetime comment '上传时间',
+   primary key (id)
+);
+
+alter table dir_dataset_attachment comment '数据集对应附件表';
 
 /*==============================================================*/
 /* Table: dir_dataset_classify_map                              */
@@ -2686,12 +2705,14 @@ alter table sys_user_role comment '用户角色表';
 
 
 
+
+
 drop view if EXISTS v_sys_region_dept;
 create view v_sys_region_dept as
-select id,region_code,'1' as category,region_code as region_dept_code,region_name as region_dept_name,fcode from sys_region
+-- select id,region_code,'1' as category,region_code as region_dept_code,region_name as region_dept_name,fcode from sys_region
 -- union
 -- select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name,region_code as fcode from sys_dept where fid='root'
-union
+-- union
 select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name ,region_code as fcode
 	from sys_dept t where fid in (select id from sys_dept where fid = 'root');
 -- union

@@ -9,6 +9,7 @@ import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -78,4 +79,6 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
     int getServiceTotalCount(String regionCode);
 
     Map<String,Integer> getDatasetCountForStatus(String regionCode);
+
+    int upLoadFile(HttpServletRequest request) throws Exception;
 }

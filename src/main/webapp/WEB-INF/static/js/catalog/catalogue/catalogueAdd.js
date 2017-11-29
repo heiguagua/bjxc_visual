@@ -4,17 +4,22 @@
 
 jQuery(document).ready(function () {
     window.Dict=new dict();
-    initAllSelect();  //初始化所有下拉框
     initInputValue(); //初始化所有需要设值的输入框的值
+    initAllSelect();  //初始化所有下拉框
     initButtonClickEvent(); //初始化按钮点击事件
 });
 
 function initAllSelect(){
     var regionCode = $.getSelectedRegionCode();
     //$.initClassifyTreeSelect('treeDemo','classifyName','classifyId','menuContent'); //初始化目录分类下拉框
+    var initBelongDeptTypeTreeParam = ["belongDeptTreeDemo","belongDeptName","belongDeptId","belongDeptMenuContent"];
     $.initRelClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent','classifyId','regionCode'); //初始化关联目录分类下拉框
-    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent')//初始化资源提供方下拉框;
-    //$.initDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',false,{regionCode:regionCode});
+    $.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent',initBelongDeptTypeTreeParam)//初始化资源提供方下拉框;
+    //初始化科室
+    var belongDeptTypeValue = $("#belongDeptType").val();
+    if(belongDeptTypeValue){
+        $.initSubDeptTreeSelect('belongDeptTreeDemo','belongDeptName','belongDeptId','belongDeptMenuContent',{fid:belongDeptTypeValue});
+    }
     //信息资源格式下拉框初始化
     Dict.selects('resourceFormat',['#formatCategory']);
     //共享类型
@@ -57,11 +62,28 @@ function initAllSelect(){
 
 function initInputValue(){
     //如果登录用户有所属部门，则把所属部门的名称和id带入输入框
-    //如果登录用户没有所属部门，则把输入框初始化部门下拉树
+    //如果登录用户没有所属部门，则根据资源提供方选择的部门来
     if(loginUserDeptId && loginUserDeptId!=="null"){
-        var divContent = '<input type="text" id="chargeDeptName" value="'+loginUserDeptName+'" class="form-control" disabled>'
+        $("#chargeDeptId").val(loginUserDeptId);
+        $.commonAjax({
+            url:basePathJS + "/system/dept/belongTypeByDept",
+            data:{deptId:loginUserDeptId},
+            async:false,
+            success: function (result) {
+                if (result.state) {
+                    var obj = result.content.vo;
+                    $("#belongDeptType").val(obj.deptId);
+                    $("#belongDeptTypeName").val(obj.deptName);
+                    $("#belongDeptId").val(obj.subDeptId);
+                    $("#belongDeptName").val(obj.subDeptName);
+                }
+            }
+        });
+    }
+    /*if(loginUserDeptId && loginUserDeptId!=="null"){
+        *//*var divContent = '<input type="text" id="chargeDeptName" value="'+loginUserDeptName+'" class="form-control" disabled>'
             +'<input type="hidden" id="chargeDeptId" name="chargeDeptId" value="'+loginUserDeptId+'">';
-        $("#createDeptDiv").html(divContent);
+        $("#createDeptDiv").html(divContent);*//*
     }else{
         var divContent = '<input type="text" id="chargeDeptName" data-rule="所属组织机构:required;" class="form-control" readonly style="background-color:#fff">'
             +'<input type="hidden" id="chargeDeptId" name="chargeDeptId">'
@@ -72,7 +94,7 @@ function initInputValue(){
             +'</div>';
         $("#createDeptDiv").html(divContent);
         $.initDeptTreeSelect('treeDemo','chargeDeptName','chargeDeptId','menuContent',false,{"regionCode":$("#regionCode").val()});
-    }
+    }*/
 }
 
 function initButtonClickEvent(){

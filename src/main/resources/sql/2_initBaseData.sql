@@ -322,7 +322,7 @@ INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('86','','goldProjecty','3','金土工程',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('87','','goldProjecty','4','金财工程',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('88','','goldProjecty','5','金税工程',NULL,NULL,NULL,NULL,1);
-INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('89','','goldProjecty','5','金卡工程',NULL,NULL,NULL,NULL,1);
+INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('89','','goldProjecty','13','金卡工程',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('90','','goldProjecty','6','金审工程',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('91','','goldProjecty','7','金关工程',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('92','','goldProjecty','8','金盾工程',NULL,NULL,NULL,NULL,1);
@@ -403,7 +403,7 @@ INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('001bc9e5a7f111e7b780000c2909b055','','resourceFormat','0403','jpg',NULL,'04',3,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('001ec0a9a7f111e7b780000c2909b055','','resourceFormat','0404','其他',NULL,'04',4,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('00252c4fa7f111e7b780000c2909b055','','resourceFormat','0501','mpg',NULL,'05',1,NULL,1);
-INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('0027ef43a7f111e7b780000c2909b055','','resourceFormat','0501','rm',NULL,'05',2,NULL,1);
+INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('0027ef43a7f111e7b780000c2909b055','','resourceFormat','0502','rm',NULL,'05',2,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('002a725ca7f111e7b780000c2909b055','','resourceFormat','0503','swf',NULL,'05',3,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('002cbe66a7f111e7b780000c2909b055','','resourceFormat','0504','其他',NULL,'05',4,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('0031f03aa7f111e7b780000c2909b055','','resourceFormat','0601','表格驱动码',NULL,'06',1,NULL,1);
@@ -476,9 +476,9 @@ INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,pare
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('97','','systemLevel','1','国家部委',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('98','','systemLevel','2','省级',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('99','','systemLevel','3','地市级',NULL,NULL,NULL,NULL,1);
-INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('100','','systemLevel','4','产生的',NULL,NULL,NULL,NULL,1);
-INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('101','','systemLevel','4','产生的',NULL,NULL,NULL,NULL,1);
-INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('102','','systemLevel','5','产生的',NULL,NULL,NULL,NULL,1);
+-- INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('100','','systemLevel','4','产生的',NULL,NULL,NULL,NULL,1);
+-- INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('101','','systemLevel','4','产生的',NULL,NULL,NULL,NULL,1);
+-- INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('102','','systemLevel','5','产生的',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('134','','systemNet','0','否',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('133','','systemNet','1','是',NULL,NULL,NULL,NULL,1);
 INSERT INTO sys_dict (id,region_code,category,dict_code,dict_name,dict_desc,parent_code,order_number,icon,status) VALUES ('79','','systemStage','1','拟建',NULL,NULL,NULL,NULL,1);
