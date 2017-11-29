@@ -30,7 +30,6 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/dirDatasetAttachment")
-//todo 将所有的XXX修改为真实值
 public class DirDatasetAttachmentController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -47,7 +46,7 @@ public class DirDatasetAttachmentController extends BaseController {
     /**
      * 分页查询
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){

@@ -1,22 +1,24 @@
 package com.chinawiserv.dsp.base.common.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.net.ConnectException;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 
 public class FTPUtil {
 
     private FTPClient ftp;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private FTPClient connect(String addr, int port, String username, String password) throws Exception {
         FTPClient ftp = new FTPClient();
@@ -32,6 +34,7 @@ public class FTPUtil {
         return ftp;
     }
 
+    @Deprecated
     public boolean uploadCaseFiles(String folderName, List<MultipartFile> caseFiles, String fileName) throws Exception {
         if (StringUtils.isNotBlank(folderName) && null != caseFiles && caseFiles.size() > 0) {
 //            Properties properties = PropertiesUtil.load("cors.properties");
@@ -47,8 +50,9 @@ public class FTPUtil {
         	int port = Integer.parseInt(portStr);
         	String username =  properties.getProperty("datastreet.username");
         	String password =  properties.getProperty("datastreet.password");
+            FTPClient ftp = null;
             try {
-                FTPClient ftp = connect(url, port, username, password);
+                ftp = connect(url, port, username, password);
                 String[] folderNames = folderName.split("/");
                 if (!ftp.changeWorkingDirectory(folderName)) {
                     for (String str : folderNames) {
@@ -59,15 +63,22 @@ public class FTPUtil {
                 }
 
                 for (MultipartFile file : caseFiles) {
-                    InputStream fileInputStream = file.getInputStream();
+                    try(InputStream fileInputStream = file.getInputStream()){
+//                        String fileName = file.getOriginalFilename();
+                        ftp.storeFile(new String(fileName.getBytes("utf-8"), "8859_1"), fileInputStream);
+                    }
 //                    String fileName = file.getOriginalFilename();//URLEncoder.encode(file.getOriginalFilename(), "utf-8");
-                    ftp.storeFile(new String(fileName.getBytes("utf-8"), "8859_1"), fileInputStream);
-                    fileInputStream.close();
+
                 }
-                ftp.disconnect();
                 return true;
             } catch (Exception e) {
+
                 return false;
+            }finally {
+                if(ftp!=null){
+                    ftp.logout();
+                    ftp.disconnect();
+                }
             }
         }
         return false;
@@ -157,9 +168,136 @@ public class FTPUtil {
     }
 
 
-    private void disconnect() throws Exception {
-        ftp.logout();
-        ftp.disconnect();
+    private FTPClient getFTPClient() throws Exception{
+        Properties properties = new Properties();
+        properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+        String url =  properties.getProperty("datastreet.adress");
+        String portStr =  properties.getProperty("datastreet.port");
+        int port = Integer.parseInt(portStr);
+        String username =  properties.getProperty("datastreet.username");
+        String password =  properties.getProperty("datastreet.password");
+        return connect(url, port, username, password);
+    }
+
+    private void checkFtpPath(String folderName, FTPClient ftp)throws Exception{
+        if(!org.springframework.util.StringUtils.isEmpty(folderName)){
+            String[] folderNames = folderName.split("/");
+            if (!ftp.changeWorkingDirectory(folderName)) {
+                for (String str : folderNames) {
+                    String folderNameFtp = new String(str.getBytes("utf-8"), "8859_1");
+                    ftp.makeDirectory(folderNameFtp);
+                    ftp.changeWorkingDirectory(folderNameFtp);
+                }
+            }
+        }else{
+            throw new Exception("ftp上传路径不能为空!!");
+        }
+    }
+
+    private void close(FTPClient ftp){
+        if(ftp !=null){
+            try {
+                ftp.logout();
+                ftp.disconnect();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 上传多个文件到ftp指定目录下
+     * @param ftpPath ftp指定目录(如/ftp/a/b)
+     * @param localFileList 文件集合
+     * @return
+     */
+    public boolean uploadMutilFiles(String ftpPath, List<MultipartFile> localFileList){
+        try {
+            if(!ObjectUtils.isEmpty(localFileList)){
+                FTPClient ftp = getFTPClient();
+                checkFtpPath(ftpPath, ftp);
+                for (MultipartFile file : localFileList) {
+                    try(InputStream fileInputStream = file.getInputStream()){
+                        String fileName = file.getOriginalFilename();
+                        ftp.storeFile(new String(fileName.getBytes("utf-8"), "8859_1"), fileInputStream);
+                    }
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            logger.error("上传文件报错：",e);
+            return false;
+        }finally {
+            close(ftp);
+        }
+    }
+
+    /**
+     * 上传多个文件到ftp指定目录下,且自定义上传文件的文件名
+     * @param ftpPath ftp指定目录(如/ftp/a/b)
+     * @param localFileMap 文件集合,key为文件名
+     * @return
+     */
+    public boolean uploadMutilFilesWithName(String ftpPath, Map<String,MultipartFile> localFileMap){
+        try {
+            if(!ObjectUtils.isEmpty(localFileMap)){
+                FTPClient ftp = getFTPClient();
+                checkFtpPath(ftpPath, ftp);
+                Set<String> fileNameSet = localFileMap.keySet();
+                for(String fileName : fileNameSet){
+                    MultipartFile file = localFileMap.get(fileName);
+                    try(InputStream fileInputStream = file.getInputStream()){
+                        ftp.storeFile(new String(fileName.getBytes("utf-8"), "8859_1"), fileInputStream);
+                    }
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            logger.error("上传文件报错：",e);
+            return false;
+        }finally {
+            close(ftp);
+        }
+    }
+
+    /**
+     * 从ftp指定目录下下载指定文件(单个文件)
+     * @param ftpPath ftp指定目录(如/ftp/a/b)
+     * @param fileName 文件名称
+     * @param localPath 本地保存路径(包含文件名)
+     * @return
+     */
+    public boolean downLoadFile(String ftpPath, String fileName, String localPath){
+        try {
+            if(!org.springframework.util.StringUtils.isEmpty(ftpPath)
+                    && !org.springframework.util.StringUtils.isEmpty(fileName)
+                    && !org.springframework.util.StringUtils.isEmpty(localPath)){
+                FTPClient ftp = getFTPClient();
+                boolean ftpPathExsit = ftp.changeWorkingDirectory(ftpPath);
+                if(ftpPathExsit){
+                    FTPFile[] ftpFiles = ftp.listFiles();
+                    for(FTPFile ftpFile : ftpFiles){
+                        String ftpFileName = ftpFile.getName();
+                        if(fileName.equals(ftpFileName)){
+                            OutputStream ios = new FileOutputStream(new File(localPath));
+                            ftp.retrieveFile(ftpFileName, ios);
+                            ios.close();
+                            break;
+                        }
+                    }
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            logger.error("下载文件报错：",e);
+            return false;
+        }finally {
+            close(ftp);
+        }
     }
 
 }

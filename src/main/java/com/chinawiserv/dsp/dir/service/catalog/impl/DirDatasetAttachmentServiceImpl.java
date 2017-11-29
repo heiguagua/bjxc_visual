@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetAttachment;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetAttachmentVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetAttachmentMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetAttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,8 +31,14 @@ public class DirDatasetAttachmentServiceImpl extends CommonServiceImpl<DirDatase
 
     @Override
     public boolean insertVO(DirDatasetAttachmentVo vo) throws Exception {
-		//todo
-		return false;
+        int insertResult = mapper.baseInsert(vo);
+		return insertResult>0;
+    }
+
+    @Override
+    public boolean batchInsertVo(List<DirDatasetAttachmentVo> voList) throws Exception{
+        int insertResult = mapper.insertListItem(voList);
+        return insertResult>0;
     }
 
     @Override
@@ -51,8 +60,12 @@ public class DirDatasetAttachmentServiceImpl extends CommonServiceImpl<DirDatase
 
     @Override
     public Page<DirDatasetAttachmentVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return null;
+        Page<DirDatasetAttachmentVo> page = getPage(paramMap);
+        page.setOrderByField("upload_time");
+        page.setAsc(false);
+        List<DirDatasetAttachmentVo> dirDatasetAttachmentVoList = mapper.selectVoPage(page, paramMap);
+        page.setRecords(dirDatasetAttachmentVoList);
+        return page;
 	}
 
     @Override
