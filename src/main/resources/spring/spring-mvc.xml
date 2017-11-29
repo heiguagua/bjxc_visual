@@ -16,7 +16,7 @@
 		                   http://www.springframework.org/schema/task/spring-task-4.3.xsd"
     default-lazy-init="false">
 
-    <context:property-placeholder location="classpath:/conf/*.properties" />
+    <context:property-placeholder location="${config.location:classpath:}conf/*.properties" />
 
     <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
         <property name="supportedMediaTypes">
@@ -60,23 +60,14 @@
     </bean>
 
 	<!-- 拦截器 -->
-	<mvc:interceptors>
-
-		<!--&lt;!&ndash; 登录拦截器 &ndash;&gt;-->
-		<!--<mvc:interceptor>-->
-			<!--<mvc:mapping path="/**" />-->
-			<!--<bean class="com.chinawiserv.dsp.dcs.dcm.interceptor.LoginInterceptor" />-->
-		<!--</mvc:interceptor>-->
-
-		<!--&lt;!&ndash; 权限拦截器 &ndash;&gt;-->
+	<!-- <mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<bean class="com.chinawiserv.dsp.base.common.inteceptor.SpringInteceptor">
-				<!--<property name="permissionService" ref="permissionServiceImpl"></property>-->
 			</bean>
 		</mvc:interceptor>
 
-	</mvc:interceptors>
+	</mvc:interceptors> -->
 
 	<!-- 事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -106,5 +97,6 @@
     <task:executor id="executor" pool-size="10"></task:executor>
     <task:scheduler id="scheduler" pool-size="20"></task:scheduler>
     <task:annotation-driven executor="executor" scheduler="scheduler"></task:annotation-driven>
-
+	
+	<import resource="spring-shiro.xml"/>
 </beans>

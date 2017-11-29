@@ -6,13 +6,11 @@
 
 
     <default-serializers>
-        <serializer type="java.lang.Object">com.chinawiserv.apps.mybaits.EhCacheFSTSerializer</serializer>
+        <serializer type="java.lang.Object">com.chinawiserv.apps.mybaits.ehcache3.EhCacheFSTSerializer</serializer>
     </default-serializers>
-    <default-copiers>
-        <copier type="java.lang.Object">org.ehcache.impl.copy.IdentityCopier</copier>
-    </default-copiers>
+    <default-copiers/>
     
-    <persistence directory="F:/cache-data" />
+    <persistence directory="cache-data" />
     
     <thread-pools>
         <thread-pool alias="default_pool" min-size="1" max-size="3" default="true" />
@@ -26,22 +24,17 @@
     <write-behind thread-pool="defaultWriteBehindPool" />
     <disk-store thread-pool="defaultDiskPool" />
 
-    <cache-template name="userTemplate">
+    <cache-template name="template">
         <disk-store-settings thread-pool="cache2Pool" writer-concurrency="16" disk-segments="16" />
     </cache-template>
 
-    <cache alias="default_cache">
+    <cache alias="default_cache" uses-template="template">
         <resources>
             <disk persistent="true" unit="GB">1</disk>
         </resources>
     </cache>
 
-    <cache alias="default_table_cache">
-        <resources>
-            <disk persistent="true" unit="GB">1</disk>
-        </resources>
-    </cache>
-
+    <cache alias="default_table_cache"  uses-template="template"/>
 
 </config>
 	

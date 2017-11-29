@@ -22,5 +22,16 @@
     <typeAliases>
         <package name="com.chinawiserv.dsp.domain"/>
     </typeAliases>
+    
+     <plugins>
+        <plugin interceptor="com.chinawiserv.apps.mybaits.interceptor.MybatisCacheClearInterceptor" />
+        <plugin interceptor="com.chinawiserv.apps.mybaits.interceptor.MybatisCachePaginationInterceptor" />
+    </plugins>
+
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql" />
+        <property name="Oracle" value="oracle" />
+    </databaseIdProvider>
+    
 
 </configuration>
