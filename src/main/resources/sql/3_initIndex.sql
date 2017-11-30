@@ -1,22 +1,22 @@
 -- 创建存储过程，用于执行创建索引前先删除索引，防止该SQL无法重复执行
-DELIMITER $$
-
-DROP PROCEDURE IF EXISTS `del_idx`$$
-
-CREATE PROCEDURE `del_idx`(IN p_dbname VARCHAR(200), IN p_tablename VARCHAR(200), IN p_idxname VARCHAR(200))
-BEGIN
-	DECLARE str VARCHAR(250);
-
-  SET @str=CONCAT(' drop index ',p_idxname,' on ',p_tablename);
-  SELECT COUNT(*) INTO @cnt FROM information_schema.statistics WHERE table_name=p_tablename AND index_name=p_idxname AND index_schema=p_dbname;
-
-  IF @cnt >0 THEN
-    PREPARE stmt FROM @str;
-    EXECUTE stmt ;
-  END IF;
-END$$
-
-DELIMITER ;
+-- DELIMITER $$
+--
+-- DROP PROCEDURE IF EXISTS `del_idx`$$
+--
+-- CREATE PROCEDURE `del_idx`(IN p_dbname VARCHAR(200), IN p_tablename VARCHAR(200), IN p_idxname VARCHAR(200))
+-- BEGIN
+-- 	DECLARE str VARCHAR(250);
+--
+--   SET @str=CONCAT(' drop index ',p_idxname,' on ',p_tablename);
+--   SELECT COUNT(*) INTO @cnt FROM information_schema.statistics WHERE table_name=p_tablename AND index_name=p_idxname AND index_schema=p_dbname;
+--
+--   IF @cnt >0 THEN
+--     PREPARE stmt FROM @str;
+--     EXECUTE stmt ;
+--   END IF;
+-- END$$
+--
+-- DELIMITER ;
 
 
 
