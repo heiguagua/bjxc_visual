@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.dir.controller.catalog;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
+import com.chinawiserv.dsp.base.common.util.FTPUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
@@ -18,10 +19,7 @@ import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
 import com.chinawiserv.dsp.dir.schema.ExportExcelUtil;
-import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
-import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
-import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
-import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetSourceRelationService;
+import com.chinawiserv.dsp.dir.service.catalog.*;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -37,9 +35,12 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -136,6 +137,12 @@ public class DirDatasetController extends BaseController {
     public  String showInit(@RequestParam String id,Model model){
         model.addAttribute("id", id);
         return "catalog/catalogue/catalogueShow";
+    }
+
+    @RequestMapping("/uploadInfo")
+    public String uploadInit(@RequestParam String id,Model model){
+        model.addAttribute("id", id);
+        return "catalog/catalogue/fileUploadInfo";
     }
 
     /**
@@ -1388,5 +1395,40 @@ public class DirDatasetController extends BaseController {
         return handleResult;
     }
 
+    /**
+     * 编目页面上传文件
+     * @param request
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/upLoadFile", method = RequestMethod.POST)
+    @ResponseBody
+    public HandleResult upLoadFile(HttpServletRequest request) throws IllegalStateException, IOException {
+        HandleResult handleResult = new HandleResult();
+        try {
+            int uploadNum = service.upLoadFile(request);
+            if(uploadNum<1){
+                handleResult.error("上传失败");
+            }
+        } catch (Exception e) {
+            handleResult.error("上传失败："+e);
+            logger.error("上传失败", e);
+        }
+        return handleResult;
+    }
+
+    @RequestMapping("/uploadInfo/list")
+    @ResponseBody
+    public  HandleResult uploadInfoList(){
+        HandleResult handleResult = new HandleResult();
+        try {
+//            Map<String,Integer> statusCount = service.getDatasetCountForStatus(ShiroUtils.getLoginUser().getRegionCode());
+            handleResult.put("vo", "");
+        } catch (Exception e) {
+            handleResult.error("获取上传文件列表失败");
+            logger.error("获取上传文件列表失败", e);
+        }
+        return handleResult;
+    }
 
 }
