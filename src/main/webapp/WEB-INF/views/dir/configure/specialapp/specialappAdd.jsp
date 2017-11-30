@@ -19,7 +19,7 @@
                             <div class="form-group">
                                 <label for="appName">应用名称</label>
                                 <input type="text" id="app_name" name="appName" class="form-control"
-                                       placeholder="请输入应用名称" data-rule="应用名称:required;appName;remote(<%=basePath%>/system/user/insertCheckName)">
+                                       placeholder="请输入应用名称" data-rule="应用名称:required;appName;">
                             </div>
                             <div class="form-group">
                                 <label for="appCategory">应用种类</label>

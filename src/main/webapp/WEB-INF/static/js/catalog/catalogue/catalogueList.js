@@ -56,6 +56,7 @@ function initTable(){
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
+        escape:true,
         columns: [{
             checkbox: true,
             align: 'center',
@@ -70,7 +71,7 @@ function initTable(){
                 if(value == undefined){
                     value = "";
                 }
-                value = HtmlEncode(value);
+//                value = HtmlEncode(value);
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
@@ -81,7 +82,7 @@ function initTable(){
                 if(value == undefined){
                     value = "";
                 }
-                value = HtmlEncode(value);
+//                value = HtmlEncode(value);
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
@@ -90,7 +91,7 @@ function initTable(){
             sortable: false,
             width: '20%',
             formatter:function(value, row, index){
-            	value = HtmlEncode(value);
+//            	value = HtmlEncode(value);
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
@@ -104,7 +105,7 @@ function initTable(){
             sortable: false,
             width: '10%',
             formatter:function(value, row, index){
-            	value = HtmlEncode(value);
+//            	value = HtmlEncode(value);
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
@@ -137,7 +138,7 @@ function initTable(){
             valign: 'middle',
             sortable: false,
             formatter: function(value, row, index) {
-            	value = HtmlEncode(value);
+//            	value = HtmlEncode(value);
             	var editBtn ="";
                 if(row.classifyStatus==0 || row.classifyStatus==2 || row.classifyStatus==4 || row.classifyStatus==6){
                     editBtn = [
