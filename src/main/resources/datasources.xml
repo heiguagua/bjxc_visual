@@ -5,10 +5,10 @@
 
 	<datasource name="dataSource_dcm" primary="true" >
 		<url>
-		<![CDATA[jdbc:mysql://192.168.13.235:3306/dsp_dir?useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowMultiQueries=true]]>
+		<![CDATA[jdbc:mysql://192.168.13.72:3306/dsp_dir?useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowMultiQueries=true]]>
 		</url>
 		<username>root</username>
-		<password>root</password>
+		<password>bdgm;2015</password>
 		<initialSize>10</initialSize>
         <minIdle>10</minIdle>
         <maxActive>10</maxActive>
