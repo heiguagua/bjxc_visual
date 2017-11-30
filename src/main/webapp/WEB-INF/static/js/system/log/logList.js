@@ -24,7 +24,7 @@ $(document).ready(function () {
             sortable: false
         }, {
             field: 'realName',
-            title: '操作人',
+            title: '操作人真实姓名[用户名]',
             align: 'left',
             valign: 'middle',
             sortable: false,

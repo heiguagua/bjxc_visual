@@ -28,23 +28,23 @@
                             <div class="box-header">
                                 <input id="category" type="hidden" value="${category}" name="category" />
                                 <input id="dd" type="hidden"  name="dd" />
-                                <div class="input-group">
-                                    <a class="btn btn-primary btn-flat btn-myself" id="addDict1" onclick="javascript:addDict()">
-                                        <img src="<%=basePath%>/images/userImg/addimg.png"/>
-                                        新增
-                                    </a>
-                                </div>
+                                <%--<div class="input-group">--%>
+                                    <%--<a class="btn btn-primary btn-flat btn-myself" id="addDict1" onclick="javascript:addDict()">--%>
+                                        <%--<img src="<%=basePath%>/images/userImg/addimg.png"/>--%>
+                                        <%--新增--%>
+                                    <%--</a>--%>
+                                <%--</div>--%>
                                 <div class="input-group">
                                     <a class="btn btn-default btn-flat  btn-myself  hidden" id="back" onclick="javascript:intDict()">
                                        < 返回
                                     </a>
                                 </div>
-                                <div class="input-group">
-                                    <a class="btn btn-default btn-flat  btn-myself hidden" id="addDict2"  onclick="javascript:addDetailDict()">
-                                        <img src="<%=basePath%>/images/userImg/addimg.png"/>
-                                       新增
-                                    </a>
-                                </div>
+                                <%--<div class="input-group">--%>
+                                    <%--<a class="btn btn-default btn-flat  btn-myself hidden" id="addDict2"  onclick="javascript:addDetailDict()">--%>
+                                        <%--<img src="<%=basePath%>/images/userImg/addimg.png"/>--%>
+                                       <%--新增--%>
+                                    <%--</a>--%>
+                                <%--</div>--%>
 
                                 <div class="input-group  pull-right" id="search">
                                     <input id="searchKeyId" type="text" name="search" class="form-control"

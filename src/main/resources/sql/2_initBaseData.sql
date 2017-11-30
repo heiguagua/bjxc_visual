@@ -33,7 +33,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('010602','0106','操作系统设置','','',1,3,'010602','system:setting:edit',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0107','01','业务日志','/system/log','fa-info-circle',11,2,'0107','system:log',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('010701','0107','查看日志列表','','',0,3,'010701','system:log:list',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0116','01','系统集成管理','/system/productIntegrate','fa fa-cogs',15,2,'0116','system:productIntegrate:list',1);
+-- INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0116','01','系统集成管理','/system/productIntegrate','fa fa-cogs',15,2,'0116','system:productIntegrate:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0117','01','License管理','/lic/licPage','',2,2,'0117','lic:licPage',1);
 
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('09','0','用户管理','','fa-cogs',5,1,'09','system',1);
