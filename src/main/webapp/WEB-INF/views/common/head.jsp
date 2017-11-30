@@ -10,11 +10,9 @@
 
 <%
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-    System.out.println(basePath);
     String regionCode = (String)request.getSession().getAttribute("regionCode");
     String context_path=request.getContextPath();
     SysUserVo loginUser = (SysUserVo)request.getSession().getAttribute(SystemConst.ME);
-    System.out.println("loginUser========"+loginUser);
 %>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
