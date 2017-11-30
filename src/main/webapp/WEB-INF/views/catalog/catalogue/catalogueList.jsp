@@ -4,6 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/js/catalog/catalogue/catalogueList.js"></script>
+    <script src="<%=basePath%>/js/system/Encode/Encode.js"></script>
 </head>
 <style>
 div.layui-layer-iframe{

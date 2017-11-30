@@ -206,7 +206,7 @@
         var value = item;
 
         if (typeof field !== 'string' || item.hasOwnProperty(field)) {
-            return escape ? escapeHTML(item[field]) : item[field];
+            return escape ? (item[field]) : item[field];
         }
         var props = field.split('.');
         for (var p in props) {

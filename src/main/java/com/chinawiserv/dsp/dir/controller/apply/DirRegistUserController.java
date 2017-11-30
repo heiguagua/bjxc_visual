@@ -32,48 +32,27 @@ import java.util.Map;
  * <p>
  * 用户注册表 前端控制器
  * </p>
- *
  * @author wuty
  * @since 2017-09-11
  */
 @Controller
 @RequestMapping("/dirRegistUser")
 public class DirRegistUserController extends BaseController {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    private IDirRegistUserService service;
-
     @Autowired
     ISysUserService sysUserService;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    private IDirRegistUserService service;
+    /**
+     * 执行编辑
+     */
+    private String mailSwitch = Props.of("mail.properties").get("mail.switch");
 
     @RequiresPermissions("apply:registUser:list")
     @RequestMapping("")
-    public  String init(@RequestParam Map<String , Object> paramMap){
-		setCurrentMenuInfo(paramMap);
-    	return "apply/registUser/dirRegistUserList";
-    }
-
-    /**
-     * 分页查询用户注册表
-     */
-//    @RequiresPermissions("apply:registUser:list")
-    @RequestMapping(value = "/list")
-    @ResponseBody
-    public PageResult list(@RequestParam Map<String , Object> paramMap){
-		PageResult pageResult = new PageResult();
-        SysUserVo user = ShiroUtils.getLoginUser();
-        paramMap.put("deptId",user.getDeptId());
-        paramMap.put("userId",user.getId());
-//        paramMap.put("regionCode",user.getRegionCode());
-		try {
-		    Page<DirRegistUserVo> page = service.selectVoPage(paramMap);
-		    pageResult.setPage(page);
-		} catch (Exception e) {
-		    pageResult.error("分页查询用户注册表出错");
-		    logger.error("分页查询用户注册表出错", e);
-		}
-		return pageResult;
+    public String init(@RequestParam Map<String, Object> paramMap) {
+        setCurrentMenuInfo(paramMap);
+        return "apply/registUser/dirRegistUserList";
     }
 
     /**
@@ -105,15 +84,37 @@ public class DirRegistUserController extends BaseController {
     }*/
 
     /**
+     * 分页查询用户注册表
+     */
+//    @RequiresPermissions("apply:registUser:list")
+    @RequestMapping(value = "/list")
+    @ResponseBody
+    public PageResult list(@RequestParam Map<String, Object> paramMap) {
+        PageResult pageResult = new PageResult();
+        SysUserVo user = ShiroUtils.getLoginUser();
+        paramMap.put("deptId", user.getDeptId());
+        paramMap.put("userId", user.getId());
+//        paramMap.put("regionCode",user.getRegionCode());
+        try {
+            Page<DirRegistUserVo> page = service.selectVoPage(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询用户注册表出错");
+            logger.error("分页查询用户注册表出错", e);
+        }
+        return pageResult;
+    }
+
+    /**
      * 删除用户注册表
      */
     @RequiresPermissions("apply:registUser:delete")
     @Log("删除用户注册表")
-    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
-    public HandleResult delete(@RequestParam String id){
-    	service.deleteById(id);
-		return new HandleResult().success("删除用户注册表成功");
+    public HandleResult delete(@RequestParam String id) {
+        service.deleteById(id);
+        return new HandleResult().success("删除用户注册表成功");
     }
 
     /**
@@ -121,41 +122,37 @@ public class DirRegistUserController extends BaseController {
      */
     @RequiresPermissions("apply:registUser:edit")
     @RequestMapping("/edit")
-    public  String edit(@RequestParam String id,Model model){
-		model.addAttribute("id",id);
-		return "/apply/registUser/dirRegistUserList";
+    public String edit(@RequestParam String id, Model model) {
+        model.addAttribute("id", id);
+        return "/apply/registUser/dirRegistUserList";
     }
 
     @RequiresPermissions("apply:registUser:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
-    public  HandleResult editLoad(@RequestParam String id){
-		HandleResult handleResult = new HandleResult();
-		try {
+    public HandleResult editLoad(@RequestParam String id) {
+        HandleResult handleResult = new HandleResult();
+        try {
             DirRegistUserVo vo = service.selectVoById(id);
-		    handleResult.put("vo", vo);
-		} catch (Exception e) {
-		    handleResult.error("获取用户注册表信息失败");
-		    logger.error("获取用户注册表信息失败", e);
-		}
-		return handleResult;
-		}
+            handleResult.put("vo", vo);
+        } catch (Exception e) {
+            handleResult.error("获取用户注册表信息失败");
+            logger.error("获取用户注册表信息失败", e);
+        }
+        return handleResult;
+    }
 
-    /**
-     * 执行编辑
-     */
     @RequiresPermissions("apply:registUser:edit")
     @Log("审核用户注册表")
-    @RequestMapping(value = "/doEdit",method = RequestMethod.PUT)
+    @RequestMapping(value = "/doEdit", method = RequestMethod.PUT)
     @ResponseBody
-    public  HandleResult doEdit(@RequestBody DirRegistUserVo dirRegistUserVo){
+    public HandleResult doEdit(@RequestBody DirRegistUserVo dirRegistUserVo) {
         HandleResult handleResult = new HandleResult();
         DirRegistUser dru = service.selectById(dirRegistUserVo.getId());
         try {
-            if (dirRegistUserVo.getOpration()){
+            if (dirRegistUserVo.getOpration()) {
                 dirRegistUserVo.setStatus("1");
-            }
-            else {
+            } else {
                 dirRegistUserVo.setStatus("2");
             }
             dirRegistUserVo.setStateName(RegistUserStatus.valueOf(EnumTools.getName(dirRegistUserVo.getStatus())).getChValue());
@@ -165,50 +162,64 @@ public class DirRegistUserController extends BaseController {
         } catch (Exception e) {
             handleResult.error("审核用户注册表失败");
             logger.error("审核用户注册表失败", e);
-        }finally {
+        } finally {
+
             /**
              * 发送邮件的处理，需要时放开代码
              * */
-//            if("1" == dirRegistUserVo.getStatus()){
-//                // 往用户表里插入申请用户的数据
-//                /**
-//                 * 随机生成八位数的密码
-//                 * */
-//                String password = RandomPasswordUtil.getRandomPassword(8);
-//
-//                SysUser su  = new SysUser();
-//
-//                su.setRegionCode(dru.getRegionCode());
-//                su.setToken(DesUtil.encrypt(dru.getLoginName()));
-//                su.setPassword(CommonUtil.string2MD5(password));
-//                su.setUserName(dru.getLoginName());
-//                su.setUserType(1);
-//                su.setUserDesc("门户注册用户");
-//                su.setDeptId(dru.getBelongDep());
-//                su.setCellPhoneNumber(dru.getPhone());
-//                su.setEmail(dru.getEmail());
-//                su.setCreateTime(new Date());
-//                su.setStatus(1);
-//                su.setRealName(dru.getRealName());
-//                su.setCreateUserId(ShiroUtils.getLoginUserId());
-//
-//                List<SysUser> userList = sysUserService.selectList(new EntityWrapper<SysUser>().addFilter("user_name = {0}",dru.getLoginName()));
-//
-//                if(CollectionUtils.isEmpty(userList)){
-//                    sysUserService.insert(su);
-//                    //发送邮件
-//                    MailSenderUtil.sendMail(dru.getEmail(),dru.getRealName(),"审核结果",dru.getRealName()+"先生（女士）:恭喜您，您的账号申请已通过。" + "<br>" +
-//                            "账号是："+dru.getLoginName()+"<br>密码是："+password + "<br>" +
-//                            "请及时登录更改密码。");
-//                }else{
-//                    //发送邮件
-//                    MailSenderUtil.sendMail(dru.getEmail(),dru.getRealName(),"审核结果",dru.getRealName()+"先生（女士）:抱歉，您注册的用户名："+dru.getLoginName()+"已存在，请重新注册。");
-//                }
-//
-//            }else if("2" == dirRegistUserVo.getStatus()){
-//                //发送邮件
-//                MailSenderUtil.sendMail(dru.getEmail(),dru.getRealName(),"审核结果",dru.getRealName()+"先生（女士）:抱歉，您的账号申请未通过");
-//            }
+            if (!"on".equalsIgnoreCase(mailSwitch)) return handleResult;
+            String status = dirRegistUserVo.getStatus();
+            switch (status) {
+                case "1": {
+                    List<SysUser> userList = this.sysUserService.selectList(new EntityWrapper<SysUser>().addFilter("user_name = {0}", dru.getLoginName()));
+                    if (CollectionUtils.isEmpty(userList)) {
+                        SysUser su = new SysUser();
+                        /**
+                         * 初始化用户
+                         * */
+                        String password = RandomPasswordUtil.getRandomPassword(8);
+                        su.setRegionCode(dru.getRegionCode());
+                        su.setToken(DesUtil.encrypt(dru.getLoginName()));
+                        su.setPassword(CommonUtil.string2MD5(password));
+                        su.setUserName(dru.getLoginName());
+                        su.setUserType(1);
+                        su.setUserDesc("门户注册用户");
+                        su.setDeptId(dru.getBelongDep());
+                        su.setCellPhoneNumber(dru.getPhone());
+                        su.setEmail(dru.getEmail());
+                        su.setCreateTime(new Date());
+                        su.setStatus(1);
+                        su.setRealName(dru.getRealName());
+                        su.setCreateUserId(ShiroUtils.getLoginUserId());
+                        this.sysUserService.insert(su);
+                        //发送邮件
+                        MailSenderUtil.sendMail(
+                                dru.getEmail(),
+                                dru.getRealName(),
+                                "账号申请结果",
+                                dru.getRealName() + "先生（女士）:恭喜您，您的账号申请已通过。" + "<br>" + "账号是：" + dru.getLoginName() + "<br>密码是：" + password + "<br>" + "请及时登录更改密码。"
+                        );
+                    } else {
+                        //发送邮件
+                        MailSenderUtil.sendMail(
+                                dru.getEmail(),
+                                dru.getRealName(),
+                                "账号申请结果",
+                                dru.getRealName() + "先生（女士）:抱歉，您注册的用户名：" + dru.getLoginName() + "已存在，请重新注册。"
+                        );
+                    }
+                }
+                break;
+                case "2":
+                    MailSenderUtil.sendMail(
+                            dru.getEmail(),
+                            dru.getRealName(),
+                            "账号申请结果",
+                            dru.getRealName() + "先生（女士）:抱歉，您的账号申请未通过。"
+                    );
+                    break;
+            }
+
         }
         return handleResult;
     }

@@ -3201,6 +3201,7 @@ function initGlobalCustom(tempUrlPrefix) {
                 sidePagination: 'server',
                 queryParamsType: '',
                 method: 'post',
+                escape:true,
                 url: '',
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded",

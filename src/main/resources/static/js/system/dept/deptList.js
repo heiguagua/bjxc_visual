@@ -90,61 +90,138 @@ function initDept(pid) {
         pageSize: 15,
         columns: [{
             field:'deptLevel',
-            visible:false
+            visible:false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         },{
             field:'treeIndex',
-            visible:false
+            visible:false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         },{
             field:'treeCode',
-            visible:false
+            visible:false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         },{
             checkbox: true,
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'deptName',
             title: '组织机构名称',
             align: 'center',
             valign: 'middle',
             sortable: false,
-            visible:false
+            visible:false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'deptShortName',
             title: '组织机构简称',
             align: 'left',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'deptCode',
             title: '组织机构编码',
             align: 'left',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'regionName',
             title: '所属行政区域',
             align: 'left',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'fname',
             title: '上级组织机构名称',
             align: 'left',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'cNum',
             title: '下级机构数量',
             align: 'left',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'updateTime',
             title: '更新时间',
             align: 'left',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'deptContactMan',
             title: '联系人',
@@ -162,6 +239,10 @@ function initDept(pid) {
                         desc = value;
                     }
                 }
+                if(desc == undefined){
+                	desc = "";
+                }
+                desc = HtmlEncode(desc);
                 return desc;
             }
         }, {
@@ -170,7 +251,14 @@ function initDept(pid) {
             align: 'left',
             valign: 'middle',
             sortable: false,
-            visible:false
+            visible:false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'deptAddress',
             title: '地址',
@@ -188,6 +276,10 @@ function initDept(pid) {
                         desc = value;
                     }
                 }
+                if(desc == undefined){
+                	desc = "";
+                }
+                desc = HtmlEncode(desc);
                 return desc;
             }
         }, {
@@ -208,6 +300,10 @@ function initDept(pid) {
                         desc = value;
                     }
                 }
+                if(desc == undefined){
+                	desc = "";
+                }
+                desc = HtmlEncode(desc);
                 return desc;
             }
         }, {
@@ -232,6 +328,10 @@ function initDept(pid) {
             sortable: false ,
             width: '20%',
             formatter : function (value) {
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
                 var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:allotDept(\"" + value + "\")'><i class='fa fa-chain'></i>创建下级</a>";
                 var showBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:showDept(\"" + value + "\")'><i class='fa fa-chain'></i>查看下级</a>";
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editDept(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";

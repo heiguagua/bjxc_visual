@@ -5,7 +5,6 @@
 <%
 	
 	
-System.out.println("asdfa");
 	request.setCharacterEncoding( "utf-8" );
 	response.setHeader("Content-Type" , "text/html");
 
