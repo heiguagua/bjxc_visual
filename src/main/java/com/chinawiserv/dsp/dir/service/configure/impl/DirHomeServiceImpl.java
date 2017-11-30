@@ -7,7 +7,6 @@ import com.chinawiserv.dsp.dir.entity.vo.configure.DirHomeVo;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirNewsVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirHomeMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirHomeService;
-import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,10 +93,11 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
 		String fileName = file.getOriginalFilename();
         String picName =((new Date()).getTime())+fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
         List<String> listType = new ArrayList<>();
-        listType.add("jpg");listType.add("peg");listType.add("png");listType.add("gif");
+        String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
+        listType.add("jpg");listType.add("tif");listType.add("png");listType.add("gif");listType.add("bmp");
         for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
 			String string = (String) iterator.next();
-			if(string.equals(picName.substring(picName.length()-3))){
+			if(string.equals(fileType)){
 				state++;
 			}
 		}
@@ -258,10 +258,11 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
         if(file!= null && !StringUtils.isEmpty(fileName)){
         	int state = 0;
             List<String> listType = new ArrayList<>();
-            listType.add("jpg");listType.add("peg");listType.add("png");listType.add("gif");
+            String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
+            listType.add("jpg");listType.add("tif");listType.add("png");listType.add("gif");listType.add("bmp");
             for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
     			String string = (String) iterator.next();
-    			if(string.equals(picName.substring(picName.length()-3))){
+    			if(string.equals(fileType)){
     				state++;
     			}
     		}

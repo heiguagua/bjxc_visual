@@ -30,4 +30,6 @@ public interface DirDatasetAttachmentMapper extends BaseMapper<DirDatasetAttachm
     int baseUpdate(DirDatasetAttachment entity);
 
     int baseDelete(String id);
+
+    int insertListItem(List<DirDatasetAttachmentVo> voList);
 }

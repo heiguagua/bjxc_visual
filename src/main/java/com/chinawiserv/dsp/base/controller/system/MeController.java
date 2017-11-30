@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.base.controller.system;
 
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.GetFileTypeByHead;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
@@ -22,6 +23,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * 用户中心控制器
@@ -100,6 +104,20 @@ public class MeController extends BaseController {
 			HttpServletRequest request) {
 		if (!file.isEmpty()) {
 			try {
+				int state = 0;
+	            List<String> listType = new ArrayList<>();
+	            String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
+	            listType.add("jpg");listType.add("tif");listType.add("png");listType.add("gif");listType.add("bmp");
+	            for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
+	    			String string = (String) iterator.next();
+	    			if(string.equals(fileType)){
+	    				state++;
+	    			}
+	    		}
+	            if(state!=1){
+	            	return new HandleResult().error("上传类型错误");
+	            }else {
+					
 					//得到当前登陆用户id
 					String id = ShiroUtils.getLoginUserId();
 				    SysUserVo userVo = sysUserService.selectVoById(id);
@@ -120,6 +138,7 @@ public class MeController extends BaseController {
 				    //更新图片
                 	ShiroUtils.setSessionAttribute(SystemConst.ME, userVo);
 				    return new HandleResult().success("上传图片成功");
+	            }
 			} catch (Exception e) {
 				e.printStackTrace();
 				return new HandleResult().error("上传失败");

@@ -3236,7 +3236,7 @@ function initGlobalCustom(tempUrlPrefix) {
                  return {rows: [], total: 0};
                  }*/
             }, options);
-
+            
             if (options.height <= 0) {
                 options.height = 500;
             }

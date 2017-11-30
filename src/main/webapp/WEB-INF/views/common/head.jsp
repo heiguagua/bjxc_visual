@@ -10,11 +10,9 @@
 
 <%
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-    System.out.println(basePath);
     String regionCode = (String)request.getSession().getAttribute("regionCode");
     String context_path=request.getContextPath();
     SysUserVo loginUser = (SysUserVo)request.getSession().getAttribute(SystemConst.ME);
-    System.out.println("loginUser========"+loginUser);
 %>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -85,7 +83,7 @@
 <script src="<%=basePath%>/plugins/jquery.cookie.js"></script>
 
 <!-- bootstrap-table -->
-<script src="<%=basePath%>/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="<%=basePath%>/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="<%=basePath%>/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <!-- layer -->
 <script src="<%=basePath%>/plugins/layer/layer.js"></script>

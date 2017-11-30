@@ -56,17 +56,18 @@ function initTable(){
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
+        escape:true,
         columns: [{
             checkbox: true,
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
         },{
             field: 'deptName',
             title: '信息资源提供方',
             sortable: false,
             width: '15%',
-            formatter:function(value, row, index){
+            formatter:function(value, row, index){            	
                 if(value == undefined){
                     value = "";
                 }
@@ -76,7 +77,7 @@ function initTable(){
             field: 'classifyName',
             title: '目录分类',
             sortable: false,
-            formatter:function(value, row, index){
+            formatter:function(value, row, index){            	
                 if(value == undefined){
                     value = "";
                 }
@@ -128,20 +129,22 @@ function initTable(){
         }, {
             field: 'id',
             title: '操作',
-            width: '120px',
+            width: '170px',
             align: 'center',
             valign: 'middle',
             sortable: false,
             formatter: function(value, row, index) {
-                var editBtn ="";
+            	var editBtn ="";
                 if(row.classifyStatus==0 || row.classifyStatus==2 || row.classifyStatus==4 || row.classifyStatus==6){
                     editBtn = [
-                        "<p><a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                        "<p><a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableUpload(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
+                        "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
                         "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                     ].join('');
                 }else{
                     editBtn = [
-                        "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                        "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
+                        "<a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
                         "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                     ].join('');
                 }
@@ -230,7 +233,15 @@ function addCustom() {
         tip("请先选择目录分类!",parent,null,null);
         return;
     }
+    if(!checkClassifyType()){
+        tip("不能在这个分类下添加资源!!",parent,null,null);
+        return;
+    }
     add('新增信息资源',basePathJS + '/catalog/catalogue/add'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
+}
+
+function catalogueTableUpload(id){
+    show('信息资源附件上传详情',basePathJS + '/catalog/uploadInfo' , id ,"70%",700);
 }
 
 function catalogueTableEdit(id) {

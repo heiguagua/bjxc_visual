@@ -161,7 +161,7 @@
 	                                <label for="functionKeyword" class="control-label col-sm-4 col-xs-4">职能关键字</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="functionKeyword" name="functionKeyword"
-	                                           placeholder="请输入职能关键字">
+	                                           placeholder="请输入职能关键字，并以、分割" data-rule="xxx" data-rule-xxx="[/^[^、][\S\s]*、?[^、]$/, '、分词，且不能用、开始或结尾']">
 	                                </div>
 	                            </div>
                         	</div>

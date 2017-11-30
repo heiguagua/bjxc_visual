@@ -86,7 +86,7 @@
                             <div class="form-group">
                                 <label for="functionKeyword"  >职能关键字</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="functionKeyword" id="functionKeyword" placeholder="请输入职能关键字">
+                                    <input type="text" class="form-control" name="functionKeyword" id="functionKeyword" placeholder="请输入职能关键字，并以、分割" data-rule="xxx" data-rule-xxx="[/^[^、][\S\s]*、?[^、]$/, '、分词，且不能用、开始或结尾']">
                                 </div>
                             </div>
                             <div class="form-group">

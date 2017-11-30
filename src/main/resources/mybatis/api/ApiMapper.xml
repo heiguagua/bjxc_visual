@@ -50,10 +50,13 @@
         AND ddcm.`dataset_id` = t.`id`
         LEFT JOIN dir_dataset_source_info ddsi
         ON ddsi.`dataset_id` = t.`id`
+        LEFT JOIN dir_dataitem ddm
+        ON t.`id` = ddm.`dataset_id`
         WHERE TRUE
         AND t.`delete_flag` = 0
         AND ddcm.`status` = '5'
         AND ddsi.`id` IS NOT NULL
+        AND ddm.`id` IS NOT NULL
         <choose>
             <when test="null != classifyId and '' != classifyId">
                 AND dc.`id` = #{classifyId}

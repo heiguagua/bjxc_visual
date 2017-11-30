@@ -10,6 +10,11 @@
         <id column="id" property="id"/>
         <result column="dataset_id" property="datasetId"/>
         <result column="dataset_file_path" property="datasetFilePath"/>
+        <result column="format" property="format"/>
+        <result column="file_size" property="fileSize"/>
+        <result column="file_name" property="fileName"/>
+        <result column="uploader" property="uploader"/>
+        <result column="upload_time" property="uploadTime"/>
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
@@ -23,6 +28,9 @@
             <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
+            <if test="datasetId != null">
+                t.dataset_id = #{datasetId,jdbcType=VARCHAR}
+            </if>
         </where>
     </sql>
 
@@ -32,7 +40,7 @@
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-    	SELECT t.* FROM dir_dataset_attachment t WHERE t.id = #{id}
+        SELECT t.* FROM dir_dataset_attachment t WHERE t.id = #{id}
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -41,8 +49,16 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetAttachment">
-        insert into dir_dataset_attachment(id,dataset_id,dataset_file_path,) values(
-            #{id},#{datasetId},#{datasetFilePath},        )
+        insert into dir_dataset_attachment(id,dataset_id,dataset_file_path,format,file_size,file_name,uploader,upload_time)
+            values(#{id},#{datasetId},#{datasetFilePath},#{format},#{fileSize},#{fileName},#{uploader},#{uploadTime})
+    </insert>
+
+    <insert id="insertListItem">
+        insert into dir_dataset_attachment(id,dataset_id,dataset_file_path,format,file_size,file_name,uploader,upload_time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.datasetId},#{item.datasetFilePath},#{item.format},#{item.fileSize},#{item.fileName},#{item.uploader},#{item.uploadTime})
+        </foreach>
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetAttachment">
@@ -56,6 +72,21 @@
             </if>
             <if test="datasetFilePath != null">
                 dataset_file_path = #{datasetFilePath},
+            </if>
+            <if test="format != null">
+                format = #{format},
+            </if>
+            <if test="fileSize != null">
+                file_size = #{fileSize},
+            </if>
+            <if test="fileName != null">
+                file_name = #{fileName},
+            </if>
+            <if test="uploader != null">
+                uploader = #{uploader},
+            </if>
+            <if test="uploadTime != null">
+                upload_time = #{uploadTime},
             </if>
         </set>
         where id = #{id}
