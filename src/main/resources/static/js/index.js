@@ -141,6 +141,10 @@ function initBarChart(dataArry,id){
                 valueArray.push(dataValue);
             }
             var option = {
+                title:{
+                    text:'Top10',
+                    x:'center'
+                },
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
@@ -148,10 +152,10 @@ function initBarChart(dataArry,id){
                     }
                 },
                 grid:{
-                    x:'15%',
-                    y:'5%',
+                    x:'30px',
+                    y:'15%',
                     x2:'10%',
-                    y2:'80px'
+                    y2:'60px'
                 },
                 xAxis: {
                     type: 'category',
@@ -200,6 +204,10 @@ function initReverseBarChart(dataArry,id){
                 valueArray.push(dataValue);
             }
             var option = {
+                title:{
+                    text:'Top10',
+                    x:'center'
+                },
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
@@ -207,10 +215,10 @@ function initReverseBarChart(dataArry,id){
                     }
                 },
                 grid:{
-                    x:'20%',
-                    y:'5%',
-                    x2:'10%',
-                    y2:'80px'
+                    x:'30%',
+                    y:'15%',
+                    x2:'3%',
+                    y2:'60px'
                 },
                 axis:{
                     splitLine:{

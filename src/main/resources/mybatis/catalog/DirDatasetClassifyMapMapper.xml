@@ -274,6 +274,22 @@
         )
     </select>
 
+    <select id="selectDatasetNumWithChildClassify" resultType="java.util.HashMap">
+        SELECT t.`classify_name` AS `name`,COUNT(a.tree_code) AS `value`
+        FROM `dir_classify` t
+        LEFT JOIN
+        (SELECT t1.`tree_code` FROM `dir_classify` t1
+        JOIN dir_dataset_classify_map ddcm
+        ON t1.`id` = ddcm.`classify_id`) a
+        ON LOCATE(CONCAT(t.`tree_code`, ';'),a.tree_code) = 1
+        WHERE t.`fid` = (SELECT id FROM dir_classify WHERE classify_type=#{classifyType} AND region_code=#{regionCode})
+        GROUP BY t.`classify_name`
+        ORDER BY `value` DESC
+        <if test="topNum != 0 ">
+            limit 0, #{topNum}
+        </if>
+    </select>
+
     <select id="selectDatasetCountForStatus" resultType="java.util.Map">
         select a.num as unRegisteNum,b.num as unAuditNum,c.num as unReleaseNum,d.num as releasedNum from
         (select count(id) as num from dir_dataset_classify_map where delete_flag=0 and status in('0','2','4','6')

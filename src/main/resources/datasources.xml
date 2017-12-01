@@ -5,18 +5,19 @@
 
 	<datasource name="dataSource_dcm" primary="true" >
 		<url>
-		<![CDATA[jdbc:mysql://192.168.13.72:3306/dsp_dir?useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowMultiQueries=true]]>
+		<![CDATA[jdbc:mysql://192.168.13.229:3306/dsp_dir?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]>
 		</url>
 		<username>root</username>
-		<password>bdgm;2015</password>
-		<initialSize>10</initialSize>
-        <minIdle>10</minIdle>
-        <maxActive>10</maxActive>
-        <testOnBorrow>false</testOnBorrow>
-        <testOnReturn>false</testOnReturn>
-        <minEvictableIdleTimeMillis>1800000</minEvictableIdleTimeMillis>
-        <testWhileIdle>true</testWhileIdle>
-        <filters>stat</filters>
+		<password>root</password>
+		<initialSize>200</initialSize>
+		<minIdle>200</minIdle>
+		<maxActive>200</maxActive>
+		<testOnBorrow>false</testOnBorrow>
+		<testOnReturn>false</testOnReturn>
+		<minEvictableIdleTimeMillis>1800000</minEvictableIdleTimeMillis>
+		<testWhileIdle>true</testWhileIdle>
+		<filters>stat</filters>
 	</datasource>
+	
 
 </datasources>

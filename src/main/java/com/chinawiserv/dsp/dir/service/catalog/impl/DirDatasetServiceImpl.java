@@ -803,8 +803,14 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                             if(!sysDeptVoList.isEmpty()){
                                 dataset.setBelongDeptId(sysDeptVoList.get(0).getId());
                             }
+                            dataset.setBelongDeptName(name);
+                        }else{
+                            regionMap.put("regionDeptName",name);
+                            List<SysRegionDeptVo> sysDeptList = sysRegionDeptMapper.selectVoList(regionMap);
+                            if(!sysDeptList.isEmpty()){
+                                dataset.setBelongDeptType(sysDeptList.get(0).getId());
+                            }
                         }
-                        dataset.setBelongDeptName(name);
                     } catch (Exception e) {
                     }
                     //资源提供方代码
@@ -813,7 +819,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                         String cellText = df.format(row.getCell(4).getNumericCellValue());
                         dataset.setBelongDeptNo(cellText);
                     } catch (Exception e) {
-                        dataset.setBelongDeptNo(null);
+                        try {
+                            row.getCell(4).setCellType(CellType.STRING);
+                            dataset.setBelongDeptNo(row.getCell(4).getStringCellValue());
+                        } catch (Exception e1) {
+                            dataset.setBelongDeptNo(null);
+                        }
                     }
                     //摘要
                     try {
@@ -1450,8 +1461,8 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     }
 
     @Override
-    public Map<String,Integer> getDatasetTopCountForClassify(String regionCode, String classifyType, int topNum){
-        Map<String,Integer> topNResultMap = new HashMap<>();
+    public List<Map<String,Object>> getDatasetTopCountForClassify(String regionCode, String classifyType, int topNum){
+        /*List<Map<String,Object>> topNResultList = new ArrayList<>();
         Map<String,Integer> resultMap = new HashMap<>();
         if(StringUtils.isEmpty(regionCode)){
             return null;
@@ -1471,18 +1482,23 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             List<Map.Entry<String, Integer>> entryList = new ArrayList<>(resultMap.entrySet());
             Collections.sort(entryList, new Comparator<Map.Entry<String, Integer>>() {
                 public int compare(Map.Entry<String, Integer> o1,Map.Entry<String, Integer> o2) {
-                    return ( o1.getValue()-o2.getValue());
+                    return ( o2.getValue()-o1.getValue());
                 }
             });
             if(entryList.size()<topNum){
                 topNum = entryList.size();
             }
+            //包装成echarts接收的数据格式
             for(int i=0;i<topNum;i++){
                 Map.Entry<String, Integer> entry = entryList.get(i);
-                topNResultMap.put(entry.getKey(),entry.getValue());
+                Map<String,Object> dataMap = new HashMap<>();
+                dataMap.put("name",entry.getKey());
+                dataMap.put("value",entry.getValue());
+                topNResultList.add(dataMap);
             }
         }
-        return topNResultMap;
+        return topNResultList;*/
+        return dirDatasetClassifyMapMapper.selectDatasetNumWithChildClassify(regionCode,classifyType, topNum);
     }
 
     @Override

@@ -547,7 +547,7 @@ public class DirDatasetController extends BaseController {
             DrapDataset drapdataset = service.getDrapDatasetDetail(id);
             DirDatasetSurvey survey = service.selectDrapSurveyByDatasetId(id);
             result.put("result",drapdataset);
-            result.put("survey",survey);
+            result.put("survey", survey);
         }
         return result;
     }
@@ -611,7 +611,7 @@ public class DirDatasetController extends BaseController {
         ModelAndView modelAndView = new ModelAndView();
         if(!StringUtils.isEmpty(classifyId)){
             DirClassifyVo dirClassifyVo = classifyService.selectVoById(classifyId);
-            modelAndView.addObject("vo",dirClassifyVo);
+            modelAndView.addObject("vo", dirClassifyVo);
         }
         modelAndView.setViewName("catalog/catalogue/quickDcmNosqlAddDatasetUI");
         return modelAndView;
@@ -1236,17 +1236,9 @@ public class DirDatasetController extends BaseController {
     public  HandleResult basicTopCount(){
         HandleResult handleResult = new HandleResult();
         try {
-            Map<String,Integer> topCount = service.getDatasetCountForClassify(ShiroUtils.getLoginUser().getRegionCode(), DirConst.BASICS_CLASSIFY_TYPE);
-            //包装成echarts接收的数据格式
-            List<Map<String,Object>> dataMapList = new ArrayList<>();
-            Set<Map.Entry<String,Integer>> entrySet = topCount.entrySet();
-            for(Map.Entry<String,Integer> entry : entrySet){
-                Map<String,Object> dataMap = new HashMap<>();
-                dataMap.put("name",entry.getKey());
-                dataMap.put("value",entry.getValue());
-                dataMapList.add(dataMap);
-            }
-            handleResult.put("top", dataMapList);
+            List<Map<String,Object>> topCountList = service.getDatasetTopCountForClassify(
+                    ShiroUtils.getLoginUser().getRegionCode(), DirConst.BASICS_CLASSIFY_TYPE, 0);
+            handleResult.put("top", topCountList);
         } catch (Exception e) {
             handleResult.error("获取政务基础二级节点信息资源数量明细失败");
             logger.error("获取政务基础二级节点信息资源数量明细失败", e);
@@ -1263,7 +1255,7 @@ public class DirDatasetController extends BaseController {
         HandleResult handleResult = new HandleResult();
         try {
             int count = service.getDatasetTotalCountForClassify(
-                    ShiroUtils.getLoginUser().getRegionCode(),DirConst.THEME_CLASSIFY_TYPE);
+                    ShiroUtils.getLoginUser().getRegionCode(), DirConst.THEME_CLASSIFY_TYPE);
             handleResult.put("total", count);
         } catch (Exception e) {
             handleResult.error("获取政务主题信息资源总数失败");
@@ -1280,18 +1272,9 @@ public class DirDatasetController extends BaseController {
     public  HandleResult themeTopCount(){
         HandleResult handleResult = new HandleResult();
         try {
-            Map<String,Integer> topCount = service.getDatasetTopCountForClassify(
-                    ShiroUtils.getLoginUser().getRegionCode(), DirConst.THEME_CLASSIFY_TYPE,10);
-            //包装成echarts接收的数据格式
-            List<Map<String,Object>> dataMapList = new ArrayList<>();
-            Set<Map.Entry<String,Integer>> entrySet = topCount.entrySet();
-            for(Map.Entry<String,Integer> entry : entrySet){
-                Map<String,Object> dataMap = new HashMap<>();
-                dataMap.put("name",entry.getKey());
-                dataMap.put("value",entry.getValue());
-                dataMapList.add(dataMap);
-            }
-            handleResult.put("top", dataMapList);
+            List<Map<String,Object>> topCountList = service.getDatasetTopCountForClassify(
+                    ShiroUtils.getLoginUser().getRegionCode(), DirConst.THEME_CLASSIFY_TYPE, 10);
+            handleResult.put("top", topCountList);
         } catch (Exception e) {
             handleResult.error("获取政务主题二级节点信息资源数量明细失败");
             logger.error("获取政务主题二级节点信息资源数量明细失败", e);
@@ -1325,18 +1308,9 @@ public class DirDatasetController extends BaseController {
     public  HandleResult deptTopCount(){
         HandleResult handleResult = new HandleResult();
         try {
-            Map<String,Integer> topCount = service.getDatasetTopCountForClassify(
-                    ShiroUtils.getLoginUser().getRegionCode(), DirConst.DEPT_CLASSIFY_TYPE,10);
-            //包装成echarts接收的数据格式
-            List<Map<String,Object>> dataMapList = new ArrayList<>();
-            Set<Map.Entry<String,Integer>> entrySet = topCount.entrySet();
-            for(Map.Entry<String,Integer> entry : entrySet){
-                Map<String,Object> dataMap = new HashMap<>();
-                dataMap.put("name",entry.getKey());
-                dataMap.put("value",entry.getValue());
-                dataMapList.add(dataMap);
-            }
-            handleResult.put("top", dataMapList);
+            List<Map<String,Object>> topCountList = service.getDatasetTopCountForClassify(
+                    ShiroUtils.getLoginUser().getRegionCode(), DirConst.DEPT_CLASSIFY_CITY_TYPE, 10);
+            handleResult.put("top", topCountList);
         } catch (Exception e) {
             handleResult.error("获取部门政务二级节点信息资源数量明细失败");
             logger.error("获取部门政务二级节点信息资源数量明细失败", e);
