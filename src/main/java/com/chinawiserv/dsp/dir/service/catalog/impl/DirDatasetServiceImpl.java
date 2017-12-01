@@ -803,8 +803,14 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                             if(!sysDeptVoList.isEmpty()){
                                 dataset.setBelongDeptId(sysDeptVoList.get(0).getId());
                             }
+                            dataset.setBelongDeptName(name);
+                        }else{
+                            regionMap.put("regionDeptName",name);
+                            List<SysRegionDeptVo> sysDeptList = sysRegionDeptMapper.selectVoList(regionMap);
+                            if(!sysDeptList.isEmpty()){
+                                dataset.setBelongDeptType(sysDeptList.get(0).getId());
+                            }
                         }
-                        dataset.setBelongDeptName(name);
                     } catch (Exception e) {
                     }
                     //资源提供方代码
@@ -813,7 +819,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                         String cellText = df.format(row.getCell(4).getNumericCellValue());
                         dataset.setBelongDeptNo(cellText);
                     } catch (Exception e) {
-                        dataset.setBelongDeptNo(null);
+                        try {
+                            row.getCell(4).setCellType(CellType.STRING);
+                            dataset.setBelongDeptNo(row.getCell(4).getStringCellValue());
+                        } catch (Exception e1) {
+                            dataset.setBelongDeptNo(null);
+                        }
                     }
                     //摘要
                     try {
