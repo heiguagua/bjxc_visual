@@ -110,21 +110,29 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 		try{
 			
 		
-		int state = 0;
-		String fileName = file.getOriginalFilename();
-        String picName =((new Date()).getTime())+fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
-        List<String> listType = new ArrayList<>();
-        String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
-        listType.add("jpg");listType.add("tif");listType.add("png");listType.add("gif");listType.add("bmp");
-        for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
-			String string = (String) iterator.next();
-			if(string.equals(fileType)){
-				state++;
+			int state = 0;
+			String fileName = file.getOriginalFilename();
+	        String picName =((new Date()).getTime())+fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
+	        List<String> listType = new ArrayList<>();
+	        List<String> listTypeSub = new ArrayList<>();
+	        String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
+	        listTypeSub.add("jpg");listTypeSub.add("jpeg");listTypeSub.add("png");listTypeSub.add("gif");
+	        listType.add("jpg");listType.add("png");listType.add("gif");
+	        for (Iterator iterator = listTypeSub.iterator(); iterator.hasNext();) {
+				String string = (String) iterator.next();
+				if(string.equals(picName.substring(picName.indexOf(".")+1))){
+					state++;
+				}
 			}
-		}
-        if(state!=1){
-        	return "type";
-        }
+	        for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
+				String string = (String) iterator.next();
+				if(string.equals(fileType)){
+					state++;
+				}
+			}
+	        if(state!=2){
+	        	return "type";
+	        }
         
         
         String picSize = String.valueOf(file.getSize());
@@ -268,15 +276,23 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
         if(file!= null && !StringUtils.isEmpty(fileName)){
         	int state = 0;
             List<String> listType = new ArrayList<>();
+            List<String> listTypeSub = new ArrayList<>();
             String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
-            listType.add("jpg");listType.add("tif");listType.add("png");listType.add("gif");listType.add("bmp");
+            listTypeSub.add("jpg");listTypeSub.add("jpeg");listTypeSub.add("png");listTypeSub.add("gif");
+            listType.add("jpg");listType.add("png");listType.add("gif");
+            for (Iterator iterator = listTypeSub.iterator(); iterator.hasNext();) {
+    			String string = (String) iterator.next();
+    			if(string.equals(picName.substring(picName.indexOf(".")+1))){
+    				state++;
+    			}
+    		}
             for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
     			String string = (String) iterator.next();
     			if(string.equals(fileType)){
     				state++;
     			}
     		}
-            if(state!=1){
+            if(state!=2){
             	return "type";
             }
         	String exsitPicName = dirNewsVo.getPicName();
