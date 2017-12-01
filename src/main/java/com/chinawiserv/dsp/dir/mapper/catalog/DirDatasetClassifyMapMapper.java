@@ -48,5 +48,8 @@ public interface DirDatasetClassifyMapMapper extends BaseMapper<DirDatasetClassi
 
     int selectDatasetCountForClassify(String treeCode);
 
+    List<Map<String,Object>> selectDatasetNumWithChildClassify(@Param("regionCode") String regionCode,
+                              @Param("classifyType")String classifyType, @Param("topNum")int topNum);
+
     Map<String, Integer> selectDatasetCountForStatus(String regionCode);
 }

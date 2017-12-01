@@ -13,5 +13,6 @@ public final class DirConst {
     public static final String BASICS_CLASSIFY_TYPE = "2-1";
     public static final String THEME_CLASSIFY_TYPE = "2-2";
     public static final String DEPT_CLASSIFY_TYPE = "2-3";
+    public static final String DEPT_CLASSIFY_CITY_TYPE = "3";
 
 }
