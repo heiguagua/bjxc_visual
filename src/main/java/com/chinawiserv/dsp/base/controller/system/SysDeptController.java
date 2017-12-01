@@ -12,6 +12,7 @@ import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
+import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -48,6 +49,9 @@ public class SysDeptController extends BaseController {
 
     @Autowired
     private ISysUserService sysUserService;
+
+    @Autowired
+    private ISysRegionService sysRegionService;
 
 
     @RequiresPermissions("system:dept:list")
@@ -406,8 +410,14 @@ public class SysDeptController extends BaseController {
     }
 
     private SysDeptVo DeptVoList(int roleType){
+        Map paramMap = new HashMap<>();
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!org.springframework.util.StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
+        }
         if(roleType==-1){//超级管理员
-            List<SysDeptVo> sysDepts = sysDeptService.selectDeptListLikeTreeCode(null);
+            List<SysDeptVo> sysDepts = sysDeptService.selectDeptListLikeTreeCode(paramMap);
             SysDeptVo sysDeptVo = treeMenuList(sysDepts, "root", new SysDeptVo());
             return sysDeptVo;
         }else if(roleType==0){//区域管理员
@@ -425,7 +435,8 @@ public class SysDeptController extends BaseController {
             if(b){
                 treeCodes.add(treeCode);
             }
-            List<SysDeptVo> sysDepts = sysDeptService.selectDeptListLikeTreeCode(treeCodes);
+            paramMap.put("treeCodes",treeCodes);
+            List<SysDeptVo> sysDepts = sysDeptService.selectDeptListLikeTreeCode(paramMap);
             SysDeptVo sysDeptVo = new SysDeptVo();
             buildSysDeptVo(sysDepts,sysDeptVo);
             return sysDeptVo;

@@ -47,7 +47,7 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
     
 //    String insertIntoDir(Map<String, Object> paramMap);
 
-    List<SysDeptVo> selectDeptListLikeTreeCode(List<String> list);
+    List<SysDeptVo> selectDeptListLikeTreeCode(Map<String, Object> params);
 
     List<String> selectDeptByPrivilege(String user_id);
     //检查是否有关联数据，有则不可删除。不可删返回id，可删返回null

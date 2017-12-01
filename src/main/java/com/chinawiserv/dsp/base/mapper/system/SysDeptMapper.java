@@ -39,7 +39,7 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     boolean isParentDept(String id);
 
-    List<SysDeptVo> selectDeptListLikeTreeCode(@Param("list")List<String> list);
+    List<SysDeptVo> selectDeptListLikeTreeCode(Map<String, Object> paramMap);
 
     List<String> selectDeptByPrivilege(@Param("user_id") String user_id);
 
