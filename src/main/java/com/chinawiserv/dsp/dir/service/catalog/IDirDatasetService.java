@@ -72,7 +72,7 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
 
     Map<String,Integer> getDatasetCountForClassify(String regionCode, String classifyType);
 
-    Map<String,Integer> getDatasetTopCountForClassify(String regionCode, String classifyType, int topNum);
+    List<Map<String,Object>> getDatasetTopCountForClassify(String regionCode, String classifyType, int topNum);
 
     int getDatasetTotalCount(String regionCode);
 
