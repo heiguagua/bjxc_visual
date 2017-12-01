@@ -42,12 +42,12 @@
                                 </div>
                                 </c:if>
                                 <c:if test="${!master}">
-                                <div class="input-group">
-                                    <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:synRemoteData()" id="synRemoteDataId">
-                                        <img src="<%=basePath%>/images/userImg/changeAdress.png"/>
-                                        获取用户信息
-                                    </a>
-                                </div>
+                                <%--<div class="input-group">--%>
+                                    <%--<a class="btn btn-primary btn-flat btn-myself" onclick="javascript:synRemoteData()" id="synRemoteDataId">--%>
+                                        <%--<img src="<%=basePath%>/images/userImg/changeAdress.png"/>--%>
+                                        <%--获取用户信息--%>
+                                    <%--</a>--%>
+                                <%--</div>--%>
                                 </c:if>
                                 <div class="input-group">
                                     <input id="regionNameId" type="text" name="regionName" class="form-control" placeholder="区域">
