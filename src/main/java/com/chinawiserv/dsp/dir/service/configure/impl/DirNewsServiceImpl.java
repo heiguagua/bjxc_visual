@@ -8,6 +8,7 @@ import com.chinawiserv.dsp.dir.mapper.configure.DirNewsMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirNewsService;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.FTPUtil;
+import com.chinawiserv.dsp.base.common.util.GetFileTypeByHead;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 
@@ -113,10 +114,11 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
 		String fileName = file.getOriginalFilename();
         String picName =((new Date()).getTime())+fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
         List<String> listType = new ArrayList<>();
-        listType.add("jpg");listType.add("peg");listType.add("png");listType.add("gif");
+        String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
+        listType.add("jpg");listType.add("tif");listType.add("png");listType.add("gif");listType.add("bmp");
         for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
 			String string = (String) iterator.next();
-			if(string.equals(picName.substring(picName.length()-3))){
+			if(string.equals(fileType)){
 				state++;
 			}
 		}
@@ -266,10 +268,11 @@ public class DirNewsServiceImpl extends CommonServiceImpl<DirNewsMapper, DirNews
         if(file!= null && !StringUtils.isEmpty(fileName)){
         	int state = 0;
             List<String> listType = new ArrayList<>();
-            listType.add("jpg");listType.add("peg");listType.add("png");listType.add("gif");
+            String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
+            listType.add("jpg");listType.add("tif");listType.add("png");listType.add("gif");listType.add("bmp");
             for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
     			String string = (String) iterator.next();
-    			if(string.equals(picName.substring(picName.length()-3))){
+    			if(string.equals(fileType)){
     				state++;
     			}
     		}

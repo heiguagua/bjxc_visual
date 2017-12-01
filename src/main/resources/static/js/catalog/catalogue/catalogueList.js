@@ -56,11 +56,12 @@ function initTable(){
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
+        escape:true,
         columns: [{
             checkbox: true,
             align: 'center',
             valign: 'middle',
-            sortable: false
+            sortable: false,
         },{
             field: 'deptName',
             title: '信息资源提供方',

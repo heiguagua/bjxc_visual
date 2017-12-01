@@ -213,9 +213,12 @@
 
 	<select id="selectDeptListLikeTreeCode" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
 		SELECT * FROM sys_dept WHERE TRUE
-		<if test="list != null ">
+		<if test="allRegionCode != null ">
+			AND region_code IN (${allRegionCode})
+		</if>
+		<if test="treeCodes != null ">
 		  AND (
-			<foreach collection="list" item="item" separator=" OR ">
+			<foreach collection="treeCodes" item="item" separator=" OR ">
 				(tree_code = #{item} OR tree_code LIKE CONCAT(#{item},';%'))
 			</foreach>
 			  )

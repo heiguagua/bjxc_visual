@@ -3201,7 +3201,6 @@ function initGlobalCustom(tempUrlPrefix) {
                 sidePagination: 'server',
                 queryParamsType: '',
                 method: 'post',
-                escape:true,
                 url: '',
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded",
@@ -3237,7 +3236,7 @@ function initGlobalCustom(tempUrlPrefix) {
                  return {rows: [], total: 0};
                  }*/
             }, options);
-
+            
             if (options.height <= 0) {
                 options.height = 500;
             }

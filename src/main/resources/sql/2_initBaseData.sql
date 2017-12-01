@@ -4138,17 +4138,31 @@ INSERT INTO sys_dept_category_template (ID,category_code,category_name,fullname_
 INSERT INTO sys_dept_category_template (ID,category_code,category_name,fullname_template,shortname_template,apply_min_level,apply_max_level) VALUES('3a75d344-50d3-11e7-889e-00ffffff0000','F','检察院','XX人民检察院','XX人民检察院',5,2);
 
 
- -- 导入基础顶级部门表  select id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code from sys_dept order by region_code,tree_code ;
-  delete from sys_dept;
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('97022130-50d4-11e7-889e-00ffffff0000','510000','A','510000_A','中国共产党四川省委员会','四川省党委','root','root','中国共产党四川省委员会',1,'',NULL,0,0,'');
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('970a20ca-50d4-11e7-889e-00ffffff0000','510000','B','510000_B','四川省人民代表大会常务委员会','四川省人大','root','root','四川省人民代表大会常务委员会',1,'',NULL,0,0,'');
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('9723a489-50d4-11e7-889e-00ffffff0000','510000','C','510000_C','四川省人民政府','四川省政府','root','root','四川省人民政府',1,'',NULL,0,0,'');
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('9734d2a6-50d4-11e7-889e-00ffffff0000','510000','D','510000_D','中国人民政治协商会议四川省委员会','四川省政协','root','root','中国人民政治协商会议四川省委员会',1,'',NULL,0,0,'');
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('9743a732-50d4-11e7-889e-00ffffff0000','510000','E','510000_E','四川省高级人民法院','四川省高级人民法院','root','root','四川省高级人民法院',1,'',NULL,0,0,'');
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('975381af-50d4-11e7-889e-00ffffff0000','510000','F','510000_F','四川省人民检察院','四川省人民检察院','root','root','四川省人民检察院',1,'',NULL,0,0,'');
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('975cefc6-50d4-11e7-889e-00ffffff0000','510100','A','510100_A','中国共产党成都市委员会','成都市党委','root','root','中国共产党成都市委员会',1,'',NULL,0,0,'1');
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('9769f6a7-50d4-11e7-889e-00ffffff0000','510100','B','510100_B','成都市人民代表大会常务委员会','成都市人大','root','root','成都市人民代表大会常务委员会',1,'',NULL,0,0,'2');
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('9772e229-50d4-11e7-889e-00ffffff0000','510100','C','510100_C','成都市人民政府','成都市政府','root','root','成都市人民政府',1,'',NULL,0,71,'3');
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('9781accd-50d4-11e7-889e-00ffffff0000','510100','D','510100_D','中国人民政治协商会议成都市委员会','成都市政协','root','root','中国人民政治协商会议成都市委员会',1,'',NULL,0,0,'4');
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('97891bbf-50d4-11e7-889e-00ffffff0000','510100','E','510100_E','成都市高级人民法院','成都市中级人民法院','root','root','成都市高级人民法院',1,'',NULL,0,0,'5');
-insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,dept_level,dept_function,order_number,delete_flag,tree_index,tree_code) values ('9799c9fd-50d4-11e7-889e-00ffffff0000','510100','F','510100_F','成都市人民检察院','成都市人民检察院','root','root','成都市人民检察院',1,'',NULL,0,0,'6');
+DELIMITER $$
+/*
+ 创建初始化地区顶级部门的存储过程
+*/
+drop PROCEDURE  IF EXISTS  initLocalRootSysDept$$
+CREATE PROCEDURE `initLocalRootSysDept`(in regionCode varchar(12))
+begin
+	DECLARE _id varchar(36);
+	DECLARE _classify_code varchar(256);
+
+	delete from sys_dept where region_code = regionCode;
+	insert into sys_dept (id,region_code,dept_type,dept_code,dept_name,dept_short_name,fid,fname,dept_structure_name,
+			dept_level,dept_function,order_number,delete_flag,tree_index,tree_code)
+	select UUID(),regionCode,category_code,CONCAT(regionCode,'_',category_code) as dept_code,
+				REPLACE(fullname_template,'XX',(select region_name from sys_region where region_code = regionCode)) as dept_name,
+				REPLACE(shortname_template,'XX',(select region_name from sys_region where region_code = regionCode)) as dept_short_name,
+				'root','root',
+				REPLACE(fullname_template,'XX',(select region_name from sys_region where region_code = regionCode)) as dept_structure_name,
+				'1' as dept_level,'' as dept_function,ASCII(category_code) - 64 as order_number,0,0,ASCII(category_code) - 64 as tree_code
+	from sys_dept_category_template;
+END$$
+
+DELIMITER ;
+
+
+-- update sys_dept set tree_code = concat(tree_code,';')
+-- -- select * from sys_dept
+-- where tree_code is not null and tree_code <> '' and right(tree_code,1) <> ';';

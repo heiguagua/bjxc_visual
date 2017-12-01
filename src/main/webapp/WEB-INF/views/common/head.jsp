@@ -83,7 +83,7 @@
 <script src="<%=basePath%>/plugins/jquery.cookie.js"></script>
 
 <!-- bootstrap-table -->
-<script src="<%=basePath%>/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="<%=basePath%>/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="<%=basePath%>/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <!-- layer -->
 <script src="<%=basePath%>/plugins/layer/layer.js"></script>
