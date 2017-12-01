@@ -16,9 +16,10 @@
                         <input type="hidden" id="id" name="id" value="${id}">
                         <div id="newUploadDiv">
                             <input type="file" name="file">
+                            <input type="button" id="upload_btn" value="上传" >
                         </div>
-                        <input type="button" id="upload_add_btn" value="增加一行" >
-                        <input type="button" id="upload_btn" value="上传" >
+                        <%--<input type="button" id="upload_add_btn" value="增加一行" >--%>
+
                     </form>
                 </div>
             </div>

@@ -54,11 +54,11 @@ function initTable(){
 
 var i =1;
 function initButtonClickEvent(){
-    //点击查询按钮
-    $('#upload_add_btn').click(function () {
+    //点击增加一行按钮
+    /*$('#upload_add_btn').click(function () {
         $("#newUploadDiv").append('<div id="div_'+i+'"><input  name="file'+i+'" type="file"  /><input type="button" value="删除"  onclick="delUploadInput('+i+')"/></div>');
         i = i + 1;
-    });
+    });*/
     //点击上传按钮
     $('#upload_btn').click(function () {
         var formData = new FormData(document.getElementById("upload_form"));
