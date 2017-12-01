@@ -263,7 +263,7 @@
                 title: '最后评分日期',
                 formatter:function (value) {
                     if(value.length>10){
-                        return value.substring(1,10);
+                        return value.substring(0,10);
                     }
                 }
             },
@@ -353,7 +353,7 @@
                     width: '15%',
                     formatter:function (value) {
                         if(value.length>10){
-                            return value.substring(1,10);
+                            return value.substring(0,10);
                         }
                     }
                 }
