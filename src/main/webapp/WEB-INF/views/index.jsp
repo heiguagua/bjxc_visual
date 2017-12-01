@@ -74,7 +74,7 @@
 
                 <div class="col-lg-4 col-xs-6" style="padding-right:0">
                 		<div class="clear headtitle">
-	                    		<span class="pull-left">信息资源统计</span>
+	                    		<span class="pull-left">信息资源状态</span>
 	                    </div>
                     <!-- small box -->
                     <div class="small-box bg-white">
