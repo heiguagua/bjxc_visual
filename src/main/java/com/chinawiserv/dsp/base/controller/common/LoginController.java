@@ -6,6 +6,7 @@ import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.vo.system.SysSettingVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.entity.vo.system.TreeMenu;
 import com.chinawiserv.dsp.base.service.system.*;
@@ -77,14 +78,14 @@ public class LoginController extends BaseController {
              return redirectTo(index);
          }
          model.addAttribute("return_url", StringUtils.isNotBlank(return_url) ? URLDecoder.decode(return_url, "UTF-8") : index);
-         EntityWrapper<SysSetting> wrapper = new EntityWrapper<>();
-         wrapper.setEntity(new SysSetting());
+//         EntityWrapper<SysSetting> wrapper = new EntityWrapper<>();
+//         wrapper.setEntity(new SysSetting());
         // wrapper.where("setting_code={0} or setting_code={1} or setting_code={2}", "systemName", "systemShortName", "systemSubName","projectPortalName");
-         List<SysSetting> sysSettingList = sysSettingService.selectList(wrapper);
-         Map<String, String> sysNameMap = new HashMap<>();
-         for(SysSetting sysSetting : sysSettingList){
-             sysNameMap.put(sysSetting.getSettingCode(), sysSetting.getSettingValue());
-         }
+//         List<SysSetting> sysSettingList = sysSettingService.selectList(wrapper);
+//         Map<String, String> sysNameMap = new HashMap<>();
+//         for(SysSetting sysSetting : sysSettingList){
+//             sysNameMap.put(sysSetting.getSettingCode(), sysSetting.getSettingValue());
+//         }
          //组装系统名称
 //         String loginViewName = sysNameMap.get("systemName");
 //         String indexLogoName = sysNameMap.get("systemName");
@@ -97,11 +98,14 @@ public class LoginController extends BaseController {
 //         model.addAttribute("systemShortName", sysNameMap.get("systemShortName"));
 //         model.addAttribute("loginViewName", sysNameMap.get("projectPortalName"));
 //         model.addAttribute("indexLogoName", sysNameMap.get("systemName") + "-" + sysNameMap.get("systemSubName"));
-        ShiroUtils.setSessionAttribute("systemShowName", sysNameMap.get("systemShowName"));
+        String code="systemShowName";
+        ShiroUtils.setSessionAttribute(code, sysSettingService.findValueByCode(code));
 //        model.addAttribute("systemShowName", sysNameMap.get("systemShowName"));
-        model.addAttribute("systemName", sysNameMap.get("systemName"));
-        model.addAttribute("systemSubName", sysNameMap.get("systemSubName"));
-        model.addAttribute("systemShortName", sysNameMap.get("systemShortName"));
+
+
+//        model.addAttribute("systemName", sysNameMap.get("systemName"));
+//        model.addAttribute("systemSubName", sysNameMap.get("systemSubName"));
+//        model.addAttribute("systemShortName", sysNameMap.get("systemShortName"));
 
         return "login";
     }
@@ -194,8 +198,8 @@ public class LoginController extends BaseController {
              */
 
             //todo remove
-            List<SysSetting> list = sysSettingService.selectList(null);
-            for (SysSetting setting : list) {
+            List<SysSettingVo> list = sysSettingService.listCodeAndValueByType("1");
+            for (SysSettingVo setting : list) {
                 ShiroUtils.setSessionAttribute(setting.getSettingCode(), setting.getSettingValue());
             }
 //            String systemName = ShiroUtils.getSessionAttribute("systemName") == null ? "" : ShiroUtils.getSessionAttribute("systemName").toString();

@@ -5,6 +5,7 @@ import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
 import com.chinawiserv.dsp.base.entity.vo.system.SysSettingVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,4 +21,6 @@ public interface ISysSettingService extends ICommonService<SysSetting,SysSetting
     public Page<SysSettingVo> selectVoPage(Map<String, Object> paramMap) throws Exception;
 
     String findValueByCode(String code) ;
+
+    List<SysSettingVo> listCodeAndValueByType(String type);
 }
