@@ -782,7 +782,7 @@ public class DirDatasetController extends BaseController {
             logger.debug("realPath:"+realPath);
             File file =util.getExcelDemoFile(realPath);
             String sheetName="Sheet1";
-            wb = util.writeNewExcel(file, sheetName,list);
+            wb = util.writeNewExcel(file, sheetName,list,ShiroUtils.getLoginUser().getRegionCode());
 
             String time = DateTimeUtils.convertDateTime_YYYYMMDDHHMMSS(new Date());
             response.setContentType("application/vnd.ms-excel");

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
 import com.chinawiserv.dsp.dir.entity.po.catalog.ExportDatasetExcel;
@@ -36,7 +37,7 @@ public class ExportExcelUtil {
         return file;
     }
 
-    public  Workbook writeNewExcel(File file,String sheetName,List<ExportDatasetExcel> list) throws Exception{
+    public  Workbook writeNewExcel(File file,String sheetName,List<ExportDatasetExcel> list,String regionCode) throws Exception{
         Workbook wb = null;
         Row row = null;
         Cell cell = null;
@@ -70,10 +71,22 @@ public class ExportExcelUtil {
             cell.setCellValue(info.getDataset_name());
             cell = row.createCell(27);//信息资源代码
             cell.setCellValue(info.getDataset_code());
-            cell = row.createCell(28);//信息资源提供方
-            cell.setCellValue(info.getRegion_dept_name());
-            cell = row.createCell(29);//资源提供方部门
-            cell.setCellValue(info.getBelong_dept_name());
+            if(Objects.equals(regionCode, info.getRegion_code())) {
+                cell = row.createCell(28);//信息资源提供方
+                cell.setCellValue(info.getRegion_dept_name());
+                cell = row.createCell(29);//资源提供方部门
+                cell.setCellValue(info.getBelong_dept_name());
+            }else{
+                cell = row.createCell(28);//信息资源提供方改为数据所属行政区域
+                cell.setCellValue(info.getRegion_name());
+                if(StringUtils.isNotEmpty(info.getRegion_dept_name())){
+                    cell = row.createCell(29);//资源提供方部门值改为资源提供方的值
+                    cell.setCellValue(info.getRegion_dept_name());
+                }else{
+                    cell = row.createCell(29);//资源提供方部门改为上级部门
+                    cell.setCellValue(info.getFname());
+                }
+            }
             cell = row.createCell(30);//资源提供方代码
             cell.setCellValue(info.getBelong_dept_no());
 
