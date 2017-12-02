@@ -167,7 +167,7 @@ function initDept(pid) {
             	if(value == undefined){
                     value = "";
                 }
-            	value = HtmlEncode(value);
+            	
                 return '<p title="'+value+'">'+value+'</p>';
             }
         }, {

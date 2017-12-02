@@ -56,7 +56,7 @@ function initTable(){
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
-        escape:true,
+//        escape:true,
         columns: [{
             checkbox: true,
             align: 'center',
