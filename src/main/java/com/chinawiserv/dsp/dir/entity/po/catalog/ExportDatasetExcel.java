@@ -21,6 +21,9 @@ public class ExportDatasetExcel {
     private String dataset_desc;
     private String region_dept_name;
     private String belong_dept_name;
+    private String region_code;
+    private String region_name;
+    private String fname;
     private String belong_dept_no;
     private String format_category;
     private String format_type;
@@ -241,5 +244,29 @@ public class ExportDatasetExcel {
 
     public void setCreate_time(Date create_time) {
         this.create_time = create_time;
+    }
+
+    public String getRegion_code() {
+        return region_code;
+    }
+
+    public void setRegion_code(String region_code) {
+        this.region_code = region_code;
+    }
+
+    public String getRegion_name() {
+        return region_name;
+    }
+
+    public void setRegion_name(String region_name) {
+        this.region_name = region_name;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
     }
 }
