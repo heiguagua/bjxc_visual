@@ -59,4 +59,9 @@
 		LEFT JOIN sys_user s1 ON s1.id = t.create_user_id LEFT JOIN sys_user s2 ON s2.id = t.update_user_id
 		WHERE t.delete_flag = '0' AND t.setting_code = #{settingCode,jdbcType=VARCHAR}
 	</select>
+
+	<select id="listCodeAndValueByType" parameterType="java.lang.String" resultMap="BaseResultMapVo">
+		SELECT id,setting_code,setting_value FROM  sys_setting WHERE  setting_type=#{type}
+	</select>
+
 </mapper>

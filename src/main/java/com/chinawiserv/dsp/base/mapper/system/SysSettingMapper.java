@@ -23,4 +23,6 @@ public interface SysSettingMapper extends BaseMapper<SysSetting> {
     public int selectVoCount(Map<String, Object> paramMap);
 
     public SysSettingVo selectVoByCode(String settingCode);
+
+    List<SysSettingVo> listCodeAndValueByType(String type);
 }
