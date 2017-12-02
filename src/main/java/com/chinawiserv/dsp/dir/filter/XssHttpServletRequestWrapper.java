@@ -71,10 +71,10 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
                 sb.append('＜');// 全角小于号
                 break;
             case '\'':
-                sb.append('‘');// 全角单引号
+                sb.append('\'');// 全角单引号
                 break;
             case '\"':
-                sb.append('“');// 全角双引号
+                sb.append('\"');// 全角双引号
                 break;
             case '&':
                 sb.append('＆');// 全角
