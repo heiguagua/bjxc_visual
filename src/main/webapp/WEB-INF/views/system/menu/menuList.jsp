@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=basePath%>/js/system/menu/menuList.js"></script>
-
+	<script src="<%=basePath%>/js/system/Encode/Encode.js"></script>
 </head>
 <style type="text/css">
 /*强制解决菜单管理里面 当选择条数大于50条 删除框位置不出来问题  */

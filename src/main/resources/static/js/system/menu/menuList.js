@@ -15,14 +15,21 @@ jQuery(document).ready(function () {
             align: 'left',
             width: '200px',
             valign: 'middle',
-            sortable: false
+            sortable: false            
         },{
             field: 'code',
             title: '编码',
             align: 'left',
             width: '150px',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         },{
             field: 'menuType',
             title: '类型',
@@ -30,7 +37,11 @@ jQuery(document).ready(function () {
             width: '100px',
             valign: 'middle',
             sortable: false,
-            formatter : function (value) {
+            formatter : function (value) {       
+                	if(value == undefined){
+                        value = "";
+                    }
+                	value = HtmlEncode(value);                  
                 var type;
                 if(value == 1){
                     type = "目录";
@@ -47,21 +58,42 @@ jQuery(document).ready(function () {
             align: 'left',
             width: '200px',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'resourceName',
             title: '资源标识',
             align: 'left',
             width: '200px',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'sort',
             title: '排序',
             align: 'left',
             width: '100px',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+            	value = HtmlEncode(value);
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'icon',
             title: '图标',
@@ -70,6 +102,10 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false,
             formatter : function(value){
+                	if(value == undefined){
+                        value = "";
+                    }
+                	value = HtmlEncode(value);                    
                 return '<i class="fa '+value+' "></i>';
             }
         }, {
@@ -81,6 +117,10 @@ jQuery(document).ready(function () {
             sortable: false,
             visible:false,
             formatter : function (value) {
+                	if(value == undefined){
+                        value = "";
+                    }
+                	value = HtmlEncode(value);
                 var statusDesc;
                 if(value == 1){
                     statusDesc = "启用";
@@ -97,6 +137,10 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false ,
             formatter : function (value) {
+                	if(value == undefined){
+                        value = "";
+                    }
+                	value = HtmlEncode(value);
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editMenu(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                 var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteMenu(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
 
