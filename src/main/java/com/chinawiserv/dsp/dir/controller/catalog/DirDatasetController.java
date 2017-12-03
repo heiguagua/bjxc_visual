@@ -789,10 +789,15 @@ public class DirDatasetController extends BaseController {
             File file = ResourceUtils.getFile(excelTemplate);
             String sheetName="Sheet1";
             wb = util.writeNewExcel(file, sheetName,list,ShiroUtils.getLoginUser().getRegionCode());
-
             String time = DateTimeUtils.convertDateTime_YYYYMMDDHHMMSS(new Date());
+            String filename = "政务信息资源-"+time+".xlsx";
+            if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {
+                filename = URLEncoder.encode(filename, "UTF-8");
+            } else {
+                filename = new String(filename.getBytes("UTF-8"), "ISO8859-1");
+            }
             response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode("政务信息资源-"+time+".xlsx", "utf-8"));
+            response.setHeader("Content-disposition", "attachment;filename="+ filename);
             os = response.getOutputStream();
             wb.write(os);
         } catch (IOException e) {
