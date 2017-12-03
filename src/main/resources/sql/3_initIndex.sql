@@ -180,6 +180,8 @@ ALTER TABLE dir_dataset ADD INDEX Index_dirdataset_name_open_share1 (share_type,
 ALTER TABLE dir_dataset ADD INDEX Index_dirdataset_name_open_share2 (is_open, share_type, dataset_name, update_time);
 ALTER TABLE dir_dataset ADD INDEX Index_dirdataset_cdeptId_dname (id, charge_dept_id, dataset_name, share_type, is_open, update_time);
 ALTER TABLE dir_dataset_classify_map ADD unique Index_dirdatasetclassifymap_classifyid_datasetid_status (classify_id, dataset_id, status, id);
+ALTER TABLE dir_dataset_classify_map ADD INDEX Index_dirdatasetclassifymap_datasetid (dataset_id);
+ALTER TABLE dir_dataset_classify_map ADD INDEX Index_dirdatasetclassifymap_classifyid (classify_id);
 ALTER TABLE dir_dataset_classify_map ADD INDEX Index_dirdatasetclassifymap_inforesourcecode (info_resource_code);
 ALTER TABLE dir_dataset_ext_format ADD INDEX Index_dirdatasetextformat_datasetid_formatCategory (dataset_id, format_category);
 ALTER TABLE dir_dataset_service_map ADD INDEX Index_dirdatasetservicemap_serviceid (service_id);
