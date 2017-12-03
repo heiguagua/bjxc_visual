@@ -590,14 +590,6 @@ insert into dir_classify (id,fid,region_code,classify_code,classify_index,classi
 insert into dir_classify (id,fid,region_code,classify_code,classify_index,classify_name,classify_type,classify_level,order_number,icon,classify_structure_name,tree_code,national_code,status) values ('307024003002021003002016','307024003002021003002','513436','307024003002021003002016',16,'美姑县','1','9','16','','政务部门信息资源目录->各区县->美姑县','3;7;24;3;2;21;3;2;16','','Y');
 insert into dir_classify (id,fid,region_code,classify_code,classify_index,classify_name,classify_type,classify_level,order_number,icon,classify_structure_name,tree_code,national_code,status) values ('307024003002021003002017','307024003002021003002','513437','307024003002021003002017',17,'雷波县','1','9','17','','政务部门信息资源目录->各区县->雷波县','3;7;24;3;2;21;3;2;17','','Y');
 
--- update dir_classify set tree_code = concat(tree_code,';')
--- -- select * from dir_classify
--- where tree_code is not null and tree_code <> '' and right(tree_code,1) <> ';';
-
--- -- 去掉tree_code后面的;
--- update dir_classify set tree_code = SUBSTR(tree_code,1,LENGTH(tree_code)-1)
--- -- select tree_code,SUBSTR(tree_code,1,LENGTH(tree_code)-1),t.* from dir_classify t
--- where tree_code is not null and tree_code <> '' and right(tree_code,1) = ';';
 
 -- 生成原国家库的目录分类编码
 delete from dir_national_classify;
