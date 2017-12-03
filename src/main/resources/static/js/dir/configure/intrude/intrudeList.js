@@ -9,6 +9,7 @@ jQuery(document).ready(function () {
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
+        escape:false,
         columns: [
 			{
 			    field: 'content',
