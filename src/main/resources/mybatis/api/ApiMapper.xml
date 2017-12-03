@@ -550,10 +550,10 @@
         AND dis.`delete_flag` = 0
         <choose>
             <when test="null != deptId and '' != deptId">
-               AND dsud.`dept_id` = #{deptId}
+                AND dis.`create_dept` = #{deptId}
             </when>
             <otherwise>
-               AND dsud.`dept_id` IS NULL
+                AND dis.`create_dept` IS NULL
             </otherwise>
         </choose>
     </select>
