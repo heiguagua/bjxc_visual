@@ -3,13 +3,13 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/catalogue/catalogueEdit.js"></script>
+    <script src="/js/catalog/catalogue/catalogueEdit.js"></script>
 </head>
 <body>
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="editForm" action="<%=basePath%>/catalog/doEdit">
+            <form class="form-horizontal" id="editForm" action="/catalog/doEdit">
                 <div class="form-group">
                     <div class="row">
                         <input type="hidden" id="id" name="id" value="${id}">
@@ -308,11 +308,11 @@
                         <p>
                             <button type="button" class="btn btn-default btn-flat pull-right dropdown-toggle btn-myself"
                                     data-toggle="dropdown" id="N_add_itemH">
-                                <img src="<%=basePath%>/images/userImg/addimg.png"/>添加信息项
+                                <img src="/images/userImg/addimg.png"/>添加信息项
                             </button>
                             <button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
                                     data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
-                                <img src="<%=basePath%>/images/userImg/delImg.png"/>删除
+                                <img src="/images/userImg/delImg.png"/>删除
                             </button>
                         </p>
                     </div>

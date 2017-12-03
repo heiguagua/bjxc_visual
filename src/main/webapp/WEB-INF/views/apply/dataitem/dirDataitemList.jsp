@@ -10,9 +10,9 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/plugins/layui/layui.all.js"></script>
-    <script src="<%=basePath%>/js/custom/mock.min.js"></script>
-    <script src="<%=basePath%>/js/system/menu/menuList.js"></script>
+    <script src="/plugins/layui/layui.all.js"></script>
+    <script src="/js/custom/mock.min.js"></script>
+    <script src="/js/system/menu/menuList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

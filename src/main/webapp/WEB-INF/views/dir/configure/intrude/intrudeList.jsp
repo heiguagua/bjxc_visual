@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/dir/configure/intrude/intrudeList.js"></script>
+    <script src="/js/dir/configure/intrude/intrudeList.js"></script>
 
 </head>
 <style type="text/css">
@@ -39,7 +39,7 @@
                                 <div class="input-group">
                                     <a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:addUser()" > 
                                     <!-- <i class="fa fa-plus"></i> -->
-                                    <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                    <img src="/images/userImg/addimg.png"/>
                                     	新增</a>
                                 </div>
                                 <%--</#if>--%>

@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/system/dept/deptAllot.js"></script>
+    <script src="/js/system/dept/deptAllot.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-inline"  role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/system/dept/doAdd">
+                          method="post" action="/system/dept/doAdd">
                         <input type="hidden" id="deptId" value="${id}" name="id"/>
                         <input type="hidden" id="fid" value="${id}" name="fid"/>
                         <input type="hidden" id="regionCode" name="regionCode"/>
@@ -56,7 +56,7 @@
                                 <label for="deptName"  >组织机构名称<i style="color: red">*</i></label>
                                 <div class="form-group">
                                     <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="组织机构名称" disabled> -->
-                                    <input type="text" class="form-control" name="deptName" id="deptName" placeholder="请输入组织机构名称"   data-rule="组织机构名称:required;deptName;remote(<%=basePath%>/system/dept/checkDeptName, fid:#fid)">
+                                    <input type="text" class="form-control" name="deptName" id="deptName" placeholder="请输入组织机构名称"   data-rule="组织机构名称:required;deptName;remote(/system/dept/checkDeptName, fid:#fid)">
                                 </div>
                             </div>
                             <div class="form-group">

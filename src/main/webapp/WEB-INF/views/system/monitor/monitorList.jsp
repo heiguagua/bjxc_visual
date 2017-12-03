@@ -22,7 +22,7 @@
                 <!-- Your Page Content Here -->
                 <div class="row">
                     <div class="col-xs-12" style="height: 800px">
-                        <iframe src="<%=basePath%>/druid/index.html" width="100%" height="100%" frameborder="0"></iframe>
+                        <iframe src="/druid/index.html" width="100%" height="100%" frameborder="0"></iframe>
                     </div>
                 </div>
             </section><!-- /.content -->

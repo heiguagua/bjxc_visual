@@ -30,8 +30,10 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -85,6 +87,9 @@ public class DirDatasetController extends BaseController {
 
     @Autowired
     private IDirClassifyService classifyService;
+
+    @Value("${config.location:classpath:}excelTemplate/excelTemplate.xlsx")
+    private String excelTemplate;
 
     @RequestMapping("/catalogue/excelImportUI")
     public  String excelImportUI(@RequestParam String classifyId, Model model){
@@ -172,7 +177,7 @@ public class DirDatasetController extends BaseController {
     public PageResult registeList(@RequestParam Map<String , Object> paramMap){
         PageResult pageResult = new PageResult();
         try {
-            if(paramMap == null){
+            if (paramMap == null) {
                 paramMap = new HashMap<>();
             }
             paramMap.put("allStatus",new String[]{"0","2","4","6"}); //查询过滤状态为待注册、审核不通过、审核驳回的数据
@@ -776,11 +781,12 @@ public class DirDatasetController extends BaseController {
             }
             List<ExportDatasetExcel> list = service.selectExportLists(tree_codes, dataset_name, region_id);
             ExportExcelUtil util = new ExportExcelUtil();
-            String realPath1 = request.getSession().getServletContext().getRealPath("WEB-INF/classes/excelTemplate/excelTemplate.xlsx");
-            String realPath = this.getClass().getClassLoader().getResource("/excelTemplate/excelTemplate.xlsx").getPath();
-            logger.debug("realPath1:"+realPath1);
-            logger.debug("realPath:"+realPath);
-            File file =util.getExcelDemoFile(realPath);
+//            String realPath1 = request.getSession().getServletContext().getRealPath("WEB-INF/classes/excelTemplate/excelTemplate.xlsx");
+//            String realPath = this.getClass().getClassLoader().getResource("/excelTemplate/excelTemplate.xlsx").getPath();
+//            logger.debug("realPath1:"+realPath1);
+//            logger.debug("realPath:"+realPath);
+//            File file =util.getExcelDemoFile(realPath);
+            File file = ResourceUtils.getFile(excelTemplate);
             String sheetName="Sheet1";
             wb = util.writeNewExcel(file, sheetName,list,ShiroUtils.getLoginUser().getRegionCode());
 

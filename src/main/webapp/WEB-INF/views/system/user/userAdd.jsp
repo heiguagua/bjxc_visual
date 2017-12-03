@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/system/user/userAdd.js"></script>
+    <script src="/js/system/user/userAdd.js"></script>
     <style>
                 .box-body .pdl0{
                     padding-left: 0;
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-horizontal"  role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/system/user/doAdd">
+                          method="post" action="/system/user/doAdd">
                         <div class="box-body box-bodyx" style="padding:0 30px 0 0">
                         	<div class="row">
 								<div class="col-sm-6 col-xs-6">
@@ -43,7 +43,7 @@
 			                            <div class="col-sm-7 col-xs-7">
 			                            <input type="text" id="userName" name="userName" class="form-control"
 			                                   placeholder="请输入用户名" autocomplete="false"
-			                                   data-rule="用户名:username;required;length[3~12];remote(<%=basePath%>/system/user/insertCheckName)">
+			                                   data-rule="用户名:username;required;length[3~12];remote(/system/user/insertCheckName)">
 			                            </div>
 			                        </div>
 								</div>

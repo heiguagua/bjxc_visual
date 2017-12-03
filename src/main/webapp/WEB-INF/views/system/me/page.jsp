@@ -3,8 +3,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <link rel="stylesheet" href="<%=basePath%>/plugins/bootstrap-fileinput/css/fileinput.min.css">
-    <script src="<%=basePath%>/js/system/me/changePassword.js"></script>
+    <link rel="stylesheet" href="/plugins/bootstrap-fileinput/css/fileinput.min.css">
+    <script src="/js/system/me/changePassword.js"></script>
     <style>
         .file-drop-zone{
             height:auto;
@@ -38,7 +38,7 @@
                             <div class="tab-pane active" id="tab_1">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <form role="form" id="imgUpload" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/system/me/uploadImage" enctype="multipart/form-data">
+                                        <form role="form" id="imgUpload" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/system/me/uploadImage" enctype="multipart/form-data">
                                             <div class="box-body">
                                                 <div class="form-group">
                                                     <label for="userName">用户名</label>
@@ -67,8 +67,8 @@
     <div class="control-sidebar-bg"></div>
 </div>
 
-<script src="<%=basePath%>/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
-<script src="<%=basePath%>/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
+<script src="/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
 <script>
     //初始化fileinput控件（第一次初始化）
     var fileFlag = false;

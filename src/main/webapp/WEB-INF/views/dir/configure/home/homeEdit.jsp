@@ -3,11 +3,11 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-<%--     <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.all.js"></script>
-    <script type="text/javascript" charset="utf-8" src="<%=basePath%>/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+<%--     <script type="text/javascript" src="/plugins/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/plugins/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
  --%>    
- 	<script src="<%=basePath%>/js/dir/configure/home/homeEdit.js"></script>
+ 	<script src="/js/dir/configure/home/homeEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <section class="content">
@@ -16,7 +16,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" enctype="multipart/form-data" action="<%=basePath%>/dirHome/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" enctype="multipart/form-data" action="/dirHome/doEdit">
                         <input id="homeId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                            <div class="form-group col-md-12">

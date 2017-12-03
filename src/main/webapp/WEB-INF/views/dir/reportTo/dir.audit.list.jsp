@@ -3,9 +3,9 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
-<script src="<%=basePath%>/js/dir/report/upload.dir.js"></script>
+<script src="/js/dir/report/upload.dir.js"></script>
 <script type="text/javascript"
-	src="<%=basePath%>/js/dir/report/upload.dir.sumbform.js"></script>
+	src="/js/dir/report/upload.dir.sumbform.js"></script>
 <style type="text/css">
 .radio {
 	border-style: solid;
@@ -61,7 +61,7 @@
 									<div class="input-group">
 										<a class="btn btn-default btn-flat  btn-myself"
 											onclick="javascript:uploadDir()"> <img
-											src="<%=basePath%>/images/userImg/addimg.png" /> <!-- <i class="fa fa-plus-circle"></i> -->上报
+											src="/images/userImg/addimg.png" /> <!-- <i class="fa fa-plus-circle"></i> -->上报
 										</a>
 									</div>
 									<div class="input-group" style="float: right">

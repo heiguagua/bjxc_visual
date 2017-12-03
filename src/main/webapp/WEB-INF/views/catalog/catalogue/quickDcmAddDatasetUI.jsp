@@ -3,9 +3,9 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/plugins/treeview/bootstrap-treeview.js"></script>
-    <script src="<%=basePath%>/plugins/treeview/data.treeview.js"></script>
-    <script src="<%=basePath%>/js/catalog/catalogue/quickDcmAddDatasetUI.js"></script>
+    <script src="/plugins/treeview/bootstrap-treeview.js"></script>
+    <script src="/plugins/treeview/data.treeview.js"></script>
+    <script src="/js/catalog/catalogue/quickDcmAddDatasetUI.js"></script>
     <style type="text/css">
         .menu-wrap {
             position: relative;
@@ -27,7 +27,7 @@
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
             <form class="form-horizontal" id="addForm" method="post" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" 
-             action="<%=basePath%>/catalog/quickAddDataset">
+             action="/catalog/quickAddDataset">
                 <%-- <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right" data-toggle="modal" data-target="#myModal">
                       配置数据集
                   </button> --%>
@@ -342,7 +342,7 @@
 
                     <button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
                             data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
-                        <img src="<%=basePath%>/images/userImg/delImg.png"/>删除
+                        <img src="/images/userImg/delImg.png"/>删除
                     </button>
                 </div>
                 <div class="form-group " style="overflow-x: auto;min-height:200px;">

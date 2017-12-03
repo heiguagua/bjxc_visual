@@ -3,10 +3,10 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.all.js"></script>
-    <script type="text/javascript" charset="utf-8" src="<%=basePath%>/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
-    <script src="<%=basePath%>/js/dir/configure/news/newsEdit.js"></script>
+    <script type="text/javascript" src="/plugins/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/plugins/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="/js/dir/configure/news/newsEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <section class="content">
@@ -15,7 +15,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-12">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" enctype="multipart/form-data" action="<%=basePath%>/dirNews/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" enctype="multipart/form-data" action="/dirNews/doEdit">
                         <input id="newsId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                            <div class="form-group col-md-12">

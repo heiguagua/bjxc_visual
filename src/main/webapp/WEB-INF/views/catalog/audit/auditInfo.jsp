@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/audit/auditInfo.js"></script>
+    <script src="/js/catalog/audit/auditInfo.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -13,7 +13,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" id="auditForm" method="post" action="<%=basePath%>/catalog/audit/doAudit">
+                    <form role="form" id="auditForm" method="post" action="/catalog/audit/doAudit">
                         <input type="hidden" id="id" name="id" value="${id}"/>
                         <div class="box-body">
                             <div class="form-group">

@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/role/roleList.js"></script>
+    <script src="/js/system/role/roleList.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -35,12 +35,12 @@
                                 <%--<#if permissions?seq_contains('addRole')>--%>
                                 <div class="input-group">
                                     <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:addRole()" >
-                                        <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                        <img src="/images/userImg/addimg.png"/>
                                         创建角色</a>
                                 </div>
                                 <div class="input-group">
                                     <a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchRole()" >
-                                        <img src="<%=basePath%>/images/userImg/delImg.png"/>
+                                        <img src="/images/userImg/delImg.png"/>
                                         批量删除</a>
                                 </div>
                                 <%--</#if>--%>

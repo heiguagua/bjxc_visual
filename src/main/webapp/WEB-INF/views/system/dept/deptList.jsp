@@ -3,8 +3,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/dept/deptList.js"></script>
-    <script src="<%=basePath%>/js/system/Encode/Encode.js"></script>
+    <script src="/js/system/dept/deptList.js"></script>
+    <script src="/js/system/Encode/Encode.js"></script>
 
 </head>
 <style type="text/css">
@@ -37,20 +37,20 @@
                                         <c:if test="${master}">
                                         <div class="input-group">
                                             <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:addDept()" id="createDeptA">
-                                                <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                                <img src="/images/userImg/addimg.png"/>
                                                 创建一级组织机构
                                             </a>
                                         </div>
                                         <div class="input-group">
                                             <a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchDept()" >
-                                                <img src="<%=basePath%>/images/userImg/delImg.png"/>
+                                                <img src="/images/userImg/delImg.png"/>
                                                 批量删除</a>
                                         </div>
                                         </c:if>
                                         <c:if test="${!master}">
                                         <%--<div class="input-group">--%>
                                             <%--<a class="btn btn-primary btn-flat btn-myself" onclick="javascript:synRemoteData()" id="synRemoteDataId">--%>
-                                                <%--<img src="<%=basePath%>/images/userImg/changeAdress.png"/>--%>
+                                                <%--<img src="/images/userImg/changeAdress.png"/>--%>
                                                 <%--获取组织机构--%>
                                             <%--</a>--%>
                                         <%--</div>--%>

@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/catalogue/fileUploadInfo.js"></script>
+    <script src="/js/catalog/catalogue/fileUploadInfo.js"></script>
 </head>
 
 <body>

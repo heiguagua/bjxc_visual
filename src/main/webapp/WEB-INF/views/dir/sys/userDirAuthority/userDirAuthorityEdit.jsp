@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/dir/sys/userDirAuthority/userDirAuthorityEdit.js"></script>
+    <script src="/js/dir/sys/userDirAuthority/userDirAuthorityEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content" style="padding-top:0">
@@ -13,7 +13,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/system/userDirAuthority/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/system/userDirAuthority/doEdit">
                         <input id="authObjId" type="hidden" value="${id}" name="authObjId" />
                         <div class="box-body">
                             <div class="form-group">

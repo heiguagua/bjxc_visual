@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/dir/sys/deptSyn/deptSynList.js"></script>
+    <script src="/js/dir/sys/deptSyn/deptSynList.js"></script>
 
 </head>
 <style type="text/css">
@@ -33,7 +33,7 @@
                                 <div class="box-header">
                                     <div class="input-group">
                                         <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:syncDeptClassify()" id="sysDeptA">
-                                            <img src="<%=basePath%>/images/userImg/changeAdress.png"/>
+                                            <img src="/images/userImg/changeAdress.png"/>
                                             同步目录
                                         </a>
                                     </div>
