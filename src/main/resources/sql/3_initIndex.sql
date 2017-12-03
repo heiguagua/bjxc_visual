@@ -187,11 +187,14 @@ ALTER TABLE dir_dataset_ext_format ADD INDEX Index_dirdatasetextformat_datasetid
 ALTER TABLE dir_dataset_service_map ADD INDEX Index_dirdatasetservicemap_serviceid (service_id);
 ALTER TABLE dir_dataset_service_map ADD INDEX Index_dirdatasetservicemap_objid (obj_id);
 ALTER TABLE dir_dataset_source_info ADD INDEX Index_dirdatasetsourceinfo_datasetid_sourceobjid (dataset_id, source_obj_id);
+ALTER TABLE dir_dataset_source_info ADD INDEX  Index_dirdatasetsourceinfo_datasetid (dataset_id);
+ALTER TABLE dir_dataset_source_info ADD INDEX  Index_dirdatasetsourceinfo_sourceobjid (source_obj_id);
 ALTER TABLE dir_dataset_source_relation ADD INDEX Index_dirdatasetsourcerelation_datasetid (dataset_id);
 ALTER TABLE dir_dataset_source_relation ADD INDEX Index_dirdatasetsourcerelation_sourcetableid (source_table_id);
 ALTER TABLE dir_dataset_source_relation ADD INDEX Index_dirdatasetsourcerelation_sourcecolumnid (source_column_id);
 ALTER TABLE dir_dataset_source_relation ADD INDEX Index_dirdatasetsourcerelation_targettableid (target_table_id);
 ALTER TABLE dir_dataset_source_relation ADD INDEX Index_dirdatasetsourcerelation_targetcolumnid (target_column_id);
+ALTER TABLE dir_news ADD INDEX  Index_dirnews_title (title);
 ALTER TABLE dir_policy ADD INDEX Index_dirpolicy_title (title);
 ALTER TABLE dir_regist_user ADD INDEX Index_dirregistuser_loginname (login_name);
 ALTER TABLE dir_regist_user ADD INDEX Index_dirregistuser_realname (real_name);
@@ -209,6 +212,8 @@ ALTER TABLE drap_business_activity ADD INDEX Index_drapbusinessactivity_name_tar
 ALTER TABLE drap_business_doc ADD INDEX Index_drapbusinessdoc_belongdept (belong_dept);
 ALTER TABLE drap_business_doc ADD INDEX Index_drapbusinessdoc_docname (doc_name);
 ALTER TABLE drap_business_requirement ADD INDEX Index_drapbusinessrequirement_rd_sd_up (requre_dept_id, source_dept_id, create_time, delete_flag);
+ALTER TABLE drap_business_requirement ADD INDEX  Index_drapbusinessrequirement_requredeptid (requre_dept_id);
+ALTER TABLE drap_business_requirement ADD INDEX  Index_drapbusinessrequirement_sourcedeptid (source_dept_id);
 ALTER TABLE drap_data_column_map ADD INDEX Index_drapdatacolumnmap_datasetid (dataset_id);
 ALTER TABLE drap_data_column_map ADD INDEX Index_drapdatacolumnmap_businessitemid (business_item_id);
 ALTER TABLE drap_data_column_map ADD INDEX Index_drapdatacolumnmap_systemcolumnid (system_column_id);
@@ -224,6 +229,8 @@ ALTER TABLE drap_dataset_item ADD INDEX Index_drapdatasetitem_itemname (item_nam
 ALTER TABLE drap_dataset_item_map ADD INDEX Index_drapdatasetitemmap_datasetid (dataset_id);
 ALTER TABLE drap_dataset_item_map ADD INDEX Index_drapdatasetitemmap_itemid (item_id);
 ALTER TABLE drap_dataset_system_map ADD INDEX Index_drapdatasetsystemmap_datasetid_systemid (dataset_id, system_id);
+ALTER TABLE drap_dataset_system_map ADD INDEX  Index_drapdatasetsystemmap_datasetid (dataset_id);
+ALTER TABLE drap_dataset_system_map ADD INDEX  Index_drapdatasetsystemmap_systemid (system_id);
 ALTER TABLE drap_db_info ADD INDEX Index_drapdbinfo_belongdept (belong_dept);
 ALTER TABLE drap_db_info ADD INDEX Index_drapdbinfo_dbname (db_name);
 ALTER TABLE drap_db_info ADD INDEX Index_drapdbinfo_dbcnname (db_cn_name);
