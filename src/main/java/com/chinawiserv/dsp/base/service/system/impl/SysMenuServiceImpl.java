@@ -134,7 +134,7 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
                 sb.append('＃');// 全角井号
                 break;
             case '%':    // < 字符的 URL 编码形式表示的 ASCII 字符（十六进制格式） 是: %3c
-
+                processUrlEncoder(sb, s, i);
                 break;
             default:
                 sb.append(c);
@@ -143,7 +143,27 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
         }
         return sb.toString();
     }
-    
+    public static void processUrlEncoder(StringBuilder sb, String s, int index){
+        if(s.length() >= index + 2){
+            if(s.charAt(index+1) == '3' && (s.charAt(index+2) == 'c' || s.charAt(index+2) == 'C')){    // %3c, %3C
+                sb.append('＜');
+                return;
+            }
+            if(s.charAt(index+1) == '6' && s.charAt(index+2) == '0'){    // %3c (0x3c=60)
+                sb.append('＜');
+                return;
+            }            
+            if(s.charAt(index+1) == '3' && (s.charAt(index+2) == 'e' || s.charAt(index+2) == 'E')){    // %3e, %3E
+                sb.append('＞');
+                return;
+            }
+            if(s.charAt(index+1) == '6' && s.charAt(index+2) == '2'){    // %3e (0x3e=62)
+                sb.append('＞');
+                return;
+            }
+        }
+        sb.append(s.charAt(index));
+    }
     
     
     
