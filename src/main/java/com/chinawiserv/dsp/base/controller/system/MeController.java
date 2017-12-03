@@ -13,8 +13,10 @@ import com.chinawiserv.dsp.base.service.system.ISysLogService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -95,6 +97,9 @@ public class MeController extends BaseController {
 		ShiroUtils.logout();
 		return result.success("密码修改成功，请重新登录！");
     }
+
+	@Value("${config.location:classpath:}static/images/userImg/")
+	String userImgPath;
 	/**
 	 * 执行图片上传
 	 */
@@ -133,11 +138,14 @@ public class MeController extends BaseController {
 					String id = ShiroUtils.getLoginUserId();
 				    SysUserVo userVo = sysUserService.selectVoById(id);
 					// 文件保存路径
-				    String resource = "/images/userImg/";
-				    String filenameOri = file.getOriginalFilename();
-                	filenameOri = userVo.getId()+filenameOri.substring(filenameOri.lastIndexOf("."));
-					String filePath = request.getSession().getServletContext().getRealPath("/") + resource
-						+ filenameOri;
+//				    String resource = "/images/userImg/";
+//				    String filenameOri = file.getOriginalFilename();
+//                	filenameOri = userVo.getId()+filenameOri.substring(filenameOri.lastIndexOf("."));
+//					String filePath = request.getSession().getServletContext().getRealPath("/") + resource
+//						+ filenameOri;
+					String filenameOri = userVo.getId()+".jpg";
+					File userImgPathfile = ResourceUtils.getFile(userImgPath);
+					String filePath =  userImgPathfile.toString().concat("/"+filenameOri) ;
 					//转存文件
 					file.transferTo(new File(filePath));
 					//保存到数据库的文件名
