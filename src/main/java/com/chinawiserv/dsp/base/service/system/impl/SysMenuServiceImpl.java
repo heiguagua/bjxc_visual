@@ -77,9 +77,9 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
         List<SysMenuVo> pageList = sysMenuMapper.select(page, paramMap);
         for(SysMenuVo menu : pageList){
             if(menu.getPid() == null || menu.getMenuType() !=3){
-                menu.setMenuName(StringUtils.join("<i class='fa fa-folder-open'></i> ",menu.getMenuName()));
+                menu.setMenuName(StringUtils.join("<i class='fa fa-folder-open'></i> ",ToName(menu.getMenuName())));
             }else{
-                menu.setMenuName(StringUtils.join("<i class='fa fa-file'></i> ",menu.getMenuName()));
+                menu.setMenuName(StringUtils.join("<i class='fa fa-file'></i> ",ToName(menu.getMenuName())));
             }
             for(int i=1;i<menu.getMenuType();i++){
                 menu.setMenuName(StringUtils.join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",menu.getMenuName()));
@@ -89,6 +89,64 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
         page.setRecords(pageList);
         return page;
     }
+    
+    
+    public String ToName(String name) {
+    	String[] values = name.split("");  
+        if (values==null)  {  
+                    return null;  
+            }  
+        int count = values.length;  
+        String[] encodedValues = new String[count];  
+        for (int i = 0; i < count; i++) {  
+                   encodedValues[i] = xssEncode(values[i]);  
+         }  
+        return StringUtils.join(encodedValues);
+    }
+    
+    private String xssEncode(String s) {
+        if (s == null || s.isEmpty()) {
+            return s;
+        }
+        StringBuilder sb = new StringBuilder(s.length() + 16);
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            switch (c) {
+            case '>':
+                sb.append('＞');// 全角大于号
+                break;
+            case '<':
+                sb.append('＜');// 全角小于号
+                break;
+            case '\'':
+                sb.append('\'');// 全角单引号
+                break;
+            case '\"':
+                sb.append('\"');// 全角双引号
+                break;
+            case '&':
+                sb.append('＆');// 全角
+                break;
+//            case '\\':
+//                sb.append('＼');// 全角斜线
+//                break;
+            case '#':
+                sb.append('＃');// 全角井号
+                break;
+            case '%':    // < 字符的 URL 编码形式表示的 ASCII 字符（十六进制格式） 是: %3c
+
+                break;
+            default:
+                sb.append(c);
+                break;
+            }
+        }
+        return sb.toString();
+    }
+    
+    
+    
+    
 
     @Override
     public SysMenuVo getEditData(String menuId) throws Exception{
