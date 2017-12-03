@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/11/28 17:39:17                            */
+/* Created on:     17/12/3 14:50:32                             */
 /*==============================================================*/
 
 
@@ -572,15 +572,15 @@ create table dir_classify
    dcm_index            int default 0 comment '信息资源索引',
    order_number         int(4) comment '显示顺序',
    icon                 varchar(256) comment '图标',
-   classify_structure_code varchar(1024) comment '分类结构编号（未用）',
-   classify_structure_name varchar(1024) comment '分类结构名称',
+   classify_structure_code varchar(128) comment '分类结构编号（未用）',
+   classify_structure_name varchar(200) comment '分类结构名称',
    status               varchar(36) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
-   tree_code            varchar(1024) comment '树编码',
+   tree_code            varchar(128) comment '树编码',
    national_code        varchar(64) comment '对应国家库分类编码',
    primary key (id)
 );
@@ -1473,7 +1473,7 @@ create table drap_business_activity
    activity_code        varchar(64) comment '业务编码',
    handle_basis         varchar(256) comment '办理依据',
    activity_desc        varchar(1000) comment '业务描述',
-   activity_name        varchar(256) comment '业务名称',
+   activity_name        varchar(200) comment '业务名称',
    extend_code          varchar(64) comment '扩展编码',
    short_name           varchar(64) comment '业务简称',
    fid                  varchar(36) comment '上级业务节点编码',
@@ -2195,8 +2195,8 @@ create table sys_dept
    region_code          varchar(6) comment '所属行政区域',
    dept_type            varchar(36) comment '组织机构类型',
    dept_code            varchar(64) not null comment '组织机构编码',
-   dept_name            varchar(256) not null comment '组织机构名称',
-   dept_short_name      varchar(256) comment '组织机构简称',
+   dept_name            varchar(128) not null comment '组织机构名称',
+   dept_short_name      varchar(128) comment '组织机构简称',
    dept_alias           varchar(64) comment '组织机构别名',
    dept_listing_name    varchar(64) comment '组织机构挂牌名',
    dept_desc            varchar(512) comment '组织机构描述',
@@ -2230,7 +2230,7 @@ create table sys_dept
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    tree_index           int(6) default 0 comment '树索引',
-   tree_code            varchar(1000) comment '树编码',
+   tree_code            varchar(128) comment '树编码',
    primary key (id)
 )
 ENGINE = InnoDB
@@ -2625,7 +2625,7 @@ create table sys_setting
    setting_type         varchar(36) not null comment '配置类型',
    setting_code         varchar(128) not null comment '配置编码',
    setting_name         varchar(128) not null comment '配置名称',
-   setting_value        varchar(512) not null comment '配置值',
+   setting_value        varchar(128) not null comment '配置值',
    setting_desc         varchar(512) comment '配置描述',
    status               int(3) comment '状态',
    create_user_id       varchar(36) comment '创建人',

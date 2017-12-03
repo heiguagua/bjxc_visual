@@ -133,7 +133,7 @@ public class MeController extends BaseController {
 					String id = ShiroUtils.getLoginUserId();
 				    SysUserVo userVo = sysUserService.selectVoById(id);
 					// 文件保存路径
-				    String resource = "/WEB-INF/static/images/userImg/";
+				    String resource = "/images/userImg/";
 				    String filenameOri = file.getOriginalFilename();
                 	filenameOri = userVo.getId()+filenameOri.substring(filenameOri.lastIndexOf("."));
 					String filePath = request.getSession().getServletContext().getRealPath("/") + resource
