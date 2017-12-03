@@ -4,7 +4,7 @@
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
 <script type="text/javascript"
-	src="<%=basePath%>/plugins/uploadFile/ajaxfileupload.js"></script>
+	src="/plugins/uploadFile/ajaxfileupload.js"></script>
 <style type="text/css">
 .n-success {
 	color: #00a65a;

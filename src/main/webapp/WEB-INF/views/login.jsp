@@ -3,7 +3,7 @@
 <html>
 <head>
 	<%@include file="/WEB-INF/views/common/head.jsp" %>
-	<script src="<%=basePath%>/js/login.js"></script>
+	<script src="/js/login.js"></script>
 	<style type="text/css">
 		.has-feedback .form-control{
 			height: 50px;
@@ -18,7 +18,7 @@
             color: #72afd2 !important;
         }
 	</style>
-	<link rel="stylesheet" href="<%=basePath%>/css/load.css">
+	<link rel="stylesheet" href="/css/load.css">
 </head>
 
 <body class="hold-transition login-page">
@@ -26,7 +26,7 @@
   <div class="longin_content">
 	<div class="top_cont">
 		<section class="top_conttitle" style="text-align: center">
-				<img class="logopng" src="<%=basePath%>/images/userImg/logo.png">
+				<img class="logopng" src="/images/userImg/logo.png">
 				<%--<p>${systemShowName}</p>--%>
                 <p><%=request.getSession().getAttribute("systemShowName")%></p>
             	<div class="righttext">
@@ -34,7 +34,7 @@
 				<div class="section_bottom">
 						<span class="left_span">
 							登录
-							<img src="<%=basePath%>/images/userImg/long_sanjiao.png" id="leftsan"/>
+							<img src="/images/userImg/long_sanjiao.png" id="leftsan"/>
 						</span>
 						<!-- <span class="right_span active">
 						注册
@@ -45,7 +45,7 @@
 		</section>
 	</div>
 	<div class="bottom_cont" id="country">
-					<form class="form-horizontal" id="fromid" action="<%=basePath%>/login/doLogin" data-validator-option="{theme:'bootstrap', timely:2, theme:'simple_bottom'}" method="post">
+					<form class="form-horizontal" id="fromid" action="/login/doLogin" data-validator-option="{theme:'bootstrap', timely:2, theme:'simple_bottom'}" method="post">
 					
 						  <c:if test="${error != null}">
 							  <div  class="alert alert-danger alert-dismissible">
@@ -54,35 +54,34 @@
 						  </c:if>
 					
 						<div class="inputdiv reg-box"><span class="spanuser">
-								<img src="<%=basePath%>/images/userImg/Username.png"/>
+								<img src="/images/userImg/Username.png"/>
 							</span><input type="text" id="userLoadName" class="account"  name="userName" placeholder="用户名" data-rule="用户名:required;username;" value="${userName}"/>
 							<input type="hidden" name="return_url" value="${return_url}">
 						</div>
 						<div class="inputdiv reg-box">
 							<span class="spanuser">
-								<img src="<%=basePath%>/images/userImg/Password.png"/>
+								<img src="/images/userImg/Password.png"/>
 							</span
 							><input type="password" class="admin_pwd" id="password"  placeholder="密码"  data-rule="密码:required;password;"/>
                 			<input type="hidden" name="password">
                 			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 						</div>
-						<div class="inputdiv reg-box">
+					 <div class="inputdiv reg-box">
 						
 							
 					      		<div style="width:409px;display:inline-block" >
 						      		 <div class="has-feedback mg">
 								         	<input type="text" class="form-control input_test" name="captcha" placeholder="验证码" data-rule="验证码:required;length(5);" size="5">
-								         	 <!-- <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span> -->
-								         	 <!--data-rule="验证码:required;length(5);"   -->
+								         	 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
 								        </div>
 						      		
 						      		
 						      			<div class="form-group has-feedback mg_right">
-									        <img id="codeimg" alt="如果看不清楚，请单击图片刷新！" class="pointer img" src="<%=basePath%>/login/captcha">
+									        <img id="codeimg" alt="如果看不清楚，请单击图片刷新！" class="pointer img" src="/login/captcha">
 									        <a id="change_code" href="javascript:void(0);">点击刷新</a>
 									      </div>     
-								</div>
-						</div>
+								</div> 
+						</div> 
 						
 						<div class="inputdiv">
 								<button class="login_subtn" id="loaded" type="submit">登&emsp;录</button>
@@ -93,10 +92,10 @@
   
 
 <script type="text/javascript">
-    $('#change_code').on('click', function () {
+   /*  $('#change_code').on('click', function () {
         var codeimg = $('#codeimg');
         codeimg.attr("src", basePathJS + '/login/captcha?'+ Math.random());
-    });
+    }); */
 
 </script>
 </body>

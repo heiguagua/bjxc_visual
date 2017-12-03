@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/feedback/requirement/requirementList.js"></script>
+    <script src="/js/feedback/requirement/requirementList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

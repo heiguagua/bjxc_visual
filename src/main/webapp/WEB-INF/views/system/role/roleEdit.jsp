@@ -11,7 +11,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/system/role/roleEdit.js"></script>
+    <script src="/js/system/role/roleEdit.js"></script>
      <style>
         .form-group{
             margin-bottom:25px;
@@ -38,14 +38,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-inline"  role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/system/role/doEdit">
+                          method="post" action="/system/role/doEdit">
                         <input type="hidden" id="roleId" value="${roleId}" name="id" />
                         <div class="box-body box-bodyx">
                             <div class="form-group">
                                 <label for="roleName">角色名称</label>
                                 <div class="form-group">
                                 <input type="text" id="roleName" name="roleName" class="form-control"
-                                       placeholder="请输入角色名称" data-rule="角色名称:simpleName;required;remote(<%=basePath%>/system/role/checkRoleName?roleId=${roleId});">
+                                       placeholder="请输入角色名称" data-rule="角色名称:simpleName;required;remote(/system/role/checkRoleName?roleId=${roleId});">
                                 </div>
                             </div>
                             <div class="form-group">

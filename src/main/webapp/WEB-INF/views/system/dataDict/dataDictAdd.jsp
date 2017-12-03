@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/system/dict/dataDictAdd.js"></script>
+    <script src="/js/system/dict/dataDictAdd.js"></script>
 </head>
 <body>
 <section class="content">
@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form  class="form-inline" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/sysDict/doAdd">
+                          method="post" action="/sysDict/doAdd">
                         <div class="box-body box-bodyx">
                         <div class="form-group">
                             <label for="categoryCode">类型编码 <i style="color: red">*必填</i></label>

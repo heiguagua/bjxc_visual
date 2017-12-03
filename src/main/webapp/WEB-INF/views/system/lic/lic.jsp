@@ -3,9 +3,9 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
-<script src="<%=basePath%>/js/system/menu/menuList.js"></script>
+<script src="/js/system/menu/menuList.js"></script>
 <script type="text/javascript"
-	src="<%=basePath%>/plugins/uploadFile/ajaxfileupload.js"></script>
+	src="/plugins/uploadFile/ajaxfileupload.js"></script>
 </head>
 <style type="text/css">
 .n-success {

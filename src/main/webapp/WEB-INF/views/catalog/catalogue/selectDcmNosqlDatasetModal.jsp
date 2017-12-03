@@ -62,7 +62,7 @@
                         <div class="header_title">选择资源</div>
                         <div class="content_scroll_item list-group">
                             <div id="bus_tree" class="" style="text-align:center">
-                            <img class="selec_img" alt="" src="<%=basePath%>/images/addimg/orgcontainer.png">
+                            <img class="selec_img" alt="" src="/images/addimg/orgcontainer.png">
                             	<p class="img_p">请先选择项目</p>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                         <div id="dataset_item_container" class="content_scroll_item list-group">
                         
                         			<div style="text-align:center">
-			                        			 <img class="selec_img"  alt="" src="<%=basePath%>/images/addimg/dbmysql.png">
+			                        			 <img class="selec_img"  alt="" src="/images/addimg/dbmysql.png">
 			                            	<p class="img_p">请先选择资源</p>
                         			</div>
                          
@@ -82,7 +82,7 @@
                         <div class="header_title">选择字段</div>
                         <div id="field_tree" class="content_scroll_item list-group">
 	                        <div style="text-align:center">
-	                          <img class="selec_img"  alt="" src="<%=basePath%>/images/addimg/predir.png">
+	                          <img class="selec_img"  alt="" src="/images/addimg/predir.png">
 	                            	<p class="img_p">请先选择表</p>
 	                        </div>    	
                         </div>

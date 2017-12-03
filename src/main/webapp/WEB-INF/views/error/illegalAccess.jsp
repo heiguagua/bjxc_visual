@@ -20,7 +20,7 @@
                     <div>
                         <h2 class="headline text-yellow">  <i class="fa fa-warning text-yellow"></i> 访问权限异常</h2>
                         <p> 资源地址: <a href="${url}">${url}</a>.
-                       <p> 您没有访问权限, 您可以点击这里 <a href="<%=basePath%>/index">返回首页</a> 或 <a href="${url}">刷新</a> 页面重试！
+                       <p> 您没有访问权限, 您可以点击这里 <a href="/index">返回首页</a> 或 <a href="${url}">刷新</a> 页面重试！
                         </p>
                     </div><!-- /.error-content -->
                 </div><!-- /.error-page -->

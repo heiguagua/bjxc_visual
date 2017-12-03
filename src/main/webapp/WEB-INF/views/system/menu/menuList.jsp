@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/menu/menuList.js"></script>
+    <script src="/js/system/menu/menuList.js"></script>
 
 </head>
 <style type="text/css">

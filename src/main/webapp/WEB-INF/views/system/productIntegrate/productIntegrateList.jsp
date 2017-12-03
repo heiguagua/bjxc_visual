@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/productIntegrate/productIntegrateList.js"></script>
+    <script src="/js/system/productIntegrate/productIntegrateList.js"></script>
 
 </head>
 <style type="text/css">
@@ -43,7 +43,7 @@
                                         <%--<c:if test="${!master}">--%>
                                             <%--<div class="input-group">--%>
                                                 <%--<a class="btn btn-primary btn-flat btn-myself" onclick="javascript:synRemoteData()" id="synRemoteDataId">--%>
-                                                    <%--<img src="<%=basePath%>/images/userImg/changeAdress.png"/>--%>
+                                                    <%--<img src="/images/userImg/changeAdress.png"/>--%>
                                                     <%--获取集成配置信息--%>
                                                 <%--</a>--%>
                                             <%--</div>--%>

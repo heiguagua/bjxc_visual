@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/catalogue/catalogueAdd.js"></script>
+    <script src="/js/catalog/catalogue/catalogueAdd.js"></script>
 </head>
 <style>
 /* .n-top, .n-right, .n-bottom, .n-left{
@@ -19,7 +19,7 @@
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
         
-            <form class="form-horizontal" htmlEscape="true" id="addForm" action="<%=basePath%>/catalog/doAdd" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" >
+            <form class="form-horizontal" htmlEscape="true" id="addForm" action="/catalog/doAdd" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" >
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
@@ -306,11 +306,11 @@
                         <p>
                             <button type="button" class="btn btn-default btn-flat pull-right dropdown-toggle btn-myself"
                                     data-toggle="dropdown" id="addItem">
-                                <img src="<%=basePath%>/images/userImg/addimg.png"/>添加信息项
+                                <img src="/images/userImg/addimg.png"/>添加信息项
                             </button>
                             <button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
                                     data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
-                                <img src="<%=basePath%>/images/userImg/delImg.png"/>删除
+                                <img src="/images/userImg/delImg.png"/>删除
                             </button>
                         </p>
                     </div>
