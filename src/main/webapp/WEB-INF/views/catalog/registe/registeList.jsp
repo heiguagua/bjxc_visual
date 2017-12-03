@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/registe/registeList.js"></script>
+    <script src="/js/catalog/registe/registeList.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -62,7 +62,7 @@
                                         <a class="btn btn-primary btn-flat btn-myself" id="registeButton">
                                            <!--  <i class="fa fa-plus">
                                             </i> -->
-                                            <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                            <img src="/images/userImg/addimg.png"/>
                                             注册
                                         </a>
                                     </div>

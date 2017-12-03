@@ -4162,12 +4162,7 @@ END$$
 
 DELIMITER ;
 
--- 在tree_code后面添加;分号
+
 -- update sys_dept set tree_code = concat(tree_code,';')
 -- -- select * from sys_dept
 -- where tree_code is not null and tree_code <> '' and right(tree_code,1) <> ';';
-
--- 在tree_code后面删除;分号
--- update sys_dept set tree_code = SUBSTR(tree_code,1,LENGTH(tree_code)-1)
--- -- select tree_code,SUBSTR(tree_code,1,LENGTH(tree_code)-1),t.* from sys_dept t
--- where tree_code is not null and tree_code <> '' and right(tree_code,1) = ';';

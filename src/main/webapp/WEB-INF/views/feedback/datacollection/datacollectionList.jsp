@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/feedback/datacollection/datacollectionList.js"></script>
+    <script src="/js/feedback/datacollection/datacollectionList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

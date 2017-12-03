@@ -61,7 +61,7 @@ function initTable(){
             checkbox: true,
             align: 'center',
             valign: 'middle',
-            sortable: false,
+            sortable: false
         },{
             field: 'deptName',
             title: '信息资源提供方',
@@ -73,7 +73,7 @@ function initTable(){
                 }
                 return '<p title="'+value+'">'+value+'</p>';
             }
-        },{
+        }/*,{
             field: 'classifyName',
             title: '目录分类',
             sortable: false,
@@ -83,11 +83,11 @@ function initTable(){
                 }
                 return '<p title="'+value+'">'+value+'</p>';
             }
-        },{
+        }*/,{
             field: 'datasetName',
             title: '信息资源名称',
             sortable: false,
-            width: '20%',
+            //width: '20%',
             formatter:function(value, row, index){
                 return '<p title="'+value+'">'+value+'</p>';
             }

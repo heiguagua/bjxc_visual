@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/system/deptAuthority/deptAuthorityEdit.js"></script>
+    <script src="/js/system/deptAuthority/deptAuthorityEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content" style="padding-top:0">
@@ -13,7 +13,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/system/deptAuthority/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/system/deptAuthority/doEdit">
                         <input id="authObjId" type="hidden" value="${id}" name="authObjId" />
                         <input id="authType" type="hidden" value="${authType}" name="authType" />
                         <div class="box-body">

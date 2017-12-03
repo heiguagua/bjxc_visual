@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/setting/settingList.js"></script>
+    <script src="/js/system/setting/settingList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

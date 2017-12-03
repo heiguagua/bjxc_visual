@@ -4,8 +4,8 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/dir/configure/api/apiEdit.js"></script>
-    <script src="<%=basePath%>/js/system/dict/dictIcon.js"></script>
+    <script src="/js/dir/configure/api/apiEdit.js"></script>
+    <script src="/js/system/dict/dictIcon.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <section class="content">
@@ -14,7 +14,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/dirDevelopApis/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/dirDevelopApis/doEdit">
                         <input id="apiId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                            <div class="form-group">

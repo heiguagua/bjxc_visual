@@ -3,13 +3,13 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/catalogue/catalogueShow.js"></script>
+    <script src="/js/catalog/catalogue/catalogueShow.js"></script>
 </head>
 <body>
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="editForm" action="<%=basePath%>/catalog/doEdit">
+            <form class="form-horizontal" id="editForm" action="/catalog/doEdit">
                 <div class="form-group">
                     <div class="row">
                         <input type="hidden" id="id" name="id" value="${id}">

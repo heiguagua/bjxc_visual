@@ -2,9 +2,9 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <link rel="stylesheet" href="<%=basePath%>/css/index.css" />
-    <script src="<%=basePath%>/js/index.js"></script>
-    <script src="<%=basePath%>/plugins/echarts-2.2.7/dist/echarts.js"></script>
+    <link rel="stylesheet" href="/css/index.css" />
+    <script src="/js/index.js"></script>
+    <script src="/plugins/echarts-2.2.7/dist/echarts.js"></script>
 </head>
 	
 <body class="hold-transition skin-blue sidebar-mini">
@@ -82,7 +82,7 @@
                           
                             <p>
                             	<span>
-                            		<img src="<%=basePath%>/images/userImg/weizhuce.png"/>
+                            		<img src="/images/userImg/weizhuce.png"/>
                             	</span>
                             	<span class="spanDis">
                             		<a>未注册信息资源</a>
@@ -96,7 +96,7 @@
                           
                             <p>
                             	<span>
-                            		<img src="<%=basePath%>/images/userImg/weifabu.png"/>
+                            		<img src="/images/userImg/weifabu.png"/>
                             	</span>
                             	
                             	<span class="spanDis">
@@ -118,7 +118,7 @@
                           
                             <p>
                             	<span>
-                            		<img src="<%=basePath%>/images/userImg/weishenhe.png"/>
+                            		<img src="/images/userImg/weishenhe.png"/>
                             	</span>
                             	
                             	<span class="spanDis">
@@ -133,7 +133,7 @@
                           
                             <p>
                             	<span>
-                            		<img src="<%=basePath%>/images/userImg/yifabu.png"/>
+                            		<img src="/images/userImg/yifabu.png"/>
                             	</span>
                             	
                             	<span class="spanDis">

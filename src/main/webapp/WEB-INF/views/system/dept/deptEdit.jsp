@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/system/dept/deptEdit.js"></script>
+    <script src="/js/system/dept/deptEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form  class="form-horizontal" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/system/dept/doEdit">
+                          method="post" action="/system/dept/doEdit">
                         <input type="hidden" id="deptId" value="${id}" name="id"/>
                         <input type="hidden" id="regionCode" name="regionCode"/>
 
@@ -58,7 +58,7 @@
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="deptName" id="deptName"
 		                                           placeholder="组织机构名称"
-		                                           data-rule="组织机构名称:required;deptName;remote(<%=basePath%>/system/dept/checkDeptName, fname:#fname, deptId:#deptId)">
+		                                           data-rule="组织机构名称:required;deptName;remote(/system/dept/checkDeptName, fname:#fname, deptId:#deptId)">
 		                                </div>
 		                            </div>
 								</div>

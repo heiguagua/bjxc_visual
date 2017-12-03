@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/userAuthority/userAuthorityList.js"></script>
+    <script src="/js/system/userAuthority/userAuthorityList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

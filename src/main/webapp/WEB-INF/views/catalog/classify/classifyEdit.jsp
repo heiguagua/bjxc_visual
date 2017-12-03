@@ -4,8 +4,8 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/catalog/classify/classifyEdit.js"></script>
-    <script src="<%=basePath%>/js/system/dict/dictIcon.js"></script>
+    <script src="/js/catalog/classify/classifyEdit.js"></script>
+    <script src="/js/system/dict/dictIcon.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <section class="content">
@@ -14,7 +14,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/dirClassify/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/dirClassify/doEdit">
                         <input id="classifyId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                         	<div class="form-group">
@@ -55,7 +55,7 @@
 	                                <label  class="col-sm-3 control-label" for="orderNumber">排序号*</label>
 	                                <div class="col-sm-9">
 	                                 <input type="text" id="Eorder_number" name="orderNumber" class="form-control"
-	                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=basePath%>/dirClassify/CheckOrderNumber)">
+	                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(/dirClassify/CheckOrderNumber)">
                             		</div>
                             	</div>
                             	</div>

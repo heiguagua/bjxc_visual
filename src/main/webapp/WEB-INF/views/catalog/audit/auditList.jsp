@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/audit/auditList.js"></script>
+    <script src="/js/catalog/audit/auditList.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -60,7 +60,7 @@
                                     <a class="btn btn-primary btn-flat btn-myself" id="auditButton">
                                         <!-- <i class="fa fa-plus">
                                         </i> -->
-                                        <img src="<%=basePath%>/images/userImg/subCheckimg.png"/>
+                                        <img src="/images/userImg/subCheckimg.png"/>
                                         审核
                                     </a>
                                 </div>
