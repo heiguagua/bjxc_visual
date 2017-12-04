@@ -124,7 +124,7 @@
         FROM v_sys_region_dept t
         LEFT JOIN (SELECT DISTINCT(fcode) AS dcode FROM v_sys_region_dept) b ON t.region_dept_code=b.dcode
         <include refid="queryConditions"></include>
-        order by t.category,t.region_code
+        order by t.order_number,t.dept_code
     </select>
 
 
