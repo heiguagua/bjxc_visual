@@ -1856,6 +1856,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     }
                 }
             }
+            $('#' + codeInputDomId).val(selectIds.join(","));
             var setting = {
                 async: {
                     enable: true,
@@ -2463,6 +2464,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     }
                 }
             }
+            $('#' + codeInputDomId).val(selectIds.join(","));
             var setting = {
                 async: {
                     enable: true,
