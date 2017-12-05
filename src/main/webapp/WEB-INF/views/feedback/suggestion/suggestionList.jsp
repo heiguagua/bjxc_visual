@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form class="form-inline marginBot" method="post">
+                        <form class="form-inline marginBot" method="post"  onsubmit="return false;">
                             <div class="box-header">
                                 <div class="input-group pull-right">
                                     <input class="form-control" id="editSearch" name="searchEdit" placeholder="标题" type="text">
