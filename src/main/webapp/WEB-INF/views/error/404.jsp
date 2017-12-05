@@ -20,7 +20,7 @@
                 <div class="error-page">
                     <div>
                         <h2 class="headline text-yellow">  <i class="fa fa-warning text-yellow"></i> 404, Page not found.</h2>
-                         <p> 糟糕,您访问的页面不存在,您可以点击这里 <a href="/index">返回首页</a>或刷新页面重试！
+                         <p> 糟糕,您访问的页面不存在,您可以点击这里 <a href="<%=context_path%>/index">返回首页</a>或刷新页面重试！
                     </div><!-- /.error-content -->
                 </div><!-- /.error-page -->
             </section><!-- /.content -->

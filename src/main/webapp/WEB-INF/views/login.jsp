@@ -38,7 +38,7 @@
 						</span>
 						<!-- <span class="right_span active">
 						注册
-							<a href="/htm/applyAccount/userApplyAccount.jsp" target="_blank"></a>
+							<a href="<%=context_path%>/htm/applyAccount/userApplyAccount.jsp" target="_blank"></a>
 							<img src="<%=context_path%>/static/new/images/load/long_sanjiao.png" id="rightsan"/>
 						</span> -->
 				</div>

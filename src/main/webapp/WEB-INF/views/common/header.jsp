@@ -57,7 +57,7 @@
  <nav class="navbar navbar-static-top" role="navigation">
 
  	<div class="col-sm-3 log">
-        <a href="/index" title='<c:if test="${empty systemSubName}">${systemName}</c:if><c:if test="${!empty systemSubName}">${systemName}-${systemSubName}</c:if>'><span style="color: #fff" ><img style="margin-top:-4px;" src="<%=context_path %>/images/userImg/logoSmall.png"/></span><c:if test="${empty systemSubName}">${systemName}</c:if><c:if test="${!empty systemSubName}">${systemName}-${systemSubName}</c:if></a>
+        <a href="<%=context_path%>/index" title='<c:if test="${empty systemSubName}">${systemName}</c:if><c:if test="${!empty systemSubName}">${systemName}-${systemSubName}</c:if>'><span style="color: #fff" ><img style="margin-top:-4px;" src="<%=context_path %>/images/userImg/logoSmall.png"/></span><c:if test="${empty systemSubName}">${systemName}</c:if><c:if test="${!empty systemSubName}">${systemName}-${systemSubName}</c:if></a>
     </div>
    <!-- Sidebar toggle button-->
    <!-- <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a> -->
@@ -132,7 +132,7 @@
        
      <li class="dropdown user user-menu">
          <!-- Menu Toggle Button -->
-         <a href="/system/me/page" class="dropdown-toggle" data-toggle="tooltip" title="${me.realName}" data-placement="bottom">
+         <a href="<%=context_path%>/system/me/page" class="dropdown-toggle" data-toggle="tooltip" title="${me.realName}" data-placement="bottom">
            <img src="<%=context_path%>/images/userImg/avatar5.png" class="user-image" alt="User Image">
            <span class="hidden-xs">${me.userName}</span>
              <%-- <span class="hidden-xs"><%=basePath%>${(me.userImg)}</span> --%>
@@ -148,7 +148,7 @@
 
              <ul class="dropdown-menu animated fadeInRight">
                 <li>
-                    <a href="/login/logout" class="text-center" ui-sref="access.signin">退出系统</a>
+                    <a href="<%=context_path%>/login/logout" class="text-center" ui-sref="access.signin">退出系统</a>
                 </li>
             </ul> 
 
