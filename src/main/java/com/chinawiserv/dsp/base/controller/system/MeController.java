@@ -150,11 +150,23 @@ public class MeController extends BaseController {
 
 					String filenameOri = userVo.getId()+".jpg";
 //					File userImgPathfile = ResourceUtils.getFile(userImgPath);
-					String filePath =  fileUploadPath.concat(filenameOri) ;
+					String userImgPath="userImg";
+					File fileUpload = new File(fileUploadPath);
+					if(fileUpload.exists()&&fileUpload.isDirectory()){
+						File userImgFile = new File(fileUpload, userImgPath);
+						if(!userImgFile.exists()){
+							userImgFile.mkdir();
+						}
+
+					}else {
+						return new HandleResult().error("上传文件夹路劲未配置正确");
+					}
+
+					String filePath =  fileUploadPath.concat(userImgPath).concat("/").concat(filenameOri) ;
 					//转存文件
 					file.transferTo(new File(filePath));
 					//保存到数据库的文件名
-					String filename="/upload/" + filenameOri;
+					String filename="/upload/"+userImgPath+"/"+filenameOri;
 					//修改用户图片的url
 				    userVo.setUserImg(filename);
 				    //更新用户
