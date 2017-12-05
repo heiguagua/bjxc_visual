@@ -43,10 +43,16 @@
 	</select>
 
 	<select id="selectRolesByUserId" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.po.system.SysRole">
-		SELECT t.* from sys_role t
+		<!--SELECT t.* from sys_role t
 		LEFT JOIN sys_user_role ur ON t.id = ur.role_id
-		WHERE ur.user_id = #{userId}
-	</select>
+		WHERE ur.user_id = #{userId}-->
+        SELECT
+        t.`id`,t.`role_name`,t.`status`, t.`create_time`, t.`update_time`,t.`role_level`
+        FROM sys_role t FORCE INDEX(Index_sys_role_id_delete)
+        LEFT JOIN sys_user_role ur
+        ON t.id = ur.role_id
+        WHERE ur.user_id = #{userId}
+    </select>
 
 	<update id="deleteBatchRoleByIds" parameterType="java.util.List">
 		UPDATE sys_role SET delete_flag = '1' WHERE id IN

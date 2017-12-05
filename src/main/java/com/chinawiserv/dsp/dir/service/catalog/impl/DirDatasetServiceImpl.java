@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chinawiserv.dsp.base.common.util.*;
@@ -1470,43 +1471,19 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
     @Override
     public List<Map<String,Object>> getDatasetTopCountForClassify(String regionCode, String classifyType, int topNum){
-        /*List<Map<String,Object>> topNResultList = new ArrayList<>();
-        Map<String,Integer> resultMap = new HashMap<>();
-        if(StringUtils.isEmpty(regionCode)){
-            return null;
+
+        List<Map<String,Object>> result = dirDatasetClassifyMapMapper.selectDatasetNumWithChildClassify(regionCode,classifyType, topNum);
+
+        final Stream<Map<String,Object>> stream =  result.stream().sorted((o1, o2) -> {
+            final Long num_1 = Long.class.cast(o1.get("value"));
+            final Long num_2 = Long.class.cast(o2.get("value"));
+            return num_1 > num_2 ? -1 : 1;
+        });
+
+        if(topNum > 0){
+            return stream.limit(topNum).collect(Collectors.toList());
         }
-        List<DirClassify> showDirClassifyList = dirClassifyMapper.selectChildByType(regionCode, classifyType);
-        for(DirClassify dirClassify : showDirClassifyList){
-            int classifyCount = 0;
-            String classifyName = dirClassify.getClassifyName();
-            String treeCode = dirClassify.getTreeCode();
-            if(!StringUtils.isEmpty(treeCode)){
-                classifyCount = dirDatasetClassifyMapMapper.selectDatasetCountForClassify(treeCode);
-            }
-            resultMap.put(classifyName,classifyCount);
-        }
-        //按照值的大小,将结果Map进行排序,以便取得topN
-        if(!ObjectUtils.isEmpty(resultMap)){
-            List<Map.Entry<String, Integer>> entryList = new ArrayList<>(resultMap.entrySet());
-            Collections.sort(entryList, new Comparator<Map.Entry<String, Integer>>() {
-                public int compare(Map.Entry<String, Integer> o1,Map.Entry<String, Integer> o2) {
-                    return ( o2.getValue()-o1.getValue());
-                }
-            });
-            if(entryList.size()<topNum){
-                topNum = entryList.size();
-            }
-            //包装成echarts接收的数据格式
-            for(int i=0;i<topNum;i++){
-                Map.Entry<String, Integer> entry = entryList.get(i);
-                Map<String,Object> dataMap = new HashMap<>();
-                dataMap.put("name",entry.getKey());
-                dataMap.put("value",entry.getValue());
-                topNResultList.add(dataMap);
-            }
-        }
-        return topNResultList;*/
-        return dirDatasetClassifyMapMapper.selectDatasetNumWithChildClassify(regionCode,classifyType, topNum);
+        return stream.collect(Collectors.toList());
     }
 
     @Override
@@ -1641,4 +1618,5 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
         return result;
     }
+
 }

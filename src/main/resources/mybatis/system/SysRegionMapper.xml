@@ -60,15 +60,37 @@
     </select>
 
     <select id="selectVoByCode" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT <include refid="baseVoColumn"></include>
-        FROM <include refid="baseVoTable"></include>
-        WHERE t.region_code = #{regionCode}
+        SELECT
+        t.id,
+        t.`region_code`,
+        t.`region_name`,
+        t.`fcode`,
+        t.`fname`,
+        t.`region_level_code`,
+        t.`status`,
+        l.`region_level_value`
+        FROM
+        sys_region t
+        JOIN sys_region_level l ON t.`region_level_code`=l.`region_level_code`
+        WHERE t.region_code = '${regionCode}'
+        limit 1
     </select>
 
     <select id="selectVoByRegionCode" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT <include refid="baseVoColumn"></include>
-        FROM <include refid="baseVoTable"></include>
-        WHERE t.status = '1' AND t.region_code = #{regionCode}
+        SELECT
+        t.id,
+        t.`region_code`,
+        t.`region_name`,
+        t.`fcode`,
+        t.`fname`,
+        t.`region_level_code`,
+        t.`status`,
+        l.`region_level_value`
+        FROM
+        sys_region t
+        JOIN sys_region_level l ON t.`region_level_code`=l.`region_level_code`
+        WHERE t.`status`='1' AND t.region_code = '${regionCode}'
+        limit 1
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -77,9 +99,20 @@
     </select>
 
     <select id="selectAllRegionByRegionCode" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT <include refid="baseVoColumn"></include>
-        FROM <include refid="baseVoTable"></include>
-        WHERE t.status = '1' AND t.region_code like '${regionCodeCondition}%'
+        SELECT
+        t.id,
+        t.`region_code`,
+        t.`region_name`,
+        t.`fcode`,
+        t.`fname`,
+        t.`region_level_code`,
+        t.`status`,
+        l.`region_level_value`
+        FROM
+        sys_region t
+        JOIN sys_region_level l ON t.`region_level_code`=l.`region_level_code`
+        WHERE t.`status`='1' AND t.region_code like '${regionCodeCondition}%'
+
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysRegion">

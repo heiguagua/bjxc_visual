@@ -9,8 +9,8 @@
 		</url>
 		<username>root</username>
 		<password>root</password>
-		<initialSize>200</initialSize>
-		<minIdle>200</minIdle>
+		<initialSize>1</initialSize>
+		<minIdle>1</minIdle>
 		<maxActive>200</maxActive>
 		<testOnBorrow>false</testOnBorrow>
 		<testOnReturn>false</testOnReturn>

@@ -275,19 +275,42 @@
     </select>
 
     <select id="selectDatasetNumWithChildClassify" resultType="java.util.HashMap">
-        SELECT t.`classify_name` AS `name`,COUNT(a.tree_code) AS `value`
-        FROM `dir_classify` t
-        LEFT JOIN
-        (SELECT t1.`tree_code` FROM `dir_classify` t1
+        <!--SELECT t.`classify_name` AS `name`,COUNT(a.tree_code) AS `value`-->
+        <!--FROM `dir_classify` t-->
+        <!--LEFT JOIN-->
+        <!--(SELECT t1.`tree_code` FROM `dir_classify` t1-->
+        <!--JOIN dir_dataset_classify_map ddcm-->
+        <!--ON t1.`id` = ddcm.`classify_id`) a-->
+        <!--ON LOCATE(CONCAT(t.`tree_code`, ';'), CONCAT(a.tree_code, ';')) = 1-->
+        <!--WHERE t.`fid` = (SELECT id FROM dir_classify-->
+        <!--WHERE classify_type= #{classifyType} AND region_code=#{regionCode})-->
+        <!--GROUP BY t.`id`-->
+        <!--ORDER BY `value` DESC-->
+        <!--<if test="topNum != 0 ">-->
+            <!--limit #{topNum}-->
+        <!--</if>-->
+
+        SELECT
+        t.`classify_name` `name`,
+        (SELECT
+        COUNT(1)
+        FROM
+        `dir_classify` t1
         JOIN dir_dataset_classify_map ddcm
-        ON t1.`id` = ddcm.`classify_id`) a
-        ON LOCATE(CONCAT(t.`tree_code`, ';'),a.tree_code) = 1
-        WHERE t.`fid` = (SELECT id FROM dir_classify WHERE classify_type=#{classifyType} AND region_code=#{regionCode})
-        GROUP BY t.`classify_name`
-        ORDER BY `value` DESC
-        <if test="topNum != 0 ">
-            limit 0, #{topNum}
-        </if>
+        ON t1.`id` = ddcm.`classify_id`
+        WHERE LOCATE(
+        CONCAT(t.`tree_code`, ';'),
+        CONCAT(t1.tree_code, ';')
+        )) `value`
+        FROM
+        `dir_classify` t
+        WHERE t.`fid` =
+        (SELECT
+        id
+        FROM
+        dir_classify
+        WHERE classify_type = '${classifyType}'
+        AND region_code = '${regionCode}')
     </select>
 
     <select id="selectDatasetCountForStatus" resultType="java.util.Map">

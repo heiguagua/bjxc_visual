@@ -84,6 +84,11 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
     }
 
     @Override
+    public List<SysRegionVo> selectAllRegionLikeRegionCode(String regionCodeCondition) {
+        return mapper.selectAllRegionByRegionCode(regionCodeCondition);
+    }
+
+    @Override
     public String getAllSubRegionCodesWithSelf(String regionCode) {
         String allRegionCodes = "";
         if(!org.springframework.util.StringUtils.isEmpty(regionCode)){
