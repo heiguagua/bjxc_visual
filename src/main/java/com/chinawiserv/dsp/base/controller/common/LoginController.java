@@ -244,16 +244,17 @@ public class LoginController extends BaseController {
             /**
              * 获取当前用户的菜单
              */
-            List<TreeMenu> treeMenus = sysMenuService.selectTreeMenuByUserId(currentLoginUser.getId());
+//            List<TreeMenu> treeMenus = sysMenuService.selectTreeMenuByUserId(currentLoginUser.getId());
+            List<TreeMenu> treeMenus = sysMenuService.selectTreeMenuForLoginUser(currentLoginUser.getId());
             ShiroUtils.setSessionAttribute(SystemConst.TREE_MENUS, treeMenus);
 
             /**
              * 获取当前用户的权限列表,用于控制页面功能按钮是否显示
              */
-            List<String> list2;
+            /*List<String> list2;
             list2 = sysMenuService.selectMenuIdsByuserId(currentLoginUser.getId());
             String[] permissions = list2.toArray(new String[list2.size()]);
-            ShiroUtils.setSessionAttribute(SystemConst.PERMISSIONS, permissions);
+            ShiroUtils.setSessionAttribute(SystemConst.PERMISSIONS, permissions);*/
             //获取当前用户的区域编码
             ShiroUtils.setSessionAttribute(SystemConst.REGION, currentLoginUser.getRegionCode());
         } catch (Exception e) {

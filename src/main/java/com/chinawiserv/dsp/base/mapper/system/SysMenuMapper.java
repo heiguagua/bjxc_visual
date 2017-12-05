@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.system.SysMenu;
 import com.chinawiserv.dsp.base.entity.vo.system.SysMenuVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     List<SysMenuVo> select(Page<SysMenuVo> page, Map<String, Object> paramMap) throws Exception;
 
 	List<String> selectMenuIdsByuserId(String uid) throws Exception;
+
+    List<SysMenu> selectTreeMenuForLoginUser(@Param("loginUserId") String loginUserId) throws Exception;
 
     SysMenuVo selectMenuById(String id) throws Exception;
 
