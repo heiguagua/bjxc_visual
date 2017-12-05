@@ -80,10 +80,10 @@
                   )
                 </if>
             </if>
-            <if test="regionName != null">
+            <if test="regionName != null and regionName != '' ">
                 AND  sr.region_name like CONCAT('%',#{regionName},'%')
             </if>
-            <if test="deptName != null">
+            <if test="deptName != null and deptName != '' ">
                 AND  d.dept_name like CONCAT('%',#{deptName},'%')
             </if>
         </trim>

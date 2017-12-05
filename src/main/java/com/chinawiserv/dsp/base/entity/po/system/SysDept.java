@@ -98,6 +98,8 @@ public class SysDept implements Serializable {
 
 	private String deptStructureName;
 
+	private String pinyin;
+
 	public String getDeptStructureName() {
 		return deptStructureName;
 	}
@@ -410,6 +412,14 @@ public class SysDept implements Serializable {
 		this.deptLevel = deptLevel;
 	}
 
+	public String getPinyin() {
+		return pinyin;
+	}
+
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -505,4 +515,5 @@ public class SysDept implements Serializable {
 				.append(deptStructureName)
 				.toHashCode();
 	}
+
 }
