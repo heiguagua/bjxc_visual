@@ -129,6 +129,19 @@
         AND m.`resource_name` IS NOT NULL
 
     </select>
+
+    <select id="selectTreeMenuForLoginUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT  DISTINCT m.`id`, m.`menu_name`, m.`pid`, m.`url`, m.`icon`, m.`sort`
+        FROM `sys_user_role` ur
+        JOIN `sys_role` r  FORCE INDEX(Index_sys_role_id_delete)
+        ON r.`id` = ur.`role_id`
+        JOIN `sys_role_menu` rm ON rm.`role_id` = ur.`role_id`
+        JOIN `sys_menu` m ON m.`id` = rm.`menu_id`
+        WHERE ur.`user_id` =  '${loginUserId}'
+        AND r.`delete_flag` = 0
+        AND m.delete_flag=0
+        AND m.menu_type IN(1,2)
+    </select>
     
     <select id="selectChildren" parameterType="java.lang.String" resultMap="BaseResultMapVo">
         SELECT id FROM sys_menu WHERE pid = #{id,jdbcType=VARCHAR}

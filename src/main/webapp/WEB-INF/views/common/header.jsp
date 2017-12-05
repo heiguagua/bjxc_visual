@@ -41,14 +41,14 @@
     .btn-group a:link{ color:#ffffff}/* 链接默认为白色 */
     .btn-group a:hover{ color:#00a7d0}/* 鼠标悬停蓝色 */
 </style>
-<script src="/js/system/region/region_switch.js"></script>
+<script src="<%=context_path%>/js/system/region/region_switch.js"></script>
 <header class="main-header">
  <!-- Logo -->
   <%-- <div class="logo">
    <!-- mini logo for sidebar mini 50x50 pixels -->
    <span class="logo-mini"><b>${systemShortName}</b></span>
    <!-- logo for regular state and mobile devices -->
-  <!-- <span class="logo-lg"><span><img src="/images/userImg/logoSmall.png"/>&nbsp;${systemName}-${systemSubName}</span></span> -->
+  <!-- <span class="logo-lg"><span><img src="<%=context_path%>/images/userImg/logoSmall.png"/>&nbsp;${systemName}-${systemSubName}</span></span> -->
    <a href="/index" style="color: #fff" ><span class="logo-lg"><span><img src="<%=basePath%>${defaultIcon}"/>&nbsp;
        <span id="logo" style="font-size: 12px">${systemName}-${systemSubName}</span></span></span></a>
  </div> --%>
@@ -57,7 +57,7 @@
  <nav class="navbar navbar-static-top" role="navigation">
 
  	<div class="col-sm-3 log">
-        <a href="/index" title='<c:if test="${empty systemSubName}">${systemName}</c:if><c:if test="${!empty systemSubName}">${systemName}-${systemSubName}</c:if>'><span style="color: #fff" ><img style="margin-top:-4px;" src="/images/userImg/logoSmall.png"/></span><c:if test="${empty systemSubName}">${systemName}</c:if><c:if test="${!empty systemSubName}">${systemName}-${systemSubName}</c:if></a>
+        <a href="<%=context_path%>/index" title='<c:if test="${empty systemSubName}">${systemName}</c:if><c:if test="${!empty systemSubName}">${systemName}-${systemSubName}</c:if>'><span style="color: #fff" ><img style="margin-top:-4px;" src="<%=context_path %>/images/userImg/logoSmall.png"/></span><c:if test="${empty systemSubName}">${systemName}</c:if><c:if test="${!empty systemSubName}">${systemName}-${systemSubName}</c:if></a>
     </div>
    <!-- Sidebar toggle button-->
    <!-- <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a> -->
@@ -67,27 +67,27 @@
    	<ul class="nav_uls" id="topTabs">
         <%--原tab--%>
         <li>
-            <img src="/images/userImg/sourceimgicon2.png"/>
+            <img src="<%=context_path%>/images/userImg/sourceimgicon2.png"/>
             <a href="/jp:hk_drap" style="color: #FFFFFF;">&nbsp;资源梳理</a></li>
         <li class="active">
-            <img src="/images/userImg/directimgicon1.png"/>&nbsp;<a href="###">目录管理</a>
+            <img src="<%=context_path%>/images/userImg/directimgicon1.png"/>&nbsp;<a href="###">目录管理</a>
         </li>
         <%--<li>--%>
-            <%--<img src="/images/userImg/collectimgicon2.png"/>--%>
+            <%--<img src="<%=context_path%>/images/userImg/collectimgicon2.png"/>--%>
             <%--<a target="_blank" href="/jp:hk_dcm" style="color: #FFFFFF;" >&nbsp;数据采集</a></li>--%>
         <li>
-            <img src="/images/userImg/serverimgicon1.png"/>
+            <img src="<%=context_path%>/images/userImg/serverimgicon1.png"/>
             <a href="/jp:hk_service" style="color: #FFFFFF;">&nbsp;服务封装</a></li>
             <%--原tab--%>
 
      <%--    <li>
-            <img src="/images/userImg/collectimgicon2.png"/>
+            <img src="<%=context_path%>/images/userImg/collectimgicon2.png"/>
             <a target="_blank" href="/jp:hk_cs" style="color: #FFFFFF;">&nbsp;;爬虫采集</a></li> --%>
 		<%-- <li>
-            <img src="/images/userImg/collectimgicon2.png"/>
+            <img src="<%=context_path%>/images/userImg/collectimgicon2.png"/>
             <a href="/jp:hk_analysis" style="color: #FFFFFF;">&nbsp;分析监管</a></li> --%>
          <li>
-            <img src="/images/userImg/collectimgicon2.png"/>
+            <img src="<%=context_path%>/images/userImg/collectimgicon2.png"/>
             <a target="_blank" href="/jp:hk_portal" style="color: #FFFFFF;">&nbsp;门户</a></li>
    	</ul>
    </div>
@@ -124,7 +124,7 @@
         <li >
          <!-- Menu Toggle Button -->
           <a class="citytitle">
-			<span class="defaultcity"><img src="/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span"></span></span>
+			<span class="defaultcity"><img src="<%=context_path%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span"></span></span>
 			<!-- <ul class="innerul" id="box1">
 			</ul> -->
 		  </a>
@@ -132,8 +132,8 @@
        
      <li class="dropdown user user-menu">
          <!-- Menu Toggle Button -->
-         <a href="/system/me/page" class="dropdown-toggle" data-toggle="tooltip" title="${me.realName}" data-placement="bottom">
-           <img src="/images/userImg/avatar5.png" class="user-image" alt="User Image">
+         <a href="<%=context_path%>/system/me/page" class="dropdown-toggle" data-toggle="tooltip" title="${me.realName}" data-placement="bottom">
+           <img src="<%=context_path%>/images/userImg/avatar5.png" class="user-image" alt="User Image">
            <span class="hidden-xs">${me.userName}</span>
              <%-- <span class="hidden-xs"><%=basePath%>${(me.userImg)}</span> --%>
          </a>
@@ -148,7 +148,7 @@
 
              <ul class="dropdown-menu animated fadeInRight">
                 <li>
-                    <a href="/login/logout" class="text-center" ui-sref="access.signin">退出系统</a>
+                    <a href="<%=context_path%>/login/logout" class="text-center" ui-sref="access.signin">退出系统</a>
                 </li>
             </ul> 
 
@@ -156,7 +156,7 @@
         
        <li>
          <a href="#" onclick="javascript:isOut()" class="dropdown-toggle" data-toggle="tooltip" title="退出" data-placement="bottom">
-          <%--  <img src="/images/userImg/adminDeltimg.png" class="adminDeltimg"/> --%>
+          <%--  <img src="<%=context_path%>/images/userImg/adminDeltimg.png" class="adminDeltimg"/> --%>
 			<i class="fa fa-sign-out"></i>
          </a>
        </li> 
@@ -177,7 +177,7 @@
     function isOut(){
       layer.confirm("是否退出系统", {icon: 3, title: "提示", offset: getOffset()}, function (index) {
           layer.close(index);
-          window.location.href = '/login/logout';
+          window.location.href = "<%=context_path%>" + '/login/logout';
         <%--window.location.href = '/login';--%>
       });
     }

@@ -392,7 +392,6 @@ $(document).on("click", "button#field_add", function(){
             dataType:"json",
             success:function(data){
                 if(data.state){
-                    $('#sourceObjId').val(data.content.result.id);
                     //数据集
                     buildDataset(data.content.result);
                     //大普查
@@ -426,7 +425,7 @@ $(document).on("click", "button#field_add", function(){
                         var arr=data.content.list;
                         for (var i in arr){
                            var thisTrNum = getTrNum();
-                           buildItem(thisTrNum,arr[i]);
+                           buildItem(thisTrNum,arr[i],dataset_id);
                         }
                     }
                 }else{
@@ -441,6 +440,18 @@ $(document).on("click", "button#field_add", function(){
 });
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
+    var sourceObjIds = "";
+    $.each($('#dataitemList>tr'),function(idx,item){
+        var sourceObjId= $(item).attr('sourceObjId');
+        if(sourceObjIds.length > 0 && sourceObjIds.indexOf(sourceObjId) == -1){
+            sourceObjIds += "," + sourceObjId;
+        }else{
+            sourceObjIds = sourceObjId;
+        }
+    });
+    if(sourceObjIds.length>0){
+        $("#sourceObjIds").val(sourceObjIds);
+    }
     return true ;
 }
 
@@ -513,8 +524,8 @@ function buildDataset(data){
     }
 
 }
-function buildItem(thisTrNum,data){
-    var str='<tr id="tr_'+thisTrNum+'">'+'<td><input trNum='+thisTrNum+' data-id="'+data.id+'" type="checkbox"></td>'
+function buildItem(thisTrNum,data,datasetId){
+    var str='<tr id="tr_'+thisTrNum+'" sourceObjId="'+datasetId+'"><td><input trNum='+thisTrNum+' data-id="'+data.id+'" type="checkbox"></td>'
         +'<td><input value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" data-rule="信息项名称:required;" type="text" class="form-control"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control"></td>'

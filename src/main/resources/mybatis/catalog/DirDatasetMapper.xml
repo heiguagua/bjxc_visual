@@ -252,10 +252,10 @@
     </select>
 
     <select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        select sub.*,m.status AS classify_status from(
-        select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.region_dept_name as dept_name,
+        select sub.*,c.classify_structure_name AS classify_name,m.status AS classify_status from(
+        select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name as dept_name,
         di.dict_name as source_type_name,count(it.dataset_id) as item_nums FROM dir_dataset t
-        left join v_sys_region_dept de on t.belong_dept_type=de.id
+        left join sys_dept de on t.belong_dept_type=de.id
         left join sys_dict di on t.source_type=di.dict_code and di.category='datasetSourceType'
         left join dir_dataitem it on t.id=it.dataset_id and it.delete_flag=0
         <include refid="queryConditions"></include>
@@ -277,12 +277,12 @@
     <select id="selectDatasetInfoById" parameterType="java.lang.String" resultMap="ExtResultVoMap">
         select t.*,f.format_category,f.format_type,f.format_info,de.dept_name,su.total_storage,su.structure_count,
         su.shared_storage,su.shared_structure_count,su.opened_storage,su.opened_structure_count,
-        rd.region_dept_code,rd.region_dept_name
+        rd.dept_code as region_dept_code,rd.dept_name as region_dept_name
         from dir_dataset t
         left join dir_dataset_ext_format f on t.id=f.dataset_id
         left join sys_dept de on t.belong_dept_id=de.id and de.delete_flag=0
         left join dir_dataset_survey su on t.id=su.dataset_id
-        left join v_sys_region_dept rd on t.belong_dept_type=rd.id
+        left join sys_dept rd on t.belong_dept_type=rd.id
         where t.id = #{id}
     </select>
 
@@ -473,8 +473,9 @@
     </select>
 
     <select id="selectDatasetByActivityId" resultType="map">
-        SELECT id,dataset_name,(SELECT COUNT(*) FROM drap_data_column_map a WHERE a.dataset_id = id) as relationCount
-        FROM drap_dataset WHERE belong_dept_id = #{activity_id}
+        SELECT id,dataset_name,IFNULL(a.count,0) as relationCount FROM drap_dataset  d
+	        LEFT JOIN (SELECT dataset_id,COUNT(id) as count FROM drap_data_column_map GROUP BY dataset_id) a
+	        ON d.id = a.dataset_id WHERE d.belong_dept_id = #{activity_id}
     </select>
 
     <resultMap id="result_DrapDatasetItem_Map" type="com.chinawiserv.dsp.dir.entity.po.catalog.DrapDatasetItem">
@@ -648,7 +649,7 @@
                   AND dict_code = dd.update_frequency
             ) AS update_frequency,
             d.dataset_name, ddcm.info_resource_code as dataset_code, d.dataset_desc,
-            sd.region_dept_name, d.belong_dept_name, d.belong_dept_no, d.create_time,
+            sd.dept_name as region_dept_name, d.belong_dept_name, d.belong_dept_no, d.create_time,
             sd.region_code,sr.region_name,dept.fname,
             (
                 SELECT dict_name FROM sys_dict, dir_dataset_ext_format ddef WHERE category = 'resourceFormat'
@@ -663,7 +664,7 @@
         FROM
             dir_dataset d
         LEFT JOIN dir_dataitem dd ON (d.id = dd.dataset_id AND dd.delete_flag = 0)
-        LEFT JOIN v_sys_region_dept sd ON sd.id = d.belong_dept_Type
+        LEFT JOIN sys_dept sd ON sd.id = d.belong_dept_Type
         LEFT JOIN dir_dataset_classify_map ddcm ON (d.id = ddcm.dataset_id AND ddcm.delete_flag = 0)
         LEFT JOIN dir_classify dc ON ddcm.classify_id = dc.id
         <!-- LEFT JOIN dir_national_classify dnc ON dnc.classify_code=dc.national_code -->

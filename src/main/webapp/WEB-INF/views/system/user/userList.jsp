@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/system/user/userList.js"></script>
+    <script src="<%=context_path%>/js/system/user/userList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -31,20 +31,20 @@
                                 <c:if test="${master}">
                                 <div class="input-group">
                                     <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:addUser()" >
-                                        <img src="/images/userImg/addimg.png"/>
+                                        <img src="<%=context_path%>/images/userImg/addimg.png"/>
                                         创建用户
                                     </a>
                                 </div>
                                 <div class="input-group">
                                     <a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchUser()" >
-                                        <img src="/images/userImg/delImg.png"/>
+                                        <img src="<%=context_path%>/images/userImg/delImg.png"/>
                                         批量删除</a>
                                 </div>
                                 </c:if>
                                 <c:if test="${!master}">
                                 <%--<div class="input-group">--%>
                                     <%--<a class="btn btn-primary btn-flat btn-myself" onclick="javascript:synRemoteData()" id="synRemoteDataId">--%>
-                                        <%--<img src="/images/userImg/changeAdress.png"/>--%>
+                                        <%--<img src="<%=context_path%>/images/userImg/changeAdress.png"/>--%>
                                         <%--获取用户信息--%>
                                     <%--</a>--%>
                                 <%--</div>--%>

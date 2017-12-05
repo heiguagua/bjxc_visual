@@ -57,6 +57,7 @@
                 /images/**=anon
                  /druid/**=anon
 				/catalog/catalogue/=anon
+				/index*=anon
 				/system/dept/provideData/=anon
 				/system/user/provideData/=anon
 				<!--/WEB-INF/views/login.jsp=anon-->

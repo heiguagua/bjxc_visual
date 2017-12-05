@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/apply/data/dirDataApplyList.js"></script>
+    <script src="<%=context_path%>/js/apply/data/dirDataApplyList.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

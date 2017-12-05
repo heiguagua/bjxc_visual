@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/system/user/userEdit.js"></script>
+    <script src="<%=context_path%>/js/system/user/userEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <section class="content">
@@ -21,7 +21,7 @@
             </style>
             <div class="row">
                 <div class="col-md-6">
-                    <form class="form-horizontal"  role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/system/user/doEdit">
+                    <form class="form-horizontal"  role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/system/user/doEdit">
                         <input id="userId" type="hidden" value="${id}" name="Id" />
                         <div class="box-body box-bodyx">
                         	<div class="row">

@@ -45,7 +45,7 @@
      </c:if>--%>
    </ul><!-- /.sidebar-menu -->
    <a href="#" class="sidebar-toggle trapezoid-1" data-toggle="offcanvas" role="button" style="top:300px">
-	<img src="/images/userImg/sectionBack.png" id="smallImg"/>
+	<img src="<%=context_path%>/images/userImg/sectionBack.png" id="smallImg"/>
 	</a>
  </section>
  <!-- /.sidebar -->

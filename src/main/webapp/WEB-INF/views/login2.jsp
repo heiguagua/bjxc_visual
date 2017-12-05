@@ -19,7 +19,7 @@
 	    <b>目录管理系统</b>
 	  </div>
 	  <!-- /.login-logo -->
-	  <form action="/login/doLogin" data-validator-option="{theme:'bootstrap', timely:2, theme:'simple_bottom'}" method="post">
+	  <form action="<%=context_path%>/login/doLogin" data-validator-option="{theme:'bootstrap', timely:2, theme:'simple_bottom'}" method="post">
 	  <div class="login-box-body">
 	      <p class="login-box-msg">请输入用户名和密码登录</p>
 		  <c:if test="${error != null}">
@@ -47,7 +47,7 @@
 	      		</div>
 	      		<div class="col-lg-8">
 	      			<div class="form-group has-feedback">
-				        <img id="codeimg" alt="如果看不清楚，请单击图片刷新！" class="pointer img" src="/login/captcha">
+				        <img id="codeimg" alt="如果看不清楚，请单击图片刷新！" class="pointer img" src="<%=context_path%>/login/captcha">
 				        <a id="change_code" href="javascript:void(0);">点击刷新</a>
 				      </div>
 	      		</div>

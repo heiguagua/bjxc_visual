@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/system/dict/dataDictList.js"></script>
+    <script src="<%=context_path%>/js/system/dict/dataDictList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -30,7 +30,7 @@
                                 <input id="dd" type="hidden"  name="dd" />
                                 <%--<div class="input-group">--%>
                                     <%--<a class="btn btn-primary btn-flat btn-myself" id="addDict1" onclick="javascript:addDict()">--%>
-                                        <%--<img src="/images/userImg/addimg.png"/>--%>
+                                        <%--<img src="<%=context_path%>/images/userImg/addimg.png"/>--%>
                                         <%--新增--%>
                                     <%--</a>--%>
                                 <%--</div>--%>
@@ -41,7 +41,7 @@
                                 </div>
                                 <%--<div class="input-group">--%>
                                     <%--<a class="btn btn-default btn-flat  btn-myself hidden" id="addDict2"  onclick="javascript:addDetailDict()">--%>
-                                        <%--<img src="/images/userImg/addimg.png"/>--%>
+                                        <%--<img src="<%=context_path%>/images/userImg/addimg.png"/>--%>
                                        <%--新增--%>
                                     <%--</a>--%>
                                 <%--</div>--%>

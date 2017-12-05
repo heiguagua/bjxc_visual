@@ -539,6 +539,18 @@ $(document).on("change", "select#sys_select_f", function(){
 });
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
+    var sourceObjIds = "";
+    $.each($('#dataitemList>tr'),function(idx,item){
+        var sourceObjId= $(item).find('input:first').attr('table-id');
+        if(sourceObjIds.length > 0 && sourceObjIds.indexOf(sourceObjId) == -1){
+            sourceObjIds += "," + sourceObjId;
+        }else{
+            sourceObjIds = sourceObjId;
+        }
+    });
+    if(sourceObjIds.length>0){
+        $("#sourceObjIds").val(sourceObjIds);
+    }
     return true ;
 }
 

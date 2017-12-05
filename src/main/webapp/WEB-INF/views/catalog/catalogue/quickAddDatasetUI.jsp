@@ -3,9 +3,9 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/plugins/treeview/bootstrap-treeview.js"></script>
-    <script src="/plugins/treeview/data.treeview.js"></script>
-    <script src="/js/catalog/catalogue/quickAddDatasetUI.js"></script>
+    <script src="<%=context_path%>/plugins/treeview/bootstrap-treeview.js"></script>
+    <script src="<%=context_path%>/plugins/treeview/data.treeview.js"></script>
+    <script src="<%=context_path%>/js/catalog/catalogue/quickAddDatasetUI.js"></script>
     <style type="text/css">
         .menu-wrap{
             position:relative;
@@ -32,7 +32,7 @@
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="addForm" method="post" action="/catalog/quickAddDataset">
+            <form class="form-horizontal" id="addForm" method="post" action="<%=context_path%>/catalog/quickAddDataset">
               <%-- <button id="deploy_dataset" class="btn btn-primary btn-flat pull-right" data-toggle="modal" data-target="#myModal">
                     配置数据集
                 </button> --%>
@@ -76,8 +76,8 @@
 			                    <label  class="col-sm-3 control-label">信息资源名称<span class="redStar">*</span>:</label>
 			                    <div class="col-sm-9">
 			                        <input type="text" class="form-control" id="datasetName" name="datasetName" data-rule="信息资源名称:required;">
-									<input type="hidden" id="sourceObjType" name="datasetSourceInfo.sourceObjType" value="3">
-									<input type="hidden" id="sourceObjId" name="datasetSourceInfo.sourceObjId">
+									<input type="hidden" id="sourceObjType" name="datasetSourceInfoVo.sourceObjType" value="3">
+									<input type="hidden" id="sourceObjIds" name="datasetSourceInfoVo.sourceObjIds">
 			                    </div>
 	                    </div>
                			<div class="col-sm-6">
@@ -341,7 +341,7 @@
                 	<span class="checkspan">已选字段列表</span>
 					<button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
 							data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
-						<img src="/images/userImg/delImg.png"/>删除
+						<img src="<%=context_path%>/images/userImg/delImg.png"/>删除
 					</button>
                 </div>
                 <div class="form-group " style="overflow-x: auto;min-height:200px;">

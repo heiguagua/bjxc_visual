@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/system/me/changePassword.js"></script>
+    <script src="<%=context_path%>/js/system/me/changePassword.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -11,7 +11,7 @@
     <div class="tab-pane " id="tab_2">
         <div class="row">
             <div class="col-md-6">
-                <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/system/me/doChangePwd">
+                <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/system/me/doChangePwd">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="password">旧密码</label>

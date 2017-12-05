@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/catalog/catalogue/catalogueAdd.js"></script>
+    <script src="<%=context_path%>/js/catalog/catalogue/catalogueAdd.js"></script>
 </head>
 <style>
 /* .n-top, .n-right, .n-bottom, .n-left{
@@ -19,7 +19,7 @@
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
         
-            <form class="form-horizontal" htmlEscape="true" id="addForm" action="/catalog/doAdd" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" >
+            <form class="form-horizontal" htmlEscape="true" id="addForm" action="<%=context_path%>/catalog/doAdd" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}" >
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
@@ -53,7 +53,7 @@
                         <div class="col-sm-6">
                             <label  class="col-sm-3 control-label">信息资源名称<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="datasetName" name="datasetName">
+                                <input type="text" class="form-control" id="datasetName" name="datasetName"  data-rule="信息资源名称:required;">
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -189,7 +189,7 @@
                         <div class="col-sm-6">
                             <label for="shareType" class="col-sm-3 control-label">共享类型<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" data-rule="所属资源格式:required;">
+                                <select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" data-rule="共享类型:required;">
                                 </select>
                                 <div id="shareMethodDiv">
                                     <label for="shareMethod" class="col-sm-4 control-label">共享方式:</label>
@@ -306,11 +306,11 @@
                         <p>
                             <button type="button" class="btn btn-default btn-flat pull-right dropdown-toggle btn-myself"
                                     data-toggle="dropdown" id="addItem">
-                                <img src="/images/userImg/addimg.png"/>添加信息项
+                                <img src="<%=context_path%>/images/userImg/addimg.png"/>添加信息项
                             </button>
                             <button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
                                     data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
-                                <img src="/images/userImg/delImg.png"/>删除
+                                <img src="<%=context_path%>/images/userImg/delImg.png"/>删除
                             </button>
                         </p>
                     </div>

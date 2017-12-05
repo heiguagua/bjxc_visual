@@ -3,11 +3,11 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/catalog/classify/classifyList.js"></script>
-    <%-- <script src="/plugins/jquery.ztree.exedit.js"></script> --%>
-    <script src="/plugins/jquery.ztree.all.js"></script>
-    <%-- <script src="/plugins/jquery.ztree.core.js"></script> --%>
-	<link rel="stylesheet" href="/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <script src="<%=context_path%>/js/catalog/classify/classifyList.js"></script>
+    <%-- <script src="<%=context_path%>/plugins/jquery.ztree.exedit.js"></script> --%>
+    <script src="<%=context_path%>/plugins/jquery.ztree.all.js"></script>
+    <%-- <script src="<%=context_path%>/plugins/jquery.ztree.core.js"></script> --%>
+	<link rel="stylesheet" href="<%=context_path%>/css/zTreeStyle/zTreeStyle.css" type="text/css">
 </head>
 <style type="text/css">
 .layui-layer-dialog{

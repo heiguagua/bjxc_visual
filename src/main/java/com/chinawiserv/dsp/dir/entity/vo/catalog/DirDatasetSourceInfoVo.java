@@ -11,4 +11,13 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetSourceInfo;
  * @since 2017-09-08
  */
 public class DirDatasetSourceInfoVo extends DirDatasetSourceInfo{
+    private String sourceObjIds;
+
+    public String getSourceObjIds() {
+        return sourceObjIds;
+    }
+
+    public void setSourceObjIds(String sourceObjIds) {
+        this.sourceObjIds = sourceObjIds;
+    }
 }

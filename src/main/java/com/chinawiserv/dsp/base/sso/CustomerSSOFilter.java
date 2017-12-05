@@ -1,35 +1,5 @@
 package com.chinawiserv.dsp.base.sso;
 
-import com.chinawiserv.dsp.base.common.SystemConst;
-import com.chinawiserv.dsp.base.common.util.ApplicationContextUtil;
-import com.chinawiserv.dsp.base.common.util.ShiroUtils;
-import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
-import com.chinawiserv.dsp.base.entity.po.system.SysUser;
-import com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo;
-import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
-import com.chinawiserv.dsp.base.entity.vo.system.TreeMenu;
-import com.chinawiserv.dsp.base.service.system.ISysMenuService;
-import com.chinawiserv.dsp.base.service.system.ISysProductIntegrateService;
-import com.chinawiserv.dsp.base.service.system.ISysSettingService;
-import com.chinawiserv.dsp.base.service.system.ISysUserService;
-import com.free.oss.filter.SSOFilter;
-import com.free.oss.utils.Props;
-import com.free.oss.utils.RegExp;
-import com.free.oss.utils.Tokens;
-import com.google.common.base.Strings;
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.ContextLoader;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -37,17 +7,50 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.ContextLoader;
+
+import com.chinawiserv.dsp.base.common.SystemConst;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.entity.vo.system.TreeMenu;
+import com.chinawiserv.dsp.base.service.system.ISysMenuService;
+import com.chinawiserv.dsp.base.service.system.ISysProductIntegrateService;
+import com.chinawiserv.dsp.base.service.system.ISysSettingService;
+import com.chinawiserv.dsp.base.service.system.ISysUserService;
+import com.free.oss.filter.SSOFilter;
+import com.free.oss.utils.RegExp;
+import com.free.oss.utils.Tokens;
+import com.google.common.base.Strings;
+
+@EnableConfigurationProperties(value = SSOConfigProperties.class)
 @Component
 public class CustomerSSOFilter extends SSOFilter {
 
-    private static final String profile = "sso-config.properties";
-
-    private static final Long TIME_OUT = 3600000L;
-
     @Autowired
-    private ISysProductIntegrateService sysProductIntegrateService;
+    protected ISysProductIntegrateService sysProductIntegrateService;
 
-    public CustomerSSOFilter() {}
+    private final SSOConfigProperties prop;
+
+    public CustomerSSOFilter(SSOConfigProperties properties) {
+        this.prop = properties;
+    }
 
     /**
      * 获取当前系统登录的账号
@@ -61,11 +64,86 @@ public class CustomerSSOFilter extends SSOFilter {
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        super.init(filterConfig);
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
+
+        String requestURL = req.getRequestURL().toString();
+        String requestURI = req.getQueryString();
+        String url = requestURL + "?" + requestURI;
+
+        HttpSession session = req.getSession(true);
+
+        Map<String, String> params = urlParams(URLDecoder.decode(Strings.nullToEmpty(requestURI), "UTF-8"));
+
+        String s_t = params.get("s_t");
+        if (!Strings.isNullOrEmpty(s_t)) {// 带有token 参数，进行解析
+
+            Tokens tk = Tokens.of(s_t);
+            if (!tk.legal(this.prop.getSecretCode()) || tk.timeout(this.prop.getTimeOut())) {
+                this.logOut(session);
+            } else {// 合法
+                if (tk.getAccount() != null) {
+                    if (!tk.getAccount().equals(this.curAcc(session))) {// 当前登录账号不相等
+                        this.logOut(session);
+                        this.setAcc(session, tk.getAccount());
+                    } else {// 登录账号相等 ignore
+                    }
+                } else {// 登录账号为空
+                    this.logOut(session);
+                }
+            }
+
+            if (!this.prop.isShowUrlToken()) {
+
+                String rto = requestURL + "?";
+                for (String itm : params.keySet()) {
+                    if (!"s_t".equals(itm)) {
+                        rto += itm + "=" + URLEncoder.encode(Strings.nullToEmpty(params.get(itm)), "UTF-8") + "&";
+                    }
+                }
+                if (rto.endsWith("&")) {
+                    rto = rto.substring(0, rto.length() - 1);
+                }
+                if (rto.endsWith("?")) {
+                    rto = rto.substring(0, rto.length() - 1);
+                }
+                resp.sendRedirect(rto);
+            }
+        } else if (RegExp.match(".{0,}(jp:){1}.{1,}", url)) {// 跳转到其他系统
+
+            String arr[] = requestURL.split("jp:");
+            String uri = arr.length > 1 ? arr[1] : "";
+            uri = RegExp.match("^/.{0,}", uri) ? uri.substring(1) : uri;
+
+            String[] hes = uri.split("/");
+            String toHost_key = hes.length > 0 ? hes[0] : "";
+            String host = !Strings.isNullOrEmpty(toHost_key) && RegExp.match("^(hk_).{0,}", toHost_key)
+                    ? this.prop.getJumpLocation(toHost_key.replace("hk_", ""))
+                    : this.prop.getJumpLocation("host");
+
+            uri = uri.replace(toHost_key, "");
+
+            // 检查是否登录
+            String curAcc = this.curAcc(session);
+            String jurl = host
+                    + (Strings.isNullOrEmpty(uri) ? "" : RegExp.match("^/.{0,}$", uri) ? uri : "/" + uri)
+                    + (Strings.isNullOrEmpty(requestURI) ? "?" + "timestamp=" + System.currentTimeMillis()
+                    : "?" + requestURI + "&timestamp=" + System.currentTimeMillis());
+            if (!Strings.isNullOrEmpty(curAcc)) {// 不等于空，封装参数
+                String token = Tokens.toToken(curAcc, this.prop.getSecretCode());
+                token = URLEncoder.encode(token, "UTF-8");
+                jurl += "&s_t=" + token;
+            }
+            resp.sendRedirect(jurl);
+        } else {
+            chain.doFilter(request, response);
+        }
     }
 
     public void loginSuccess(Map<String, Object> paramMap) {
+
         ISysSettingService sysSettingService = ContextLoader.getCurrentWebApplicationContext().getBean(ISysSettingService.class);
         ISysMenuService sysMenuService = ContextLoader.getCurrentWebApplicationContext().getBean(ISysMenuService.class);
         SysUser currentLoginUser = ShiroUtils.getLoginUser();

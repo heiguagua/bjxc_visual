@@ -3,7 +3,7 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
-<script src="/js/dir/report/upload.dir.js"></script>
+<script src="<%=context_path%>/js/dir/report/upload.dir.js"></script>
 <script type="text/javascript"
 	src="/js/dir/report/upload.dir.sumbform.js"></script>
 <style type="text/css">

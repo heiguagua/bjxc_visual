@@ -11,7 +11,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/feedback/requirement/requirementDetail.js"></script>
+    <script src="<%=context_path%>/js/feedback/requirement/requirementDetail.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">

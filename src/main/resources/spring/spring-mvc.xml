@@ -16,7 +16,7 @@
 		                   http://www.springframework.org/schema/task/spring-task-4.3.xsd"
 	default-lazy-init="false">
 
-	<context:property-placeholder location="${config.location:classpath:}conf/*.properties" />
+	<context:property-placeholder location="${config.location:classpath:}conf/*.properties,${config.location:classpath:}sso-config.properties" />
 
 	<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
 		<property name="supportedMediaTypes">
@@ -89,6 +89,7 @@
 	<mvc:resources location="/WEB-INF/static/css/" mapping="/css/**" />
 	<mvc:resources location="/WEB-INF/static/images/" mapping="/images/**" />
 	<mvc:resources location="/WEB-INF/static/plugins/" mapping="/plugins/**" />-->
+	<mvc:resources location="file:///${fileUpload}" mapping="/upload/**" />
 
 	<!-- 事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/feedback/suggestion/suggestionList.js"></script>
+    <script src="<%=context_path%>/js/feedback/suggestion/suggestionList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <form class="form-inline marginBot" method="post">
+                        <form class="form-inline marginBot" method="post"  onsubmit="return false;">
                             <div class="box-header">
                                 <div class="input-group pull-right">
                                     <input class="form-control" id="editSearch" name="searchEdit" placeholder="标题" type="text">

@@ -3,7 +3,7 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
-<script src="/js/system/menu/menuList.js"></script>
+<script src="<%=context_path%>/js/system/menu/menuList.js"></script>
 <script type="text/javascript"
 	src="/plugins/uploadFile/ajaxfileupload.js"></script>
 </head>
