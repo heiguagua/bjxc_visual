@@ -61,6 +61,7 @@ function initEditPage(){
                 $("#orderNumber").val(vo.orderNumber);
                 $("#validateFrom").val(vo.validateFromStr);
                 $("#validateTo").val(vo.validateToStr);
+                $("#pinyin").val(vo.pinyin);
                 // $("#icon").text(vo.icon);
                 $("#inlineRadio"+vo.status).attr("checked", true);
             }
