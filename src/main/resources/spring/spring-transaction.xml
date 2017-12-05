@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						   http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+						   http://www.springframework.org/schema/context
+						   http://www.springframework.org/schema/context/spring-context-4.3.xsd
+						   http://www.springframework.org/schema/aop
+						   http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+						   http://www.springframework.org/schema/tx
+						   http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+						   http://www.springframework.org/schema/mvc
+						   http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+                           http://www.springframework.org/schema/task
+		                   http://www.springframework.org/schema/task/spring-task-4.3.xsd"
+	default-lazy-init="false">
+    
+	<!-- 事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 数据源 -->
+		<property name="dataSource" ref="dataSource_dcm" />
+	</bean>
+	<!-- 通知 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 把名称为 find、statistic、query 开头的方法配置为只读事物 -->
+			<tx:method name="find*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
+			<tx:method name="select*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
+			<tx:method name="get*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
+			<tx:method name="statistic*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
+			<tx:method name="query*" no-rollback-for="Exception" read-only="true" isolation="READ_COMMITTED" propagation="REQUIRED" />
+
+			<!-- 把名称为除 find、statistic、query 开头的方法以外的所有方法配置为读写事物 -->
+			<tx:method name="*" rollback-for="Throwable" read-only="false" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 切面 -->
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.chinawiserv.dsp.*.service..*.*(..))" />
+	</aop:config>
+
+	<import resource="spring-shiro.xml" />
+
+	<!-- 定时任务 -->
+	<!--<task:executor id="executor" pool-size="10"></task:executor> -->
+	<!--<task:scheduler id="scheduler" pool-size="20"></task:scheduler> -->
+	<!--<task:annotation-driven executor="executor" scheduler="scheduler"></task:annotation-driven> -->
+
+</beans>
