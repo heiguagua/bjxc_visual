@@ -105,7 +105,7 @@
 			                            <label  class="col-sm-3 control-label" for="orderNumber">排序号*</label>
 			                            <div class="col-sm-9">
 			                         <input type="text" id="order_number" name="orderNumber" class="form-control"
-                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(/dirClassify/CheckOrderNumber)">
+                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=context_path%>/dirClassify/CheckOrderNumber)">
 			                            </div>
 			                        </div>
 			                        
@@ -171,7 +171,7 @@
                             <div class="form-group">
                                 <label for="classifyName">目录名称*</label>
                                 <input type="text" id="classify_name" name="classifyName" class="form-control"
-                                       placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;remote(/system/user/insertCheckName)">
+                                       placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;remote(<%=context_path%>/system/user/insertCheckName)">
                             </div>
                             <div class="form-group" id="Dep">
                             	<label for="classifyName">是否为部门节点*</label>
@@ -215,7 +215,7 @@
                             <div class="form-group">
                                 <label for="orderNumber">排序号*</label>
                                  <input type="text" id="order_number" name="orderNumber" class="form-control"
-                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(/dirClassify/CheckOrderNumber)">
+                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=context_path%>/dirClassify/CheckOrderNumber)">
                             </div>
                             <div class="form-group">
                                 <label for="classifyDesc">目录描述:</label>

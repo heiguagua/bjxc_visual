@@ -56,7 +56,7 @@
                                 <label for="deptName"  >组织机构名称<i style="color: red">*</i></label>
                                 <div class="form-group">
                                     <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="组织机构名称" disabled> -->
-                                    <input type="text" class="form-control" name="deptName" id="deptName" placeholder="请输入组织机构名称"   data-rule="组织机构名称:required;deptName;remote(/system/dept/checkDeptName, fid:#fid)">
+                                    <input type="text" class="form-control" name="deptName" id="deptName" placeholder="请输入组织机构名称"   data-rule="组织机构名称:required;deptName;remote(<%=context_path%>/system/dept/checkDeptName, fid:#fid)">
                                 </div>
                             </div>
                             <div class="form-group">

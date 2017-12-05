@@ -43,7 +43,7 @@
 			                            <div class="col-sm-7 col-xs-7">
 			                            <input type="text" id="userName" name="userName" class="form-control"
 			                                   placeholder="请输入用户名" autocomplete="false"
-			                                   data-rule="用户名:username;required;length[3~12];remote(/system/user/insertCheckName)">
+			                                   data-rule="用户名:username;required;length[3~12];remote(<%=context_path%>/system/user/insertCheckName)">
 			                            </div>
 			                        </div>
 								</div>

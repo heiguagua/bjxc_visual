@@ -104,7 +104,7 @@
 	                                    <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="组织机构名称" disabled> -->
 	                                    <input type="text" class="form-control" id="deptName" name="deptName"
 	                                           placeholder="请输入组织机构名称"
-	                                           data-rule="组织机构名称:required;deptName;remote(/system/dept/checkDeptName, fid:#fid)">
+	                                           data-rule="组织机构名称:required;deptName;remote(<%=context_path%>/system/dept/checkDeptName, fid:#fid)">
 	                                </div>
 	                            </div>
                         	</div>

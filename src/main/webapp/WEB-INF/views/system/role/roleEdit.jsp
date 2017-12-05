@@ -45,7 +45,7 @@
                                 <label for="roleName">角色名称</label>
                                 <div class="form-group">
                                 <input type="text" id="roleName" name="roleName" class="form-control"
-                                       placeholder="请输入角色名称" data-rule="角色名称:simpleName;required;remote(/system/role/checkRoleName?roleId=${roleId});">
+                                       placeholder="请输入角色名称" data-rule="角色名称:simpleName;required;remote(<%=context_path%>/system/role/checkRoleName?roleId=${roleId});">
                                 </div>
                             </div>
                             <div class="form-group">
