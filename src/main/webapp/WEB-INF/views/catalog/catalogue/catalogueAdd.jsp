@@ -189,7 +189,7 @@
                         <div class="col-sm-6">
                             <label for="shareType" class="col-sm-3 control-label">共享类型<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" data-rule="所属资源格式:required;">
+                                <select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" data-rule="共享类型:required;">
                                 </select>
                                 <div id="shareMethodDiv">
                                     <label for="shareMethod" class="col-sm-4 control-label">共享方式:</label>
