@@ -3,8 +3,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/dir/configure/api/apiAdd.js"></script>
- 	<script src="/js/system/dict/dictIcon.js"></script>
+    <script src="<%=context_path%>/js/dir/configure/api/apiAdd.js"></script>
+ 	<script src="<%=context_path%>/js/system/dict/dictIcon.js"></script>
 </head>
 <body>
 <section class="content">
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" enctype="multipart/form-data" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="/dirDevelopApis/doAdd">
+                          method="post" action="<%=context_path%>/dirDevelopApis/doAdd">
                         <div class="box-body">
                         	<input id="parentId" type="hidden" value="${parentId}" name="parentId" />
                             <div class="form-group">

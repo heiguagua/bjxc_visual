@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/catalog/release/releaseList.js"></script>
+    <script src="<%=context_path%>/js/catalog/release/releaseList.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -76,7 +76,7 @@
                                     <div class="input-group">
                                         <button class="btn btn-default btn-flat  btn-myself dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="releaseButton">
                                             <!-- <i class="fa fa-plus-circle"></i> -->发布
-                                            <img src="/images/userImg/Seciton_img@2x.png"/>
+                                            <img src="<%=context_path%>/images/userImg/Seciton_img@2x.png"/>
                                             <!-- <span class="caret"></span> -->
                                         </button>
                                         <ul class="dropdown-menu" role="menu" style="left:-21px;text-align:center;">

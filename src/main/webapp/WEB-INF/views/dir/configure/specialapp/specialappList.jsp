@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/dir/configure/specialapp/specialappList.js"></script>
+    <script src="<%=context_path%>/js/dir/configure/specialapp/specialappList.js"></script>
 
 </head>
 <style type="text/css">
@@ -40,7 +40,7 @@
                                     <a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:addUser()" > 
                                     
                                     <!-- <i class="fa fa-plus"></i> -->
-                                    <img src="/images/userImg/addimg.png"/>
+                                    <img src="<%=context_path%>/images/userImg/addimg.png"/>
                                     	 新增</a>
                                 </div>
                                 <%--</#if>--%>

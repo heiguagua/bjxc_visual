@@ -3,8 +3,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/catalog/classify/classifyAdd.js"></script>
- 	<script src="/js/system/dict/dictIcon.js"></script>
+    <script src="<%=context_path%>/js/catalog/classify/classifyAdd.js"></script>
+ 	<script src="<%=context_path%>/js/system/dict/dictIcon.js"></script>
 </head>
 <body>
 <section class="content">
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="/dirClassify/doAdd">
+                          method="post" action="<%=context_path%>/dirClassify/doAdd">
                         <div class="box-body">
                         	<input id=fid type="hidden" value="${fid}" name="fid" />
                         	
@@ -105,7 +105,7 @@
 			                            <label  class="col-sm-3 control-label" for="orderNumber">排序号*</label>
 			                            <div class="col-sm-9">
 			                         <input type="text" id="order_number" name="orderNumber" class="form-control"
-                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(/dirClassify/CheckOrderNumber)">
+                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=context_path%>/dirClassify/CheckOrderNumber)">
 			                            </div>
 			                        </div>
 			                        
@@ -171,7 +171,7 @@
                             <div class="form-group">
                                 <label for="classifyName">目录名称*</label>
                                 <input type="text" id="classify_name" name="classifyName" class="form-control"
-                                       placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;remote(/system/user/insertCheckName)">
+                                       placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;remote(<%=context_path%>/system/user/insertCheckName)">
                             </div>
                             <div class="form-group" id="Dep">
                             	<label for="classifyName">是否为部门节点*</label>
@@ -215,7 +215,7 @@
                             <div class="form-group">
                                 <label for="orderNumber">排序号*</label>
                                  <input type="text" id="order_number" name="orderNumber" class="form-control"
-                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(/dirClassify/CheckOrderNumber)">
+                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=context_path%>/dirClassify/CheckOrderNumber)">
                             </div>
                             <div class="form-group">
                                 <label for="classifyDesc">目录描述:</label>

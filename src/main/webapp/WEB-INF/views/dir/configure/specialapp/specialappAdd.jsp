@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/dir/configure/specialapp/specialappAdd.js"></script>
+    <script src="<%=context_path%>/js/dir/configure/specialapp/specialappAdd.js"></script>
 </head>
 <body>
 <section class="content">
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form"  enctype="multipart/form-data"  data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="/dirSpecialApps/doAdd">
+                          method="post" action="<%=context_path%>/dirSpecialApps/doAdd">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="appName">应用名称</label>

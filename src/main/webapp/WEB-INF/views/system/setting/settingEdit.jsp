@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/system/setting/settingEdit.js"></script>
+    <script src="<%=context_path%>/js/system/setting/settingEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="/system/setting/doEdit">
+                          method="post" action="<%=context_path%>/system/setting/doEdit">
                         <input type="hidden" id="settingId" value="${settingId}" name="id"/>
                         <div class="box-body">
                             <div class="form-group">

@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/system/dept/deptAdd.js"></script>
+    <script src="<%=context_path%>/js/system/dept/deptAdd.js"></script>
     <style type="text/css">
         .menu-wrap {
             position: relative;
@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form  class="form-horizontal" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="/system/dept/doAdd">
+                          method="post" action="<%=context_path%>/system/dept/doAdd">
                         <div class="box-body box-bodyx">
 
                 
@@ -104,7 +104,7 @@
 	                                    <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="组织机构名称" disabled> -->
 	                                    <input type="text" class="form-control" id="deptName" name="deptName"
 	                                           placeholder="请输入组织机构名称"
-	                                           data-rule="组织机构名称:required;deptName;remote(/system/dept/checkDeptName, fid:#fid)">
+	                                           data-rule="组织机构名称:required;deptName;remote(<%=context_path%>/system/dept/checkDeptName, fid:#fid)">
 	                                </div>
 	                            </div>
                         	</div>

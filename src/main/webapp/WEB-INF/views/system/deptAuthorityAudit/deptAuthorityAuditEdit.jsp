@@ -11,7 +11,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/system/deptAuthorityAudit/deptAuthorityAuditEdit.js"></script>
+    <script src="<%=context_path%>/js/system/deptAuthorityAudit/deptAuthorityAuditEdit.js"></script>
 </head>
 <body>
 <section class="content">
@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-horizontal" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="/system/deptAuthorityAudit/doEdit">
+                          method="post" action="<%=context_path%>/system/deptAuthorityAudit/doEdit">
                         <input type="hidden" id="authAuditId" name="id" value="${id}"/>
                         <div class="box-body">
                             <div class="form-group">

@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/system/dict/dataDictDetailAdd.js"></script>
+    <script src="<%=context_path%>/js/system/dict/dataDictDetailAdd.js"></script>
 </head>
 <body>
 <section class="content">
@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form  class="form-inline" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="/sysDict/detailDoAdd">
+                          method="post" action="<%=context_path%>/sysDict/detailDoAdd">
                         <div class="box-body box-bodyx">
                         <input id="category" type="hidden" value="${category}" name="category"/>
                         <div class="form-group">

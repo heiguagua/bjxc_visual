@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -283,7 +284,35 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
 		List<String> menuIds = Lists.transform(sysRoleMenus,sysRoleMenu -> sysRoleMenu.getMenuId());
 		return selectTreeMenuByMenuIdsAndPid(menuIds, "0");
 	}
-	
+
+    //对方法selectTreeMenuByUserId的改造，不会每次都去查子菜单
+    @Override
+    public List<TreeMenu> selectTreeMenuForLoginUser(String loginUserId) throws Exception{
+        List<SysMenu> menuList = sysMenuMapper.selectTreeMenuForLoginUser(loginUserId);
+        return transferSysMenuToTreeMenu(menuList,"0");
+    }
+
+    private List<TreeMenu> transferSysMenuToTreeMenu(List<SysMenu> menuList, String pid){
+        return menuList.stream()
+                .filter(sysMenu -> this.sysMenuFilter(sysMenu, pid))
+                .map(sysMenu -> this.mapSysMentToTreeMenu(sysMenu, menuList))
+                .collect(Collectors.toList());
+    }
+
+    private boolean sysMenuFilter(SysMenu sysMenu, String pid){
+        final String parentMenuId = sysMenu.getPid();
+        return parentMenuId != null && parentMenuId.equals(pid);
+    };
+
+    private TreeMenu mapSysMentToTreeMenu(SysMenu sysMenu, List<SysMenu> menuList){
+
+        final String menuId = sysMenu.getId();
+        final TreeMenu treeMenu = new TreeMenu();
+        treeMenu.setSysMenu(sysMenu);
+        treeMenu.setChildren(transferSysMenuToTreeMenu(menuList, menuId));
+        return treeMenu;
+    }
+
 	@Override
 	public List<ZTreeNode> selectTreeMenuAllowAccessByMenuIdsAndPid(
 			final List<String> menuIds, String pid) {

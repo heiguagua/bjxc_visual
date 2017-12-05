@@ -3,11 +3,11 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>  
-<%--     <script type="text/javascript" src="/plugins/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="/plugins/ueditor/ueditor.all.js"></script>        
+<%--     <script type="text/javascript" src="<%=context_path%>/plugins/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="<%=context_path%>/plugins/ueditor/ueditor.all.js"></script>        
     <script type="text/javascript" charset="utf-8" src="/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
  --%>    
- 	<script src="/js/dir/configure/home/homeAdd.js"></script>    
+ 	<script src="<%=context_path%>/js/dir/configure/home/homeAdd.js"></script>    
 </head>
 <body>
 <section class="content">
@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" 
-                           action="/dirHome/doAdd" method="post" enctype="multipart/form-data" id="uploadNewsP">
+                           action="<%=context_path%>/dirHome/doAdd" method="post" enctype="multipart/form-data" id="uploadNewsP">
                         <div class="box-body">
                             <div class="form-group col-md-12">
                                 <label for="choosePic">图片<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
