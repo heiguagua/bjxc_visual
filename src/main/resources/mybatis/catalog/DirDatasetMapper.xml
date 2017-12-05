@@ -277,7 +277,7 @@
     <select id="selectDatasetInfoById" parameterType="java.lang.String" resultMap="ExtResultVoMap">
         select t.*,f.format_category,f.format_type,f.format_info,de.dept_name,su.total_storage,su.structure_count,
         su.shared_storage,su.shared_structure_count,su.opened_storage,su.opened_structure_count,
-        rd.dept_code,rd.dept_name
+        rd.dept_code as region_dept_code,rd.dept_name as region_dept_name
         from dir_dataset t
         left join dir_dataset_ext_format f on t.id=f.dataset_id
         left join sys_dept de on t.belong_dept_id=de.id and de.delete_flag=0
@@ -649,7 +649,7 @@
                   AND dict_code = dd.update_frequency
             ) AS update_frequency,
             d.dataset_name, ddcm.info_resource_code as dataset_code, d.dataset_desc,
-            sd.dept_name, d.belong_dept_name, d.belong_dept_no, d.create_time,
+            sd.dept_name as region_dept_name, d.belong_dept_name, d.belong_dept_no, d.create_time,
             sd.region_code,sr.region_name,dept.fname,
             (
                 SELECT dict_name FROM sys_dict, dir_dataset_ext_format ddef WHERE category = 'resourceFormat'
