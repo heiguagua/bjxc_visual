@@ -98,8 +98,10 @@ public class MeController extends BaseController {
 		return result.success("密码修改成功，请重新登录！");
     }
 
-	@Value("${config.location:classpath:}static/images/userImg/")
-	String userImgPath;
+//	@Value("${config.location:classpath:}static/images/userImg/")
+//	String userImgPath;
+    @Value("${fileUpload}")
+	String fileUploadPath;
 	/**
 	 * 执行图片上传
 	 */
@@ -143,13 +145,16 @@ public class MeController extends BaseController {
 //                	filenameOri = userVo.getId()+filenameOri.substring(filenameOri.lastIndexOf("."));
 //					String filePath = request.getSession().getServletContext().getRealPath("/") + resource
 //						+ filenameOri;
+
+
+
 					String filenameOri = userVo.getId()+".jpg";
-					File userImgPathfile = ResourceUtils.getFile(userImgPath);
-					String filePath =  userImgPathfile.toString().concat("/"+filenameOri) ;
+//					File userImgPathfile = ResourceUtils.getFile(userImgPath);
+					String filePath =  fileUploadPath.concat(filenameOri) ;
 					//转存文件
 					file.transferTo(new File(filePath));
 					//保存到数据库的文件名
-					String filename="/images/userImg/" + filenameOri;
+					String filename="/upload/" + filenameOri;
 					//修改用户图片的url
 				    userVo.setUserImg(filename);
 				    //更新用户

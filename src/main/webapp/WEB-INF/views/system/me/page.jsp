@@ -78,11 +78,11 @@
         control.fileinput({
 
             initialPreview: [
-                basePathJS + '${(sysUser.userImg)}'
+                basePathJS + '${(sysUser.userImg)}?'+new Date().getTime(),
             ],
             initialPreviewAsData: true,
             initialPreviewConfig: [
-                {caption: basePathJS + "${(sysUser.userImg)}",
+                {caption: basePathJS + "${(sysUser.userImg)}?"+new Date().getTime(),
 //                    size: 930321,
                     width: "120px",
                     key: '${(sysUser.id)}',
