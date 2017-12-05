@@ -63,7 +63,7 @@
                             </section>
                         </aside>
 						 <div class="content_table">
-						 	     <form class="form-inline marginBot" method="post">
+						 	     <form class="form-inline marginBot" method="post"  onsubmit="return false;">
                             <div class="box-header">
                                 <div class="input-group pull-right">
                                     <input type="hidden" id="searchClassifyId">

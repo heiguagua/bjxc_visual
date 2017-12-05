@@ -69,7 +69,7 @@ div.layui-layer-iframe{
                         
                           <div class="content_table">
                           
-                          	 <form class="form-inline" method="post">
+                          	 <form class="form-inline" method="post"   onsubmit="return false;">
                                 <div class="box-header box-header-myself">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
@@ -131,7 +131,7 @@ div.layui-layer-iframe{
                                         <input type="hidden" id="searchClassifyId">
                                         <input type="hidden" id="classifyType">
 	                                    <div class="input-group">
-	                                        <input class="form-control" id="searchName" placeholder="资源名称" type="text">
+	                                        <input class="form-control"  id="searchName" placeholder="资源名称" type="text">
 	                                        <div class="input-group-btn">
 	                                            <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
 	                                                <i class="fa fa-search"></i> 查询

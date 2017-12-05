@@ -54,7 +54,7 @@
                             </section>
                         </aside>
 						<div class="content_table">
-								                        <form class="form-inline" method="post">
+								                        <form class="form-inline" method="post"    onsubmit="return false;">
                             <div class="box-header box-header-myself">
                                 <div class="input-group">
                                     <a class="btn btn-primary btn-flat btn-myself" id="auditButton">
