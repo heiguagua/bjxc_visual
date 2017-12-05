@@ -43,12 +43,12 @@
                                     	新增</a>
                                 </div> -->
                                 <%--</#if>--%>
-                                <div class="input-group pull-right">
+                                <!-- <div class="input-group pull-right">
                                     <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="内容">
                                     <div class="input-group-btn">
                                         <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i>查询</button>
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div><!-- /.box-header -->
                         </div>
