@@ -201,14 +201,8 @@ function initDept(pid) {
             title: '下级机构数量',
             align: 'left',
             valign: 'middle',
-            sortable: false,
-            formatter:function(value, row, index){
-            	if(value == undefined){
-                    value = "";
-                }
-            	value = HtmlEncode(value);
-                return '<p title="'+value+'">'+value+'</p>';
-            }
+            sortable: false
+            
         }, {
             field: 'updateTime',
             title: '更新时间',

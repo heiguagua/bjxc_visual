@@ -8,13 +8,12 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;    
 import javax.servlet.ServletRequest;    
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Component;    
 
 @Component
-public class XssFilter implements Filter {
+public class XssFilterForUeditor implements Filter {
 
     public void init(FilterConfig config) throws ServletException {}
 
@@ -30,10 +29,10 @@ public class XssFilter implements Filter {
     			|| url.toString().contains("/dirNews/doEdit") || url.toString().contains("/dirNews/doAdd")
     			|| url.toString().contains("/dirIntrude/doEdit") || url.toString().contains("/dirIntrude/doAdd"))
     	{
-    		chain.doFilter(request, response);
+    		XssHttpServletRequestWrapperForUeditor xssRequest = new XssHttpServletRequestWrapperForUeditor((HttpServletRequest)request);
+            chain.doFilter(xssRequest, response);    		
     	}else{
-    		XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest)request);
-            chain.doFilter(xssRequest, response);
+    		chain.doFilter(request, response);
     	}
 //    	if(request.get)
         

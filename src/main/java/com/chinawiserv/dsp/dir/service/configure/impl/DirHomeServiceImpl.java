@@ -96,6 +96,7 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
         List<String> listTypeSub = new ArrayList<>();
         String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
         listTypeSub.add("jpg");listTypeSub.add("jpeg");listTypeSub.add("png");listTypeSub.add("gif");
+        listTypeSub.add("JPG");listTypeSub.add("JPEG");listTypeSub.add("PNG");listTypeSub.add("GIF");
         listType.add("jpg");listType.add("png");listType.add("gif");
         for (Iterator iterator = listTypeSub.iterator(); iterator.hasNext();) {
 			String string = (String) iterator.next();
@@ -269,6 +270,7 @@ public class DirHomeServiceImpl extends CommonServiceImpl<DirHomeMapper, DirHome
             List<String> listTypeSub = new ArrayList<>();
             String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
             listTypeSub.add("jpg");listTypeSub.add("jpeg");listTypeSub.add("png");listTypeSub.add("gif");
+            listTypeSub.add("JPG");listTypeSub.add("JPEG");listTypeSub.add("PNG");listTypeSub.add("GIF");
             listType.add("jpg");listType.add("png");listType.add("gif");
             for (Iterator iterator = listTypeSub.iterator(); iterator.hasNext();) {
     			String string = (String) iterator.next();

@@ -127,7 +127,7 @@ public class GetFileTypeByHead {
             }
             builder.append(hv);
         }
-        System.out.println("HexString: " + builder.toString());
+//      System.out.println("HexString: " + builder.toString());
         return builder.toString();
     }
 }

@@ -22,8 +22,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 //		String _csrfBySession = String.valueOf(session.getAttribute("_csrf"));  //session中的值
 //		session.removeAttribute("_csrf");  //使用之后从session中删掉
-
-		
 		
 		String regEx =  ".*[`~!@#$%^&*()+=|{}':;',\\[\\].<>?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？\\\\]+.*";
 		Pattern p = Pattern.compile(regEx);
