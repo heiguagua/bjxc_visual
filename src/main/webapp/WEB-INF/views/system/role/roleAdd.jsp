@@ -11,7 +11,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/system/role/roleAdd.js"></script>
+    <script src="<%=context_path%>/js/system/role/roleAdd.js"></script>
      <style>
         .form-group{
             margin-bottom:25px;
@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-inline"  id="form" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="/system/role/doAdd">
+                          method="post" action="<%=context_path%>/system/role/doAdd">
                         <div class="box-body box-bodyx">
                             <div class="form-group">
                                 <label for="roleName">角色名称 <i style="color: red">*必填</i> </label>

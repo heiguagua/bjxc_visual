@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/system/log/logList.js"></script>
+    <script src="<%=context_path%>/js/system/log/logList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

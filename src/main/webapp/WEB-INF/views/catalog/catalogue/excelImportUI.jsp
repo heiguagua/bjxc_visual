@@ -3,8 +3,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-	<script src="/js/custom/ajaxfileupload.js"></script>
-	<script src="/js/catalog/catalogue/excelImportUI.js"></script>
+	<script src="<%=context_path%>/js/custom/ajaxfileupload.js"></script>
+	<script src="<%=context_path%>/js/catalog/catalogue/excelImportUI.js"></script>
 	<style>
 		.pull-left{
 			margin-right: 20px;
@@ -32,7 +32,7 @@
 		</div>
 
 
-            <%--<form action="/catalog/excelImport" method="post" enctype="multipart/form-data" style="text-align:center">--%>
+            <%--<form action="<%=context_path%>/catalog/excelImport" method="post" enctype="multipart/form-data" style="text-align:center">--%>
            	<%--<a href="javascript:;" class="&lt;%&ndash;a-upload&ndash;%&gt;">--%>
 			    <%--<input type="file" name="file" id="">--%>
 			<%--</a>--%>

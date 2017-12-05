@@ -3,7 +3,7 @@
 <html>
 <head>
 	<%@include file="/WEB-INF/views/common/head.jsp" %>
-	<script src="/js/login.js"></script>
+	<script src="<%=context_path%>/js/login.js"></script>
 	<style type="text/css">
 		.has-feedback .form-control{
 			height: 50px;
@@ -18,7 +18,7 @@
             color: #72afd2 !important;
         }
 	</style>
-	<link rel="stylesheet" href="/css/load.css">
+	<link rel="stylesheet" href="<%=context_path%>/css/load.css">
 </head>
 
 <body class="hold-transition login-page">
@@ -26,7 +26,7 @@
   <div class="longin_content">
 	<div class="top_cont">
 		<section class="top_conttitle" style="text-align: center">
-				<img class="logopng" src="/images/userImg/logo.png">
+				<img class="logopng" src="<%=context_path %>/images/userImg/logo.png">
 				<%--<p>${systemShowName}</p>--%>
                 <p><%=request.getSession().getAttribute("systemShowName")%></p>
             	<div class="righttext">
@@ -34,18 +34,18 @@
 				<div class="section_bottom">
 						<span class="left_span">
 							登录
-							<img src="/images/userImg/long_sanjiao.png" id="leftsan"/>
+							<img src="<%=context_path%>/images/userImg/long_sanjiao.png" id="leftsan"/>
 						</span>
 						<!-- <span class="right_span active">
 						注册
 							<a href="/htm/applyAccount/userApplyAccount.jsp" target="_blank"></a>
-							<img src="/static/new/images/load/long_sanjiao.png" id="rightsan"/>
+							<img src="<%=context_path%>/static/new/images/load/long_sanjiao.png" id="rightsan"/>
 						</span> -->
 				</div>
 		</section>
 	</div>
 	<div class="bottom_cont" id="country">
-					<form class="form-horizontal" id="fromid" action="/login/doLogin" data-validator-option="{theme:'bootstrap', timely:2, theme:'simple_bottom'}" method="post">
+					<form class="form-horizontal" id="fromid" action="<%=context_path%>/login/doLogin" data-validator-option="{theme:'bootstrap', timely:2, theme:'simple_bottom'}" method="post">
 					
 						  <c:if test="${error != null}">
 							  <div  class="alert alert-danger alert-dismissible">
@@ -54,13 +54,13 @@
 						  </c:if>
 					
 						<div class="inputdiv reg-box"><span class="spanuser">
-								<img src="/images/userImg/Username.png"/>
+								<img src="<%=context_path%>/images/userImg/Username.png"/>
 							</span><input type="text" id="userLoadName" class="account"  name="userName" placeholder="用户名" data-rule="用户名:required;username;" value="${userName}"/>
 							<input type="hidden" name="return_url" value="${return_url}">
 						</div>
 						<div class="inputdiv reg-box">
 							<span class="spanuser">
-								<img src="/images/userImg/Password.png"/>
+								<img src="<%=context_path%>/images/userImg/Password.png"/>
 							</span
 							><input type="password" class="admin_pwd" id="password"  placeholder="密码"  data-rule="密码:required;password;"/>
                 			<input type="hidden" name="password">
@@ -77,7 +77,7 @@
 						      		
 						      		
 						      			<div class="form-group has-feedback mg_right">
-									        <img id="codeimg" alt="如果看不清楚，请单击图片刷新！" class="pointer img" src="/login/captcha">
+									        <img id="codeimg" alt="如果看不清楚，请单击图片刷新！" class="pointer img" src="<%=context_path%>/login/captcha">
 									        <a id="change_code" href="javascript:void(0);">点击刷新</a>
 									      </div>     
 								</div> 

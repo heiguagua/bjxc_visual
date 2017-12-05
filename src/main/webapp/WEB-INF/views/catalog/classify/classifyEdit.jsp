@@ -4,8 +4,8 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/catalog/classify/classifyEdit.js"></script>
-    <script src="/js/system/dict/dictIcon.js"></script>
+    <script src="<%=context_path%>/js/catalog/classify/classifyEdit.js"></script>
+    <script src="<%=context_path%>/js/system/dict/dictIcon.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <section class="content">
@@ -14,7 +14,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/dirClassify/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/dirClassify/doEdit">
                         <input id="classifyId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                         	<div class="form-group">

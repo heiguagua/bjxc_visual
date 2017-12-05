@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/system/dict/dataDictDetailEdit.js"></script>
+    <script src="<%=context_path%>/js/system/dict/dataDictDetailEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -31,7 +31,7 @@
             </style>
             <div class="row">
                 <div class="col-md-6">
-                    <form  class="form-inline" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/sysDict/detailDoEdit">
+                    <form  class="form-inline" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/sysDict/detailDoEdit">
                         <input id="dictId" type="hidden" value="${dictId}" name="id" />
                         <div class="box-body box-bodyx">
                             <div class="form-group">

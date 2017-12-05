@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/system/dept/deptAllot.js"></script>
+    <script src="<%=context_path%>/js/system/dept/deptAllot.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-inline"  role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="/system/dept/doAdd">
+                          method="post" action="<%=context_path%>/system/dept/doAdd">
                         <input type="hidden" id="deptId" value="${id}" name="id"/>
                         <input type="hidden" id="fid" value="${id}" name="fid"/>
                         <input type="hidden" id="regionCode" name="regionCode"/>

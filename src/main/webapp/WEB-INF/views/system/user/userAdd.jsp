@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="/js/system/user/userAdd.js"></script>
+    <script src="<%=context_path%>/js/system/user/userAdd.js"></script>
     <style>
                 .box-body .pdl0{
                     padding-left: 0;
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-horizontal"  role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="/system/user/doAdd">
+                          method="post" action="<%=context_path%>/system/user/doAdd">
                         <div class="box-body box-bodyx" style="padding:0 30px 0 0">
                         	<div class="row">
 								<div class="col-sm-6 col-xs-6">

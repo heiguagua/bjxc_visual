@@ -3,8 +3,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/catalog/classify/classifyAdd.js"></script>
- 	<script src="/js/system/dict/dictIcon.js"></script>
+    <script src="<%=context_path%>/js/catalog/classify/classifyAdd.js"></script>
+ 	<script src="<%=context_path%>/js/system/dict/dictIcon.js"></script>
 </head>
 <body>
 <section class="content">
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="/dirClassify/doAdd">
+                          method="post" action="<%=context_path%>/dirClassify/doAdd">
                         <div class="box-body">
                         	<input id=fid type="hidden" value="${fid}" name="fid" />
                         	
