@@ -76,8 +76,8 @@
 			                    <label  class="col-sm-3 control-label">信息资源名称<span class="redStar">*</span>:</label>
 			                    <div class="col-sm-9">
 			                        <input type="text" class="form-control" id="datasetName" name="datasetName" data-rule="信息资源名称:required;">
-									<input type="hidden" id="sourceObjType" name="datasetSourceInfo.sourceObjType" value="3">
-									<input type="hidden" id="sourceObjId" name="datasetSourceInfo.sourceObjId">
+									<input type="hidden" id="sourceObjType" name="datasetSourceInfoVo.sourceObjType" value="3">
+									<input type="hidden" id="sourceObjIds" name="datasetSourceInfoVo.sourceObjIds">
 			                    </div>
 	                    </div>
                			<div class="col-sm-6">
