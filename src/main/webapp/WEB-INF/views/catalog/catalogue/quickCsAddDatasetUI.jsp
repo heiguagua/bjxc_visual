@@ -186,7 +186,7 @@
 	                	</div>
 			                	<div class="col-sm-6">
 				                	<label  class="col-sm-3 control-label">涉密标识：</label>
-				                    <div class="col-sm-4" style="padding-top:4px">
+				                    <div class="col-sm-4" style="padding-top:4px;padding-right: 0px">
 				                     		<div class="redio-box">
 				                        		<input type="radio" name="secretFlag" value="1"><span></span>
 				                        	 </div>
@@ -197,8 +197,8 @@
 										    <label style="display:inline-block">非涉密</label>
 				                    </div>
 									<div class="col-sm-5 control-label" style="padding-top:0px">
-										<label  class="col-sm-5 control-label">更新周期：</label>
-										<div class="col-sm-7" >
+										<label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 0px">周期：</label>
+										<div class="col-sm-9" style="padding-right: 0px">
 											<select class="form-control" id="updateFrequency" name="updateFrequency">
 											</select>
 										</div>
@@ -224,7 +224,7 @@
 		                    </div>
 	                	</div>
 			                	<div class="col-sm-6">
-				                		 <label  class="col-sm-3 control-label">是否向社会开放:</label>
+				                		 <label  class="col-sm-3 control-label">是否开放:</label>
 				                    <div class="col-sm-9" style="padding-top: 4px;">
 				                    		<div class="redio-box">
 				                        		<input type="radio" name="isOpen"  value="0"><span></span>
