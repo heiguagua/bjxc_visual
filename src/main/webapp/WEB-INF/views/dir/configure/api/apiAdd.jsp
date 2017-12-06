@@ -39,8 +39,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="choosePic">图片<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
-                                <input style="display: inline-block" type="file" name="file" value="file" id="choosePic" data-rule="图片:required;file">
-                                <label id="picNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过5M)</label>
+                                <input style="width:32%" type="file" name="file" value="file" id="choosePic" data-rule="图片:required;file">
+                                <span id="picNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过5M)</span>
                                 <div id="addPicDiv"></div>
                             </div>
                             <div class="form-group">
