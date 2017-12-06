@@ -85,7 +85,13 @@ jQuery(document).ready(function () {
                 title: '组织机构名称',
                 align: 'left',
                 valign: 'middle',
-                sortable: false
+                sortable: false,
+                formatter:function(value, row, index){
+                    if(value == undefined){
+                        value = "";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
             }, {
                 field: 'status',
                 title: '用户状态',
