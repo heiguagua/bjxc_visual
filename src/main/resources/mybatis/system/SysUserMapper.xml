@@ -34,6 +34,7 @@
         <result column="create_name" property="createName"/>
         <result column="tree_code" property="deptTreeCode"/>
         <result column="region_name" property="regionName"/>
+        <result column="region_level_value" property="regionLevel"/>
         <collection property="sysRoleList" javaType="list" column="id"
                     ofType="com.chinawiserv.dsp.base.entity.po.system.SysRole"
                     select="com.chinawiserv.dsp.base.mapper.system.SysRoleMapper.selectRolesByUserId"/>
@@ -129,9 +130,26 @@
     </select>
     <select id="selectVoByUserName" parameterType="java.lang.String" resultMap="SysUserVoMap">
         SELECT
-        <include refid="BaseVoSelectColumn"/>
-        <include refid="VoSelectSql"/>
-        WHERE u1.user_name = #{userName} AND u1.delete_flag="0"
+        u1.*,
+        u2.user_name AS 'create_name',
+        sr.region_name,
+        srl.region_level_value,
+        d.dept_name,
+        d.tree_code
+        FROM
+        sys_user u1 FORCE INDEX (Index_sysuser_username_info)
+        LEFT JOIN sys_region sr
+        ON u1.region_code = sr.region_code
+        LEFT JOIN `sys_region_level` srl
+        ON srl.region_level_code = sr.region_level_code
+        LEFT JOIN sys_user u2 FORCE INDEX (Index_sysuser_id_username)
+        ON u2.id = u1.create_user_id
+        LEFT JOIN sys_dept d FORCE INDEX (
+        Index_sysdept_id_treecode_deptname
+        )
+        ON d.id = u1.dept_id
+        WHERE u1.user_name = '${userName}'
+        AND u1.delete_flag = 0
     </select>
     <select id="selectUsersCountByRoleId" parameterType="java.lang.String" resultType="int">
 		SELECT count(1) from sys_user u

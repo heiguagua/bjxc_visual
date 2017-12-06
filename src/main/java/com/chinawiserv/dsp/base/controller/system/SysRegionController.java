@@ -169,13 +169,19 @@ public class SysRegionController extends BaseController {
     public  HandleResult getRegionListForLoginUser(@RequestParam Map<String , Object> paramMap){
         HandleResult handleResult = new HandleResult();
         try {
+
             SysUserVo loginUser = ShiroUtils.getLoginUser();
             String regionCode = loginUser.getRegionCode();
+            int regionLevel = loginUser.getRegionLevel();
+
             if(!StringUtils.isEmpty(regionCode)){
-                List<SysRegionVo> sysRegionVoList= service.selectAllRegionByRegionCode(regionCode);
-                SysRegionVo userRegion = service.getRegionDataByCode(regionCode);
+
+                String regionCodeCondition = this.service.getRegionCodeCondition(regionCode, regionLevel);
+                List<SysRegionVo> sysRegionVoList= service.selectAllRegionLikeRegionCode(regionCodeCondition);
+                SysRegionVo userRegion = sysRegionVoList.stream().filter(region -> region.getRegionCode().equals(regionCode)).findFirst().get();
                 handleResult.put("selectData", sysRegionVoList);
                 handleResult.put("userRegion", userRegion);
+
             }else{
                 handleResult.error("当前登录用户的区域编码为空");
             }

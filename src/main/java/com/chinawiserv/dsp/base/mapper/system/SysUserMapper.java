@@ -24,7 +24,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     List<SysUserVo>	selectVoList(Page<SysUserVo> page, Map<String, Object> paramMap);
     int selectVoCount(Map<String, Object> paramMap);
     SysUserVo selectVoById(String id);
-    SysUserVo selectVoByUserName(String userName);
+    SysUserVo selectVoByUserName(@Param("userName") String userName);
     int selectUsersCountByRoleId(String roleId);
     int selectUsersCountByDeptId(String deptId);
     boolean checkCanBeDeletedById(String userId);

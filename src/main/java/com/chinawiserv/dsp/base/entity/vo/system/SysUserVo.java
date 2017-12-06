@@ -12,10 +12,12 @@ import java.util.stream.Collectors;
  * Created by jacky on 2017/5/11.1
  */
 public class SysUserVo extends SysUser {
+
     private String deptName;
     private String deptTreeCode;
     private String createName;
     private String regionName;
+    private int regionLevel;
     private String[] roleIds;
     private List<SysRole> sysRoleList;
     private List<String> permissionDeptTreeCodes = new ArrayList();
@@ -75,6 +77,14 @@ public class SysUserVo extends SysUser {
 
     public void setPermissionDeptTreeCodes(List<String> permissionDeptTreeCodes) {
         this.permissionDeptTreeCodes = permissionDeptTreeCodes;
+    }
+
+    public int getRegionLevel() {
+        return regionLevel;
+    }
+
+    public void setRegionLevel(int regionLevel) {
+        this.regionLevel = regionLevel;
     }
 
     public int getMinRoleLevel(){

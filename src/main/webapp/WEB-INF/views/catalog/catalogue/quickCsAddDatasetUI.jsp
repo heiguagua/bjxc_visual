@@ -122,9 +122,9 @@
 						</div>
 	                	</div>
 	                	<div class="col-sm-6">
-							<label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码:</label>
+							<label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码<span class="redStar">*</span>:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo">
+								<input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo" data-rule="信息资源提供方代码:required;">
 								<input type="hidden" id="chargeDeptId" name="chargeDeptId">
 							</div>
 	                	</div>
@@ -171,7 +171,7 @@
 									</select>
 								</div>
 								<div class="col-sm-6" style="padding:0;padding-left:15px;">
-									<select class="form-control" id="format_type" name="ext.formatType" >
+									<select class="form-control" id="format_type" name="ext.formatType" data-rule="所属资源格式:required;">
 										<%--<option value="">--请选择--</option>
 										<option value="1" name="电子文件">电子文件</option>
 										<option value="2" name="电子表格">电子表格</option>

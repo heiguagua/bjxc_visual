@@ -60,7 +60,7 @@
                             </div>
                         </div>--%>
                         <div class="col-sm-6">
-                            <label for="classifyName" class="col-sm-3 control-label">信息资源提供方 :</label>
+                            <label for="classifyName" class="col-sm-3 control-label">资源提供方 :</label>
                             <div class="col-sm-9">
                                 <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <input type="text" id="belongDeptTypeName" class="form-control"
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码:</label>
+                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">资源提供方代码:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="belongDeptNo" readonly>
                             </div>
@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-sm-6">
                             <label  class="col-sm-3 control-label" style="padding-left:0px">涉密标识：</label>
-                            <div class="col-sm-9 control-label">
+                            <div class="col-sm-9 control-label" id="updateqi" style="text-align: left;">
                                 <div class="redio-box">
                                     <input readonly type="radio" name="secretFlag" value="1" ><span></span>
                                 </div>
@@ -119,8 +119,8 @@
                                     <input readonly type="radio" name="secretFlag" value="0"><span></span>
                                 </div>
                                 <label style="display:inline-block">非涉密</label>
-                                <span class="updatedate">更新周期：</span>
-                                <select class="form-controls updateSelec" id="updateFrequency" name="updateFrequency" readonly>
+                                <span class="updatedate" style="color:#333">周期：</span>
+                                <select class="form-controls updateSelec" style="color:#333" id="updateFrequency" name="updateFrequency" readonly>
                                 </select>
                             </div>
                         </div>
@@ -145,7 +145,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label">是否向社会开放:</label>
+                            <label  class="col-sm-3 control-label">是否开放:</label>
                             <div class="col-sm-9" style="padding-top: 7px;">
                                 <div class="redio-box">
                                     <input type="radio" name="isOpen"  value="0" checked><span></span>
@@ -199,19 +199,19 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">数据存储总量:</label>
+                            <label  class="col-sm-6 control-label">数据存储总量(G):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" id="totalStorage" name="survey.totalStorage" readonly>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">结构化信息记录总数:</label>
+                            <label  class="col-sm-6 control-label">结构化信息(万):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="structureCount" name="survey.structureCount" readonly>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已共享的数据存储量:</label>
+                            <label  class="col-sm-6 control-label">已共享数据量(G):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="sharedStorage" name="survey.sharedStorage" readonly>
                             </div>
@@ -221,19 +221,19 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已共享的结构化记录数:</label>
+                            <label  class="col-sm-6 control-label">已共享结构化(万):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="sharedStructureCount" name="survey.sharedStructureCount" readonly>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已开放的数据存储量:</label>
+                            <label  class="col-sm-6 control-label">已开放数据量(G):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="openedStorage" name="survey.openedStorage" readonly>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已开放的结构化记录数:</label>
+                            <label  class="col-sm-6 control-label">已开放结构化(万):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="openedStructureCount" name="survey.openedStructureCount" readonly>
                             </div>

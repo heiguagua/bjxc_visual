@@ -24,9 +24,9 @@ public interface SysRegionMapper extends BaseMapper<SysRegion> {
 
     SysRegionVo selectVoById(String id);
 
-    SysRegionVo selectVoByCode(String regionCode);
+    SysRegionVo selectVoByCode(@Param("regionCode")String regionCode);
 
-    SysRegionVo selectVoByRegionCode(String regionCode);
+    SysRegionVo selectVoByRegionCode(@Param("regionCode")String regionCode);
 
     int selectVoCount(Map<String, Object> paramMap);
 
