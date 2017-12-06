@@ -44,13 +44,25 @@ jQuery(document).ready(function () {
             title: '用户名',
             align: 'left',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+                if(value == undefined){
+                    value = "";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'realName',
             title: '真实姓名',
             align: 'left',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+                if(value == undefined){
+                    value = "";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
 //            field: 'userType',
 //            title: '用户类型',
@@ -85,7 +97,13 @@ jQuery(document).ready(function () {
                 title: '组织机构名称',
                 align: 'left',
                 valign: 'middle',
-                sortable: false
+                sortable: false,
+                formatter:function(value, row, index){
+                    if(value == undefined){
+                        value = "";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
             }, {
                 field: 'status',
                 title: '用户状态',
@@ -121,26 +139,41 @@ jQuery(document).ready(function () {
                 field: 'createName',
                 title: '创建者',
                 align: 'left',
+                width: '10%',
                 valign: 'middle',
-                sortable: false
+                sortable: false,
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
             }, {
                 field: 'updateTime',
                 title: '更新时间',
                 align: 'left',
+                width: '16%',
                 valign: 'middle',
-                sortable: false
+                sortable: false,
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
             }, {
                 field: 'id',
                 title: '操作',
                 align: 'left',
                 valign: 'middle',
-                width: '12%',
+                width: '8%',
                 sortable: false,
                 formatter: function (value) {
-                    var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
-                    var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteUser(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
+                    var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+                    var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteUser(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
                     if(isMaster==="true") {
-                        return editBtn + OPERATION_SEPARATOR + deleteBtn;
+                        // return editBtn + OPERATION_SEPARATOR + deleteBtn;
+                        return editBtn;
                     }else{
                         return editBtn;
                     }
