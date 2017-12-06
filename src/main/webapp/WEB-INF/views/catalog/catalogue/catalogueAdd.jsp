@@ -159,7 +159,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-6" style="padding:0;padding-left:15px;">
-                                    <select class="form-control" id="formatType" name="ext.formatType" >
+                                    <select class="form-control" data-rule="所属资源格式:required;" id="formatType" name="ext.formatType" >
                                     </select>
                                 </div>
 
