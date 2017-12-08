@@ -465,7 +465,7 @@ public class ApiServiceImpl implements IApiService {
                     Map<String,Object> tableParamMap = Maps.newHashMap();
                     tableParamMap.put ("systemId",serviceInfo.get("systemId"));
                     tableParamMap.put ("dbId",serviceInfo.get("dbId"));
-                    tableParamMap.put ("systemId",serviceInfo.get("tableName"));
+                    tableParamMap.put ("tableName",serviceInfo.get("tableName"));
                     DrapDbTableInfo table = null;
                     try {
                         table =  apiMapper.getTableInfoBySystemIdAndDbId(tableParamMap);
