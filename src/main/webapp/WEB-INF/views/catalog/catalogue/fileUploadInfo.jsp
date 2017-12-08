@@ -4,6 +4,9 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=context_path%>/js/catalog/catalogue/fileUploadInfo.js"></script>
+    <link type="text/css" rel="stylesheet" href="<%=context_path%>/plugins/bootstrap-fileinput/css/fileinput.min.css" />
+    <script type="text/javascript" src="<%=context_path%>/plugins/bootstrap-fileinput/js/fileinput.js"></script>
+    <script type="text/javascript" src="<%=context_path%>/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
 </head>
 
 <body>
@@ -15,8 +18,9 @@
                     <form id="upload_form" enctype="multipart/form-data" method="post">
                         <input type="hidden" id="id" name="id" value="${id}">
                         <div id="newUploadDiv">
-                            <input type="file" name="file">
-                            <input type="button" id="upload_btn" value="上传" >
+                        <input type="file" name="file" id="fileInput" class="projectfile" />
+                            <%--<input type="file" id="fileInput" name="file">
+                            <input type="button" id="upload_btn" value="上传" >--%>
                         </div>
                         <%--<input type="button" id="upload_add_btn" value="增加一行" >--%>
 

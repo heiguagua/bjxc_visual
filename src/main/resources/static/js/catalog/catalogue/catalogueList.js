@@ -241,7 +241,7 @@ function addCustom() {
 }
 
 function catalogueTableUpload(id){
-    show('信息资源附件上传详情',basePathJS + '/catalog/uploadInfo' , id ,"70%",700);
+    show('信息资源附件上传详情',basePathJS + '/catalog/uploadInfo' , id ,"70%",550);
 }
 
 function catalogueTableEdit(id) {
