@@ -194,7 +194,7 @@ $(document).on("click","#downloadExcel",function(){
     }
     var dataset_name=$('#searchName').val();
     var data={
-        classify_id:classify_id,
+        classify_id:searchClassifyId,
         dataset_name:dataset_name
     }
     if(dataset_name){
