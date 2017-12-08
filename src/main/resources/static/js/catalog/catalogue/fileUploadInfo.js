@@ -9,6 +9,7 @@ jQuery(document).ready(function () {
 
 function initTable(){
     //paramsObj["regionCode"] = $("#searchRegionCode").val();
+    paramsObj["datasetId"] = $("#id").val();
     jQuery(tableSelector).customTable({
         url: basePathJS + '/dirDatasetAttachment/list',
         queryParams: function (params) {
@@ -56,9 +57,9 @@ var i =1;
 function initButtonClickEvent(){
     //点击增加一行按钮
     /*$('#upload_add_btn').click(function () {
-        $("#newUploadDiv").append('<div id="div_'+i+'"><input  name="file'+i+'" type="file"  /><input type="button" value="删除"  onclick="delUploadInput('+i+')"/></div>');
-        i = i + 1;
-    });*/
+     $("#newUploadDiv").append('<div id="div_'+i+'"><input  name="file'+i+'" type="file"  /><input type="button" value="删除"  onclick="delUploadInput('+i+')"/></div>');
+     i = i + 1;
+     });*/
     //点击上传按钮
     $('#upload_btn').click(function () {
         var formData = new FormData(document.getElementById("upload_form"));
@@ -70,6 +71,7 @@ function initButtonClickEvent(){
             success:function(result){
                 if(result.state){
                     successMsgTip("上传成功!!");
+                    setParam();
                     reloadTable();
                 }else{
                     errorMsgTip(result.msg);
@@ -80,17 +82,17 @@ function initButtonClickEvent(){
             }
         });
         /*$("#upload_form").ajaxSubmit({
-            url:basePathJS + "/catalog/upLoadFile",
-            type:"post",
-            dataType:"json",
-            success:function(result){
-                if(result.state){
-                    successMsgTip("上传成功!!");
-                }else{
-                    errorMsgTip(result.msg);
-                }
-            }
-        });*/
+         url:basePathJS + "/catalog/upLoadFile",
+         type:"post",
+         dataType:"json",
+         success:function(result){
+         if(result.state){
+         successMsgTip("上传成功!!");
+         }else{
+         errorMsgTip(result.msg);
+         }
+         }
+         });*/
     });
 }
 
@@ -98,6 +100,9 @@ function delUploadInput(num){
     $("#div_"+num).remove();
 }
 
+function setParam(){
+    paramsObj["datasetId"] = $("#id").val();
+}
 
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
