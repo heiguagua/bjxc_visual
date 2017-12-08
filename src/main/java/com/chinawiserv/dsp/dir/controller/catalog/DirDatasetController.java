@@ -792,7 +792,7 @@ public class DirDatasetController extends BaseController {
             File file = ResourceUtils.getFile(excelTemplate);
             String sheetName="Sheet1";
             wb = util.writeNewExcel(file, sheetName,list,ShiroUtils.getLoginUser().getRegionCode());
-            String time = DateTimeUtils.convertDateTime_YYYYMMDDHHMMSS(new Date());
+            String time = DateTimeUtils.convertDateTime(new Date(), "yyyy年MM月dd日HH时mm分ss秒");
             String filename = "政务信息资源-"+time+".xlsx";
             if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {
                 filename = URLEncoder.encode(filename, "UTF-8");
