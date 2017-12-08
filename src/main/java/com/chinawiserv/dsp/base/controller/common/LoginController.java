@@ -180,7 +180,7 @@ public class LoginController extends BaseController {
             //sha256加密
 //			password = new Sha256Hash(password).toHex();
 //            password = CommonUtil.string2MD5(password);
-            UsernamePasswordToken token = new UsernamePasswordToken(userName, password.substring(0,11));
+            UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
             subject.login(token);
 
             loginSuccess(paramMap,request);
