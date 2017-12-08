@@ -169,21 +169,56 @@ function reloadTable() {
 
 
 $(document).on("click","#downloadExcel",function(){
-    var classify_id=$('#searchClassifyId').val();
-    var dataset_name=$('#searchName').val();
-    var data={
-        classify_id:classify_id,
-        dataset_name:dataset_name
+    //var classify_id=$('#searchClassifyId').val();
+    //var dataset_name=$('#searchName').val();
+    //var data={
+    //    classify_id:classify_id,
+    //    dataset_name:dataset_name
+    //}
+    //if(classify_id||dataset_name){
+    //    downloadExcel(data);
+    //}else{
+    //    layer.confirm("未选择筛选条件时，会导致效率过低，建议增加筛选条件！确认导出？",{icon:3},function (index) {
+    //        downloadExcel(data);
+    //        layer.close(index);
+    //    })
+    //}
+    var searchClassifyId = $('#searchClassifyId').val();
+    if(!checkClassfyId(searchClassifyId)){
+        tip("请先选择目录分类!",parent,null,null);
+        return;
     }
-    if(classify_id||dataset_name){
-        downloadExcel(data);
+    if(!checkClassifyType()){
+        tip("不能在这个分类下导出!!",parent,null,null);
+        return;
+    }
+    var dataset_name=$('#searchName').val();
+    if(dataset_name){
+            downloadExcel(data);
     }else{
-        layer.confirm("未选择筛选条件时，会导致效率过低，建议增加筛选条件！确认导出？",{icon:3},function (index) {
+        layer.confirm("未输入筛选条件时，数据量过大会导致效率过低，建议输入筛选条件！确认导出？",{icon:3},function (index) {
             downloadExcel(data);
             layer.close(index);
         })
     }
 })
+
+function checkClassfyId(searchClassifyId){
+    if(searchClassifyId){
+        return true;
+    }
+    return false;
+}
+
+function checkClassifyType(){
+    var checkResult = true;
+    var classifyType = $('#classifyType').val();
+    if(classifyType=='1' || classifyType=='2-1' || classifyType=='2-2' || classifyType=='2-3'
+        || classifyType=='3' || classifyType=='4'){
+        checkResult = false;
+    }
+    return checkResult
+}
 function downloadExcel(data){
     layer.load();
 
