@@ -198,7 +198,7 @@ public class LoginController extends BaseController {
             }
 
         } catch (Exception e) {
-            handleResult.error("登录失败");
+            handleResult.error(e.getMessage());
             logger.error("{} 登录失败, 错误信息: {}", userName, e.getMessage());
         }
 
