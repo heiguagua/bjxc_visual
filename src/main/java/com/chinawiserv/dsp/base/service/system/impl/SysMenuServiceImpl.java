@@ -240,7 +240,6 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
         return selectDataList;
     }
 
-    @Cacheable(value = "permissionCache", key = "#uid")
 	@Override
 	public List<String> selectMenuIdsByuserId(String uid) throws Exception{
 		return sysMenuMapper.selectMenuIdsByuserId(uid);
@@ -271,7 +270,6 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
 		
 	}
 	
-	@Cacheable(value = "menuCache", key = "#uid")
 	@Override
 	public List<TreeMenu> selectTreeMenuByUserId(String uid) {
 		/**

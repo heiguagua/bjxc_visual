@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysSettingVo;
@@ -11,11 +12,17 @@ import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.entity.vo.system.TreeMenu;
 import com.chinawiserv.dsp.base.service.system.*;
 import com.google.code.kaptcha.servlet.KaptchaExtend;
+import com.google.common.base.Throwables;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,14 +47,27 @@ import java.util.Map;
  * @author Gaojun.Zhou
  * @date 2016年12月14日 下午2:54:01
  */
+@PropertySource("${config.location:classpath:}conf/common.properties")
 @Controller
 @RequestMapping("/login")
 public class LoginController extends BaseController {
+
+    Logger logger = LoggerFactory.getLogger(LoginController.class);
+
     /**
      * 用户服务
      */
     @Autowired
     private ISysUserService sysUserService;
+
+    @Value("${user.head.image.ftp.server.url}")
+    private String remoteUrl;
+    @Value("${datastreet.switch}")
+    private String sw;
+
+    @Value("${identifyCode.open:false}")
+    private boolean identifyCodeOpen;
+
     /**
      * 日志服务
      */
@@ -70,14 +90,16 @@ public class LoginController extends BaseController {
     public String login(String return_url, Model model) throws UnsupportedEncodingException {
         /**自留代码
          * String index = "/catalog/catalogue";
-        model.addAttribute("return_url", StringUtils.isNotBlank(return_url) ? URLDecoder.decode(return_url, "UTF-8") : index);
-        return "login";
-        **/
-    	 String index = "/index";
-         if(ShiroUtils.isLogin()){ // already login
-             return redirectTo(index);
-         }
          model.addAttribute("return_url", StringUtils.isNotBlank(return_url) ? URLDecoder.decode(return_url, "UTF-8") : index);
+         return "login";
+         **/
+        String index = "/index";
+        if(ShiroUtils.isLogin()){ // already login
+            return redirectTo(index);
+        }
+
+        model.addAttribute("identifyCodeOpen", identifyCodeOpen);
+        model.addAttribute("return_url", StringUtils.isNotBlank(return_url) ? URLDecoder.decode(return_url, "UTF-8") : index);
 //         EntityWrapper<SysSetting> wrapper = new EntityWrapper<>();
 //         wrapper.setEntity(new SysSetting());
         // wrapper.where("setting_code={0} or setting_code={1} or setting_code={2}", "systemName", "systemShortName", "systemSubName","projectPortalName");
@@ -86,7 +108,7 @@ public class LoginController extends BaseController {
 //         for(SysSetting sysSetting : sysSettingList){
 //             sysNameMap.put(sysSetting.getSettingCode(), sysSetting.getSettingValue());
 //         }
-         //组装系统名称
+        //组装系统名称
 //         String loginViewName = sysNameMap.get("systemName");
 //         String indexLogoName = sysNameMap.get("systemName");
 //         if(StringUtils.isEmpty(sysNameMap.get("systemName"))){
@@ -110,17 +132,34 @@ public class LoginController extends BaseController {
         return "login";
     }
 
+
     /**
      * 执行登录
      */
-//    @Log("用户登录")
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-    public String doLogin(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model, RedirectAttributes redirectAttributes) {
+    @ResponseBody
+    public HandleResult doLogin(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model, RedirectAttributes redirectAttributes) {
+
+        HandleResult handleResult = new HandleResult();
         String userName = MapUtils.getString(paramMap, "userName");
         String password = MapUtils.getString(paramMap, "password");
         String captcha = MapUtils.getString(paramMap, "captcha");
         String return_url = MapUtils.getString(paramMap, "return_url");
-        
+
+        if(identifyCodeOpen){
+
+            String sessionCaptcha = new KaptchaExtend().getGeneratedKey(request);
+            if(StringUtils.isBlank(sessionCaptcha)){
+                handleResult.error("验证码已过期,请重新输入");
+                return handleResult;
+            }
+            if(!captcha.toLowerCase().equals(sessionCaptcha.toLowerCase())){
+                handleResult.error("验证码错误");
+                return handleResult;
+            }
+        }
+
+
         String index = "/index";
         if (StringUtils.isBlank(return_url)) {
             return_url = index;
@@ -129,68 +168,47 @@ public class LoginController extends BaseController {
         model.addAttribute("userName", userName);
         redirectAttributes.addFlashAttribute("return_url", StringUtils.isNotBlank(return_url) ? return_url : index);//重定向参数。
         redirectAttributes.addFlashAttribute("userName", userName);
-		if(StringUtils.isBlank(userName) || StringUtils.isBlank(password) /*||  StringUtils.isBlank(captcha)*/){
-			model.addAttribute("error", "用户名/密码/验证码不能为空.");
-			return "login";
-		}
+        if(StringUtils.isBlank(userName) || StringUtils.isBlank(password) /*||  StringUtils.isBlank(captcha)*/){
+            handleResult.error("用户名/密码不能为空");
+            return handleResult;
+        }
 
-		String sessionCaptcha = new KaptchaExtend().getGeneratedKey(request);
-		if(StringUtils.isBlank(sessionCaptcha)){
-			model.addAttribute("error", "验证码已过期,请重新输入.");
-			return "login";
-		}
-		if(!captcha.toLowerCase().equals(sessionCaptcha.toLowerCase())){
-			model.addAttribute("error", "验证码错误.");
-			return "login";
-		}
+
 
         try {
             Subject subject = ShiroUtils.getSubject();
             //sha256加密
 //			password = new Sha256Hash(password).toHex();
 //            password = CommonUtil.string2MD5(password);
-            UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
+            UsernamePasswordToken token = new UsernamePasswordToken(userName, password.substring(0,11));
             subject.login(token);
 
-            loginSuccess(paramMap);
-            
-          //验证码失效
+            loginSuccess(paramMap,request);
+
+            //验证码失效
             request.getSession().setAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY,null);
-            
+
             /**
              * 记录登录日志
              */
-            sysLogService.insertLog("用户登录成功", ShiroUtils.getLoginUser(), request.getRequestURI(), "******");
+//            sysLogService.insertLog("用户登录成功", ShiroUtils.getLoginUser(), request.getRequestURI(), "******");
             if (StringUtils.isNotBlank(return_url)) {
-                return redirectTo(return_url);
+                handleResult.put("return_url", return_url);
+                handleResult.success("登录成功");
             }
 
-        } catch (UnknownAccountException e) {
-            model.addAttribute("error", e.getMessage());
-            e.printStackTrace();
-            return "login";
-        } catch (IncorrectCredentialsException e) {
-            model.addAttribute("error", e.getMessage());
-            e.printStackTrace();
-            return "login";
-        } catch (LockedAccountException e) {
-            model.addAttribute("error", e.getMessage());
-            e.printStackTrace();
-            return "login";
-        } catch (AuthenticationException e) {
-            model.addAttribute("error", "账户验证失败");
-            e.printStackTrace();
-            return "login";
+        } catch (Exception e) {
+            handleResult.error("登录失败");
+            logger.error("{} 登录失败, 错误信息: {}", userName, e.getMessage());
         }
 
-//        return redirectTo("/catalog/catalogue");
-        return redirectTo("/index");
+        return handleResult;
     }
 
     /**
      * @param paramMap
      */
-    private void loginSuccess(Map<String, Object> paramMap) {
+    private void loginSuccess(Map<String, Object> paramMap, HttpServletRequest request) {
         SysUserVo currentLoginUser = ShiroUtils.getLoginUser();
         try {
             /**
@@ -229,6 +247,7 @@ public class LoginController extends BaseController {
              */
             currentLoginUser.setPassword("");
             ShiroUtils.setSessionAttribute(SystemConst.ME, currentLoginUser);
+            ShiroUtils.setSessionAttribute("remote","yes".equalsIgnoreCase(sw)?remoteUrl:request.getContextPath());
             /**
              * 资源和当前选中菜单
              */
@@ -276,7 +295,7 @@ public class LoginController extends BaseController {
         ShiroUtils.logout();
 
 //        if (sysUser != null) {
-            sysLogService.insertLog("用户退出系统", sysUser, request.getRequestURI(), "******");
+//            sysLogService.insertLog("用户退出系统", sysUser, request.getRequestURI(), "******");
 //        }
         return  redirectTo("/login");
     }
@@ -290,7 +309,7 @@ public class LoginController extends BaseController {
         KaptchaExtend kaptchaExtend = new KaptchaExtend();
         kaptchaExtend.captcha(request, response);
     }
-    
+
     /**
      * 验证码是否正确
      * @param request

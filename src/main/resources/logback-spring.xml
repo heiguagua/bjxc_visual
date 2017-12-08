@@ -34,8 +34,8 @@
         
      <!--    <logger name ="com.chinawiserv.wsmp.controller.data", level="debug"></logger> -->
             
-     <logger name="org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker" level="ERROR"/>       
-            
+     <logger name="org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker" level="ERROR"/>
+    <logger name="com.chinawiserv.apps.mybaits.ehcache3.MybatisEhCache3Cache" level="info"/>
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<encoder>
 			<pattern>${FILE_LOG_PATTERN}</pattern>
