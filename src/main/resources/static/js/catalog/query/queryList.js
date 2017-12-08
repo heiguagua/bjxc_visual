@@ -193,11 +193,17 @@ $(document).on("click","#downloadExcel",function(){
         return;
     }
     var dataset_name=$('#searchName').val();
+    var data={
+        classify_id:classify_id,
+        dataset_name:dataset_name
+    }
     if(dataset_name){
             downloadExcel(data);
     }else{
         layer.confirm("未输入筛选条件时，数据量过大会导致效率过低，建议输入筛选条件！确认导出？",{icon:3},function (index) {
+            alert(0);
             downloadExcel(data);
+            alert(1);
             layer.close(index);
         })
     }
