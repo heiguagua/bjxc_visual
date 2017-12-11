@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,13 +29,15 @@ import java.util.Map;
  * Time:19:29
  * Chinawiserv Technologies Co., Ltd.
  */
+@PropertySource(value = "${config.location:classpath:}conf/common.properties")
 @Controller
 @RequestMapping("api/transfer")
 public class DataTransferController extends BaseController {
     @Autowired
     private IDataTransferService service;
 
-    private Props props = Props.of("conf/common.properties");
+    @Value("${data.transfer.address}")
+    private String address;
 
     /**
      * 封装上报数据的接口
@@ -41,12 +45,13 @@ public class DataTransferController extends BaseController {
     @RequestMapping("getReportDataByDataset")
     @ResponseBody
     public HandleResult getReportDataByDataset(@RequestParam Map<String, Object> paramMap) {
+
+        if(StringUtils.isBlank(address)) return new HandleResult();
+
         HandleResult result = new HandleResult();
         /**
          * 获取上报地址
          * */
-        String address = props.get("data.transfer.address");
-
         Map<String,Object> dataTransferResult = service.getReportDataByDataset(paramMap);
 
         if(null == dataTransferResult && !dataTransferResult.isEmpty()){
