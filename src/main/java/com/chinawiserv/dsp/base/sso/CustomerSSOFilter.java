@@ -7,10 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,7 +19,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.ContextLoader;
 
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
@@ -31,7 +27,6 @@ import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.entity.vo.system.TreeMenu;
 import com.chinawiserv.dsp.base.service.system.ISysMenuService;
-import com.chinawiserv.dsp.base.service.system.ISysProductIntegrateService;
 import com.chinawiserv.dsp.base.service.system.ISysSettingService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import com.free.oss.filter.SSOFilter;
@@ -43,8 +38,15 @@ import com.google.common.base.Strings;
 @Component
 public class CustomerSSOFilter extends SSOFilter {
 
+
     @Autowired
-    protected ISysProductIntegrateService sysProductIntegrateService;
+    private ISysUserService  sysUserService;
+
+    @Autowired
+    private  ISysSettingService sysSettingService;
+
+    @Autowired
+    private ISysMenuService sysMenuService;
 
     private final SSOConfigProperties prop;
 
@@ -62,6 +64,8 @@ public class CustomerSSOFilter extends SSOFilter {
         if (null != currentLoginUser) return currentLoginUser.getUserName();
         return "";
     }
+
+
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -144,8 +148,6 @@ public class CustomerSSOFilter extends SSOFilter {
 
     public void loginSuccess(Map<String, Object> paramMap) {
 
-        ISysSettingService sysSettingService = ContextLoader.getCurrentWebApplicationContext().getBean(ISysSettingService.class);
-        ISysMenuService sysMenuService = ContextLoader.getCurrentWebApplicationContext().getBean(ISysMenuService.class);
         SysUser currentLoginUser = ShiroUtils.getLoginUser();
         try {
             /**
@@ -321,15 +323,14 @@ public class CustomerSSOFilter extends SSOFilter {
     @Override
     public void setAcc(HttpSession session, String account) {
         try {
-            ISysUserService iSysUserService = ContextLoader.getCurrentWebApplicationContext().getBean(ISysUserService.class);
             Map<String, Object> paramMap = new HashMap<>();
-            SysUserVo sysUserVo = iSysUserService.selectVoByUserName(account);
+            SysUserVo sysUserVo = sysUserService.selectVoByUserName(account);
             if (null != sysUserVo) {
                 Subject subject = ShiroUtils.getSubject();
                 // sha256加密
                 paramMap.put("userName", account);
                 paramMap.put("password", sysUserVo.getPassword());
-                UsernamePasswordToken token = new UsernamePasswordToken(account, sysUserVo.getPassword());
+                UsernamePasswordToken token = new UsernamePasswordToken(account, sysUserVo.getPassword().substring(0,11));
                 subject.login(token);
                 this.loginSuccess(paramMap);
             } else {

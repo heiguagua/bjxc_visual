@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,6 +53,10 @@ public class DirDatasetAttachmentController extends BaseController {
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
 		try {
+            String datasetId = (String)paramMap.get("datasetId");
+            if(StringUtils.isEmpty(datasetId)){
+                throw new Exception("查询上传列表时,不能获取所属数据集id");
+            }
 		    Page<DirDatasetAttachmentVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);
 		} catch (Exception e) {

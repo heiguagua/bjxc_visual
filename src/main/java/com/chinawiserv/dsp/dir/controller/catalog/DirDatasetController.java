@@ -91,6 +91,9 @@ public class DirDatasetController extends BaseController {
     @Value("${config.location:classpath:}excelTemplate/excelTemplate.xlsx")
     private String excelTemplate;
 
+    @Value("${config.location:classpath:}excelTemplate/excelTemplateWithOutDir.xlsx")
+    private String excelTemplateWithOutDir;
+
     @RequestMapping("/catalogue/excelImportUI")
     public  String excelImportUI(@RequestParam String classifyId, Model model){
         model.addAttribute("classifyId",classifyId);
@@ -789,7 +792,7 @@ public class DirDatasetController extends BaseController {
             File file = ResourceUtils.getFile(excelTemplate);
             String sheetName="Sheet1";
             wb = util.writeNewExcel(file, sheetName,list,ShiroUtils.getLoginUser().getRegionCode());
-            String time = DateTimeUtils.convertDateTime_YYYYMMDDHHMMSS(new Date());
+            String time = DateTimeUtils.convertDateTime(new Date(), "yyyy年MM月dd日HH时mm分ss秒");
             String filename = "政务信息资源-"+time+".xlsx";
             if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {
                 filename = URLEncoder.encode(filename, "UTF-8");
@@ -1146,54 +1149,68 @@ public class DirDatasetController extends BaseController {
      */
     @RequestMapping("/download")
     public String downloadFile(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-            response.setContentType("application/force-download");// 设置强制下载不打开
-            response.addHeader("Content-Disposition",
-                    "attachment;fileName=" + URLEncoder.encode("完整目录模板.xlsx", "utf-8"));// 设置文件名
-            byte[] buffer = new byte[1024];
-            InputStream inputStream = null;
-            BufferedInputStream bis = null;
-            try {
-                inputStream = this.getClass().getClassLoader().getResource("/excelTemplate/excelTemplate.xlsx").openStream();
-                bis = new BufferedInputStream(inputStream);
-                OutputStream os = response.getOutputStream();
-                int i = bis.read(buffer);
-                while (i != -1) {
-                    os.write(buffer, 0, i);
-                    i = bis.read(buffer);
-                }
-            } catch (Exception e) {
-                // TODO: handle exception
-                e.printStackTrace();
-            } finally {
-                if (bis != null) {
-                    try {
-                        bis.close();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-                if (inputStream != null) {
-                    try {
-                        inputStream.close();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }
-        return null;
-    }
-    @RequestMapping("/downloadWithoutDir")
-    public String downloadWithoutDirFile(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        String filename = "完整目录模板.xlsx";
+        if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {
+            filename = URLEncoder.encode(filename, "UTF-8");
+        } else {
+            filename = new String(filename.getBytes("UTF-8"), "ISO8859-1");
+        }
         response.setContentType("application/force-download");// 设置强制下载不打开
-        response.addHeader("Content-Disposition",
-                "attachment;fileName=" + URLEncoder.encode("没有目录分类的模板.xlsx", "utf-8"));// 设置文件名
+        response.addHeader("Content-Disposition","attachment;fileName=" + filename);// 设置文件名
         byte[] buffer = new byte[1024];
         InputStream inputStream = null;
         BufferedInputStream bis = null;
         try {
-            inputStream = this.getClass().getClassLoader().getResource("/excelTemplate/excelTemplateWithOutDir.xlsx").openStream();
+//                inputStream = this.getClass().getClassLoader().getResource("/excelTemplate/excelTemplate.xlsx").openStream();
+            File file = ResourceUtils.getFile(excelTemplate);
+            inputStream = new FileInputStream(file);
+            bis = new BufferedInputStream(inputStream);
+            OutputStream os = response.getOutputStream();
+            int i = bis.read(buffer);
+            while (i != -1) {
+                os.write(buffer, 0, i);
+                i = bis.read(buffer);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        } finally {
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+    @RequestMapping("/downloadWithoutDir")
+    public String downloadWithoutDirFile(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        String filename = "没有目录分类的模板.xlsx";
+        if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {
+            filename = URLEncoder.encode(filename, "UTF-8");
+        } else {
+            filename = new String(filename.getBytes("UTF-8"), "ISO8859-1");
+        }
+        response.setContentType("application/force-download");// 设置强制下载不打开
+        response.addHeader("Content-Disposition","attachment;fileName=" + filename);// 设置文件名
+        byte[] buffer = new byte[1024];
+        InputStream inputStream = null;
+        BufferedInputStream bis = null;
+        try {
+//            inputStream = this.getClass().getClassLoader().getResource("/excelTemplate/excelTemplateWithOutDir.xlsx").openStream();
+            File file = ResourceUtils.getFile(excelTemplateWithOutDir);
+            inputStream = new FileInputStream(file);
             bis = new BufferedInputStream(inputStream);
             OutputStream os = response.getOutputStream();
             int i = bis.read(buffer);

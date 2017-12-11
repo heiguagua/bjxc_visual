@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-sm-6">
                             <label  class="col-sm-3 control-label" style="padding-left:0px">涉密标识：</label>
-                            <div class="col-sm-9 control-label" id="updateqi" style="text-align: left;">
+                            <div class="col-sm-4" style="padding-top:4px;padding-right: 0px">
                                 <div class="redio-box">
                                     <input readonly type="radio" name="secretFlag" value="1" ><span></span>
                                 </div>
@@ -119,9 +119,13 @@
                                     <input readonly type="radio" name="secretFlag" value="0"><span></span>
                                 </div>
                                 <label style="display:inline-block">非涉密</label>
-                                <span class="updatedate" style="color:#333">周期：</span>
-                                <select class="form-controls updateSelec" style="color:#333" id="updateFrequency" name="updateFrequency" readonly>
-                                </select>
+                            </div>
+                            <div class="col-sm-5 control-label" style="padding-top:0px">
+                                <label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 0px">周期：</label>
+                                <div class="col-sm-9" style="padding-right: 0px">
+                                    <select class="form-control" id="updateFrequency" name="updateFrequency" readonly>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -146,13 +150,13 @@
                         </div>
                         <div class="col-sm-6">
                             <label  class="col-sm-3 control-label">是否开放:</label>
-                            <div class="col-sm-9" style="padding-top: 7px;">
+                            <div class="col-sm-9" style="padding-top: 4px;">
                                 <div class="redio-box">
-                                    <input type="radio" name="isOpen"  value="0" checked><span></span>
+                                    <input type="radio" name="isOpen"  value="0"><span></span>
                                 </div>
                                 <label style="display:inline-block">否</label>
-                                <div class="redio-box">
-                                    <input type="radio" name="isOpen"  value="1"><span></span>
+                                <div class="redio-box" style="margin-left: 12px">
+                                    <input type="radio" name="isOpen"  value="1" checked><span></span>
 
                                 </div>
                                 <label style="display:inline-block">是</label>

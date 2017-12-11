@@ -1,41 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns='http://www.ehcache.org/v3' xmlns:jsr107='http://www.ehcache.org/v3/jsr107'
-    xsi:schemaLocation="
+<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns='http://www.ehcache.org/v3'
+        xmlns:jsr107='http://www.ehcache.org/v3/jsr107' xmlns:tc='http://www.ehcache.org/v3/clustered'
+        xsi:schemaLocation="
         http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.4.xsd
-        http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.4.xsd">
+        http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.4.xsd
+        http://www.ehcache.org/v3/clustered http://www.ehcache.org/schema/ehcache-clustered-ext.xsd">
 
 
     <default-serializers>
         <serializer type="java.lang.Object">com.chinawiserv.apps.mybaits.ehcache3.EhCacheFSTSerializer</serializer>
     </default-serializers>
-    <default-copiers/>
-    
+    <default-copiers>
+        <copier type="java.lang.Object">org.ehcache.impl.copy.IdentityCopier</copier>
+    </default-copiers>
+
     <persistence directory="cache-data" />
-    
+
     <thread-pools>
-        <thread-pool alias="default_pool" min-size="1" max-size="3" default="true" />
-        <thread-pool alias="defaultDiskPool" min-size="1" max-size="3" />
-        <thread-pool alias="defaultEventPool" min-size="1" max-size="3" />
-        <thread-pool alias="defaultWriteBehindPool" min-size="1" max-size="3" />
-        <thread-pool alias="cache2Pool" min-size="16" max-size="16" />
+        <thread-pool alias="default_pool" min-size="10" max-size="64" default="true" />
+        <thread-pool alias="defaultDiskPool" min-size="10" max-size="64" />
+        <thread-pool alias="defaultEventPool" min-size="10" max-size="64" />
+        <thread-pool alias="defaultWriteBehindPool" min-size="10" max-size="64" />
+        <thread-pool alias="cache2Pool" min-size="10" max-size="64" />
     </thread-pools>
 
     <event-dispatch thread-pool="defaultEventPool" />
     <write-behind thread-pool="defaultWriteBehindPool" />
     <disk-store thread-pool="defaultDiskPool" />
 
-    <cache-template name="template">
-        <disk-store-settings thread-pool="cache2Pool" writer-concurrency="16" disk-segments="16" />
+    <cache-template name="userTemplate">
+        <expiry>
+            <tti unit="hours">1</tti>
+        </expiry>
+        <resources>
+            <offheap unit="MB">100</offheap>
+            <!--<heap unit="GB">1</heap>-->
+        </resources>
     </cache-template>
 
-    <cache alias="default_cache" uses-template="template">
-        <resources>
-            <disk persistent="true" unit="GB">1</disk>
-        </resources>
-    </cache>
-
-    <cache alias="default_table_cache"  uses-template="template"/>
+    <cache alias="default_cache" uses-template="userTemplate" />
 
 </config>
-	
+
 

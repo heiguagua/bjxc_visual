@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/12/3 14:50:32                             */
+/* Created on:     17/12/8 21:34:41                             */
 /*==============================================================*/
 
 
@@ -1231,7 +1231,7 @@ create table dir_news
 (
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
-   title                varchar(256) comment '新闻标题',
+   title                varchar(200) comment '新闻标题',
    news_pic             varchar(128) comment '新闻图片',
    pic_name             varchar(128) comment '图片名称',
    pic_type             varchar(36) comment '图片类型',
@@ -1259,7 +1259,7 @@ create table dir_policy
    id                   varchar(36) not null comment 'ID',
    region_code          varchar(6) comment '所属行政区划',
    policy_level         varchar(36) comment '政策级别',
-   title                varchar(255) comment '政策标题',
+   title                varchar(200) comment '政策标题',
    content              text comment '发布内容',
    publisher            varchar(36) comment '政策发布人',
    publish_date         date comment '发布时间',
@@ -2200,11 +2200,11 @@ create table sys_dept
    dept_alias           varchar(64) comment '组织机构别名',
    dept_listing_name    varchar(64) comment '组织机构挂牌名',
    dept_desc            varchar(512) comment '组织机构描述',
-   function_keyword     varchar(256) comment '职能关键字',
+   function_keyword     varchar(200) comment '职能关键字',
    dept_function        varchar(4000) comment '组织机构职能',
    fid                  varchar(64) comment '父组织机构编码',
    fname                varchar(64) comment '父组织机构名称',
-   dept_structure_name  varchar(512) comment '组织机构结构名称',
+   dept_structure_name  varchar(200) comment '组织机构结构名称',
    dept_level           int(3) comment '部门级别',
    dept_response_man    varchar(36) comment '部门负责人',
    dept_response_phone  varchar(36) comment '部门负责人电话',
@@ -2218,11 +2218,11 @@ create table sys_dept
    dept_address         varchar(256) comment '组织机构地址',
    org_longitude        varchar(36) comment '组织位置经度',
    org_latitude         varchar(36) comment '组织位置纬度',
-   icon                 varchar(256) comment '图标',
+   icon                 varchar(200) comment '图标',
    order_number         int(4) comment '排序',
    validate_from        date comment '组织启用时间',
    validate_to          date comment '组织停用时间',
-   pinyin               varchar(255) comment '名称拼音',
+   pinyin               varchar(200) comment '名称拼音',
    status               int(3) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -2538,7 +2538,7 @@ create table sys_region
    fcode                varchar(36) comment '上级行政区划编号',
    fname                varchar(64) comment '上级行政区划名称',
    first_charact        varchar(36) comment '首字母',
-   pinyin               varchar(255) comment '名称拼音',
+   pinyin               varchar(200) comment '名称拼音',
    region_level_code    varchar(36) comment '行政区划级别代码',
    status               varchar(36) default '1' comment '状态',
    version_id           varchar(36) comment '版本信息表ID',
@@ -2669,9 +2669,9 @@ create table sys_user
    telephone_number     varchar(16) comment '电话号码',
    cell_phone_number    varchar(16) comment '手机号码',
    email                varchar(64) comment '邮箱',
-   user_img             varchar(255) comment '用户头像',
+   user_img             varchar(200) comment '用户头像',
    user_desc            varchar(512) comment '用户描述',
-   pinyin               varchar(255) comment '名称拼音',
+   pinyin               varchar(200) comment '名称拼音',
    status               int(3) comment '状态',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
@@ -2699,8 +2699,6 @@ ENGINE = InnoDB
 DEFAULT CHARSET = utf8;
 
 alter table sys_user_role comment '用户角色表';
-
-
 
 
 

@@ -540,6 +540,7 @@ function createWindow(options) {
  * @private
  */
 function _getDefaultWinOptions(title , url , width, height) {
+    var flag = true;
     var options = {
         title:title,
         width : width ,
@@ -548,7 +549,15 @@ function _getDefaultWinOptions(title , url , width, height) {
         btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
         success: _successLoad ,
         yes :function(index, layero){
-            _submitForm(index , layero) ;
+            if(flag){
+                flag = false;
+                _submitForm(index , layero) ;
+                setTimeout(function(){
+                    flag = true;
+                },2000)
+            }else{
+                return;
+            }
          
         }
     };
@@ -558,6 +567,7 @@ function _getDefaultWinOptions(title , url , width, height) {
 
 
 function _getDefaultWinOptionsForPolicy(title , url , width, height) {
+    var flag=true;
     var options = {
         title:title,
         width : width ,
@@ -566,7 +576,17 @@ function _getDefaultWinOptionsForPolicy(title , url , width, height) {
         btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
         success: _successLoad ,
         yes :function(index, layero){
-        	_submitFormForApi(index , layero) ;
+            if(flag){
+                flag = false;
+                _submitFormForApi(index , layero);
+                setTimeout(function(){
+                    flag = true;
+                },2000)
+            }else{
+                return
+            }
+
+
          
         }
     };
@@ -637,8 +657,9 @@ function _getDefaultWinOptionsForPictureNews(title , url , width, height) {
 	   return options ;
 	}
 
-var stateDir = 0;
+
 function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
+    var flag= true;
     var options = {
         title:title,
         width : width ,
@@ -647,12 +668,15 @@ function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
         btn: [ '<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
         success: _successLoad ,
         yes :function(index, layero){
-        	if(stateDir == 0){
-        		stateDir = 1;
-        		_submitFormForApi(index , layero) ;
-//              location.reload();
-        	}
-        	
+            if(flag){
+                flag = false;
+                _submitFormForApi(index , layero);
+                setTimeout(function(){
+                    flag = true;
+                },2000)
+            }else{
+                return;
+            }
         }
     };
 
@@ -702,7 +726,7 @@ function _getDefaultWinOptionsForaddNational( title , url , width, height) {
  * @private
  */
 function _getDefaultSubWinOptions(parentWin , title , url ,yesFunc , width, height) {
-    //todo
+    var flag = true;
     if (!parentWin) {
         throw 'parentWin未定义';
     }
@@ -732,8 +756,15 @@ function _getDefaultSubWinOptions(parentWin , title , url ,yesFunc , width, heig
         options.yes = yesFunc ;
     } else {
         options.yes = function (index, layero) {
-            //todo
-            _submitForm(index , layero , options) ;
+            if(flag){
+                flag = false;
+                _submitForm(index , layero , options) ;
+                setTimeout(function(){
+                    flag = true;
+                },2000)
+            }else{
+                return;
+            }
         }
     }
 

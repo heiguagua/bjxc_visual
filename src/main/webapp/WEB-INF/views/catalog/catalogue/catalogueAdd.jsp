@@ -144,7 +144,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label for="relDatasetCode" class="col-sm-3 control-label">所属资源格式<span class="redStar">*</span>:</label>
+                            <label class="col-sm-3 control-label">所属资源格式<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
                                 <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <select class="form-control" data-rule="所属资源格式:required;" id="formatCategory" name="ext.formatCategory">
@@ -158,8 +158,8 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label" style="padding-top:13px">涉密标识：</label>
-                            <div class="col-sm-9 control-label" id="updateqi" style="text-align:left">
+                            <label  class="col-sm-3 control-label">涉密标识：</label>
+                            <div class="col-sm-4" style="padding-top:4px;padding-right: 0px">
                                 <div class="redio-box">
                                     <input type="radio" name="secretFlag" value="1" ><span></span>
                                 </div>
@@ -168,9 +168,13 @@
                                     <input type="radio" name="secretFlag" value="0" checked><span></span>
                                 </div>
                                 <label style="display:inline-block">非涉密</label>
-                                <span class="updatedate" style="color:#333">周期：</span>
-                                <select class="form-controls updateSelec" style="color:#333" id="updateFrequency" name="updateFrequency">
-                                </select>
+                            </div>
+                            <div class="col-sm-5 control-label" style="padding-top:0px;">
+                                <label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 0px">周期：</label>
+                                <div class="col-sm-9" style="padding-right: 0px">
+                                    <select class="form-control" id="updateFrequency" name="updateFrequency">
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,14 +198,13 @@
                         </div>
                         <div class="col-sm-6">
                             <label  class="col-sm-3 control-label">是否开放:</label>
-                            <div class="col-sm-9" style="padding-top: 7px;">
+                            <div class="col-sm-9" style="padding-top: 4px;">
                                 <div class="redio-box">
-                                    <input type="radio" name="isOpen"  value="0" checked><span></span>
+                                    <input type="radio" name="isOpen"  value="0"><span></span>
                                 </div>
                                 <label style="display:inline-block">否</label>
-                                <div class="redio-box">
-                                    <input type="radio" name="isOpen"  value="1"><span></span>
-
+                                <div class="redio-box" style="margin-left: 12px">
+                                    <input type="radio" name="isOpen"  value="1" checked><span></span>
                                 </div>
                                 <label style="display:inline-block">是</label>
                             </div>

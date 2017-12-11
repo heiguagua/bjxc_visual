@@ -15,7 +15,7 @@ website:	http://code.google.com/p/jquerytree/
 .ztree li ul.line{ background:url(./img/line_conn.gif) 0 0 repeat-y;}
 .ztree li .btn-edit{background: #236AD1;
     border-radius: 100px;
-    color: #FFF;
+    color: #FFF !important;
     height: 26px;
     width: 54px;
     font-size: 14px;
