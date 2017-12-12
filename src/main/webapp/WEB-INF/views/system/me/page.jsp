@@ -78,7 +78,7 @@
         control.fileinput({
 
             initialPreview: [
-                basePathJS + '${(sysUser.userImg)}?'+new Date().getTime(),
+                '${remoteUrl}' + '${(sysUser.userImg)}?'+new Date().getTime(),
             ],
             initialPreviewAsData: true,
             initialPreviewConfig: [

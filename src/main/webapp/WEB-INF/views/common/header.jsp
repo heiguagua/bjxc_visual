@@ -133,7 +133,7 @@
      <li class="dropdown user user-menu">
          <!-- Menu Toggle Button -->
          <a href="<%=context_path%>/system/me/page" class="dropdown-toggle" data-toggle="tooltip" title="${me.realName}" data-placement="bottom">
-           <img src="<%=context_path%>/images/userImg/avatar5.png" class="user-image" alt="User Image">
+           <img src="${remote}${me.userImg}?${nowDate}" class="user-image" alt="User Image">
            <span class="hidden-xs">${me.userName}</span>
              <%-- <span class="hidden-xs"><%=basePath%>${(me.userImg)}</span> --%>
          </a>

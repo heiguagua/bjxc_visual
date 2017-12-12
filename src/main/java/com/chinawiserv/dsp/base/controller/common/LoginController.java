@@ -47,7 +47,7 @@ import java.util.Map;
  * @author Gaojun.Zhou
  * @date 2016年12月14日 下午2:54:01
  */
-@PropertySource("${config.location:classpath:}conf/common.properties")
+//@PropertySource("${config.location:classpath:}conf/common.properties")
 @Controller
 @RequestMapping("/login")
 public class LoginController extends BaseController {

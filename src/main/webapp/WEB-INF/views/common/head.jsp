@@ -2,6 +2,7 @@
 <%@ page import="com.chinawiserv.dsp.base.common.SystemConst" %>
 <%@ page import="org.springframework.util.StringUtils" %>
 <%@ page import="org.springframework.util.ObjectUtils" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -13,6 +14,8 @@
     String regionCode = (String)request.getSession().getAttribute("regionCode");
     String context_path=request.getContextPath();
     SysUserVo loginUser = (SysUserVo)request.getSession().getAttribute(SystemConst.ME);
+    Long nowDate = new Date().getTime();
+    request.setAttribute("nowDate", nowDate);
 %>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
