@@ -9,6 +9,11 @@
     <%-- <script src="<%=context_path%>/plugins/jquery.ztree.core.js"></script> --%>
 	<link rel="stylesheet" href="<%=context_path%>/css/zTreeStyle/zTreeStyle.css" type="text/css">
 </head>
+<style>
+div.layui-layer-iframe{
+	min-width:1000px;
+}
+</style>
 <style type="text/css">
 .layui-layer-dialog{
 	top:180px !important;

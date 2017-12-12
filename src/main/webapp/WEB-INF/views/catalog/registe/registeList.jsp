@@ -5,6 +5,11 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=context_path%>/js/catalog/registe/registeList.js"></script>
 </head>
+<style>
+div.layui-layer-iframe{
+	min-width:1000px;
+}
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <%@include file="/WEB-INF/views/common/header.jsp" %>
