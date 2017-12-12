@@ -61,7 +61,16 @@ div.layui-layer-iframe{
                                 </section>
                             </aside>
                             <div class="content_table">
-                            	<form class="form-inline" method="post"   onsubmit="return false;">
+	                          <div class="btn-group btn_develop">
+					       		
+					       	 		<ul class="title_ul" id="releaseTab">
+					                	<li class="active" ><i class="fa fa-paper-plane-o" style="font-size:20px"></i>&nbsp;待注册</li>
+					                	<li><i class="fa fa-television" aria-hidden="true"></i>&nbsp;已注册</li>
+					                	
+					                </ul>
+							   </div>
+							   <div id="tab1">
+							         	<form class="form-inline" method="post"   onsubmit="return false;">
                                	 <div class="box-header box-header-myself">
                                     <div class="input-group">
                                         <a class="btn btn-primary btn-flat btn-myself" id="registeButton">
@@ -101,6 +110,54 @@ div.layui-layer-iframe{
 	                                <table id="registeTable" class="table table-hover"></table>
 	                                <!-- 表格 end-->
 	                            </div>
+							   </div>
+							   <div id="tab2">
+							         	<form class="form-inline" method="post"   onsubmit="return false;">
+                               	 <div class="box-header box-header-myself">
+                                    <div class="input-group">
+                                        <a class="btn btn-primary btn-flat btn-myself" id="registeButton">
+                                           <!--  <i class="fa fa-plus">
+                                            </i> -->
+                                            <img src="<%=context_path%>/images/userImg/addimg.png"/>
+                                            注册
+                                        </a>
+                                    </div>
+                                    <div class="input-group pull-right">
+                                        <input type="hidden" id="searchClassifyId">
+                                        <input type="hidden" id="classifyType">
+                                        <div class="input-group">
+                                            <input class="form-control" id="searchName" placeholder="资源名称" type="text">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-primary btn-flat btn_blue" id="registeQueryBtn" type="button">
+                                                    <i class="fa fa-search">
+                                                    </i> 查询
+                                                </button>
+                                            </div>
+                                            </input>
+                                        </div>
+                                    </div>
+                                    <%--<div class="input-group pull-right" style="margin-right:4px;width: 240px">
+                                        <input type="text" id="searchClassifyName" placeholder="请选择目录类别" class="form-control" readonly style="background-color: #FFFFFF">
+                                        <input type="hidden" id="searchClassifyId">
+                                        <div class="menu-wrap">
+                                            <div id="searchClassifyMenuContent" class="menuContent" style="display:none;">
+                                                <ul id="searchClassifyTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                            </div>
+                                        </div>
+                                    </div>--%>
+                                </div>
+	                            </form>
+	                            <div class="box-body table-responsive table-myself">
+	                                <!-- 表格 -->
+	                                <table id="registeTable" class="table table-hover">
+	                                					                            	<tr>
+				                            	<td>1</td>
+				                            	</tr>
+	                                </table>
+	                                <!-- 表格 end-->
+	                            </div>
+							   </div>
+                      
                             </div>
 
 

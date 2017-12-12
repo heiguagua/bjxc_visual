@@ -2,34 +2,31 @@ var tableSelector = '#releaseTable';
 var paramsObj = {};
 
 jQuery(document).ready(function () {
+	 $("#tab2").hide();
+		$("#releaseTab >li").click(function(){
+	        $(this).addClass("active").siblings().removeClass("active");
+	     if($(this).index()=="1"){
+	    	 $("#tab1").hide();
+	    	 $("#tab2").show();
+	     }else if($(this).index()=="0"){
+	    	 $("#tab2").hide();
+	    	 $("#tab1").show();
+	    	 initUnReleaseCss();
+	         initUnReleaseTable();
+	     }
+	    });
     //tab切换
-    $("#releaseTab >li").click(function(){
+/*    $("#releaseTab >li").click(function(){
         $(this).addClass("active").siblings().removeClass("active");
         if($(this).text().trim() == "待发布"){
-        	$("div.box div.table-myself1").css("paddingLeft","240px")
-            $('.box-header').css("paddingLeft","240px");
-        	 $("#min-aside").css("width","230px");
-             $("#dir-Manger").stop().show();
-             $("#forward").stop().hide(400);
-             $("#backward").stop().stop().show(500);
-             $("#min-aside").css("border","1px solid #ddd");
-            $("#releasedSearchDiv").hide();
-            $("#unReleaseSearchDiv").show();
+        	
             initUnReleaseCss();
             initUnReleaseTable();
         }else if($(this).text().trim() === "已发布"){
-        	$("div.box div.table-myself1").css("paddingLeft","240px")
-            $('.box-header').css("paddingLeft","240px");
-        	 $("#min-aside2").css({"width":"230px","border":"1px solid #ddd"});
-             $("#dir-Manger2").stop().show();
-             $("#forward2").stop().hide(400);
-             $("#backward2").stop().show(500);
-            $("#unReleaseSearchDiv").css("display","none");
-            $("#releasedSearchDiv").css("display","block");
             initReleasedCss();
             initReleasedTable();
         }
-    });
+    });*/
     initAllSelect();
     initButtonClickEvent();
     $("#unReleaseTab").click();
@@ -37,86 +34,82 @@ jQuery(document).ready(function () {
 
 function initUnReleaseCss(){
     // 目录编目收缩小侧边栏,用的adminlte
-    $("#forward").hide();
-    $("#dir-Manger").parent("div.user-panel").css("text-align","center")
-    $("#backward").click(function(){
-        $("#min-aside").animate({
-            width:"40px"
-        },200);
-        $("#dir-Manger").hide();
-        //$("#unReleaseRegionDiv").hide();
-        $("#forward").show(400);
-        $("#backward").hide(500);
-        $("#treeDemo").hide(200);
-        $("#min-aside").css("border","none")
-        $("div.box div.table-myself1").animate({
-            paddingLeft: "60px"
-        })
-        $('.box-header').animate({
-            paddingLeft: "60px"
-        })
-        $(".user-panel").css("background","#f4f6f9");
-    })
-    $("#forward").click(function(){
-        $("#min-aside").animate({
-            width:"230px"
-        },200);
-        $("#dir-Manger").show();
-        //$("#unReleaseRegionDiv").show();
-        $("#forward").hide(400);
-        $("#backward").show(500);
-        $("#treeDemo").show(200);
-        $("#min-aside").css("border","1px solid #ddd");
-        $(".box-body").animate({
-            paddingLeft: "240px"
-        })
-        $('.box-header').animate({
-            paddingLeft: "240px"
-        })
-        $(".user-panel").css("background","none");
-    })
+	 $(function(){
+	        $("#forward").hide();
+	        $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+	        $("#backward").click(function(){
+	            $("#min-aside").animate({
+	                width:"2%"
+	            },200);
+	            $("#dir-Manger").hide();
+	            //$("#regionDiv").hide();
+	            $("#forward").show(400);
+	            $("#backward").hide(500);
+	            $("#treeDemo").hide(200);
+	            $("#min-aside").css("border","none")
+	            $("div.box div.content_table").animate({
+	                width: "98%"
+	            })
+
+	            $(this).parents("div.user-panel").css("background","#f4f6f9");
+	        })
+	        $("#forward").click(function(){
+	            $("div.box div.content_table").animate({
+	                width: "86%"
+	            },400)
+	            $("#min-aside").animate({
+	                width:"14%"
+	            },500);
+	            $("#dir-Manger").show();
+	            //$("#regionDiv").show();
+	            $("#forward").hide(400);
+	            $("#backward").show(500);
+	            $("#treeDemo").show(200);
+	            $("#min-aside").css("border","1px solid #ddd");
+
+	            $(".user-panel").css("background","none");
+	        })
+	    })
 }
 
 function initReleasedCss(){
-    // 目录编目收缩小侧边栏,用的adminlte
-    $("#forward2").hide();
-    $("#dir-Manger2").parent("div.user-panel").css("text-align","center")
-    $("#backward2").click(function(){
-        $("#min-aside2").animate({
-            width:"40px"
-        },200);
-        $("#dir-Manger2").hide();
-        //$("#releasedRegionDiv").hide();
-        $("#forward2").show(400);
-        $("#backward2").hide(500);
-        $("#treeDemo2").hide(200);
-        $("#min-aside2").css("border","none")
-        $("div.box div.table-myself1").animate({
-            paddingLeft: "60px"
-        })
-        $('.box-header').animate({
-            paddingLeft: "60px"
-        })
-        $(".user-panel").css("background","#f4f6f9");
-    })
-    $("#forward2").click(function(){
-        $("#min-aside2").animate({
-            width:"230px"
-        },200);
-        $("#dir-Manger2").show();
-        //$("#releasedRegionDiv").show();
-        $("#forward2").hide(400);
-        $("#backward2").show(500);
-        $("#treeDemo2").show(200);
-        $("#min-aside2").css("border","1px solid #ddd");
-        $(".box-body").animate({
-            paddingLeft: "240px"
-        })
-        $('.box-header').animate({
-            paddingLeft: "240px"
-        })
-        $(".user-panel").css("background","none");
-    })
+	 // 目录编目收缩小侧边栏,用的adminlte
+	 $(function(){
+	        $("#forward").hide();
+	        $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+	        $("#backward").click(function(){
+	            $("#min-aside").animate({
+	                width:"2%"
+	            },200);
+	            $("#dir-Manger").hide();
+	            //$("#regionDiv").hide();
+	            $("#forward").show(400);
+	            $("#backward").hide(500);
+	            $("#treeDemo").hide(200);
+	            $("#min-aside").css("border","none")
+	            $("div.box div.content_table").animate({
+	                width: "98%"
+	            })
+
+	            $(this).parents("div.user-panel").css("background","#f4f6f9");
+	        })
+	        $("#forward").click(function(){
+	            $("div.box div.content_table").animate({
+	                width: "86%"
+	            },400)
+	            $("#min-aside").animate({
+	                width:"14%"
+	            },500);
+	            $("#dir-Manger").show();
+	            //$("#regionDiv").show();
+	            $("#forward").hide(400);
+	            $("#backward").show(500);
+	            $("#treeDemo").show(200);
+	            $("#min-aside").css("border","1px solid #ddd");
+
+	            $(".user-panel").css("background","none");
+	        })
+	    })
 }
 
 function initUnReleaseTable(){
