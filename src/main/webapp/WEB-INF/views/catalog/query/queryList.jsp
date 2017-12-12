@@ -66,6 +66,9 @@
                                     <input type="hidden" id="searchClassifyId">
                                     <input type="hidden" id="classifyType">
                                     <div class="input-group">
+                                        <select class="form-control" id="searchStatus" placeholder="资源状态"></select>
+                                    </div>
+                                    <div class="input-group">
                                         <input class="form-control" id="searchName" placeholder="资源名称" type="text">
                                         <div class="input-group-btn">
                                             <button class="btn btn-primary btn-flat btn_blue" id="queryBtn" type="button">
