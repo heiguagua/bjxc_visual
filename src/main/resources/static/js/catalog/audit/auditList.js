@@ -2,6 +2,17 @@ var tableSelector = '#auditTable';
 var paramsObj = {};
 
 jQuery(document).ready(function () {
+	 $("#tab2").hide();
+	$("#releaseTab >li").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+     if($(this).index()=="1"){
+    	 $("#tab1").hide();
+    	 $("#tab2").show();
+     }else if($(this).index()=="0"){
+    	 $("#tab2").hide();
+    	 $("#tab1").show();
+     }
+    });
     initCss();
     initAllSelect();
     initButtonClickEvent();

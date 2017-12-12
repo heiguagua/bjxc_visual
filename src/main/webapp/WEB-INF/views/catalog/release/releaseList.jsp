@@ -30,10 +30,6 @@ div.layui-layer-iframe{
                 	<li id="releasedTab"><i class="fa fa-television" aria-hidden="true"></i>&nbsp;已发布</li>
                 	
                 </ul>
-		   	<!-- <ul class="nav_ulss" id="releaseTab">
-		   		<li class="active" id="unReleaseTab"><i class="fa "></i>&nbsp;待发布</li>
-		   		<li id="releasedTab"><i class="fa fa-list-alt"></i>&nbsp;已发布</li>
-		   	</ul> -->
 		   </div>
         <section class="content">
             <!-- Your Page Content Here -->

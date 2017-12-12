@@ -607,7 +607,7 @@ section.content>div>div.col-xs-12{
 }
 /* 设置展示表格最小高度 */
 div.bootstrap-table div.fixed-table-container>div.fixed-table-body{
-	min-height:740px !important;
+	min-height:695px !important;
 	    height: 0;
 }
 .main-footer{
