@@ -194,20 +194,39 @@ public class DirDatasetController extends BaseController {
     }
 
     /**
-     * 分页查询信息资源列表（审核）
+     * 分页查询信息资源列表（未审核）
      */
     @RequiresPermissions("catalog:audit:list")
-    @RequestMapping("/audit/list")
+    @RequestMapping("/unAudit/list")
     @ResponseBody
-    public PageResult auditList(@RequestParam Map<String , Object> paramMap){
+    public PageResult unAuditList(@RequestParam Map<String , Object> paramMap){
         PageResult pageResult = new PageResult();
         try {
             paramMap.put("status","1"); //查询过滤状态为待审核的数据
             Page<DirDatasetClassifyMapVo> page = service.selectClassifyMapVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
-            pageResult.error("分页查询数据集（审核）出错");
-            logger.error("分页查询数据集（审核）出错", e);
+            pageResult.error("分页查询数据集（未审核）出错");
+            logger.error("分页查询数据集（未审核）出错", e);
+        }
+        return pageResult;
+    }
+
+    /**
+     * 分页查询信息资源列表（已审核）
+     */
+    @RequiresPermissions("catalog:audit:list")
+    @RequestMapping("/audited/list")
+    @ResponseBody
+    public PageResult auditedList(@RequestParam Map<String , Object> paramMap){
+        PageResult pageResult = new PageResult();
+        try {
+            paramMap.put("allStatus",new String[]{"2","3","4","5","6"}); //查询过滤状态为待审核之后所有状态的数据
+            Page<DirDatasetClassifyMapVo> page = service.selectAuditedClassifyMapVoPage(paramMap);
+            pageResult.setPage(page);
+        } catch (Exception e) {
+            pageResult.error("分页查询数据集（已审核）出错");
+            logger.error("分页查询数据集（已审核）出错", e);
         }
         return pageResult;
     }

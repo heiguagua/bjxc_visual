@@ -2,6 +2,8 @@ package com.chinawiserv.dsp.dir.entity.vo.catalog;
 
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDatasetClassifyMap;
 
+import java.util.Date;
+
 /**
  * <p>
  * 数据集目录类别关系表 Vo对象
@@ -17,6 +19,9 @@ public class DirDatasetClassifyMapVo extends DirDatasetClassifyMap{
     private String classifyStructureName;
     private String deptName;
     private String publishType;
+    private String optUser;
+    private Date optTime;
+    private String optOpinion;
 
 
     public String getDatasetName() {
@@ -57,5 +62,29 @@ public class DirDatasetClassifyMapVo extends DirDatasetClassifyMap{
 
     public void setPublishType(String publishType) {
         this.publishType = publishType;
+    }
+
+    public String getOptUser() {
+        return optUser;
+    }
+
+    public void setOptUser(String optUser) {
+        this.optUser = optUser;
+    }
+
+    public Date getOptTime() {
+        return optTime;
+    }
+
+    public void setOptTime(Date optTime) {
+        this.optTime = optTime;
+    }
+
+    public String getOptOpinion() {
+        return optOpinion;
+    }
+
+    public void setOptOpinion(String optOpinion) {
+        this.optOpinion = optOpinion;
     }
 }

@@ -1094,32 +1094,51 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     }
 
     @Override
+    public Page<DirDatasetClassifyMapVo> selectRegistedClassifyMapVoPage(Map<String, Object> paramMap){
+        Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
+        page.setOrderByField("update_time");
+        page.setAsc(false);
+        getQueryParamMap(paramMap);
+        if(paramMap==null){
+            return null;
+        }
+        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForRegisted(page, paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+        return page;
+    }
+
+    @Override
+    public Page<DirDatasetClassifyMapVo> selectAuditedClassifyMapVoPage(Map<String, Object> paramMap){
+        Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
+        page.setOrderByField("update_time");
+        page.setAsc(false);
+        getQueryParamMap(paramMap);
+        if(paramMap==null){
+            return null;
+        }
+        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForAudited(page, paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+        return page;
+    }
+
+    @Override
     public Page<DirDatasetClassifyMapVo> selectReleasedClassifyMapVoPage(Map<String, Object> paramMap){
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
         page.setOrderByField("update_time");
         page.setAsc(false);
-        //获取区域查询框选择的值,这个值是精确查询(多选),不会查其子区域的值
-        /*String searchRegionCode = (String)paramMap.get("regionCode");
-        if(!StringUtils.isEmpty(searchRegionCode)){
-            StringBuffer stringBuffer = new StringBuffer();
-            String [] searchRegionCodeArray = searchRegionCode.split(",");
-            for(int i=0,ii=searchRegionCodeArray.length;i<ii;i++){
-                if(i==0){
-                    stringBuffer.append("'").append(searchRegionCodeArray[i]).append("'");
-                }else{
-                    stringBuffer.append(",'").append(searchRegionCodeArray[i]).append("'");
-                }
-            }
-            paramMap.put("allRegionCode",stringBuffer.toString());
-            paramMap.remove("regionCode");
-        }else{
-            //如果没有选择区域查询条件，则获取当前登录人所属区域及子区域的编码
-            String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
-            String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
-            if(!StringUtils.isEmpty(allRegionCode)){
-                paramMap.put("allRegionCode",allRegionCode);
-            }
-        }*/
+        getQueryParamMap(paramMap);
+        if(paramMap==null){
+            return null;
+        }
+        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForReleased(page, paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+        return page;
+    }
+
+    private void getQueryParamMap(Map<String, Object> paramMap){
         //获取当前登录人所属区域及子区域的编码
         String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
         String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
@@ -1135,13 +1154,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
                 paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
             }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
-                return null;
+                paramMap = null;
             }
         }
-        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForReleased(page, paramMap);
-        page.setRecords(dirDatasetClassifyMapVoList);
-        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
-        return page;
     }
 
     @Override
