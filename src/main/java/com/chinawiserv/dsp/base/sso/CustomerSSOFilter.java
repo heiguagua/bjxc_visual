@@ -330,7 +330,7 @@ public class CustomerSSOFilter extends SSOFilter {
                 // sha256加密
                 paramMap.put("userName", account);
                 paramMap.put("password", sysUserVo.getPassword());
-                UsernamePasswordToken token = new UsernamePasswordToken(account, sysUserVo.getPassword().substring(0,11));
+                UsernamePasswordToken token = new UsernamePasswordToken(account, sysUserVo.getPassword());
                 subject.login(token);
                 this.loginSuccess(paramMap);
             } else {
