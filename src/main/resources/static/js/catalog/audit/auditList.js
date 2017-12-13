@@ -6,7 +6,7 @@ var selectedTab="tab1";
 
 jQuery(document).ready(function () {
     $("#tab2").hide();
-    $("#releaseTab >li").click(function () {
+    $("#chooseTab >li").click(function () {
         $(this).addClass("active").siblings().removeClass("active");
         if ($(this).index() == "1") {
             $("#tab1").hide();
@@ -17,11 +17,12 @@ jQuery(document).ready(function () {
             $("#tab1").show();
             selectedTab = "tab1";
         }
+        initTable();
     });
     initCss();
     initAllSelect();
     initButtonClickEvent();
-    initTable();
+    $("#chooseTab >li :first").click();
 });
 
 function initCss() {
@@ -122,64 +123,87 @@ function initTable() {
             }
         }
     }];
-    var unAuditColumns = baseColumn.slice(0);
-    unAuditColumns.push({
-        field: 'datasetId',
-        title: '操作',
-        width: '10%',
-        align: 'center',
-        valign: 'middle',
-        sortable: false,
-        formatter: function (value) {
-            var editBtn = [
-                "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看详情</a>"
-            ].join('');
-            return editBtn;
+    if(selectedTab =="tab1"){
+        if(!$(unAuditTableSelector).hasClass('table-striped')){
+            setParams();
+            var unAuditColumns = baseColumn.slice(0);
+            unAuditColumns.push({
+                field: 'datasetId',
+                title: '操作',
+                width: '10%',
+                align: 'center',
+                valign: 'middle',
+                sortable: false,
+                formatter: function (value) {
+                    var editBtn = [
+                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看详情</a>"
+                    ].join('');
+                    return editBtn;
+                }
+            });
+            $(unAuditTableSelector).customTable({
+                url: basePathJS + '/catalog/unAudit/list',
+                queryParams: function (params) {
+                    return $.extend(params, unAuditParamsObj);
+                },
+                columns: unAuditColumns
+            });
+        }else{
+            setParams();
+            reloadTable();
         }
-    });
-    $(unAuditTableSelector).customTable({
-        url: basePathJS + '/catalog/unAudit/list',
-        queryParams: function (params) {
-            return $.extend(params, unAuditParamsObj);
-        },
-        columns: unAuditColumns
-    });
-
-    var auditedColumns = baseColumn.slice(0);
-    auditedColumns.push({
-        field: 'optUser',
-        title: '审核人',
-        width: '10%',
-        sortable: false,
-        formatter: function (value, row, index) {
-            return '<p title="' + value + '">' + value + '</p>';
+    }else{
+        if(!$(auditedTableSelector).hasClass('table-striped')){
+            setParams();
+            var auditedColumns = baseColumn.slice(0);
+            auditedColumns.push({
+                field: 'optUser',
+                title: '审核人',
+                width: '10%',
+                sortable: false,
+                formatter: function (value, row, index) {
+                    if(value==undefined){
+                        value="";
+                    }
+                    return '<p title="' + value + '">' + value + '</p>';
+                }
+            });
+            auditedColumns.push({
+                field: 'optTime',
+                title: '审核时间',
+                width: '10%',
+                sortable: false,
+                formatter: function (value, row, index) {
+                    if(value==undefined){
+                        value="";
+                    }
+                    return '<p title="' + value + '">' + value + '</p>';
+                }
+            });
+            auditedColumns.push({
+                field: 'optOpinion',
+                title: '审核意见',
+                width: '20%',
+                sortable: false,
+                formatter: function (value, row, index) {
+                    if(value==undefined){
+                        value="";
+                    }
+                    return '<p title="' + value + '">' + value + '</p>';
+                }
+            });
+            $(auditedTableSelector).customTable({
+                url: basePathJS + '/catalog/audited/list',
+                queryParams: function (params) {
+                    return $.extend(params, auditedParamsObj);
+                },
+                columns: auditedColumns
+            });
+        }else{
+            setParams();
+            reloadTable();
         }
-    });
-    auditedColumns.push({
-        field: 'optDate',
-        title: '审核时间',
-        width: '10%',
-        sortable: false,
-        formatter: function (value, row, index) {
-            return '<p title="' + value + '">' + value + '</p>';
-        }
-    });
-    auditedColumns.push({
-        field: 'optOpinion',
-        title: '审核意见',
-        width: '20%',
-        sortable: false,
-        formatter: function (value, row, index) {
-            return '<p title="' + value + '">' + value + '</p>';
-        }
-    });
-    $(auditedTableSelector).customTable({
-        url: basePathJS + '/catalog/audited/list',
-        queryParams: function (params) {
-            return $.extend(params, auditedParamsObj);
-        },
-        columns: auditedColumns
-    });
+    }
 }
 
 function initAllSelect() {
@@ -250,7 +274,7 @@ function catalogueTableShow(id) {
 
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
-    if(selectedTab="tab1"){
+    if(selectedTab=="tab1"){
         var searchName = $('#unAuditSearchName').val();
         unAuditParamsObj = {classifyId: searchClassifyId, datasetName: searchName};
     }else{
@@ -260,7 +284,7 @@ function setParams() {
 }
 
 function reloadTable() {
-    if(selectedTab="tab1"){
+    if(selectedTab=="tab1"){
         $(unAuditTableSelector).data("bootstrap.table").options.pageNumber = 1;
         $(unAuditTableSelector).data("bootstrap.table").refresh();
     }else{

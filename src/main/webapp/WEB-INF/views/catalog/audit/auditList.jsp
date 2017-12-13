@@ -63,8 +63,8 @@ div.layui-layer-iframe{
 						<div class="content_table">
 
                                 <div class="btn-group btn_develop">
-                                        <ul class="title_ul" id="releaseTab">
-                                            <li class="active" ><i class="fa fa-paper-plane-o" style="font-size:20px"></i>&nbsp;待审核</li>
+                                        <ul class="title_ul" id="chooseTab">
+                                            <li class="active"><i class="fa fa-paper-plane-o" style="font-size:20px"></i>&nbsp;待审核</li>
                                             <li><i class="fa fa-television" aria-hidden="true"></i>&nbsp;已审核</li>
                                         </ul>
 						        </div>
