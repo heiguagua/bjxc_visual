@@ -1736,6 +1736,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     },*/
                     onClick: function (e, treeId, treeNode) { //点击节点，刷新表格
                         $('#'+codeInputDomId).val(treeNode.id);
+                        $('#fid').val(treeNode.fid);
                         if(classifyTypeInputDomId){
                             $('#'+classifyTypeInputDomId).val(treeNode.classifyType);
                         }

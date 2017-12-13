@@ -2,17 +2,20 @@ package com.chinawiserv.dsp.dir.controller.catalog;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDeptMapMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
@@ -350,5 +353,40 @@ public class DirClassifyController extends BaseController {
             logger.error("根据登录用户的权限获取目录分类表信息失败", e);
         }
         return handleResult;
+    }
+    
+    
+    
+    /**
+     * 分页查询相关目录（目录分类）
+     */
+//    @RequiresPermissions("catalog:catalogue:list")
+    @RequestMapping("/pageList")
+    @ResponseBody
+    public PageResult list(@RequestParam Map<String , Object> paramMap){
+		PageResult pageResult = new PageResult();
+		try {
+            String fid = (String) paramMap.get("fid");
+            if (StringUtils.isEmpty(fid)) {
+                paramMap.put("classifyType", "1");
+                //查出第一层节点的regionCode，就相当于过滤出下面字节点的regionCode了
+                paramMap.put("regionCode",ShiroUtils.getLoginUser().getRegionCode());
+            }
+//            List<DirClassifyVo> dirClassifyVoList = service.selectSubVoList(paramMap);
+//            handleResult.put("vo", dirClassifyVoList);
+            Page<DirClassifyVo> page = service.selectVoPage(paramMap);
+		    pageResult.setPage(page);
+        } catch (Exception e) {
+        	pageResult.error("根据登录用户的权限获取目录分类表信息失败");
+            logger.error("根据登录用户的权限获取目录分类表信息失败", e);
+        }
+//		try {
+//		    Page<DirDatasetVo> page = service.selectVoPage(paramMap);
+//		    pageResult.setPage(page);
+//		} catch (Exception e) {
+//		    pageResult.error("分页查询数据集（编目）出错");
+//		    logger.error("分页查询数据集（编目）出错", e);
+//		}
+		return pageResult;
     }
 }
