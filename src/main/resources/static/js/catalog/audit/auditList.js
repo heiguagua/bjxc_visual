@@ -181,15 +181,17 @@ function initTable() {
                 }
             });
             auditedColumns.push({
-                field: 'optOpinion',
-                title: '审核意见',
-                width: '20%',
+                field: 'datasetId',
+                title: '操作',
+                width: '10%',
+                align: 'center',
+                valign: 'middle',
                 sortable: false,
-                formatter: function (value, row, index) {
-                    if(value==undefined){
-                        value="";
-                    }
-                    return '<p title="' + value + '">' + value + '</p>';
+                formatter: function(value) {
+                    var editBtn = [
+                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看详情</a>"
+                    ].join('');
+                    return editBtn;
                 }
             });
             $(auditedTableSelector).customTable({
@@ -230,30 +232,6 @@ function initButtonClickEvent() {
         } else {
             errorMsgTip("请先选择要审核的信息资源");
         }
-
-        //获取已选择的资源目录的id
-        /* var selectedDcmIds="";
-         var selectedRow = $(tableSelector).bootstrapTable('getSelections');
-         if(selectedRow && selectedRow.length > 0){
-             for(var i=0,ii=selectedRow.length;i<ii;i++){
-                 var dcmId = selectedRow[i].id;
-                 selectedDcmIds += i==0?dcmId:","+dcmId;
-             }
-             $.commonAjax({
-                 url:basePathJS + "/catalog/audit/doAudit",
-                 data:{dcmIds:selectedDcmIds},
-                 success:function(result){
-                     if(result.state){
-                         successMsgTip(result.msg);
-                         reloadTable();
-                     }else{
-                         errorMsgTip(result.msg);
-                     }
-                 }
-             });
-         }else{
-             errorMsgTip("请先选择要审核的信息资源");
-         }*/
     });
 
     //点击查询按钮

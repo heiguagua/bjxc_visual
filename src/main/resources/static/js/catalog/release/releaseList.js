@@ -181,6 +181,20 @@ function initTable() {
                     return '<p title="' + value + '">' + value + '</p>';
                 }
             });
+            releasedColumns.push({
+                field: 'datasetId',
+                title: '操作',
+                width: '10%',
+                align: 'center',
+                valign: 'middle',
+                sortable: false,
+                formatter: function(value) {
+                    var editBtn = [
+                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看详情</a>"
+                    ].join('');
+                    return editBtn;
+                }
+            });
             $(releasedTableSelector).customTable({
                 url: basePathJS + '/catalog/released/list',
                 queryParams: function (params) {
