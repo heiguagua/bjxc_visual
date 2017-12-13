@@ -540,7 +540,7 @@ function createWindow(options) {
  * @private
  */
 function _getDefaultWinOptions(title , url , width, height) {
-    var flag = true;
+    //var flag = true;
     var options = {
         title:title,
         width : width ,
@@ -549,7 +549,8 @@ function _getDefaultWinOptions(title , url , width, height) {
         btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
         success: _successLoad ,
         yes :function(index, layero){
-            if(flag){
+        	 _submitForm(index , layero) ;
+            /*if(flag){
                 flag = false;
                 _submitForm(index , layero) ;
                 setTimeout(function(){
@@ -557,7 +558,7 @@ function _getDefaultWinOptions(title , url , width, height) {
                 },2000)
             }else{
                 return;
-            }
+            }*/
          
         }
     };
@@ -1244,6 +1245,8 @@ function _submitForm(index, layero , options){
 
             var action = form.attr("action");
             var method = form.attr("method") || 'post';
+            var bodydom =parent.$(".layui-layer");
+            bodydom.append("<div class='loading-ajax'><div><div class='load-container'><div class='loader'>Loading</div><p>正在保存服务，请稍等</p></div></div></div>");
 
             $.ajax({
                 url: action,
@@ -1276,6 +1279,9 @@ function _submitForm(index, layero , options){
 
                     // 提交表单成功后，释放hold
                     // me.holdSubmit(false);
+                },
+                complete:function(XMLHttpRequest, textStatus){
+                    $(".layui-layer").find(".loading-ajax").remove();
                 }
             });
 
