@@ -82,14 +82,14 @@
 	background:#4197F4;
 	vertical-align: middle;
 	
-	    margin-top: -2px;
+	    margin-top: -3px;
 }
 .bottom_cont .inputdiv .spanuser img{
 	 padding: 8px 13px;
-	     height: 38px
+	     height: 39px
 }
 .longin_content .bottom_cont input{
-	height: 38px;
+	height: 39px;
    /*  width: 26%; */
     width: 365px;
     outline:none;

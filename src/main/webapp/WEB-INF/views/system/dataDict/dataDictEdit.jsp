@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <label for="categoryName">类型名称</label>
                                 <div class="form-group">
-                                <input type="text" id="categoryName" name="categoryName" class="form-control">
+                                <input type="text" id="categoryName" name="categoryName" class="form-control" data-rule="required;length[~128, true]">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -52,7 +52,7 @@
 
                                 <div class="form-group" name="categoryDesc">
                                     <textarea class="form-control" rows="3" name="categoryDesc" id="categoryDesc"
-                                              placeholder="请输入数据字典描述"></textarea>
+                                              placeholder="请输入数据字典描述" data-rule="required;length[~512, true]"></textarea>
                                 </div>
                             </div>
                         </div><!-- /.box-body -->

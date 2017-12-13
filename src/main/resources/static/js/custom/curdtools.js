@@ -540,7 +540,7 @@ function createWindow(options) {
  * @private
  */
 function _getDefaultWinOptions(title , url , width, height) {
-    var flag = true;
+    //var flag = true;
     var options = {
         title:title,
         width : width ,
@@ -549,7 +549,8 @@ function _getDefaultWinOptions(title , url , width, height) {
         btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
         success: _successLoad ,
         yes :function(index, layero){
-            if(flag){
+        	 _submitForm(index , layero) ;
+            /*if(flag){
                 flag = false;
                 _submitForm(index , layero) ;
                 setTimeout(function(){
@@ -557,7 +558,7 @@ function _getDefaultWinOptions(title , url , width, height) {
                 },2000)
             }else{
                 return;
-            }
+            }*/
          
         }
     };
@@ -567,7 +568,7 @@ function _getDefaultWinOptions(title , url , width, height) {
 
 
 function _getDefaultWinOptionsForPolicy(title , url , width, height) {
-    var flag=true;
+    //var flag=true;
     var options = {
         title:title,
         width : width ,
@@ -576,7 +577,8 @@ function _getDefaultWinOptionsForPolicy(title , url , width, height) {
         btn: ['<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
         success: _successLoad ,
         yes :function(index, layero){
-            if(flag){
+        	 _submitFormForApi(index , layero);
+            /*if(flag){
                 flag = false;
                 _submitFormForApi(index , layero);
                 setTimeout(function(){
@@ -584,7 +586,7 @@ function _getDefaultWinOptionsForPolicy(title , url , width, height) {
                 },2000)
             }else{
                 return
-            }
+            }*/
 
 
          
@@ -659,7 +661,7 @@ function _getDefaultWinOptionsForPictureNews(title , url , width, height) {
 
 
 function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
-    var flag= true;
+    //var flag= true;
     var options = {
         title:title,
         width : width ,
@@ -668,7 +670,8 @@ function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
         btn: [ '<i class="fa fa-save"></i> 提交', '<i class="fa fa-close"></i> 取消'],
         success: _successLoad ,
         yes :function(index, layero){
-            if(flag){
+        	 _submitFormForApi(index , layero);
+           /* if(flag){
                 flag = false;
                 _submitFormForApi(index , layero);
                 setTimeout(function(){
@@ -676,7 +679,7 @@ function _getDefaultWinOptionsForUpdateapiList( title , url , width, height) {
                 },2000)
             }else{
                 return;
-            }
+            }*/
         }
     };
 
@@ -926,7 +929,8 @@ function _submitFormForApi(index, layero , options){
 
            var action = form.attr("action");
            var method = form.attr("method") || 'post';
-
+           var bodydom =parent.$(".layui-layer");
+           bodydom.append("<div class='loading-ajax'><div><div class='load-container'><div class='loader'>Loading</div><p>正在保存服务，请稍等</p></div></div></div>");
            $.ajax({
                url: action,
                data: $(form).serialize(),
@@ -959,6 +963,9 @@ function _submitFormForApi(index, layero , options){
                    // 提交表单成功后，释放hold
                    // me.holdSubmit(false);
                    layer.closeAll('loading');
+               },
+               complete:function(XMLHttpRequest, textStatus){
+                   $(".layui-layer").find(".loading-ajax").remove();
                }
            });
 
@@ -1238,13 +1245,16 @@ function _submitForm(index, layero , options){
 
             var action = form.attr("action");
             var method = form.attr("method") || 'post';
+            var bodydom =parent.$(".layui-layer");
+            bodydom.append("<div class='loading-ajax'><div><div class='load-container'><div class='loader'>Loading</div><p>正在保存服务，请稍等</p></div></div></div>");
 
             $.ajax({
                 url: action,
                 data: $(form).serialize(),
                 type: method,
                 success: function(response) {
-                    /**
+                	
+                    /**	
                      *  response : ajax请求的后台响应数据
                      *  options ：弹窗的配置信息
                      * @type {{response: *, options: *}}
@@ -1269,6 +1279,9 @@ function _submitForm(index, layero , options){
 
                     // 提交表单成功后，释放hold
                     // me.holdSubmit(false);
+                },
+                complete:function(XMLHttpRequest, textStatus){
+                    $(".layui-layer").find(".loading-ajax").remove();
                 }
             });
 

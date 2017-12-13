@@ -2,6 +2,7 @@ var tableSelector = '#queryTable';
 var paramsObj = {};
 
 jQuery(document).ready(function () {
+    window.Dict=new dict();
     initCss();
     initAllSelect();
     initButtonClickEvent();
@@ -134,11 +135,13 @@ function initTable(){
 
 function initAllSelect(){
     //区域下拉查询框
-    var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+    /*var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
     $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
-        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
+        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);*/
     //初始化中间目录分类树
     $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
+    //初始化资源状态下拉查询框
+    Dict.selects('dataSetStatus',['#searchStatus']);
 }
 
 function catalogueTableShow(id){
@@ -157,9 +160,10 @@ function initButtonClickEvent(){
 function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var searchName = $('#searchName').val();
+    var searchStatus = $('#searchStatus').val();
     //var regionCode = $('#searchRegionCode').val();
     //paramsObj = {classifyId:searchClassifyId,datasetName:searchName,regionCode:regionCode};
-    paramsObj = {classifyId:searchClassifyId,datasetName:searchName};
+    paramsObj = {classifyId:searchClassifyId,datasetName:searchName,status:searchStatus};
 }
 
 function reloadTable() {

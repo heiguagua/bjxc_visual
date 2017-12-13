@@ -22,6 +22,10 @@ public interface DirDatasetClassifyMapMapper extends BaseMapper<DirDatasetClassi
 
     List<DirDatasetClassifyMapVo> selectVoPage(Page<DirDatasetClassifyMapVo> page, Map<String, Object> paramMap);
 
+    List<DirDatasetClassifyMapVo> selectVoPageForRegisted(Page<DirDatasetClassifyMapVo> page, Map<String, Object> paramMap);
+
+    List<DirDatasetClassifyMapVo> selectVoPageForAudited(Page<DirDatasetClassifyMapVo> page, Map<String, Object> paramMap);
+
     List<DirDatasetClassifyMapVo> selectVoPageForReleased(Page<DirDatasetClassifyMapVo> page, Map<String, Object> paramMap);
 
     List<DirDatasetClassifyMapVo> baseSelect(Map<String, Object> paramMap);

@@ -32,6 +32,10 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
 
     Page<DirDatasetClassifyMapVo> selectClassifyMapVoPage(Map<String, Object> paramMap);
 
+    Page<DirDatasetClassifyMapVo> selectRegistedClassifyMapVoPage(Map<String, Object> paramMap);
+
+    Page<DirDatasetClassifyMapVo> selectAuditedClassifyMapVoPage(Map<String, Object> paramMap);
+
     Page<DirDatasetClassifyMapVo> selectReleasedClassifyMapVoPage(Map<String, Object> paramMap);
 
     public DrapDataset getDrapDatasetDetail(String id);

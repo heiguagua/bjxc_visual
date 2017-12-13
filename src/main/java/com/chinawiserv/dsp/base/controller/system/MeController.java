@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.base.controller.system;
 
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.FTPUtil;
 import com.chinawiserv.dsp.base.common.util.GetFileTypeByHead;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
@@ -11,6 +12,7 @@ import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.system.ISysLogService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,11 +45,26 @@ public class MeController extends BaseController {
 	
 	@Autowired
     private ISysUserService sysUserService;
-	
+
+	@Value("${fileUpload}")
+	private String fileUploadPath;
+	@Value("${datastreet.switch}")
+	private String sw;
+	@Value("${datastreet.upload.native.image_path}")
+	private String ftpUploadPath;
+	@Value("${user.head.image.folder}")
+	private String headImgFolder;
+	@Value("${datastreet.show.native.image_path}")
+	private String dirImagePath;
+	@Value("${user.head.image.ftp.server.url}")
+	private String remoteUrl;
+
+
     @RequestMapping("/page")
-    public  String page(Model model){
-    	SysUser sysUser = ShiroUtils.getLoginUser();
+    public  String page(Model model,HttpServletRequest request){
+		SysUser sysUser = sysUserService.selectById(ShiroUtils.getLoginUser().getId());
     	model.addAttribute("sysUser", sysUser);
+		model.addAttribute("remoteUrl", "yes".equalsIgnoreCase(sw)?remoteUrl:request.getContextPath());
 		return "system/me/page";
     }
 	/**
@@ -98,10 +115,6 @@ public class MeController extends BaseController {
 		return result.success("密码修改成功，请重新登录！");
     }
 
-//	@Value("${config.location:classpath:}static/images/userImg/")
-//	String userImgPath;
-    @Value("${fileUpload}")
-	String fileUploadPath;
 	/**
 	 * 执行图片上传
 	 */
@@ -141,37 +154,45 @@ public class MeController extends BaseController {
 					String id = ShiroUtils.getLoginUserId();
 				    SysUserVo userVo = sysUserService.selectVoById(id);
 					// 文件保存路径
-//				    String resource = "/images/userImg/";
-//				    String filenameOri = file.getOriginalFilename();
-//                	filenameOri = userVo.getId()+filenameOri.substring(filenameOri.lastIndexOf("."));
-//					String filePath = request.getSession().getServletContext().getRealPath("/") + resource
-//						+ filenameOri;
-
-
-
 					String filenameOri = userVo.getId()+".jpg";
-//					File userImgPathfile = ResourceUtils.getFile(userImgPath);
-					String userImgPath="userImg";
-					File fileUpload = new File(fileUploadPath);
-					if(fileUpload.exists()&&fileUpload.isDirectory()){
-						File userImgFile = new File(fileUpload, userImgPath);
-						if(!userImgFile.exists()){
-							userImgFile.mkdir();
+					if (!"yes".equalsIgnoreCase(sw)) {
+						String userImgPath="userImg";
+						File fileUpload = new File(fileUploadPath);
+						if(fileUpload.exists()&&fileUpload.isDirectory()){
+							File userImgFile = new File(fileUpload, userImgPath);
+							if(!userImgFile.exists()){
+								userImgFile.mkdir();
+							}
+
+						}else {
+							return new HandleResult().error("上传文件夹路劲未配置正确");
 						}
 
-					}else {
-						return new HandleResult().error("上传文件夹路劲未配置正确");
-					}
+						String filePath =  fileUploadPath.concat(userImgPath).concat("/").concat(filenameOri) ;
+						//转存文件
+						file.transferTo(new File(filePath));
+						//保存到数据库的文件名
+						String filename="/upload/"+userImgPath+"/"+filenameOri;
+						//修改用户图片的url
+						userVo.setUserImg(filename);
+						//更新用户
+						sysUserService.updateById(userVo);
+					} else {
+						List<MultipartFile> userIconImg = Lists.newArrayList();
+						userIconImg.add(file);
 
-					String filePath =  fileUploadPath.concat(userImgPath).concat("/").concat(filenameOri) ;
-					//转存文件
-					file.transferTo(new File(filePath));
-					//保存到数据库的文件名
-					String filename="/upload/"+userImgPath+"/"+filenameOri;
-					//修改用户图片的url
-				    userVo.setUserImg(filename);
-				    //更新用户
-				    sysUserService.updateById(userVo);
+						if (StringUtils.isNotBlank(ftpUploadPath) && StringUtils.isNotBlank(headImgFolder)) {
+							FTPUtil ftpUtil = new FTPUtil();
+							ftpUtil.uploadCaseFiles(ftpUploadPath + "/" + headImgFolder, userIconImg, filenameOri);
+							String filePath = dirImagePath + "/" + headImgFolder + "/" + filenameOri;
+							//修改用户图片的url
+							userVo.setUserImg(filePath);
+							//更新用户
+							sysUserService.updateById(userVo);
+						} else {
+							return new HandleResult().error("FTP上传文件夹路径未配置正确");
+						}
+					}
 				    //更新图片
                 	ShiroUtils.setSessionAttribute(SystemConst.ME, userVo);
 				    return new HandleResult().success("上传图片成功");
