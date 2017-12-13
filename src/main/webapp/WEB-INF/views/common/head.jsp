@@ -50,6 +50,7 @@
 <!-- 自定义 css -->
 <link rel="stylesheet"  href="<%=context_path%>/plugins/layui/css/layui.css">
 <link rel="stylesheet" href="<%=context_path%>/css/custom.css">
+<link rel="stylesheet" href="<%=context_path%>/css/linkage.css" />
 <link rel="stylesheet" href="<%=context_path%>/css/Rebaseadmin1.css">
 <link rel="stylesheet" href="<%=context_path%>/css/catalogue.css">
 <link rel="stylesheet" href="<%=context_path%>/css/release.css">
