@@ -108,7 +108,7 @@ function reloadTable() {
     $(tableSelector).data("bootstrap.table").refresh();
 }
 
-function addRole() {
+function addRole() {	
     add('新增角色',basePathJS + '/system/role/add');
 }
 
