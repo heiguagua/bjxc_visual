@@ -100,6 +100,14 @@ public class SysUserRealm extends AuthorizingRealm {
         if(user.getStatus() == 0){
         	throw new LockedAccountException("账号已被禁用,请联系管理员");
         }
+        //非超级管理员或区域管理员角色的用户，如果没有分配部门，不让登录
+        int minRole = user.getMinRoleLevel();
+        if(minRole > 0){
+            String deptId = user.getDeptId();
+            if(StringUtils.isEmpty(deptId)){
+                throw new IncorrectCredentialsException("当前登录用户未被分配部门，请联系管理员！");
+            }
+        }
         //TODO
         if(StringUtils.isBlank(user.getRegionCode())){
             throw new IncorrectCredentialsException("当前登录用户未被分配区域，请联系管理员！");
