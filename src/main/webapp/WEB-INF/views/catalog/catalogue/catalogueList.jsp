@@ -78,7 +78,15 @@ div.layui-layer-iframe{
                                            <img src="<%=context_path%>/images/userImg/Seciton_img@2x.png"/>
                                            <!-- <span class="caret"></span> -->
                                         </button>
-                                        <ul class="dropdown-menu" role="menu">
+                                         <ul class="dropdown-menu" role="menu" style="left:-21px;text-align:center;">
+                                                    <li><a onclick="quickSystemAddDatasetUI()" href="###">信息系统</a></li>
+                                                    <li><a onclick="quickAddDatasetUI()" href="###">信息资源</a></li>
+                                                    <li><a onclick="quickCsAddDatasetUI()" href="###">从采集系统(爬虫)</a></li>
+                                                    <li><a onclick="quickSystemAddDatasetUI()" href="###">从采集系统(关系型)</a></li>
+                                                    <li><a onclick="quickSystemAddDatasetUI()" href="###">从采集系统(非关系型)</a></li>
+                                                    <li><a  href="###">从处理系统</a></li>   
+                                                </ul>
+                                        <!-- <ul class="dropdown-menu" role="menu">
                                             <li>
                                                 <button type="button" style="width: 100%;" onclick="quickSystemAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从梳理系统(系统)</button>
                                             </li>
@@ -97,7 +105,7 @@ div.layui-layer-iframe{
                                             <li>
                                                 <button type="button" style="width: 100%;"  class="btn btn-primary btn-flat btn_blue"><p style="color: #DDDDDD">从处理系统</p></button>
                                             </li>
-                                        </ul>
+                                        </ul> -->
                                     </div>
                                     <div class="input-group">
                                         <a class="btn btn-default btn-flat  btn-myself" onclick="javascript:addCustom()">
