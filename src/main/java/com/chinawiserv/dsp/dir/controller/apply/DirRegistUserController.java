@@ -37,7 +37,6 @@ import java.util.Map;
  * @author wuty
  * @since 2017-09-11
  */
-@PropertySource(value = "${config.location:classpath:}mail.properties")
 @Controller
 @RequestMapping("/dirRegistUser")
 public class DirRegistUserController extends BaseController {

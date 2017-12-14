@@ -23,7 +23,6 @@ import java.util.Properties;
  * Time:10:28
  * Chinawiserv Technologies Co., Ltd.
  */
-@PropertySource("${config.location:classpath:}mail.properties")
 @Component
 public class MailSenderUtil {
 

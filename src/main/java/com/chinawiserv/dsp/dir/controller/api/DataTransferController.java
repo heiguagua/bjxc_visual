@@ -29,7 +29,6 @@ import java.util.Map;
  * Time:19:29
  * Chinawiserv Technologies Co., Ltd.
  */
-@PropertySource(value = "${config.location:classpath:}conf/common.properties")
 @Controller
 @RequestMapping("api/transfer")
 public class DataTransferController extends BaseController {

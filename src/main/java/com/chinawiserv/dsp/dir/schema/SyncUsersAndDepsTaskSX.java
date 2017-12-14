@@ -25,7 +25,6 @@ import java.util.List;
  * Time:16:09
  * Chinawiserv Technologies Co., Ltd.
  */
-@PropertySource("${config.location:classpath:}conf/schedule.properties")
 @Component
 public class SyncUsersAndDepsTaskSX {
 
