@@ -79,14 +79,10 @@ div.layui-layer-iframe{
                                            <img src="<%=context_path%>/images/userImg/Seciton_img@2x.png"/>
                                            <!-- <span class="caret"></span> -->
                                         </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li id="addSibling">
-                                                <button type="button" style="width: 100%;" onclick="addSibling()" class="btn btn-primary btn-flat btn_blue">添加同级</button>
-                                            </li>
-                                            <li id="addSon">
-                                                <button type="button" style="width: 100%;" onclick="addSon()" class="btn btn-primary btn-flat btn_blue">添加下级</button>
-                                            </li>                                            
-                                        </ul>
+                                         <ul class="dropdown-menu" role="menu" style="left:-21px;text-align:center;">
+                                                    <li><a onclick="addSibling()" href="###">添加同级</a></li>
+                                                    <li><a onclick="addSon()" href="###">添加下级</a></li>
+                                                </ul>
                                     </div>
                                     <div class="pull-right">
                                         <input type="hidden" id="searchClassifyId">
