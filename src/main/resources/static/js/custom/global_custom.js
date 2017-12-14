@@ -1711,6 +1711,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].classifyName,
                                 'fid': nodeObjs[i].id,
+                                'parentCode': nodeObjs[i].fid,
                                 'treeCode': nodeObjs[i].treeCode,
                                 'classifyType': nodeObjs[i].classifyType,
                                 'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
@@ -1736,7 +1737,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     },*/
                     onClick: function (e, treeId, treeNode) { //点击节点，刷新表格
                         $('#'+codeInputDomId).val(treeNode.id);
-                        $('#fid').val(treeNode.fid);
+                        $('#fid').val(treeNode.parentCode);
                         if(classifyTypeInputDomId){
                             $('#'+classifyTypeInputDomId).val(treeNode.classifyType);
                         }
