@@ -14,8 +14,10 @@ import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyAuthorityMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDeptMapMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -50,6 +53,9 @@ public class DirClassifyController extends BaseController {
 
 	@Autowired
 	private IDirClassifyService service;
+	
+	@Autowired
+    private DirClassifyAuthorityMapper dirClassifyAuthorityMapper;
 	
 	@Autowired
 	private DirClassifyMapper mapper;
@@ -126,11 +132,22 @@ public class DirClassifyController extends BaseController {
 				service.insertVO(entity);
 				String deptId = entity.getDeptId();
 				String classifyId = entity.getId();
+				if(deptId!=null || !deptId.isEmpty()){				
 				DirDeptMap ddmap = new DirDeptMap();
 				ddmap.setClassifyId(classifyId);
 				ddmap.setDeptId(deptId);
 				ddmap.setId(CommonUtil.get32UUID());
 				mapper2.baseInsert(ddmap);
+				DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
+                dirClassifyAuthorityVo.setId(CommonUtil.get32UUID());
+                dirClassifyAuthorityVo.setAuthObjType("1");
+                dirClassifyAuthorityVo.setAuthObjId(deptId);
+                dirClassifyAuthorityVo.setClassifyId(classifyId);
+                String loginUserId = ShiroUtils.getLoginUserId();
+                dirClassifyAuthorityVo.setDistributorId(loginUserId);
+                dirClassifyAuthorityVo.setDistributeDate(new Date());
+                dirClassifyAuthorityMapper.baseInsert(dirClassifyAuthorityVo);
+				}
 				handleResult.success("创建目录分类表成功");
 			}else{
 				handleResult.error("无权限添加初始目录类别，请联系管理员");
