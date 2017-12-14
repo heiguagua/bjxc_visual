@@ -1922,6 +1922,13 @@ function initGlobalCustom(tempUrlPrefix) {
                                 if(node.check_Child_State!=1 && selectIds.indexOf(node.id) < 0){
                                     tempList.push({id: node.id, fid: node.pid, name: node.name})
                                 }
+                                if(node.check_Child_State==1 ){
+                                    for(var i in tempList){
+                                        if(tempList[i].id==node.id){
+                                            delete tempList[i];
+                                        }
+                                    }
+                                }
                             }
                             if(tempList.length > 0){
                                 for(var i in tempList){
@@ -2553,6 +2560,13 @@ function initGlobalCustom(tempUrlPrefix) {
                                 if(node.check_Child_State!=1 && selectIds.indexOf(node.id) < 0){
                                     tempList.push({id: node.id, fid: node.fid, name: node.name})
                                 }
+                                if(node.check_Child_State==1 ){
+                                    for(var i in tempList){
+                                        if(tempList[i].id==node.id){
+                                            delete tempList[i];
+                                        }
+                                    }
+                                }
                             }
                             if(tempList.length > 0){
                                 for(var i in tempList){
@@ -2563,10 +2577,10 @@ function initGlobalCustom(tempUrlPrefix) {
                                             flag = true;
                                             break;
                                         }
-                                    }
-                                    if(!flag){
+                                    }if(!flag){
                                         resultList.push(tempNode);
                                     }
+
                                 }
                             }
                             for(var i in resultList){
