@@ -619,7 +619,7 @@
         <result column="opened_storage" property="opened_storage"/>
         <result column="opened_structure_count" property="opened_structure_count"/>
     </resultMap>
-    <select id="selectExportLists" resultMap="ExcelMap">
+    <select id="selectExportLists" resultMap="ExcelMap" useCache="false">
         SELECT
             dd.item_name,
             (

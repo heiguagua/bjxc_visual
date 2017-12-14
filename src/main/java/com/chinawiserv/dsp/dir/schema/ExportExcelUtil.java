@@ -18,6 +18,9 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
@@ -38,16 +41,20 @@ public class ExportExcelUtil {
     }
 
     public  Workbook writeNewExcel(File file,String sheetName,List<ExportDatasetExcel> list,String regionCode) throws Exception{
-        Workbook wb = null;
+//        Workbook wb = null;
+        SXSSFWorkbook wb = null;
         Row row = null;
         Cell cell = null;
 
         FileInputStream fis = new FileInputStream(file);
-        wb = getWorkbook(fis, file.getName());    //获取工作薄
-        Sheet sheet = wb.getSheet(sheetName);
+//        wb = getWorkbook(fis, file.getName());    //获取工作薄
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(fis);
+        XSSFSheet readSheet = xssfWorkbook.getSheet(sheetName);
+        wb = new SXSSFWorkbook(xssfWorkbook,500);
+        SXSSFSheet sheet = wb.getSheet(sheetName);
 
         //循环插入数据
-        int lastRow = sheet.getLastRowNum()+1;    //插入数据的数据ROW
+        int lastRow = readSheet.getLastRowNum()+1;    //插入数据的数据ROW
         //CellStyle cs = setSimpleCellStyle(wb);    //Excel单元格样式
         int i=0;
         for (ExportDatasetExcel info:list) {
