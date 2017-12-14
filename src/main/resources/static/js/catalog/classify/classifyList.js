@@ -12,7 +12,7 @@ function initCss(){
     /* 目录编目收缩小侧边栏,用的adminlte */
     $(function(){
         $("#forward").hide();
-        $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+        $("#dir-Manger").parent("div.user-panel").css("text-align","left")
         $("#backward").click(function(){
             $("#min-aside").animate({
                 width:"2%"
@@ -92,12 +92,18 @@ function initTable(){
             field: 'icon',
             title: '图标',
             sortable: false,
-            width: '10%'
+            width: '10%',
+            formatter:function(value){
+            	if(value == undefined){
+            		return ''
+            	}
+            	return '<p title='+value+'>'+value+'</p>'
+            }
         },{
             field: 'orderNumber',
             title: '排序号',
             sortable: false,
-            width: '10%',
+            width: '6%',
             formatter:function(value, row, index){
                 return '<p title="'+value+'">'+value+'</p>';
             }
@@ -115,8 +121,8 @@ function initTable(){
         }, {
             field: 'id',
             title: '操作',
-            width: '170px',
-            align: 'center',
+            width: '20%',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             formatter: function(value, row, index) {
@@ -734,19 +740,19 @@ function checkClassifyType(){
 ////        columns: [{
 ////            field: 'userName',
 ////            title: '用户名',
-////            align: 'center',
+////            align: 'left',
 ////            valign: 'middle',
 ////            sortable: false
 ////        }, {
 ////            field: 'realName',
 ////            title: '真实姓名',
-////            align: 'center',
+////            align: 'left',
 ////            valign: 'middle',
 ////            sortable: false
 ////        }, {
 ////            field: 'userType',
 ////            title: '用户类型',
-////            align: 'center',
+////            align: 'left',
 ////            valign: 'middle',
 ////            sortable: false,
 ////            formatter : function (value) {
@@ -761,19 +767,19 @@ function checkClassifyType(){
 ////        }, {
 ////            field: 'userDesc',
 ////            title: '描述',
-////            align: 'center',
+////            align: 'left',
 ////            valign: 'middle',
 ////            sortable: false
 ////        }, {
 ////            field: 'deptName',
 ////            title: '组织机构名称',
-////            align: 'center',
+////            align: 'left',
 ////            valign: 'middle',
 ////            sortable: false
 ////        }, {
 ////            field: 'status',
 ////            title: '用户状态',
-////            align: 'center',
+////            align: 'left',
 ////            valign: 'middle',
 ////            sortable: false,
 ////            formatter : function (value) {
@@ -789,19 +795,19 @@ function checkClassifyType(){
 ////        },{
 ////            field: 'createName',
 ////            title: '创建者',
-////            align: 'center',
+////            align: 'left',
 ////            valign: 'middle',
 ////            sortable: false
 ////        },{
 ////            field: 'createTime',
 ////            title: '创建用户时间',
-////            align: 'center',
+////            align: 'left',
 ////            valign: 'middle',
 ////            sortable: false
 ////        },{
 ////            field: 'id',
 ////            title: '操作',
-////            align: 'center',
+////            align: 'left',
 ////            valign: 'middle',
 ////            sortable: false ,
 ////            formatter : function (value) {
