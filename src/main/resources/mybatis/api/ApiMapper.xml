@@ -278,11 +278,17 @@
         SELECT
         sourceddti.`table_name` AS sourceTableName,
         sourceddti.`id` AS sourceTableId,
+        sourceddti.`table_desc` AS sourceTableDesc,
         sourceddtc.`column_en_name` AS sourceColumnName,
+        sourceddtc.`column_cn_name` AS sourceColumnCnName,
+        sourceddtc.`column_desc` AS sourceColumnDesc,
         sourceddtc.`id` AS sourceColumnId,
         targetddti.`table_name` AS targetTableName,
         targetddti.`id` AS targetTableId,
+        targetddti.`table_desc` AS targetTableDesc,
         targetddtc.`column_en_name` AS targetColumnName,
+        targetddtc.`column_cn_name` AS targetColumnCnName,
+        targetddtc.`column_desc` AS targetColumnDesc,
         targetddtc.`id` AS targetColumnId,
         CASE WHEN ddsr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
         AS relationType
@@ -320,11 +326,17 @@
         SELECT
         sourceddti.`table_name` AS sourceTableName,
         sourceddti.`id` AS sourceTableId,
+        sourceddti.`table_desc` AS sourceTableDesc,
         sourceddtc.`column_en_name` AS sourceColumnName,
+        sourceddtc.`column_cn_name` AS sourceColumnCnName,
+        sourceddtc.`column_desc` AS sourceColumnDesc,
         sourceddtc.`id` AS sourceColumnId,
         targetddti.`table_name` AS targetTableName,
         targetddti.`id` AS targetTableId,
+        targetddti.`table_desc` AS targetTableDesc,
         targetddtc.`column_en_name` AS targetColumnName,
+        targetddtc.`column_cn_name` AS targetColumnCnName,
+        targetddtc.`column_desc` AS targetColumnDesc,
         targetddtc.`id` AS targetColumnId,
         CASE WHEN ddtr.`relation_type` IS NULL THEN '=' ELSE ddtr.`relation_type` END
         AS relationType
@@ -364,11 +376,17 @@
         SELECT
         sourceddti.`table_name` AS sourceTableName,
         sourceddti.`id` AS sourceTableId,
+        sourceddti.`project_name` AS sourceTableDesc,
         sourceddtc.`cloumn_name` AS sourceColumnName,
+        sourceddtc.`cloumn_chzn` AS sourceColumnCnName,
+        sourceddtc.`cloumn_chzn` AS sourceColumnDesc,
         sourceddtc.`id` AS sourceColumnId,
         targetddti.`table_name` AS targetTableName,
         targetddti.`id` AS targetTableId,
+        targetddti.`project_name` AS targetTableDesc,
         targetddtc.`cloumn_name`AS targetColumnName,
+        targetddtc.`cloumn_chzn`AS targetColumnCnName,
+        targetddtc.`cloumn_chzn`AS targetColumnDesc,
         targetddtc.`id` AS targetColumnId,
         CASE WHEN ddsr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
         AS relationType
@@ -406,11 +424,17 @@
         SELECT
         sourceddti.`target_obj_code` AS sourceTableName,
         sourceddti.`id` AS sourceTableId,
+        sourceddti.`target_obj_desc` AS sourceTableDesc,
         sourceddtc.`column_name` AS sourceColumnName,
+        '' AS sourceColumnCnName,
+        sourceddtc.`column_remark` AS sourceColumnDesc,
         sourceddtc.`id` AS sourceColumnId,
         targetddti.`target_obj_code` AS targetTableName,
         targetddti.`id` AS targetTableId,
+        targetddti.`target_obj_desc` AS sourceTableDesc,
         targetddtc.`column_name` AS targetColumnName,
+        '' AS sourceColumnCnName,
+        targetddtc.`column_remark` AS sourceColumnDesc,
         targetddtc.`id` AS targetColumnId,
         CASE WHEN ddsr.`relation_type` IS NULL THEN '=' ELSE ddsr.`relation_type` END
         AS relationType
@@ -907,6 +931,7 @@
         <!-- 系统梳理无关系 -->
         SELECT
         sourceddti.`table_name` AS tableName,
+        sourceddti.`table_desc` AS tableDesc,
         sourceddti.`id` AS tableId
         FROM
         dir_dataset dd
@@ -933,6 +958,7 @@
         <!-- 资源梳理无关系 -->
         SELECT
         sourceddti.`table_name` AS tableName,
+        sourceddti.`table_desc` AS tableDesc,
         sourceddti.`id` AS tableId
         FROM
         dir_dataset dd
@@ -963,6 +989,7 @@
         <!-- 爬虫系统无关系 -->
         SELECT
         sourceddti.`table_name` AS tableName,
+        sourceddti.`project_name` AS tableDesc,
         sourceddti.`id` AS tableId
         FROM
         dir_dataset dd
@@ -989,6 +1016,7 @@
         <!-- 采集系统无关系 -->
         SELECT
         sourceddti.`target_obj_code` AS tableName,
+        sourceddti.`target_obj_desc` AS tableDesc,
         sourceddti.`id` AS tableId
         FROM
         dir_dataset dd

@@ -23,7 +23,6 @@ import java.util.Properties;
  * Time:10:28
  * Chinawiserv Technologies Co., Ltd.
  */
-@PropertySource("${config.location:classpath:}mail.properties")
 @Component
 public class MailSenderUtil {
 
@@ -142,7 +141,7 @@ public class MailSenderUtil {
             transport = session.getTransport();
 
             // 5. 使用 邮箱账号 和 密码 连接邮件服务器, 这里认证的邮箱必须与 message 中的发件人邮箱一致, 否则报错
-            transport.connect(smtpFrom_static, smtpPassword_static);
+            transport.connect(smtpFrom_static, DesUtil.decrypt(smtpPassword_static));
         } catch (Exception e) {
             e.printStackTrace();
             return false;

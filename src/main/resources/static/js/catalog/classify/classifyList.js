@@ -62,7 +62,7 @@ function initTable(){
             field: 'classifyName',
             title: '目录名称',
             sortable: false,
-            width: '15%',
+            width: '10%',
             formatter:function(value, row, index){            	
                 if(value == undefined){
                     value = "";
@@ -72,6 +72,7 @@ function initTable(){
         },{
             field: 'classifyType',
             title: '目录种类',
+            width: '8%',
             sortable: false,
             formatter:function(value, row, index){            	
                 if(value == undefined){
