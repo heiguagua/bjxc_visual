@@ -109,7 +109,7 @@ public class ApiServiceImpl implements IApiService {
 
     @Override
     public List<Map<String, Object>> getDbInfoByDatasetId(Map<String, Object> paramMap) {
-        return null;
+        return apiMapper.getDbInfoByDatasetId(paramMap);
     }
 
     /**
@@ -137,23 +137,23 @@ public class ApiServiceImpl implements IApiService {
                 Map<String, Object> tableInfo = (Map<String, Object>) iter.next();
                 if (null != tableInfo) {
                     String sourceTableId = (String) tableInfo.get("sourceTableId");
-                    String sourceTableName = (String) tableInfo.get("sourceTableName");
                     if (StringUtils.isNotBlank(sourceTableId)) {
                         tableParamMap.put("tableId", sourceTableId);
                         List<Map<String, Object>> sourceTableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
                         Map<String, Object> tableSource = Maps.newHashMap();
-                        tableSource.put("tableName", sourceTableName);
+                        tableSource.put("tableName", tableInfo.get("sourceTableName"));
+                        tableSource.put("tableDesc", tableInfo.get("sourceTableDesc"));
                         tableSource.put("tableColunms", sourceTableColumnList);
                         tableInfoList.add(tableSource);
                     }
 
                     String targetTableId = (String) tableInfo.get("targetTableId");
-                    String targetTableName = (String) tableInfo.get("targetTableName");
                     if (StringUtils.isNotBlank(targetTableId)) {
                         tableParamMap.put("tableId", targetTableId);
                         List<Map<String, Object>> targetTableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
                         Map<String, Object> tableTarget = Maps.newHashMap();
-                        tableTarget.put("tableName", targetTableName);
+                        tableTarget.put("tableName", tableInfo.get("targetTableName"));
+                        tableTarget.put("tableDesc", tableInfo.get("targetTableDesc"));
                         tableTarget.put("tableColunms", targetTableColumnList);
                         tableInfoList.add(tableTarget);
                     }
@@ -171,11 +171,13 @@ public class ApiServiceImpl implements IApiService {
                     if (null != tableInfo) {
                         String tableId = (String) tableInfo.get("tableId");
                         String tableName = (String) tableInfo.get("tableName");
+                        String tableDesc = (String) tableInfo.get("tableDesc");
                         if (StringUtils.isNotBlank(tableId)) {
                             tableParamMap.put("tableId", tableId);
                             List<Map<String, Object>> tableColumnList = apiMapper.getColumnInfoByTableId(tableParamMap);
                             Map<String, Object> table = Maps.newHashMap();
                             table.put("tableName", tableName);
+                            table.put("tableDesc", tableDesc);
                             table.put("tableColunms", tableColumnList);
                             table.put("tableId", tableId);
                             tableInfoList.add(table);

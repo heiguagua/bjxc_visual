@@ -138,14 +138,14 @@ function initTable(){
                 if(row.classifyStatus==0 || row.classifyStatus==2 || row.classifyStatus==4 || row.classifyStatus==6){
                     editBtn = [
                         "<p><a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableUpload(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
-                        "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
-                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
+                        "<a class='btn btn-danger btn-flat btn-xs' href='#'  onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                        "<a class='btn btn-primary btn-flat btn-xs' href='#'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                     ].join('');
                 }else{
                     editBtn = [
-                        "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
-                        "<a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.2'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
-                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
+                        "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行上传操作'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
+                        "<a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行编辑操作'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                        "<a class='btn btn-primary btn-flat btn-xs' href='#'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                     ].join('');
                 }
                 return editBtn;

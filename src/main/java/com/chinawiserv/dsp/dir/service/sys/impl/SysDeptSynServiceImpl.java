@@ -2,13 +2,16 @@ package com.chinawiserv.dsp.dir.service.sys.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyAuthorityMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDeptMapMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
@@ -18,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +40,9 @@ public class SysDeptSynServiceImpl extends CommonServiceImpl<SysDeptMapper, SysD
 
     @Autowired
     private DirClassifyMapper dirClassifyMapper;
+    
+    @Autowired
+    private DirClassifyAuthorityMapper dirClassifyAuthorityMapper;
 
 
     @Autowired
@@ -110,7 +117,15 @@ public class SysDeptSynServiceImpl extends CommonServiceImpl<SysDeptMapper, SysD
                 d.setDeptId(dcmId);
                 d.setId(CommonUtil.get32UUID());
                 dirDeptMapMapper.baseInsert(d);
-
+                DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
+                dirClassifyAuthorityVo.setId(CommonUtil.get32UUID());
+                dirClassifyAuthorityVo.setAuthObjType("1");
+                dirClassifyAuthorityVo.setAuthObjId(dcmId);
+                dirClassifyAuthorityVo.setClassifyId(vo.getId());
+                String loginUserId = ShiroUtils.getLoginUserId();
+                dirClassifyAuthorityVo.setDistributorId(loginUserId);
+                dirClassifyAuthorityVo.setDistributeDate(new Date());
+                dirClassifyAuthorityMapper.baseInsert(dirClassifyAuthorityVo);
                 messageInfo = "4";
 
             }

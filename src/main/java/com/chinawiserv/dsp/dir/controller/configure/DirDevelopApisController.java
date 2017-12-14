@@ -1,11 +1,14 @@
 package com.chinawiserv.dsp.dir.controller.configure;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirDevelopApisVo;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirHomeVo;
+import com.chinawiserv.dsp.dir.entity.vo.configure.DirNewsVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirDevelopApisMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirDevelopApisService;
 import net.sf.json.JSONObject;
@@ -14,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -73,6 +77,29 @@ public class DirDevelopApisController extends BaseController {
 		    logger.error("分页查询开发者工具出错", e);
 		}
 		return jsonObject;
+    }
+    
+    
+    /**
+     * 分页查询api表
+     */
+//    @RequiresPermissions("XXX:XXX:list")
+    @RequestMapping("/subList")
+    @ResponseBody
+    public PageResult subList(@RequestParam Map<String , Object> paramMap){
+		PageResult pageResult = new PageResult();
+		try {
+			String fid = (String) paramMap.get("parentId");
+			if (StringUtils.isEmpty(fid)) {
+				paramMap.put("parentId", "root");
+			}
+		    Page<DirDevelopApisVo> page = service.selectVoPage(paramMap);
+		    pageResult.setPage(page);
+		} catch (Exception e) {
+		    pageResult.error("分页查询新闻表出错");
+		    logger.error("分页查询新闻表出错", e);
+		}
+		return pageResult;
     }
 
     /**

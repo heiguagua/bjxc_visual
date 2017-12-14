@@ -63,8 +63,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassifyAuthority">
-        insert into dir_classify_authority(id,auth_obj_type,auth_obj_id,classify_id,auth_detail,) values(
-            #{id},#{authObjType},#{authObjId},#{classifyId},#{authDetail},        )
+        insert into dir_classify_authority(id,auth_obj_type,auth_obj_id,classify_id,auth_detail,distributor_id,distribute_date) values(
+            #{id},#{authObjType},#{authObjId},#{classifyId},#{authDetail},#{distributorId},#{distributeDate}      )
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassifyAuthority">
