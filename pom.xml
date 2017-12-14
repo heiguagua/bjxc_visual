@@ -63,6 +63,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.chinawiserv.spring-boot</groupId>
+            <artifactId>cw-spring-boot-starter-tomcat-extend</artifactId>
+            <version>${cw-spring-boot-starter.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.taglibs</groupId>
             <artifactId>taglibs-standard-spec</artifactId>
         </dependency>
