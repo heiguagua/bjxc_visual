@@ -1200,7 +1200,7 @@ create table dir_develop_apis
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    is_show              int(3) comment '是否首页显示',
-   is_use              int(3) comment '是否显示到开发者工具',
+   is_use               int(3) comment '是否显示在开发者中心',
    primary key (id)
 );
 
