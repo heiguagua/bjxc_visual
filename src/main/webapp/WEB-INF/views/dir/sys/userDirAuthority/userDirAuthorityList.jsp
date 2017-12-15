@@ -15,7 +15,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <small>系统管理 > 用户数据权限管理</small>
+                <small>系统管理 > 目录数据权限管理</small>
             </h1>
         </section>
         <!-- Main content -->

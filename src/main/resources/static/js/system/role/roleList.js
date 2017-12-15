@@ -82,9 +82,9 @@ jQuery(document).ready(function () {
             width: '18%',
             sortable: false ,
             formatter : function (value) {
-                var authBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:authRole(\"" + value + "\")'><i class='fa fa-user'></i> 授权</a>";
-                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editRole(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
-                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteRole(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
+                var authBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:authRole(\"" + value + "\")'><i class='fa fa-user'></i> 授权</a>";
+                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editRole(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteRole(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
                 return authBtn + OPERATION_SEPARATOR +  editBtn + OPERATION_SEPARATOR +  deleteBtn ;
             }
         }

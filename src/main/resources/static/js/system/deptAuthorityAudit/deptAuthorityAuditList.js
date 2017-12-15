@@ -94,7 +94,7 @@ jQuery(document).ready(function () {
             sortable: false ,
             width: '18%',
             formatter : function (value) {
-                var auditBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:authorityAudit(\"" + value + "\")'><i class='fa fa-chain'></i>审核</a>";
+                var auditBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:authorityAudit(\"" + value + "\")'><i class='fa fa-chain'></i>审核</a>";
                 return  OPERATION_SEPARATOR + auditBtn  ;
             }
         }

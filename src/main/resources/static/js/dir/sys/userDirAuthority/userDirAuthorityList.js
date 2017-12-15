@@ -108,7 +108,7 @@ jQuery(document).ready(function () {
                 width: '220',
                 sortable: false,
                 formatter: function (value) {
-                    var allotBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dirAllot(\"" + value + "\")'><i class='fa fa-chain'></i> 目录数据分配</a>";
+                    var allotBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:dirAllot(\"" + value + "\")'><i class='fa fa-chain'></i> 目录数据分配</a>";
                     return allotBtn + OPERATION_SEPARATOR;
                 }
             }]

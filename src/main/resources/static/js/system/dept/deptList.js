@@ -326,10 +326,10 @@ function initDept(pid) {
                     value = "";
                 }
             	value = HtmlEncode(value);
-                var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:allotDept(\"" + value + "\")'><i class='fa fa-chain'></i>创建下级</a>";
-                var showBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:showDept(\"" + value + "\")'><i class='fa fa-chain'></i>查看下级</a>";
-                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editDept(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
-                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteDept(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
+                var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:allotDept(\"" + value + "\")'><i class='fa fa-chain'></i>创建下级</a>";
+                var showBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:showDept(\"" + value + "\")'><i class='fa fa-chain'></i>查看下级</a>";
+                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editDept(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteDept(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
                 var ret=showBtn;
                 if(isMaster==="true"){
 
