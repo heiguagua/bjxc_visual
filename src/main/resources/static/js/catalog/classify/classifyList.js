@@ -132,12 +132,12 @@ function initTable(){
             	if(row.classifyType == "1" || row.classifyType == '2-3'){
             		 
             	}else if(row.classifyType=='2-1' || row.classifyType=='2-2' || row.classifyType=='3'){
-            		 addNBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:addNational(\"" + value + "\",\"" + row.classifyType + "\")'><i class='fa fa-times'></i> 导入国家库目录</a>";           		
+            		/* addNBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:addNational(\"" + value + "\",\"" + row.classifyType + "\")'><i class='fa fa-times'></i> 导入国家库目录</a>";   */        		
             	}else if(row.classifyType == '5' || row.classifyType == '6'|| row.classifyType == '7'){
             		 editBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:editNode(\"" + value + "\")'><i class='fa fa-times'></i> 编辑</a>";
             		 deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteNode(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
-            		 addNBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:addNational(\"" + value + "\",\"" + row.classifyType + "\")'><i class='fa fa-times'></i>导入国家库目录</a>";
-            		
+/*            		 addNBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:addNational(\"" + value + "\",\"" + row.classifyType + "\")'><i class='fa fa-times'></i>导入国家库目录</a>";
+*/            		
             	}else{
             		
             	}
