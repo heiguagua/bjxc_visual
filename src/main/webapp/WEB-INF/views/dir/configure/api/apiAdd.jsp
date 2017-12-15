@@ -55,6 +55,17 @@
 			                    <label style="display:inline-block">是</label>
                             </div>
                             <div class="form-group">
+                            	<label  class="" for="isShow">是否显示到开发者工具管理</label>
+                                <div class="redio-box">
+			                        <input type="radio" name="isUse"  value="0" ><span></span>
+			                    </div>
+			                         <label style="display:inline-block">否</label>
+			                    <div class="redio-box">
+			                          <input type="radio" name="isUse"  value="1" checked><span></span>
+								</div>
+			                    <label style="display:inline-block">是</label>
+                            </div>
+                            <div class="form-group">
                                 <label for="apiDesc">api描述:</label>
                                 <textarea class="form-control" 
 									id="api_desc"  name="apiDesc" data-rule="目录类别描述:required;order_number;"></textarea>                                

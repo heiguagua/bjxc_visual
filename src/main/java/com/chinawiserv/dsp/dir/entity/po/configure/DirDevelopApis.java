@@ -98,6 +98,18 @@ public class DirDevelopApis implements Serializable {
 	@TableField("is_show")
 	private Integer isShow;
 	
+	@TableField("is_use")
+	private Integer isUse;
+	
+	
+
+	public Integer getIsUse() {
+		return isUse;
+	}
+
+	public void setIsUse(Integer isUse) {
+		this.isUse = isUse;
+	}
 
 	public String getId() {
 		return id;

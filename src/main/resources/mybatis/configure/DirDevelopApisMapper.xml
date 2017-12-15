@@ -24,6 +24,7 @@
                             <result column="delete_flag" property="deleteFlag" />
                             <result column="is_show" property="isShow" />
                             <result column="icon" property="icon" />
+                            <result column="is_use" property="isUse" />
             	</resultMap>
 
 	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.configure.DirDevelopApisVo">
@@ -60,8 +61,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirDevelopApis">
-        insert into dir_develop_apis(id,region_code,api_name,api_category,api_url,api_desc,parent_id,parent_name,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag,is_show,icon) values(
-            #{id},#{regionCode},#{apiName},#{apiCategory},#{apiUrl},#{apiDesc},#{parentId},#{parentName},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},#{isShow},#{icon} )
+        insert into dir_develop_apis(id,region_code,api_name,api_category,api_url,api_desc,parent_id,parent_name,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag,is_show,icon,is_use) values(
+            #{id},#{regionCode},#{apiName},#{apiCategory},#{apiUrl},#{apiDesc},#{parentId},#{parentName},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},#{isShow},#{icon},#{isUse}  )
     </insert>
     
     <update id="updateDeleteFlag" parameterType="string">
@@ -124,7 +125,10 @@
                 is_show = #{isShow},
             </if>
             <if test="icon != null">
-                icon = #{icon}
+                icon = #{icon},
+            </if>
+            <if test="isUse != null">
+                is_use = #{isUse}
             </if>
                 </set>
         where  id = #{id}                                  </update>

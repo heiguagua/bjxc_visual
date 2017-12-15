@@ -51,6 +51,10 @@
                                 
                             </div>
                             <div class="form-group">
+                            	<label  class="" for="isUse" id="Eis_use">是否显示到开发者工具</label>
+                                
+                            </div>
+                            <div class="form-group">
                                 <label for="apiDesc">api描述:</label>
                                 <textarea class="form-control" 
 									id="Eapi_desc"  name="apiDesc" data-rule="目录类别描述:required;order_number;"></textarea>                                

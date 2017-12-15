@@ -78,6 +78,25 @@ function initFormerDate(apiId) {
         						"</div>"+
         	                    "<label style='display:inline-block'>是</label>")
                 	}
+                	if(vo.isUse==1){
+                		$("#Eis_use").append("<div class='redio-box'>" +
+                        "<input type='radio' name='isUse'  value='0' ><span></span>" +
+	                    "</div>"+
+	                    "<label style='display:inline-block'>否</label>" +
+	                    "<div class='redio-box'>" +
+	                    "<input type='radio' name='isUse'  value='1' checked><span></span>"+
+						"</div>"+
+	                    "<label style='display:inline-block'>是</label>")
+                	}else{
+                		$("#Eis_use").append("<div class='redio-box'>" +
+                                "<input type='radio' name='isUse'  value='0' checked><span></span>" +
+        	                    "</div>"+
+        	                    "<label style='display:inline-block'>否</label>" +
+        	                    "<div class='redio-box'>" +
+        	                    "<input type='radio' name='isUse' value='1'><span></span>"+
+        						"</div>"+
+        	                    "<label style='display:inline-block'>是</label>")
+                	}
                 	$("#editPicName").html(vo.icon);  
                 	$("#Eicon").append(Dict1.selectsDom("tool_icon",vo.iconName?vo.iconName:''));
                     $("#Eapi_name").val(vo.apiName);
