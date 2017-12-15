@@ -73,15 +73,15 @@ div.layui-layer-iframe{
                           	 <form class="form-inline" method="post"   onsubmit="return false;">
                                 <div class="box-header box-header-myself">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
+                                        <button id="add" type="button" class="btn btn-flat dropdown-toggle btn-myself"
                                                 data-toggle="dropdown"><img src="<%=context_path%>/images/userImg/addimg.png"/>
                                            <!--  <i class="fa fa-plus"></i> -->添加&nbsp;
                                            <img src="<%=context_path%>/images/userImg/Seciton_img@2x.png"/>
                                            <!-- <span class="caret"></span> -->
                                         </button>
                                          <ul class="dropdown-menu" role="menu" style="left:-21px;text-align:center;">
-                                                    <li><a onclick="addSibling()" href="###">添加同级</a></li>
-                                                    <li><a onclick="addSon()" href="###">添加下级</a></li>
+                                                    <li id="addSibling"><a onclick="addSibling()" href="###">添加同级</a></li>
+                                                    <li id="addSon"><a onclick="addSon()" href="###">添加下级</a></li>
                                                 </ul>
                                     </div>
                                     <div class="pull-right">

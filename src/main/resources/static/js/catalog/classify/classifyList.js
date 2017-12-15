@@ -242,12 +242,15 @@ function setParams() {
     var searchClassifyId = $('#searchClassifyId').val();
     var classifyType = $('#classifyType').val();
     if(classifyType == '2-3' || classifyType=='1'){
+    	$('#add').addClass('hidden');
     	$('#addSibling').addClass('hidden');
     	$('#addSon').addClass('hidden');
     }else if(classifyType=='2-1' || classifyType=='2-2' || classifyType=='3'){
+    	$('#add').removeClass('hidden');
     	$('#addSibling').addClass('hidden');
     	$('#addSon').removeClass('hidden');
     }else if(classifyType == '5' || classifyType == '6'|| classifyType == '7'){
+    	$('#add').removeClass('hidden');
     	$('#addSibling').removeClass('hidden');
     	$('#addSon').removeClass('hidden');
     }else{
@@ -279,6 +282,7 @@ function deleteNode(id){
 function addNational(id,classifyType){
 	
 	var fid = id
+	
 //	var classifyType = $('#classifyType').val();
 	addDirNational('新增国家库目录--子级',basePathJS + '/dirClassify/addNational',fid,classifyType,800,500);
 }
@@ -286,7 +290,11 @@ function addNational(id,classifyType){
 function addSibling() {
 	
 	var fid=$('#fid').val();
-	//$('#parent_id').val(api_fcode);	
+	//$('#parent_id').val(api_fcode);
+	if(!checkClassfyId(fid)){
+        tip("请先选择目录分类!",parent,null,null);
+        return;
+    }
 	if(fid=="root"){
 		 tip("无权限添加初始目录类别，请联系管理员。" );
 		 return false;
@@ -298,6 +306,10 @@ function addSibling() {
 function addSon() {
 	
 	var fid = $('#searchClassifyId').val();
+	if(!checkClassfyId(fid)){
+        tip("请先选择目录分类!",parent,null,null);
+        return;
+    }
 	//$('#parent_id').val(api_fcode);	
 	addDir('新增目录--子级',basePathJS + '/dirClassify/add' , fid,900,500);
 }
@@ -342,31 +354,8 @@ function catalogueTableShow(id){
     show('信息资源详情',basePathJS + '/catalog/show' , id ,"70%",700);
 }
 
-function quickAddDatasetUI() {
-    var searchClassifyId = $('#searchClassifyId').val();
-    if(!checkClassfyId(searchClassifyId)){
-        tip("请先选择目录分类!",parent,null,null);
-        return;
-    }
-    if(!checkClassifyType()){
-        tip("不能在这个分类下添加资源!!",parent,null,null);
-        return;
-    }
-    add('从资源梳理添加',basePathJS + '/catalog/catalogue/quickAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
-}
 
-function quickSystemAddDatasetUI() {
-    var searchClassifyId = $('#searchClassifyId').val();
-    if(!checkClassfyId(searchClassifyId)){
-        tip("请先选择目录分类!",parent,null,null);
-        return;
-    }
-    if(!checkClassifyType()){
-        tip("不能在这个分类下添加资源!!",parent,null,null);
-        return;
-    }
-    add('从系统梳理添加',basePathJS + '/catalog/catalogue/quickSystemAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
-}
+
 function quickCsAddDatasetUI() {
     var searchClassifyId = $('#searchClassifyId').val();
     if(!checkClassfyId(searchClassifyId)){
@@ -379,45 +368,7 @@ function quickCsAddDatasetUI() {
     }
     add('从爬虫系统添加',basePathJS + '/catalog/catalogue/quickCsAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
 }
-function quickDcmAddDatasetUI() {
-    var searchClassifyId = $('#searchClassifyId').val();
-    if(!checkClassfyId(searchClassifyId)){
-        tip("请先选择目录分类!",parent,null,null);
-        return;
-    }
-    if(!checkClassifyType()){
-        tip("不能在这个分类下添加资源!!",parent,null,null);
-        return;
-    }
-    add('从关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
-}
-function quickNosqlDcmAddDatasetUI() {
-    var searchClassifyId = $('#searchClassifyId').val();
-    if(!checkClassfyId(searchClassifyId)){
-        tip("请先选择目录分类!",parent,null,null);
-        return;
-    }
-    if(!checkClassifyType()){
-        tip("不能在这个分类下添加资源!!",parent,null,null);
-        return;
-    }
-    add('从非关系型采集系统添加',basePathJS + '/catalog/catalogue/quickDcmNosqlAddDatasetUI'+(searchClassifyId?'?classifyId='+searchClassifyId:''),"70%",800);
-}
-function excelImportUI() {
-    var searchClassifyId = $('#searchClassifyId').val();
-    if(!checkClassfyId(searchClassifyId)){
-        tip("请先选择目录分类!",parent,null,null);
-        return;
-    }
-    if(!checkClassifyType()){
-        tip("不能在这个分类下导入资源!!",parent,null,null);
-        return;
-    }
-    detail('导入',basePathJS +'/catalog/catalogue/excelImportUI?classifyId='+ $('#searchClassifyId').val(),900,350,parent);
-}
-function excelDownloadUI() {
-    detail('模板下载',basePathJS +'/catalog/catalogue/excelDownloadUI',900,350,parent);
-}
+
 function checkClassfyId(searchClassifyId){
     if(searchClassifyId){
         return true;
