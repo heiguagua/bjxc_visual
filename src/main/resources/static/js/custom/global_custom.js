@@ -1872,12 +1872,16 @@ function initGlobalCustom(tempUrlPrefix) {
                             return null;
                         }
                         for (var i in nodeObjs) {
+                            var checked=selectIds.indexOf(nodeObjs[i].id) >= 0;
+                            if(parentNode){
+                                checked=parentNode.checked||checked;
+                            }
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].classifyName,
                                 'fid': nodeObjs[i].id,
                                 'pid': nodeObjs[i].fid,
-                                'checked': selectIds.indexOf(nodeObjs[i].id) >= 0,
+                                'checked': checked,
                                 'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
                             }
                         }
@@ -2510,11 +2514,15 @@ function initGlobalCustom(tempUrlPrefix) {
                                     }
                                 }
                             }
+                            var checked=selectIds.indexOf(nodeObjs[i].id) >= 0;
+                            if(parentNode){
+                                checked=parentNode.checked||checked;
+                            }
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].deptName,
                                 'fid': nodeObjs[i].fid,
-                                'checked': selectIds.indexOf(nodeObjs[i].id) >= 0,
+                                'checked': checked,
                                 'isParent': (nodeObjs[i].isLeaf ? false : true),
                                 'nocheck': nocheck
                             }
