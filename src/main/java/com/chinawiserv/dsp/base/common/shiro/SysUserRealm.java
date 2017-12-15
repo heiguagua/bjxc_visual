@@ -1,10 +1,7 @@
 package com.chinawiserv.dsp.base.common.shiro;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -14,6 +11,7 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -71,6 +69,19 @@ public class SysUserRealm extends AuthorizingRealm {
         }
 		return info;
 	}
+
+    @Override
+    protected boolean isPermitted(Permission permission, AuthorizationInfo info) {
+        Collection<Permission> perms = getPermissions(info);
+        if (perms != null && !perms.isEmpty()) {
+            for (Permission perm : perms) {
+                if (perm.equals(permission)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 	/**
 	 * 认证(登录时调用)
