@@ -460,31 +460,31 @@ public class ApiServiceImpl implements IApiService {
                     }
                 }
 
-                if(ServiceType.HACKLE.getValue().equalsIgnoreCase(serviceType)){
-                    /**
-                     * 查询表ID
-                     * */
-                    Map<String,Object> tableParamMap = Maps.newHashMap();
-                    tableParamMap.put ("systemId",serviceInfo.get("systemId"));
-                    tableParamMap.put ("dbId",serviceInfo.get("dbId"));
-                    tableParamMap.put ("tableName",serviceInfo.get("tableName"));
-                    DrapDbTableInfo table = null;
-                    try {
-                        table =  apiMapper.getTableInfoBySystemIdAndDbId(tableParamMap);
-                    } catch (Exception e) {
-                        handleResult.setMsg("数据表"+serviceInfo.get("tableName")+"查询错误，请检查是否存在或存在多个");
-                        return handleResult;
-                    }
-                    if(null != table){
-                        objId = table.getId();
-                    }
-                }
+//                if(ServiceType.HACKLE.getValue().equalsIgnoreCase(serviceType)){
+//                    /**
+//                     * 查询表ID
+//                     * */
+//                    Map<String,Object> tableParamMap = Maps.newHashMap();
+//                    tableParamMap.put ("systemId",serviceInfo.get("systemId"));
+//                    tableParamMap.put ("dbId",serviceInfo.get("dbId"));
+//                    tableParamMap.put ("tableName",serviceInfo.get("tableName"));
+//                    DrapDbTableInfo table = null;
+//                    try {
+//                        table =  apiMapper.getTableInfoBySystemIdAndDbId(tableParamMap);
+//                    } catch (Exception e) {
+//                        handleResult.setMsg("数据表"+serviceInfo.get("tableName")+"查询错误，请检查是否存在或存在多个");
+//                        return handleResult;
+//                    }
+//                    if(null != table){
+//                        objId = table.getId();
+//                    }
+//                }
 
                 /**
                  * MongoDB 无datasetId和classifyId,单独处理
                  * */
 
-                if(ServiceType.MONGODB.getValue().equalsIgnoreCase(serviceType)||StringUtils.isBlank(serviceType)){
+                if(ServiceType.HACKLE.getValue().equalsIgnoreCase(serviceType)||ServiceType.MONGODB.getValue().equalsIgnoreCase(serviceType)||StringUtils.isBlank(serviceType)){
                     List<DirDatasetServiceMap> mongoServiceList = dirDatasetServiceMapMapper.selectList(new EntityWrapper<DirDatasetServiceMap>().addFilter("service_id = {0}",serviceId));
                     if(!CollectionUtils.isEmpty(mongoServiceList)){
                         int a = 0;
