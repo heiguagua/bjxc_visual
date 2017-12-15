@@ -233,7 +233,7 @@
 		FROM
 			sys_dept sd
 		LEFT JOIN sys_dept_authority sda ON sd.id = sda.dept_id
-		LEFT JOIN sys_user su ON sda.auth_obj_id = su.id
+		LEFT JOIN sys_user su ON (sda.auth_obj_id = su.id OR sda.auth_obj_id = su.dept_id)
 		WHERE
 			su.id = #{user_id}
 		GROUP BY
