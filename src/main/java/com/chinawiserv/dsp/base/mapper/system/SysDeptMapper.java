@@ -54,4 +54,6 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
     long batchInsert(List<SysDept> list);
 
     Map<String,Object> selectBelongTypeByDept(String deptId);
+
+    SysDeptVo selectVoByTreeCode(String treeCode);
 }
