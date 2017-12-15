@@ -108,9 +108,9 @@ var Model = {
                     $("#dataset_item_container").empty();
                     var html = '';
                     $.each(this.datas, function(idx, itm){
+                        var str = itm.table_name + (itm.table_cn_name == null || itm.table_cn_name == "" ? (itm.table_desc == null || itm.table_desc == "" ? "" : ("【"+ itm.table_desc +"】")) : ("【"+ itm.table_cn_name +"】"));
                         html += '<a class="list-group-item no-border" style="width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;" ' +
-                        'title="'+itm.table_name + (itm.table_cn_name == null || itm.table_cn_name == "" ? "11111" : ("【"+ itm.table_cn_name +"】"))+'" data-id="'+itm.id+'">'
-                        +itm.table_name + (itm.table_cn_name == null || itm.table_cn_name == "" ? "" : ("【"+ itm.table_cn_name +"】")) +'</a>';
+                        'title="'+ str +'" data-id="'+itm.id+'">'+ str +'</a>';
                     });
                     $("#dataset_item_container").html(html);
                 }
@@ -156,7 +156,7 @@ var Model = {
                      })*/
 
                     $.each(cur.datas, function(idx, itm){
-                        var str = itm.column_en_name + (itm.column_cn_name == null || itm.column_cn_name == "" ? "" : ("【"+ itm.column_cn_name +"】"));
+                        var str = itm.column_en_name + (itm.column_cn_name == null || itm.column_cn_name == "" ? (itm.column_desc == null || itm.column_desc == "" ? "" : ("【"+ itm.column_desc +"】")) : ("【"+ itm.column_cn_name +"】"));
                         try {
                             if(cur.existed(itm.id,pool)){
                                 html += '<a class="list-group-item no-border disabled" style="width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;" title="'+str+'" data-id="'+itm.id+'">'+str+'</a>';

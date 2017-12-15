@@ -18,7 +18,7 @@
 
     <select id="selectTableByDbId" resultType="map">
         SELECT
-            ddti.id,ddti.table_name,ddti.table_cn_name
+            ddti.id,ddti.table_name,ddti.table_cn_name,ddti.table_desc
         FROM drap_db_table_info ddti
         LEFT JOIN drap_db_info ddi ON ddti.db_id=ddi.id
         WHERE TRUE
@@ -27,7 +27,7 @@
 
     <select id="selectFieldByTableId" resultType="map">
         SELECT
-            ddtc.id,ddtc.column_en_name,ddtc.column_cn_name
+            ddtc.id,ddtc.column_en_name,ddtc.column_cn_name,ddtc.column_desc
         FROM
             drap_db_table_column ddtc
         LEFT JOIN drap_db_table_info ddti ON ddtc.table_id = ddti.id
