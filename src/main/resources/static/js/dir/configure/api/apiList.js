@@ -524,7 +524,7 @@ function addSibling() {
 	
 	var parentId=$('#fid').val();
 	if(!checkApiId(parentId)){
-        tip("请先选择目录分类!",parent,null,null);
+        tip("请先选择工具分类!",parent,null,null);
         return;
     }
 	
@@ -536,7 +536,7 @@ function addSon() {
 		
 	var parentId=$('#Id').val();
 	if(!checkApiId(parentId)){
-        tip("请先选择目录分类!",parent,null,null);
+        tip("请先选择工具分类!",parent,null,null);
         return;
     }
 //	$('#parent_id').val(api_fcode);
