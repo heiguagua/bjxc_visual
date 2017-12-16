@@ -439,7 +439,13 @@ function initTable(){
             field: 'icon',
             title: '图标',
             sortable: false,
-            width: '10%'
+            width: '10%',
+            formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         },{
             field: 'orderNumber',
             title: '排序号',
@@ -463,7 +469,7 @@ function initTable(){
             field: 'id',
             title: '操作',
             width: '170px',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             formatter: function(value, row, index) {
