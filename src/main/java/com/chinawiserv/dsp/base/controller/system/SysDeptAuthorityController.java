@@ -106,6 +106,7 @@ public class SysDeptAuthorityController extends BaseController {
 //                result = dirClassifyAuthorityService.selectVoList(paramMap);
             }
             handleResult.put("selected", result);
+            handleResult.put("selected2", service.selectAllSuperiorIds(paramMap));
         } catch (Exception e) {
             handleResult.error("获取部门数据权限信息失败");
             logger.error("获取部门数据权限失败", e);
@@ -178,4 +179,37 @@ public class SysDeptAuthorityController extends BaseController {
         }
         return handleResult;
     }
+    /**
+     * 编辑组织机构权限
+     */
+    @RequiresPermissions("system:deptAuthority:edit")
+    @RequestMapping("/getSelectedNodeByCurrentNode")
+    @ResponseBody
+    public  HandleResult getSelectedNodeByCurrentNode(@RequestParam String authObjId, @RequestParam String currentDeptId, @RequestParam String type){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String, Object> paramMap = new HashMap();
+            if(StringUtils.isBlank(authObjId)){
+                throw new Exception("被分配的对象权限不能为空！");
+            }
+            if(type.equals("dept")){
+                paramMap.put("authObjType", AuthObjTypeEnum.DEPT.getKey());
+
+            }else if(type.equals("user")){
+                paramMap.put("authObjType", AuthObjTypeEnum.USER.getKey());
+
+            }else{
+                throw new Exception("不属于用户或者部门权限分配！");
+            }
+
+            paramMap.put("authObjId", authObjId);
+            paramMap.put("currentDeptId", currentDeptId);
+            handleResult.put("selected", service.getSelectedNodeByCurrentNode(paramMap));
+        } catch (Exception e) {
+            handleResult.error("获取部门数据权限信息失败");
+            logger.error("获取部门数据权限失败", e);
+        }
+        return handleResult;
+    }
+
 }

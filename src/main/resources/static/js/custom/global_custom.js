@@ -2462,7 +2462,7 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param canOrNotSelectIds 指定节点可选择
          * @param canNotSelectIds   指定节点不可选择
          */
-        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects, canSelectIds, canNotSelectIds) {
+        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects, canSelectIds, canNotSelectIds,all) {
             var chkStyle = multiple ? "checkbox" : "radio";
             if(!param || typeof param != 'object') param = {};
             if(!selects || !$.isArray(selects)) selects = [];
@@ -2514,9 +2514,25 @@ function initGlobalCustom(tempUrlPrefix) {
                                     }
                                 }
                             }
+                            // var aa=nodeObjs[i];
                             var checked=selectIds.indexOf(nodeObjs[i].id) >= 0;
                             if(parentNode){
-                                checked=parentNode.checked||checked;
+                                checked=(parentNode.checked&&!parentNode.halfCheck)||checked;
+                                if(nodeObjs[i].deptLevel == 1){
+                                    checked=false;
+                                }
+                            }
+                            var halfCheck=false;
+                            if(all.length > 0){
+                                halfCheck=all.indexOf(nodeObjs[i].id)>=0;
+                                if(selectIds.indexOf(nodeObjs[i].id) >= 0){
+                                    halfCheck=false;
+                                }
+                                if(!nocheck&&halfCheck&&!(selectIds.indexOf(nodeObjs[i].id) >= 0)){
+                                    checked=true;
+                                }
+
+
                             }
                             params[i] = {
                                 'id': nodeObjs[i].id,
@@ -2524,6 +2540,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'fid': nodeObjs[i].fid,
                                 'checked': checked,
                                 'isParent': (nodeObjs[i].isLeaf ? false : true),
+                                'halfCheck':halfCheck,
                                 'nocheck': nocheck
                             }
                         }
@@ -2546,6 +2563,11 @@ function initGlobalCustom(tempUrlPrefix) {
                         }
                     },
                     onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的名称，显示到输入框中
+                        treeNode.halfCheck=false;
+                        var p=treeNode.getParentNode();
+                        if(p){
+                             p.halfCheck=false;
+                        }
                         var ids = [], names = [];
                         if(multiple){
                             var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId), selectNodes = zTreeObj.getCheckedNodes(true)
@@ -2562,19 +2584,48 @@ function initGlobalCustom(tempUrlPrefix) {
                                     }
                                 }
                             }
+
                             var tempList = selects.slice();
+                            if(treeNode.check_Child_State==0||treeNode.check_Child_State==-1){
+                                var authObjId=1;
+                                var type=1;
+                                if(param.withoutDept){
+                                    authObjId=param.withoutDept;
+                                    type="dept";
+                                }
+                                if(param.withoutUserDept){
+                                    authObjId=param.withoutUserDept;
+                                    type="user";
+                                }
+                                $.ajax({
+                                    type : "get",
+                                    url : basePathJS + "/system/deptAuthority/getSelectedNodeByCurrentNode?authObjId=" + authObjId+ "&currentDeptId=" + treeNode.id+"&type="+type,
+                                    async : false,
+                                    success : function(data){
+                                        var dd = data.content.selected;
+                                            for(var i in tempList){
+
+                                                if(dd.indexOf(tempList[i].id)>=0){
+                                                    delete tempList[i];
+                                                }
+                                            }
+                                    }
+                                });
+                            }
                             for(var i in selectNodes){
                                 var node = selectNodes[i];
-                                if(node.check_Child_State!=1 && selectIds.indexOf(node.id) < 0){
+
+                                if(node.checked&&!node.halfCheck && selectIds.indexOf(node.id) < 0){
                                     tempList.push({id: node.id, fid: node.fid, name: node.name})
                                 }
-                                if(node.check_Child_State==1 ){
+                                if(node.check_Child_State==1){
                                     for(var i in tempList){
                                         if(tempList[i].id==node.id){
                                             delete tempList[i];
                                         }
                                     }
                                 }
+
                             }
                             if(tempList.length > 0){
                                 for(var i in tempList){

@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.base.service.system.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
@@ -112,5 +113,25 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
             }
         }
         return deptIds;
+    }
+
+    @Override
+    public List<String> selectAllSuperiorIds(Map<String, Object> paramMap) {
+        List<SysDept>  sysDeptList= new ArrayList();
+        List<SysDeptAuthorityVo> vos = mapper.selectVoList(paramMap);
+        List<String>  list=vos.stream().map(vo -> vo.getDeptId()).collect(Collectors.toList());
+        while (list!=null && !list.isEmpty()){
+            List<SysDept> existList=sysDeptMapper.listByList(list);
+            sysDeptList.removeAll(existList);
+            sysDeptList.addAll(existList);
+            list=existList.stream().map(sysDept -> sysDept.getFid()).collect(Collectors.toList());
+        }
+
+        return  sysDeptList.stream().map(sysDept -> sysDept.getId()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getSelectedNodeByCurrentNode(Map<String, Object> paramMap) {
+        return mapper.getSelectedNodeByCurrentNode(paramMap);
     }
 }
