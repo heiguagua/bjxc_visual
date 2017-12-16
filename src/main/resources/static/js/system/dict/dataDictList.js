@@ -2,28 +2,33 @@
  * Created by Zhangm on 2017/9/26.
  */
 var tableSelector = '#systemDataDictTableId';
+var paramsObj={};
+var detailParamObj={};
 
 jQuery(document).ready(function () {
-  intDict();
-
+    intDict();
+    initButtonClick();
 });
 
 function intDict(param) {
-    $("#tableList").html('<table id="systemDataDictTableId" class="table table-hover"></table>');
+    // $("#tableList").html('<table id="systemDataDictTableId" class="table table-hover"></table>');
     $("#addDict2").addClass("hidden")
     $("#addDict1").removeClass("hidden")
     $("#back").addClass("hidden")
     $("#search").removeClass("hidden")
     $("#searchDetail").addClass("hidden")
     "use strict";
-    var paramsObj = param||{};
-    jQuery("#systemDataDictTableId").customTable({
+    paramsObj = param||{};
+    if($(tableSelector).hasClass("table-striped")){
+        $(tableSelector).bootstrapTable("destroy");
+    }
+    jQuery(tableSelector).customTable({
         url: basePathJS + '/sysDict/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
-        pagination: true, //分页
-        pageSize: 15,
+        // pagination: true, //分页
+        // pageSize: 15,
         columns: [
             {
                 field: 'id', title: '序号', width: '5%', align: 'center', formatter: function (value, row, index) {
@@ -65,21 +70,38 @@ function intDict(param) {
                 }
             }]
     });
+}
+
+function initButtonClick() {
 
     jQuery('#queryBtnId').click(function () {
         setParams();
         reloadTable();
     });
 
-    function setParams() {
-        var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {searchKey : searchKeyVal};
-    }
+    jQuery('#queryBtnId1').click(function () {
+        setDetailParams();
+        reloadTable();
+    });
 }
+
+function setParams() {
+    var searchKeyVal = $('#searchKeyId').val();
+    paramsObj = {searchKey : searchKeyVal};
+}
+
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
     $(tableSelector).data("bootstrap.table").refresh();
 }
+
+function setDetailParams() {
+    var searchKeyVal = $('#searchKeyId1').val();
+    var  category =  $("#category").val();
+    detailParamObj = {searchKey : searchKeyVal,category:category};
+}
+
+
 
 function addDict() {
     add('新增字典',basePathJS + '/sysDict/add');
@@ -104,15 +126,18 @@ function getDictDetails(categoryCode,dd,searchKey) {
     $("#category").val(categoryCode);
     $("#dd").val(dd);
 
-    $("#tableList").html('<table id="systemDataDictTableId" class="table table-hover"></table>');
-    var url = basePathJS + '/sysDict/detailsList?category=' + categoryCode;
-    if(typeof searchKey!="undefined"){
-        url = url +"&searchKey=" + searchKey;
+
+    // $("#tableList").html('<table id="systemDataDictDetailTableId" class="table table-hover"></table>');
+    var url = basePathJS + '/sysDict/detailsList';
+    setDetailParams();
+    if($(tableSelector).hasClass("table-striped")){
+        $(tableSelector).bootstrapTable("destroy");
     }
-    jQuery("#systemDataDictTableId").customTable({
+    jQuery(tableSelector).customTable({
         url:url,
-        pagination: true, //分页
-        pageSize: 15,
+        queryParams: function (params) {
+            return $.extend(params, detailParamObj);
+        },
         columns: [
             {
                 field: 'id', title: '序号', width: '5%', align: 'center', formatter: function (value, row, index) {
@@ -127,7 +152,7 @@ function getDictDetails(categoryCode,dd,searchKey) {
                 // width : '150px' ,
                 sortable: false,
                 formatter: function () {
-                    return dd;
+                    return $("#dd").val();
                 }
             }, {
                 field: 'dictCode',
@@ -186,15 +211,6 @@ function getDictDetails(categoryCode,dd,searchKey) {
                 }
             }]
     });
-    jQuery('#queryBtnId1').click(function () {
-        var searchKeyVal = $('#searchKeyId1').val();
-        // paramsObj = {searchKey : searchKeyVal};
-      var  category =  $("#category").val();
-       var dd = $("#dd").val();
-        getDictDetails(categoryCode,dd,searchKeyVal)
-        // reloadTable();
-    });
-
 }
 
 function addDetailDict() {
