@@ -17,5 +17,7 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
 public interface IDrapBusinessActivityService extends ICommonService<DrapBusinessActivity, DrapBusinessActivityVo> {
 
 	void updateBusinessData(Map<String, Object> dataObj) throws Exception;
+
+	void deleteBusinessData(Map<String, Object> dataObj) throws Exception;
 	
 }

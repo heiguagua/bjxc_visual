@@ -94,7 +94,19 @@ public class DrapBusinessActivityServiceImpl extends CommonServiceImpl<DrapBusin
 
 	@Override
 	public void updateBusinessData(Map<String, Object> dataObj) throws Exception{
-		
+		updateOrDeleteData(dataObj,true);
+	}
+
+	@Override
+	public void deleteBusinessData(Map<String, Object> dataObj) throws Exception {
+		updateOrDeleteData(dataObj,false);
+	}
+	
+	/*
+	 * @param dataObj 数据
+	 * @param isInsert 是否插入
+	 */
+	private void updateOrDeleteData(Map<String, Object> dataObj,boolean isInsert){
 		if(dataObj.containsKey("drapBusinessActivityPos")){
 			String drapBusinessActivityPosStr = MapUtils.getString(dataObj, "drapBusinessActivityPos");
 			List<DrapBusinessActivity> drapBusinessActivityPos = JSON.parseArray(drapBusinessActivityPosStr,DrapBusinessActivity.class);
@@ -103,7 +115,7 @@ public class DrapBusinessActivityServiceImpl extends CommonServiceImpl<DrapBusin
 				idList.add(drapBusinessActivityPos.get(i).getId());
 			}
 			this.drapBusinessActivityMapper.deleteBatchIds(idList);
-			this.drapBusinessActivityMapper.batchInsertPO(drapBusinessActivityPos);
+			if(isInsert) this.drapBusinessActivityMapper.batchInsertPO(drapBusinessActivityPos);
 		}
 		if(dataObj.containsKey("drapActivityRelDeptsPos")){
 			String drapActivityRelDeptsPosStr = MapUtils.getString(dataObj, "drapActivityRelDeptsPos");
@@ -113,7 +125,7 @@ public class DrapBusinessActivityServiceImpl extends CommonServiceImpl<DrapBusin
 				idList.add(drapActivityRelDeptsPos.get(i).getId());
 			}
 			this.drapActivityRelDeptsMapper.deleteBatchIds(idList);
-			this.drapActivityRelDeptsMapper.batchInsertPO(drapActivityRelDeptsPos);
+			if(isInsert) this.drapActivityRelDeptsMapper.batchInsertPO(drapActivityRelDeptsPos);
 		}
 		if(dataObj.containsKey("drapActivityDocMapPos")){
 			String drapActivityDocMapPosStr = MapUtils.getString(dataObj, "drapActivityDocMapPos");
@@ -123,7 +135,7 @@ public class DrapBusinessActivityServiceImpl extends CommonServiceImpl<DrapBusin
 				idList.add(drapActivityDocMapPos.get(i).getId());
 			}
 			this.drapActivityDocMapMapper.deleteBatchIds(idList);
-			this.drapActivityDocMapMapper.batchInsertPO(drapActivityDocMapPos);
+			if(isInsert) this.drapActivityDocMapMapper.batchInsertPO(drapActivityDocMapPos);
 		}
 		if(dataObj.containsKey("drapBusinessDocPos")){
 			String drapBusinessDocPosStr = MapUtils.getString(dataObj, "drapBusinessDocPos");
@@ -133,7 +145,7 @@ public class DrapBusinessActivityServiceImpl extends CommonServiceImpl<DrapBusin
 				idList.add(drapBusinessDocPos.get(i).getId());
 			}
 			this.drapBusinessDocMapper.deleteBatchIds(idList);
-			this.drapBusinessDocMapper.batchInsertPO(drapBusinessDocPos);
+			if(isInsert) this.drapBusinessDocMapper.batchInsertPO(drapBusinessDocPos);
 		}
 		if(dataObj.containsKey("drapActivityDocItemPos")){
 			String drapActivityDocItemPosStr = MapUtils.getString(dataObj, "drapActivityDocItemPos");
@@ -143,7 +155,7 @@ public class DrapBusinessActivityServiceImpl extends CommonServiceImpl<DrapBusin
 				idList.add(drapActivityDocItemPos.get(i).getId());
 			}
 			this.drapActivityDocItemMapper.deleteBatchIds(idList);
-			this.drapActivityDocItemMapper.batchInsertPO(drapActivityDocItemPos);
+			if(isInsert) this.drapActivityDocItemMapper.batchInsertPO(drapActivityDocItemPos);
 		}
 		if(dataObj.containsKey("drapActivitySystemMapPos")){
 			String drapActivitySystemMapPosStr = MapUtils.getString(dataObj, "drapActivitySystemMapPos");
@@ -153,7 +165,7 @@ public class DrapBusinessActivityServiceImpl extends CommonServiceImpl<DrapBusin
 				idList.add(drapActivitySystemMapPos.get(i).getId());
 			}
 			this.drapActivitySystemMapMapper.deleteBatchIds(idList);
-			this.drapActivitySystemMapMapper.batchInsertPO(drapActivitySystemMapPos);
+			if(isInsert) this.drapActivitySystemMapMapper.batchInsertPO(drapActivitySystemMapPos);
 		}
 	}
     
