@@ -88,6 +88,7 @@ public class SysUserDirAuthorityController extends BaseController {
                 }
             }
             handleResult.put("selected", result);
+            handleResult.put("selected2", dirClassifyAuthorityService.selectAllSuperiorIds(paramMap));
         } catch (Exception e) {
             handleResult.error("获取用户数据权限信息失败");
             logger.error("获取用户数据权限失败", e);

@@ -404,4 +404,11 @@
             SELECT id FROM dir_classify WHERE region_code=#{regionCode} AND classify_type=#{classifyType})
     </select>
 
+    <select id="listByList" parameterType="java.util.List" resultType="com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify">
+        SELECT t.* FROM dir_classify t WHERE id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
 </mapper>

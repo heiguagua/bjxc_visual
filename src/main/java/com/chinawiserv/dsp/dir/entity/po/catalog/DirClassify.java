@@ -3,6 +3,9 @@ package com.chinawiserv.dsp.dir.entity.po.catalog;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -315,9 +318,71 @@ public class DirClassify implements Serializable {
 	public void setLeadDeptId(String leadDeptId) {
 		this.leadDeptId = leadDeptId;
 	}
-	
-	
-	
-	
-	
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		DirClassify that = (DirClassify) o;
+
+		return new EqualsBuilder()
+				.append(id, that.id)
+				.append(regionCode, that.regionCode)
+				.append(classifyCode, that.classifyCode)
+				.append(classifyName, that.classifyName)
+				.append(treeCode, that.treeCode)
+				.append(classifyDesc, that.classifyDesc)
+				.append(fid, that.fid)
+				.append(fname, that.fname)
+				.append(classifyLevel, that.classifyLevel)
+				.append(classifyIndex, that.classifyIndex)
+				.append(dcmIndex, that.dcmIndex)
+				.append(orderNumber, that.orderNumber)
+				.append(status, that.status)
+				.append(createUserId, that.createUserId)
+				.append(createTime, that.createTime)
+				.append(updateUserId, that.updateUserId)
+				.append(updateTime, that.updateTime)
+				.append(deleteFlag, that.deleteFlag)
+				.append(classifyStructureCode, that.classifyStructureCode)
+				.append(classifyStructureName, that.classifyStructureName)
+				.append(icon, that.icon)
+				.append(classifyType, that.classifyType)
+				.append(nationalCode, that.nationalCode)
+				.append(leadDeptId, that.leadDeptId)
+				.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37)
+				.append(id)
+				.append(regionCode)
+				.append(classifyCode)
+				.append(classifyName)
+				.append(treeCode)
+				.append(classifyDesc)
+				.append(fid)
+				.append(fname)
+				.append(classifyLevel)
+				.append(classifyIndex)
+				.append(dcmIndex)
+				.append(orderNumber)
+				.append(status)
+				.append(createUserId)
+				.append(createTime)
+				.append(updateUserId)
+				.append(updateTime)
+				.append(deleteFlag)
+				.append(classifyStructureCode)
+				.append(classifyStructureName)
+				.append(icon)
+				.append(classifyType)
+				.append(nationalCode)
+				.append(leadDeptId)
+				.toHashCode();
+	}
 }

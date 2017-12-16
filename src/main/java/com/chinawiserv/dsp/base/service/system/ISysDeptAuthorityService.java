@@ -21,4 +21,8 @@ public interface ISysDeptAuthorityService extends ICommonService<SysDeptAuthorit
 
     List<String> selectParentDeptAuthIds(Map<String, Object> paramMap);
 
+    List<String> selectAllSuperiorIds(Map<String, Object> paramMap);
+
+    List<String> getSelectedNodeByCurrentNode(Map<String, Object> paramMap);
+
 }

@@ -19,4 +19,8 @@ public interface IDirClassifyAuthorityService extends ICommonService<DirClassify
 
     List<DirClassifyAuthorityVo> selectVoList(Map<String, Object> paramMap);
 
+    List<String> selectAllSuperiorIds(Map<String, Object> paramMap);
+
+    List<String> getSelectedNodeByCurrentNode(Map<String, Object> paramMap);
+
 }

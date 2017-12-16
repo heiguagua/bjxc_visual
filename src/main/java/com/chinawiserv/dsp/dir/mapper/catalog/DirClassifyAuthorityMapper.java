@@ -38,4 +38,8 @@ public interface DirClassifyAuthorityMapper extends BaseMapper<DirClassifyAuthor
     int deleteByVo(DirClassifyAuthorityVo dirClassifyAuthorityVo);
 
     List<String> selectAuthorityIdForLoginUser(@Param("loginUserId") String userId);
+
+    List<String> getSelectedNodeByCurrentNode(Map<String, Object> paramMap);
+
+    List<String> getAllClassifyParentNode(Map<String, Object> paramMap);
 }
