@@ -2515,6 +2515,7 @@ function initGlobalCustom(tempUrlPrefix) {
             if(!selects || !$.isArray(selects)) selects = [];
             if(!canSelectIds || !$.isArray(canSelectIds)) canSelectIds = [];
             if(!canNotSelectIds || !$.isArray(canNotSelectIds)) canNotSelectIds = [];
+            if(!all || !$.isArray(all)) all = [];
             var selectIds = [];
             if(selects.length > 0){
                 for(var i in selects){
