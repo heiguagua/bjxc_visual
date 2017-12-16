@@ -272,7 +272,9 @@ public class DirClassifyController extends BaseController {
 	public HandleResult doEdit(DirClassifyVo entity, Model model) {
 		HandleResult handleResult = new HandleResult();
 		try {
-			
+//			if(entity.getOrderNumber()>999999){
+//				handleResult.error("排序号太长，请重新输入");
+//			}
 			service.updateVO(entity);
 			String deptId = entity.getDeptId();
 			String classifyId = entity.getId();
