@@ -105,6 +105,9 @@ function initTable(){
             sortable: false,
             width: '6%',
             formatter:function(value, row, index){
+            	if(value == undefined){
+                    value = "";
+                }
                 return '<p title="'+value+'">'+value+'</p>';
             }
         },{
