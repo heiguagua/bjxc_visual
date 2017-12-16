@@ -34,4 +34,6 @@ public interface SysDeptAuthorityMapper extends BaseMapper<SysDeptAuthority> {
     List<SysDeptAuthorityVo> selectVoList(Map<String, Object> paramMap);
 
     int deleteByVo(SysDeptAuthorityVo sysDeptAuthorityVo);
+
+    List<String> getSelectedNodeByCurrentNode(Map<String, Object> paramMap);
 }

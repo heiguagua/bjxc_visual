@@ -79,17 +79,11 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
         List<SysDictVo> rows;
         Page<SysDictVo> page = getPage(paramMap);
         List<SysDictVo> dictVos = mapper.selectVoPage(page,paramMap);
-        if (dictVos != null && !dictVos.isEmpty()){
-            rows = new ArrayList(dictVos.size());
-            for (SysDictVo vo : dictVos){
-                String status = vo.getStatus().toString();
-                vo.setStateName(DictEnum.valueOf(EnumTools.getName(status)).getChValue());
-                rows.add(vo);
-            }
-        }else {
-            rows = new ArrayList(0);
+        for (SysDictVo vo : dictVos){
+            String status = vo.getStatus().toString();
+            vo.setStateName(DictEnum.valueOf(EnumTools.getName(status)).getChValue());
         }
-        page.setRecords(rows);
+        page.setRecords(dictVos);
         return page;
 	}
     @Override

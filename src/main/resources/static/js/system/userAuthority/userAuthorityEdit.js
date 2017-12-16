@@ -9,8 +9,10 @@ function initSelectData() {
     var authObjId = $("#authObjId").val();
     var authType = $("#authType").val();
     var selects = [];
+    var all=[];
     $.get(basePathJS + "/system/userAuthority/editLoad?id=" + authObjId + "&authType=" + authType,function(data){
         var dd = data.content.selected;
+        all = data.content.selected2;
         if(dd.length){
             for(var i= 0;i < dd.length;i++){
                 var obj = dd[i];
@@ -23,7 +25,7 @@ function initSelectData() {
             }
         }
         // if(authType === 'dept'){
-            $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, {withoutUserDept: authObjId, withoutAuthDept: "1"}, selects); //初始化组织机构下拉框
+            $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, {withoutUserDept: authObjId, withoutAuthDept: "1"}, selects,'','',all); //初始化组织机构下拉框
         // }else if(authType === 'dir'){
         //     $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects);
         // }

@@ -85,4 +85,6 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
     void updateDcmIndexbyId(String id);
 
     List<DirClassify> selectChildByType(@Param("regionCode") String regionCode, @Param("classifyType")String classifyType);
+
+    List<DirClassify> listByList(List<String> list);
 }

@@ -267,6 +267,26 @@ function updateApi(title, url, id, width, height, isRestful) {
     createWindow(options);
 }
 
+function updateClassify(title, url, id, width, height, isRestful) {
+
+    if (id) {
+        if(isRestful!='undefined'&&isRestful){
+            url += '/'+id;
+        }else{
+            if (url.indexOf("?") == -1 ) {
+                url += '?id='+id;
+            } else {
+                url += '&id='+id;
+            }
+        }
+    }
+
+    var options = _getDefaultWinOptionsForUpdateapiList( title , url , width, height) ;
+
+    createWindow(options);
+}
+
+
 /**
  * 如果页面是详细查看页面，无效化所有表单元素，只能进行查看
  */
@@ -966,6 +986,10 @@ function _submitFormForApi(index, layero , options){
                },
                complete:function(XMLHttpRequest, textStatus){
                    $(".layui-layer").find(".loading-ajax").remove();
+               },
+               error:function(){
+                   layer.closeAll('loading');
+                   errorMsgTip("输入字段太长，请检查后重新输入", parentWin);
                }
            });
 

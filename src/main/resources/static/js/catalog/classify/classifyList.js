@@ -269,7 +269,7 @@ function setParams() {
 function editNode(id){
 	
 
-	updateApi('编辑目录',basePathJS + '/dirClassify/edit' , id,900,500);
+	updateClassify('编辑目录',basePathJS + '/dirClassify/edit' , id,900,500);
 	
 }
 
