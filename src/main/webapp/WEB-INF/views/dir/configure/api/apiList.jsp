@@ -6,11 +6,6 @@
     <script src="<%=context_path%>/js/dir/configure/api/apiList.js"></script>
     <script src="<%=context_path%>/js/system/Encode/Encode.js"></script>
 </head>
-<style>
-div.layui-layer-iframe{
-	min-width:1000px;
-}
-</style>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <%@include file="/WEB-INF/views/common/header.jsp" %>
