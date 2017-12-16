@@ -3,18 +3,24 @@ package com.chinawiserv.dsp.dir.service.catalog.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassifyAuthority;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyAuthorityMapper;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyAuthorityService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -29,6 +35,9 @@ public class DirClassifyAuthorityServiceImpl extends CommonServiceImpl<DirClassi
 
     @Autowired
     private DirClassifyAuthorityMapper mapper;
+
+    @Autowired
+    private DirClassifyMapper classifyMapper;
 
 
     @Override
@@ -89,5 +98,26 @@ public class DirClassifyAuthorityServiceImpl extends CommonServiceImpl<DirClassi
     @Override
     public List<DirClassifyAuthorityVo> selectVoList(Map<String, Object> paramMap) {
         return mapper.selectVoList(paramMap);
+    }
+
+    @Override
+    public List<String> selectAllSuperiorIds(Map<String, Object> paramMap) {
+//        List<DirClassify>  dirClassifyList= new ArrayList();
+//        List<DirClassifyAuthorityVo> vos = mapper.selectVoList(paramMap);
+//        List<String>  list=vos.stream().map(vo -> vo.getClassifyId()).collect(Collectors.toList());
+//        while (list!=null && !list.isEmpty()){
+//            List<DirClassify> existList=classifyMapper.listByList(list);
+//            dirClassifyList.removeAll(existList);
+//            dirClassifyList.addAll(existList);
+//            list=existList.stream().map(dirClassify -> dirClassify.getFid()).collect(Collectors.toList());
+//        }
+//
+//        return  dirClassifyList.stream().map(dirClassify -> dirClassify.getId()).collect(Collectors.toList());
+        return mapper.getAllClassifyParentNode(paramMap);
+    }
+
+    @Override
+    public List<String> getSelectedNodeByCurrentNode(Map<String, Object> paramMap) {
+        return mapper.getSelectedNodeByCurrentNode(paramMap);
     }
 }

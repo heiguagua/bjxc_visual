@@ -73,6 +73,7 @@ public class SysDeptDirAuthorityController extends BaseController {
             paramMap.put("authObjId", id);
             List result = dirClassifyAuthorityService.selectVoList(paramMap);
             handleResult.put("selected", result);
+            handleResult.put("selected2", dirClassifyAuthorityService.selectAllSuperiorIds(paramMap));
         } catch (Exception e) {
             handleResult.error("获取部门数据权限信息失败");
             logger.error("获取部门数据权限失败", e);
@@ -108,6 +109,43 @@ public class SysDeptDirAuthorityController extends BaseController {
 		    logger.error("编辑部门数据权限分配表失败", e);
 		}
 		return handleResult;
+    }
+
+    /**
+     * 获取当前节点下的所有被授权的节点
+     * @param authObjId 被授权的对象
+     * @param currentClassifyId 当前目录节点id
+     * @param type 来自部门或用户的请求
+     * @return
+     */
+    @RequiresPermissions("system:deptDirAuthority:edit")
+    @RequestMapping("/getSelectedNodeByCurrentNode")
+    @ResponseBody
+    public  HandleResult getSelectedNodeByCurrentNode(@RequestParam String authObjId, @RequestParam String currentClassifyId, @RequestParam String type){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String, Object> paramMap = new HashMap();
+            if(StringUtils.isBlank(authObjId)){
+                throw new Exception("被分配的对象权限不能为空！");
+            }
+            if(type.equals("dept")){
+                paramMap.put("authObjType", AuthObjTypeEnum.DEPT.getKey());
+
+            }else if(type.equals("user")){
+                paramMap.put("authObjType", AuthObjTypeEnum.USER.getKey());
+
+            }else{
+                throw new Exception("不属于用户或者部门权限分配！");
+            }
+
+            paramMap.put("authObjId", authObjId);
+            paramMap.put("currentClassifyId", currentClassifyId);
+            handleResult.put("selected", dirClassifyAuthorityService.getSelectedNodeByCurrentNode(paramMap));
+        } catch (Exception e) {
+            handleResult.error("获取授权的节点信息失败");
+            logger.error("获取授权的节点信息失败", e);
+        }
+        return handleResult;
     }
 
 }
