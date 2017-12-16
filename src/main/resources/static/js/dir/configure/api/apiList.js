@@ -143,7 +143,7 @@ jQuery(document).ready(function () {
 //			var apiCatgegory=$(curThis).attr('data-category');
 //			var orderNumber=$(curThis).attr('data-orderNumber');
 //			$('#parent_id').val(api_fcode);	
-			updateApi('编辑api',basePathJS + '/dirDevelopApis/edit' , id);
+			updateForPictureNews('编辑api',basePathJS + '/dirDevelopApis/edit' , id);
 //			$('#api_name').val(apiName);
 //			$('#api_category').val(apiCatgegory);
 //			$('#api_url').val(apiUrl);
@@ -156,7 +156,7 @@ jQuery(document).ready(function () {
 			var curThis=this;
 			var parentId=$(curThis).attr('data-pcode');
 //			$('#parent_id').val(api_fcode);	
-			addApi('新增api--同级',basePathJS + '/dirDevelopApis/add' , parentId);
+			addPictureNews('新增api--同级',basePathJS + '/dirDevelopApis/add' , parentId);
 //			$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');
@@ -169,7 +169,7 @@ jQuery(document).ready(function () {
 	    	var curThis=this;
 			var parentId=$(curThis).attr('data-id');
 //			$('#parent_id').val(api_fcode);
-			addApi('新增api--子级',basePathJS + '/dirDevelopApis/add',parentId);
+			addPictureNews('新增api--子级',basePathJS + '/dirDevelopApis/add',parentId);
 //	    	$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');
