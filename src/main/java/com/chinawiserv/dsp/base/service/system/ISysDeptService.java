@@ -61,4 +61,5 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 
     Map<String,Object> getBelongTypeByDept(String deptId);
 
+    String getRootDeptId(String drapDeptId);
 }

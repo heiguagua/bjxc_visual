@@ -517,4 +517,22 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     public Map<String,Object> getBelongTypeByDept(String deptId){
         return sysDeptMapper.selectBelongTypeByDept(deptId);
     }
+
+    /**
+     * 用于查询当前部门属于六大班子部门下的哪个一级部门
+     * */
+    @Override
+    public String getRootDeptId(String drapDeptId) {
+        SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(drapDeptId);
+        String treeCode = sysDeptVo.getTreeCode();
+        if(StringUtils.isNotEmpty(treeCode)) {
+            String[] treeCodes = treeCode.split(";");
+            if (treeCodes.length > 2) {
+                String rootTreeCode = treeCodes[0] + ";" + treeCodes[1];
+                SysDeptVo dirDeptVo = sysDeptMapper.selectVoByTreeCode(rootTreeCode);
+                return dirDeptVo.getId();
+            }
+        }
+        return drapDeptId;
+    }
 }

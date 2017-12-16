@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
+import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 import com.chinawiserv.dsp.dir.entity.po.drap.*;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset;
@@ -86,6 +87,9 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 
 	@Autowired
 	private SysDictMapper sysDictMapper;
+
+	@Autowired
+	private ISysDeptService sysDeptService;
 
 
 
@@ -227,14 +231,21 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		}
 	}
 	
-	private static DirDataset getDirDataset(DrapDatasetVo drapDatasetVo, String dataSetSourceType){
+	private DirDataset getDirDataset(DrapDatasetVo drapDatasetVo, String dataSetSourceType){
 		final DirDataset dirDataset = new DirDataset();
 		dirDataset.setId(drapDatasetVo.getId());
 		dirDataset.setRegionCode(drapDatasetVo.getRegionCode());
 		dirDataset.setDatasetCode(drapDatasetVo.getDatasetCode());
 		dirDataset.setDatasetName(drapDatasetVo.getDatasetName());
-		dirDataset.setBelongDeptId(drapDatasetVo.getBelongDeptId());
-		dirDataset.setBelongDeptType(drapDatasetVo.getBelongDeptType());
+
+		String drapDeptId = drapDatasetVo.getBelongDeptId();
+		String dirDeptId = sysDeptService.getRootDeptId(drapDeptId);
+		if(Objects.equals(drapDeptId,dirDeptId)){
+			dirDataset.setBelongDeptType(dirDeptId);
+		}else{
+			dirDataset.setBelongDeptType(dirDeptId);
+			dirDataset.setBelongDeptId(drapDeptId);
+		}
 		dirDataset.setDatasetDesc(drapDatasetVo.getDatasetDesc());
 		dirDataset.setShareType(drapDatasetVo.getShareType());
 		dirDataset.setShareCondition(drapDatasetVo.getShareConditionDesc());
@@ -260,7 +271,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		return dirDataset;
 	}
 
-	private static DirDataitem getDirDataitem(DrapDatasetItem drapDatasetItem,List<DrapDatasetItemMap> drapDatasetItemMapList){
+	private DirDataitem getDirDataitem(DrapDatasetItem drapDatasetItem,List<DrapDatasetItemMap> drapDatasetItemMapList){
 		final DirDataitem dirDataitem = new DirDataitem();
 		dirDataitem.setId(drapDatasetItem.getId());
 		dirDataitem.setDatasetId(getDatasetIdFromItemMap(drapDatasetItemMapList, drapDatasetItem.getId()));
