@@ -201,9 +201,42 @@ public class DrapDbInfo implements Serializable {
      */
 	@TableField("delete_flag")
 	private Integer deleteFlag;
+	
+    @TableField("auditor")
+    private String auditor;
+    
+    @TableField("audit_time")
+    private Date auditTime;
+    
+    @TableField("audit_opinion")
+    private String auditOpinion;
+	
 
+	public String getAuditor() {
+        return auditor;
+    }
 
-	public String getId() {
+    public void setAuditor(String auditor) {
+        this.auditor = auditor;
+    }
+
+    public Date getAuditTime() {
+        return auditTime;
+    }
+
+    public void setAuditTime(Date auditTime) {
+        this.auditTime = auditTime;
+    }
+
+    public String getAuditOpinion() {
+        return auditOpinion;
+    }
+
+    public void setAuditOpinion(String auditOpinion) {
+        this.auditOpinion = auditOpinion;
+    }
+
+    public String getId() {
 		return id;
 	}
 
