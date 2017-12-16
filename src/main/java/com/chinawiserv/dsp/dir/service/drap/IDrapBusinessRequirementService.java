@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.dir.service.drap;
 
 import java.util.List;
+import java.util.Map;
 
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessRequirementVo;
@@ -22,4 +23,11 @@ public interface IDrapBusinessRequirementService extends ICommonService<DrapBusi
 	 * @return
 	 */
 	HandleResult insertBusinessRequirement(List<DrapBusinessRequirementVo> voLst);
+
+	/**
+	 * 删除需求
+	 * @param paramMap
+	 * @return
+	 */
+	HandleResult deleteBusinessRequirement(Map<String,?> paramMap);
 }

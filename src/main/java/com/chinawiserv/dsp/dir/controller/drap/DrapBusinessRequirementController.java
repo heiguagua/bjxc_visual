@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.dir.controller.drap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,34 @@ public class DrapBusinessRequirementController extends BaseController {
 		}
 		return result;
 	}
-	
+
+	/**
+	 * 同步需求
+	 *
+	 * @param paramMap
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("delete")
+	public Object deleteRequirement(@RequestParam Map<String,Object> paramMap) {
+		HandleResult result = new HandleResult();
+		Object obj = paramMap.get("data");
+
+		Map<String,List<String>> deleteMap = null;
+		if (obj instanceof String)
+		{
+			deleteMap = (Map<String, List<String>>) JSONObject.parse((String)obj);
+		}
+		try {
+			if (deleteMap == null || deleteMap.isEmpty()) {
+				result.error("待删除数据为空。");
+			}
+			result = service.deleteBusinessRequirement(deleteMap);
+		} catch (Exception e) {
+			logger.error("需求删除异常。", e.toString());
+		}
+		return result;
+	}
 
     /**
      * 推送用户数据的接口

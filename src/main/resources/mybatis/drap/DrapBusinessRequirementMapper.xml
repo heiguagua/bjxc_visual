@@ -184,8 +184,9 @@
 
 		insert into
 		drap_business_requirement
-		(id,region_code,requre_dept_id,source_dept_id,status,create_user,create_time,update_user,update_time,delete_flag
-		)values(#{id},#{regionCode},#{requreDeptId},#{sourceDeptId},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag})
+		(id,region_code,requre_dept_id,source_dept_id,status,create_user,create_time,update_user,update_time,delete_flag,auditor,audit_time,
+			audit_opinion
+		)values(#{id},#{regionCode},#{requreDeptId},#{sourceDeptId},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleteFlag},#{auditor},#{auditTime},#{auditOpinion})
 	</insert>
 
 	<insert id="addRequirementResource"
@@ -212,4 +213,49 @@
 		</foreach>
 	</insert>
 
+	<sql id="batchIdSql">
+		WHERE  id IN
+		<foreach collection="ids" index="0" separator="," item="id"
+				 open="(" close=")">
+			#{id}
+		</foreach>
+	</sql>
+
+	<sql id="batchRequireIdSql">
+		WHERE  require_id IN
+		<foreach collection="ids" index="0" separator="," item="id"
+				 open="(" close=")">
+			#{id}
+		</foreach>
+	</sql>
+	<!--审核驳回-->
+	<update id="auditRebut" parameterType="java.util.Map">
+		<if test="ids!=null">
+			UPDATE  drap_business_requirement SET  auditor=#{auditor},audit_time=#{auditTime},
+			audit_opinion=#{auditOpinion},status=#{status} <include refid="batchIdSql"></include>
+		</if>
+	</update>
+
+	<!--批量物理删除需求-->
+	<delete id="batchDeleteReq" parameterType="java.util.Map">
+		<if test="ids!=null">
+			DELETE  FROM  drap_business_requirement
+			<include refid="batchIdSql"></include>
+		</if>
+
+	</delete>
+	<!--批量物理删除需求资源-->
+	<delete id="batchDeleteReqRes" parameterType="java.util.Map">
+		<if test="ids!=null">
+			DELETE  FROM  drap_requirement_resources
+			<include refid="batchRequireIdSql"></include>
+		</if>
+	</delete>
+	<!--批量物理删除需求信息资源-->
+	<delete id="batchDeleteReqDatasetMap" parameterType="java.util.Map">
+		<if test="ids!=null">
+			DELETE  FROM  drap_requirement_dataset_map
+			<include refid="batchRequireIdSql"></include>
+		</if>
+	</delete>
 </mapper>
