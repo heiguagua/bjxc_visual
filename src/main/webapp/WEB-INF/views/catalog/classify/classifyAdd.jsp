@@ -105,7 +105,7 @@
 			                            <label  class="col-sm-3 control-label" for="orderNumber">排序号*</label>
 			                            <div class="col-sm-9">
 			                         <input type="text" id="order_number" name="orderNumber" class="form-control"
-                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=context_path%>/dirClassify/CheckOrderNumber)">
+                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;integer[+0];range[~99999];remote(<%=context_path%>/dirClassify/CheckOrderNumber)">
 			                            </div>
 			                        </div>
 			                        
