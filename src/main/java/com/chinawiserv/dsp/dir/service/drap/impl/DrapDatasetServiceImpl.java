@@ -16,12 +16,16 @@ import com.chinawiserv.dsp.dir.mapper.drap.*;
 import com.chinawiserv.dsp.dir.service.drap.IDrapDatasetService;
 import com.chinawiserv.dsp.dir.service.drap.IDrapDatasetTableRelationService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.google.common.collect.Lists;
 
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -131,9 +135,10 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 	}
 
 	@Override
-	public void insertDataset(Map<String, Object> dataObj) {
+	public void insertDataset(Map<String, Object> dataObj) throws Exception {
 		final String drapDatasetPosStr = MapUtils.getString(dataObj, "datasetVoList");
 		final List<DrapDatasetVo> drapDatasetList = JSON.parseArray(drapDatasetPosStr, DrapDatasetVo.class);
+		drapDatasetMapper.deleteBatchIds(getIdList(drapDatasetList));
 		this.drapDatasetMapper.batchInsert(drapDatasetList);
 		//更新关系
 		service.insertTableRelation(drapDatasetList);
@@ -141,27 +146,33 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		if(dataObj.containsKey("datasetSystemMapList")){
 			final String datasetSystemMapPosStr = MapUtils.getString(dataObj, "datasetSystemMapList");
 			final List<DrapDatasetSystemMap> drapDatasetSystemMapList = JSON.parseArray(datasetSystemMapPosStr, DrapDatasetSystemMap.class);
+			drapDatasetSystemMapMapper.deleteBatchIds(getIdList(drapDatasetSystemMapList));
 			this.drapDatasetSystemMapMapper.batchInsert(drapDatasetSystemMapList);
 		}
 		if(dataObj.containsKey("activitySetMapList")){
 			final String activitySetMapPosStr = MapUtils.getString(dataObj, "activitySetMapList");
 			final List<DrapActivitySetMap> drapActivitySetMapList = JSON.parseArray(activitySetMapPosStr, DrapActivitySetMap.class);
+			drapActivitySetMapMapper.deleteBatchIds(getIdList(drapActivitySetMapList));
 			this.drapActivitySetMapMapper.batchInsert(drapActivitySetMapList);
 		}
 		if(dataObj.containsKey("datasetExtFormatList")){
 			final String drapDatasetExtFormatPosStr = MapUtils.getString(dataObj, "datasetExtFormatList");
 			final List<DrapDatasetExtFormat> drapDatasetExtFormatList = JSON.parseArray(drapDatasetExtFormatPosStr, DrapDatasetExtFormat.class);
+			drapDatasetExtFormatMapper.deleteBatchIds(getIdList(drapDatasetExtFormatList));
 			this.drapDatasetExtFormatMapper.batchInsert(drapDatasetExtFormatList);
 
 			final List<DirDatasetExtFormat> dirDatasetExtFormatList = JSON.parseArray(drapDatasetExtFormatPosStr, DirDatasetExtFormat.class);
+			dirDatasetExtFormatMapper.deleteBatchIds(getIdList(dirDatasetExtFormatList));
 			this.dirDatasetExtFormatMapper.batchInsert(dirDatasetExtFormatList);
 		}
 		if(dataObj.containsKey("datasetSurveyList")){
 			final String drapDatasetSurveyPosStr = MapUtils.getString(dataObj, "datasetSurveyList");
 			final List<DrapDatasetSurvey> drapDatasetSurveyList = JSON.parseArray(drapDatasetSurveyPosStr, DrapDatasetSurvey.class);
+			drapDatasetSurveyMapper.deleteBatchIds(getIdList(drapDatasetSurveyList));
 			this.drapDatasetSurveyMapper.batchInsert(drapDatasetSurveyList);
 
 			final List<DirDatasetSurvey> dirDatasetSurveyList = JSON.parseArray(drapDatasetSurveyPosStr, DirDatasetSurvey.class);
+			dirDatasetSurveyMapper.deleteBatchIds(getIdList(dirDatasetSurveyList));
 			this.dirDatasetSurveyMapper.batchInsert(dirDatasetSurveyList);
 		}
 
@@ -169,6 +180,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		if(dataObj.containsKey("datasetItemVoList")){
 			String drapDatasetItemPosStr = MapUtils.getString(dataObj, "datasetItemVoList");
 			drapDatasetItemList = JSON.parseArray(drapDatasetItemPosStr, DrapDatasetItem.class);
+			drapDatasetItemMapper.deleteBatchIds(getIdList(drapDatasetItemList));
 			this.drapDatasetItemMapper.batchInsert(drapDatasetItemList);
 		}
 
@@ -176,6 +188,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		if(dataObj.containsKey("datasetItemMapList")){
 			final String drapDatasetItemMapPosStr = MapUtils.getString(dataObj, "datasetItemMapList");
 			drapDatasetItemMapList = JSON.parseArray(drapDatasetItemMapPosStr, DrapDatasetItemMap.class);
+			drapDatasetItemMapMapper.deleteBatchIds(getIdList(drapDatasetItemMapList));
 			this.drapDatasetItemMapMapper.batchInsert(drapDatasetItemMapList);
 		}
 
@@ -208,6 +221,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 			dirDatasetSourceInfo.setSourceObjId(drapDatasetVo.getId());
 			dirDatasetSourceInfoList.add(dirDatasetSourceInfo);
 		}
+		dirDatasetMapper.deleteBatchIds(getIdList(dirDatasetList));
 		dirDatasetMapper.batchInsert(dirDatasetList);
 		dirDatasetSourceInfoMapper.batchInsert(dirDatasetSourceInfoList);
 
@@ -224,12 +238,81 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 			dirDataitemSourceInfoList.add(dirDataitemSourceInfo);
 		}
 		if(!dirDataitemList.isEmpty()) {
+			dirDataitemMapper.deleteBatchIds(getIdList(dirDataitemList));
 			dirDataitemMapper.batchInsert(dirDataitemList);
 		}
 		if(!dirDataitemSourceInfoList.isEmpty()) {
 			dirDataitemSourceInfoMapper.batchInsert(dirDataitemSourceInfoList);
 		}
 	}
+	
+	@Autowired
+	DrapDatasetTableRelationMapper drapDatasetTableRelationMapper;
+	@Override
+	public void deleteDataset(Map<String, Object> dataObj) throws Exception {
+		final String drapDatasetPosStr = MapUtils.getString(dataObj, "datasetVoList");
+		final List<DrapDatasetVo> drapDatasetList = JSON.parseArray(drapDatasetPosStr, DrapDatasetVo.class);
+		List<String> datasetIds = getIdList(drapDatasetList);
+		drapDatasetMapper.deleteBatchIds(datasetIds);
+		//删除关系
+		drapDatasetTableRelationMapper.deleteTableRelationBySetIds(datasetIds);;
+
+		if(dataObj.containsKey("datasetSystemMapList")){
+			final String datasetSystemMapPosStr = MapUtils.getString(dataObj, "datasetSystemMapList");
+			final List<DrapDatasetSystemMap> drapDatasetSystemMapList = JSON.parseArray(datasetSystemMapPosStr, DrapDatasetSystemMap.class);
+			drapDatasetSystemMapMapper.deleteBatchIds(getIdList(drapDatasetSystemMapList));
+		}
+		if(dataObj.containsKey("activitySetMapList")){
+			final String activitySetMapPosStr = MapUtils.getString(dataObj, "activitySetMapList");
+			final List<DrapActivitySetMap> drapActivitySetMapList = JSON.parseArray(activitySetMapPosStr, DrapActivitySetMap.class);
+			drapActivitySetMapMapper.deleteBatchIds(getIdList(drapActivitySetMapList));
+		}
+		if(dataObj.containsKey("datasetExtFormatList")){
+			final String drapDatasetExtFormatPosStr = MapUtils.getString(dataObj, "datasetExtFormatList");
+			final List<DrapDatasetExtFormat> drapDatasetExtFormatList = JSON.parseArray(drapDatasetExtFormatPosStr, DrapDatasetExtFormat.class);
+			drapDatasetExtFormatMapper.deleteBatchIds(getIdList(drapDatasetExtFormatList));
+		}
+		if(dataObj.containsKey("datasetSurveyList")){
+			final String drapDatasetSurveyPosStr = MapUtils.getString(dataObj, "datasetSurveyList");
+			final List<DrapDatasetSurvey> drapDatasetSurveyList = JSON.parseArray(drapDatasetSurveyPosStr, DrapDatasetSurvey.class);
+			drapDatasetSurveyMapper.deleteBatchIds(getIdList(drapDatasetSurveyList));
+		}
+
+		List<DrapDatasetItem> drapDatasetItemList = new ArrayList<>();
+		if(dataObj.containsKey("datasetItemVoList")){
+			String drapDatasetItemPosStr = MapUtils.getString(dataObj, "datasetItemVoList");
+			drapDatasetItemList = JSON.parseArray(drapDatasetItemPosStr, DrapDatasetItem.class);
+			drapDatasetItemMapper.deleteBatchIds(getIdList(drapDatasetItemList));
+		}
+
+		List<DrapDatasetItemMap> drapDatasetItemMapList = new ArrayList<>();
+		if(dataObj.containsKey("datasetItemMapList")){
+			final String drapDatasetItemMapPosStr = MapUtils.getString(dataObj, "datasetItemMapList");
+			drapDatasetItemMapList = JSON.parseArray(drapDatasetItemMapPosStr, DrapDatasetItemMap.class);
+			drapDatasetItemMapMapper.deleteBatchIds(getIdList(drapDatasetItemMapList));
+		}
+	}
+	
+	private List<String> getIdList(List<?> pos)throws Exception {
+		List<String> idList = Lists.newArrayList();
+		for(int i = 0 ; i < pos.size() ; i++){
+			Object po = pos.get(i);
+			idList.add(reflect("id", po));
+		}
+		return idList;
+	}
+	
+	/** 
+	 * 根据属性名获取属性值 
+	 * */ 
+	 private String reflect(String fieldName, Object o)throws Exception {  
+           String firstLetter = fieldName.substring(0, 1).toUpperCase();    
+           String getter = "get" + firstLetter + fieldName.substring(1);    
+           Method method = o.getClass().getMethod(getter, new Class[] {});    
+           Object value = method.invoke(o, new Object[] {});    
+           return value == null ? null : value.toString();
+	}  
+	 
 	
 	private DirDataset getDirDataset(DrapDatasetVo drapDatasetVo, String dataSetSourceType){
 		final DirDataset dirDataset = new DirDataset();
@@ -309,4 +392,5 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		}
 		return null;
 	}
+
 }

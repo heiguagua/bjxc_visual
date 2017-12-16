@@ -16,5 +16,7 @@ import java.util.Map;
  */
 public interface IDrapDatasetService extends ICommonService<DrapDataset, DrapDatasetVo> {
 
-    void insertDataset(Map<String, Object> dataObj);
+    void insertDataset(Map<String, Object> dataObj) throws Exception ;
+
+	void deleteDataset(Map<String, Object> dataObj) throws Exception ;
 }

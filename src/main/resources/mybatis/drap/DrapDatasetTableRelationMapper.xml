@@ -131,4 +131,12 @@
 		delete from
 		drap_dataset_table_relation where dataset_id=#{datasetId};
 	</delete>
+	
+	<delete id="deleteTableRelationBySetIds" parameterType="java.util.List">
+		delete from
+		drap_dataset_table_relation where dataset_id in
+		<foreach collection="list" item="item" separator="," open="(" close=")">
+			#{item}
+		</foreach>;
+	</delete>
 </mapper>

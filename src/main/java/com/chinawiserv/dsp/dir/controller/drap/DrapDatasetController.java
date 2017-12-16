@@ -170,4 +170,27 @@ public class DrapDatasetController extends BaseController {
             return "500";
         }
     }
+    
+    /**
+     * 删除drap的业务数据
+     */
+    @RequestMapping("/api/deleteDataset")
+    @ResponseBody
+    public Object deleteDataset(@RequestParam Map<String,Object> paramMap){
+        try {
+            if(paramMap !=null && !paramMap.isEmpty()){
+                String data = MapUtils.getString(paramMap, "data");
+                Map<String, Object> dataObj = (Map<String, Object>) JSONObject.parse(data);
+                service.deleteDataset(dataObj);
+                return "200";
+            }else{
+                return "500";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("接收梳理的信息资源数据失败", e);
+            return "500";
+        }
+    }
+    
 }
