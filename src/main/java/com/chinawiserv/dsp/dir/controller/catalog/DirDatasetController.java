@@ -256,7 +256,7 @@ public class DirDatasetController extends BaseController {
     /**
      * 分页查询信息资源列表（未发布）
      */
-    @RequiresPermissions("catalog:release:list")
+    @RequiresPermissions("catalog:release:unReleaseList")
     @RequestMapping("/unRelease/list")
     @ResponseBody
     public PageResult unReleaseList(@RequestParam Map<String , Object> paramMap){
@@ -275,7 +275,7 @@ public class DirDatasetController extends BaseController {
     /**
      * 分页查询信息资源列表（已发布）
      */
-    @RequiresPermissions("catalog:release:list")
+    @RequiresPermissions("catalog:release:releasedList")
     @RequestMapping("/released/list")
     @ResponseBody
     public PageResult releasedList(@RequestParam Map<String , Object> paramMap){

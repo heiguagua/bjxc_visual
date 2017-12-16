@@ -70,18 +70,6 @@ public class SysUserRealm extends AuthorizingRealm {
 		return info;
 	}
 
-    @Override
-    protected boolean isPermitted(Permission permission, AuthorizationInfo info) {
-        Collection<Permission> perms = getPermissions(info);
-        if (perms != null && !perms.isEmpty()) {
-            for (Permission perm : perms) {
-                if (perm.equals(permission)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
 	/**
 	 * 认证(登录时调用)
