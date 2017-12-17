@@ -1850,6 +1850,8 @@ function initGlobalCustom(tempUrlPrefix) {
             if(!param || typeof param != 'object') param = {};
             if(!selects || !$.isArray(selects)) selects = [];
             var selectIds = [];
+            if(!chkDisabledSelectIds || !$.isArray(chkDisabledSelectIds)) chkDisabledSelectIds = [];
+            if(!all || !$.isArray(all)) all = [];
             if(selects.length > 0){
                 for(var i in selects){
                     var select = selects[i];
@@ -1893,6 +1895,9 @@ function initGlobalCustom(tempUrlPrefix) {
                             }
                             var chkDisabled=false;
                             if(chkDisabledSelectIds.indexOf(nodeObjs[i].id) >= 0){
+                                chkDisabled=true;
+                            }
+                            if(parentNode&&parentNode.chkDisabled){
                                 chkDisabled=true;
                             }
                             params[i] = {
@@ -2520,6 +2525,7 @@ function initGlobalCustom(tempUrlPrefix) {
             if(!selects || !$.isArray(selects)) selects = [];
             if(!canSelectIds || !$.isArray(canSelectIds)) canSelectIds = [];
             if(!canNotSelectIds || !$.isArray(canNotSelectIds)) canNotSelectIds = [];
+            if(!chkDisabledSelectIds || !$.isArray(chkDisabledSelectIds)) chkDisabledSelectIds = [];
             if(!all || !$.isArray(all)) all = [];
             var selectIds = [];
             if(selects.length > 0){
@@ -2589,6 +2595,9 @@ function initGlobalCustom(tempUrlPrefix) {
                             }
                             var chkDisabled=false;
                             if(chkDisabledSelectIds.indexOf(nodeObjs[i].id) >= 0){
+                                chkDisabled=true;
+                            }
+                            if(parentNode&&parentNode.chkDisabled){
                                 chkDisabled=true;
                             }
                             params[i] = {
