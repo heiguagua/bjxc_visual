@@ -7,6 +7,7 @@ jQuery(document).ready(function () {
     initUserTypeList();
     initRoleNameList();
     initFormerDate(userId);
+    $.initUserRegionTreeSelect('treeRegionDemo','regionName','regionCode', 'menuRegionContent'); //初始化区域机构下拉框
 });
 
 function initUserTypeList(){

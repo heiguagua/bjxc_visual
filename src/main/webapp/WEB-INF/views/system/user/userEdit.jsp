@@ -40,6 +40,12 @@
                                 <%--<input type="text" class="form-control"  id="regionCode"  readonly>--%>
                                     <input type="text" id="regionName" data-rule="所属区域:required;regionCode;" class="form-control" readonly style="background-color:#fff">
                                     <input type="hidden" id="regionCode" name="regionCode">
+                                    <div class="menu-wrap">
+                                        <div id="menuRegionContent" class="menuContent" style="display:none;">
+                                            <ul id="treeRegionDemo" class="ztree"
+                                                style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 								</div>
