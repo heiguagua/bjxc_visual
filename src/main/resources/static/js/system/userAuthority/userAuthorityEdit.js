@@ -10,6 +10,7 @@ function initSelectData() {
     var authType = $("#authType").val();
     var selects = [];
     var all=[];
+    var disabledSelectIds=[];
     $.get(basePathJS + "/system/userAuthority/editLoad?id=" + authObjId + "&authType=" + authType,function(data){
         var dd = data.content.selected;
         all = data.content.selected2;
@@ -22,10 +23,13 @@ function initSelectData() {
                 // if(authType === "dept"){
                     selects.push({id: obj.deptId, fid: obj.fid, name: obj.deptName});
                 // }
+                if(obj.authObjType==='1'){
+                    disabledSelectIds.push(obj.deptId);
+                }
             }
         }
         // if(authType === 'dept'){
-            $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, {withoutUserDept: authObjId, withoutAuthDept: "1"}, selects,'','',all); //初始化组织机构下拉框
+            $.initDeptTreeSelect('treeDemo','','deptIds', 'menuContent', true, {withoutUserDept: authObjId, withoutAuthDept: "1"}, selects,'','',all,disabledSelectIds); //初始化组织机构下拉框
         // }else if(authType === 'dir'){
         //     $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects);
         // }

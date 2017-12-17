@@ -1845,7 +1845,7 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param param             异步加载url参数
          * @param selects           初始化选中值
          */
-        initClassifyTreeSelect2: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects,all,type,authObjId) {
+        initClassifyTreeSelect2: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects,all,type,authObjId,chkDisabledSelectIds) {
             var chkStyle = multiple ? "checkbox" : "radio";
             if(!param || typeof param != 'object') param = {};
             if(!selects || !$.isArray(selects)) selects = [];
@@ -1891,6 +1891,10 @@ function initGlobalCustom(tempUrlPrefix) {
 
 
                             }
+                            var chkDisabled=false;
+                            if(chkDisabledSelectIds.indexOf(nodeObjs[i].id) >= 0){
+                                chkDisabled=true;
+                            }
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].classifyName,
@@ -1898,6 +1902,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'pid': nodeObjs[i].fid,
                                 'checked': checked,
                                 'halfCheck':halfCheck,
+                                'chkDisabled':chkDisabled,
                                 'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
                             }
                         }
@@ -2509,7 +2514,7 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param canOrNotSelectIds 指定节点可选择
          * @param canNotSelectIds   指定节点不可选择
          */
-        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects, canSelectIds, canNotSelectIds,all) {
+        initDeptTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId, multiple, param, selects, canSelectIds, canNotSelectIds,all,chkDisabledSelectIds) {
             var chkStyle = multiple ? "checkbox" : "radio";
             if(!param || typeof param != 'object') param = {};
             if(!selects || !$.isArray(selects)) selects = [];
@@ -2582,6 +2587,10 @@ function initGlobalCustom(tempUrlPrefix) {
 
 
                             }
+                            var chkDisabled=false;
+                            if(chkDisabledSelectIds.indexOf(nodeObjs[i].id) >= 0){
+                                chkDisabled=true;
+                            }
                             params[i] = {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].deptName,
@@ -2589,6 +2598,7 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'checked': checked,
                                 'isParent': (nodeObjs[i].isLeaf ? false : true),
                                 'halfCheck':halfCheck,
+                                'chkDisabled':chkDisabled,
                                 'nocheck': nocheck
                             }
                         }
