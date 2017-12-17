@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * <p>
@@ -138,7 +139,12 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 	public void insertDataset(Map<String, Object> dataObj) throws Exception {
 		final String drapDatasetPosStr = MapUtils.getString(dataObj, "datasetVoList");
 		final List<DrapDatasetVo> drapDatasetList = JSON.parseArray(drapDatasetPosStr, DrapDatasetVo.class);
-		drapDatasetMapper.deleteBatchIds(getIdList(drapDatasetList));
+		List<String> datasetIds = getIdList(drapDatasetList);
+		//查询更新的数据集id
+		Set<String> updateDatasetIdArray = drapDatasetMapper.selectIdsBydDatasetIds(datasetIds);
+		//查询更新的数据集下的数据项id
+		Set<String> updateItemIdArray = drapDatasetItemMapMapper.selectItemIdsByDatasetIds(datasetIds);
+		drapDatasetMapper.deleteBatchIds(datasetIds);
 		this.drapDatasetMapper.batchInsert(drapDatasetList);
 		//更新关系
 		service.insertTableRelation(drapDatasetList);
@@ -162,8 +168,15 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 			this.drapDatasetExtFormatMapper.batchInsert(drapDatasetExtFormatList);
 
 			final List<DirDatasetExtFormat> dirDatasetExtFormatList = JSON.parseArray(drapDatasetExtFormatPosStr, DirDatasetExtFormat.class);
-			dirDatasetExtFormatMapper.deleteBatchIds(getIdList(dirDatasetExtFormatList));
-			this.dirDatasetExtFormatMapper.batchInsert(dirDatasetExtFormatList);
+			List<DirDatasetExtFormat> dirDatasetExtFormatArray = Lists.newArrayList();
+			for( int i=0 ,size = dirDatasetExtFormatList.size() ; i<size; i++){
+				DirDatasetExtFormat dirDatasetExtFormat = dirDatasetExtFormatList.get(i);
+				if(updateDatasetIdArray != null && !updateDatasetIdArray.contains(dirDatasetExtFormat.getDatasetId())){
+					dirDatasetExtFormatArray.add(dirDatasetExtFormat);
+				}
+			}
+			if(dirDatasetExtFormatArray.size() > 0)
+			this.dirDatasetExtFormatMapper.batchInsert(dirDatasetExtFormatArray);
 		}
 		if(dataObj.containsKey("datasetSurveyList")){
 			final String drapDatasetSurveyPosStr = MapUtils.getString(dataObj, "datasetSurveyList");
@@ -172,8 +185,15 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 			this.drapDatasetSurveyMapper.batchInsert(drapDatasetSurveyList);
 
 			final List<DirDatasetSurvey> dirDatasetSurveyList = JSON.parseArray(drapDatasetSurveyPosStr, DirDatasetSurvey.class);
-			dirDatasetSurveyMapper.deleteBatchIds(getIdList(dirDatasetSurveyList));
-			this.dirDatasetSurveyMapper.batchInsert(dirDatasetSurveyList);
+			List<DirDatasetSurvey> dirDatasetSurveyArray = Lists.newArrayList();
+			for(int i=0 ,size = dirDatasetSurveyList.size() ; i<size; i++){
+				DirDatasetSurvey dirDatasetSurvey = dirDatasetSurveyList.get(i);
+				if(updateDatasetIdArray != null && !updateDatasetIdArray.contains(dirDatasetSurvey.getDatasetId())){
+					dirDatasetSurveyArray.add(dirDatasetSurvey);
+				}
+			}
+			if(dirDatasetSurveyArray.size() > 0)
+			this.dirDatasetSurveyMapper.batchInsert(dirDatasetSurveyArray);
 		}
 
 		List<DrapDatasetItem> drapDatasetItemList = new ArrayList<>();
@@ -196,6 +216,10 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		final List<DirDatasetSourceInfo> dirDatasetSourceInfoList = new ArrayList<>();
 		final String dataSetSourceType = sysDictMapper.selectDictcodeByCategoryAndName("资源梳理添加", "dataSetSourceType");
 		for (DrapDatasetVo drapDatasetVo :drapDatasetList){
+			final String datasetId = drapDatasetVo.getId();
+			if(updateDatasetIdArray != null && updateDatasetIdArray.contains(datasetId)){
+				continue;
+			}
 			String classifyId = dirClassifyDeptMapMapper.selectByDeptId(drapDatasetVo.getBelongDeptId());
 			if(classifyId == null || "".equals(classifyId)){
 				classifyId = dirClassifyDeptMapMapper.selectByDeptFId(drapDatasetVo.getBelongDeptId());
@@ -204,7 +228,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 				final DirClassify dirClassify = dirClassifyMapper.selectFclassify(classifyId);
 				DirDatasetClassifyMap dirDatasetClassifyMap = new DirDatasetClassifyMap();
 				dirDatasetClassifyMap.setId(CommonUtil.get32UUID());
-				dirDatasetClassifyMap.setDatasetId(drapDatasetVo.getId());
+				dirDatasetClassifyMap.setDatasetId(datasetId);
 				dirDatasetClassifyMap.setClassifyId(classifyId);
 				dirDatasetClassifyMap.setInfoResourceCode(dirClassify.getClassifyCode() + "/" + (dirClassify.getDcmIndex() + 1));
 				dirDatasetClassifyMap.setStatus(Dataset.DatasetStatus.UnRegister.getKey());
@@ -221,13 +245,19 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 			dirDatasetSourceInfo.setSourceObjId(drapDatasetVo.getId());
 			dirDatasetSourceInfoList.add(dirDatasetSourceInfo);
 		}
-		dirDatasetMapper.deleteBatchIds(getIdList(dirDatasetList));
+		if(dirDatasetList.size() > 0)
 		dirDatasetMapper.batchInsert(dirDatasetList);
+		if(dirDatasetSourceInfoList.size() > 0)
 		dirDatasetSourceInfoMapper.batchInsert(dirDatasetSourceInfoList);
 
 		final List<DirDataitem> dirDataitemList = new ArrayList<>();
 		final List<DirDataitemSourceInfo> dirDataitemSourceInfoList = new ArrayList<>();
+		
 		for (DrapDatasetItem drapDatasetItem : drapDatasetItemList){
+			final String itemId = drapDatasetItem.getId();
+			if(updateItemIdArray != null && updateItemIdArray.contains(itemId)){
+				continue;
+			}
 			final DirDataitem dirDataitem = getDirDataitem(drapDatasetItem,drapDatasetItemMapList);
 			dirDataitemList.add(dirDataitem);
 			final DirDataitemSourceInfo dirDataitemSourceInfo = new DirDataitemSourceInfo();
@@ -238,7 +268,6 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 			dirDataitemSourceInfoList.add(dirDataitemSourceInfo);
 		}
 		if(!dirDataitemList.isEmpty()) {
-			dirDataitemMapper.deleteBatchIds(getIdList(dirDataitemList));
 			dirDataitemMapper.batchInsert(dirDataitemList);
 		}
 		if(!dirDataitemSourceInfoList.isEmpty()) {
@@ -355,9 +384,10 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 	}
 
 	private DirDataitem getDirDataitem(DrapDatasetItem drapDatasetItem,List<DrapDatasetItemMap> drapDatasetItemMapList){
+		final String datasetId = getDatasetIdFromItemMap(drapDatasetItemMapList, drapDatasetItem.getId());
 		final DirDataitem dirDataitem = new DirDataitem();
 		dirDataitem.setId(drapDatasetItem.getId());
-		dirDataitem.setDatasetId(getDatasetIdFromItemMap(drapDatasetItemMapList, drapDatasetItem.getId()));
+		dirDataitem.setDatasetId(datasetId);
 		dirDataitem.setItemCode(drapDatasetItem.getItemCode());
 		dirDataitem.setItemName(drapDatasetItem.getItemName());
 		dirDataitem.setItemType(drapDatasetItem.getItemType());

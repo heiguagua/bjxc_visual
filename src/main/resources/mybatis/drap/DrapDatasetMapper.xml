@@ -233,6 +233,12 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </where>
     </sql>
 
+	<select id="selectIdsBydDatasetIds" parameterType="java.util.List" resultType="java.lang.String">
+		SELECT id FROM `drap_dataset` WHERE id IN
+		  <foreach collection="list" item="item" separator="," open="(" close=")">
+			#{item}
+	      </foreach>
+	</select>
 
 
 </mapper>
