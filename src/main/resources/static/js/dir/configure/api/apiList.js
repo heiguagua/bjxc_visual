@@ -61,6 +61,16 @@ jQuery(document).ready(function () {
 		    	  onClick: function (e, treeId, treeNode) { //点击节点，刷新表格
                       $('#Id').val(treeNode.id);
                       $('#fid').val(treeNode.parentId);
+                      if(treeNode.level==0){
+                    	  
+                    	  $("#addSon").removeClass('hidden');
+                    	                      	  
+                      }else{
+                    	  
+                    	  $("#addSon").addClass('hidden');
+                      }
+                      
+                      
 //                      if(classifyTypeInputDomId){
 //                          $('#'+classifyTypeInputDomId).val(treeNode.classifyType);
 //                      }
