@@ -15,6 +15,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbSystemMap;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableColumn;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDictTableColumn;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDictTableInfo;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbInfoVo;
@@ -255,5 +257,30 @@ public class DrapDbInfoServiceImpl extends
 		 }
 
 	}
+
+    @Override
+    public void deleteDb(String id) {
+        List<String>ids=new ArrayList<>();
+        List<DrapDictTableInfo> oldDictTableInfos=dictTableInfoMapper.selectList(new EntityWrapper<DrapDictTableInfo>().eq("db_id",  id));
+        for (DrapDictTableInfo drapDictTableInfo : oldDictTableInfos) {
+            ids.add(drapDictTableInfo.getId());
+       }
+      dictTableColumnMapper.delete(new EntityWrapper<DrapDictTableColumn>().in("table_id", ids));
+      dictTableInfoMapper.delete(new EntityWrapper<DrapDictTableInfo>().eq("db_id",id) );
+      
+      ids.clear();
+      List<DrapDbTableInfo> tableInfos=dbTableInfoMapper.selectList(new EntityWrapper<DrapDbTableInfo>().eq("db_id",  id));
+      for (DrapDbTableInfo drapDbTableInfo : tableInfos) {
+          ids.add(drapDbTableInfo.getId());
+      }
+     dbTableColumnMapper.delete(new EntityWrapper<DrapDbTableColumn>().in("table_id", ids)) ;
+     dbTableInfoMapper.delete(new EntityWrapper<DrapDbTableInfo>().eq("db_id",id) );
+     
+     systemMapper.delete(new EntityWrapper<DrapDbSystemMap>().eq("db_id", id));
+     
+     mapper.deleteById(id);
+     
+     
+    }
 
 }

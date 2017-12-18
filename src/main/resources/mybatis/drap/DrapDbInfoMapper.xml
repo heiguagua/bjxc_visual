@@ -47,6 +47,9 @@
 		<result column="update_user" property="updateUser" />
 		<result column="update_time" property="updateTime" />
 		<result column="delete_flag" property="deleteFlag" />
+		<result column="auditor" property="auditor" />
+		<result column="audit_time" property="auditTime" />
+		<result column="audit_opinion" property="auditOpinion" />
 	</resultMap>
 
 	<resultMap id="BaseResultVoMap" extends="BaseResultMap"

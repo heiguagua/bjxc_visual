@@ -182,4 +182,22 @@ public class DrapDbInfoController extends BaseController {
         return handleResult;
     }
 
+    
+    //@RequiresPermissions("XXX:XXX:edit")
+    @Log("删除数据库")
+    @RequestMapping("/deleteDb")
+    @ResponseBody
+    public HandleResult deleteDb(String id) {
+        HandleResult handleResult = new HandleResult();
+        try {
+            service.deleteDb(id);
+            handleResult.success("删除数据库成功");
+        } catch (Exception e) {
+            handleResult.error("删除数据库失败");
+            logger.error("删除数据库失败", e);
+            
+        }
+        return handleResult;
+    }
+    
 }
