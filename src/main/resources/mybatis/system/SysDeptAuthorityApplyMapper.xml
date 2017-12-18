@@ -62,7 +62,7 @@
                 AND t.audit_status != '0'
             </if>
             <if test="deptTreeCodeCondition != null">
-                AND d.tree_code like '${deptTreeCodeCondition}%'
+                AND (d.tree_code=#{deptTreeCodeCondition} or d.tree_code like concat(#{deptTreeCodeCondition},';%'))
             </if>
             <if test="regionCodeCondition != null">
                 AND d.region_code like '${regionCodeCondition}%'

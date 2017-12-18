@@ -230,11 +230,11 @@
 				                		 <label  class="col-sm-3 control-label">是否开放:</label>
 				                    <div class="col-sm-9" style="padding-top: 4px;">
 				                    		<div class="redio-box">
-												<input type="radio" name="isOpen"  value="1"><span></span>
+												<input type="radio" name="isOpen"  value="0"><span></span>
 				                        		</div>
 				                        	 <label style="display:inline-block">否</label>
 				                     		<div class="redio-box" style="margin-left: 12px">
-												<input type="radio" name="isOpen"  value="0" checked><span></span>
+												<input type="radio" name="isOpen"  value="1" checked><span></span>
 											</div>
 				                        	 <label style="display:inline-block">是</label>
 				                    </div>

@@ -2,8 +2,10 @@ package com.chinawiserv.dsp.dir.entity.po.drap;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -261,6 +263,48 @@ public class DrapBusinessActivity implements Serializable {
 	@TableField("tree_code")
 	private String treeCode;
 
+	 /**
+     * 审核人
+     */
+	@TableField("audito")
+	private String audito;
+	
+	 /**
+     * 审核时间
+     */
+	@TableField("audit_time")
+	private Date auditTime;
+	
+	 /**
+     * 审核意见
+     */
+	@TableField("audit_opinion")
+	private String auditOpinion;
+
+
+	public String getAudito() {
+		return audito;
+	}
+
+	public void setAudito(String audito) {
+		this.audito = audito;
+	}
+
+	public Date getAuditTime() {
+		return auditTime;
+	}
+
+	public void setAuditTime(Date auditTime) {
+		this.auditTime = auditTime;
+	}
+
+	public String getAuditOpinion() {
+		return auditOpinion;
+	}
+
+	public void setAuditOpinion(String auditOpinion) {
+		this.auditOpinion = auditOpinion;
+	}
 
 	public String getId() {
 		return id;

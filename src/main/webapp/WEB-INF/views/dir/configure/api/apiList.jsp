@@ -74,8 +74,8 @@
                                            <!-- <span class="caret"></span> -->
                                         </button>
                                          <ul class="dropdown-menu" role="menu" style="left:-21px;text-align:center;">
-                                                    <li><a onclick="addSibling()" href="###">添加同级</a></li>
-                                                    <li><a onclick="addSon()" href="###">添加下级</a></li>
+                                                    <li id="addSibling"><a onclick="addSibling()" href="###">添加同级</a></li>
+                                                    <li id="addSon"><a onclick="addSon()" href="###">添加下级</a></li>
                                          </ul>
                                     </div>
                                     <div class="pull-right">

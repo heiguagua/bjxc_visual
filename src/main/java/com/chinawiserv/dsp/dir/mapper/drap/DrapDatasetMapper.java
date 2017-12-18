@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetVo;
+
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -31,4 +33,6 @@ public interface DrapDatasetMapper extends BaseMapper<DrapDataset> {
     int baseDelete(String id);
 
     void batchInsert(List<DrapDatasetVo> drapDatasetList);
+
+	Set<String> selectIdsBydDatasetIds(List<String> datasetIds);
 }

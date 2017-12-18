@@ -9,6 +9,7 @@ function initSelectData() {
     var authObjId = $("#authObjId").val();
     var selects = [];
     var all=[];
+    var disabledSelectIds=[];
     $.get(basePathJS + "/system/userDirAuthority/editLoad?id=" + authObjId ,function(data){
         var dd = data.content.selected;
         all = data.content.selected2;
@@ -16,9 +17,12 @@ function initSelectData() {
             for(var i= 0;i < dd.length;i++){
                 var obj = dd[i];
                 selects.push({id: obj.classifyId, fid: obj.fid, name: obj.classifyName});
+                if(obj.authObjType==='1'){
+                    disabledSelectIds.push(obj.classifyId);
+                }
             }
         }
-        $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects,all,"user",authObjId);
+        $.initClassifyTreeSelect2('treeDemo','','classifyIds', 'menuContent', true, null, selects,all,"user",authObjId,disabledSelectIds);
     });
 }
 

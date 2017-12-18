@@ -33,7 +33,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('010602','0106','操作系统设置','','',1,3,'010602','system:setting:edit',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0107','01','业务日志','/system/log','fa-info-circle',11,2,'0107','system:log',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('010701','0107','查看日志列表','','',0,3,'010701','system:log:list',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0116','01','系统集成管理','/system/productIntegrate','fa fa-cogs',15,2,'0116','system:productIntegrate:list',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0116','01','系统集成管理','/system/productIntegrate','fa fa-cogs',15,2,'0116','system:productIntegrate',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0117','01','License管理','/lic/licPage','',2,2,'0117','lic:licPage',1);
 
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('09','0','用户管理','','fa-cogs',5,1,'09','system',1);
@@ -50,7 +50,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('090204','0902','角色授权','','',4,3,'090204','system:role:auth',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('090205','0902','删除角色','','',3,3,'090205','system:role:delete',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('090206','0902','批量删除角色','','',5,3,'090206','system:role:deleteBatch',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0910','09','用户数据权限管理','/system/userAuthority','fa-cogs',6,2,'0910','system:userAuthority:list',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0910','09','用户数据权限管理','/system/userAuthority','fa-cogs',6,2,'0910','system:userAuthority',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('091001','0910','编辑用户数据权限','','',2,3,'091001','system:userAuthority:edit',1);
 
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('10','0','部门管理','','fa-cogs',5,1,'10','system',1);
@@ -61,22 +61,22 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('100304','1003','查看组织机构列表','','',0,3,'100304','system:dept:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('100305','1003','删除组织机构','','',3,3,'100305','system:dept:delete',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('100306','1003','批量删除组织机构','','',5,3,'100306','system:dept:deleteBatch',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1009','10','部门数据权限管理','/system/deptAuthority','fa fa-cogs',5,2,'1009','system:deptAuthority:list',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1009','10','部门数据权限管理','/system/deptAuthority','fa fa-cogs',5,2,'1009','system:deptAuthority',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('100901','1009','编辑组织机构数据权限','','',2,3,'100901','system:deptAuthority:edit',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1011','10','部门数据权限申请','/system/deptAuthorityApply','fa-cogs',7,2,'1011','apply:dirDataitemApply:list',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1011','10','部门数据权限申请','/system/deptAuthorityApply','fa-cogs',7,2,'1011','apply:dirDataitemApply',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('101101','1011','组织机构数据权限申请列表','','',2,3,'101101','system:deptAuthorityApply:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('101102','1011','申请组织机构数据权限','','',2,3,'101102','system:deptAuthorityApply:add',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1012','10','部门数据权限审核','/system/deptAuthorityAudit','fa-cogs',8,2,'1012','system:deptAuthorityAudit:list',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1012','10','部门数据权限审核','/system/deptAuthorityAudit','fa-cogs',8,2,'1012','system:deptAuthorityAudit',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('101201','1012','组织机构数据权限审核列表','','',2,3,'101201','system:deptAuthorityAudit:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('101202','1012','审核组织机构数据权限','','',2,3,'101202','system:deptAuthorityAudit:edit',1);
 
 -- 以下两组为系统管理中目录系统独有的菜单
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0915','09','用户目录数据权限管理','/system/userDirAuthority','fa-cogs',14,2,'0915','system:userDirAuthority:list',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0915','09','用户目录数据权限管理','/system/userDirAuthority','fa-cogs',14,2,'0915','system:userDirAuthority',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('091501','0915','编辑用户目录数据权限','','',2,3,'011501','system:userDirAuthority:edit',1);
 
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1013','10','部门目录同步管理','/system/deptSyn','fa-cogs',12,2,'1013','system:deptSyn:list',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1013','10','部门目录同步管理','/system/deptSyn','fa-cogs',12,2,'1013','system:deptSyn',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('101301','1013','同步目录','','',0,3,'101301','system:deptSyn:list',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1014','10','组织机构目录数据权限管理','/system/deptDirAuthority','fa fa-cogs',13,2,'1014','system:deptDirAuthority:list',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1014','10','组织机构目录权限管理','/system/deptDirAuthority','fa fa-cogs',13,2,'1014','system:deptDirAuthority',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('101401','1014','编辑组织机构目录数据权限','','',2,3,'101401','system:deptDirAuthority:edit',1);
 
 -- 以下为目录系统特有的菜单
@@ -107,11 +107,11 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0504','05','目录查询','/catalog/query','fa-cog',6,2,'0504','catalog:query',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('050401','0504','查看目录列表','','',1,3,'050401','catalog:query:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('06','0','门户数据管理','','fa-cogs',6,1,'06','system',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0601','06','用户注册管理','/dirRegistUser','fa-cogs',4,2,'0601','apply:registUser:list',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0601','06','用户注册管理','/dirRegistUser','fa-cogs',4,2,'0601','apply:registUser',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060101','0601','用户注册列表','','',2,3,'060101','apply:registUser:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060102','0601','编辑用户注册','','',2,3,'060102','apply:registUser:edit',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060103','0601','删除用户注册','','',2,3,'060103','apply:registUser:delete',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0602','06','共享数据审核管理','/dirDataApply','fa-cogs',5,2,'0602','apply:dirDataApply:list',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0602','06','共享数据审核管理','/dirDataApply','fa-cogs',5,2,'0602','apply:dirDataApply',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060201','0602','共享数据审核列表','','',2,3,'060201','apply:dirDataApply:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060202','0602','审核共享数据','','',2,3,'060202','apply:dirDataApply:edit',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0603','06','收藏管理','/feedback/dirdatacollection','fa-cog',0,2,'0603','system',1);

@@ -37,7 +37,15 @@
 									<div class="form-group">
                                 <label class="control-label col-sm-4 col-xs-4">所属行政区域</label>
                                 <div class="col-sm-7 col-xs-7">
-                                <input type="text" class="form-control"  id="regionCode"  readonly>
+                                <%--<input type="text" class="form-control"  id="regionCode"  readonly>--%>
+                                    <input type="text" id="regionName" data-rule="所属区域:required;regionCode;" class="form-control" readonly style="background-color:#fff">
+                                    <input type="hidden" id="regionCode" name="regionCode">
+                                    <div class="menu-wrap">
+                                        <div id="menuRegionContent" class="menuContent" style="display:none;">
+                                            <ul id="treeRegionDemo" class="ztree"
+                                                style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 								</div>
@@ -47,7 +55,15 @@
 									<div class="form-group">
                                 <label class="control-label col-sm-4 col-xs-4">所属组织机构</label>
                                 <div class="col-sm-7 col-xs-7">
-                                <input type="text" class="form-control"  id="deptName"  readonly>
+                                <%--<input type="text" class="form-control"  id="deptName"  >--%>
+                                    <input type="text" id="deptName" data-rule="所属组织机构;deptId;" class="form-control" readonly style="background-color:#fff">
+                                    <input type="hidden" id="deptId" name="deptId">
+                                    <div class="menu-wrap">
+                                        <div id="menuContent" class="menuContent" style="display:none;">
+                                            <ul id="treeDemo" class="ztree"
+                                                style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 								</div>
