@@ -141,10 +141,23 @@ public class LoginController extends BaseController {
     public HandleResult doLogin(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model, RedirectAttributes redirectAttributes) {
 
         HandleResult handleResult = new HandleResult();
+        String return_url = MapUtils.getString(paramMap, "return_url");
+        String index = "/index";
+        if (StringUtils.isBlank(return_url)) {
+            return_url = index;
+        }
+        if(ShiroUtils.isLogin()){ // already login
+//            handleResult.put("return_url", return_url);
+            handleResult.error("该系统在这个浏览器已有账号登录,请退出后再登录");
+            return handleResult;
+        }
+
+
+
         String userName = MapUtils.getString(paramMap, "userName");
         String password = MapUtils.getString(paramMap, "password");
         String captcha = MapUtils.getString(paramMap, "captcha");
-        String return_url = MapUtils.getString(paramMap, "return_url");
+
 
         if(identifyCodeOpen){
 
@@ -160,10 +173,8 @@ public class LoginController extends BaseController {
         }
 
 
-        String index = "/index";
-        if (StringUtils.isBlank(return_url)) {
-            return_url = index;
-        }
+
+
         model.addAttribute("return_url", StringUtils.isNotBlank(return_url) ? return_url : index);//登录失败再次登录时跳转到index修复
         model.addAttribute("userName", userName);
         redirectAttributes.addFlashAttribute("return_url", StringUtils.isNotBlank(return_url) ? return_url : index);//重定向参数。
