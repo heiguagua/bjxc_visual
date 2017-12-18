@@ -1557,10 +1557,13 @@ function initGlobalCustom(tempUrlPrefix) {
 //                                }
 //                            }
 //                        });
+                    	if(treeNode.level!=0){
                     	 $('#' + nameInputDomId).val(treeNode.name);
                     	 $('#' + codeInputDomId).val(treeNode.parentCode);
+                    	}
                     }
                 }
+                
 //                callback: {
 //                    beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
 //                        var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
@@ -1595,6 +1598,7 @@ function initGlobalCustom(tempUrlPrefix) {
 //                    }
 //                }
             };
+            
             $.fn.zTree.init($("#" + treeDomId), setting);
             $('#' + nameInputDomId).click(function () {
                 var cityOffset = $("#" + nameInputDomId).offset();

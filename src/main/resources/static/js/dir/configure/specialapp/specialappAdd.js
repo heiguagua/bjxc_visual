@@ -6,6 +6,7 @@ jQuery(document).ready(function () {
 	
     initSelectData();
     initAllSelect();
+//    DynamicUpdateNodeCheck();
 });
 
 
