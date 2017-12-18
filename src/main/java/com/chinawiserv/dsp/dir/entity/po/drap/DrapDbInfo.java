@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @since 2017-09-27
  */
 @TableName("drap_db_info")
-public class DrapDbInfo implements Serializable {
+public class DrapDbInfo implements Serializable { 
 
     private static final long serialVersionUID = 1L;
 
