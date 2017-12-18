@@ -28,21 +28,27 @@ jQuery(document).ready(function () {
     jQuery('#queryBtnId').click(function () {
         // setParams();
         // reloadTable();
-        initDept();
+        var pid = "";
+        if(ids.length>0){
+            pid= ids[ids.length-1];
+        }
+        initDept(pid,"subQuery");
     });
 
 
 
 });
 
-function setParams(pid) {
+function setParams(pid,subQueryFlag) {
 
     // paramsObj= {searchKey: searchKeyVal};
 
     if(pid){
         //查看下级时，清空searchKeyId
-        $('#searchKeyId').val("");
-        $('#regionNameId').val("");
+        if(subQueryFlag!="subQuery"){
+            $('#searchKeyId').val("");
+            $('#regionNameId').val("");
+        }
         paramsObj.fid=pid;
     }else{
         paramsObj.fid=undefined;
@@ -76,11 +82,11 @@ function backPreDeptList() {
     initDept(pid);
 }
 
-function initDept(pid) {
+function initDept(pid,subQueryFlag) {
 
     $("#tableList").html('<table id="systemDeptTableId" class="table table-hover"></table>');
     showOrHideButton(pid);
-    setParams(pid);
+    setParams(pid,subQueryFlag);
     jQuery(tableSelector).customTable({
         url: basePathJS + '/system/dept/list',
         queryParams: function (params) {
