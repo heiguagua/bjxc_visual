@@ -4,8 +4,16 @@
 $(function () {
     jQuery(document).ready(function(){
         initButtonClickEvent();
+        addEnterListener();
     })
 
+    function addEnterListener() {
+        $(document).keydown(function (event) {
+            if (event.keyCode == 13) {
+                $("#loaded").click();
+            }
+        });
+    }
 
     function initButtonClickEvent(){
         $("#loaded").on("click",function(){
@@ -23,11 +31,11 @@ $(function () {
                         success:function(result){
                             if(result.state){
                                 var index = basePathJS + result.content.return_url;
-                                console.info(index)
                                 window.location = index;
                             }else{
                                 $("#loginerror-message").text(result.msg);
                                 $("#loginerror").show();
+                                $('#change_code').click();
                             }
                         }
                     })
