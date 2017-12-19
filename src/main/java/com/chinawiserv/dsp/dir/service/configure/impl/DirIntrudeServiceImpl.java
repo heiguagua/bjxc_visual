@@ -74,11 +74,13 @@ public class DirIntrudeServiceImpl extends CommonServiceImpl<DirIntrudeMapper, D
     		throw new Exception("内容太长，无法保存");
     	}
         boolean b=true;
+//        vo.setUpdateTime(new Date());
+//        String loginUserId = ShiroUtils.getLoginUserId();
+//    	vo.setUpdateUserId(loginUserId);
         vo.setPublishDate(new Date());
         String loginUserId = ShiroUtils.getLoginUserId();
     	vo.setPublisher(loginUserId);
         int i = mapper.baseUpdate(vo);
-        
         if(i<1){
             b=false;
         }

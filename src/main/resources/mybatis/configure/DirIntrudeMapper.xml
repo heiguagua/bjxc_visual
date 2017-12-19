@@ -12,7 +12,7 @@
         <result column="content" property="content"/>
         <result column="publisher" property="publisher"/>
         <result column="publish_date" property="publishDate"/>
-        <result column="delete_flag" property="deleteFlag"/>
+        <result column="delete_flag" property="deleteFlag"/>       
     </resultMap>
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
@@ -40,7 +40,7 @@
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT
-        t.*,s.user_name as publisher_name
+        t.*,s.real_name as publisher_name
         FROM
         dir_portal_content_setting t 
         left join sys_user s on s.id = t.publisher      
@@ -50,6 +50,10 @@
            and t.content LIKE CONCAT('%',#{searchKey},'%')
         </if>
         
+    </select>
+    <select id="listExclude" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    	select * from dir_portal_content_setting where id &lt;&gt; #{id}
+    	and category = #{category}
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">

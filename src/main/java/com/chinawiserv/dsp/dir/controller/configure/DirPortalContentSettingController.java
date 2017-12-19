@@ -23,6 +23,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -173,8 +175,18 @@ public class DirPortalContentSettingController extends BaseController {
     public  HandleResult doEdit(DirIntrudeVo entity,Model model){
 		HandleResult handleResult = new HandleResult();
 		try {
-		    service.updateVO(entity);
-		    handleResult.success("编辑网站简介内容成功");
+			List<String> list = null;
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("id", entity.getId());
+			paramMap.put("category", entity.getCategory());
+			list = mapper.listExclude(paramMap);
+			if(list==null || list.isEmpty()){
+				service.updateVO(entity);
+			    handleResult.success("编辑网站简介内容成功");
+				
+			}else{
+				handleResult.error("已存在相关分类，请重新选择分类");
+			}
 		} catch (Exception e) {
 			if(e.getMessage().equals("内容太长，无法保存")){
 				handleResult.error("内容太长，无法保存");

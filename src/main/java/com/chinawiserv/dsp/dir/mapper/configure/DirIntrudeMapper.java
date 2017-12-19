@@ -24,6 +24,7 @@ public interface DirIntrudeMapper extends BaseMapper<DirIntrude> {
 
     DirIntrudeVo selectVoById(String id);
     
+    List<String> listExclude(Map<String, Object> paramMap);
     //逻辑删除
     void updateDeleteFlag(String id);
     
