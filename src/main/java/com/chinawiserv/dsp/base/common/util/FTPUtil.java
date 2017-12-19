@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.ConnectException;
 import java.util.*;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -16,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FTPUtil {
 
+	public static File fileCP = null;
+	
     private FTPClient ftp;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -44,13 +47,14 @@ public class FTPUtil {
 //            String username = properties.getProperty("ftp.case.username", "ftp");
 //            String password = properties.getProperty("ftp.case.password", "");
         	Properties properties = new Properties();
-        	properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+        	properties.load(FileUtils.openInputStream(fileCP));
         	String url =  properties.getProperty("datastreet.adress");
         	String portStr =  properties.getProperty("datastreet.port");
         	int port = Integer.parseInt(portStr);
         	String username =  properties.getProperty("datastreet.username");
         	String password =  properties.getProperty("datastreet.password");
             FTPClient ftp = null;
+            
             try {
                 ftp = connect(url, port, username, password);
                 String[] folderNames = folderName.split("/");
@@ -72,7 +76,7 @@ public class FTPUtil {
                 }
                 return true;
             } catch (Exception e) {
-
+            	System.out.println("上传失败");
                 return false;
             }finally {
                 if(ftp!=null){
@@ -93,7 +97,7 @@ public class FTPUtil {
 //            String username = properties.getProperty("ftp.case.username", "root");
 //            String password = properties.getProperty("ftp.case.password", "dell@2017");
         	Properties properties = new Properties();
-        	properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+        	properties.load(FileUtils.openInputStream(fileCP));
         	String url =  properties.getProperty("datastreet.adress");
         	String portStr =  properties.getProperty("datastreet.port");
         	int port = Integer.parseInt(portStr);
@@ -170,7 +174,8 @@ public class FTPUtil {
 
     private FTPClient getFTPClient() throws Exception{
         Properties properties = new Properties();
-        properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+//        properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+        properties.load(FileUtils.openInputStream(fileCP));
         String url =  properties.getProperty("datastreet.adress");
         String portStr =  properties.getProperty("datastreet.port");
         int port = Integer.parseInt(portStr);

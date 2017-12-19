@@ -15,8 +15,11 @@ import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,12 +49,12 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 public class DirSpecialAppsServiceImpl extends CommonServiceImpl<DirSpecialAppsMapper, DirSpecialApps , DirSpecialAppsVo> implements IDirSpecialAppsService {
 
+	public static File fileCP = null;
     @Autowired
     private DirSpecialAppsMapper mapper;
 
-    
-    
-    
+    @Value("${config.location:classpath:}static")
+    private Resource configLocation; 
 
     @Override
     public boolean insertVO(DirSpecialAppsVo vo) throws Exception {
@@ -159,7 +163,7 @@ public class DirSpecialAppsServiceImpl extends CommonServiceImpl<DirSpecialAppsM
             //上传图片
             Properties properties = new Properties();
          	
-            properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+            properties.load(FileUtils.openInputStream(fileCP));
          	
         //  Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
             String switchToFtp = properties.getProperty("datastreet.switch");
@@ -174,10 +178,7 @@ public class DirSpecialAppsServiceImpl extends CommonServiceImpl<DirSpecialAppsM
               mapUrlShow = properties.getProperty("datastreet.show.native.image_path");
               lunboDirShow = properties.getProperty("datastreet.show.native.image_path.app");
               
-            }else{
-           	  mapUrl = properties.getProperty("datastreet.upload.native.image_path.local");
-              lunboDir = properties.getProperty("datastreet.upload.native.image_path.local.app");
-            }            
+                        
             String folderName = mapUrl+"/"+ lunboDir;
             if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
                 String dirPath = "";
@@ -247,7 +248,80 @@ public class DirSpecialAppsServiceImpl extends CommonServiceImpl<DirSpecialAppsM
                 throw new Exception("请查看common.properties配置文件中，datastreet.upload.native.image_path以及" +
                         "datastreet.upload.native.image_path.app的值是否配置");
             }
-
+            }else{
+             	  mapUrl = properties.getProperty("datastreet.upload.native.image_path.local");
+                lunboDir = properties.getProperty("datastreet.upload.native.image_path.local.app");
+                
+                
+                final String homePath = configLocation.getFile().getAbsolutePath();
+                String folderName = mapUrl+"/"+ lunboDir;
+                if(!StringUtils.isEmpty(mapUrl) && !StringUtils.isEmpty(lunboDir)){
+                    String dirPath = "";
+                    if(lunboDir.startsWith("/") || lunboDir.startsWith("\\")){
+                        dirPath = homePath
+                        		+ mapUrl+lunboDir;
+                    }else{
+                        dirPath = homePath
+                        		+ mapUrl + "/" + lunboDir;
+                    
+                	//检查上传路径是否存在 如果不存在返回false
+//                    boolean flag = ftp.changeWorkingDirectory(mapUrl + "/" + lunboDir);
+//                    if(!flag){
+//                        //创建上传的路径  该方法只能创建一级目录，在这里如果/home/ftpuser存在则可创建image
+//                        ftp.makeDirectory(mapUrl + "/" + lunboDir);
+//                    }
+                    
+                    
+                    File dirFile = new File(dirPath);
+                    if(!dirFile.exists()){
+                        dirFile.mkdirs();
+                    }
+                    int index = 0;
+                    for(int i = 0; i < picName.length(); i++){
+                        if (!Character.isDigit(picName.charAt(i))){
+                            index = i;
+                            break;
+                        }
+                    }
+//                    MultipartFile[] files = {};
+//                    files[0] = 
+                    String newFileName = dirPath + "/" + picName;
+                    List<MultipartFile>	caseFiles = new ArrayList<MultipartFile>();	
+                    caseFiles.add(file);
+                    
+                    FTPUtil FtpUtil = new FTPUtil();  
+//                    String switchToFtp = properties.getProperty("datastreet.switch");
+                    //判定存储到ftp还是local
+                    file.transferTo(new File(newFileName));//上传文件到指定目录
+                	folderName = mapUrl + "/" + lunboDir;
+                                    
+                    }
+                    
+//                    ftp.changeWorkingDirectory(mapUrl + "/" + lunboDir);
+//                    File file1 = new File(file);
+//                    local = new FileInputStream(file);
+                    //第一个参数是文件名
+//                    ftp.storeFile(picName, file.getInputStream());
+                    
+                    //把所有表单数据保存到数据库表中
+//                  Pic picObj = new Pic();
+//                  entity.setPicName(picName);               
+//                  entity.setPicType(file.getContentType());  //             
+                    entity.setIcon(folderName+"/"+picName);
+//                  entity.setPicSize(picSize);             
+              	  	insertVO(entity);
+//                  entity.setStatus("1");
+//                  String loginUserId = ShiroUtils.getLoginUserId();
+//                  entity.setCreateUserId(loginUserId);
+//                  entity.setCreateTime(new Date());
+//                  entity.setDeleteFlag(0);
+//                  mapper.baseInsert(entity);
+                }else{
+                    throw new Exception("请查看common.properties配置文件中，datastreet.upload.native.image_path以及" +
+                            "datastreet.upload.native.image_path.homePage的值是否配置");
+                }
+            
+            }
         
 		}catch (SocketException e) {
             e.printStackTrace();
@@ -305,7 +379,7 @@ public class DirSpecialAppsServiceImpl extends CommonServiceImpl<DirSpecialAppsM
                 //上传图片
              Properties properties = new Properties();
              	
-             properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+             properties.load(FileUtils.openInputStream(fileCP));
              	
             //Properties properties = PropertiesLoaderUtils.loadAllProperties(this.getClass().getClassLoader().getResource("").getPath() + "conf/common.properties");
              

@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.dir.service.catalog.impl;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FileUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -57,6 +59,7 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, DirDataset , DirDatasetVo> implements IDirDatasetService {
 
+	public static File fileCP = null;
     @Autowired
     private DirDatasetMapper mapper;
 
@@ -1087,6 +1090,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 return null;
             }
         }
+//        paramMap.put("relFlag",0);//查询目录分类去掉关联目录分类
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
@@ -1533,7 +1537,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         if (multipartResolver.isMultipart(request)) {
             //获取配置文件中的上传地址,如果没配则不进行下面的上传操作
             Properties properties = new Properties();
-            properties.load(this.getClass().getResourceAsStream("/conf/common.properties"));
+            
+            properties.load(FileUtils.openInputStream(fileCP));
+            
             String ftpBasePath = properties.getProperty("datastreet.upload.native.dataset_file_path");
             if(!StringUtils.isEmpty(ftpBasePath)){
                 String ftpPath;
@@ -1552,6 +1558,38 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 while (iter.hasNext()) {
                     // 取得上传文件
                     MultipartFile file = multiRequest.getFile(iter.next());
+                    int state = 0;
+                    List<String> listType = new ArrayList<>();
+        	        List<String> listTypeSub = new ArrayList<>();
+        	        String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
+        	        listTypeSub.add("jpg");listTypeSub.add("jpeg");listTypeSub.add("png");listTypeSub.add("gif");
+        	        listTypeSub.add("JPG");listTypeSub.add("JPEG");listTypeSub.add("PNG");listTypeSub.add("GIF");
+        	        listTypeSub.add("docx");listTypeSub.add("xlsx");listTypeSub.add("doc");listTypeSub.add("zip");
+        	        listTypeSub.add("DOCX");listTypeSub.add("XLSX");listTypeSub.add("DOC");listTypeSub.add("ZIP");
+        	        listTypeSub.add("pdf");listTypeSub.add("rar");listTypeSub.add("xls");
+        	        listTypeSub.add("PDF");listTypeSub.add("RAR");listTypeSub.add("XLS");
+        	        listType.add("jpg");listType.add("png");listType.add("gif");
+        	        listType.add("docx");listType.add("xlsx");listType.add("doc");
+        	        listType.add("zip");listType.add("rar");listType.add("pdf");listType.add("xls");
+        	        for (Iterator iterator = listTypeSub.iterator(); iterator.hasNext();) {
+        				String string = (String) iterator.next();
+//        				System.out.println(file.getOriginalFilename());
+        				if(string.equals(file.getOriginalFilename().substring(file.getOriginalFilename().indexOf(".")+1))){
+        					state++;
+        				}
+        			}
+        	        for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
+        				String string = (String) iterator.next();
+        				if(string.equals(fileType)){
+        					state++;
+        				}
+        			}
+        	        if(state!=2){
+        	        	return 10000;
+        	        }
+                    
+                    
+                    
                     if (file != null) {
                         // 取得当前上传文件的文件名称
                         String fileName = file.getOriginalFilename();
