@@ -151,5 +151,14 @@
             )
     </select>
 
+    <select id="getAllDeptParentNode" parameterType="java.util.Map" resultType="java.lang.String">
+
+        select DISTINCT a.id
+        from sys_dept a
+        join sys_dept b on b.tree_code like CONCAT(a.tree_code,';','%')
+        where b.id in (SELECT dept_id FROM sys_dept_authority WHERE auth_obj_type = #{authObjType} AND auth_obj_id = #{authObjId} )
+
+    </select>
+
 
 </mapper>

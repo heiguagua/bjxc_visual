@@ -77,6 +77,7 @@ public class SysUserDirAuthorityController extends BaseController {
             paramMap.put("authObjType", AuthObjTypeEnum.USER.getKey());
             paramMap.put("authObjId", id);
             List result = dirClassifyAuthorityService.selectVoList(paramMap);
+            List result2 = dirClassifyAuthorityService.selectAllSuperiorIds(paramMap);
             //如果为空，说明为默认数据权限用户，数据权限为所属部门分配的数据权限
 //            if(result.isEmpty()){
                 SysUserVo sysUserVo = userService.selectVoById(id);
@@ -85,10 +86,11 @@ public class SysUserDirAuthorityController extends BaseController {
                     paramMap.put("authObjType", AuthObjTypeEnum.DEPT.getKey());
                     paramMap.put("authObjId", deptId);
                     result.addAll(dirClassifyAuthorityService.selectVoList(paramMap));
+                    result2.addAll(dirClassifyAuthorityService.selectAllSuperiorIds(paramMap));
                 }
 //            }
             handleResult.put("selected", result);
-            handleResult.put("selected2", dirClassifyAuthorityService.selectAllSuperiorIds(paramMap));
+            handleResult.put("selected2", result2);
         } catch (Exception e) {
             handleResult.error("获取用户数据权限信息失败");
             logger.error("获取用户数据权限失败", e);

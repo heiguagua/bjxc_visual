@@ -83,6 +83,7 @@ public class SysUserAuthorityController extends BaseController {
             paramMap.put("authObjId", id);
 //            if("dept".equals(authType)){
             List result = service.selectVoList(paramMap);
+            List result2=service.selectAllSuperiorIds(paramMap);
 //            }else if("dir".equals(authType)){
 //                result = dirClassifyAuthorityService.selectVoList(paramMap);
 //            }
@@ -95,13 +96,14 @@ public class SysUserAuthorityController extends BaseController {
                     paramMap.put("authObjId", deptId);
 //                    if("dept".equals(authType)){
                         result.addAll(service.selectVoList(paramMap));
+                        result2.addAll(service.selectAllSuperiorIds(paramMap));
 //                    }else if("dir".equals(authType)){
 //                        result = dirClassifyAuthorityService.selectVoList(paramMap);
 //                    }
                 }
 //            }
             handleResult.put("selected", result);
-            handleResult.put("selected2", service.selectAllSuperiorIds(paramMap));
+            handleResult.put("selected2",result2);
         } catch (Exception e) {
             handleResult.error("获取用户数据权限信息失败");
             logger.error("获取用户数据权限失败", e);

@@ -117,17 +117,18 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
 
     @Override
     public List<String> selectAllSuperiorIds(Map<String, Object> paramMap) {
-        List<SysDept>  sysDeptList= new ArrayList();
-        List<SysDeptAuthorityVo> vos = mapper.selectVoList(paramMap);
-        List<String>  list=vos.stream().map(vo -> vo.getDeptId()).collect(Collectors.toList());
-        while (list!=null && !list.isEmpty()){
-            List<SysDept> existList=sysDeptMapper.listByList(list);
-            sysDeptList.removeAll(existList);
-            sysDeptList.addAll(existList);
-            list=existList.stream().map(sysDept -> sysDept.getFid()).collect(Collectors.toList());
-        }
-
-        return  sysDeptList.stream().map(sysDept -> sysDept.getId()).collect(Collectors.toList());
+//        List<SysDept>  sysDeptList= new ArrayList();
+//        List<SysDeptAuthorityVo> vos = mapper.selectVoList(paramMap);
+//        List<String>  list=vos.stream().map(vo -> vo.getDeptId()).collect(Collectors.toList());
+//        while (list!=null && !list.isEmpty()){
+//            List<SysDept> existList=sysDeptMapper.listByList(list);
+//            sysDeptList.removeAll(existList);
+//            sysDeptList.addAll(existList);
+//            list=existList.stream().map(sysDept -> sysDept.getFid()).collect(Collectors.toList());
+//        }
+//
+//        return  sysDeptList.stream().map(sysDept -> sysDept.getId()).collect(Collectors.toList());
+        return mapper.getAllDeptParentNode(paramMap);
     }
 
     @Override
