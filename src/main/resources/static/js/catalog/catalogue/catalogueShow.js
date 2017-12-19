@@ -13,20 +13,20 @@ function initAllSelect(){
     //$.initClassifyTreeSelect('relTreeDemo','relDatasetName','relDatasetCode','relMenuContent'); //初始化关联目录分类下拉框
     //$.initRegionDeptTreeSelect('belongDeptTypeTreeDemo','belongDeptTypeName','belongDeptType','belongDeptTypeMenuContent','belongDeptTypeCode')//初始化资源提供方下拉框;
     //信息资源格式下拉框初始化
-    Dict.selects('resourceFormat',['#formatCategory']);
+    // Dict.selects('resourceFormat',['#formatCategory']);
     //共享类型
-    Dict.selects('dataSetShareType',['#shareType']);
+    // Dict.selects('dataSetShareType',['#shareType']);
     //共享方式
-    Dict.selects('dataSetShareMethod',['#shareMethod']);
+    // Dict.selects('dataSetShareMethod',['#shareMethod']);
     //更新周期
-    Dict.selects('setItemFrequency',['#updateFrequency']);
+    // Dict.selects('setItemFrequency',['#updateFrequency']);
 
-    $("#formatCategory").on("change",function(){
+    /*$("#formatCategory").on("change",function(){
         var selectedValue = $(this).children('option:selected').val();
         if(selectedValue!=""){
             Dict.cascadeSelects('resourceFormat', ['#formatType'], selectedValue);
         }
-    });
+    });*/
 }
 
 function initInputValue(){
@@ -48,15 +48,23 @@ function initInputValue(){
                 $("#belongDeptNo").val(obj.belongDeptNo);
                 //$("#belongDeptId").val(obj.belongDeptId);
                 if(obj.ext != undefined && obj.ext !=""){
-                    $("#formatCategory").val(obj.ext.formatCategory);
-                    $("#formatCategory").change();
-                    $("#formatType").val(obj.ext.formatType);
+                    $("#formatCategory").val(Dict.label("resourceFormat",obj.ext.formatCategory));
+                    $("#formatType").val(Dict.label("resourceFormat",obj.ext.formatType));
+                    // $("#formatCategory").val(obj.ext.formatCategory);
+                    // $("#formatCategory").change();
+                    // $("#formatType").val(obj.ext.formatType);
                 }
-                $("input[name='secretFlag'][value="+obj.secretFlag+"]").attr("checked",true);
-                $("#updateFrequency").val(obj.updateFrequency);
-                $("#shareType").val(obj.shareType);
-                $("#shareMethod").val(obj.shareMethod);
-                $("input[name='isOpen'][value="+obj.isOpen+"]").attr("checked",true);
+                // $("input[name='secretFlag'][value="+obj.secretFlag+"]").attr("checked",true);
+                $("#updateFrequency").val(Dict.label("setItemFrequency",obj.updateFrequency));
+                $("#shareType").val(Dict.label("dataSetShareType",obj.shareType));
+                $("#shareMethod").val(Dict.label("dataSetShareMethod",obj.shareMethod));
+                $("#secretFlag").val(Dict.label("isSecret",obj.secretFlag));
+                $("#isOpen").val(Dict.label("ordinary",obj.isOpen));
+
+                // $("#updateFrequency").val(obj.updateFrequency);
+                // $("#shareType").val(obj.shareType);
+                // $("#shareMethod").val(obj.shareMethod);
+                // $("input[name='isOpen'][value="+obj.isOpen+"]").attr("checked",true);
                 $("#shareCondition").val(obj.shareCondition);
                 $("#openCondition").val(obj.openCondition);
                 $("#datasetDesc").val(obj.datasetDesc);
@@ -99,19 +107,26 @@ function getTrNum(){
 function buildItem(thisTrNum,data){
     var str='<tr id="tr_'+thisTrNum+'">'
         +'<td><input readonly value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" type="text" class="form-control"></td>'
-        +'<td><select readonly name="items['+thisTrNum+'].itemType"  class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
+        +'<td><input readonly title="'+Dict.label("dataitemType",data.itemType)+'" value="'+Dict.label("dataitemType",data.itemType)+'"  type="text" class="form-control"></input></td>'
+        // +'<td><select readonly name="items['+thisTrNum+'].itemType"  class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
         +'<td><input readonly name="items['+thisTrNum+'].itemLength"  type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control"></td>'
-        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"><input class="form-control" type="text" disabled value="'+(data.deptName?data.deptName:'')+'" ></td>'
+        +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"><input class="form-control" type="text" readonly title="'+(data.deptName?data.deptName:'')+'" value="'+(data.deptName?data.deptName:'')+'" ></td>'
         //+'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
-        +'<td><select readonly name="items['+thisTrNum+'].secretFlag" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
-        +'<td><select readonly name="items['+thisTrNum+'].shareType" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
+        +'<td><input readonly title="'+Dict.label("isSecret",data.secretFlag)+'" value="'+Dict.label("isSecret",data.secretFlag)+'"  type="text" class="form-control"></input></td>'
+        // +'<td><select readonly name="items['+thisTrNum+'].secretFlag" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
+        +'<td><input readonly title="'+Dict.label("dataSetShareType",data.shareType)+'" value="'+Dict.label("dataSetShareType",data.shareType)+'"  type="text" class="form-control"></input></td>'
+        // +'<td><select readonly name="items['+thisTrNum+'].shareType" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
         +'<td><input readonly class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" value="'+(data.shareCondition?data.shareCondition:'')+'"></td>'
-        +'<td><select readonly name="items['+thisTrNum+'].shareMethod"  class="form-control">'+Dict.selectsDom("dataSetShareMethod",data.shareMethod?data.shareMethod:'')+'</select></td>'
-        +'<td><select readonly name="items['+thisTrNum+'].isOpen" class="form-control"><option value="1" selected>是</option><option value="0" >否</option></select></td>'
+        +'<td><input readonly title="'+Dict.label("dataSetShareMethod",data.shareMethod)+'" value="'+Dict.label("dataSetShareMethod",data.shareMethod)+'"  type="text" class="form-control"></input></td>'
+        // +'<td><select readonly name="items['+thisTrNum+'].shareMethod"  class="form-control">'+Dict.selectsDom("dataSetShareMethod",data.shareMethod?data.shareMethod:'')+'</select></td>'
+        +'<td><input readonly  value="'+Dict.label("ordinary",data.isOpen)+'"  type="text" class="form-control"></input></td>'
+        // +'<td><select readonly name="items['+thisTrNum+'].isOpen" class="form-control"><option value="1" selected>是</option><option value="0" >否</option></select></td>'
         +'<td><input readonly name="items['+thisTrNum+'].openCondition" type="text" class="form-control" value="'+(data.openCondition?data.openCondition:'')+'"></td>'
-        +'<td><select readonly name="items['+thisTrNum+'].storageLocation"  class="form-control">'+Dict.selectsDom("setItemStoreLocation",data.storageLocation?data.storageLocation:'')+'</select></td>'
-        +'<td><select readonly name="items['+thisTrNum+'].updateFrequency"  class="form-control">'+Dict.selectsDom("setItemFrequency",data.updateFrequency?data.updateFrequency:'')+'</select></td>'
+        +'<td><input readonly title="'+Dict.label("setItemStoreLocation",data.storageLocation)+'" value="'+Dict.label("setItemStoreLocation",data.storageLocation)+'"  type="text" class="form-control"></input></td>'
+        // +'<td><select readonly name="items['+thisTrNum+'].storageLocation"  class="form-control">'+Dict.selectsDom("setItemStoreLocation",data.storageLocation?data.storageLocation:'')+'</select></td>'
+        +'<td><input readonly title="'+Dict.label("setItemFrequency",data.updateFrequency)+'" value="'+Dict.label("setItemFrequency",data.updateFrequency)+'"  type="text" class="form-control"></input></td>'
+        // +'<td><select readonly name="items['+thisTrNum+'].updateFrequency"  class="form-control">'+Dict.selectsDom("setItemFrequency",data.updateFrequency?data.updateFrequency:'')+'</select></td>'
         +'<td><input  readonly name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
     $('#dataitemList').prepend(str)
 }
