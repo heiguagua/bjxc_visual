@@ -1856,15 +1856,22 @@ function initGlobalCustom(tempUrlPrefix) {
             var selectIds = [];
             if(!chkDisabledSelectIds || !$.isArray(chkDisabledSelectIds)) chkDisabledSelectIds = [];
             if(!all || !$.isArray(all)) all = [];
+            var miniSelectIds=[];//排除chkDisabledSelectIds后剩下的数组
+            var miniSelects=[];
             if(selects.length > 0){
                 for(var i in selects){
                     var select = selects[i];
                     if(select.id){
                         selectIds.push(select.id);
+                        if(chkDisabledSelectIds.indexOf(select.id)<0){
+                            miniSelectIds.push(select.id);
+                            miniSelects.push(select);
+                        }
                     }
                 }
             }
-            $('#' + codeInputDomId).val(selectIds.join(","));
+            // $('#' + codeInputDomId).val(selectIds.join(","));
+            $('#' + codeInputDomId).val(miniSelectIds.join(","));
             var setting = {
                 async: {
                     enable: true,
@@ -1944,19 +1951,40 @@ function initGlobalCustom(tempUrlPrefix) {
                             var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId), selectNodes = zTreeObj.getCheckedNodes(true);
                             var resultList = [];
                             if(!treeNode.checked){
-                                for(var i in selects){
-                                    if(treeNode.id == selects[i].id){
-                                        delete selects[i];
-                                        var selectIdIndex = selectIds.indexOf(treeNode.id);
+                                // for(var i in selects){
+                                for(var i in miniSelects){
+                                    // if(treeNode.id == selects[i].id){
+                                    if(treeNode.id == miniSelects[i].id){
+                                        // delete selects[i];
+                                        delete miniSelects[i];
+                                        // var selectIdIndex = selectIds.indexOf(treeNode.id);
+                                        var selectIdIndex = miniSelectIds.indexOf(treeNode.id);
                                         if(selectIdIndex >= 0){
-                                            delete selectIds[selectIdIndex];
+                                            // delete selectIds[selectIdIndex];
+                                            delete miniSelectIds[selectIdIndex];
                                         }
                                         break;
                                     }
                                 }
+                                $.ajax({
+                                    type : "get",
+                                    url : basePathJS + "/system/deptDirAuthority/getSelectedNodeByCurrentNode?authObjId=" + authObjId+ "&currentClassifyId=" + treeNode.id+"&type="+type,
+                                    async : false,
+                                    success : function(data){
+                                        var dd = data.content.selected;
+                                        for(var i in miniSelects){
+                                            var index=dd.indexOf(miniSelects[i].id);
+                                            if(index>=0){
+                                                delete miniSelects[i];
+                                                delete miniSelectIds[index];
+                                            }
+                                        }
+                                    }
+                                });
                             }
-                            var tempList = selects.slice();
-                            if(treeNode.check_Child_State==0||treeNode.check_Child_State==-1){
+                            // var tempList = selects.slice();
+                            var tempList = miniSelects.slice();
+                            // if(treeNode.check_Child_State==0||treeNode.check_Child_State==-1){
                                 // var authObjId=1;
                                 // var type=1;
                                 // if(param.withoutDept){
@@ -1967,24 +1995,12 @@ function initGlobalCustom(tempUrlPrefix) {
                                 //     authObjId=param.withoutUserDept;
                                 //     type="user";
                                 // }
-                                $.ajax({
-                                    type : "get",
-                                    url : basePathJS + "/system/deptDirAuthority/getSelectedNodeByCurrentNode?authObjId=" + authObjId+ "&currentClassifyId=" + treeNode.id+"&type="+type,
-                                    async : false,
-                                    success : function(data){
-                                        var dd = data.content.selected;
-                                            for(var i in tempList){
 
-                                                if(dd.indexOf(tempList[i].id)>=0){
-                                                    delete tempList[i];
-                                                }
-                                            }
-                                    }
-                                });
-                            }
+                            // }
                             for(var i in selectNodes){
                                 var node = selectNodes[i];
-                                if(node.checked&&!node.halfCheck && selectIds.indexOf(node.id) < 0){
+                                // if(node.checked&&!node.halfCheck && selectIds.indexOf(node.id) < 0){
+                                if(node.checked&&!node.halfCheck && miniSelectIds.indexOf(node.id) < 0){
                                     tempList.push({id: node.id, fid: node.pid, name: node.name})
                                 }
                                 if(node.check_Child_State==1 ){
@@ -2559,15 +2575,23 @@ function initGlobalCustom(tempUrlPrefix) {
             if(!chkDisabledSelectIds || !$.isArray(chkDisabledSelectIds)) chkDisabledSelectIds = [];
             if(!all || !$.isArray(all)) all = [];
             var selectIds = [];
+            var miniSelectIds=[];//排除chkDisabledSelectIds后剩下的数组
+            var miniSelects=[];
             if(selects.length > 0){
                 for(var i in selects){
                     var select = selects[i];
                     if(select.id){
                         selectIds.push(select.id);
+                        if(chkDisabledSelectIds.indexOf(select.id)<0){
+                            miniSelectIds.push(select.id);
+                            miniSelects.push(select);
+                        }
                     }
                 }
             }
-            $('#' + codeInputDomId).val(selectIds.join(","));
+
+            // $('#' + codeInputDomId).val(selectIds.join(","));
+            $('#' + codeInputDomId).val(miniSelectIds.join(","));
             var setting = {
                 async: {
                     enable: true,
@@ -2671,20 +2695,21 @@ function initGlobalCustom(tempUrlPrefix) {
                             var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId), selectNodes = zTreeObj.getCheckedNodes(true)
                             var resultList = [];
                             if(!treeNode.checked){
-                                for(var i in selects){
-                                    if(treeNode.id == selects[i].id){
-                                        delete selects[i];
-                                        var selectIdIndex = selectIds.indexOf(treeNode.id);
+                                // for(var i in selects){
+                                for(var i in miniSelects){
+                                    // if(treeNode.id == selects[i].id){
+                                    if(treeNode.id == miniSelects[i].id){
+                                        // delete selects[i];
+                                        delete miniSelects[i];
+                                        // var selectIdIndex = selectIds.indexOf(treeNode.id);
+                                        var selectIdIndex = miniSelectIds.indexOf(treeNode.id);
                                         if(selectIdIndex >= 0){
-                                            delete selectIds[selectIdIndex];
+                                            // delete selectIds[selectIdIndex];
+                                            delete miniSelectIds[selectIdIndex];
                                         }
                                         break;
                                     }
                                 }
-                            }
-
-                            var tempList = selects.slice();
-                            if(treeNode.check_Child_State==0||treeNode.check_Child_State==-1){
                                 var authObjId=1;
                                 var type=1;
                                 if(param.withoutDept){
@@ -2701,19 +2726,27 @@ function initGlobalCustom(tempUrlPrefix) {
                                     async : false,
                                     success : function(data){
                                         var dd = data.content.selected;
-                                            for(var i in tempList){
-
-                                                if(dd.indexOf(tempList[i].id)>=0){
-                                                    delete tempList[i];
-                                                }
+                                        for(var i in miniSelects){
+                                            var index=dd.indexOf(miniSelects[i].id);
+                                            if(index>=0){
+                                                delete miniSelects[i];
+                                                delete miniSelectIds[index];
                                             }
+                                        }
                                     }
                                 });
                             }
+
+                            // var tempList = selects.slice();
+                            var tempList = miniSelects.slice();
+                            // if(treeNode.check_Child_State==0||treeNode.check_Child_State==-1){
+                            //
+                            // }
                             for(var i in selectNodes){
                                 var node = selectNodes[i];
 
-                                if(node.checked&&!node.halfCheck && selectIds.indexOf(node.id) < 0){
+                                if(!node.chkDisabled&&node.checked&&!node.halfCheck && miniSelectIds.indexOf(node.id) < 0){
+                                // if(!node.chkDisabled&&node.checked&&!node.halfCheck && selectIds.indexOf(node.id) < 0){
                                     tempList.push({id: node.id, fid: node.fid, name: node.name})
                                 }
                                 if(node.check_Child_State==1){

@@ -288,7 +288,7 @@
     </sql>
 
     <select id="selectDatasetTotalCountForClassify" resultType="java.lang.Integer">
-        SELECT count(distinct(t.dataset_id)) FROM dir_dataset_classify_map t
+        SELECT count(1) FROM dir_dataset_classify_map t
         where t.delete_flag=0 and t.classify_id in (
         select id from dir_classify where tree_code=(select tree_code from dir_classify where classify_type=#{classifyType} and region_code=#{regionCode})
         or tree_code like concat((select tree_code from dir_classify where classify_type=#{classifyType} and region_code=#{regionCode}),';%')
