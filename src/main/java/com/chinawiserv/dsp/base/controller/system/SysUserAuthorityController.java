@@ -79,28 +79,27 @@ public class SysUserAuthorityController extends BaseController {
             if(ShiroUtils.getLoginUserDeptId()!=null&&ShiroUtils.getLoginUserDeptId().equals(id)){
                 throw new Exception("被分配的用户权限不能为登录用户所属部门！");
             }
-            List result = null;
             paramMap.put("authObjType", AuthObjTypeEnum.USER.getKey());
             paramMap.put("authObjId", id);
 //            if("dept".equals(authType)){
-                result = service.selectVoList(paramMap);
+            List result = service.selectVoList(paramMap);
 //            }else if("dir".equals(authType)){
 //                result = dirClassifyAuthorityService.selectVoList(paramMap);
 //            }
             //如果为空，说明为默认数据权限用户，数据权限为所属部门分配的数据权限
-            if(result.isEmpty()){
+//            if(result.isEmpty()){
                 SysUserVo sysUserVo = userService.selectVoById(id);
                 String deptId = sysUserVo.getDeptId();
                 if(StringUtils.isNotBlank(deptId)){
                     paramMap.put("authObjType", AuthObjTypeEnum.DEPT.getKey());
                     paramMap.put("authObjId", deptId);
 //                    if("dept".equals(authType)){
-                        result = service.selectVoList(paramMap);
+                        result.addAll(service.selectVoList(paramMap));
 //                    }else if("dir".equals(authType)){
 //                        result = dirClassifyAuthorityService.selectVoList(paramMap);
 //                    }
                 }
-            }
+//            }
             handleResult.put("selected", result);
             handleResult.put("selected2", service.selectAllSuperiorIds(paramMap));
         } catch (Exception e) {

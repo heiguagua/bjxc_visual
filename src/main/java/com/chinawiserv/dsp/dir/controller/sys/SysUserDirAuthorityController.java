@@ -78,15 +78,15 @@ public class SysUserDirAuthorityController extends BaseController {
             paramMap.put("authObjId", id);
             List result = dirClassifyAuthorityService.selectVoList(paramMap);
             //如果为空，说明为默认数据权限用户，数据权限为所属部门分配的数据权限
-            if(result.isEmpty()){
+//            if(result.isEmpty()){
                 SysUserVo sysUserVo = userService.selectVoById(id);
                 String deptId = sysUserVo.getDeptId();
                 if(StringUtils.isNotBlank(deptId)){
                     paramMap.put("authObjType", AuthObjTypeEnum.DEPT.getKey());
                     paramMap.put("authObjId", deptId);
-                    result = dirClassifyAuthorityService.selectVoList(paramMap);
+                    result.addAll(dirClassifyAuthorityService.selectVoList(paramMap));
                 }
-            }
+//            }
             handleResult.put("selected", result);
             handleResult.put("selected2", dirClassifyAuthorityService.selectAllSuperiorIds(paramMap));
         } catch (Exception e) {

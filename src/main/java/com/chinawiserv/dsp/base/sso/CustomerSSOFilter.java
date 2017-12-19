@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +38,13 @@ import com.google.common.base.Strings;
 @EnableConfigurationProperties(value = SSOConfigProperties.class)
 @Component
 public class CustomerSSOFilter extends SSOFilter {
+
+    @Value("${user.head.image.ftp.server.url}")
+    private String remoteUrl;
+    @Value("${datastreet.switch}")
+    private String sw;
+
+    private String contextPath;
 
 
     @Autowired
@@ -72,6 +80,7 @@ public class CustomerSSOFilter extends SSOFilter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
+        contextPath=req.getContextPath();
 
         String requestURL = req.getRequestURL().toString();
         String requestURI = req.getQueryString();
@@ -162,6 +171,7 @@ public class CustomerSSOFilter extends SSOFilter {
              * 保存登录信息
              */
             ShiroUtils.setSessionAttribute(SystemConst.ME, currentLoginUser);
+            ShiroUtils.setSessionAttribute("remote","yes".equalsIgnoreCase(sw)?remoteUrl:contextPath);
             /**
              * 资源和当前选中菜单
              */
