@@ -24,7 +24,7 @@
                                 <input style="display:inline-block;background-color:#27DC93" type="button" class="btn btn-save" value="重选图片"  id="editChangePicButton"/>                                
                                 <div id="editPicDiv"></div>
                                 <input style="display: inline-block" type="file" name="file" value="file" id="editChoosePic" data-rule="图片:required;file">
-                                <label id="editPicNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过5M)</label>                                
+                                <span id="editPicNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过5M)</span>                                
                             </div>
                             <div class="form-group col-md-12" style="display:none" align="center" id="editImgDiv">
                                 <img alt="" src="" id="editShowImg" name="showImg" width="200" height="200">

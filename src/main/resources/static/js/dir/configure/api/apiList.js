@@ -20,12 +20,12 @@ jQuery(document).ready(function () {
 	var setting = {
 		      view: {
 		        dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
-		        showLine: false,//是否显示节点之间的连线
+		        showLine: true,//是否显示节点之间的连线
 		        fontCss:{},//字体样式函数
 		        selectedMulti: false, //设置是否允许同时选中多个节点
 //		        addHoverDom: addHoverDom,
 //		        removeHoverDom: removeHoverDom,
-		        showIcon:false
+		        showIcon:true,
 //		        Remove: Remove
 		      },
 //		      async: {
@@ -69,7 +69,6 @@ jQuery(document).ready(function () {
                     	  
                     	  $("#addSon").addClass('hidden');
                       }
-                      
                       
 //                      if(classifyTypeInputDomId){
 //                          $('#'+classifyTypeInputDomId).val(treeNode.classifyType);
@@ -485,8 +484,8 @@ function initTable(){
             formatter: function(value, row, index) {
 	            	var editBtn ="";
 	            	var deleteBtn ="";
-	             	editBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:editNode(\"" + value + "\")'><i class='fa fa-times'></i> 编辑</a>";
-	            	deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteNode(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";	
+	             	editBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:editNode(\"" + value + "\")'><i class='fa fa-times'></i> 编辑</a>";
+	            	deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteNode(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";	
 	            	return editBtn + deleteBtn;
             }
         }]
@@ -500,7 +499,7 @@ function initAllSelect(){
 //    $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
 //        'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);*/
 //    //初始化中间目录分类树
-//    $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
+    //$.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
 }
 
 function setParams() {

@@ -22,7 +22,7 @@
 
         <section class="content-header">
             <h1>
-                <small>门户管理 > 收藏管理</small>
+                <small>门户管理 > 收藏管理q</small>
             </h1>
             <!-- <ul class="title_ul">
                 <li class="active"><i class="fa fa-desktop" style="font-size:20px"></i>&nbsp;常规模式</li>
@@ -89,7 +89,7 @@
                         </form>
                         <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
-                            <table class="table table-hover" id="datacollectionListTable" lay-even="" lay-skin="row">
+                            <table class="table table-striped table-hover" id="datacollectionListTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -124,7 +124,7 @@
                         </form>
                         <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
-                            <table class="table table-hover" id="datacollectionDetailTable">
+                            <table class="table table-striped table-hover" id="datacollectionDetailTable">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -150,7 +150,7 @@
         //区域下拉查询框
         var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
         $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
-            'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
+             'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
         //初始化中间目录分类树
         $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
     }
@@ -244,7 +244,7 @@
         smartDisplay: false,
         columns: [
             {
-                field: 'a', title: '序号', width: '5%',
+                field: 'a', title: '序号', width: '6%',
                 formatter: function (value, row, index) {
                     return index + 1;
                 }
@@ -277,16 +277,16 @@
                     }
                 }
             },
-            {field: 'collectorCount', title: '收藏人数'},
+            {field: 'collectorCount',width: '10%', title: '收藏人数'},
             {
                 field: 'dcmId', title: '操作',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false,
                 width: '10%',
                 formatter: function (value) {
                     var editBtn = [
-                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dcView(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>点击查看</a>&#160;"
+                        "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:dcView(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>点击查看</a>"
                     ].join('');
                     return editBtn;
                 }
@@ -347,7 +347,7 @@
             pagination: true, //分页
             pageNum: 1,
             pageSize: 10,
-            smartDisplay: false,
+            smartDisplay:false,
             columns: [
                 {
                     field: 'a', title: '序号', width: '5%',
