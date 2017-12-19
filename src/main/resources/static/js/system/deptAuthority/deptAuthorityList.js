@@ -12,11 +12,6 @@ jQuery(document).ready(function () {
         pagination: true, //分页
         pageSize: 15,
         columns: [{
-            checkbox: true,
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        }, {
             field: 'deptName',
             title: '组织机构名称',
             align: 'left',

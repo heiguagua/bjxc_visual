@@ -6,6 +6,13 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=context_path%>/js/catalog/catalogue/catalogueAdd.js"></script>
 </head>
+<style>
+.n-top, .n-right, .n-bottom, .n-left{
+	     position: absolute;
+    bottom: 0;
+    left: 0 
+}
+</style>
 <body>
 <section class="content">
     <div id="catalogueTableEditLayer">

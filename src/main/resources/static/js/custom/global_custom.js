@@ -2102,17 +2102,31 @@ function initGlobalCustom(tempUrlPrefix) {
                 callback: {
                     onClick: function (e, treeId, treeNode) { //点击节点，选中并触发oncheck事件
                         var zTree = $.fn.zTree.getZTreeObj(treeId);
-                        zTree.checkNode(treeNode,true,true,true);
+                        var checkedStatus = treeNode.checked;
+                        if(!checkedStatus){
+                            zTree.checkNode(treeNode,true,true,true);
+                        }
+                    },
+                    beforeCheck: function (treeId, treeNode) {
+                        var checkedStatus = treeNode.checked;
+                        if(!checkedStatus){
+                            return true;
+                        }
+                        return false;
                     },
                     onCheck: function (e, treeId, treeNode) { //点击radio，获取目录类别的全名称，显示到输入框中
-                        $('#' + nameInputDomId).val(treeNode.name);
-                        $('#' + codeInputDomId).val(treeNode.id);
-                        if(!loginUserDeptId || loginUserDeptId==="null"){
-                            $("#chargeDeptId").val(treeNode.id);
-                        }
-                        if(initBelongDeptTypeTreeParam && initBelongDeptTypeTreeParam.length>0){
-                            $.initSubDeptTreeSelect(initBelongDeptTypeTreeParam[0],initBelongDeptTypeTreeParam[1],
-                                initBelongDeptTypeTreeParam[2],initBelongDeptTypeTreeParam[3],{fid:treeNode.id});
+                        if(treeNode.checked){
+                            $('#' + nameInputDomId).val(treeNode.name);
+                            $('#' + codeInputDomId).val(treeNode.id);
+                            if(!loginUserDeptId || loginUserDeptId==="null"){
+                                $("#chargeDeptId").val(treeNode.id);
+                            }
+                            if(initBelongDeptTypeTreeParam && initBelongDeptTypeTreeParam.length>0){
+                                $.initSubDeptTreeSelect(initBelongDeptTypeTreeParam[0],initBelongDeptTypeTreeParam[1],
+                                    initBelongDeptTypeTreeParam[2],initBelongDeptTypeTreeParam[3],{fid:treeNode.id});
+                            }
+                            $('#' + nameInputDomId).focus();
+                            // $("#" + treeDivDomId).fadeOut("fast");
                         }
                     }
                 }
@@ -2191,15 +2205,28 @@ function initGlobalCustom(tempUrlPrefix) {
                     },*/
                     onClick: function (e, treeId, treeNode) { //点击节点，选中并触发oncheck事件
                         var zTree = $.fn.zTree.getZTreeObj(treeId);
-                        zTree.checkNode(treeNode,true,true,true);
+                        var checkedStatus = treeNode.checked;
+                        if(!checkedStatus){
+                            zTree.checkNode(treeNode,true,true,true);
+                        }
+                    },
+                    beforeCheck: function (treeId, treeNode) {
+                        var checkedStatus = treeNode.checked;
+                        if(!checkedStatus){
+                            return true;
+                        }
+                        return false;
                     },
                     onCheck: function (e, treeId, treeNode) {
-                        $('#' + codeInputDomId).val(treeNode.id);
-                        if(nameInputDomId){
-                            $('#' + nameInputDomId).val(treeNode.name);
-                        }
-                        if(!loginUserDeptId || loginUserDeptId==="null"){
-                            $("#chargeDeptId").val(treeNode.id);
+                        if(treeNode.checked){
+                            $('#' + codeInputDomId).val(treeNode.id);
+                            if(nameInputDomId){
+                                $('#' + nameInputDomId).val(treeNode.name);
+                                $('#' + nameInputDomId).focus();
+                            }
+                            if(!loginUserDeptId || loginUserDeptId==="null"){
+                                $("#chargeDeptId").val(treeNode.id);
+                            }
                         }
                     }
                 }

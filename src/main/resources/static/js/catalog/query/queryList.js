@@ -56,12 +56,13 @@ function initTable(){
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
-        columns: [{
+        columns: [
+            /*{
             checkbox: true,
             align: 'center',
             valign: 'middle',
             sortable: false
-        },{
+        },*/{
             field: 'id',
             visible: false
         },{
