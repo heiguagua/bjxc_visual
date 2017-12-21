@@ -67,8 +67,9 @@ jQuery(document).ready(function () {
     });
 
     function setParams() {
+    	var levelC = $('#levelC').val(); 
         var searchKeyVal = $('#searchKeyId').val();
-        paramsObj = {searchKey : searchKeyVal,deleteFlag:0};
+        paramsObj = {searchKey : searchKeyVal,deleteFlag:0,levelC:levelC};
     }
 
 });

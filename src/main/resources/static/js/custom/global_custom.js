@@ -1534,7 +1534,8 @@ function initGlobalCustom(tempUrlPrefix) {
                                 'id': nodeObjs[i].id,
                                 'name': nodeObjs[i].dictName,
                                 'parentCode': nodeObjs[i].dictCode,
-                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false)
+                                'isParent': (nodeObjs[i].hasLeaf == "1" ? true : false),
+                                'nocheck': nodeObjs[i].dictName == "常规应用" || nodeObjs[i].dictName == "App应用"
                             }
                         }
                         return params;

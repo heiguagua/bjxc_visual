@@ -43,12 +43,24 @@
                                     	新增</a>
                                 </div>
                                 <%--</#if>--%>
-                                <div class="input-group pull-right">
+                                <div class="input-group pull-right" style="margin-left: 20px">
+                                	
                                     <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="标题">
                                     <div class="input-group-btn">
                                         <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i>查询</button>
                                     </div>
                                 </div>
+                                
+                                <div class="form-group pull-right" style="margin-left: 10px">
+                                
+			                                 <select id="levelC" name="icon" class="form-control select2" style="width: 100%;" >             
+		                                		  <option value ="">--请选择--</option>
+		                                		  <option value ="G">国家级</option>
+												  <option value ="S">省级</option>
+												  <option value="C">市级</option>										  
+                                			</select>
+			                    </div>
+			                    <label class="pull-right" style="margin-top: 5px" for="policy">政策级别 :</label>
 
                             </div><!-- /.box-header -->
                         </div>
