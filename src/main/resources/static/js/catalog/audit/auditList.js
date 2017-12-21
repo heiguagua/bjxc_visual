@@ -228,7 +228,8 @@ function initButtonClickEvent() {
                 var dcmId = selectedRow[i].id;
                 selectedDcmIds += i == 0 ? dcmId : "," + dcmId;
             }
-            update('目录审核', basePathJS + '/catalog/auditInfo', selectedDcmIds);
+            update('目录审核', basePathJS + '/catalog/auditInfo', selectedDcmIds,700,450);
+            $("div.layui-layer-iframe").css("min-width",700);
         } else {
             errorMsgTip("请先选择要审核的信息资源");
         }
