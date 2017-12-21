@@ -617,4 +617,8 @@ div.bootstrap-table div.fixed-table-container>div.fixed-table-body{
         color: #eeeeee;
             opacity: 0.5;
         font-weight:normal;
-} 
+}
+/* 去除目录审核框下面有两个横线的问题 */
+.box-footer{
+	border-top:transparent;
+}
