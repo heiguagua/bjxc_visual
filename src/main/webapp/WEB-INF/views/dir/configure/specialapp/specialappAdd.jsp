@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/dir/configure/specialapp/specialappAdd.js"></script>
+    <script src="<%=context_path%>/js/dir/configure/specialapp/specialappAdd.js"></script>
 </head>
 <body>
 <section class="content">
@@ -13,13 +13,13 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/dirSpecialApps/doAdd">
+                    <form role="form"  enctype="multipart/form-data"  data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
+                          method="post" action="<%=context_path%>/dirSpecialApps/doAdd">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="appName">应用名称</label>
                                 <input type="text" id="app_name" name="appName" class="form-control"
-                                       placeholder="请输入应用名称" data-rule="应用名称:required;appName;remote(<%=basePath%>/system/user/insertCheckName)">
+                                       placeholder="请输入应用名称" data-rule="应用名称:required;appName;">
                             </div>
                             <div class="form-group">
                                 <label for="appCategory">应用种类</label>
@@ -41,6 +41,12 @@
                                 <label for="orderNumber">排序号</label>
                                 <input type="text" id="order_number" name="orderNumber" class="form-control"
                                        placeholder="请输入排序号" data-rule="排序号:required;orderNumber;">
+                            </div>
+                            <div class="form-group">
+                                <label for="choosePic">图片<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+                                <input style="width:32%" type="file" name="file" value="file" id="choosePic" data-rule="图片:required;file">
+                                <span id="picNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过5M)</span>
+                                <div id="addPicDiv"></div>
                             </div>
                                                     
                            

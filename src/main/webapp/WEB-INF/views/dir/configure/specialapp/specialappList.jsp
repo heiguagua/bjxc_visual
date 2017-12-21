@@ -3,9 +3,18 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/dir/configure/specialapp/specialappList.js"></script>
+    <script src="<%=context_path%>/js/dir/configure/specialapp/specialappList.js"></script>
 
 </head>
+<style type="text/css">
+.layui-layer-dialog{
+	top:180px !important;
+}
+.ztree li ul {
+    margin: 0;
+    padding: 0 0 5 18px !important;
+}
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -31,16 +40,29 @@
                                     <a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:addUser()" > 
                                     
                                     <!-- <i class="fa fa-plus"></i> -->
-                                    <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                    <img src="<%=context_path%>/images/userImg/addimg.png"/>
                                     	 新增</a>
                                 </div>
+                                
                                 <%--</#if>--%>
-                                <div class="input-group pull-right">
+                                <div class="input-group pull-right" style="margin-left: 20px">
                                     <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="请输入标题">
                                     <div class="input-group-btn">
                                         <button id="queryBtnId" type="button" class="btn btn-primary btn-flat btn_blue" ><i class="fa fa-search"></i> 查询</button>
                                     </div>
                                 </div>
+                                <div class="form-group pull-right">
+		                                <label for="appCategory">应用种类 :</label>
+		                                <input type="text" id="appCategoryl" data-rule="应用分类:required;" class="form-control"
+				                         placeholder="">
+				                        <input type="hidden" id="dictCodel" name="appCategory">
+				                        <div class="menu-wrap">
+				                            <div id="menuContentl" class="menuContent" style="display:none;">
+				                                <ul id="treeDemol" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+				                            </div>
+				                        </div>
+                            	</div>
+                                
 
                             </div><!-- /.box-header -->
                         </div>

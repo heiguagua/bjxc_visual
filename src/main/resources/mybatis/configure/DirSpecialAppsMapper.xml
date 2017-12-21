@@ -19,6 +19,7 @@
                             <result column="update_user_id" property="updateUserId" />
                             <result column="update_time" property="updateTime" />
                             <result column="delete_flag" property="deleteFlag" />
+                            <result column="icon" property="icon" />
             	</resultMap>
 
 	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.configure.DirSpecialAppsVo">
@@ -63,6 +64,9 @@
         	<if test="searchKey != null  and searchKey!='' ">
            		and t.app_name LIKE CONCAT('%',#{searchKey},'%')
         	</if>
+        	<if test="dicCodel != null  and dicCodel!='' ">
+           		and s.dict_code LIKE CONCAT('%',#{dicCodel},'%')
+        	</if>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
@@ -80,11 +84,14 @@
         	<if test="searchKey != null  and searchKey!='' ">
            		and t.app_name LIKE CONCAT('%',#{searchKey},'%')
         	</if>
+        	<if test="dicCodel != null  and dicCodel!='' ">
+           		and s.dict_code LIKE CONCAT('%',#{dicCodel},'%')
+        	</if>
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirSpecialApps">
-        insert into dir_special_apps(id,region_code,app_category,app_name,app_url,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag) values(
-            #{id},#{regionCode},#{appCategory},#{appName},#{appUrl},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag})
+        insert into dir_special_apps(id,region_code,app_category,app_name,app_url,order_number,status,create_user_id,create_time,update_user_id,update_time,delete_flag,icon) values(
+            #{id},#{regionCode},#{appCategory},#{appName},#{appUrl},#{orderNumber},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag},#{icon})
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.dir.entity.po.configure.DirSpecialApps">
@@ -124,7 +131,10 @@
                 update_time = #{updateTime},
             </if>
                     <if test="deleteFlag != null">
-                delete_flag = #{deleteFlag}
+                delete_flag = #{deleteFlag},
+            </if>
+             <if test="icon != null">
+                icon = #{icon}
             </if>
                 </set>
         where  id = #{id}                            </update>

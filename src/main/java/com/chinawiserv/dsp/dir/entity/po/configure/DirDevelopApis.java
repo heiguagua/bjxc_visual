@@ -27,6 +27,9 @@ public class DirDevelopApis implements Serializable {
      */
 	@TableField("region_code")
 	private String regionCode;
+	
+	@TableField("icon")
+	private String icon;
     /**
      * API名称
      */
@@ -95,6 +98,18 @@ public class DirDevelopApis implements Serializable {
 	@TableField("is_show")
 	private Integer isShow;
 	
+	@TableField("is_use")
+	private Integer isUse;
+	
+	
+
+	public Integer getIsUse() {
+		return isUse;
+	}
+
+	public void setIsUse(Integer isUse) {
+		this.isUse = isUse;
+	}
 
 	public String getId() {
 		return id;
@@ -222,6 +237,14 @@ public class DirDevelopApis implements Serializable {
 
 	public void setIsShow(Integer isShow) {
 		this.isShow = isShow;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 	
 	

@@ -3,16 +3,17 @@ package com.chinawiserv.dsp.base.controller.system;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
+import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
-import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -49,10 +50,15 @@ public class SysDeptController extends BaseController {
     @Autowired
     private ISysUserService sysUserService;
 
+    @Autowired
+    private ISysRegionService sysRegionService;
+
+
     @RequiresPermissions("system:dept:list")
     @RequestMapping("")
-    public  String init(@RequestParam Map<String , Object> paramMap){
+    public  String init(@RequestParam Map<String , Object> paramMap ,Model model){
         setCurrentMenuInfo(paramMap);
+        model.addAttribute("master",isMaster());
         return "system/dept/deptList";
     }
 
@@ -73,6 +79,10 @@ public class SysDeptController extends BaseController {
         PageResult pageResult = new PageResult();
         try {
             paramMap.put("excludeRoot", "1");
+            //只显示一级部门
+            if (null==paramMap.get("fid")){
+                paramMap.put("deptLevel", 2);
+            }
             Page<SysDeptVo> page = sysDeptService.selectVoPage(paramMap);
             pageResult.setPage(page);
         } catch (Exception e) {
@@ -114,31 +124,81 @@ public class SysDeptController extends BaseController {
      * 同步组织机构到目录
      */
 //    @RequiresPermissions("")
-    @Log("同步组织机构到目录")
-    @RequestMapping("/doSycn")
+//    @Log("同步组织机构到目录")
+//    @RequestMapping("/doSycn")
+//    @ResponseBody
+//    public  HandleResult doSycn(@RequestParam String dcmIds){
+//        HandleResult handleResult = new HandleResult();
+//        try {
+//            Map<String,Object> params = new HashMap<>();
+//            params.put("dcmIds",dcmIds);
+//
+///*          params.put("publishType", Dataset.PublishType.ToAll.getKey());*/
+//            String releaseResult = sysDeptService.insertIntoDir(params);
+//            if(releaseResult.equals("0")){
+//            	handleResult.success("同步完成,但存在已同步部门,请重新选择");
+//            }else if(releaseResult.equals("1")) {
+//            	handleResult.success("同步完成,但存在没有对应区域目录部门库分类部门，无法同步到目录");
+//            }else if(releaseResult.equals("2")) {
+//            	handleResult.success("同步完成,但存在父级未同步部门，无法同步到目录");
+//            }else if(releaseResult.equals("3")) {
+//            	handleResult.success("同步完成,但存在不能同步部委到目录");
+//            }else if(releaseResult.equals("4")) {
+//            	 handleResult.success("同步成功");
+//            }
+//        } catch (Exception e) {
+//            handleResult.error("部门同步到目录失败");
+//            logger.error("部门同步到目录失败", e);
+//        }
+//        return handleResult;
+//    }
+    /**
+     * 同步主系统组织机构信息
+     */
+//    @RequiresPermissions("system:dept:add")
+    @Log("获取主系统组织机构数据")
+    @RequestMapping("/getMasterData")
     @ResponseBody
-    public  HandleResult doSycn(@RequestParam String dcmIds){
+    public  HandleResult getMasterData(){
+        HandleResult handleResult = new HandleResult();
+//        RestTemplate restTemplate = new RestTemplate();
+//        String result = restTemplate.getForObject("http://localhost:8080/dm/system/dept/provideData/?systemId=dm", String.class);
+        try {
+            String result =getDataFromMaster(ISysDeptService.synUrl);
+            HandleResult jsb= JSONObject.parseObject(result,HandleResult.class);
+            HashMap<String, Object> map= jsb.getContent();
+            List<SysDept> list= JSONObject.parseArray(map.get("list").toString(),SysDept.class) ;
+            if(sysDeptService.insertOrUpdate(list)){
+                handleResult.success("更新成功");
+            }else{
+                handleResult.error("无需更新");
+            }
+
+        }catch (ErrorInfoException e){
+            handleResult.error(e.getMessage());
+            logger.error(e.getMessage(), e);
+        } catch (Exception e) {
+            handleResult.error("获取失败");
+            logger.error("获取sys_dept表数据失败", e);
+        }
+
+
+
+        return handleResult;
+    }
+
+
+    @Log("提供主数据")
+    @RequestMapping("/provideData")
+    @ResponseBody
+    public  HandleResult provideData(@RequestParam String systemId){
         HandleResult handleResult = new HandleResult();
         try {
-            Map<String,Object> params = new HashMap<>();
-            params.put("dcmIds",dcmIds);
-            
-/*          params.put("publishType", Dataset.PublishType.ToAll.getKey());*/
-            String releaseResult = sysDeptService.insertIntoDir(params);
-            if(releaseResult.equals("0")){
-            	handleResult.success("同步完成,但存在已同步部门,请重新选择");            
-            }else if(releaseResult.equals("1")) {
-            	handleResult.success("同步完成,但存在没有对应区域目录部门库分类部门，无法同步到目录");
-            }else if(releaseResult.equals("2")) {
-            	handleResult.success("同步完成,但存在父级未同步部门，无法同步到目录");
-            }else if(releaseResult.equals("3")) {
-            	handleResult.success("同步完成,但存在不能同步部委到目录");
-            }else if(releaseResult.equals("4")) {
-            	 handleResult.success("同步成功");
-            }
+            List<SysDept> result = sysDeptService.listBySystemId(systemId);
+            handleResult.put("list", result);
         } catch (Exception e) {
-            handleResult.error("部门同步到目录失败");
-            logger.error("部门同步到目录失败", e);
+            handleResult.error("获取sys_dept表数据失败");
+            logger.error("获取sys_dept表数据失败", e);
         }
         return handleResult;
     }
@@ -163,6 +223,38 @@ public class SysDeptController extends BaseController {
         }catch (Exception e){
             handleResult.error("删除组织机构失败：" + e.getMessage());
             logger.error("删除组织机构失败", e);
+        }
+        return handleResult;
+    }
+
+    /*
+    * 批量删除组织机构
+    * */
+
+    @RequiresPermissions("system:dept:deleteBatch")
+    @Log("批量删除组织机构")
+    @RequestMapping("/deleteBatch")
+    @ResponseBody
+    public HandleResult deleteBatch(@RequestParam("idArr[]") List<String> ids){
+        HandleResult handleResult = new HandleResult();
+        try {
+            String deptStr = "";
+            for(String id : ids){
+                //检查该部门是否可删
+                String retId = sysDeptService.checkDeleteProperty(id);
+                if(retId != null){
+                    deptStr = deptStr + retId +",";
+                }
+            }
+            if("".equals(deptStr)){
+                sysDeptService.deleteBatchDeptByIds(ids);
+                handleResult.success("批量删除组织机构成功！");
+            }else{
+                handleResult.error("批量删除组织机构失败，批量选择的组织机构有用户或有下级组织机构！");
+            }
+        } catch (Exception e) {
+            handleResult.error("批量删除组织机构失败");
+            logger.error("批量删除组织机构失败", e);
         }
         return handleResult;
     }
@@ -256,6 +348,27 @@ public class SysDeptController extends BaseController {
         return handleResult;
     }
     
+    /**
+     * 组织机构的下拉数据
+     * @param paramMap
+     * @return
+     */
+    @RequestMapping("/getDeptSelectDataListForLeadDept")
+    @ResponseBody
+    public HandleResult getDeptSelectDataListForLeadDept(@RequestParam Map<String, Object> paramMap) {
+        HandleResult handleResult = new HandleResult();
+        try {
+        	String regionCode = ShiroUtils.getLoginUser().getRegionCode();
+        	paramMap.put("regionCode", regionCode);
+            List<SysDeptVo> result = sysDeptService.getDeptSelectDataList(paramMap);
+            handleResult.put("selectData", result);
+        } catch (Exception e) {
+            handleResult.error("获取组织机构列表失败");
+            logger.error("获取组织机构列表失败", e);
+        }
+        return handleResult;
+    }
+    
         /**
      * 组织机构的下拉数据 pacong
      * @param userId
@@ -297,8 +410,14 @@ public class SysDeptController extends BaseController {
     }
 
     private SysDeptVo DeptVoList(int roleType){
+        Map paramMap = new HashMap<>();
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!org.springframework.util.StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
+        }
         if(roleType==-1){//超级管理员
-            List<SysDeptVo> sysDepts = sysDeptService.selectDeptListLikeTreeCode(null);
+            List<SysDeptVo> sysDepts = sysDeptService.selectDeptListLikeTreeCode(paramMap);
             SysDeptVo sysDeptVo = treeMenuList(sysDepts, "root", new SysDeptVo());
             return sysDeptVo;
         }else if(roleType==0){//区域管理员
@@ -316,7 +435,8 @@ public class SysDeptController extends BaseController {
             if(b){
                 treeCodes.add(treeCode);
             }
-            List<SysDeptVo> sysDepts = sysDeptService.selectDeptListLikeTreeCode(treeCodes);
+            paramMap.put("treeCodes",treeCodes);
+            List<SysDeptVo> sysDepts = sysDeptService.selectDeptListLikeTreeCode(paramMap);
             SysDeptVo sysDeptVo = new SysDeptVo();
             buildSysDeptVo(sysDepts,sysDeptVo);
             return sysDeptVo;
@@ -417,4 +537,43 @@ public class SysDeptController extends BaseController {
         }
         return dir;
     }
+
+    /**
+     * 根据选中的一级部门id，获取子部门的树形数据
+     */
+    @RequestMapping("/subDeptTreeData")
+    @ResponseBody
+    public HandleResult getSubDeptTreeData(@RequestParam Map<String , Object> paramMap){
+        HandleResult handleResult = new HandleResult();
+        try {
+            String id = (String)paramMap.get("id");
+            if (!org.springframework.util.StringUtils.isEmpty(id)){
+                paramMap.put("fid", id);
+            }
+            List<SysDeptVo> sysDeptVoList = sysDeptService.selectVoList(paramMap);
+            handleResult.put("vo",sysDeptVoList);
+        } catch (Exception e) {
+            handleResult.error("查询子部门的树形数据出错");
+            logger.error("查询子部门的树形数据出错", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 根据部门的id，查询后获取资源提供方的部门或科室的详情
+     */
+    @RequestMapping("/belongTypeByDept")
+    @ResponseBody
+    public HandleResult getBelongTypeByDept(@RequestParam String deptId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            Map<String,Object> deptInfo = sysDeptService.getBelongTypeByDept(deptId);
+            handleResult.put("vo",deptInfo);
+        } catch (Exception e) {
+            handleResult.error("查询资源提供方的部门或科室的详情出错");
+            logger.error("查询资源提供方的部门或科室的详情出错", e);
+        }
+        return handleResult;
+    }
+
 }

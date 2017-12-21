@@ -142,5 +142,23 @@
         </where>
     </sql>
 
+    <select id="getSelectedNodeByCurrentNode" parameterType="java.util.Map" resultType="java.lang.String">
+        SELECT dept_id FROM sys_dept_authority
+        WHERE auth_obj_type = #{authObjType,jdbcType=VARCHAR}
+              AND auth_obj_id = #{authObjId,jdbcType=VARCHAR}
+              AND dept_id in (
+            select id from sys_dept where tree_code like concat((SELECT tree_code from sys_dept where id=#{currentDeptId,jdbcType=VARCHAR}),';%')
+            )
+    </select>
+
+    <select id="getAllDeptParentNode" parameterType="java.util.Map" resultType="java.lang.String">
+
+        select DISTINCT a.id
+        from sys_dept a
+        join sys_dept b on b.tree_code like CONCAT(a.tree_code,';','%')
+        where b.id in (SELECT dept_id FROM sys_dept_authority WHERE auth_obj_type = #{authObjType} AND auth_obj_id = #{authObjId} )
+
+    </select>
+
 
 </mapper>

@@ -1,17 +1,8 @@
 package com.chinawiserv.dsp.dir.controller.drap;
 
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.common.anno.Log;
-import com.chinawiserv.dsp.base.controller.common.BaseController;
-import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
-import com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessActivityVo;
-import com.chinawiserv.dsp.dir.service.drap.IDrapBusinessActivityService;
-import com.google.common.collect.Maps;
+import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
-import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.controller.common.BaseController;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessActivityVo;
+import com.chinawiserv.dsp.dir.service.drap.IDrapBusinessActivityService;
 
 /**
  * <p>
@@ -177,4 +174,31 @@ public class DrapBusinessActivityController extends BaseController {
 		}
 //    	return result;
     }
+    
+    /**
+     * 删除drap的业务数据
+     */
+//    @RequiresPermissions("XXX:XXX:edit")
+//    @Log("接收drap的业务数据")
+    @RequestMapping("/api/deleteBusinessData")
+    @ResponseBody
+    public  Object deleteBusinessData(@RequestParam Map<String,Object> paramMap){
+//    	HashMap<String, Object> result = Maps.newHashMap();
+    	try {
+    		if(paramMap !=null && !paramMap.isEmpty()){
+    			String data = MapUtils.getString(paramMap, "data");
+    			Map<String, Object> dataObj = (Map<String, Object>)JSONObject.parse(data);
+    			this.service.deleteBusinessData(dataObj);
+    		}
+//    		result.put("status", "200");
+    		return "200";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("接收drap的业务数据", e);
+//			result.put("status", "500");
+			return "500";
+		}
+//    	return result;
+    }
+    
 }

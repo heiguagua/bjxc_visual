@@ -3,10 +3,10 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.all.js"></script>
-    <script type="text/javascript" charset="utf-8" src="<%=basePath%>/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
-    <script src="<%=basePath%>/js/dir/configure/news/newsEdit.js"></script>
+    <script type="text/javascript" src="<%=context_path%>/plugins/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="<%=context_path%>/plugins/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="<%=context_path%>/js/dir/configure/news/newsEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <section class="content">
@@ -14,8 +14,8 @@
         <div class="col-md-12">
             <!-- form start -->
             <div class="row">
-                <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" enctype="multipart/form-data" action="<%=basePath%>/dirNews/doEdit">
+                <div class="col-md-12">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" enctype="multipart/form-data" action="<%=context_path%>/dirNews/doEdit">
                         <input id="newsId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                            <div class="form-group col-md-12">
@@ -24,7 +24,7 @@
                                 <input style="display:inline-block;background-color:#27DC93" type="button" class="btn btn-save" value="重选图片"  id="editChangePicButton"/>                                
                                 <div id="editPicDiv"></div>
                                 <input style="display: inline-block" type="file" name="file" value="file" id="editChoosePic" data-rule="图片:required;file">
-                                <label id="editPicNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过10M)</label>                                
+                                <span id="editPicNote" style="color: #ff0000">(注:上传图片的类型只能为 jpg,jpeg,png,gif ,且大小不超过5M)</span>                                
                             </div>
                             <div class="form-group col-md-12" style="display:none" align="center" id="editImgDiv">
                                 <img alt="" src="" id="editShowImg" name="showImg" width="200" height="200">

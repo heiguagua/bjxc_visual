@@ -11,9 +11,9 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <link rel="stylesheet" href="<%=basePath%>/plugins/zTree/css/zTreeStyle/zTreeStyle.css">
-    <script src="<%=basePath%>/plugins/zTree/js/jquery.ztree.all.js"></script>
-    <script src="<%=basePath%>/js/system/role/roleAuth.js"></script>
+    <link rel="stylesheet" href="<%=context_path%>/plugins/zTree/css/zTreeStyle/zTreeStyle.css">
+    <script src="<%=context_path%>/plugins/zTree/js/jquery.ztree.all.js"></script>
+    <script src="<%=context_path%>/js/system/role/roleAuth.js"></script>
 </head>
 <body>
 <section class="content">
@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/system/role/doAuth">
+                          method="post" action="<%=context_path%>/system/role/doAuth">
                         <input type="hidden" value="${id}" id="roleId" name="roleId" />
                         <input type="hidden" id="menuIds" name="menuIds" />
                         <div class="box-body">

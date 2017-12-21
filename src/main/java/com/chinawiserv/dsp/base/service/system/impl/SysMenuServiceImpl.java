@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -77,9 +78,9 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
         List<SysMenuVo> pageList = sysMenuMapper.select(page, paramMap);
         for(SysMenuVo menu : pageList){
             if(menu.getPid() == null || menu.getMenuType() !=3){
-                menu.setMenuName(StringUtils.join("<i class='fa fa-folder-open'></i> ",menu.getMenuName()));
+                menu.setMenuName(StringUtils.join("<i class='fa fa-folder-open'></i> ",ToName(menu.getMenuName())));
             }else{
-                menu.setMenuName(StringUtils.join("<i class='fa fa-file'></i> ",menu.getMenuName()));
+                menu.setMenuName(StringUtils.join("<i class='fa fa-file'></i> ",ToName(menu.getMenuName())));
             }
             for(int i=1;i<menu.getMenuType();i++){
                 menu.setMenuName(StringUtils.join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",menu.getMenuName()));
@@ -89,6 +90,84 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
         page.setRecords(pageList);
         return page;
     }
+    
+    
+    public String ToName(String name) {
+    	String[] values = name.split("");  
+        if (values==null)  {  
+                    return null;  
+            }  
+        int count = values.length;  
+        String[] encodedValues = new String[count];  
+        for (int i = 0; i < count; i++) {  
+                   encodedValues[i] = xssEncode(values[i]);  
+         }  
+        return StringUtils.join(encodedValues);
+    }
+    
+    private String xssEncode(String s) {
+        if (s == null || s.isEmpty()) {
+            return s;
+        }
+        StringBuilder sb = new StringBuilder(s.length() + 16);
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            switch (c) {
+            case '>':
+                sb.append('＞');// 全角大于号
+                break;
+            case '<':
+                sb.append('＜');// 全角小于号
+                break;
+            case '\'':
+                sb.append('\'');// 全角单引号
+                break;
+            case '\"':
+                sb.append('\"');// 全角双引号
+                break;
+            case '&':
+                sb.append('＆');// 全角
+                break;
+//            case '\\':
+//                sb.append('＼');// 全角斜线
+//                break;
+            case '#':
+                sb.append('＃');// 全角井号
+                break;
+            case '%':    // < 字符的 URL 编码形式表示的 ASCII 字符（十六进制格式） 是: %3c
+                processUrlEncoder(sb, s, i);
+                break;
+            default:
+                sb.append(c);
+                break;
+            }
+        }
+        return sb.toString();
+    }
+    public static void processUrlEncoder(StringBuilder sb, String s, int index){
+        if(s.length() >= index + 2){
+            if(s.charAt(index+1) == '3' && (s.charAt(index+2) == 'c' || s.charAt(index+2) == 'C')){    // %3c, %3C
+                sb.append('＜');
+                return;
+            }
+            if(s.charAt(index+1) == '6' && s.charAt(index+2) == '0'){    // %3c (0x3c=60)
+                sb.append('＜');
+                return;
+            }            
+            if(s.charAt(index+1) == '3' && (s.charAt(index+2) == 'e' || s.charAt(index+2) == 'E')){    // %3e, %3E
+                sb.append('＞');
+                return;
+            }
+            if(s.charAt(index+1) == '6' && s.charAt(index+2) == '2'){    // %3e (0x3e=62)
+                sb.append('＞');
+                return;
+            }
+        }
+        sb.append(s.charAt(index));
+    }
+    
+    
+    
 
     @Override
     public SysMenuVo getEditData(String menuId) throws Exception{
@@ -161,7 +240,6 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
         return selectDataList;
     }
 
-    @Cacheable(value = "permissionCache", key = "#uid")
 	@Override
 	public List<String> selectMenuIdsByuserId(String uid) throws Exception{
 		return sysMenuMapper.selectMenuIdsByuserId(uid);
@@ -192,7 +270,6 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
 		
 	}
 	
-	@Cacheable(value = "menuCache", key = "#uid")
 	@Override
 	public List<TreeMenu> selectTreeMenuByUserId(String uid) {
 		/**
@@ -205,7 +282,35 @@ public class SysMenuServiceImpl extends CommonServiceImpl<SysMenuMapper, SysMenu
 		List<String> menuIds = Lists.transform(sysRoleMenus,sysRoleMenu -> sysRoleMenu.getMenuId());
 		return selectTreeMenuByMenuIdsAndPid(menuIds, "0");
 	}
-	
+
+    //对方法selectTreeMenuByUserId的改造，不会每次都去查子菜单
+    @Override
+    public List<TreeMenu> selectTreeMenuForLoginUser(String loginUserId) throws Exception{
+        List<SysMenu> menuList = sysMenuMapper.selectTreeMenuForLoginUser(loginUserId);
+        return transferSysMenuToTreeMenu(menuList,"0");
+    }
+
+    private List<TreeMenu> transferSysMenuToTreeMenu(List<SysMenu> menuList, String pid){
+        return menuList.stream()
+                .filter(sysMenu -> this.sysMenuFilter(sysMenu, pid))
+                .map(sysMenu -> this.mapSysMentToTreeMenu(sysMenu, menuList))
+                .collect(Collectors.toList());
+    }
+
+    private boolean sysMenuFilter(SysMenu sysMenu, String pid){
+        final String parentMenuId = sysMenu.getPid();
+        return parentMenuId != null && parentMenuId.equals(pid);
+    };
+
+    private TreeMenu mapSysMentToTreeMenu(SysMenu sysMenu, List<SysMenu> menuList){
+
+        final String menuId = sysMenu.getId();
+        final TreeMenu treeMenu = new TreeMenu();
+        treeMenu.setSysMenu(sysMenu);
+        treeMenu.setChildren(transferSysMenuToTreeMenu(menuList, menuId));
+        return treeMenu;
+    }
+
 	@Override
 	public List<ZTreeNode> selectTreeMenuAllowAccessByMenuIdsAndPid(
 			final List<String> menuIds, String pid) {

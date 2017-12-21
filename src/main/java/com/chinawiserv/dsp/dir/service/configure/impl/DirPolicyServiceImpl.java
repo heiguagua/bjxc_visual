@@ -36,6 +36,10 @@ public class DirPolicyServiceImpl extends CommonServiceImpl<DirPolicyMapper, Dir
     
     @Override
     public boolean updateVO(DirPolicyVo vo) throws Exception {
+    	
+    	if(vo.getContent().length()>32116){
+    		throw new Exception("政策内容太长，无法保存");
+    	}
         //todo
         boolean b=true;
         vo.setUpdateTime(new Date());
@@ -51,6 +55,11 @@ public class DirPolicyServiceImpl extends CommonServiceImpl<DirPolicyMapper, Dir
     @Override
     public boolean insertVO(DirPolicyVo vo) throws Exception {
 		//todo
+    	
+    	if(vo.getContent().length()>32116){
+    		throw new Exception("政策内容太长，无法保存");
+    	}
+    	
         boolean b=true;
         vo.setId(CommonUtil.get32UUID());
         vo.setCreateTime(new Date());

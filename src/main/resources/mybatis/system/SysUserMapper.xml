@@ -34,6 +34,7 @@
         <result column="create_name" property="createName"/>
         <result column="tree_code" property="deptTreeCode"/>
         <result column="region_name" property="regionName"/>
+        <result column="region_level_value" property="regionLevel"/>
         <collection property="sysRoleList" javaType="list" column="id"
                     ofType="com.chinawiserv.dsp.base.entity.po.system.SysRole"
                     select="com.chinawiserv.dsp.base.mapper.system.SysRoleMapper.selectRolesByUserId"/>
@@ -60,7 +61,7 @@
                 AND u1.user_name like CONCAT('%',#{searchKey,jdbcType=VARCHAR},'%')
             </if>
             <if test="deptTreeCodeCondition != null">
-                AND d.tree_code like '${deptTreeCodeCondition}%'
+                AND (d.tree_code like CONCAT(#{deptTreeCodeCondition,jdbcType=VARCHAR},';','%') or d.tree_code=#{deptTreeCodeCondition})
             </if>
             <if test="regionCodeCondition != null">
                 AND u1.region_code like '${regionCodeCondition}%'
@@ -68,15 +69,23 @@
             <if test="defaultAuth != null">
                 <if test="defaultAuth == '1'.toString()">
                   AND NOT EXISTS(SELECT auth_obj_id from sys_dept_authority WHERE auth_obj_type = '2' AND auth_obj_id = u1.id)
+--                   非目录请注释下一行
                   AND NOT EXISTS(SELECT auth_obj_id from dir_classify_authority WHERE auth_obj_type = '2' AND auth_obj_id = u1.id)
                 </if>
                 <if test="defaultAuth == '0'.toString()">
                   AND (
                     EXISTS(SELECT auth_obj_id from sys_dept_authority WHERE auth_obj_type = '2' AND auth_obj_id = u1.id)
+--                     非目录请注释下两行
                     OR
                     EXISTS(SELECT auth_obj_id from dir_classify_authority WHERE auth_obj_type = '2' AND auth_obj_id = u1.id)
                   )
                 </if>
+            </if>
+            <if test="regionName != null and regionName != '' ">
+                AND  sr.region_name like CONCAT('%',#{regionName},'%')
+            </if>
+            <if test="deptName != null and deptName != '' ">
+                AND  d.dept_name like CONCAT('%',#{deptName},'%')
             </if>
         </trim>
     </sql>
@@ -89,7 +98,7 @@
         LEFT JOIN sys_user_role ur ON u1.id = ur.user_id
         LEFT JOIN sys_role r ON r.id = ur.role_id
         <include refid="VoWhereCase"/>
-        AND r.delete_flag = '0' AND r.role_level &gt; ${roleLevel}
+        AND (r.delete_flag = '0' or r.delete_flag is null) AND (r.role_level &gt; ${roleLevel} or r.role_level is null)
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="int">
@@ -121,9 +130,26 @@
     </select>
     <select id="selectVoByUserName" parameterType="java.lang.String" resultMap="SysUserVoMap">
         SELECT
-        <include refid="BaseVoSelectColumn"/>
-        <include refid="VoSelectSql"/>
-        WHERE u1.user_name = #{userName}
+        u1.*,
+        u2.user_name AS 'create_name',
+        sr.region_name,
+        srl.region_level_value,
+        d.dept_name,
+        d.tree_code
+        FROM
+        sys_user u1 FORCE INDEX (Index_sysuser_username_info)
+        LEFT JOIN sys_region sr
+        ON u1.region_code = sr.region_code
+        LEFT JOIN `sys_region_level` srl
+        ON srl.region_level_code = sr.region_level_code
+        LEFT JOIN sys_user u2 FORCE INDEX (Index_sysuser_id_username)
+        ON u2.id = u1.create_user_id
+        LEFT JOIN sys_dept d FORCE INDEX (
+        Index_sysdept_id_treecode_deptname
+        )
+        ON d.id = u1.dept_id
+        WHERE u1.user_name = '${userName}'
+        AND u1.delete_flag = 0
     </select>
     <select id="selectUsersCountByRoleId" parameterType="java.lang.String" resultType="int">
 		SELECT count(1) from sys_user u
@@ -142,7 +168,7 @@
 		LEFT JOIN sys_role r ON r.id = ur.role_id
 		WHERE u.delete_flag = '0'
 		AND r.delete_flag = '0'
-		AND r.role_level &gt; 0
+		AND r.role_level &gt;= 0
 		AND u.id = #{userId}
 		)
 	</select>
@@ -218,6 +244,23 @@
         LEFT JOIN sys_user_role sur ON su.id=sur.user_id
         LEFT JOIN sys_role sr ON sur.role_id=sr.id
         WHERE TRUE AND su.id=#{user_id}
+    </select>
+
+    <update id="createToken" parameterType="java.util.Map">
+        UPDATE sys_user SET token = #{token}
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteBatchUserByIds" parameterType="java.util.List">
+        UPDATE sys_user SET delete_flag = '1' WHERE id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="listBySystemId" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.po.system.SysUser">
+        SELECT u.* FROM sys_user u
+        -- 		WHERE
     </select>
 
 </mapper>

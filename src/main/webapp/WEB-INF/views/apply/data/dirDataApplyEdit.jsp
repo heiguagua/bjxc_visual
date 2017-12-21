@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/apply/data/dirDataApplyEdit.js"></script>
+    <script src="<%=context_path%>/js/apply/data/dirDataApplyEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -37,7 +37,7 @@
             </div>
         </div>
         <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-              method="post" action="<%=basePath%>/dirDataApply/doEdit">
+              method="post" action="<%=context_path%>/dirDataApply/doEdit">
             <input type="hidden" id="dirDataApplyId" value="${id}" name="id"/>
             <input type="hidden" id="dirDataItemApply" value="" name="dirDataItemApply"/>
             <div class="toolbar">

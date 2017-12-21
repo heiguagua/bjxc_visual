@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/user/userList.js"></script>
+    <script src="<%=context_path%>/js/system/user/userList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -26,12 +26,34 @@
                     <div class="box">
                         <div class="form-inline">
                             <div class="box-header">
+                                <input id="masterId" type="hidden" name="master" value="${master}" />
                                 <%--<#if permissions?seq_contains('addDept')>--%>
+                                <c:if test="${master}">
                                 <div class="input-group">
                                     <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:addUser()" >
-                                        <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                        <img src="<%=context_path%>/images/userImg/addimg.png"/>
                                         创建用户
                                     </a>
+                                </div>
+                                <div class="input-group">
+                                    <a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchUser()" >
+                                        <img src="<%=context_path%>/images/userImg/delImg.png"/>
+                                        批量删除</a>
+                                </div>
+                                </c:if>
+                                <c:if test="${!master}">
+                                <%--<div class="input-group">--%>
+                                    <%--<a class="btn btn-primary btn-flat btn-myself" onclick="javascript:synRemoteData()" id="synRemoteDataId">--%>
+                                        <%--<img src="<%=context_path%>/images/userImg/changeAdress.png"/>--%>
+                                        <%--获取用户信息--%>
+                                    <%--</a>--%>
+                                <%--</div>--%>
+                                </c:if>
+                                <div class="input-group">
+                                    <input id="regionNameId" type="text" name="regionName" class="form-control" placeholder="区域">
+                                </div>
+                                <div class="input-group">
+                                    <input id="deptNameId" type="text" name="deptName" class="form-control" placeholder="部门">
                                 </div>
                                 <%--</#if>--%>
                                 <div class="input-group  pull-right">

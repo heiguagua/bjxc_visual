@@ -63,6 +63,10 @@ public interface ISysMenuService extends ICommonService<SysMenu, SysMenuVo> {
      */
     List<TreeMenu> selectTreeMenuByUserId(String uid);
     /**
+     * 获取当前登录用户的菜单(改动)
+     */
+    List<TreeMenu> selectTreeMenuForLoginUser(String loginUserId)throws Exception;
+    /**
      * 获取指定用户拥有权限
      * @param  menuIds 该角色拥有的权限ID集合
      * @param  pid 菜单父ID

@@ -10,8 +10,9 @@ import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+ 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,7 +37,7 @@ public class SysSettingServiceImpl extends CommonServiceImpl<SysSettingMapper, S
     }
 
     @Override
-    public String findValueByCode(String code) throws Exception {
+    public String findValueByCode(String code)  {
         String value = "";
         SysSettingVo sysSettingVo = sysSettingMapper.selectVoByCode(code);
         if(sysSettingVo != null){
@@ -78,5 +79,11 @@ public class SysSettingServiceImpl extends CommonServiceImpl<SysSettingMapper, S
     @Override
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
         return sysSettingMapper.selectVoCount(paramMap);
+    }
+
+    @Override
+    public List<SysSettingVo> listCodeAndValueByType(String type) {
+
+        return sysSettingMapper.listCodeAndValueByType(type);
     }
 }

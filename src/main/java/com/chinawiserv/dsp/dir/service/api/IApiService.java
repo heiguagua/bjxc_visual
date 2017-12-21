@@ -60,4 +60,6 @@ public interface IApiService {
 
     HandleResult serviceAuthority(Map<String,Object> paramMap);
 
+    Map<String,Object> syncDataToOpenPortal(Map<String,Object> paramMap);
+
 }

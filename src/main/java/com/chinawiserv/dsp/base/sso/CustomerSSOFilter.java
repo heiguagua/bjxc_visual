@@ -1,0 +1,353 @@
+package com.chinawiserv.dsp.base.sso;
+
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+import com.chinawiserv.dsp.base.common.SystemConst;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.entity.vo.system.TreeMenu;
+import com.chinawiserv.dsp.base.service.system.ISysMenuService;
+import com.chinawiserv.dsp.base.service.system.ISysSettingService;
+import com.chinawiserv.dsp.base.service.system.ISysUserService;
+import com.free.oss.filter.SSOFilter;
+import com.free.oss.utils.RegExp;
+import com.free.oss.utils.Tokens;
+import com.google.common.base.Strings;
+
+@EnableConfigurationProperties(value = SSOConfigProperties.class)
+@Component
+public class CustomerSSOFilter extends SSOFilter {
+
+    @Value("${user.head.image.ftp.server.url}")
+    private String remoteUrl;
+    @Value("${datastreet.switch}")
+    private String sw;
+
+    private String contextPath;
+
+
+    @Autowired
+    private ISysUserService  sysUserService;
+
+    @Autowired
+    private  ISysSettingService sysSettingService;
+
+    @Autowired
+    private ISysMenuService sysMenuService;
+
+    private final SSOConfigProperties prop;
+
+    public CustomerSSOFilter(SSOConfigProperties properties) {
+        this.prop = properties;
+    }
+
+    /**
+     * 获取当前系统登录的账号
+     */
+
+    @Override
+    public String curAcc(HttpSession session) {
+        SysUser currentLoginUser = ShiroUtils.getLoginUser();
+        if (null != currentLoginUser) return currentLoginUser.getUserName();
+        return "";
+    }
+
+
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
+        contextPath=req.getContextPath();
+
+        String requestURL = req.getRequestURL().toString();
+        String requestURI = req.getQueryString();
+        String url = requestURL + "?" + requestURI;
+
+        HttpSession session = req.getSession(true);
+
+        Map<String, String> params = urlParams(URLDecoder.decode(Strings.nullToEmpty(requestURI), "UTF-8"));
+
+        String s_t = params.get("s_t");
+        if (!Strings.isNullOrEmpty(s_t)) {// 带有token 参数，进行解析
+
+            Tokens tk = Tokens.of(s_t);
+            if (!tk.legal(this.prop.getSecretCode()) || tk.timeout(this.prop.getTimeOut())) {
+                this.logOut(session);
+            } else {// 合法
+                if (tk.getAccount() != null) {
+                    if (!tk.getAccount().equals(this.curAcc(session))) {// 当前登录账号不相等
+                        this.logOut(session);
+                        this.setAcc(session, tk.getAccount());
+                    } else {// 登录账号相等 ignore
+                    }
+                } else {// 登录账号为空
+                    this.logOut(session);
+                }
+            }
+
+            if (!this.prop.isShowUrlToken()) {
+
+                String rto = requestURL + "?";
+                for (String itm : params.keySet()) {
+                    if (!"s_t".equals(itm)) {
+                        rto += itm + "=" + URLEncoder.encode(Strings.nullToEmpty(params.get(itm)), "UTF-8") + "&";
+                    }
+                }
+                if (rto.endsWith("&")) {
+                    rto = rto.substring(0, rto.length() - 1);
+                }
+                if (rto.endsWith("?")) {
+                    rto = rto.substring(0, rto.length() - 1);
+                }
+                resp.sendRedirect(rto);
+            }
+        } else if (RegExp.match(".{0,}(jp:){1}.{1,}", url)) {// 跳转到其他系统
+
+            String arr[] = requestURL.split("jp:");
+            String uri = arr.length > 1 ? arr[1] : "";
+            uri = RegExp.match("^/.{0,}", uri) ? uri.substring(1) : uri;
+
+            String[] hes = uri.split("/");
+            String toHost_key = hes.length > 0 ? hes[0] : "";
+            String host = !Strings.isNullOrEmpty(toHost_key) && RegExp.match("^(hk_).{0,}", toHost_key)
+                    ? this.prop.getJumpLocation(toHost_key.replace("hk_", ""))
+                    : this.prop.getJumpLocation("host");
+
+            uri = uri.replace(toHost_key, "");
+
+            // 检查是否登录
+            String curAcc = this.curAcc(session);
+            String jurl = host
+                    + (Strings.isNullOrEmpty(uri) ? "" : RegExp.match("^/.{0,}$", uri) ? uri : "/" + uri)
+                    + (Strings.isNullOrEmpty(requestURI) ? "?" + "timestamp=" + System.currentTimeMillis()
+                    : "?" + requestURI + "&timestamp=" + System.currentTimeMillis());
+            if (!Strings.isNullOrEmpty(curAcc)) {// 不等于空，封装参数
+                String token = Tokens.toToken(curAcc, this.prop.getSecretCode());
+                token = URLEncoder.encode(token, "UTF-8");
+                jurl += "&s_t=" + token;
+            }
+            resp.sendRedirect(jurl);
+        } else {
+            chain.doFilter(request, response);
+        }
+    }
+
+    public void loginSuccess(Map<String, Object> paramMap) {
+
+        SysUser currentLoginUser = ShiroUtils.getLoginUser();
+        try {
+            /**
+             * 加载全局非登录访问常量
+             */
+            List<SysSetting> list = sysSettingService.selectList(null);
+            for (SysSetting setting : list) {
+                ShiroUtils.setSessionAttribute(setting.getSettingCode(), setting.getSettingValue());
+            }
+
+            /**
+             * 保存登录信息
+             */
+            ShiroUtils.setSessionAttribute(SystemConst.ME, currentLoginUser);
+            ShiroUtils.setSessionAttribute("remote","yes".equalsIgnoreCase(sw)?remoteUrl:contextPath);
+            /**
+             * 资源和当前选中菜单
+             */
+
+            String res = MapUtils.getString(paramMap, "res");
+            if (StringUtils.isNotBlank(res)) {
+                ShiroUtils.setSessionAttribute(SystemConst.RES, res);
+            }
+            String cur = MapUtils.getString(paramMap, "cur");
+            if (StringUtils.isNotBlank(cur)) {
+                ShiroUtils.setSessionAttribute(SystemConst.CUR, cur);
+            }
+            /**
+             * 获取当前用户的菜单
+             */
+            List<TreeMenu> treeMenus = sysMenuService.selectTreeMenuByUserId(currentLoginUser.getId());
+            ShiroUtils.setSessionAttribute(SystemConst.TREE_MENUS, treeMenus);
+
+            /**
+             * 获取当前用户的权限列表,用于控制页面功能按钮是否显示
+             */
+            List<String> list2 = null;
+            list2 = sysMenuService.selectMenuIdsByuserId(currentLoginUser.getId());
+            String[] permissions = list2.toArray(new String[list2.size()]);
+            ShiroUtils.setSessionAttribute(SystemConst.PERMISSIONS, permissions);
+            // 获取当前用户的区域编码
+            ShiroUtils.setSessionAttribute(SystemConst.REGION, currentLoginUser.getRegionCode());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    // 数据库代替配置文件
+    // @Override
+    // public void doFilter(ServletRequest request, ServletResponse response,
+    // FilterChain chain) throws IOException, ServletException {
+    // HttpServletRequest req = (HttpServletRequest)request;
+    // HttpServletResponse resp = (HttpServletResponse)response;
+    //
+    // /**
+    // * 不使用浏览器缓存，预防多次访问读取不到参数
+    // */
+    // resp.setDateHeader("Expires", -1); //告诉浏览器数据可以缓存多长时间，-1或0表示不缓存
+    // resp.setHeader("Cache_Control", "no-cache"); //支持HTTP
+    // 1.1，告诉浏览器要不要缓存数据，如“no-cache”
+    // resp.setHeader("Pragma", "no-cache"); //支持HTTP 1.0，告诉浏览器要不要缓存数据，如“no-cache”
+    //
+    // Props pros = Props.of(profile);
+    // String requestURL = req.getRequestURL().toString();
+    // String requestURI = req.getQueryString();
+    // String url = requestURL + "?" + requestURI;
+    //
+    // String scode = pros.get("secret_code").stringValue();
+    // long timeOut = pros.get("time_out").longValue(TIME_OUT);
+    //
+    // HttpSession session = req.getSession(true);
+    //
+    // Map<String, String> params =
+    // urlParams(URLDecoder.decode(Strings.nullToEmpty(requestURI), "UTF-8"));
+    //
+    // String s_t = params.get("s_t");
+    // if(!Strings.isNullOrEmpty(s_t)){//带有token 参数，进行解析
+    // System.out.println("【带有参数】:"+ s_t);
+    // Tokens tk = Tokens.of(s_t);
+    // System.out.println("【带有参数】:timeOut:"+ tk.timeout(timeOut)+ " legal:
+    // "+tk.legal(scode));
+    // if(!tk.legal(scode) || tk.timeout(timeOut)){
+    // System.out.println("【带有参数】----登出");
+    // this.logOut(session);
+    // }else{//合法
+    // if(tk.getAccount() != null){
+    // if(!tk.getAccount().equals(this.curAcc(session))){//当前登录账号不相等
+    // this.logOut(session);
+    // this.setAcc(session, tk.getAccount());
+    // }else{//登录账号相等 ignore
+    // }
+    // }else{//登录账号为空
+    // this.logOut(session);
+    // }
+    // }
+    //
+    // boolean showToken = pros.get("show_url_token").boolValue();
+    // if(!showToken){
+    // String rto = requestURL+"?";
+    // for (String itm : params.keySet()) {
+    // if(!"s_t".equals(itm)){
+    // rto += itm+"=" + URLEncoder.encode(Strings.nullToEmpty(params.get(itm)),
+    // "UTF-8")+"&";
+    // }
+    // }
+    // if(rto.endsWith("&")){
+    // rto = rto.substring(0, rto.length()-1);
+    // }
+    // if(rto.endsWith("?")){
+    // rto = rto.substring(0, rto.length() -1);
+    // }
+    // resp.sendRedirect(rto);
+    // return;
+    // }
+    // }
+    //
+    // if(RegExp.match(".{0,}(jp:){1}.{1,}", url)){//跳转到其他系统
+    // String arr[] = requestURL.split("jp:");
+    // String uri = arr.length > 1?arr[1]:"";
+    // uri = RegExp.match("^/.{0,}", uri)?uri.substring(1):uri;
+    //
+    // String[] hes = uri.split("/");
+    // String toHost_key = hes.length>0?hes[0]:"";
+    //// String host = !Strings.isNullOrEmpty(toHost_key) &&
+    // RegExp.match("^(hk_).{0,}", toHost_key)
+    // ?pros.get("jump_"+toHost_key.replace("hk_",
+    // "")).stringValue():pros.get("jump_host").stringValue();
+    // String host =null;
+    // if(!Strings.isNullOrEmpty(toHost_key) && RegExp.match("^(hk_).{0,}",
+    // toHost_key)){
+    // String id = toHost_key.replace("hk_", "");
+    // try {
+    // SysProductIntegrateVo vo = sysProductIntegrateService.selectVoById(id);
+    // host=vo.getSsoPath();
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+    // }else {
+    // return;
+    // }
+    // uri = uri.replace(toHost_key, "");
+    //
+    // //检查是否登录
+    // String curAcc = this.curAcc(session);
+    // String jurl = host
+    // +(Strings.isNullOrEmpty(uri)?"":(RegExp.match("^/.{0,}$", uri)?uri:("/"+uri)
+    // ))
+    // +(Strings.isNullOrEmpty(requestURI)?("?"+"timestamp="+System.currentTimeMillis()):("?"+requestURI+"&timestamp="+System.currentTimeMillis()))
+    // ;
+    // if(!Strings.isNullOrEmpty(curAcc)){//不等于空，封装参数
+    // String token = Tokens.toToken(curAcc, pros.get("secret_code").stringValue());
+    // token = URLEncoder.encode(token, "UTF-8");
+    // jurl += ("&s_t="+token);
+    // }
+    // resp.sendRedirect(jurl);
+    // return;
+    // }else{
+    // chain.doFilter(request, response);
+    // }
+    //
+    // }
+
+    /**
+     * 登出
+     */
+    @Override
+    public void logOut(HttpSession session) {
+        ShiroUtils.logout();
+    }
+
+    /**
+     * 设置当前系统登录的账号
+     */
+    @Override
+    public void setAcc(HttpSession session, String account) {
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            SysUserVo sysUserVo = sysUserService.selectVoByUserName(account);
+            if (null != sysUserVo) {
+                Subject subject = ShiroUtils.getSubject();
+                // sha256加密
+                paramMap.put("userName", account);
+                paramMap.put("password", sysUserVo.getPassword());
+                UsernamePasswordToken token = new UsernamePasswordToken(account, sysUserVo.getPassword());
+                subject.login(token);
+                this.loginSuccess(paramMap);
+            } else {
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

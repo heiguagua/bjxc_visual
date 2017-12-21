@@ -2,9 +2,13 @@ package com.chinawiserv.dsp.base.service.system;
 
 
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -15,6 +19,9 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  * @since 2017-04-16
  */
 public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
+
+    String synUrl="/system/user/provideData";
+
     /**
      * 根据id查找vo用户
      */
@@ -51,4 +58,13 @@ public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
      * @return
      */
     int selectUserRoleType(String user_id);
+
+    /**
+     * 生成TOKEN
+     * */
+    boolean createToken(Map<String,String> paramMap);
+
+    List<SysUser>  listBySystemId(String systemId);
+
+    boolean insertOrUpdate(List<SysUser> list);
 }

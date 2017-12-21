@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/catalogue/catalogueList.js"></script>
+    <script src="<%=context_path%>/js/catalog/catalogue/catalogueList.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -31,9 +31,9 @@
                                 <div class="box-header">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-flat dropdown-toggle btn-myself"
-                                                data-toggle="dropdown"><img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                                data-toggle="dropdown"><img src="<%=context_path%>/images/userImg/addimg.png"/>
                                            <!--  <i class="fa fa-plus"></i> -->快速添加&nbsp;
-                                           <img src="<%=basePath%>/images/userImg/Seciton_img@2x.png"/>
+                                           <img src="<%=context_path%>/images/userImg/Seciton_img@2x.png"/>
                                            <!-- <span class="caret"></span> -->
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
@@ -56,21 +56,21 @@
                                     </div>
                                     <div class="input-group">
                                         <a class="btn btn-default btn-flat  btn-myself" onclick="javascript:addCustom()">
-                                        <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                        <img src="<%=context_path%>/images/userImg/addimg.png"/>
                                             <!-- <i class="fa fa-plus-circle"></i> -->自定义添加
                                         </a>
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle  btn-myself"
                                                 data-toggle="dropdown" onclick="javascript:excelImportUI()">
-                                                <img src="<%=basePath%>/images/userImg/importimg.png"/>
+                                                <img src="<%=context_path%>/images/userImg/importimg.png"/>
                                             <!-- <i class="fa fa-plus"></i> -->导入
                                         </button>
                                     </div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle btn-myself"
                                                 data-toggle="dropdown" id="catalogueDeleteButton">
-                                                <img src="<%=basePath%>/images/userImg/delImg.png"/>
+                                                <img src="<%=context_path%>/images/userImg/delImg.png"/>
                                             <!-- <i class="fa fa-plus"></i> -->批量删除
                                         </button>
                                     </div>

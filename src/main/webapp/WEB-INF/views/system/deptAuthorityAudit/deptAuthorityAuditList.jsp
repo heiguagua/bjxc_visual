@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/deptAuthorityAudit/deptAuthorityAuditList.js"></script>
+    <script src="<%=context_path%>/js/system/deptAuthorityAudit/deptAuthorityAuditList.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

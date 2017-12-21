@@ -7,29 +7,22 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
-import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
-import com.chinawiserv.dsp.base.enums.system.AuthObjTypeEnum;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRegionMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
-import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirNationalClassifyVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDeptMapMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -69,6 +62,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
         Map<String, Object> param = this.getDeptCondition(null);
+        //regionCodeCondition =5101是否合理？
         if (param != null && !param.isEmpty()) {
             paramMap.putAll(param);
             Page<SysDeptVo> page = getPage(paramMap);
@@ -76,6 +70,27 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             page.setAsc(false);
             List<SysDeptVo> sysDeptVos = sysDeptMapper.selectVoPage(page, paramMap);
             page.setTotal(sysDeptMapper.selectVoCount(paramMap));
+            page.setRecords(sysDeptVos);
+            return page;
+        }
+        return getPage(paramMap);
+    }
+
+    @Override
+    public List<SysDeptVo> selectVoList(Map<String, Object> paramMap) throws Exception {
+        return sysDeptMapper.selectSubVoList(paramMap);
+    }
+
+    @Override
+    public Page<SysDeptVo> selectBaseVoPage(Map<String, Object> paramMap) throws Exception {
+        Map<String, Object> param = this.getDeptCondition(null);
+        if (param != null && !param.isEmpty()) {
+            paramMap.putAll(param);
+            Page<SysDeptVo> page = getPage(paramMap);
+            page.setOrderByField("update_time");
+            page.setAsc(false);
+            List<SysDeptVo> sysDeptVos = sysDeptMapper.selectBaseVoPage(page, paramMap);
+            page.setTotal(sysDeptMapper.selectBaseVoCount(paramMap));
             page.setRecords(sysDeptVos);
             return page;
         }
@@ -221,91 +236,114 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
                     SysDept sysDept = new SysDept();
                     sysDept.setId(id);
                     sysDept.setDeleteFlag(1);
+                    sysDept.setUpdateTime(new Date());
                     return updateById(sysDept);
                 }else throw new Exception("有用户所属该组织机构");
             }else throw new Exception("该组织机构有下级组织机构");
         }
         return false;
     }
+    @Override
+    public String checkDeleteProperty(String id){
+        SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(id);
+        if (sysDeptVo != null) {
+            if (!sysDeptMapper.isParentDept(sysDeptVo.getId())) {
+                int count = sysUserMapper.selectUsersCountByDeptId(id);
+                if (count == 0) {
+                    return null;
+                }else{
+                    return id;
+                }
+            }else{
+                return id;
+            }
+        }
+        return id;
+    }
 
     @Override
-    public List<SysDeptVo> selectVoList(Map<String, Object> paramMap) {
-        return sysDeptMapper.selectVoList(paramMap);
+    public boolean deleteBatchDeptByIds(List<String> ids) throws Exception {
+        return retBool(sysDeptMapper.deleteBatchDeptByIds(ids));
     }
+
+//    @Override
+//    public List<SysDeptVo> selectVoList(Map<String, Object> paramMap) {
+//        return sysDeptMapper.selectVoList(paramMap);
+//    }
     
-    @Override
-    public String insertIntoDir(Map<String, Object> params){
-    	
-    	
-    	String Ids = (String) params.get("dcmIds");
-    	String [] dcmIdArray = Ids.split(",");
-    	List<String> dcmIds = Arrays.asList(dcmIdArray);  
-    	
-    	String messageInfo = "";
-    	for (Iterator iterator = dcmIds.iterator(); iterator.hasNext();) {
-    		
-			String dcmId = (String) iterator.next();			
-			
-			if(dirClassifyMapper.selectMapByDeptId(dcmId)!= null){
-				
-				    messageInfo= "0";
-					break;
-					
-			}else if(dirClassifyMapper.selectBy23Region(sysDeptMapper.selectById(dcmId).getRegionCode())==null){
-					
-					messageInfo= "1";
-					break;
-					
-			}else if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))==null && !dirClassifyMapper.selectFidById(dcmId).equals("root") && !dirClassifyMapper.selectFidById(dirClassifyMapper.selectFidById(dcmId)).equals("root") ){
-					messageInfo= "2";
-					break;
-					
-			}else if(dirClassifyMapper.selectFidById(dcmId).equals("root")){
-					messageInfo= "3";
-					break;
-					
-			}else{	
-//					dirService.
-				String fid = "";
-				if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))!=null){
-					 fid = dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId)).getClassifyId();
-				}else{
-					 fid = dirClassifyMapper.selectBy3Region(sysDeptMapper.selectById(dcmId).getRegionCode()).getId();
-				}
-					SysDept sysDept = dirClassifyMapper.selectDeptById(dcmId);
-//					DirNationalClassifyVo dirNationalClassifyVo = mapper2.selectFclassify(fcode);
-			  		DirClassifyVo dirclassifyVo = new DirClassifyVo();
-			  		
-			  		dirclassifyVo.setClassifyName(sysDept.getDeptName());		  		
-			  		dirclassifyVo.setFid(fid);
-			  		
-			  		DirClassifyVo vo = dirService.prepareClassifyVo(dirclassifyVo);
-//				  		if(type.equals("2-1")){
-//				  			vo.setClassifyType("5");
-//				  		}else if(type.equals("2-2")){
-//				  			vo.setClassifyType("6");	
-//				  		}else if(type.equals("3")){
-//				  			vo.setClassifyType("7");
-//				  		}
-			  		vo.setClassifyType("7");
-			  		
-			  		dirClassifyMapper.baseInsert(vo);
-			  		
-			  		DirDeptMap d = new DirDeptMap();
-			  		d.setClassifyId(vo.getId());
-			  		d.setDeptId(dcmId);
-			  		d.setId(CommonUtil.get32UUID());
-			  		dirDeptMapMapper.baseInsert(d);
-			  		
-			  		messageInfo = "4";
-			  		
-			}
-			
-		}
-    	
-	    return messageInfo;
-    	
-    }
+//    @Override
+//    public String insertIntoDir(Map<String, Object> params){
+//
+//
+//    	String Ids = (String) params.get("dcmIds");
+//    	String [] dcmIdArray = Ids.split(",");
+//    	List<String> dcmIds = Arrays.asList(dcmIdArray);
+//
+//    	String messageInfo = "";
+//    	for (Iterator iterator = dcmIds.iterator(); iterator.hasNext();) {
+//
+//			String dcmId = (String) iterator.next();
+//
+//			if(dirClassifyMapper.selectMapByDeptId(dcmId)!= null){
+//
+//				    messageInfo= "0";
+//					break;
+//
+//			}else if(dirClassifyMapper.selectBy23Region(sysDeptMapper.selectById(dcmId).getRegionCode())==null){
+//
+//					messageInfo= "1";
+//					break;
+//
+//			}else if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))==null && !dirClassifyMapper.selectFidById(dcmId).equals("root") && !dirClassifyMapper.selectFidById(dirClassifyMapper.selectFidById(dcmId)).equals("root") ){
+//					messageInfo= "2";
+//					break;
+//
+//			}else if(dirClassifyMapper.selectFidById(dcmId).equals("root")){
+//					messageInfo= "3";
+//					break;
+//
+//			}else{
+////					dirService.
+//				String fid = "";
+//				if(dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId))!=null){
+//					 fid = dirClassifyMapper.selectMapByDeptId(dirClassifyMapper.selectFidById(dcmId)).getClassifyId();
+//				}else{
+//					 fid = dirClassifyMapper.selectBy3Region(sysDeptMapper.selectById(dcmId).getRegionCode()).getId();
+//				}
+//					SysDept sysDept = dirClassifyMapper.selectDeptById(dcmId);
+////					DirNationalClassifyVo dirNationalClassifyVo = mapper2.selectFclassify(fcode);
+//			  		DirClassifyVo dirclassifyVo = new DirClassifyVo();
+//
+//			  		dirclassifyVo.setClassifyName(sysDept.getDeptName());
+//			  		dirclassifyVo.setFid(fid);
+//
+//			  		DirClassifyVo vo = dirService.prepareClassifyVo(dirclassifyVo);
+////				  		if(type.equals("2-1")){
+////				  			vo.setClassifyType("5");
+////				  		}else if(type.equals("2-2")){
+////				  			vo.setClassifyType("6");
+////				  		}else if(type.equals("3")){
+////				  			vo.setClassifyType("7");
+////				  		}
+//			  		vo.setClassifyType("7");
+//
+//			  		dirClassifyMapper.baseInsert(vo);
+//
+//			  		DirDeptMap d = new DirDeptMap();
+//			  		d.setClassifyId(vo.getId());
+//			  		d.setDeptId(dcmId);
+//			  		d.setId(CommonUtil.get32UUID());
+//			  		dirDeptMapMapper.baseInsert(d);
+//
+//			  		messageInfo = "4";
+//
+//			}
+//
+//		}
+//
+//	    return messageInfo;
+//
+//    }
 
     @Override
     public boolean insertVO(SysDeptVo sysDeptVo) throws Exception {
@@ -428,18 +466,73 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
-    public List<SysDeptVo> selectDeptListLikeTreeCode(List<String> list) {
-        List<SysDeptVo> depts = null;
-        if (list != null && list.size() > 0) {
-            depts = sysDeptMapper.selectDeptListLikeTreeCode(list);
-        } else {
-            depts = sysDeptMapper.selectDeptListLikeTreeCode(null);
-        }
-        return depts;
+    public List<SysDeptVo> selectDeptListLikeTreeCode(Map<String, Object> params) {
+        return sysDeptMapper.selectDeptListLikeTreeCode(params);
     }
 
     @Override
     public List<String> selectDeptByPrivilege(String user_id) {
         return sysDeptMapper.selectDeptByPrivilege(user_id);
+    }
+
+    @Override
+    public List<SysDept> listBySystemId(String systemId) {
+        return sysDeptMapper.listBySystemId(systemId);
+    }
+
+    @Override
+    public boolean insertOrUpdate(List<SysDept> list) {
+        //1获取Ids集合
+        List<String> firstds=list.stream().map(e -> e.getId()).collect(Collectors.toList());
+        //2删除已被删除的数据（逻辑删除无需此操作）
+
+        //3获取已经存在的数据
+        List<SysDept> existList=sysDeptMapper.listByList(firstds);
+        //4删除无需操作的数据
+        list.removeAll(existList);
+        if (list.size()==0){
+            return false;
+        }
+        List<String> secondIds=list.stream().map(e -> e.getId()).collect(Collectors.toList());
+
+        //5获取需要更新的Id
+        List<String> needUpdateIds=sysDeptMapper.listIdsByList(secondIds);
+
+        if (needUpdateIds!=null&&needUpdateIds.size()>0){
+            for (SysDept dept : list) {
+                if (needUpdateIds.contains(dept.getId())){
+                    sysDeptMapper.updateById(dept);
+                }else{
+                    sysDeptMapper.insert(dept);
+                }
+            }
+        }else{
+            //批量插入
+            sysDeptMapper.batchInsert(list);
+        }
+
+        return true;
+    }
+
+    public Map<String,Object> getBelongTypeByDept(String deptId){
+        return sysDeptMapper.selectBelongTypeByDept(deptId);
+    }
+
+    /**
+     * 用于查询当前部门属于六大班子部门下的哪个一级部门
+     * */
+    @Override
+    public String getRootDeptId(String drapDeptId) {
+        SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(drapDeptId);
+        String treeCode = sysDeptVo.getTreeCode();
+        if(StringUtils.isNotEmpty(treeCode)) {
+            String[] treeCodes = treeCode.split(";");
+            if (treeCodes.length > 2) {
+                String rootTreeCode = treeCodes[0] + ";" + treeCodes[1];
+                SysDeptVo dirDeptVo = sysDeptMapper.selectVoByTreeCode(rootTreeCode);
+                return dirDeptVo.getId();
+            }
+        }
+        return drapDeptId;
     }
 }

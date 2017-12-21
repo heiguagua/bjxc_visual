@@ -42,7 +42,7 @@ public class DirDatasetVo extends DirDataset{
     private String drapDatasetId;
 
     //数据集来源
-    private DirDatasetSourceInfo datasetSourceInfo;
+    private DirDatasetSourceInfoVo datasetSourceInfoVo;
 
     //
     private String transferId;
@@ -179,12 +179,12 @@ public class DirDatasetVo extends DirDataset{
         this.drapDatasetId = drapDatasetId;
     }
 
-    public DirDatasetSourceInfo getDatasetSourceInfo() {
-        return datasetSourceInfo;
+    public DirDatasetSourceInfoVo getDatasetSourceInfoVo() {
+        return datasetSourceInfoVo;
     }
 
-    public void setDatasetSourceInfo(DirDatasetSourceInfo datasetSourceInfo) {
-        this.datasetSourceInfo = datasetSourceInfo;
+    public void setDatasetSourceInfoVo(DirDatasetSourceInfoVo datasetSourceInfoVo) {
+        this.datasetSourceInfoVo = datasetSourceInfoVo;
     }
 
     public DirDataTransfer getTransfer() {

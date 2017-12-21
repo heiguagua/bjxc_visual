@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/dict/dataDictDetailEdit.js"></script>
+    <script src="<%=context_path%>/js/system/dict/dataDictDetailEdit.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -31,7 +31,7 @@
             </style>
             <div class="row">
                 <div class="col-md-6">
-                    <form  class="form-inline" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/sysDict/detailDoEdit">
+                    <form  class="form-inline" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/sysDict/detailDoEdit">
                         <input id="dictId" type="hidden" value="${dictId}" name="id" />
                         <div class="box-body box-bodyx">
                             <div class="form-group">
@@ -82,14 +82,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label>状态</label>
-                                <div class="col-sm-10">
-                                <span class="radio-inline">
+                                <label >状态</label>
+                                <div class="form-group">
+                                    <span class="radio-inline" style="padding: 4px 0 0 16px;">
                                     <input name="status" type="radio" class="minimal" value="1"> 启用
-                                </span>
+                                    </span>
                                     <span  class="radio-inline pdl0">
                                     <input name="status" type="radio" class="minimal"  value="0"> 禁用
-                                </span>
+                                    </span>
                                 </div>
                             </div>
                         </div><!-- /.box-body -->

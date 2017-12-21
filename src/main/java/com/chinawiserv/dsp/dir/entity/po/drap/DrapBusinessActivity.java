@@ -2,8 +2,10 @@ package com.chinawiserv.dsp.dir.entity.po.drap;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -70,8 +72,8 @@ public class DrapBusinessActivity implements Serializable {
     /**
      * 上级业务节点编码
      */
-	@TableField("parent_code")
-	private String parentCode;
+	@TableField("fid")
+	private String fid;
     /**
      * 上级组织指导业务
      */
@@ -261,6 +263,48 @@ public class DrapBusinessActivity implements Serializable {
 	@TableField("tree_code")
 	private String treeCode;
 
+	 /**
+     * 审核人
+     */
+	@TableField("audito")
+	private String audito;
+	
+	 /**
+     * 审核时间
+     */
+	@TableField("audit_time")
+	private Date auditTime;
+	
+	 /**
+     * 审核意见
+     */
+	@TableField("audit_opinion")
+	private String auditOpinion;
+
+
+	public String getAudito() {
+		return audito;
+	}
+
+	public void setAudito(String audito) {
+		this.audito = audito;
+	}
+
+	public Date getAuditTime() {
+		return auditTime;
+	}
+
+	public void setAuditTime(Date auditTime) {
+		this.auditTime = auditTime;
+	}
+
+	public String getAuditOpinion() {
+		return auditOpinion;
+	}
+
+	public void setAuditOpinion(String auditOpinion) {
+		this.auditOpinion = auditOpinion;
+	}
 
 	public String getId() {
 		return id;
@@ -342,12 +386,12 @@ public class DrapBusinessActivity implements Serializable {
 		this.shortName = shortName;
 	}
 
-	public String getParentCode() {
-		return parentCode;
+	public String getFid() {
+		return fid;
 	}
 
-	public void setParentCode(String parentCode) {
-		this.parentCode = parentCode;
+	public void setFid(String fid) {
+		this.fid = fid;
 	}
 
 	public String getParentGuidActivity() {

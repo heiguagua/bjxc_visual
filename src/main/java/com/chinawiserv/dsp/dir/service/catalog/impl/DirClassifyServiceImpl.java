@@ -6,7 +6,9 @@ import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirClassify;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirNationalClassify;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirNationalClassifyVo;
+import com.chinawiserv.dsp.dir.entity.vo.configure.DirPolicyVo;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyAuthorityMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirNationalClassifyMapper;
@@ -196,11 +198,11 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 		return mapper.selectVoById(id);
 	}
 
-    @Override
-    public Page<DirClassifyVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return null;
-	}
+//    @Override
+//    public Page<DirClassifyVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
+//		//todo
+//		return null;
+//	}
 
     @Override
     public int selectVoCount(Map<String, Object> paramMap) throws Exception {
@@ -270,6 +272,70 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
         return mapper.selectSubVoListForTreeData(paramMap);
     }
 
+    
+    @Override
+    public Page<DirClassifyVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
+    	Page<DirClassifyVo> page = getPage(paramMap);
+        page.setOrderByField("create_time");
+        page.setAsc(false);
+    	String userId = ShiroUtils.getLoginUserId();
+        //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        //非超管和区域管理员，则要做权限过滤
+        if(minRoleLevl>0){
+            //查询有权限的目录分类
+            String chooseClassifyTreeCode = (String) paramMap.get("treeCode");
+            String authorityNode = (String) paramMap.get("authorityNode");
+            List<String> authorityClassifyTreeCodeList = authorityMapper.selectAuthorityIdForLoginUser(userId);
+            if(!ObjectUtils.isEmpty(authorityClassifyTreeCodeList)){
+                if(!StringUtils.isEmpty(chooseClassifyTreeCode)){ //第一层节点不用过滤
+                    if("n".equals(authorityNode)){ //如果是n，表示未明确是否是授权或授权下级节点，需要去验证是否授权节点
+                        boolean hasThisNodeAuthority = false;
+                        for(String authorityClassifyTreeCode : authorityClassifyTreeCodeList){
+                            if(chooseClassifyTreeCode.equals(authorityClassifyTreeCode)){
+                                hasThisNodeAuthority = true;
+                                break;
+                            }
+                        }
+                        if(hasThisNodeAuthority){ //如果该点击节点被授权了，则后面所有节点都可以显示
+                            paramMap.put("authorityNode","y");
+                        }else{ //如果该节点没有授权,则下级节点只是去验证是否在授权节点的父级节点路线上
+                            Map<String,String> parentCodesMap = new HashMap<>();
+                            for(String treeCode : authorityClassifyTreeCodeList){
+                                getAllParentTreecodes(treeCode, parentCodesMap);
+                            }
+                            Set<String> keySet = parentCodesMap.keySet();
+                            StringBuffer parentCodesBuffer = new StringBuffer();
+                            for(String code : keySet){
+                                parentCodesBuffer.append("'").append(code).append("',");
+                            }
+                            String allParentTreeCodes = parentCodesBuffer.toString();
+                            if(!StringUtils.isEmpty(allParentTreeCodes)){
+                                allParentTreeCodes = allParentTreeCodes.substring(0,allParentTreeCodes.length()-1);
+                            }
+                            paramMap.put("allParentTreeCodes",allParentTreeCodes);
+                            paramMap.put("authorityNode","n");
+                        }
+                    }else{ //该点击节点被授权了，后面所有节点都可以显示
+                        paramMap.put("authorityNode","y");
+                    }
+                }else{
+                    paramMap.put("authorityNode","n");
+                }
+            }else{
+                return null;
+            }
+        }
+        List<DirClassifyVo> voPage = mapper.selectVoPage(page, paramMap);
+        page.setRecords(voPage);
+        return page;
+    }
+    
+    
+    
+    
+    
+    
     /**
      * 解析某个节点的treecode的，得到其所有父级节点,最终用于拼成一个可供sql直接查询的字符串
      * @param treeCode
@@ -299,30 +365,30 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
     
     //批量插入
     @Override
-    public void insertbatchNational(DirClassifyVo vo) throws Exception{
-    	
+    public int insertbatchNational(DirClassifyVo vo) throws Exception{
+    	int state = 0;
     	String fid = vo.getFid();   
     	String type = vo.getClassifyType();
     	List<DirNationalClassifyVo>  listClassifies = mapper2.selectSonClassify(vo.getNationalCode());
     	if(listClassifies.isEmpty()){
     		
-    		throw new Exception("此目录下无可导入内容，请从新选择");
+    		throw new Exception("此目录下无可导入内容，请重新选择");
     		
     	}
     	for (Iterator iterator = listClassifies.iterator(); iterator.hasNext();) {
     		
 			DirNationalClassifyVo dirNationalClassifyVo = (DirNationalClassifyVo) iterator.next();
-			getSClassifies(dirNationalClassifyVo.getClassifyCode(),fid,type);
+			state = state + getSClassifies(dirNationalClassifyVo.getClassifyCode(),fid,type);
 			
 		}
-    
+    	return state;
     }
     
     
     
     
-     public void getSClassifies(String fcode, String fid,String type){
-    	
+     public int getSClassifies(String fcode, String fid,String type){
+    	 	int state = 0 ;
 //	  		List<String> listsClassifies = Lists.newArrayList();
 //	  	  		
 //		  	listsClassifies.add(fcode);
@@ -341,9 +407,17 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 		  		}else if(type.equals("3") || type.equals("7")){
 		  			vo.setClassifyType("7");
 		  		}
+	  		//添加nationalcode
+		  	String NationalCode = dirNationalClassifyVo.getClassifyCode();
+		  	vo.setNationalCode(NationalCode);
+		  	DirClassifyVo votemp = null;
+		  	votemp = mapper.selectByNationalCode(NationalCode);
 	  		
-	  		
-	  		mapper.baseInsert(vo);
+		  	if(votemp!=null){
+		  		state = 1;
+		  	}else if(votemp==null){
+		  		mapper.baseInsert(vo);		  		
+		  	}
 
 	  		String pid = vo.getId();
 	  		
@@ -354,7 +428,7 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 	      		 for (Iterator iterator = list.iterator(); iterator.hasNext();) {
 	      			 
 					DirNationalClassifyVo dirNationalClassifyVo2 = (DirNationalClassifyVo) iterator.next();
-					getSClassifies(dirNationalClassifyVo2.getClassifyCode(),pid,type);
+					state = state + getSClassifies(dirNationalClassifyVo2.getClassifyCode(),pid,type);
 				 
 	      		 }    		 
 	      		 
@@ -364,7 +438,8 @@ public class DirClassifyServiceImpl extends CommonServiceImpl<DirClassifyMapper,
 //				 	listsClassifies.addAll(getSClassifies(string,pid));
 //				 	
 //				}      		      		 
-      	 }    	
+      	 }
+	  	 return state;
        }
 
 

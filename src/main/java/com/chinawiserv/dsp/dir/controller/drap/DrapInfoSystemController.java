@@ -178,6 +178,12 @@ public class DrapInfoSystemController extends BaseController {
 
     }
 
+    @RequestMapping("/api/auditRebut")
+    public void auditRebut(@RequestParam String  data, HttpServletResponse response){
+        deleteReceiveDate(data);
+        response.setStatus(200);
+    }
+
     public void updateReceiveDate(String data){
 
         final Map<String,String> paraMap = JSON.parseObject(data, new TypeReference<Map<String,String>>(){});
@@ -189,12 +195,12 @@ public class DrapInfoSystemController extends BaseController {
             service.insertBatch(systems);
         }
 
-        List<DrapSystemUseInfo> useInfos =  JSON.parseObject(paraMap.get("systemUseInfos"), new TypeReference<List<DrapSystemUseInfo>>(){});
-        useInfos = useInfos.stream().filter(a->a.getId()!=null).collect(toList());
-
-        if (useInfos.size()!=0){
-            useInfoService.insertBatch(useInfos);
-        }
+//        List<DrapSystemUseInfo> useInfos =  JSON.parseObject(paraMap.get("systemUseInfos"), new TypeReference<List<DrapSystemUseInfo>>(){});
+//        useInfos = useInfos.stream().filter(a->a.getId()!=null).collect(toList());
+//
+//        if (useInfos.size()!=0){
+//            useInfoService.insertBatch(useInfos);
+//        }
 
         List<DrapSystemUseDept> systemUseDepts = JSON.parseObject(paraMap.get("systemUseDepts"), new TypeReference<List<DrapSystemUseDept>>(){});
         systemUseDepts = systemUseDepts.stream().filter(a->a.getId()!=null).collect(toList());
@@ -203,5 +209,30 @@ public class DrapInfoSystemController extends BaseController {
             useDeptService.insertBatch(systemUseDepts);
         }
 
+    }
+
+    public void deleteReceiveDate(String data){
+        final Map<String,String> paraMap = JSON.parseObject(data, new TypeReference<Map<String,String>>(){});
+
+        List<DrapInfoSystem> systems = JSON.parseObject(paraMap.get("infoSystems"), new TypeReference<List<DrapInfoSystem>>(){});
+        systems = systems.stream().filter(a->a.getId()!=null).collect(toList());
+
+        if (systems.size()!=0){
+            service.deleteBatchIds(systems);
+        }
+
+//        List<DrapSystemUseInfo> useInfos =  JSON.parseObject(paraMap.get("systemUseInfos"), new TypeReference<List<DrapSystemUseInfo>>(){});
+//        useInfos = useInfos.stream().filter(a->a.getId()!=null).collect(toList());
+//
+//        if (useInfos.size()!=0){
+//            useInfoService.insertBatch(useInfos);
+//        }
+
+        List<DrapSystemUseDept> systemUseDepts = JSON.parseObject(paraMap.get("systemUseDepts"), new TypeReference<List<DrapSystemUseDept>>(){});
+        systemUseDepts = systemUseDepts.stream().filter(a->a.getId()!=null).collect(toList());
+
+        if (systemUseDepts.size()!=0){
+            useDeptService.deleteBatchIds(systemUseDepts);
+        }
     }
 }

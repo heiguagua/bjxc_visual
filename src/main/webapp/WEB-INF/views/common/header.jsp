@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
- <style>
+<style>
 	*{margin: 0;padding: 0;}
 	.citytitle{
 		position: relative;
@@ -40,52 +40,55 @@
 
     .btn-group a:link{ color:#ffffff}/* 链接默认为白色 */
     .btn-group a:hover{ color:#00a7d0}/* 鼠标悬停蓝色 */
-</style> 
-<script src="<%=basePath%>/js/system/region/region_switch.js"></script>
+</style>
+<script src="<%=context_path%>/js/system/region/region_switch.js"></script>
 <header class="main-header">
  <!-- Logo -->
   <%-- <div class="logo">
    <!-- mini logo for sidebar mini 50x50 pixels -->
    <span class="logo-mini"><b>${systemShortName}</b></span>
    <!-- logo for regular state and mobile devices -->
-  <!-- <span class="logo-lg"><span><img src="<%=basePath%>/images/userImg/logoSmall.png"/>&nbsp;${systemName}-${systemSubName}</span></span> -->
-   <a href="<%=basePath%>/catalog/catalogue" style="color: #fff" ><span class="logo-lg"><span><img src="<%=basePath%>/images/userImg/logoSmall.png"/>&nbsp;
+  <!-- <span class="logo-lg"><span><img src="<%=context_path%>/images/userImg/logoSmall.png"/>&nbsp;${systemName}-${systemSubName}</span></span> -->
+   <a href="/index" style="color: #fff" ><span class="logo-lg"><span><img src="<%=basePath%>${defaultIcon}"/>&nbsp;
        <span id="logo" style="font-size: 12px">${systemName}-${systemSubName}</span></span></span></a>
  </div> --%>
-
+    <input id="systemId" type="hidden" value="${integrateCurNo}">
  <!-- Header Navbar -->
  <nav class="navbar navbar-static-top" role="navigation">
- 
+
  	<div class="col-sm-3 log">
-        <span><img style="margin-top:-4px;" src="<%=basePath%>/images/userImg/logoSmall.png"/></span>${systemName}-${systemSubName}
+        <a href="<%=context_path%>/index" title='<c:if test="${empty systemSubName}">${systemName}</c:if><c:if test="${!empty systemSubName}">${systemName}-${systemSubName}</c:if>'><span style="color: #fff" ><img style="margin-top:-4px;" src="<%=context_path %>/images/userImg/logoSmall.png"/></span><c:if test="${empty systemSubName}">${systemName}</c:if><c:if test="${!empty systemSubName}">${systemName}-${systemSubName}</c:if></a>
     </div>
    <!-- Sidebar toggle button-->
    <!-- <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a> -->
    <!-- Navbar Right Menu -->
    
    <div class="col-sm-5  btn-group">
-   	<ul class="nav_uls">
+   	<ul class="nav_uls" id="topTabs">
+        <%--原tab--%>
         <li>
-            <img src="<%=basePath%>/images/userImg/sourceimgicon2.png"/>
-            <a href="<%=basePath%>/jp:hk_drap" style="color: #FFFFFF;">&nbsp;资源梳理</a></li>
+            <img src="<%=context_path%>/images/userImg/sourceimgicon2.png"/>
+            <a href="<%=context_path%>/jp:hk_drap" style="color: #FFFFFF;">&nbsp;资源梳理</a></li>
         <li class="active">
-            <img src="<%=basePath%>/images/userImg/directimgicon1.png"/>&nbsp;<a href="###">目录管理</a>
+            <img src="<%=context_path%>/images/userImg/directimgicon1.png"/>&nbsp;<a href="###">目录管理</a>
         </li>
+        <%--<li>--%>
+            <%--<img src="<%=context_path%>/images/userImg/collectimgicon2.png"/>--%>
+            <%--<a target="_blank" href="/jp:hk_dcm" style="color: #FFFFFF;" >&nbsp;数据采集</a></li>--%>
         <li>
-            <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
-            <a target="_blank" href="<%=basePath%>/jp:hk_dcm" style="color: #FFFFFF;" >&nbsp;数据采集</a></li>
+            <img src="<%=context_path%>/images/userImg/serverimgicon1.png"/>
+            <a href="<%=context_path%>/jp:hk_service" style="color: #FFFFFF;">&nbsp;服务封装</a></li>
+            <%--原tab--%>
+
      <%--    <li>
-            <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
-            <a target="_blank" href="<%=basePath%>/jp:hk_cs" style="color: #FFFFFF;">&nbsp;;爬虫采集</a></li> --%>
-        <li>
-            <img src="<%=basePath%>/images/userImg/serverimgicon1.png"/>
-            <a href="<%=basePath%>/jp:hk_service" style="color: #FFFFFF;">&nbsp;服务封装</a></li>
+            <img src="<%=context_path%>/images/userImg/collectimgicon2.png"/>
+            <a target="_blank" href="/jp:hk_cs" style="color: #FFFFFF;">&nbsp;;爬虫采集</a></li> --%>
 		<%-- <li>
-            <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
-            <a href="<%=basePath%>/jp:hk_analysis" style="color: #FFFFFF;">&nbsp;分析监管</a></li> --%>
-        <%-- <li>
-            <img src="<%=basePath%>/images/userImg/collectimgicon2.png"/>
-            <a target="_blank" href="<%=basePath%>/jp:hk_portal" style="color: #FFFFFF;">&nbsp;门户</a></li> --%>
+            <img src="<%=context_path%>/images/userImg/collectimgicon2.png"/>
+            <a href="/jp:hk_analysis" style="color: #FFFFFF;">&nbsp;分析监管</a></li> --%>
+         <li>
+            <img src="<%=context_path%>/images/userImg/collectimgicon2.png"/>
+            <a target="_blank" href="<%=context_path%>/jp:hk_portal" style="color: #FFFFFF;">&nbsp;门户</a></li>
    	</ul>
    </div>
   <!--  navbar-custom-menu -->
@@ -121,7 +124,7 @@
         <li >
          <!-- Menu Toggle Button -->
           <a class="citytitle">
-			<span class="defaultcity"><img src="<%=basePath%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span"></span></span>
+			<span class="defaultcity"><img src="<%=context_path%>/images/userImg/adress.png" />&emsp;<span class="Defaultcity_span"></span></span>
 			<!-- <ul class="innerul" id="box1">
 			</ul> -->
 		  </a>
@@ -129,8 +132,8 @@
        
      <li class="dropdown user user-menu">
          <!-- Menu Toggle Button -->
-         <a href="<%=basePath%>/system/me/page" class="dropdown-toggle" data-toggle="tooltip" title="${me.realName}" data-placement="bottom">
-           <img src="<%=basePath%>/images/userImg/avatar5.png" class="user-image" alt="User Image">
+         <a href="<%=context_path%>/system/me/page" class="dropdown-toggle" data-toggle="tooltip" title="${me.realName}" data-placement="bottom">
+           <img src="${remote}${me.userImg}?${nowDate}" class="user-image" alt="User Image">
            <span class="hidden-xs">${me.userName}</span>
              <%-- <span class="hidden-xs"><%=basePath%>${(me.userImg)}</span> --%>
          </a>
@@ -145,7 +148,7 @@
 
              <ul class="dropdown-menu animated fadeInRight">
                 <li>
-                    <a href="<%=basePath%>/login/logout" class="text-center" ui-sref="access.signin">退出系统</a>
+                    <a href="<%=context_path%>/login/logout" class="text-center" ui-sref="access.signin">退出系统</a>
                 </li>
             </ul> 
 
@@ -153,7 +156,7 @@
         
        <li>
          <a href="#" onclick="javascript:isOut()" class="dropdown-toggle" data-toggle="tooltip" title="退出" data-placement="bottom">
-          <%--  <img src="<%=basePath%>/images/userImg/adminDeltimg.png" class="adminDeltimg"/> --%>
+          <%--  <img src="<%=context_path%>/images/userImg/adminDeltimg.png" class="adminDeltimg"/> --%>
 			<i class="fa fa-sign-out"></i>
          </a>
        </li> 
@@ -168,15 +171,53 @@
           if($('#logo').text().indexOf("-") == -1){
               $('#logo').css({"font-size":"16px"})
           }
+
+//          loadTabsData();
       })
     function isOut(){
       layer.confirm("是否退出系统", {icon: 3, title: "提示", offset: getOffset()}, function (index) {
           layer.close(index);
-          window.location.href = '<%=basePath%>/login/logout';
-        <%--window.location.href = '<%=basePath%>/login';--%>
+          window.location.href = "<%=context_path%>" + '/login/logout';
+        <%--window.location.href = '/login';--%>
       });
     }
-
+    function loadTabsData() {
+        var systemId=$("#systemId").val();
+        var params = {integrateFlag : 1};
+        $.post(basePathJS + "/system/productIntegrate/list",
+            params,
+            function(data){
+               var rows= data.rows;
+                var p=$("#topTabs");
+                for(var i=0;i<rows.length;i++){
+                    var row=rows[i];
+                    var li=$('<li></li>');
+                    var a=$('<a style="color: #FFFFFF;"></a>');
+                    if(row.productNo==systemId){
+                        li.addClass("active")
+                        a.attr("href","###");
+                    }else{
+                        a.attr("href",basePathJS+row.jumpUrl);
+                    }
+                    //var img=$('<img/>').attr("src",basePathJS+row.icon);
+                    a.html("<img src="+ basePathJS+row.icon +"/>&nbsp;"+row.productShowName);
+                    if(row.curOpenFlag !="1"){
+                        //新页面打开
+                        a.attr("target","_blank");
+                    }
+                    li.append(a);
+                    p.append(li);
+                }
+                /* $('#topTabs').slick({
+                	  infinite: false,
+                	  slidesToShow: 4,
+                	  slidesToScroll: 1,
+                	  autoplay: false,
+                	  autoplaySpeed: 2000,
+                	}); */
+            }
+        );
+    }
 
   </script>
 </header>

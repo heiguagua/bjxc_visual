@@ -3,8 +3,8 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/classify/classifyAdd.js"></script>
- 	<script src="<%=basePath%>/js/system/dict/dictIcon.js"></script>
+    <script src="<%=context_path%>/js/catalog/classify/classifyAdd.js"></script>
+ 	<script src="<%=context_path%>/js/system/dict/dictIcon.js"></script>
 </head>
 <body>
 <section class="content">
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/dirClassify/doAdd">
+                          method="post" action="<%=context_path%>/dirClassify/doAdd">
                         <div class="box-body">
                         	<input id=fid type="hidden" value="${fid}" name="fid" />
                         	
@@ -30,7 +30,7 @@
 			                            <label  class="col-sm-3 control-label" for="classifyName">目录名称*</label>
 			                            <div class="col-sm-9">
 			                                <input type="text" id="classify_name" name="classifyName" class="form-control"
-                                       placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;remote(<%=basePath%>/system/user/insertCheckName)">
+                                       placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;">
 			                            </div>
 			                        </div>
 			                    </div>
@@ -87,14 +87,28 @@
 			                </div>
                         	<div class="form-group">
 			                    <div class="row">
-			                        
+			                        <div class="col-sm-6" id="deptGroupLead">
+			                            <label  class="col-sm-3 control-label" for="leadDeptName">牵头部门</label>
+			                            <div class="col-sm-9">
+			                                <input type="text" id="leadDeptName" required="required"
+                                           data-parsley-required-message="该项为必填" class="form-control">
+                                    <input type="hidden" id="leadDeptId" name="leadDeptId">
+                                    <div class="menu-wrap">
+                                        <div id="menuContent21" class="menuContent" style="display:none;">
+                                            <ul id="treeDemo21" class="ztree"
+                                                style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                        </div>
+                                    </div>
+			                            </div>
+			                        </div>
 			                        <div class="col-sm-6">
 			                            <label  class="col-sm-3 control-label" for="orderNumber">排序号*</label>
 			                            <div class="col-sm-9">
 			                         <input type="text" id="order_number" name="orderNumber" class="form-control"
-                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=basePath%>/dirClassify/CheckOrderNumber)">
+                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;integer[+0];range[~99999];remote(<%=context_path%>/dirClassify/CheckOrderNumber)">
 			                            </div>
 			                        </div>
+			                        
 			                        <!-- <div class="col-sm-6" >
 			                            <label  class="col-sm-3 control-label"  for="icon">目录类别*</label>
 			                            <div class="col-sm-9">
@@ -130,6 +144,9 @@
                                     </div>
 			                            </div>
 			                        </div>
+			                        
+			                        
+			                        
 			                    </div>
 			                </div>
 			                
@@ -154,7 +171,7 @@
                             <div class="form-group">
                                 <label for="classifyName">目录名称*</label>
                                 <input type="text" id="classify_name" name="classifyName" class="form-control"
-                                       placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;remote(<%=basePath%>/system/user/insertCheckName)">
+                                       placeholder="请输入目录名称" data-rule="目录名称:required;classifyName;remote(<%=context_path%>/system/user/insertCheckName)">
                             </div>
                             <div class="form-group" id="Dep">
                             	<label for="classifyName">是否为部门节点*</label>
@@ -198,7 +215,7 @@
                             <div class="form-group">
                                 <label for="orderNumber">排序号*</label>
                                  <input type="text" id="order_number" name="orderNumber" class="form-control"
-                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=basePath%>/dirClassify/CheckOrderNumber)">
+                                       placeholder="请输入排序号" data-rule="排序号:required;orderNumber;remote(<%=context_path%>/dirClassify/CheckOrderNumber)">
                             </div>
                             <div class="form-group">
                                 <label for="classifyDesc">目录描述:</label>

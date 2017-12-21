@@ -9,6 +9,7 @@ import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,10 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
     List<DrapDatasetItem> selectDatasetItemByIds(List<String> list);
 
     Page<DirDatasetClassifyMapVo> selectClassifyMapVoPage(Map<String, Object> paramMap);
+
+    Page<DirDatasetClassifyMapVo> selectRegistedClassifyMapVoPage(Map<String, Object> paramMap);
+
+    Page<DirDatasetClassifyMapVo> selectAuditedClassifyMapVoPage(Map<String, Object> paramMap);
 
     Page<DirDatasetClassifyMapVo> selectReleasedClassifyMapVoPage(Map<String, Object> paramMap);
 
@@ -66,4 +71,18 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
 
 
     boolean addDirDatasetWithOutDir(Sheet sheetAt, String regionCode, String classifyId);
+
+    int getDatasetTotalCountForClassify(String regionCode, String classifyType);
+
+    Map<String,Integer> getDatasetCountForClassify(String regionCode, String classifyType);
+
+    List<Map<String,Object>> getDatasetTopCountForClassify(String regionCode, String classifyType, int topNum);
+
+    int getDatasetTotalCount(String regionCode);
+
+    int getServiceTotalCount(String regionCode);
+
+    Map<String,Integer> getDatasetCountForStatus(String regionCode);
+
+    int upLoadFile(HttpServletRequest request) throws Exception;
 }

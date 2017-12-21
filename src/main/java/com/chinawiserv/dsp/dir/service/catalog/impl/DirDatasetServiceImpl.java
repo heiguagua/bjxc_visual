@@ -1,47 +1,52 @@
 package com.chinawiserv.dsp.dir.service.catalog.impl;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import com.chinawiserv.dsp.base.common.util.CommonUtil;
-import com.chinawiserv.dsp.base.entity.po.system.SysRegionDept;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.chinawiserv.dsp.base.common.util.*;
 import com.chinawiserv.dsp.base.entity.vo.system.*;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRegionDeptMapper;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.*;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.*;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDataitemService;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.gson.Gson;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FileUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
-import com.chinawiserv.dsp.base.common.util.Helper;
-import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataAuditVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataOfflineVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataPublishVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataRegisteVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetSurveyVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
 import com.chinawiserv.dsp.dir.enums.catalog.ReportScope;
 import com.chinawiserv.dsp.dir.enums.catalog.ReportStatus;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
 import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -54,6 +59,7 @@ import com.chinawiserv.dsp.dir.service.catalog.IDirDatasetService;
 @Service
 public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, DirDataset , DirDatasetVo> implements IDirDatasetService {
 
+	public static File fileCP = null;
     @Autowired
     private DirDatasetMapper mapper;
 
@@ -108,6 +114,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
     @Autowired
     private DirClassifyMapper dirClassifyMapper;
 
+    @Autowired
+    private DirDatasetAttachmentMapper dirDatasetAttachmentMapper;
+
     @Override
     public boolean insertVO(DirDatasetVo vo) throws Exception {
         boolean insertResult = false;
@@ -117,7 +126,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         String datasetId = UUID.randomUUID().toString();
         Date createTime = DateTimeUtils.stringToDate(DateTimeUtils.convertDateTime_YYYYMMDDHHMMSS(new Date()));
         vo.setId(datasetId);
-        vo.setRegionCode(logionUser.getRegionCode());
+//        vo.setRegionCode(logionUser.getRegionCode());
         //vo.setSourceType(SourceTypeEnum.DATA_1.getDbValue());
         vo.setStatus("0");
         vo.setCreateUserId(logionUser.getId());
@@ -125,11 +134,19 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         int datasetResult = mapper.baseInsert(vo);
         if(datasetResult>0){
             //数据集来源
-            if(vo.getDatasetSourceInfo() != null && vo.getDatasetSourceInfo().getSourceObjId() != null){
-                DirDatasetSourceInfo sourceInfo = vo.getDatasetSourceInfo();
-                sourceInfo.setId(UUID.randomUUID().toString());
-                sourceInfo.setDatasetId(datasetId);
-                datasetSourceInfoMapper.baseInsert(sourceInfo);
+            if(vo.getDatasetSourceInfoVo() != null && !StringUtils.isEmpty(vo.getDatasetSourceInfoVo().getSourceObjIds())){
+                List<DirDatasetSourceInfo> dirDatasetSourceInfoList = new ArrayList<>();
+                String sourceObjIds = vo.getDatasetSourceInfoVo().getSourceObjIds();
+                String sourceObjType = vo.getDatasetSourceInfoVo().getSourceObjType();
+                for (String sourceObjId : sourceObjIds.split(",")){
+                    DirDatasetSourceInfo dirDatasetSourceInfo = new DirDatasetSourceInfo();
+                    dirDatasetSourceInfo.setId(UUID.randomUUID().toString());
+                    dirDatasetSourceInfo.setDatasetId(datasetId);
+                    dirDatasetSourceInfo.setSourceObjId(sourceObjId);
+                    dirDatasetSourceInfo.setSourceObjType(sourceObjType);
+                    dirDatasetSourceInfoList.add(dirDatasetSourceInfo);
+                }
+                datasetSourceInfoMapper.batchInsert(dirDatasetSourceInfoList);
             }
             //插入信息资源格式
             DirDatasetExtFormat ext = vo.getExt();
@@ -538,7 +555,8 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             Map<String,Object> itemParams = new HashMap<>();
             itemParams.put("datasetIds", idArray);
             int itemDeleteNum = itemMapper.flagDelete(itemParams);
-            if(itemDeleteNum >=0){
+            int classifyMapDeleteNum = dirDatasetClassifyMapMapper.flagDelete(itemParams);
+            if(itemDeleteNum >=0 && classifyMapDeleteNum>=0){
                 Map<String,Object> datasetParams = new HashMap<>();
                 datasetParams.put("ids", idArray);
                 int deleteNum = mapper.flagDelete(datasetParams);
@@ -589,8 +607,31 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetVo> page = getPage(paramMap);
         page.setOrderByField("create_time");
         page.setAsc(false);
-        //获取当前区域及子区域的编码
-        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf((String)paramMap.get("regionCode"));
+        //获取区域查询框选择的值,这个值是精确查询(多选),不会查其子区域的值
+       /* String searchRegionCode = (String)paramMap.get("regionCode");
+        if(!StringUtils.isEmpty(searchRegionCode)){
+            StringBuffer stringBuffer = new StringBuffer();
+            String [] searchRegionCodeArray = searchRegionCode.split(",");
+            for(int i=0,ii=searchRegionCodeArray.length;i<ii;i++){
+                if(i==0){
+                    stringBuffer.append("'").append(searchRegionCodeArray[i]).append("'");
+                }else{
+                    stringBuffer.append(",'").append(searchRegionCodeArray[i]).append("'");
+                }
+            }
+            paramMap.put("searchRegionCode",stringBuffer.toString());
+            paramMap.remove("regionCode");
+        }else{
+            //如果没有选择区域查询条件，则获取当前登录人所属区域及子区域的编码
+            String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+            String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+            if(!StringUtils.isEmpty(allRegionCode)){
+                paramMap.put("allRegionCode",allRegionCode);
+            }
+        }*/
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
         if(!StringUtils.isEmpty(allRegionCode)){
             paramMap.put("allRegionCode",allRegionCode);
         }
@@ -630,6 +671,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     String allRegionCode = allRegionCodeBuffer.toString();
                     allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
                     paramMap.put("allRegionCode",allRegionCode);
+                    paramMap.remove("regionCode");
                 }
             }
         }
@@ -773,8 +815,14 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                             if(!sysDeptVoList.isEmpty()){
                                 dataset.setBelongDeptId(sysDeptVoList.get(0).getId());
                             }
+                            dataset.setBelongDeptName(name);
+                        }else{
+                            regionMap.put("regionDeptName",name);
+                            List<SysRegionDeptVo> sysDeptList = sysRegionDeptMapper.selectVoList(regionMap);
+                            if(!sysDeptList.isEmpty()){
+                                dataset.setBelongDeptType(sysDeptList.get(0).getId());
+                            }
                         }
-                        dataset.setBelongDeptName(name);
                     } catch (Exception e) {
                     }
                     //资源提供方代码
@@ -783,7 +831,12 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                         String cellText = df.format(row.getCell(4).getNumericCellValue());
                         dataset.setBelongDeptNo(cellText);
                     } catch (Exception e) {
-                        dataset.setBelongDeptNo(null);
+                        try {
+                            row.getCell(4).setCellType(CellType.STRING);
+                            dataset.setBelongDeptNo(row.getCell(4).getStringCellValue());
+                        } catch (Exception e1) {
+                            dataset.setBelongDeptNo(null);
+                        }
                     }
                     //摘要
                     try {
@@ -797,7 +850,7 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                     dirDatasetExtFormat.setId(CommonUtil.get32UUID());
                     dirDatasetExtFormat.setDatasetId(dataset.getId());
                     try {
-                        dirDatasetExtFormat.setFormatCategory(getDictCode(sysDictVoList, "resourceFormat","", row.getCell(6).getStringCellValue()));
+                        dirDatasetExtFormat.setFormatCategory(getDictCode(sysDictVoList, "resourceFormat",null, row.getCell(6).getStringCellValue()));
                     } catch (Exception e) {
 
                     }
@@ -997,22 +1050,33 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
         page.setOrderByField("update_time");
         page.setAsc(false);
-        //查找出当前区域及所有子区域的code，用于过滤数据集
-        String regionCode = (String)paramMap.get("regionCode");
-        if(!StringUtils.isEmpty(regionCode)){
-            StringBuffer allRegionCodeBuffer = new StringBuffer();
-            List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
-            if(!ObjectUtils.isEmpty(SysRegionVoList)){
-                for(SysRegionVo vo : SysRegionVoList){
-                    String subRegionCode = vo.getRegionCode();
-                    allRegionCodeBuffer.append("'").append(subRegionCode).append("',");
-                }
-                if(allRegionCodeBuffer.length()>0){
-                    String allRegionCode = allRegionCodeBuffer.toString();
-                    allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
-                    paramMap.put("allRegionCode",allRegionCode);
+        //获取区域查询框选择的值,这个值是精确查询(多选),不会查其子区域的值
+        /*String searchRegionCode = (String)paramMap.get("regionCode");
+        if(!StringUtils.isEmpty(searchRegionCode)){
+            StringBuffer stringBuffer = new StringBuffer();
+            String [] searchRegionCodeArray = searchRegionCode.split(",");
+            for(int i=0,ii=searchRegionCodeArray.length;i<ii;i++){
+                if(i==0){
+                    stringBuffer.append("'").append(searchRegionCodeArray[i]).append("'");
+                }else{
+                    stringBuffer.append(",'").append(searchRegionCodeArray[i]).append("'");
                 }
             }
+            paramMap.put("allRegionCode",stringBuffer.toString());
+            paramMap.remove("regionCode");
+        }else{
+            //如果没有选择区域查询条件，则获取当前登录人所属区域及子区域的编码
+            String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+            String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+            if(!StringUtils.isEmpty(allRegionCode)){
+                paramMap.put("allRegionCode",allRegionCode);
+            }
+        }*/
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
         }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
@@ -1026,7 +1090,38 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 return null;
             }
         }
+//        paramMap.put("relFlag",0);//查询目录分类去掉关联目录分类
         List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(page, paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+        return page;
+    }
+
+    @Override
+    public Page<DirDatasetClassifyMapVo> selectRegistedClassifyMapVoPage(Map<String, Object> paramMap){
+        Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
+        page.setOrderByField("update_time");
+        page.setAsc(false);
+        getQueryParamMap(paramMap);
+        if(paramMap==null){
+            return null;
+        }
+        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForRegisted(page, paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+        return page;
+    }
+
+    @Override
+    public Page<DirDatasetClassifyMapVo> selectAuditedClassifyMapVoPage(Map<String, Object> paramMap){
+        Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
+        page.setOrderByField("update_time");
+        page.setAsc(false);
+        getQueryParamMap(paramMap);
+        if(paramMap==null){
+            return null;
+        }
+        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForAudited(page, paramMap);
         page.setRecords(dirDatasetClassifyMapVoList);
         page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
         return page;
@@ -1037,22 +1132,22 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         Page<DirDatasetClassifyMapVo> page = getPage(paramMap);
         page.setOrderByField("update_time");
         page.setAsc(false);
-        //查找出当前区域及所有子区域的code，用于过滤数据集
-        String regionCode = (String)paramMap.get("regionCode");
-        if(!StringUtils.isEmpty(regionCode)){
-            StringBuffer allRegionCodeBuffer = new StringBuffer();
-            List<SysRegionVo> SysRegionVoList = sysRegionService.selectAllRegionByRegionCode(regionCode);
-            if(!ObjectUtils.isEmpty(SysRegionVoList)){
-                for(SysRegionVo vo : SysRegionVoList){
-                    String subRegionCode = vo.getRegionCode();
-                    allRegionCodeBuffer.append("'").append(subRegionCode).append("',");
-                }
-                if(allRegionCodeBuffer.length()>0){
-                    String allRegionCode = allRegionCodeBuffer.toString();
-                    allRegionCode = allRegionCode.substring(0,allRegionCode.length()-1);
-                    paramMap.put("allRegionCode",allRegionCode);
-                }
-            }
+        getQueryParamMap(paramMap);
+        if(paramMap==null){
+            return null;
+        }
+        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForReleased(page, paramMap);
+        page.setRecords(dirDatasetClassifyMapVoList);
+        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
+        return page;
+    }
+
+    private void getQueryParamMap(Map<String, Object> paramMap){
+        //获取当前登录人所属区域及子区域的编码
+        String loginUserRegionCode=ShiroUtils.getLoginUser().getRegionCode();
+        String allRegionCode = sysRegionService.getAllSubRegionCodesWithSelf(loginUserRegionCode);
+        if(!StringUtils.isEmpty(allRegionCode)){
+            paramMap.put("allRegionCode",allRegionCode);
         }
         //获取当前登录用户的最大权限角色(-1：超级管理员,0:区域管理员)
         int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
@@ -1063,13 +1158,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
                 paramMap.put("loginUserIdForAuthority",ShiroUtils.getLoginUserId());
             }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
-                return null;
+                paramMap = null;
             }
         }
-        List<DirDatasetClassifyMapVo> dirDatasetClassifyMapVoList = dirDatasetClassifyMapMapper.selectVoPageForReleased(page, paramMap);
-        page.setRecords(dirDatasetClassifyMapVoList);
-        page.setTotal(dirDatasetClassifyMapMapper.selectVoCount(paramMap));
-        return page;
     }
 
     @Override
@@ -1232,7 +1323,14 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                 int insertResult = releaseMapper.insertListData(dataPublishList);
                 if (insertResult == dcmIdArray.length) {
                     result = true;
-                    //todo 调用门户的接口，同步数据到互联网门户的数据库
+                    //todo 调用门户的接口，同步数据到互联网门户的数据库,需要时放开即可
+                    if(Dataset.PublishType.ToDzzw.getKey().equalsIgnoreCase(publishType)||Dataset.PublishType.ToAll.getKey().equalsIgnoreCase(publishType)){
+                        try {
+                            boolean b = syncPublishDatasetToOpenPortal(dcmIdArray);
+                        } catch (Exception e) {
+                            System.out.println("同步到开放门户失败");
+                        }
+                    }
                 }
             }
         }
@@ -1361,4 +1459,217 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
         }
         return dirDataset;
     }
+
+    @Override
+    public int getDatasetTotalCountForClassify(String regionCode, String classifyType){
+        if(StringUtils.isEmpty(regionCode)){
+            return 0;
+        }
+        return dirDatasetClassifyMapMapper.selectDatasetTotalCountForClassify(regionCode, classifyType);
+    }
+
+
+    @Override
+    public Map<String,Integer> getDatasetCountForClassify(String regionCode, String classifyType){
+        Map<String,Integer> resultMap = new HashMap<>();
+        if(StringUtils.isEmpty(regionCode)){
+            return null;
+        }
+        List<DirClassify> showDirClassifyList = dirClassifyMapper.selectChildByType(regionCode, classifyType);
+        for(DirClassify dirClassify : showDirClassifyList){
+            int classifyCount = 0;
+            String classifyName = dirClassify.getClassifyName();
+            String treeCode = dirClassify.getTreeCode();
+            if(!StringUtils.isEmpty(treeCode)){
+                classifyCount = dirDatasetClassifyMapMapper.selectDatasetCountForClassify(treeCode);
+            }
+            resultMap.put(classifyName,classifyCount);
+        }
+        return resultMap;
+    }
+
+    @Override
+    public List<Map<String,Object>> getDatasetTopCountForClassify(String regionCode, String classifyType, int topNum){
+
+        List<Map<String,Object>> result = dirDatasetClassifyMapMapper.selectDatasetNumWithChildClassify(regionCode,classifyType, topNum);
+
+        final Stream<Map<String,Object>> stream =  result.stream().sorted((o1, o2) -> {
+            final Long num_1 = Long.class.cast(o1.get("value"));
+            final Long num_2 = Long.class.cast(o2.get("value"));
+            return num_1 > num_2 ? -1 : 1;
+        });
+
+        if(topNum > 0){
+            return stream.limit(topNum).collect(Collectors.toList());
+        }
+        return stream.collect(Collectors.toList());
+    }
+
+    @Override
+    public int getDatasetTotalCount(String regionCode){
+        Map<String,Object> param = new HashMap<>();
+        param.put("regionCode",regionCode);
+        return mapper.selectVoCount(param);
+    }
+
+    @Override
+    public int getServiceTotalCount(String regionCode){
+        return mapper.selectServiceTotalCount(regionCode);
+    }
+
+    @Override
+    public Map<String, Integer> getDatasetCountForStatus(String regionCode) {
+        if(StringUtils.isEmpty(regionCode)){
+            return null;
+        }
+        return dirDatasetClassifyMapMapper.selectDatasetCountForStatus(regionCode);
+    }
+
+    @Override
+    public int upLoadFile(HttpServletRequest request) throws Exception{
+        int upLoadNum = 0;
+        List<MultipartFile> fileList = new ArrayList<>();
+        List<DirDatasetAttachmentVo> fileInfoList = new ArrayList<>();
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
+                request.getSession().getServletContext());
+        String datasetId = request.getParameter("id");
+        // 判断 request 是否有文件上传,即多部分请求
+        if (multipartResolver.isMultipart(request)) {
+            //获取配置文件中的上传地址,如果没配则不进行下面的上传操作
+            Properties properties = new Properties();
+            
+            properties.load(FileUtils.openInputStream(fileCP));
+            
+            String ftpBasePath = properties.getProperty("datastreet.upload.native.dataset_file_path");
+            if(!StringUtils.isEmpty(ftpBasePath)){
+                String ftpPath;
+                if(!ftpBasePath.startsWith("/")){
+                    ftpBasePath = "/"+ftpBasePath;
+                }
+                if(!ftpBasePath.endsWith("/")){
+                    ftpBasePath = ftpBasePath+"/";
+                }
+                ftpPath = ftpBasePath + datasetId;
+                // 转换成多部分request
+                MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+                // 取得request中的所有文件名
+                Iterator<String> iter = multiRequest.getFileNames();
+                Date nowTime = DateTimeUtils.stringToDate(DateTimeUtils.nowToString());
+                while (iter.hasNext()) {
+                    // 取得上传文件
+                    MultipartFile file = multiRequest.getFile(iter.next());
+                    int state = 0;
+                    List<String> listType = new ArrayList<>();
+        	        List<String> listTypeSub = new ArrayList<>();
+        	        String fileType = GetFileTypeByHead.getFileTypeByByte(file.getBytes());
+        	        listTypeSub.add("jpg");listTypeSub.add("jpeg");listTypeSub.add("png");listTypeSub.add("gif");
+        	        listTypeSub.add("JPG");listTypeSub.add("JPEG");listTypeSub.add("PNG");listTypeSub.add("GIF");
+        	        listTypeSub.add("docx");listTypeSub.add("xlsx");listTypeSub.add("doc");listTypeSub.add("zip");
+        	        listTypeSub.add("DOCX");listTypeSub.add("XLSX");listTypeSub.add("DOC");listTypeSub.add("ZIP");
+        	        listTypeSub.add("pdf");listTypeSub.add("rar");listTypeSub.add("xls");
+        	        listTypeSub.add("PDF");listTypeSub.add("RAR");listTypeSub.add("XLS");
+        	        listType.add("jpg");listType.add("png");listType.add("gif");
+        	        listType.add("docx");listType.add("xlsx");listType.add("doc");
+        	        listType.add("zip");listType.add("rar");listType.add("pdf");listType.add("xls");
+        	        for (Iterator iterator = listTypeSub.iterator(); iterator.hasNext();) {
+        				String string = (String) iterator.next();
+//        				System.out.println(file.getOriginalFilename());
+        				if(string.equals(file.getOriginalFilename().substring(file.getOriginalFilename().indexOf(".")+1))){
+        					state++;
+        				}
+        			}
+        	        for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
+        				String string = (String) iterator.next();
+        				if(string.equals(fileType)){
+        					state++;
+        				}
+        			}
+        	        if(state!=2){
+        	        	return 10000;
+        	        }
+                    
+                    
+                    
+                    if (file != null) {
+                        // 取得当前上传文件的文件名称
+                        String fileName = file.getOriginalFilename();
+                        // 如果名称不为“”,说明该文件存在，否则说明该文件不存在
+                        if (fileName.trim() != "") {
+                            fileList.add(file);
+                            //记录文件的各个信息，用于上传成功后入库mysql表中
+                            long fileSize = file.getSize();
+                            DirDatasetAttachmentVo attachmentVo = new DirDatasetAttachmentVo();
+                            attachmentVo.setId(UUID.randomUUID().toString());
+                            attachmentVo.setDatasetId(datasetId);
+                            attachmentVo.setFileName(fileName);
+                            attachmentVo.setFileSize((int) fileSize);
+                            attachmentVo.setDatasetFilePath(ftpPath);
+                            attachmentVo.setUploader(ShiroUtils.getLoginUserId());
+                            attachmentVo.setUploadTime(nowTime);
+                            fileInfoList.add(attachmentVo);
+                        }
+                    }
+                }
+                //上传所有文件到ftp指定路径下
+                if(fileList.size()>0){
+                    FTPUtil ftpUtil = new FTPUtil();
+                    boolean uploadResult = ftpUtil.uploadMutilFiles(ftpPath,fileList);
+                    if(uploadResult){//上传成功,记录对应信息到mysql表中
+                        upLoadNum = dirDatasetAttachmentMapper.insertListItem(fileInfoList);
+                    }
+                }
+            }
+        }
+
+        return upLoadNum;
+    }
+
+    /**
+     * 推送发布数据到开放门户的方法
+     * */
+    @Value("${open.portal.push.address}")
+    private String openPortalPushAddress;
+    @Value("${open.portal.push.method}")
+    private String openPortalPushMethod;
+    private boolean syncPublishDatasetToOpenPortal(String... dcmIdArray){
+
+        if(StringUtils.isEmpty(openPortalPushAddress)) return false;
+
+        Map<String,Object> pushMap = Maps.newHashMap();
+
+        List<String> dcmIdList = Arrays.asList(dcmIdArray);
+
+        List<DirDatasetClassifyMap> dirDatasetClassifyMapList = dirDatasetClassifyMapMapper.selectBatchIds(dcmIdList);
+        pushMap.put("dirDatasetClassifyMapList",dirDatasetClassifyMapList);
+
+        List<String> datasetIdList = Lists.newArrayList();
+        if(CollectionUtils.isNotEmpty(dirDatasetClassifyMapList)){
+            datasetIdList = dirDatasetClassifyMapList.stream().map( e -> e.getDatasetId()).collect(Collectors.toList());
+        }
+
+        List<DirDataset> dirDatasetList = mapper.selectBatchIds(datasetIdList);
+        pushMap.put("dirDatasetList",dirDatasetList);
+
+        List<DirDataitem> dirDataitemList = itemMapper.selectList(new EntityWrapper<DirDataitem>().in("dataset_id",datasetIdList));
+        pushMap.put("dirDataitemList",dirDataitemList);
+
+        List<DirDatasetExtFormat> dirDatasetExtFormatList = dirDatasetExtFormatMapper.selectList(new EntityWrapper<DirDatasetExtFormat>().in("dataset_id",datasetIdList));
+        pushMap.put("dirDatasetExtFormatList",dirDatasetExtFormatList);
+
+        List<DirDatasetAttachment> dirDatasetAttachmentList = dirDatasetAttachmentMapper.selectList(new EntityWrapper<DirDatasetAttachment>().in("dataset_id",datasetIdList));
+        pushMap.put("dirDatasetAttachmentList",dirDatasetAttachmentList);
+
+        String pushJson = new Gson().toJson(pushMap);
+        Boolean result;
+        try {
+            String s = HttpUtil.sendPostJson(openPortalPushAddress+openPortalPushMethod,pushJson);
+            result = Boolean.valueOf(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return result;
+    }
+
 }

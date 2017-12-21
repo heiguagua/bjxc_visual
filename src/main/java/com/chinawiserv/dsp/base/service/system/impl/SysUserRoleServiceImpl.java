@@ -21,4 +21,13 @@ import java.util.List;
 @Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements ISysUserRoleService {
 
+    @Autowired
+    private SysUserRoleMapper userRoleMapper;
+
+    @Override
+    public void deleteBatchByUserId(List<String> ids) {
+        for (String id : ids) {
+            userRoleMapper.delete(new EntityWrapper<SysUserRole>().addFilter("user_id = {0}", id));
+        }
+    }
 }

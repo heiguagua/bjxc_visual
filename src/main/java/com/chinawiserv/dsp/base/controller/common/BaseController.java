@@ -1,17 +1,28 @@
 package com.chinawiserv.dsp.base.controller.common;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.SystemConst;
+import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo;
+import com.chinawiserv.dsp.base.service.system.ISysProductIntegrateService;
+import com.chinawiserv.dsp.base.service.system.ISysSettingService;
 import com.google.common.base.CaseFormat;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,6 +32,12 @@ import java.util.Map;
  */
 public class BaseController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+	protected ISysProductIntegrateService productIntegrateService;
+
+	@Autowired
+	private ISysSettingService sysSettingService;
 
 	/**
 	 * 返回登录 Token
@@ -179,6 +196,39 @@ public class BaseController {
 		if (StringUtils.isNotBlank(cur)) {
 			ShiroUtils.setSessionAttribute(SystemConst.CUR, cur);
 		}
+	}
+
+	protected String getDataFromMaster(String url)throws ErrorInfoException{
+		String systemId = sysSettingService.findValueByCode(SystemConst.SYS_INTEGRATE_NO);
+		SysProductIntegrateVo master = productIntegrateService.getTheMaster();
+		if(master.getProductNo().equals(systemId)){
+			throw new ErrorInfoException("同一系统，无需获取数据");
+		}
+		RestTemplate restTemplate = new RestTemplate();
+		return restTemplate.getForObject(master.getRootPath()+url+"/?systemId="+systemId, String.class);
+//		return restTemplate.getForObject("http://localhost:8080/dm/system/user/provideData/?systemId=dm", String.class);
+	}
+
+//	protected String getTheMaseterBaseUrl() throws Exception{
+//		SysProductIntegrateVo master = productIntegrateService.getTheMaster();
+//		return  master.getRootPath();
+//	}
+	//主次检查异常当未集成处理，表现为主
+	protected boolean isMaster(){
+		String systemId = sysSettingService.findValueByCode(SystemConst.SYS_INTEGRATE_NO);
+
+		SysProductIntegrateVo master = null;
+		try {
+			master = productIntegrateService.getTheMaster();
+		} catch (ErrorInfoException e) {
+
+			logger.error("集成异常，未获得唯一主系统");
+			return true;
+		}
+		if(master!=null&&!master.getProductNo().equals(systemId)){
+			return false;
+		}
+		return true;
 	}
 
 }

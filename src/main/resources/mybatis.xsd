@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="mybatis-configs">
+        <xs:annotation>
+            <xs:documentation>
+                    <![CDATA[定义多个mybatis配置加载]]>
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mybatis-config" maxOccurs="unbounded" minOccurs="0" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:attributeGroup name="baseAttrs">
+
+        <xs:attribute name="primary" type="xs:boolean" default="false" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    <![CDATA[是否是默认]]>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:simpleType name="noWhiteSpace">
+        <xs:restriction base="xs:string">
+            <xs:whiteSpace value="replace" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="mybatis-config">
+        <xs:annotation>
+            <xs:documentation>
+                    <![CDATA[定义单个mybatis配置加载]]>
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all minOccurs="0">
+                <xs:element name='dataSourceName' type='noWhiteSpace' minOccurs='1' maxOccurs='1'>
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[使用的数据源名称,Spring 注册的Bean]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <xs:element name="configLocation" type="noWhiteSpace" minOccurs='0' maxOccurs='1' default="">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[主配置文件的路径]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <xs:element name="mapperLocations" type="noWhiteSpace" minOccurs='0' maxOccurs='1' default="">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[映射类文件的路径]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <xs:element name="mapperPackages" type="noWhiteSpace" minOccurs='0' maxOccurs='1' default="">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[映射类的路径]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                
+                 <xs:element name="defaultExecutorType" type="noWhiteSpace" minOccurs='0' maxOccurs='1' default="">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[SIMPLE, REUSE, BATCH]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <xs:element name="globalCache" type="noWhiteSpace" minOccurs='0' maxOccurs='1' default="true">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[映射类的路径]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                
+                <xs:element name="mysqlCache" type="xs:boolean" minOccurs='0' maxOccurs='1' default="false">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[是否使用mysql本身的缓存,前提是mysql开启了查询缓存]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <xs:element name="refresh" type="xs:boolean" minOccurs='0' maxOccurs='1' default="false">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[是否开启刷新]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <xs:element name="dbColumnUnderline" type="xs:boolean" minOccurs='0' maxOccurs='1' default="false">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[ 表名、字段名、是否使用下划线命名（默认 false）]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="capitalMode" type="xs:boolean" minOccurs='0' maxOccurs='1' default="false">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[是否大写命名]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="sqlKeywords" type="noWhiteSpace" minOccurs='0' maxOccurs='1' default="">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[映射类的路径]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="logicDeleteValue" type="noWhiteSpace" minOccurs='0' maxOccurs='1' default="">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[逻辑删除全局值]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="logicNotDeleteValue" type="noWhiteSpace" minOccurs='0' maxOccurs='1' default="">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[逻辑未删除全局值]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="idType" type="xs:int" minOccurs='0' maxOccurs='1' default="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[AUTO->`0`("数据库ID自增")
+                             INPUT->`1`(用户输入ID")
+                             ID_WORKER->`2`("全局唯一ID")
+                             UUID->`3`("全局唯一ID")]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="fieldStrategy" type="xs:int" minOccurs='0' maxOccurs='1' default="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[IGNORED(0, "忽略判断"),
+                             NOT_NULL(1, "非 NULL 判断"),
+                             NOT_EMPTY(2, "非空判断");]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="identifierQuote" type="noWhiteSpace" minOccurs='0' maxOccurs='1' default="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                    <![CDATA[ 标识符]]>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:all>
+            <xs:attributeGroup ref="baseAttrs" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema> 

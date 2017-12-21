@@ -15,6 +15,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbInfo;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbSystemMap;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableColumn;
+import com.chinawiserv.dsp.dir.entity.po.drap.DrapDbTableInfo;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDictTableColumn;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDictTableInfo;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDbInfoVo;
@@ -173,11 +175,11 @@ public class DrapDbInfoServiceImpl extends
 
 	@Override
 	public void receiveTableChange(Map<String, Object> map) {
-
+		System.out.println("===============================");
+		System.out.println(map);
 		if (null != map.get("oldTable")) {
-			@SuppressWarnings("unchecked")
-			List<DrapDbTableInfoVo> list = (List<DrapDbTableInfoVo>) map
-					.get("oldTable");
+//			@SuppressWarnings("unchecked")
+			List<DrapDbTableInfoVo> list = JSON.parseArray(map.get("oldTable").toString(), DrapDbTableInfoVo.class);
 
 			for (DrapDbTableInfoVo dbTableInfoVo : list) {
 				if (null != dbTableInfoVo.getUpdateChangeType()
@@ -196,10 +198,11 @@ public class DrapDbInfoServiceImpl extends
 		}
 
 		if (null != map.get("newTable")) {
-			@SuppressWarnings("unchecked")
-			List<DrapDbTableInfoVo> list = (List<DrapDbTableInfoVo>) map
-					.get("newTable");
-
+//			@SuppressWarnings("unchecked")
+//			List<DrapDbTableInfoVo> list = (List<DrapDbTableInfoVo>) map
+//					.get("newTable");
+			List<DrapDbTableInfoVo> list = JSON.parseArray(map.get("newTable").toString(), DrapDbTableInfoVo.class);
+			
 			for (DrapDbTableInfoVo dbTableInfoVo : list) {
 				if (null != dbTableInfoVo.getUpdateChangeType()
 						&& dbTableInfoVo.getUpdateChangeType().equals("add")) {
@@ -227,8 +230,9 @@ public class DrapDbInfoServiceImpl extends
 		     
 		    
 		     
-		 @SuppressWarnings("unchecked")
-        List<DrapDictTableInfoVo> listJson=(List<DrapDictTableInfoVo>)map.get("dicTable");
+//		 @SuppressWarnings("unchecked")
+//        List<DrapDictTableInfoVo> listJson=(List<DrapDictTableInfoVo>)map.get("dicTable");
+		List<DrapDictTableInfoVo> listJson = JSON.parseArray(map.get("dicTable").toString(), DrapDictTableInfoVo.class);
 		 
 		List<DrapDictTableInfoVo> list=JSON.parseArray(JSON.toJSONString(listJson), DrapDictTableInfoVo.class);
 		 
@@ -253,5 +257,30 @@ public class DrapDbInfoServiceImpl extends
 		 }
 
 	}
+
+    @Override
+    public void deleteDb(String id) {
+        List<String>ids=new ArrayList<>();
+        List<DrapDictTableInfo> oldDictTableInfos=dictTableInfoMapper.selectList(new EntityWrapper<DrapDictTableInfo>().eq("db_id",  id));
+        for (DrapDictTableInfo drapDictTableInfo : oldDictTableInfos) {
+            ids.add(drapDictTableInfo.getId());
+       }
+      dictTableColumnMapper.delete(new EntityWrapper<DrapDictTableColumn>().in("table_id", ids));
+      dictTableInfoMapper.delete(new EntityWrapper<DrapDictTableInfo>().eq("db_id",id) );
+      
+      ids.clear();
+      List<DrapDbTableInfo> tableInfos=dbTableInfoMapper.selectList(new EntityWrapper<DrapDbTableInfo>().eq("db_id",  id));
+      for (DrapDbTableInfo drapDbTableInfo : tableInfos) {
+          ids.add(drapDbTableInfo.getId());
+      }
+     dbTableColumnMapper.delete(new EntityWrapper<DrapDbTableColumn>().in("table_id", ids)) ;
+     dbTableInfoMapper.delete(new EntityWrapper<DrapDbTableInfo>().eq("db_id",id) );
+     
+     systemMapper.delete(new EntityWrapper<DrapDbSystemMap>().eq("db_id", id));
+     
+     mapper.deleteById(id);
+     
+     
+    }
 
 }

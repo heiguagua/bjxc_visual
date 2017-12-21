@@ -1,0 +1,262 @@
+/*!* 覆盖app中 login-box ,register-box *!*/
+/*.login-box,*/
+/*.register-box {*/
+    /*width: 460px;*/
+    /*margin: 7% auto;*/
+/*}*/
+
+/*html,*/
+/*body {*/
+    /*min-height: 100%;*/
+    /*font-family: '微软雅黑' !important;*/
+/*}*/
+
+/*!*处理表单输入框提示信息位置不对的问题*!*/
+/*form .form-group label {*/
+    /*display: block;*/
+/*}*/
+
+/*!*一键去除所有圆角效果*!*/
+/*!** {*!*/
+    /*!*-webkit-border-radius: 0 !important;*!*/
+    /*!*-moz-border-radius: 0 !important;*!*/
+    /*!*border-radius: 0 !important;*!*/
+/*!*}*!*/
+
+/*!*输入框组label项向右对齐*!*/
+/*.control-label {*/
+    /*text-align: right;*/
+    /*padding-top: 5px;*/
+/*}*/
+
+/*.pt40{*/
+    /*padding-top: 40px;*/
+/*}*/
+/*.w360{*/
+    /*width: 360px;*/
+/*}*/
+/*table{*/
+	/*font-size:14px;*/
+/*}*/
+    /*.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,*/
+/*.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {*/
+  /*background-color: rgba(3,169,244,.5);*/
+  /*background-color: rgba(3,169,244,.5);*/
+/*}*/
+/*.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {*/
+  /*background-color: rgba(3,169,244,.8);*/
+  /*background-color: rgba(3,169,244,.8);*/
+/*}*/
+/*table{*/
+    /*table-layout: fixed;*/
+
+/*}*/
+/*table td{*/
+    /*word-break:break-all;*/
+/*}*/
+
+/*==================== 2017-09-14 10:42:12   by  =================================*/
+
+/*body{padding-top:3.5rem}h1{margin-bottom:20px;padding-bottom:9px;border-bottom:1px solid #eee}.sidebar{position:fixed;top:51px;bottom:0;left:0;z-index:1000;padding:20px;overflow-x:hidden;overflow-y:auto;border-right:1px solid #eee}.sidebar{padding-left:0;padding-right:0}.sidebar .nav{margin-bottom:20px}.sidebar .nav-item{width:100%}.sidebar .nav-item + .nav-item{margin-left:0}.sidebar .nav-link{border-radius:0}.placeholders{padding-bottom:3rem}.placeholder img{padding-top:1.5rem;padding-bottom:1.5rem}*/
+
+
+/* ================= custom ========================*/
+
+
+/* 覆盖app中 login-box ,register-box */
+
+.login-box, .register-box {
+    width: 460px;
+    margin: 7% auto;
+}
+
+html, body {
+    font-family: '微软雅黑'!important;
+    min-height: 100%;
+}
+
+
+/*处理表单输入框提示信息位置不对的问题*/
+
+form .form-group label {
+    display: block;
+}
+
+
+/*输入框组label项向右对齐*/
+
+.control-label {
+    padding-top: 5px;
+    text-align: right;
+}
+
+.pt40 {
+    padding-top: 40px;
+}
+
+.pt15 {
+    padding-top: 15px;
+}
+.mgr15{margin-right: 15px;}
+
+.w360 {
+    width: 360px;
+}
+
+table {
+    font-size: 14px;
+}
+
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar, .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
+    background-color: rgba(3, 169, 244, .5);
+    background-color: rgba(3, 169, 244, .5);
+}
+
+.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
+    background-color: rgba(3, 169, 244, .8);
+    background-color: rgba(3, 169, 244, .8);
+}
+
+table {
+    table-layout: fixed;
+}
+
+table td {
+    word-break: break-all;
+}
+
+.bootstrap-table .table {
+    border-radius: 0;
+}
+
+.table tbody tr td p{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.layui-table {
+    margin-top: 0;
+}
+
+.layui-table td, .layui-table th {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /*max-width: 250px;*/
+}
+
+.infoc {
+    color: #5cb85c;
+}
+
+.layer-boxs {
+    position: relative;
+    padding: 30px;
+}
+
+.quicktree {
+    height: 300px;
+    overflow: hidden;
+}
+
+.quicktree .panel-default {
+    border-color: #eee;
+    border-radius: 0
+}
+
+.quicktree .panel-default>.panel-heading {
+    border: 0;
+    background: #f8f8f8;
+    border-radius: 0
+}
+
+.quicktree .panel-body {
+    overflow: auto;
+    height: 220px;
+}
+
+.content_scroll_item {
+    overflow: auto;
+    height: 274px;
+}
+
+.btnw100 {
+    width: 100%;
+    text-align: left;
+}
+
+.btnw100 .caret {
+    float: right;
+    margin-top: 6px;
+}
+
+.son-box {
+    display: none;
+}
+
+.mgb0 {
+    margin-bottom: 0;
+}
+
+.fixed-table-pagination .pagination-info, .fixed-table-pagination .page-list {
+    padding: 0 5px;
+    color: #777;
+}
+
+.fixed-table-pagination .page-list .btn-default {
+    color: #777;
+    padding: 3px 6px;
+}
+
+.fixed-table-pagination .pagination-detail, .fixed-table-pagination div.pagination {
+    padding-right: 5px;
+}
+
+.pdl0{padding-left: 0;}
+.pdr0{padding-right: 0;}
+
+.f-dn{display: none;}
+
+.line{
+    /*height: 1px;*/
+    width: 100%;
+    background: #eee;}
+
+.menu-wrap{
+    position:relative;
+
+}
+.menu-wrap .menuContent{
+    top: 0 !important;
+    display: block;
+    position: absolute;
+    left: 0 !important;
+    z-index: 1999;
+    background: #FFF;
+    width: 100%;
+    max-height: 300px;
+    overflow: auto;
+}
+
+.interNet {
+    margin-right: 1px;
+    width: 13px;
+    height: 13px;
+    border-radius: 13px;
+    background-color: #27c24c;
+    display: inline-block;
+}
+
+.fa.fa-circle{
+    color: #999999;
+    font-size: 12px;
+}
+.ztree{
+    overflow-y: auto !important;
+}
+
+.redStar{
+    color: #ff0000;
+    vertical-align: middle;
+}

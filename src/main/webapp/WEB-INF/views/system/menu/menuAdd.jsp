@@ -2,7 +2,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/menu/menuAdd.js"></script>
+    <script src="<%=context_path%>/js/system/menu/menuAdd.js"></script>
 </head>
 <body>
 <section class="content">
@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/system/menu/doAdd">
+                          method="post" action="<%=context_path%>/system/menu/doAdd">
                         <div class="box-body">
                             <div class="form-group" id="menuTypeDiv">
                                 <label>菜单类型</label>

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
+
 import java.util.List;
 import java.util.Map;
 
@@ -33,4 +34,8 @@ public interface SysDeptAuthorityMapper extends BaseMapper<SysDeptAuthority> {
     List<SysDeptAuthorityVo> selectVoList(Map<String, Object> paramMap);
 
     int deleteByVo(SysDeptAuthorityVo sysDeptAuthorityVo);
+
+    List<String> getSelectedNodeByCurrentNode(Map<String, Object> paramMap);
+
+    List<String> getAllDeptParentNode(Map<String, Object> paramMap);
 }

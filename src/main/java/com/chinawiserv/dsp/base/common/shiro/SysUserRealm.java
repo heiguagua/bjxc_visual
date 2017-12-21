@@ -1,10 +1,8 @@
 package com.chinawiserv.dsp.base.common.shiro;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import com.chinawiserv.dsp.base.entity.po.system.SysRole;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -14,6 +12,7 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -72,6 +71,7 @@ public class SysUserRealm extends AuthorizingRealm {
 		return info;
 	}
 
+
 	/**
 	 * 认证(登录时调用)
 	 */
@@ -100,11 +100,31 @@ public class SysUserRealm extends AuthorizingRealm {
         if(user.getStatus() == 0){
         	throw new LockedAccountException("账号已被禁用,请联系管理员");
         }
+        //非超级管理员或区域管理员角色的用户，如果没有分配部门，不让登录
+        int minRole = user.getMinRoleLevel();
+        if(minRole > 0){
+            String deptId = user.getDeptId();
+            if(StringUtils.isEmpty(deptId)){
+                throw new IncorrectCredentialsException("当前登录用户未被分配部门，请联系管理员！");
+            }
+        }
         //TODO
         if(StringUtils.isBlank(user.getRegionCode())){
             throw new IncorrectCredentialsException("当前登录用户未被分配区域，请联系管理员！");
         }
-        
+
+        List<SysRole> roleList = user.getSysRoleList();
+        boolean roleFlag=false;
+        for (SysRole sysRole : roleList) {
+            if(sysRole.getStatus().equals(1)){
+                roleFlag=true;
+                break;
+            }
+        }
+        if(!roleFlag){
+            throw new IncorrectCredentialsException("当前登录用户角色不存在或被禁用，请联系管理员！");
+        }
+
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
         return info;
 	}

@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.dir.controller.drap;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,21 +39,32 @@ public class DrapRequirementResourcesController extends BaseController {
     @Autowired
     private IDrapRequirementResourcesService service;
 
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
-    	return "XXX/XXX/XXXList";
+    	return "feedback/requirement/requirementList";
     }
 
     /**
      * 分页查询需求资源信息表
      */
-    @RequiresPermissions("XXX:XXX:list")
+//    @RequiresPermissions("XXX:XXX:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        String deptId  = ShiroUtils.getLoginUser().getDeptId();
+        //非超管和区域管理员，不让管理
+        if(minRoleLevl>0){
+            if(!StringUtils.isEmpty(deptId)){
+                //查找当前用户拥有权限的目录类别的数据集，以及本部门及子部门的数据集，以及分配了其他部门权限的数据集
+                paramMap.put("deptId",deptId);
+            }else{ //非超管和区域管理员,又没部门,直接不让看所有数据
+                return null;
+            }
+        }
 		try {
 		    Page<DrapRequirementResourcesVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);
@@ -63,12 +76,13 @@ public class DrapRequirementResourcesController extends BaseController {
     }
 
     /**
-     * 新增需求资源信息表
+     * 跳转需求资源详情表
      */
-    @RequiresPermissions("XXX:XXX:add")
-    @RequestMapping("/add")
-    public  String add(){
-		return "XXX/XXX/XXXAdd";
+//    @RequiresPermissions("XXX:XXX:add")
+    @RequestMapping("/loadDetailPage")
+    public  String loadDetailPage(@RequestParam String id,Model model){
+        model.addAttribute("requirementId",id);
+		return "feedback/requirement/requirementDetail";
     }
 
     /**
@@ -113,10 +127,10 @@ public class DrapRequirementResourcesController extends BaseController {
 		return "XXX/XXX/XXXEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
-    @RequestMapping("/editLoad")
+//    @RequiresPermissions("XXX:XXX:edit")
+    @RequestMapping("/loadDetail")
     @ResponseBody
-    public  HandleResult editLoad(@RequestParam String id){
+    public  HandleResult loadDetail(@RequestParam String id){
 		HandleResult handleResult = new HandleResult();
 		try {
             DrapRequirementResourcesVo vo = service.selectVoById(id);

@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/dict/dataDictEdit.js"></script>
+    <script src="<%=context_path%>/js/system/dict/dataDictEdit.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -32,7 +32,7 @@
             </style>
             <div class="row">
                 <div class="col-md-6">
-                    <form  class="form-inline" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=basePath%>/sysDict/doEdit">
+                    <form  class="form-inline" role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/sysDict/doEdit">
                         <input id="categoryId" type="hidden" value="${categoryId}" name="categoryCode" />
                         <div class="box-body box-bodyx">
                             <div class="form-group">
@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <label for="categoryName">类型名称</label>
                                 <div class="form-group">
-                                <input type="text" id="categoryName" name="categoryName" class="form-control">
+                                <input type="text" id="categoryName" name="categoryName" class="form-control" data-rule="required;length[~128, true]">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -52,7 +52,7 @@
 
                                 <div class="form-group" name="categoryDesc">
                                     <textarea class="form-control" rows="3" name="categoryDesc" id="categoryDesc"
-                                              placeholder="请输入数据字典描述"></textarea>
+                                              placeholder="请输入数据字典描述" data-rule="required;length[~512, true]"></textarea>
                                 </div>
                             </div>
                         </div><!-- /.box-body -->

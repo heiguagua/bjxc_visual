@@ -1,19 +1,9 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptAuthority;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
@@ -22,6 +12,12 @@ import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysDeptAuthorityService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -117,5 +113,26 @@ public class SysDeptAuthorityServiceImpl extends CommonServiceImpl<SysDeptAuthor
             }
         }
         return deptIds;
+    }
+
+    @Override
+    public List<String> selectAllSuperiorIds(Map<String, Object> paramMap) {
+//        List<SysDept>  sysDeptList= new ArrayList();
+//        List<SysDeptAuthorityVo> vos = mapper.selectVoList(paramMap);
+//        List<String>  list=vos.stream().map(vo -> vo.getDeptId()).collect(Collectors.toList());
+//        while (list!=null && !list.isEmpty()){
+//            List<SysDept> existList=sysDeptMapper.listByList(list);
+//            sysDeptList.removeAll(existList);
+//            sysDeptList.addAll(existList);
+//            list=existList.stream().map(sysDept -> sysDept.getFid()).collect(Collectors.toList());
+//        }
+//
+//        return  sysDeptList.stream().map(sysDept -> sysDept.getId()).collect(Collectors.toList());
+        return mapper.getAllDeptParentNode(paramMap);
+    }
+
+    @Override
+    public List<String> getSelectedNodeByCurrentNode(Map<String, Object> paramMap) {
+        return mapper.getSelectedNodeByCurrentNode(paramMap);
     }
 }

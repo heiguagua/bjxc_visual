@@ -45,7 +45,7 @@
      </c:if>--%>
    </ul><!-- /.sidebar-menu -->
    <a href="#" class="sidebar-toggle trapezoid-1" data-toggle="offcanvas" role="button" style="top:300px">
-	<img src="<%=basePath%>/images/userImg/sectionBack.png" id="smallImg"/>
+	<img src="<%=context_path%>/images/userImg/sectionBack.png" id="smallImg"/>
 	</a>
  </section>
  <!-- /.sidebar -->
@@ -88,7 +88,7 @@
                     for(var i = 0; i < treeMenus.length; i++ ) {
                         var parentMenu = treeMenus[i];
                         var childrenMenu = parentMenu.children ;
-                        var hasChild = childrenMenu && childrenMenu.length > 0 &&(parentMenu.sysMenu.url=="");
+                        var hasChild = childrenMenu && childrenMenu.length > 0 && (parentMenu.sysMenu.url=="") ;
 
 
                         var treeviewLi = $('<li></li>').addClass('treeview');

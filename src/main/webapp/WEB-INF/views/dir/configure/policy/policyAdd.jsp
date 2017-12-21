@@ -3,11 +3,11 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.config.js"></script>  
-    <script type="text/javascript" src="<%=basePath%>/plugins/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="<%=context_path%>/plugins/ueditor/ueditor.config.js"></script>  
+    <script type="text/javascript" src="<%=context_path%>/plugins/ueditor/ueditor.all.js"></script>
       
-    <%-- <script type="text/javascript" charset="utf-8" src="<%=basePath%>/plugins/ueditor/lang/zh-cn/zh-cn.js"></script> --%>
-    <script src="<%=basePath%>/js/dir/configure/policy/policyAdd.js"></script>
+    <%-- <script type="text/javascript" charset="utf-8" src="/plugins/ueditor/lang/zh-cn/zh-cn.js"></script> --%>
+    <script src="<%=context_path%>/js/dir/configure/policy/policyAdd.js"></script>
 </head>
 <body>
 <section class="content">
@@ -15,9 +15,9 @@
         <div class="col-md-12">
             <!-- form start -->
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/dirPolicy/doAdd">
+                          method="post" action="<%=context_path%>/dirPolicy/doAdd">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="title">标题</label>

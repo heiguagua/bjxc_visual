@@ -57,4 +57,6 @@ public interface DrapDatasetTableRelationMapper extends BaseMapper<DrapDatasetTa
 	 * @param paramMap
 	 */
 	void deleteDataColumnMapByDatasetId(Map<String, Object> paramMap);
+
+	void deleteTableRelationBySetIds(List<String> datasetIds);
 }

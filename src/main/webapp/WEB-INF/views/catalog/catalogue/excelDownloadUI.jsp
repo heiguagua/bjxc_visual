@@ -12,8 +12,8 @@
 
 <section class="content">
   <div>
-      <a class="btn btn-primary btn-flat dropdown-toggle btn-myself pull-left" href="<%=basePath%>/catalog/download" >含有目录分类的excel模板下载</a>
-      <a class="btn btn-primary btn-flat dropdown-toggle  btn-myself pull-left" href="<%=basePath%>/catalog/downloadWithoutDir" >没有目录分类的excel模板下载</a>
+      <a class="btn btn-primary btn-flat dropdown-toggle btn-myself pull-left" href="<%=context_path%>/catalog/download" >含有目录分类的excel模板下载</a>
+      <a class="btn btn-primary btn-flat dropdown-toggle  btn-myself pull-left" href="<%=context_path%>/catalog/downloadWithoutDir" >没有目录分类的excel模板下载</a>
   </div>
 </section>
 

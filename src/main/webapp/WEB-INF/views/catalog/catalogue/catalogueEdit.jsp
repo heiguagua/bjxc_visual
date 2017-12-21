@@ -3,27 +3,29 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/catalogue/catalogueEdit.js"></script>
+    <script src="<%=context_path%>/js/catalog/catalogue/catalogueEdit.js"></script>
 </head>
 <body>
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="editForm" action="<%=basePath%>/catalog/doEdit">
+            <form class="form-horizontal" id="editForm" action="<%=context_path%>/catalog/doEdit" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}">
                 <div class="form-group">
                     <div class="row">
                         <input type="hidden" id="id" name="id" value="${id}">
+                        <input type="hidden" id="regionCode" name="regionCode">
                         <div class="col-sm-12">
                             <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">目录分类<span class="redStar">*</span>:</label>
                             <div class="col-sm-10"  style="width:87.8%">
-                                <input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
+                                <input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control" disabled >
+                                <%--<input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
                                        placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
                                 <input type="hidden" id="classifyId" name="classifyIds">
                                 <div class="menu-wrap">
                                     <div id="menuContent" class="menuContent" style="display:none;">
                                         <ul id="treeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                         <%--<div class="col-sm-6">
@@ -74,7 +76,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label for="classifyName" class="col-sm-3 control-label">信息资源提供方<span class="redStar">*</span>:</label>
+                            <label for="classifyName" class="col-sm-3 control-label">资源提供方<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
                                 <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <input type="text" id="belongDeptTypeName" data-rule="信息资源提供方:required;" class="form-control"
@@ -87,20 +89,19 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6" style="padding:0;padding-left:15px;">
-                                    <input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="请输入提供方信息" >
-                                    <%--<input type="text" id="belongDeptName" data-rule="信息资源提供方:required;" class="form-control"
-                                           placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
+                                    <%--<input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="请输入提供方信息" >--%>
+                                    <input type="text" id="belongDeptName" name="belongDeptName" class="form-control" placeholder="可选择可输入" >
                                     <input type="hidden" id="belongDeptId" name="belongDeptId">
                                     <div class="menu-wrap">
                                         <div id="belongDeptMenuContent" class="menuContent" style="display:none;">
                                             <ul id="belongDeptTreeDemo" class="ztree" style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                         </div>
-                                    </div>--%>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 13px;">信息资源提供方代码<span class="redStar">*</span>:</label>
+                            <label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 13px;">资源提供方代码<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo" data-rule="信息资源提供方代码:required;">
                                 <input type="hidden" id="chargeDeptId" name="chargeDeptId">
@@ -165,8 +166,8 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label" style="padding-left:0px">涉密标识：</label>
-                            <div class="col-sm-9 control-label" style="text-align:left">
+                            <label  class="col-sm-3 control-label">涉密标识：</label>
+                            <div class="col-sm-4" style="padding-top:4px;padding-right: 0px">
                                 <div class="redio-box">
                                     <input type="radio" name="secretFlag" value="1" ><span></span>
                                 </div>
@@ -175,9 +176,13 @@
                                     <input type="radio" name="secretFlag" value="0"><span></span>
                                 </div>
                                 <label style="display:inline-block">非涉密</label>
-                                <span class="updatedate">周期：</span>
-                                <select class="form-controls updateSelec" id="updateFrequency" name="updateFrequency">
-                                </select>
+                            </div>
+                            <div class="col-sm-5 control-label" style="padding-top:0px">
+                                <label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 0px">周期：</label>
+                                <div class="col-sm-9" style="padding-right: 0px">
+                                    <select class="form-control" id="updateFrequency" name="updateFrequency">
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -201,14 +206,14 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label">是否向社会开放:</label>
-                            <div class="col-sm-9" style="padding-top: 7px;">
+                            <label  class="col-sm-3 control-label">是否开放:</label>
+                            <div class="col-sm-9" style="padding-top: 4px;">
                                 <div class="redio-box">
-                                    <input type="radio" name="isOpen"  value="0" checked><span></span>
+                                    <input type="radio" name="isOpen"  value="0"><span></span>
                                 </div>
                                 <label style="display:inline-block">否</label>
-                                <div class="redio-box">
-                                    <input type="radio" name="isOpen"  value="1"><span></span>
+                                <div class="redio-box" style="margin-left: 12px">
+                                    <input type="radio" name="isOpen"  value="1" checked><span></span>
 
                                 </div>
                                 <label style="display:inline-block">是</label>
@@ -255,19 +260,19 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">数据存储总量:</label>
+                            <label  class="col-sm-6 control-label">数据存储总量(G):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" id="totalStorage" name="survey.totalStorage">
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">结构化信息记录总数:</label>
+                            <label  class="col-sm-6 control-label">结构化信息(万):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="structureCount" name="survey.structureCount">
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已共享的数据存储量:</label>
+                            <label  class="col-sm-6 control-label">已共享数据量(G):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="sharedStorage" name="survey.sharedStorage">
                             </div>
@@ -277,19 +282,19 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已共享的结构化记录数:</label>
+                            <label  class="col-sm-6 control-label">已共享结构化(万):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="sharedStructureCount" name="survey.sharedStructureCount">
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已开放的数据存储量:</label>
+                            <label  class="col-sm-6 control-label">已开放数据量(G):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="openedStorage" name="survey.openedStorage">
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已开放的结构化记录数:</label>
+                            <label  class="col-sm-6 control-label">已开放结构化(万):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="openedStructureCount" name="survey.openedStructureCount">
                             </div>
@@ -307,11 +312,11 @@
                         <p>
                             <button type="button" class="btn btn-default btn-flat pull-right dropdown-toggle btn-myself"
                                     data-toggle="dropdown" id="N_add_itemH">
-                                <img src="<%=basePath%>/images/userImg/addimg.png"/>添加信息项
+                                <img src="<%=context_path%>/images/userImg/addimg.png"/>添加信息项
                             </button>
                             <button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
                                     data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
-                                <img src="<%=basePath%>/images/userImg/delImg.png"/>删除
+                                <img src="<%=context_path%>/images/userImg/delImg.png"/>删除
                             </button>
                         </p>
                     </div>

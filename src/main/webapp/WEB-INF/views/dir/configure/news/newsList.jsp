@@ -3,9 +3,19 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/dir/configure/news/newsList.js"></script>
+    <script src="<%=context_path%>/js/dir/configure/news/newsList.js"></script>
 
 </head>
+<style type="text/css">
+.layui-layer-dialog{
+	top:180px !important;
+}
+.ztree li ul {
+    margin: 0;
+    padding: 0 0 5 18px !important;
+}
+</style>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -30,7 +40,7 @@
                                 <div class="input-group">
                                     <a class="btn btn-primary  btn-flat btn-myself" onclick="javascript:addUser()" > 
                                     <!-- <i class="fa fa-plus"></i>  -->
-                                    <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                    <img src="<%=context_path%>/images/userImg/addimg.png"/>
                                     	新增</a>
                                 </div>
                                 <%--</#if>--%>

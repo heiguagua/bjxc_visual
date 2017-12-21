@@ -3,13 +3,13 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/catalog/catalogue/catalogueShow.js"></script>
+    <script src="<%=context_path%>/js/catalog/catalogue/catalogueShow.js"></script>
 </head>
 <body>
 <section class="content">
     <div id="catalogueTableEditLayer">
         <div class="layer-boxs">
-            <form class="form-horizontal" id="editForm" action="<%=basePath%>/catalog/doEdit">
+            <form class="form-horizontal" id="editForm" action="<%=context_path%>/catalog/doEdit">
                 <div class="form-group">
                     <div class="row">
                         <input type="hidden" id="id" name="id" value="${id}">
@@ -60,7 +60,7 @@
                             </div>
                         </div>--%>
                         <div class="col-sm-6">
-                            <label for="classifyName" class="col-sm-3 control-label">信息资源提供方 :</label>
+                            <label for="classifyName" class="col-sm-3 control-label">资源提供方 :</label>
                             <div class="col-sm-9">
                                 <div class="col-sm-6" style="padding:0;padding-right:15px;">
                                     <input type="text" id="belongDeptTypeName" class="form-control"
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">信息资源提供方代码:</label>
+                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">资源提供方代码:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="belongDeptNo" readonly>
                             </div>
@@ -98,30 +98,38 @@
                             <label for="formatCategory" class="col-sm-3 control-label">所属资源格式:</label>
                             <div class="col-sm-9">
                                 <div class="col-sm-6" style="padding:0;padding-right:15px;">
-                                    <select class="form-control" id="formatCategory" name="ext.formatCategory" readonly>
-                                    </select>
+                                    <input class="form-control" id="formatCategory" readonly />
+                                    <%--<select class="form-control" id="formatCategory" name="ext.formatCategory" readonly>--%>
+                                    <%--</select>--%>
                                 </div>
                                 <div class="col-sm-6" style="padding:0;padding-left:15px;">
-                                    <select class="form-control" id="formatType" name="ext.formatType" readonly>
-                                    </select>
+                                    <input class="form-control" id="formatType" readonly />
+                                    <%--<select class="form-control" id="formatType" name="ext.formatType" readonly>--%>
+                                    <%--</select>--%>
                                 </div>
 
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label  class="col-sm-3 control-label" style="padding-left:0px">涉密标识：</label>
-                            <div class="col-sm-9 control-label"  style="text-align:left">
-                                <div class="redio-box">
-                                    <input readonly type="radio" name="secretFlag" value="1" ><span></span>
+                            <div class="col-sm-4" style="padding-top:4px;padding-right: 0px">
+                                <input class="form-control" id="secretFlag" readonly />
+                                <%--<div class="redio-box">--%>
+                                    <%--<input disabled type="radio" name="secretFlag" value="1" ><span></span>--%>
+                                <%--</div>--%>
+                                <%--<label style="display:inline-block">涉密</label>--%>
+                                <%--<div class="redio-box">--%>
+                                    <%--<input disabled type="radio" name="secretFlag" value="0"><span></span>--%>
+                                <%--</div>--%>
+                                <%--<label style="display:inline-block">非涉密</label>--%>
+                            </div>
+                            <div class="col-sm-5 control-label" style="padding-top:0px">
+                                <label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 0px">周期：</label>
+                                <div class="col-sm-9" style="padding-right: 0px">
+                                    <input class="form-control" id="updateFrequency" readonly />
+                                    <%--<select class="form-control" id="updateFrequency" name="updateFrequency" readonly>--%>
+                                    <%--</select>--%>
                                 </div>
-                                <label style="display:inline-block">涉密</label>
-                                <div class="redio-box">
-                                    <input readonly type="radio" name="secretFlag" value="0"><span></span>
-                                </div>
-                                <label style="display:inline-block">非涉密</label>
-                                <span class="updatedate">周期：</span>
-                                <select class="form-controls updateSelec" id="updateFrequency" name="updateFrequency" readonly>
-                                </select>
                             </div>
                         </div>
                     </div>
@@ -132,30 +140,33 @@
                         <div class="col-sm-6">
                             <label for="shareType" class="col-sm-3 control-label">共享类型:</label>
                             <div class="col-sm-9">
-                                <select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" readonly>
-                                </select>
+                                <input class="form-control col-sm-4" id="shareType" style="width:30%" readonly />
+                                <%--<select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" readonly>--%>
+                                <%--</select>--%>
                                 <div id="shareMethodDiv">
                                     <label for="shareMethod" class="col-sm-4 control-label">共享方式:</label>
-                                    <div class="col-sm-5" style="padding:0">
-                                        <select class="form-control" id="shareMethod" name="shareMethod" readonly>
-                                        </select>
+                                    <div class="col-sm-4" style="padding:0">
+                                        <input class="form-control" id="shareMethod" readonly />
+                                        <%--<select class="form-control" id="shareMethod" name="shareMethod" readonly>--%>
+                                        <%--</select>--%>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label">是否向社会开放:</label>
-                            <div class="col-sm-9" style="padding-top: 7px;">
-                                <div class="redio-box">
-                                    <input type="radio" name="isOpen"  value="0" checked><span></span>
-                                </div>
-                                <label style="display:inline-block">否</label>
-                                <div class="redio-box">
-                                    <input type="radio" name="isOpen"  value="1"><span></span>
+                            <label  class="col-sm-3 control-label">是否开放:</label>
+                            <div class="col-sm-9" style="padding-top: 4px;">
+                                <input class="form-control" id="isOpen" readonly />
+                                <%--<div class="redio-box">--%>
+                                    <%--<input type="radio" name="isOpen"  value="0"><span></span>--%>
+                                <%--</div>--%>
+                                <%--<label style="display:inline-block">否</label>--%>
+                                <%--<div class="redio-box" style="margin-left: 12px">--%>
+                                    <%--<input type="radio" name="isOpen"  value="1" checked><span></span>--%>
 
-                                </div>
-                                <label style="display:inline-block">是</label>
+                                <%--</div>--%>
+                                <%--<label style="display:inline-block">是</label>--%>
                             </div>
                         </div>
                     </div>
@@ -199,19 +210,19 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">数据存储总量:</label>
+                            <label  class="col-sm-6 control-label">数据存储总量(G):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" id="totalStorage" name="survey.totalStorage" readonly>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">结构化信息记录总数:</label>
+                            <label  class="col-sm-6 control-label">结构化信息(万):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="structureCount" name="survey.structureCount" readonly>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已共享的数据存储量:</label>
+                            <label  class="col-sm-6 control-label">已共享数据量(G):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="sharedStorage" name="survey.sharedStorage" readonly>
                             </div>
@@ -221,19 +232,19 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已共享的结构化记录数:</label>
+                            <label  class="col-sm-6 control-label">已共享结构化(万):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="sharedStructureCount" name="survey.sharedStructureCount" readonly>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已开放的数据存储量:</label>
+                            <label  class="col-sm-6 control-label">已开放数据量(G):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="openedStorage" name="survey.openedStorage" readonly>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label  class="col-sm-6 control-label">已开放的结构化记录数:</label>
+                            <label  class="col-sm-6 control-label">已开放结构化(万):</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" id="openedStructureCount" name="survey.openedStructureCount" readonly>
                             </div>
@@ -260,7 +271,7 @@
                             <th>信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>
-                            <th style="width: 240px;">责任部门</th>
+                            <th style="width: 240px;">责任部门<span class="redStar">*</span></th>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>涉密标识</th>

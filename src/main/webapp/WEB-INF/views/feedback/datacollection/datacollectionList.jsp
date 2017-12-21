@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/feedback/datacollection/datacollectionList.js"></script>
+    <script src="<%=context_path%>/js/feedback/datacollection/datacollectionList.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -22,7 +22,7 @@
 
         <section class="content-header">
             <h1>
-                <small>门户管理 > 收藏管理</small>
+                <small>门户管理 > 收藏管理q</small>
             </h1>
             <!-- <ul class="title_ul">
                 <li class="active"><i class="fa fa-desktop" style="font-size:20px"></i>&nbsp;常规模式</li>
@@ -36,10 +36,45 @@
         <section class="content" id="dcMg">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="box">
-                        <form class="form-inline marginBot" method="post">
+                    <div class="box clear">
+
+                        <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                            <section class="sidebar">
+                                <div class="user-panel"  style="height: 6%;">
+                                    <b id="dir-Manger">目录分类</b>
+                                    <div class="pull-right image">
+                                        <a href="#" class="sidebar-toggle" role="button" style="right: -14px;">
+
+                                            <i style="color: rgb(51, 51, 51);" class="fa fa-backward pull-right" id="backward" title="收起"></i>
+                                            <i style="color: rgb(51, 51, 51);"  class="fa fa-forward pull-right" id="forward"  title="扩展"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <%--<div style="height: 6%" id="regionDiv">--%>
+                                    <%--<div  style="margin: 0 5px">--%>
+                                        <%--<input type="text" id="searchRegionName" placeholder="请选择区域"--%>
+                                               <%--class="form-control" readonly style="background-color: #FFFFFF">--%>
+                                        <%--<input type="hidden" id="searchRegionCode">--%>
+
+                                        <%--<div class="menu-wrap">--%>
+                                            <%--<div id="searchRegionMenuContent" class="menuContent"--%>
+                                                 <%--style="display:none;">--%>
+                                                <%--<ul id="searchRegionTreeDemo" class="ztree"--%>
+                                                    <%--style="margin-top:0;border: 1px solid #98b7a8;"></ul>--%>
+                                            <%--</div>--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                                <div style="height: 88%;">
+                                    <ul id="treeDemo" class="ztree"></ul>
+                                </div>
+                            </section>
+                        </aside>
+							 <div class="content_table">
+							     <form class="form-inline marginBot" method="post"  onsubmit="return false;">
                             <div class="box-header">
                                 <div class="input-group pull-right">
+                                    <input type="hidden" id="searchClassifyId">
                                     <input class="form-control" id="editListSearch" name="searchEdit" placeholder="资源名称"
                                            type="text">
                                     <div class="input-group-btn">
@@ -52,12 +87,14 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="box-body table-responsive ">
+                        <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
-                            <table class="table-striped" id="datacollectionListTable" lay-even="" lay-skin="row">
+                            <table class="table table-striped table-hover" id="datacollectionListTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
+							 </div>
+                    
                     </div>
                 </div>
             </div>
@@ -85,9 +122,9 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="box-body table-responsive no-padding">
+                        <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
-                            <table class="table-striped" id="datacollectionDetailTable" lay-even="" lay-skin="row">
+                            <table class="table table-striped table-hover" id="datacollectionDetailTable">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -101,6 +138,82 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <script type="text/javascript">
+    var tableSelector = '#datacollectionListTable';
+    var paramsObj = {};
+
+
+    $(document).ready(function(){
+        initAllSelect();
+    });
+
+    function initAllSelect(){
+        //区域下拉查询框
+        var initClassifyTreeParam = ["treeDemo","searchClassifyId","","classifyType"];
+        $.initRegionQueryTreeSelect('searchRegionTreeDemo','searchRegionName','searchRegionCode',
+             'searchRegionMenuContent',false,newRegionCode,initClassifyTreeParam);
+        //初始化中间目录分类树
+        $.initClassifyTree('treeDemo','searchClassifyId','','classifyType',newRegionCode);
+    }
+
+
+    function setParams() {
+        var searchClassifyId = $('#searchClassifyId').val();
+        var searchName = $('#editListSearch').val();
+        paramsObj = {classifyId:searchClassifyId,searchKey:searchName};
+    }
+
+    function reloadTable() {
+        $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
+        $(tableSelector).data("bootstrap.table").refresh();
+    }
+
+
+    function hideDirMgr() {
+    	 $("#min-aside").animate({
+             width:"2%"
+         },200);
+         $("#dir-Manger").hide();
+         $("#regionDiv").hide();
+         $("#forward").show(400);
+         $("#backward").hide(500);
+         $("#treeDemo").hide(200);
+         $("#min-aside").css("border","none")
+         $("div.box div.content_table").animate({
+             width: "98%"
+         })
+
+         $(this).parents("div.user-panel").css("background","#f4f6f9");
+    }
+
+    function showDirMgr() {
+    	 $("div.box div.content_table").animate({
+             width: "86%"
+         },400)
+         $("#min-aside").animate({
+             width:"14%"
+         },500);
+         $("#dir-Manger").show();
+         $("#regionDiv").show();
+         $("#forward").hide(400);
+         $("#backward").show(500);
+         $("#treeDemo").show(200);
+         $("#min-aside").css("border","1px solid #ddd");
+
+         $(".user-panel").css("background","none");
+    }
+
+
+    $(function(){
+        $("#forward").hide();
+        $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+        $("#backward").click(function(){
+            hideDirMgr();
+        })
+        $("#forward").click(function(){
+            showDirMgr();
+        })
+    })
+
     /**
      * 收藏搜索框
      * */
@@ -111,39 +224,69 @@
                 searchKey:searchKey
             }
         }
-        $('#datacollectionListTable').bootstrapTable('refresh', params);
+        $(tableSelector).bootstrapTable('refresh', params);
     });
     /**
      * 初始化收藏列表
      * */
-    $('#datacollectionListTable').bootstrapTable({
+    $(tableSelector).bootstrapTable({
         url:basePathJS + "/feedback/dirdatacollection/list",
         method: 'get',
         responseHandler: function (res) {
             return res.rows;
         },
+        queryParams: function (params) {
+            return $.extend(params, paramsObj);
+        },
         pagination: true, //分页
         pageNum: 1,
         pageSize: 10,
+        smartDisplay: false,
         columns: [
             {
-                field: 'a', title: '序号', width: '5%',
+                field: 'a', title: '序号', width: '6%',
                 formatter: function (value, row, index) {
                     return index + 1;
                 }
             },
-            {field: 'classifyName', title: '收藏目录'},
-            {field: 'datasetName', title: '目录下数据集'},
-            {field: 'collectDate', title: '最后收藏时间'},
+            {field: 'classifyName',
+                title: '收藏目录',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
+            {
+                field: 'datasetName',
+                title: '目录下数据集',
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },
+            {
+                field: 'collectDate',
+                title: '最后收藏日期',
+                formatter:function (value) {
+                    if(value.length>10){
+                        return value.substring(0,10);
+                    }
+                }
+            },
+            {field: 'collectorCount',width: '10%', title: '收藏人数'},
             {
                 field: 'dcmId', title: '操作',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false,
                 width: '10%',
                 formatter: function (value) {
                     var editBtn = [
-                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dcView(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>点击查看</a>&#160;"
+                        "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:dcView(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>点击查看</a>"
                     ].join('');
                     return editBtn;
                 }
@@ -155,6 +298,8 @@
 
 </script>
 <script type="text/javascript">
+
+    var detailTableSelector = '#datacollectionDetailTable';
     $('#dcMg-dd').addClass('hidden');
     /**
      * [dcView 点击查看]
@@ -164,6 +309,7 @@
     function dcView(v) {
         dcViewTable(v);
         $('#dcMg').addClass('hidden');
+        hideDirMgr();
         $('#dcMg-dd').removeClass('hidden');
     }
     /**
@@ -172,7 +318,8 @@
      */
     function retdcView() {
         $('#dcMg-dd').addClass('hidden');
-        $('#dcMg-dd .box-body').html('<table class="layui-table" id="datacollectionDetailTable" lay-even="" lay-skin="row"></table>');
+        $('#dcMg-dd .box-body').html('<table class="table table-hover" id="datacollectionDetailTable"></table>');
+        showDirMgr();
         $('#dcMg').removeClass('hidden');
     }
     /**
@@ -185,13 +332,13 @@
                 searchKey:searchKey
             }
         }
-        $('#datacollectionDetailTable').bootstrapTable('refresh', params);
+        $(detailTableSelector).bootstrapTable('refresh', params);
     });
     /**
      * 详情列表
      * */
     function dcViewTable(v) {
-        $('#datacollectionDetailTable').bootstrapTable({
+        $(detailTableSelector).bootstrapTable({
             url:basePathJS + "/feedback/dirdatacollection/detail?dcmId="+v,
             method: 'get',
             responseHandler: function (res) {
@@ -200,6 +347,7 @@
             pagination: true, //分页
             pageNum: 1,
             pageSize: 10,
+            smartDisplay:false,
             columns: [
                 {
                     field: 'a', title: '序号', width: '5%',
@@ -209,7 +357,16 @@
                 },
                 {field: 'collectorName', title: '收藏用户'},
                 {field: 'datasetName', title: '资源名称'},
-                {field: 'collectDate', title: '最后收藏时间', width: '15%'}
+                {
+                    field: 'collectDate',
+                    title: '收藏日期',
+                    width: '15%',
+                    formatter:function (value) {
+                        if(value.length>10){
+                            return value.substring(0,10);
+                        }
+                    }
+                }
             ]
 
 //            data: Mock.mock({

@@ -2,17 +2,22 @@ package com.chinawiserv.dsp.dir.controller.catalog;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.DirDeptMap;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyAuthorityVo;
 import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyAuthorityMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDeptMapMapper;
 import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
@@ -27,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -47,6 +53,9 @@ public class DirClassifyController extends BaseController {
 
 	@Autowired
 	private IDirClassifyService service;
+	
+	@Autowired
+    private DirClassifyAuthorityMapper dirClassifyAuthorityMapper;
 	
 	@Autowired
 	private DirClassifyMapper mapper;
@@ -123,11 +132,22 @@ public class DirClassifyController extends BaseController {
 				service.insertVO(entity);
 				String deptId = entity.getDeptId();
 				String classifyId = entity.getId();
+				if(deptId!=null || !deptId.isEmpty()){				
 				DirDeptMap ddmap = new DirDeptMap();
 				ddmap.setClassifyId(classifyId);
 				ddmap.setDeptId(deptId);
 				ddmap.setId(CommonUtil.get32UUID());
 				mapper2.baseInsert(ddmap);
+				DirClassifyAuthorityVo dirClassifyAuthorityVo = new DirClassifyAuthorityVo();
+                dirClassifyAuthorityVo.setId(CommonUtil.get32UUID());
+                dirClassifyAuthorityVo.setAuthObjType("1");
+                dirClassifyAuthorityVo.setAuthObjId(deptId);
+                dirClassifyAuthorityVo.setClassifyId(classifyId);
+                String loginUserId = ShiroUtils.getLoginUserId();
+                dirClassifyAuthorityVo.setDistributorId(loginUserId);
+                dirClassifyAuthorityVo.setDistributeDate(new Date());
+                dirClassifyAuthorityMapper.baseInsert(dirClassifyAuthorityVo);
+				}
 				handleResult.success("创建目录分类表成功");
 			}else{
 				handleResult.error("无权限添加初始目录类别，请联系管理员");
@@ -153,8 +173,13 @@ public class DirClassifyController extends BaseController {
 		
 		try {
 			if(!entity.getFid().equals("root")){
-				service.insertbatchNational(entity);				
-				handleResult.success("导入国家库成功");
+				int state = service.insertbatchNational(entity);
+				if(state == 0){
+					handleResult.success("导入国家库成功");
+				}else if(state ==1){
+					handleResult.success("导入国家库完成，存在重复导入部分，系统已自动清除");
+				}
+				
 			}else{
 				handleResult.error("导入失败");
 			}
@@ -247,7 +272,9 @@ public class DirClassifyController extends BaseController {
 	public HandleResult doEdit(DirClassifyVo entity, Model model) {
 		HandleResult handleResult = new HandleResult();
 		try {
-			
+//			if(entity.getOrderNumber()>999999){
+//				handleResult.error("排序号太长，请重新输入");
+//			}
 			service.updateVO(entity);
 			String deptId = entity.getDeptId();
 			String classifyId = entity.getId();
@@ -309,7 +336,10 @@ public class DirClassifyController extends BaseController {
             if (StringUtils.isEmpty(fid)) {
                 paramMap.put("classifyType", "1");
                 //查出第一层节点的regionCode，就相当于过滤出下面字节点的regionCode了
-                paramMap.put("regionCode",ShiroUtils.getSessionAttribute(SystemConst.REGION));
+//                paramMap.put("regionCode",ShiroUtils.getSessionAttribute(SystemConst.REGION));
+            }else{
+                //由于现在树结构的区域已分开,则不显示区域节点,如：成都市下的部门目录下的各区县这个节点就不显示了
+                paramMap.put("excludeClassifyType", "4");
             }
             List<DirClassifyVo> dirClassifyVoList = service.selectSubVoList(paramMap);
             handleResult.put("vo", dirClassifyVoList);
@@ -318,5 +348,64 @@ public class DirClassifyController extends BaseController {
             logger.error("根据登录用户的权限获取目录分类表信息失败", e);
         }
         return handleResult;
+    }
+
+    /**
+     * 根据登录用户的权限获取目录类别树结构的数据
+     */
+//    @RequiresPermissions("catalog:classify:list")
+    @RequestMapping("/subAuthorityListWithSubRegion")
+    @ResponseBody
+    public HandleResult getSubClassifyListForLoginUserWithSubRegion(@RequestParam Map<String, Object> paramMap) {
+        HandleResult handleResult = new HandleResult();
+        try {
+            String fid = (String) paramMap.get("fid");
+            if (StringUtils.isEmpty(fid)) {
+                paramMap.put("classifyType", "1");
+                //查出第一层节点的regionCode，就相当于过滤出下面字节点的regionCode了
+                paramMap.put("regionCode",ShiroUtils.getLoginUser().getRegionCode());
+            }
+            List<DirClassifyVo> dirClassifyVoList = service.selectSubVoList(paramMap);
+            handleResult.put("vo", dirClassifyVoList);
+        } catch (Exception e) {
+            handleResult.error("根据登录用户的权限获取目录分类表信息失败");
+            logger.error("根据登录用户的权限获取目录分类表信息失败", e);
+        }
+        return handleResult;
+    }
+    
+    
+    
+    /**
+     * 分页查询相关目录（目录分类）
+     */
+//    @RequiresPermissions("catalog:catalogue:list")
+    @RequestMapping("/pageList")
+    @ResponseBody
+    public PageResult list(@RequestParam Map<String , Object> paramMap){
+		PageResult pageResult = new PageResult();
+		try {
+            String fid = (String) paramMap.get("fid");
+            if (StringUtils.isEmpty(fid)) {
+                paramMap.put("classifyType", "1");
+                //查出第一层节点的regionCode，就相当于过滤出下面字节点的regionCode了
+                paramMap.put("regionCode",ShiroUtils.getLoginUser().getRegionCode());
+            }
+//            List<DirClassifyVo> dirClassifyVoList = service.selectSubVoList(paramMap);
+//            handleResult.put("vo", dirClassifyVoList);
+            Page<DirClassifyVo> page = service.selectVoPage(paramMap);
+		    pageResult.setPage(page);
+        } catch (Exception e) {
+        	pageResult.error("根据登录用户的权限获取目录分类表信息失败");
+            logger.error("根据登录用户的权限获取目录分类表信息失败", e);
+        }
+//		try {
+//		    Page<DirDatasetVo> page = service.selectVoPage(paramMap);
+//		    pageResult.setPage(page);
+//		} catch (Exception e) {
+//		    pageResult.error("分页查询数据集（编目）出错");
+//		    logger.error("分页查询数据集（编目）出错", e);
+//		}
+		return pageResult;
     }
 }

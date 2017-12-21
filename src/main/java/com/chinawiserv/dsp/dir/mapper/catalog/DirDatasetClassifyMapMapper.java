@@ -22,6 +22,10 @@ public interface DirDatasetClassifyMapMapper extends BaseMapper<DirDatasetClassi
 
     List<DirDatasetClassifyMapVo> selectVoPage(Page<DirDatasetClassifyMapVo> page, Map<String, Object> paramMap);
 
+    List<DirDatasetClassifyMapVo> selectVoPageForRegisted(Page<DirDatasetClassifyMapVo> page, Map<String, Object> paramMap);
+
+    List<DirDatasetClassifyMapVo> selectVoPageForAudited(Page<DirDatasetClassifyMapVo> page, Map<String, Object> paramMap);
+
     List<DirDatasetClassifyMapVo> selectVoPageForReleased(Page<DirDatasetClassifyMapVo> page, Map<String, Object> paramMap);
 
     List<DirDatasetClassifyMapVo> baseSelect(Map<String, Object> paramMap);
@@ -40,5 +44,16 @@ public interface DirDatasetClassifyMapMapper extends BaseMapper<DirDatasetClassi
 
     int baseDelete(String id);
 
+    int flagDelete(Map<String,Object> param);
+
     int insertListItem(List<DirDatasetClassifyMapVo> classifyMapVoList);
+
+    int selectDatasetTotalCountForClassify(@Param("regionCode") String regionCode, @Param("classifyType")String classifyType);
+
+    int selectDatasetCountForClassify(String treeCode);
+
+    List<Map<String,Object>> selectDatasetNumWithChildClassify(@Param("regionCode") String regionCode,
+                              @Param("classifyType")String classifyType, @Param("topNum")int topNum);
+
+    Map<String, Integer> selectDatasetCountForStatus(String regionCode);
 }

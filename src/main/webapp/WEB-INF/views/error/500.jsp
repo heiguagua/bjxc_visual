@@ -19,7 +19,7 @@
                 <div class="error-page">
                     <div>
                         <h2 class="headline text-yellow">  <i class="fa fa-warning text-yellow"></i> 500, Server error.</h2>
-                        <p> 糟糕,服务器异常,您可以点击这里 <a href="<%=basePath%>/index">返回首页</a>或刷新页面重试！
+                        <p> 糟糕,服务器异常,您可以点击这里 <a href="<%=context_path%>/index">返回首页</a>或刷新页面重试！
                         <p> Error:${error}
                         </p>
                     </div><!-- /.error-content -->

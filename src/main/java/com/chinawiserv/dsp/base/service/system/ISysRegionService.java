@@ -19,6 +19,8 @@ public interface ISysRegionService extends ICommonService<SysRegion, SysRegionVo
 
     List<SysRegionVo> selectAllRegionByRegionCode(String regionCode);
 
+    List<SysRegionVo> selectAllRegionLikeRegionCode(String regionCode);
+
     public String getAllSubRegionCodesWithSelf(String regionCode);
 
    /* JSONArray getRegionSelectDataList();*/

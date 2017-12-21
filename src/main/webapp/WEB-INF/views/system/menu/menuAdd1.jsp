@@ -2,7 +2,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="/js/system/menu/menuAdd.js"></script>
+    <script src="<%=context_path%>/js/system/menu/menuAdd.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="content-wrapper">
@@ -30,7 +30,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                                                      method="post" action="/system/menu/doAddDir.html">
+                                                      method="post" action="<%=context_path%>/system/menu/doAddDir.html">
                                                     <div class="box-body">
                                                         <div class="form-group">
                                                             <label>目录名称</label>
@@ -74,7 +74,7 @@
                                             <div class="col-md-6">
                                                 <form role="form"
                                                       data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                                                      method="post" action="/system/menu/doAddMenu.html">
+                                                      method="post" action="<%=context_path%>/system/menu/doAddMenu.html">
                                                     <div class="box-body">
                                                         <div class="form-group">
                                                             <label>目录</label>
@@ -133,7 +133,7 @@
                                             <div class="col-md-6">
                                                 <form role="form"
                                                       data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                                                      method="post" action="/system/menu/doAddAction.html">
+                                                      method="post" action="<%=context_path%>/system/menu/doAddAction.html">
                                                     <div class="box-body">
                                                         <div class="form-group">
                                                             <label>目录</label>

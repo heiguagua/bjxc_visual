@@ -72,5 +72,24 @@ public interface DrapBusinessRequirementMapper extends BaseMapper<DrapBusinessRe
 	 * @param datasetMap
 	 */
 	void addBusinessRequirementDataset(List<DrapRequirementDatasetMap> datasetMap);
+
+
+	/**
+	 * 批量删除需求
+	 * @param paramMap
+	 */
+	void batchDeleteReq(Map<String,?> paramMap);
+
+	/**
+	 * 批量删除需求资源
+	 * @param paramMap
+	 */
+	void batchDeleteReqRes(Map<String,?> paramMap);
+
+	/**
+	 * 批量删除需求信息资源（数据集）
+	 * @param paramMap
+	 */
+	void batchDeleteReqDatasetMap(Map<String,?> paramMap);
     
 }

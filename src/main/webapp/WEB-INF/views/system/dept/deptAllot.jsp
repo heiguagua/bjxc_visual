@@ -4,7 +4,7 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <script src="<%=basePath%>/js/system/dept/deptAllot.js"></script>
+    <script src="<%=context_path%>/js/system/dept/deptAllot.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-inline"  role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=basePath%>/system/dept/doAdd">
+                          method="post" action="<%=context_path%>/system/dept/doAdd">
                         <input type="hidden" id="deptId" value="${id}" name="id"/>
                         <input type="hidden" id="fid" value="${id}" name="fid"/>
                         <input type="hidden" id="regionCode" name="regionCode"/>
@@ -56,7 +56,7 @@
                                 <label for="deptName"  >组织机构名称<i style="color: red">*</i></label>
                                 <div class="form-group">
                                     <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="组织机构名称" disabled> -->
-                                    <input type="text" class="form-control" name="deptName" id="deptName" placeholder="请输入组织机构名称" data-rule="组织机构名称:required;deptName;remote(<%=basePath%>/system/dept/checkDeptName, fid:#fid)">
+                                    <input type="text" class="form-control" name="deptName" id="deptName" placeholder="请输入组织机构名称"   data-rule="组织机构名称:required;deptName;remote(<%=context_path%>/system/dept/checkDeptName, fid:#fid)">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -86,7 +86,7 @@
                             <div class="form-group">
                                 <label for="functionKeyword"  >职能关键字</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="functionKeyword" id="functionKeyword" placeholder="请输入职能关键字">
+                                    <input type="text" class="form-control" name="functionKeyword" id="functionKeyword" placeholder="请输入职能关键字，并以、分割" data-rule="xxx" data-rule-xxx="[/^[^、][\S\s]*、?[^、]$/, '、分词，且不能用、开始或结尾']">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -174,17 +174,17 @@
                                     <input type="text" class="form-control" name="orderNumber" id="orderNumber" placeholder="请输入排序">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label  >状态</label>
-                                <div class="form-group" >
-                              <span class="radio-inline"  style="padding: 4px 0 0 16px;">
-	                            <input type="radio" name="status" id="inlineRadio1" value="1" checked>启用
-	                          </span>
-                                    <span class="radio-inline pd10">
-	                            <input type="radio" name="status" id="inlineRadio0" value="0" >停用
-	                          </span>
-                                </div>
-                            </div>
+                            <%--<div class="form-group">--%>
+                                <%--<label  >状态</label>--%>
+                                <%--<div class="form-group" >--%>
+                              <%--<span class="radio-inline"  style="padding: 4px 0 0 16px;">--%>
+	                            <%--<input type="radio" name="status" id="inlineRadio1" value="1" checked>启用--%>
+	                          <%--</span>--%>
+                                    <%--<span class="radio-inline pd10">--%>
+	                            <%--<input type="radio" name="status" id="inlineRadio0" value="0" >停用--%>
+	                          <%--</span>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
                         </div><!-- /.box-body -->
                         <div class="box-footer">
                             <%--<button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>--%>

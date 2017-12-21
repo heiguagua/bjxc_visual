@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="<%=basePath%>/js/system/deptAuthorityApply/deptAuthorityApplyList.js"></script>
+    <script src="<%=context_path%>/js/system/deptAuthorityApply/deptAuthorityApplyList.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -34,7 +34,7 @@
                             <div class="box-header">
                                 <div class="input-group">
                                     <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:authorityApply()" >
-                                        <img src="<%=basePath%>/images/userImg/addimg.png"/>
+                                        <img src="<%=context_path%>/images/userImg/addimg.png"/>
                                         申请部门数据权限</a>
                                 </div>
                                 <div class="input-group pull-right">

@@ -1,22 +1,27 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.common.util.CommonUtil;
-import com.chinawiserv.dsp.base.common.util.ShiroUtils;
-import com.chinawiserv.dsp.base.entity.po.system.SysDict;
-import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
-import com.chinawiserv.dsp.base.enums.system.DictEnum;
-import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
-import com.chinawiserv.dsp.base.service.system.ISysDictService;
-import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
-import com.chinawiserv.dsp.dir.enums.EnumTools;
-import com.chinawiserv.dsp.dir.schema.DictConstantMap;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.system.SysDict;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
+import com.chinawiserv.dsp.base.enums.EnumTools;
+import com.chinawiserv.dsp.base.enums.system.DictEnum;
+import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
+import com.chinawiserv.dsp.base.schema.DictConstantMap;
+import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.chinawiserv.dsp.base.service.system.ISysDictService;
 
 /**
  * <p>
@@ -74,17 +79,11 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
         List<SysDictVo> rows;
         Page<SysDictVo> page = getPage(paramMap);
         List<SysDictVo> dictVos = mapper.selectVoPage(page,paramMap);
-        if (dictVos != null && !dictVos.isEmpty()){
-            rows = new ArrayList(dictVos.size());
-            for (SysDictVo vo : dictVos){
-                String status = vo.getStatus().toString();
-                vo.setStateName(DictEnum.valueOf(EnumTools.getName(status)).getChValue());
-                rows.add(vo);
-            }
-        }else {
-            rows = new ArrayList(0);
+        for (SysDictVo vo : dictVos){
+            String status = vo.getStatus().toString();
+            vo.setStateName(DictEnum.valueOf(EnumTools.getName(status)).getChValue());
         }
-        page.setRecords(rows);
+        page.setRecords(dictVos);
         return page;
 	}
     @Override

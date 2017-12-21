@@ -30,21 +30,48 @@
             <if test="id != null">
               AND  t.id = #{id,jdbcType=VARCHAR}
             </if>
-            <if test="status != null">
+            <if test="status != null and status != ''">
               AND  t.status  = #{status,jdbcType=VARCHAR}
             </if>
-            <if test="login_name != null">
+            <if test="login_name != null and login_name != ''">
               AND  t.login_name  LIKE CONCAT('%',#{login_name,jdbcType=VARCHAR},'%')
             </if>
-            <if test="real_name != null">
-             AND   t.real_name LIKE CONCAT('%',#{real_name,jdbcType=VARCHAR},'%')
+            <if test="real_name != null and real_name != ''">
+              AND  t.real_name LIKE CONCAT('%',#{real_name,jdbcType=VARCHAR},'%')
             </if>
-
+            <if test="regionCode != null and regionCode != ''">
+              AND  t1.region_code = #{regionCode}
+            </if>
+            <if test="null != deptId and '' != deptId">
+              AND t1.dept_code LIKE CONCAT(
+              (
+                SELECT
+                dept_code
+                FROM
+                sys_dept
+                WHERE id = #{deptId}),
+                '%'
+              )
+            </if>
         </where>
     </sql>
 
+    <sql id="baseSelectVo">
+        SELECT
+          t.*,
+          CASE WHEN t1.`fname` = 'root'
+          THEN t1.`dept_name`
+          ELSE CONCAT(t1.`fname`,'>',t1.`dept_name`)
+          END
+          AS dept_name
+        FROM
+          dir_regist_user t
+        LEFT JOIN sys_dept t1
+          ON t.belong_dept = t1.`id`
+    </sql>
+
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        SELECT t.*,t1.dept_name FROM dir_regist_user t LEFT JOIN sys_dept t1 ON t.belong_dept=t1.dept_code
+        <include refid="baseSelectVo"></include>
         <include refid="queryConditions"></include>
     </select>
 
@@ -53,8 +80,10 @@
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM dir_regist_user t
+        SELECT count(1) FROM (
+        <include refid="baseSelectVo"></include>
         <include refid="queryConditions"></include>
+        ) a
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.apply.DirRegistUser">

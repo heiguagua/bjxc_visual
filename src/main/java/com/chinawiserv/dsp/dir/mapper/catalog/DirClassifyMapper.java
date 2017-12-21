@@ -31,6 +31,8 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
 
     DirClassifyVo selectVoById(String id);
     
+    DirClassifyVo selectByNationalCode(String nationalCode);
+    
 //    String selectClassifyCodebyFid(String fid);
 //    
 //    int selectClassifyLevelbyFid(String fid);
@@ -81,4 +83,8 @@ public interface DirClassifyMapper extends BaseMapper<DirClassify> {
     public String selectClassifyByStructrue(@Param("structure") String structure);
 
     void updateDcmIndexbyId(String id);
+
+    List<DirClassify> selectChildByType(@Param("regionCode") String regionCode, @Param("classifyType")String classifyType);
+
+    List<DirClassify> listByList(List<String> list);
 }

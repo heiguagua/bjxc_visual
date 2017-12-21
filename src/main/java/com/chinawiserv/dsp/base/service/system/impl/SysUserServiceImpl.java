@@ -112,6 +112,7 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     @Override
     public boolean updateVO(SysUserVo sysUserVo) throws Exception {
         //更新用户
+        sysUserVo.setUpdateTime(new Date());
         userMapper.updateById(sysUserVo);
         String userId = sysUserVo.getId();
         String[] roleIds = sysUserVo.getRoleIds();
@@ -171,5 +172,28 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
     @Override
     public int selectUserRoleType(String user_id) {
         return userMapper.selectUserRoleType(user_id);
+    }
+
+    @Override
+    public boolean createToken(Map<String,String> paramMap) {
+        return userMapper.createToken(paramMap)>0;
+    }
+
+    @Override
+    public List<SysUser> listBySystemId(String systemId) {
+        return userMapper.listBySystemId(systemId);
+    }
+
+    @Override
+    public boolean insertOrUpdate(List<SysUser> list) {
+        for (SysUser sysUser : list) {
+            SysUser u= userMapper.selectById(sysUser.getId());
+            if(null ==u){
+                userMapper.insert(sysUser);
+            }else{
+                userMapper.updateById(sysUser);
+            }
+        }
+        return true;
     }
 }

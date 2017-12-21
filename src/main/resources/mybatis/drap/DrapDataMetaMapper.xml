@@ -9,7 +9,7 @@
     <resultMap id="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataMeta">
         <id column="id" property="id"/>
         <result column="category" property="category"/>
-        <result column="parent_code" property="parentCode"/>
+        <result column="fid" property="fid"/>
         <result column="meta_code" property="metaCode"/>
         <result column="meta_en_name" property="metaEnName"/>
         <result column="meta_name" property="metaName"/>
@@ -56,9 +56,9 @@
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.dir.entity.po.drap.DrapDataMeta">
         insert into
-        drap_data_meta(id,category,parent_code,meta_code,meta_en_name,meta_name,meta_define,meta_format,is_show,order_by,code_index,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
+        drap_data_meta(id,category,fid,meta_code,meta_en_name,meta_name,meta_define,meta_format,is_show,order_by,code_index,status,create_user_id,create_time,update_user_id,update_time,delete_flag)
         values(
-        #{id},#{category},#{parentCode},#{metaCode},#{metaEnName},#{metaName},#{metaDefine},#{metaFormat},#{isShow},#{orderBy},#{codeIndex},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag}
+        #{id},#{category},#{fid},#{metaCode},#{metaEnName},#{metaName},#{metaDefine},#{metaFormat},#{isShow},#{orderBy},#{codeIndex},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{deleteFlag}
         )
     </insert>
 
@@ -71,8 +71,8 @@
             <if test="category != null">
                 category = #{category},
             </if>
-            <if test="parentCode != null">
-                parent_code = #{parentCode},
+            <if test="fid != null">
+                fid = #{fid},
             </if>
             <if test="metaCode != null">
                 meta_code = #{metaCode},

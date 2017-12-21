@@ -6,6 +6,7 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.dir.entity.vo.feedback.DirSuggestionVo;
 import com.chinawiserv.dsp.dir.service.feedback.IDirSuggestionService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,12 +55,11 @@ public class DirSuggestionController extends BaseController {
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
-        Integer userType = ShiroUtils.getLoginUser().getUserType();
-        String regionCode = ShiroUtils.getLoginUser().getRegionCode();
-        String userName = ShiroUtils.getLoginUserName();
-        paramMap.put("userName",userName);
-        paramMap.put("userType",userType);
-        paramMap.put("regionCode",regionCode);
+        int minRoleLevl  = ShiroUtils.getLoginUser().getMinRoleLevel();
+        //非超管和区域管理员，只能看自己部门和下属部门的数据（包括需求部门和提供部门）
+        if(minRoleLevl>0){
+            return pageResult;
+        }
 		try {
 		    Page<DirSuggestionVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);
