@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.base.common.shiro;
 
 import java.util.*;
 
+import com.chinawiserv.dsp.base.entity.po.system.SysRole;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -111,7 +112,19 @@ public class SysUserRealm extends AuthorizingRealm {
         if(StringUtils.isBlank(user.getRegionCode())){
             throw new IncorrectCredentialsException("当前登录用户未被分配区域，请联系管理员！");
         }
-        
+
+        List<SysRole> roleList = user.getSysRoleList();
+        boolean roleFlag=false;
+        for (SysRole sysRole : roleList) {
+            if(sysRole.getStatus().equals(1)){
+                roleFlag=true;
+                break;
+            }
+        }
+        if(!roleFlag){
+            throw new IncorrectCredentialsException("当前登录用户角色不存在或被禁用，请联系管理员！");
+        }
+
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
         return info;
 	}
