@@ -14,11 +14,8 @@
         <copier type="java.lang.Object">org.ehcache.impl.copy.IdentityCopier</copier>
     </default-copiers>
 
-    <persistence directory="cache-data" />
-
     <thread-pools>
         <thread-pool alias="default_pool" min-size="10" max-size="64" default="true" />
-        <thread-pool alias="defaultDiskPool" min-size="10" max-size="64" />
         <thread-pool alias="defaultEventPool" min-size="10" max-size="64" />
         <thread-pool alias="defaultWriteBehindPool" min-size="10" max-size="64" />
         <thread-pool alias="cache2Pool" min-size="10" max-size="64" />
@@ -26,7 +23,6 @@
 
     <event-dispatch thread-pool="defaultEventPool" />
     <write-behind thread-pool="defaultWriteBehindPool" />
-    <disk-store thread-pool="defaultDiskPool" />
 
     <cache-template name="userTemplate">
         <expiry>
