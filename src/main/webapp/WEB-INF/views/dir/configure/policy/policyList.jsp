@@ -60,7 +60,7 @@
 												  <option value="C">市级</option>										  
                                 			</select>
 			                    </div>
-			                    <label class="pull-right" style="margin-top: 5px" for="policy">政策级别 :</label>
+			                    <label class="pull-right" style="margin-top: 8px" for="policy">政策级别 :</label>
 
                             </div><!-- /.box-header -->
                         </div>
