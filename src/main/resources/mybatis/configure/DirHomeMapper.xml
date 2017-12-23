@@ -39,9 +39,9 @@
             <if test="deleteFlag != null">
                 t.delete_flag = #{deleteFlag,jdbcType=INTEGER}
             </if>
-           <!--  <if test="searchKey != null">
-                 and t.title LIKE CONCAT('%',#{searchKey},'%')
-       		 </if>   -->                                                                                                                                                                                                                                                                             </where>
+            <if test="searchKey != null">
+                 and t.pic_name LIKE CONCAT('%',#{searchKey},'%')
+       		 </if>                                                                                                                                                                                                                                                                              </where>
     </sql>
 
 

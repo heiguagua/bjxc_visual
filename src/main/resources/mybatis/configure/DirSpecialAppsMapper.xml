@@ -64,6 +64,9 @@
         	<if test="searchKey != null  and searchKey!='' ">
            		and t.app_name LIKE CONCAT('%',#{searchKey},'%')
         	</if>
+        	<if test="dicCodel != null  and dicCodel!='' ">
+           		and s.dict_code LIKE CONCAT('%',#{dicCodel},'%')
+        	</if>
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
@@ -80,6 +83,9 @@
         	
         	<if test="searchKey != null  and searchKey!='' ">
            		and t.app_name LIKE CONCAT('%',#{searchKey},'%')
+        	</if>
+        	<if test="dicCodel != null  and dicCodel!='' ">
+           		and s.dict_code LIKE CONCAT('%',#{dicCodel},'%')
         	</if>
     </select>
 
