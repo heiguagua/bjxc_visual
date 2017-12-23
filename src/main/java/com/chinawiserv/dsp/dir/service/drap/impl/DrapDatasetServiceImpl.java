@@ -214,7 +214,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 
 		final List<DirDataset> dirDatasetList = new ArrayList<>();
 		final List<DirDatasetSourceInfo> dirDatasetSourceInfoList = new ArrayList<>();
-		final String dataSetSourceType = sysDictMapper.selectDictcodeByCategoryAndName("资源梳理添加", "dataSetSourceType");
+		final String dataSetSourceType = "8";	//直接将类型写死	// sysDictMapper.selectDictcodeByCategoryAndName("资源梳理添加", "dataSetSourceType");
 		for (DrapDatasetVo drapDatasetVo :drapDatasetList){
 			final String datasetId = drapDatasetVo.getId();
 			if(updateDatasetIdArray != null && updateDatasetIdArray.contains(datasetId)){
