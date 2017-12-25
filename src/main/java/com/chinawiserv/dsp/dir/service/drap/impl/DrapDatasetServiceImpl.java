@@ -350,7 +350,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 		dirDataset.setDatasetCode(drapDatasetVo.getDatasetCode());
 		dirDataset.setDatasetName(drapDatasetVo.getDatasetName());
 
-		String drapDeptId = drapDatasetVo.getBelongDeptId();
+		final String drapDeptId = drapDatasetVo.getBelongDeptId();
 		String dirDeptId = sysDeptService.getRootDeptId(drapDeptId);
 		if(Objects.equals(drapDeptId,dirDeptId)){
 			dirDataset.setBelongDeptType(dirDeptId);
@@ -358,6 +358,8 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 			dirDataset.setBelongDeptType(dirDeptId);
 			dirDataset.setBelongDeptId(drapDeptId);
 		}
+		dirDataset.setChargeDeptId(drapDeptId);
+
 		dirDataset.setDatasetDesc(drapDatasetVo.getDatasetDesc());
 		dirDataset.setShareType(drapDatasetVo.getShareType());
 		dirDataset.setShareCondition(drapDatasetVo.getShareConditionDesc());
