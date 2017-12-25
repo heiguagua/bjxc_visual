@@ -137,7 +137,7 @@
         FROM dir_dataset_classify_map t
         left join dir_dataset d on t.dataset_id=d.id and d.delete_flag=0
         left join dir_classify c on t.classify_id=c.id and c.delete_flag=0
-        left join sys_dept de on d.charge_dept_id=de.id and de.delete_flag=0
+        left join sys_dept de on d.belong_dept_type=de.id and de.delete_flag=0
         left join dir_data_registe p on t.id=p.dcm_id and p.active_flag=1
         left join sys_user u on p.register_id=u.id and u.delete_flag=0
         <include refid="queryConditions"></include>
@@ -149,7 +149,7 @@
         FROM dir_dataset_classify_map t
         left join dir_dataset d on t.dataset_id=d.id and d.delete_flag=0
         left join dir_classify c on t.classify_id=c.id and c.delete_flag=0
-        left join sys_dept de on d.charge_dept_id=de.id and de.delete_flag=0
+        left join sys_dept de on d.belong_dept_type=de.id and de.delete_flag=0
         left join dir_data_audit p on t.id=p.dcm_id and p.active_flag=1
         left join sys_user u on p.auditor_id=u.id and u.delete_flag=0
         <include refid="queryConditions"></include>
@@ -161,7 +161,7 @@
         FROM dir_dataset_classify_map t
         left join dir_dataset d on t.dataset_id=d.id and d.delete_flag=0
         left join dir_classify c on t.classify_id=c.id and c.delete_flag=0
-        left join sys_dept de on d.charge_dept_id=de.id and de.delete_flag=0
+        left join sys_dept de on d.belong_dept_type=de.id and de.delete_flag=0
         left join dir_data_publish p on t.id=p.dcm_id and p.active_flag=1
         left join sys_user u on p.publisher_id=u.id and u.delete_flag=0
         <include refid="queryConditions"></include>
