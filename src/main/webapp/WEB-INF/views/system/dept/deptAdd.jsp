@@ -109,6 +109,26 @@
 	                            </div>
                         	</div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label for="deptShortName" class="control-label col-sm-4 col-xs-4">组织机构类型</label>
+                                    <div class="col-sm-7 col-xs-7">
+                                        <input type="text" class="form-control" name="deptType" id="deptType"
+                                               placeholder="组织机构类型"
+                                               data-rule="组织机构类型:letters">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label for="pinyin" class="control-label col-sm-4 col-xs-4">拼音</label>
+                                    <div class="col-sm-7 col-xs-7">
+                                        <input type="text" class="form-control" name="pinyin" id="pinyin" data-rule="letters">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
                         <div class="row">
                         	<div class="col-sm-6 col-xs-6">
