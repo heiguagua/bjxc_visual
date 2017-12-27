@@ -109,6 +109,26 @@
 	                            </div>
                         	</div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label for="deptShortName" class="control-label col-sm-4 col-xs-4">组织机构类型</label>
+                                    <div class="col-sm-7 col-xs-7">
+                                        <input type="text" class="form-control" name="deptType" id="deptType"
+                                               placeholder="组织机构类型"
+                                               data-rule="组织机构类型:letters">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label for="pinyin" class="control-label col-sm-4 col-xs-4">拼音</label>
+                                    <div class="col-sm-7 col-xs-7">
+                                        <input type="text" class="form-control" name="pinyin" id="pinyin" data-rule="letters">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
                         <div class="row">
                         	<div class="col-sm-6 col-xs-6">
@@ -143,25 +163,25 @@
 	                            </div>
                         	</div>
                         	<div class="col-sm-6 col-xs-6">
-	                        	<div class="form-group">
-	                                <label for="deptDesc" class="control-label col-sm-4 col-xs-4">组织机构描述</label>
-	                                <div name="deptDesc" class="col-sm-7 col-xs-7">
-	                                    <textarea class="form-control" rows="3" id="deptDesc" name="deptDesc"
-	                                              placeholder="请输入描述，最多512个字符,一个汉字算2个字符 ..." data-rule="length[~512, true];" data-msg="最多输入256个汉字或512个字符"></textarea>
-	                                </div>
-	                            </div>
-                        	</div>
-                        </div>
-                        
-                        
-                        
-                        <div class="row">
-                        	<div class="col-sm-6 col-xs-6">
                         		<div class="form-group">
 	                                <label for="functionKeyword" class="control-label col-sm-4 col-xs-4">职能关键字</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="functionKeyword" name="functionKeyword"
-	                                           placeholder="请输入职能关键字，并以、分割" data-rule="xxx" data-rule-xxx="[/^[^、][\S\s]*、?[^、]$/, '、分词，且不能用、开始或结尾']">
+                                               placeholder="请输入职能关键字，并以、分割" data-rule="xxx" data-rule-xxx="[/^[^、][\S\s]*、?[^、]$/, '、分词，且不能用、开始或结尾']">
+	                                </div>
+	                            </div>
+                        	</div>
+                        </div>
+
+
+
+                        <div class="row">
+                        	<div class="col-sm-6 col-xs-6">
+	                        	<div class="form-group">
+	                                <label for="deptDesc" class="control-label col-sm-4 col-xs-4">组织机构描述</label>
+	                                <div name="deptDesc" class="col-sm-7 col-xs-7">
+	                                    <textarea class="form-control" rows="5" id="deptDesc" name="deptDesc"
+	                                              placeholder="请输入描述，最多512个字符,一个汉字算2个字符 ..." data-rule="length[~512, true];" data-msg="最多输入256个汉字或512个字符"></textarea>
 	                                </div>
 	                            </div>
                         	</div>
@@ -169,8 +189,8 @@
 	                        	<div class="form-group">
 	                                <label for="deptFunction" class="control-label col-sm-4 col-xs-4">组织机构职能</label>
 	                                <div class="col-sm-7 col-xs-7">
-	                                    <input type="text" class="form-control" id="deptFunction" name="deptFunction"
-	                                           placeholder="请输入组织机构职能">
+	                                    <textarea  class="form-control" id="deptFunction" name="deptFunction" rows="5" data-rule="length[~4000, true];" data-msg="最多输入2000个汉字或4000个字符"
+	                                           placeholder="请输入组织机构职能"></textarea>
 	                                </div>
 	                            </div>
                         	</div>

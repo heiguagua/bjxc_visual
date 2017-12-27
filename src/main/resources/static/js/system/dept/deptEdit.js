@@ -62,6 +62,7 @@ function initEditPage(){
                 $("#validateFrom").val(vo.validateFromStr);
                 $("#validateTo").val(vo.validateToStr);
                 $("#pinyin").val(vo.pinyin);
+                $("#deptType").val(vo.deptType);
                 // $("#icon").text(vo.icon);
                 $("#inlineRadio"+vo.status).attr("checked", true);
             }
