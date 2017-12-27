@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.system.*;
+import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.base.service.system.ISysUserRoleService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import com.chinawiserv.dsp.dir.service.api.IApiService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA
@@ -40,6 +43,9 @@ public class DrapApiController extends BaseController{
 
     @Autowired
     ISysUserRoleService sysUserRoleService;
+
+    @Autowired
+    ISysDeptService sysDeptService;
     /**
      * 推送用户数据的接口
      * */
@@ -171,6 +177,34 @@ public class DrapApiController extends BaseController{
             handleResult.setState(false);
         }
         return handleResult;
+    }
+
+    /**
+     * 接收梳理的部门数据并更新到本系统中
+     * */
+    @RequestMapping("syncRcDeptData")
+    @ResponseBody
+    public Object syncRcDeptData(@RequestParam Map<String,Object> paramMap){
+        try{
+            String data = MapUtils.getString(paramMap,"data","");
+            List<SysDept> sysDepts = JSON.parseArray(data,SysDept.class);
+            if(sysDepts != null && sysDepts.size() > 0){
+                Set<String> depIds = sysDeptService.selectAllDeptId();
+                List<String> updateDeptIds = Lists.newArrayList();
+               for(SysDept sysDept : sysDepts){
+                   final String deptId = sysDept.getId();
+                   if(depIds.contains(deptId)){
+                       updateDeptIds.add(deptId);
+                   }
+               }
+               if(updateDeptIds.size() > 0) sysDeptService.deleteByIds(updateDeptIds);
+                sysDeptService.insertBatch(sysDepts);
+            }
+            return "200";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "500";
+        }
     }
 
 }

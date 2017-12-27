@@ -307,6 +307,16 @@
 		</foreach>
 	</insert>
 
+	<select id="selectAllDeptId" resultType="java.lang.String">
+		select id from sys_dept
+	</select>
+
+	<delete id="deleteByIds" parameterType="java.util.List">
+		delete from sys_dept where id in
+		<foreach collection="list" open="(" close=")" separator="," item="item">
+			#{item}
+		</foreach>
+	</delete>
 
 
 </mapper>
