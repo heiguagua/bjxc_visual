@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/12/8 21:34:41                             */
+/* Created on:     17/12/16 12:20:02                            */
 /*==============================================================*/
 
 
@@ -147,6 +147,8 @@ drop table if exists drap_data_column_map;
 drop table if exists drap_data_meta;
 
 drop table if exists drap_dataset;
+
+drop table if exists drap_dataset_dept_map;
 
 drop table if exists drap_dataset_ext_format;
 
@@ -1285,7 +1287,7 @@ create table dir_portal_content_setting
    category             varchar(36) comment '内容类型',
    content              text comment '发布内容',
    publisher            varchar(36) comment '政策发布人',
-   publish_date         date comment '发布时间',
+   publish_date         datetime comment '发布时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
 );
@@ -1509,6 +1511,9 @@ create table drap_business_activity
    is_show              int comment '是否显示',
    code_index           int comment '业务编码序号',
    status               int(3) comment '状态',
+   auditor              varchar(36) comment '审核人',
+   audit_time           datetime comment '审核时间',
+   audit_opinion        varchar(512) comment '审核意见',
    create_user_id       varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user_id       varchar(36) comment '更新人',
@@ -1559,6 +1564,9 @@ create table drap_business_requirement
    requre_dept_id       varchar(72) comment '需求组织ID',
    source_dept_id       varchar(36) comment '需求来源组织',
    status               int(3) comment '状态',
+   auditor              varchar(36) comment '审核人',
+   audit_time           datetime comment '审核时间',
+   audit_opinion        varchar(512) comment '审核意见',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user          varchar(36) comment '更新人',
@@ -1652,6 +1660,9 @@ create table drap_dataset
    extend_code          varchar(64) comment '扩展编码',
    code_index           int comment '编码序号',
    status               int(3) comment '状态',
+   auditor              varchar(36) comment '审核人',
+   audit_time           datetime comment '审核时间',
+   audit_opinion        varchar(512) comment '审核意见',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user          varchar(36) comment '更新人',
@@ -1661,6 +1672,19 @@ create table drap_dataset
 );
 
 alter table drap_dataset comment '信息资源（数据集）';
+
+/*==============================================================*/
+/* Table: drap_dataset_dept_map                                 */
+/*==============================================================*/
+create table drap_dataset_dept_map
+(
+   id                   varchar(36) not null comment 'ID',
+   dataset_id           varchar(36) comment '数据集ID',
+   dept_id              varchar(36) comment '关联部门ID',
+   primary key (id)
+);
+
+alter table drap_dataset_dept_map comment '数据集关联部门表';
 
 /*==============================================================*/
 /* Table: drap_dataset_ext_format                               */
@@ -1816,6 +1840,9 @@ create table drap_db_info
    cur_update_status    varchar(36) comment '本次更新状态',
    cur_monitor_time     datetime comment '本次监控时间',
    status               int(3) comment '状态',
+   auditor              varchar(36) comment '审核人',
+   audit_time           datetime comment '审核时间',
+   audit_opinion        varchar(512) comment '审核意见',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user          varchar(36) comment '更新人',
@@ -2040,6 +2067,9 @@ create table drap_info_system
    system_desc          varchar(1000) comment '【国】系统描述',
    code_index           int comment '编码序号[NO]',
    status               int(3) comment '状态',
+   auditor              varchar(36) comment '审核人',
+   audit_time           datetime comment '审核时间',
+   audit_opinion        varchar(512) comment '审核意见',
    create_user          varchar(36) comment '创建人',
    create_time          datetime comment '创建时间',
    update_user          varchar(36) comment '更新人',
@@ -2700,7 +2730,6 @@ ENGINE = InnoDB
 DEFAULT CHARSET = utf8;
 
 alter table sys_user_role comment '用户角色表';
-
 
 
 
