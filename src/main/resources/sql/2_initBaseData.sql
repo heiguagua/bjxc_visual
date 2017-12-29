@@ -4156,7 +4156,7 @@ begin
 				REPLACE(shortname_template,'XX',(select region_name from sys_region where region_code = regionCode)) as dept_short_name,
 				'root','root',
 				REPLACE(fullname_template,'XX',(select region_name from sys_region where region_code = regionCode)) as dept_structure_name,
-				'1' as dept_level,'' as dept_function,ASCII(category_code) - 64 as order_number,0,0,ASCII(category_code) - 64 as tree_code
+				'1' as dept_level,'' as dept_function,ASCII(category_code) - 64 as order_number,0,0,concat(regionCode,'',(ASCII(category_code) - 64)) as tree_code
 	from sys_dept_category_template;
 END$$
 
