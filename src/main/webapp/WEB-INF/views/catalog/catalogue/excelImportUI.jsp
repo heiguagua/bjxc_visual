@@ -29,6 +29,8 @@
 					导入没有目录分类的excel文件
 				</a>
 			</form>
+			<label style="padding-top: 10px"><span style="color: red; font-size: 10px">（标题如有版本号，请严格参照模式:V1-1）</span></label>
+			
 		</div>
 
 

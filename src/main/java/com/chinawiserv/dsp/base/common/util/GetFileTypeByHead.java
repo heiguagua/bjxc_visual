@@ -26,13 +26,20 @@ public class GetFileTypeByHead {
         mFileTypes.put("49492A00", "tif");
         mFileTypes.put("424D", "bmp");
         //
+        mFileTypes.put("255044462D312", "pdf");
+        mFileTypes.put("504B03041400060008", "xlsx");
+        mFileTypes.put("D0CF11E0A1B11AE1", "xlsx");
+//        mFileTypes.put("237377697463", "txt");
+        
+        mFileTypes.put("52617221", "rar");
         mFileTypes.put("41433130", "dwg"); // CAD
         mFileTypes.put("38425053", "psd");
         mFileTypes.put("7B5C727466", "rtf"); // 日记本
         mFileTypes.put("3C3F786D6C", "xml");
         mFileTypes.put("68746D6C3E", "html");
         mFileTypes.put("44656C69766572792D646174653A", "eml"); // 邮件
-        mFileTypes.put("D0CF11E0", "doc");
+        mFileTypes.put("D0CF11E0A1B11AE1", "doc");
+        mFileTypes.put("D0CF11E0A1B11AE1", "xls");
         mFileTypes.put("5374616E64617264204A", "mdb");
         mFileTypes.put("252150532D41646F6265", "ps");
         mFileTypes.put("255044462D312E", "pdf");

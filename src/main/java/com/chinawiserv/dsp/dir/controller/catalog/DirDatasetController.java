@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
 import com.chinawiserv.dsp.base.common.util.FTPUtil;
+import com.chinawiserv.dsp.base.common.util.GetFileTypeByHead;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
@@ -889,6 +890,43 @@ public class DirDatasetController extends BaseController {
         }else{
             final String originalFilename = excelFile.getOriginalFilename();
             try {
+	            int state = 0;
+	            List<String> listType = new ArrayList<>();
+		        List<String> listTypeSub = new ArrayList<>();
+	            String fileType;				
+	            fileType = GetFileTypeByHead.getFileTypeByByte(excelFile.getBytes());
+                listTypeSub.add("xlsx");
+                listTypeSub.add("xls");
+                listTypeSub.add("XLS");
+                listTypeSub.add("XLSX");
+                listType.add("xlsx");
+                listType.add("doc");
+                listType.add("xls");
+                listType.add("docx");
+		        
+		        for (Iterator iterator = listTypeSub.iterator(); iterator.hasNext();) {
+					String string = (String) iterator.next();
+					System.out.println(excelFile.getOriginalFilename());
+					if(string.equals(excelFile.getOriginalFilename().substring(excelFile.getOriginalFilename().indexOf(".")+1))){
+						state++;
+					}
+				}
+		        for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
+					String string = (String) iterator.next();
+					if(string.equals(fileType)){
+						state++;
+					}
+				}
+		        if(state!=2){
+		        	return handleResult.error("导入文件格式错误!");
+		        }
+	        
+            } catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				return handleResult.error("导入文件失败!");
+			}
+            try {
                 final Workbook workbook = createWorkbook(excelFile.getInputStream(), originalFilename);
                 boolean b = addDirDataset(workbook.getSheetAt(0),regionCode);
                 if(b){
@@ -1148,6 +1186,44 @@ public class DirDatasetController extends BaseController {
             handleResult.error("文件不能为空！");
         }else{
             final String originalFilename = excelFile.getOriginalFilename();
+            
+            try {
+	            int state = 0;
+	            List<String> listType = new ArrayList<>();
+		        List<String> listTypeSub = new ArrayList<>();
+	            String fileType;				
+	            fileType = GetFileTypeByHead.getFileTypeByByte(excelFile.getBytes());		        
+		        listTypeSub.add("xlsx");
+                listTypeSub.add("xls");
+                listTypeSub.add("XLS");
+		        listTypeSub.add("XLSX");
+		        listType.add("xlsx");
+		        listType.add("doc");
+                listType.add("xls");
+                listType.add("docx");
+		        
+		        for (Iterator iterator = listTypeSub.iterator(); iterator.hasNext();) {
+					String string = (String) iterator.next();
+					System.out.println(excelFile.getOriginalFilename());
+					if(string.equals(excelFile.getOriginalFilename().substring(excelFile.getOriginalFilename().indexOf(".")+1))){
+						state++;
+					}
+				}
+		        for (Iterator iterator = listType.iterator(); iterator.hasNext();) {
+					String string = (String) iterator.next();
+					if(string.equals(fileType)){
+						state++;
+					}
+				}
+		        if(state!=2){
+		        	return handleResult.error("导入文件格式错误!");
+		        }
+	        
+            } catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				return handleResult.error("导入文件失败!");
+			}
             try {
                 final Workbook workbook = createWorkbook(excelFile.getInputStream(), originalFilename);
                 boolean b = service.addDirDatasetWithOutDir(workbook.getSheetAt(0), regionCode,classifyId);
@@ -1452,6 +1528,8 @@ public class DirDatasetController extends BaseController {
             int uploadNum = service.upLoadFile(request);
             if(uploadNum<1){
                 handleResult.error("上传失败");
+            }else if(uploadNum==10000){
+            	handleResult.error("上传格式不符合要求，请选择正确格式重新上传");
             }
         } catch (Exception e) {
             handleResult.error("上传失败："+e);

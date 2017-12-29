@@ -48,7 +48,7 @@
                             <result column="delete_flag" property="deleteFlag" />
                             <result column="audit_time" property="auditTime"/>
 						    <result column="audit_opinion" property="auditOpinion"/>
-						    <result column="audito" property="audito"/>
+						    <result column="auditor" property="auditor"/>
             	</resultMap>
 
 	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetVo">
@@ -87,7 +87,7 @@
         share_condition_desc,share_method_category,share_method,share_method_desc,share_range,no_share_reason,is_open,
         open_condition,rel_dataset_code,data_level,data_index_system,is_secret,basic_classify,subject_classify,store_media,
         physics_store_location,extend_code,code_index,status,create_user,create_time,update_user,update_time,delete_flag,
-        audito,audit_time,audit_opinion) values
+        auditor,audit_time,audit_opinion) values
         <foreach collection="list" item="item" separator=",">
         (
             #{item.id},#{item.regionCode},#{item.belongDeptType},#{item.belongDeptId},#{item.sourceType},#{item.docId},
@@ -98,7 +98,7 @@
             #{item.basicClassify},#{item.subjectClassify},#{item.storeMedia},#{item.physicsStoreLocation},#{item.extendCode},
             #{item.codeIndex},#{item.status},#{item.createUser},#{item.createTime},#{item.updateUser},#{item.updateTime},
             #{item.deleteFlag},
-            #{item.audito},#{item.auditTime},#{item.auditOpinion}
+            #{item.auditor},#{item.auditTime},#{item.auditOpinion}
         )
         </foreach>
     </insert>

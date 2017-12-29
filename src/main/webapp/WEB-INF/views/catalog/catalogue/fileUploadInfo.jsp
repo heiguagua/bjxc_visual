@@ -8,7 +8,12 @@
     <script type="text/javascript" src="<%=context_path%>/plugins/bootstrap-fileinput/js/fileinput.js"></script>
     <script type="text/javascript" src="<%=context_path%>/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
 </head>
-
+<style>
+div.form-group div.bootstrap-table div.fixed-table-container>div.fixed-table-body{
+	height:auto !important;
+	min-height:auto !important;
+}
+</style>
 <body>
 <section class="content">
     <div class="layer-boxs">

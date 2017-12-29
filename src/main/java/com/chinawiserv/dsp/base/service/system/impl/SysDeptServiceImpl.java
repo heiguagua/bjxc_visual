@@ -542,4 +542,14 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         }
         return drapDeptId;
     }
+
+    @Override
+    public Set<String> selectAllDeptId() {
+        return sysDeptMapper.selectAllDeptId();
+    }
+
+    @Override
+    public void deleteByIds(List<String> ids) throws Exception{
+        sysDeptMapper.deleteByIds(ids);
+    }
 }

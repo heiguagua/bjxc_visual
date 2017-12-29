@@ -266,8 +266,8 @@ public class DrapBusinessActivity implements Serializable {
 	 /**
      * 审核人
      */
-	@TableField("audito")
-	private String audito;
+	@TableField("auditor")
+	private String auditor;
 	
 	 /**
      * 审核时间
@@ -282,12 +282,12 @@ public class DrapBusinessActivity implements Serializable {
 	private String auditOpinion;
 
 
-	public String getAudito() {
-		return audito;
+	public String getAuditor() {
+		return auditor;
 	}
 
-	public void setAudito(String audito) {
-		this.audito = audito;
+	public void setAuditor(String auditor) {
+		this.auditor = auditor;
 	}
 
 	public Date getAuditTime() {
