@@ -1,24 +1,7 @@
--- 角色表
-delete from sys_role;
-INSERT INTO sys_role(id,role_name,role_desc,role_level,status) VALUES ('737933bffef640329a4f864c4e2746ba', '超级管理员', '超级管理员', -1,1);
-INSERT INTO sys_role(id,role_name,role_desc,role_level,status) VALUES ('dab7f9219c4611e78cf200ffe04ac734', '区域管理员', '区域管理员', 0,1);
-
-
--- 用户表
-delete from sys_user;
-insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status,user_img,token) values
-	('09f4fef9249c457ca67b4a7a45823730','510100','','1','admin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/images/userImg/avatar5.png','4CC476F58B6718F2');
--- 国家级用户
-insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status,user_img,token) values
-	('09f4fef9249c457ca67b4a7a45823731','000000','','1','nadmin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/images/userImg/avatar5.png','66F1D7A1F8775B8F');
--- 四川省用户
-insert into sys_user (id,region_code,dept_id,user_type,user_name,real_name,password,status,user_img,token) values
-	('09f4fef9249c457ca67b4a7a45823732','510000','','1','scadmin','超级管理员','96e79218965eb72c92a549dd5a330112','1','/images/userImg/avatar5.png','B0BC0491A7FE27D4');
 
 -- 菜单表
 -- select id,menu_name,pid,url,icon,sort,menu_type,code,resource_name,status from sys_menu order by pid ;
 delete from sys_menu;
-
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('01','0','系统管理','','fa-cogs',5,1,'01','system',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0104','01','字典管理','/sysDict','fa-cogs',9,2,'0104','system:dict',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('010401','0104','字典列表','','',2,3,'010401','',1);
@@ -129,16 +112,10 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('08','0','上报管理','','fa-list',4,1,'08','system',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0801','08','目录/服务上报','/dirupload/dirAudit','fa-cog',3,2,'0801','dirupload:dirAudit',1);
 
-
-
--- 用户角色表
-delete from sys_user_role;
-insert into sys_user_role(id,user_id,role_id)
-    values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'admin'),(select id from sys_role where role_name='超级管理员'));
-insert into sys_user_role(id,user_id,role_id)
-    values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'nadmin'),(select id from sys_role where role_name='超级管理员'));
-insert into sys_user_role(id,user_id,role_id)
-    values (REPLACE(uuid(),'-',''),(select id from sys_user where user_name = 'scadmin'),(select id from sys_role where role_name='超级管理员'));
+-- 角色表
+delete from sys_role;
+  INSERT INTO sys_role(id,role_name,role_desc,role_level,status) VALUES ('737933bffef640329a4f864c4e2746ba', '超级管理员', '超级管理员', -1,1);
+  INSERT INTO sys_role(id,role_name,role_desc,role_level,status) VALUES ('dab7f9219c4611e78cf200ffe04ac734', '区域管理员', '区域管理员', 0,1);
 
 
 -- 角色菜单表
