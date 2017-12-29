@@ -359,6 +359,13 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             } else {
                 sysDeptVo.setDeptLevel(2);
             }
+            //根据父level拼接dept_structure_name
+            if(deptLevel.equals(1)){
+                sysDeptVo.setDeptStructureName(sysDeptVo.getDeptName());
+            }else{
+                sysDeptVo.setDeptStructureName(parent.getDeptStructureName()+"->"+sysDeptVo.getDeptName());
+            }
+
             String treeCode = parent.getTreeCode();
             if (treeCode == null) {
                 treeCode = "";
