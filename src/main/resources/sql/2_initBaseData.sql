@@ -171,10 +171,6 @@ INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,s
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a876f4b94511e7a38b00ffe04ac734','','1','bottomCopyright','许可说明','Copyright © 2017 勤智数码. All rights reserved.',NULL,1);
 INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87732694511e7a38700ffe04ac734','','1','integrateCurNo','系统集成当前标识','dm','',1);
 
-delete from dir_portal_content_setting;
-INSERT INTO dir_portal_content_setting (id, category, content, publisher, publish_date, delete_flag) VALUES ('6d238c7d312c4388bb48243b7f0d0c96', 'footer', '<p>&nbsp; &nbsp;主办：成都市人民政府 &nbsp; &nbsp; &nbsp;承办：成都市大数据和电子政务管理办公室 &nbsp; &nbsp; &nbsp;承建维护：成都市软件产业发展中心</p>', NULL, NULL, 0);
-INSERT INTO dir_portal_content_setting (id, category, content, publisher, publish_date, delete_flag) VALUES ('a568d7e2dc694e99ba919fb5aab4f86f', 'aboutUs', '<p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;成都市政务数据资源服务网是成都市各部门政务信息资源共享网站，由成都市大数据和电子政务管理办公室主办，成都市软件产业发展中心承办并负责运维工作。 </p> <p> <br/> </p> <p> &nbsp; &nbsp; &nbsp; &nbsp; 成都市政务信息资源服务网于2017年8月上线试运行，于2018年1月正式上线运行，是成都市各部门用户对政务信息资源梳理、发布、更新、申请以及获取的统一平台，更是是集目录、资源、工具、应用、目录可视化等一体的综合平台。 </p> <p> <br/> </p> <p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;成都市政务信息资源服务网致力于提升市级政府部门信息资源共享的质量和效率，在加快政府职能转变步伐，提高行政效率，推进跨部门协调，为促进政府数据共享开放，建成国家中心城市发挥着日益重要的作用。 </p> <p> <br/> </p> <p> </p> <p> <strong>联系方式 </strong> </p> <p> <br/> </p> <p></p> <p> 电话：028-85336899 </p> <p> <br/> </p> <p></p> <p> 传真：028-85336899 </p> <p> <br/> </p> <p></p> <p> 邮箱：editor@chengdu.gov.cn </p> <p> <br/> </p>', NULL, NULL, 0);
-
 -- 系统字典分类表
 delete from sys_dict_category;
 INSERT INTO sys_dict_category (category_code,category_name,category_desc) VALUES ('appRequirementNameSource','需求名称来源',NULL);

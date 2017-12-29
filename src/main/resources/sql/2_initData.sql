@@ -1,4 +1,9 @@
 
+-- 初始化共享门户首页的部分信息设置
+delete from dir_portal_content_setting;
+INSERT INTO dir_portal_content_setting (id, category, content, publisher, publish_date, delete_flag) VALUES ('6d238c7d312c4388bb48243b7f0d0c96', 'footer', '<p>&nbsp; &nbsp;主办：XXX人民政府 &nbsp; &nbsp; &nbsp;</p>', NULL, NULL, 0);
+INSERT INTO dir_portal_content_setting (id, category, content, publisher, publish_date, delete_flag) VALUES ('a568d7e2dc694e99ba919fb5aab4f86f', 'aboutUs', '<p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>', NULL, NULL, 0);
+
 
 
 delete from dir_develop_apis; 
