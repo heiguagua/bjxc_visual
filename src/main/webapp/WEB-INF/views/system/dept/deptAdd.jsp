@@ -211,7 +211,7 @@
 	                                <label for="deptResponsePhone" class="control-label col-sm-4 col-xs-4">部门负责人电话</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="deptResponsePhone"
-	                                           name="deptResponsePhone" placeholder="请输入部门负责人电话">
+	                                           name="deptResponsePhone" placeholder="请输入部门负责人电话" data-rule="tel|mobile">
 	                                </div>
 	                            </div>
                         	</div>
@@ -223,7 +223,7 @@
 	                                <label for="deptResponseEmail" class="control-label col-sm-4 col-xs-4">部门负责人邮箱</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="deptResponseEmail"
-	                                           name="deptResponseEmail" placeholder="请输入部门负责人邮箱">
+	                                           name="deptResponseEmail" placeholder="请输入部门负责人邮箱" data-rule="email">
 	                                </div>
 	                            </div>
                         	</div>
@@ -265,7 +265,7 @@
 	                                <label for="deptContactPhone" class="control-label col-sm-4 col-xs-4">联系人手机</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="deptContactPhone"
-	                                           name="deptContactPhone" placeholder="请输入联系人手机">
+	                                           name="deptContactPhone" placeholder="请输入联系人手机" data-rule="mobile">
 	                                </div>
 	                            </div>
                         	</div>
@@ -274,7 +274,7 @@
 	                                <label for="deptContactFixedPhone" class="control-label col-sm-4 col-xs-4">联系人座机</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="deptContactFixedPhone"
-	                                           name="deptContactFixedPhone" placeholder="请输入联系人座机">
+	                                           name="deptContactFixedPhone" placeholder="请输入联系人座机" data-rule="tel">
 	                                </div>
 	                            </div>
                         	</div>
@@ -286,7 +286,7 @@
 	                                <label for="deptContactEmail" class="control-label col-sm-4 col-xs-4">联系人邮箱</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="deptContactEmail"
-	                                           name="deptContactEmail" placeholder="请输入联系人邮箱">
+	                                           name="deptContactEmail" placeholder="请输入联系人邮箱" data-rule="email">
 	                                </div>
 	                            </div>
                         	</div>
@@ -327,7 +327,7 @@
 	                        	<div class="form-group">
 	                                <label for="orderNumber" class="control-label col-sm-4 col-xs-4">排序</label>
 	                                <div class="col-sm-7 col-xs-7">
-	                                <input type="text" class="form-control" id="orderNumber" name="orderNumber"
+	                                <input type="number" class="form-control" id="orderNumber" name="orderNumber"
 	                                       placeholder="请输入排序">
 	                                </div>
 	                            </div>
