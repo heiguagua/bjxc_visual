@@ -223,7 +223,7 @@ function buildItem(thisTrNum,data,sourceType){
         +'<input type="hidden" name="items['+thisTrNum+'].id" value="'+data.id+'"></td>'
         +'<td><select name="items['+thisTrNum+'].itemType" data-rule="类型:required;" class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
         +'<td><input name="items['+thisTrNum+'].itemLength" data-rule="长度:required;integer(+);" type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control"></td>';
-    var str5='<td><select name="items['+thisTrNum+'].secretFlag" class="form-control">'+Dict.selectsDom("ordinary",data.isOpen?data.isOpen:'')+'</select></td>'
+    var str5='<td><select name="items['+thisTrNum+'].secretFlag" class="form-control">'+Dict.selectsDom("isSecret",data.isOpen?data.isOpen:'')+'</select></td>'
         +'<td><select name="items['+thisTrNum+'].shareType" data-rule="共享类型:required;" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
         +'<td><input class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" value="'+(data.shareCondition?data.shareCondition:'')+'"></td>'
         +'<td><select name="items['+thisTrNum+'].shareMethod" class="form-control">'+Dict.selectsDom("dataSetShareMethod",data.shareMethod?data.shareMethod:'')+'</select></td>'
