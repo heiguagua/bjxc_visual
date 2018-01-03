@@ -71,7 +71,7 @@ $(document).ready(function () {
             valign: 'middle',
             sortable: false ,
             formatter : function (value) {
-                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:queryLogDetail(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 查看参数</a>";
+                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:queryLogDetail(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 查看参数</a>";
                return editBtn ;
             }
         }]

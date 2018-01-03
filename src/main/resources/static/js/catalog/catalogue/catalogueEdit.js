@@ -119,6 +119,10 @@ function initInputValue(){
                 if(obj.sourceType == '2' || obj.sourceType == '5'){
                     $("#firstTh").after("<th>字段名</th>");
                 }
+                if(obj.sourceType == '3'){
+                    $("#thType").html("类型");
+                    $("#thLength").html("长度");
+                }
                 var itemList = obj.items;
                 for (var i in itemList){
                     var thisTrNum = getTrNum();
@@ -236,6 +240,10 @@ function buildItem(thisTrNum,data,sourceType){
         $('#dataitemList').prepend(str1+str2+str3+str4+str5);
     }else{
         $('#dataitemList').prepend(str1+str3+str4+str5);
+    }
+    if(sourceType == '3'){
+        $("#itemType_"+thisTrNum).attr("data-rule","");
+        $("#itemLength_"+thisTrNum).attr("data-rule","integer(+);");
     }
     if(sourceType == '1' || sourceType == '4'){
         $("#deptName_"+thisTrNum).val(data.deptName?data.deptName:'');

@@ -54,7 +54,7 @@ function getRequirementTable(dd) {
             },
             {
                 field: 'requireName',
-                title: '资源名称',
+                title: '需求资源',
                 width: '15%',
                 formatter:function(value){
                     if(value == undefined){

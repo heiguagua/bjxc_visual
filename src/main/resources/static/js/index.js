@@ -161,7 +161,8 @@ function initBarChart(dataArry,id){
                     type: 'category',
                     data: nameArray,
                     axisLabel:{
-                        interval:0,
+                    	show:true,
+                        interval:'auto',
                         rotate:35,//倾斜度 -90 至 90 默认为0
                         margin:2
                         /*textStyle:{
@@ -216,9 +217,9 @@ function initReverseBarChart(dataArry,id){
                 },
                 grid:{
                     x:'30%',
-                    y:'15%',
+                    y:'10%',
                     x2:'3%',
-                    y2:'60px'
+                    y2:'15%',
                 },
                 axis:{
                     splitLine:{
@@ -230,7 +231,13 @@ function initReverseBarChart(dataArry,id){
                 },
                 yAxis: {
                     type: 'category',
-                    data: nameArray
+                    axisLabel:{
+                    	 show:true,
+                    	 interval:'auto',
+                         rotate:20,//倾斜度 -90 至 90 默认为0
+                         margin:2,
+                    },
+                   data: nameArray
                 },
                 series: [
                     {

@@ -324,10 +324,13 @@ function excelImportUI() {
         tip("不能在这个分类下导入资源!!",parent,null,null);
         return;
     }
-    detail('导入',basePathJS +'/catalog/catalogue/excelImportUI?classifyId='+ $('#searchClassifyId').val(),900,350,parent);
+    detail('导入',basePathJS +'/catalog/catalogue/excelImportUI?classifyId='+ $('#searchClassifyId').val(),700,350,parent);
+    
+    $("div.layui-layer-iframe").css("min-width",700)
 }
 function excelDownloadUI() {
-    detail('模板下载',basePathJS +'/catalog/catalogue/excelDownloadUI',900,350,parent);
+    detail('模板下载',basePathJS +'/catalog/catalogue/excelDownloadUI',700,350,parent);
+    $("div.layui-layer-iframe").css("min-width",700)
 }
 function checkClassfyId(searchClassifyId){
     if(searchClassifyId){

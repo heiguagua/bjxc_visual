@@ -102,7 +102,7 @@ function initTable(){
             valign: 'middle',
             sortable: false,
             formatter: function(value, row, index) {
-                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看</a>";
+                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>查看</a>";
                 return editBtn;
             }
         }]
