@@ -54,7 +54,7 @@ function getRequirementTable(dd) {
             },
             {
                 field: 'requireName',
-                title: '需求资源',
+                title: '资源名称',
                 width: '15%',
                 formatter:function(value){
                     if(value == undefined){
@@ -66,23 +66,23 @@ function getRequirementTable(dd) {
             {
                 field: 'requireType',
                 title: '需求类型',
-                width: '15%',
+                width: '10%',
                 formatter: function (value) {
                     if(1==value){
-                        return '手动添加';
+                        return '手填';
                     }
                     if(2==value){
-                        return '从信息资源添加';
+                        return '资源';
                     }
                     if(3==value){
-                        return '从应用系统添加';
+                        return '接口';
                     }
                 }
             },
             {
                 field: 'id',
                 title: '操作',
-                width: '5%',
+                width: '10%',
                 valign: 'middle',
                 sortable: false,
                 formatter: function (value) {
