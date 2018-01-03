@@ -11,23 +11,23 @@ function initPage(){
         success: function (result) {
             if (result.state) {
                 var vo = result.content.vo;
-                $("#requireName").val(vo.requireName);
+                $("#requireName").val(vo.otherInfo);
                 $("#providerDeptName").val(vo.providerDeptName);
                 $("#requirementDeptName").val(vo.requirementDeptName);
                 $("#demanderName").val(vo.demanderName);
                 var type;
                 if(1 == vo.requireType){
-                    type = '手动添加';
+                    type = '手填';
                 }
                 if(2 == vo.requireType){
-                    type = '从信息资源添加';
+                    type = '资源';
                 }
                 if(3 == vo.requireType){
-                    type = '从应用系统添加';
+                    type = '接口';
                 }
                 $("#requireType").val(type);
-                $("#otherInfo").val(vo.otherInfo);
                 $("#requirementDesc").html(vo.requirementDesc);
+                $("#requireResource").val(vo.requireName);
             }
         }
     });

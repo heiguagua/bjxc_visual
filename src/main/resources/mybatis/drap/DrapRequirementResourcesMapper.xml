@@ -40,6 +40,7 @@
     <sql id="queryConditions">
         <where>
             1 = 1
+            AND t.require_combing_type = 3
             <if test="id != null">
                 AND t.id = #{id,jdbcType=VARCHAR}
             </if>
@@ -51,6 +52,7 @@
                 OR spt.`dept_code` LIKE CONCAT((SELECT dept_code FROM sys_dept WHERE id = #{deptId}),'%')
             </if>
         </where>
+        ORDER BY t.create_time DESC
     </sql>
 
     <sql id="baseSelectVo">
@@ -62,12 +64,12 @@
         THEN sdt.`dept_name`
         ELSE CONCAT(sdt.`fname`,'>',sdt.`dept_name`)
         END
-        AS provider_dept_name,
+        AS requirement_dept_name,
         CASE WHEN spt.`fname` = 'root'
         THEN spt.`dept_name`
         ELSE CONCAT(spt.`fname`,'>',spt.`dept_name`)
         END
-        AS requirement_dept_name
+        AS provider_dept_name
         FROM
         drap_requirement_resources t
         LEFT JOIN sys_user su ON su.`id` = t.`create_user`
