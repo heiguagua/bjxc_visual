@@ -63,8 +63,8 @@ function intDict(param) {
                 sortable: false ,
                 formatter : function (value,row) {
                     var detailBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:getDictDetails(\"" + value + "\",\""+row.categoryName+"\")'><i class='fa fa-pencil-square-o'></i> 字典明细 </a>";
-                    var editBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:editDict(\"" + value + "\")'><i class='fa fa-times'></i> 修改</a>";
-                    var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteDict(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
+                    var editBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:editDict(\"" + value + "\")'><i class='fa fa-times'></i> 修改</a>";
+                    var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteDict(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
                     // return detailBtn + OPERATION_SEPARATOR + editBtn+ OPERATION_SEPARATOR + deleteBtn ;
                     return detailBtn + OPERATION_SEPARATOR + editBtn ;
                 }

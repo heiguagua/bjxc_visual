@@ -67,4 +67,8 @@ public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
     List<SysUser>  listBySystemId(String systemId);
 
     boolean insertOrUpdate(List<SysUser> list);
+
+    boolean updateSXUser(SysUser sysUser);
+
+    SysUser selectSXUser(SysUser sysUser);
 }

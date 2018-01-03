@@ -65,7 +65,7 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 
     String getRootDeptId(String drapDeptId);
 
-    Set<String> selectAllDeptId();
+    boolean updateSXDept(SysDept sysDept);
 
-    void deleteByIds(List<String> ids)throws Exception;
+    SysDept selectSXDept(SysDept sysDept);
 }

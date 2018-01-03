@@ -227,7 +227,9 @@
 	font-size:12px;
 }
 
-
+.bootstrap-table .table{
+	border-bottom:1px solid #ddd !important;
+}
 
 
 
@@ -441,7 +443,9 @@ div.user-panel div.secContent{
     position: relative;
     box-shadow: 0 1px 5px 0 #BAC5C9;
 }
-
+#bigpinzhouqi{
+		display:block;
+	}
 @media (min-width: 768px){
 	.sidebar-mini.sidebar-collapse .main-header .navbar{
 		margin-left:0;
@@ -560,11 +564,6 @@ letter-spacing: 0;
 .ztree{
     height:97%;
 }
-
-
-
-
-
 
 
 

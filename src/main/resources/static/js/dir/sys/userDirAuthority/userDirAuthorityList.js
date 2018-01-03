@@ -55,7 +55,13 @@ jQuery(document).ready(function () {
                 title: '组织机构名称',
                 //align: 'center',
                 valign: 'middle',
-                sortable: false
+                sortable: false,
+                formatter:function(value){
+                	  if(value == undefined){
+                          value="";
+                      }
+                      return '<p title="'+value+'">'+value+'</p>';
+                }
             }, {
                 field: 'status',
                 title: '用户状态',
@@ -90,6 +96,7 @@ jQuery(document).ready(function () {
             {
                 field: 'createName',
                 title: '创建者',
+                width: '8%',
                 //align: 'center',
                 valign: 'middle',
                 sortable: false
@@ -98,14 +105,20 @@ jQuery(document).ready(function () {
                 title: '更新时间',
                 //align: 'center',
                 valign: 'middle',
-                width: '160',
-                sortable: false
+                width: '16%',
+                sortable: false,
+                formatter:function(value){
+                    if(value == undefined){
+                        value="";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
             }, {
                 field: 'id',
                 title: '操作',
                 //align: 'center',
                 valign: 'middle',
-                width: '220',
+                width: '12%',
                 sortable: false,
                 formatter: function (value) {
                     var allotBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:dirAllot(\"" + value + "\")'><i class='fa fa-chain'></i> 目录数据分配</a>";

@@ -23,21 +23,37 @@ jQuery(document).ready(function () {
             align: 'left',
             valign: 'middle',
             // width : '150px' ,
-            sortable: false
+            sortable: false,
+            formatter:function(value){
+            	if(value !=="" && value !== undefined){
+            		return '<p title="'+value+'">'+value+'</p>'
+            	}
+            }
         }, {
             field: 'settingName',
             title: '配置名称',
             align: 'left',
             valign: 'middle',
             // width : '150px' ,
-            sortable: false
+            sortable: false,
+            formatter:function(value){
+            	if(value !=="" && value !== undefined){
+            		return '<p title="'+value+'">'+value+'</p>'
+            	}
+            }
         }, {
             field: 'settingValue',
             title: '配置值',
             align: 'left',
             valign: 'middle',
             // width : '400px' ,
-            sortable: false
+            sortable: false,
+            formatter:function(value, row, index){
+                if(value == undefined){
+                    value = "";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'regionCode',
             title: '所属区域',
@@ -97,8 +113,14 @@ jQuery(document).ready(function () {
             title: '更新时间',
             align: 'left',
             valign: 'middle',
-            // width : '180px' ,
-            sortable: false
+            width : '16%' ,
+            sortable: false,
+            formatter:function(value, row, index){
+                if(value == undefined){
+                    value = "";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'id',
             title: '操作',
@@ -106,8 +128,8 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false ,
             formatter : function (value) {
-                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editSetting(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
-                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteSetting(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
+                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editSetting(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteSetting(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
                 // return editBtn + OPERATION_SEPARATOR +  deleteBtn ;
                 return editBtn ;
             }
