@@ -104,11 +104,12 @@ public class DrapDbInfoServiceImpl extends
 		List<DrapDbSystemMap> drapDbSyMapLst = null;
 		for (DrapDbInfoVo drapDbInfoVo : vos) {
 		    
-		    deleteDb(drapDbInfoVo.getId());
-		    
 			if (null == drapDbInfoVo) {
 				continue;
 			}
+			
+		    deleteDb(drapDbInfoVo.getId());
+			
 			drapDbSyMapLst = drapDbInfoVo.getDbSystemMapLst();
 			paramMap = new HashMap<String, Object>(0);
 			//新增系统
