@@ -296,10 +296,18 @@
         </where>
     </sql>
     <insert id="insertListItem">
-        insert into dir_dataitem(id,dataset_id,item_code,item_name,item_desc,item_type,item_length,belong_dept_id,share_type,share_method,share_condition,is_open,open_condition,update_frequency,storage_medium,storage_location,status,create_user_id,create_time,update_user_id,update_time)
-        values
+        insert into dir_dataitem(id,dataset_id,item_code,item_name,item_desc,item_type,item_length,belong_dept_id,
+        share_type,share_condition,no_share_reason,share_method_category,share_method,is_open,open_condition,
+        update_frequency,format_category,format_type,format_info,storage_medium,storage_location,belong_system_id,
+        secret_flag,status,create_user_id,create_time,update_user_id,update_time) values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.datasetId},#{item.itemCode},#{item.itemName},#{item.itemDesc},#{item.itemType},#{item.itemLength},#{item.belongDeptId},#{item.shareType},#{item.shareMethod},#{item.shareCondition},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},#{item.storageMedium},#{item.storageLocation},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},#{item.updateTime})
+            (
+            #{item.id},#{item.datasetId},#{item.itemCode},#{item.itemName},#{item.itemDesc},#{item.itemType},#{item.itemLength},
+            #{item.belongDeptId},#{item.shareType},#{item.shareCondition},#{item.noShareReason},#{item.shareMethodCategory},
+            #{item.shareMethod},#{item.isOpen},#{item.openCondition},#{item.updateFrequency},#{item.formatCategory},
+            #{item.formatType},#{item.formatInfo},#{item.storageMedium},#{item.storageLocation},#{item.belongSystemId},
+            #{item.secretFlag},#{item.status},#{item.createUserId},#{item.createTime},#{item.updateUserId},#{item.updateTime}
+            )
         </foreach>
     </insert>
 
