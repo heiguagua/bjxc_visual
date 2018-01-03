@@ -83,26 +83,26 @@
         smartDisplay: false,
         columns: [
             {
-                field: 'a', title: '序号', width: '5%',
+                field: 'a', title: '序号', width: '6%',align:"center",
                 formatter: function (value, row, index) {
                     return index + 1;
                 }
             },
-            { field: 'title', title: '标题' },
-            { field: 'content', title: '内容' },
+            { field: 'title', title: '标题' ,formatter:function(value){if(value !== ""){return '<p title="'+value+'">'+value+'</p>'}}},
+            { field: 'content', title: '内容' ,width: '20%'},
             { field: 'contactEmail', title: '邮箱', width: '15%' },
-            { field: 'contactPhone', title: '联系电话', width: '10%' },
-            { field: 'submitDate', title: '提交时间', width: '10%' },
+            { field: 'contactPhone', title: '联系电话', width: '12%' },
+            { field: 'submitDate', title: '提交时间', width: '15%' },
             {
                 field: 'id',
                 title: '操作',
                 width: '10%',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false,
                 formatter: function(value) {
                     var editBtn = [
-                        "<a class='btn btn-default btn-flat btn-xs' href='#' onclick='javascript:userSug(\"" + value + "\")'><i class='fa fa-close'>&#160;</i>删除</a>"
+                        "<a class='btn btn-default btn-flat btn-xs' href='###' onclick='javascript:userSug(\"" + value + "\")'><i class='fa fa-close'></i>删除</a>"
                     ].join('');
                     return editBtn;
                 }

@@ -56,7 +56,8 @@ div.layui-layer-iframe{
                                     </ul>
 							    </div>
                                 <div id="tab1">
-                                   <form class="form-inline" method="post"    onsubmit="return false;" >
+                                   <div class="form-inline" method="post"    onsubmit="return false;" >
+                                   
                                        <div class="box-header box-header-myself">
                                             <div class="input-group">
                                                 <a class="btn btn-primary btn-flat btn-myself" id="auditRejectButton">
@@ -90,13 +91,13 @@ div.layui-layer-iframe{
                                                 </div>
                                             </div>
                                        </div>
-                                   </form>
+                                   </div>
                                    <div class="box-body table-responsive table-myself">
                                         <table id="unReleaseTable" class="table table-hover"></table>
                                     </div>
                                 </div>
                                 <div id="tab2">
-                                    <form class="form-inline" method="post"    onsubmit="return false;">
+                                    <div class="form-inline" method="post"    onsubmit="return false;">
                                         <div class="box-header box-header-myself">
                                             <div class="input-group">
                                                 <a class="btn btn-default btn-flat  btn-myself" id="offlineButton">下架</a>
@@ -116,7 +117,7 @@ div.layui-layer-iframe{
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
 
                                    <div class="box-body table-responsive table-myself">
                                         <table id="releasedTable" class="table table-hover"></table>

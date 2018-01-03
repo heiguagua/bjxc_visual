@@ -5,6 +5,11 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=context_path%>/js/catalog/catalogue/catalogueShow.js"></script>
 </head>
+<style>
+div.layui-layer-iframe{
+	min-width:1000px;
+}
+</style>
 <body>
 <section class="content">
     <div id="catalogueTableEditLayer">
@@ -264,21 +269,21 @@
                         </p>--%>
                     </div>
                 </div>
-                <div class="form-group " style="overflow-x: auto;min-height:200px;">
+                <div class="form-group " style="overflow-x: auto;min-height:200px;border: 1px solid #ddd;">
                     <table style="width:135%" class="table-striped">
                         <thead>
                         <tr class='table_title_tr'>
                             <th>信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>
-                            <th style="width: 240px;">责任部门<span class="redStar">*</span></th>
+                            <th style="width: 150px;">责任部门<span class="redStar">*</span></th>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>涉密标识</th>
                             <th>共享类型</th>
                             <th>共享条件</th>
                             <th>共享方式</th>
-                            <th>是否向社会开放</th>
+                            <th style="width: 116px;">是否向社会开放</th>
                             <th>开放条件</th>
                             <th>存储位置</th>
                             <th>更新周期</th>

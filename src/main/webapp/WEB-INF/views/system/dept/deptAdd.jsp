@@ -327,7 +327,7 @@
 	                        	<div class="form-group">
 	                                <label for="orderNumber" class="control-label col-sm-4 col-xs-4">排序</label>
 	                                <div class="col-sm-7 col-xs-7">
-	                                <input type="number" class="form-control" id="orderNumber" name="orderNumber"
+	                                <input type="text" class="form-control" id="orderNumber" name="orderNumber"
 	                                       placeholder="请输入排序">
 	                                </div>
 	                            </div>

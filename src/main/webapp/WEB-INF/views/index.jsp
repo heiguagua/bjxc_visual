@@ -17,9 +17,13 @@
         <section class="content">
 			<div>
 			<div class="row">
-				<div class="col-md-12 TOngji">
+				<div class="col-md-6 TOngji">
 					目录分类统计
 				</div>
+                <div class="col-md-6">
+                    <a href="javascript:void(0)" id="procedureButton" class="pull-right btn btn-primary  btn-flat btn-myself">流程说明</a>
+                    <%--<input id="procedureButton" type="button" class="pull-right" value="流程说明">--%>
+                </div>
 			</div>
 			<div class="row docs-premium-template">
                  <div class="col-sm-12 col-md-4">
