@@ -17,71 +17,42 @@ import java.util.stream.Collectors;
 @Component
 public class SyncToLoacalService {
 
-	@Autowired
-	private ISysUserService sysUserService;
+    @Autowired
+    private ISysUserService sysUserService;
 
-	@Autowired
-	private ISysDeptService sysDeptService;
-
-
-	public void insertOrUpdateSysDept(List<SysDept> depts) {
-
-		if (CollectionUtils.isEmpty(depts)) return;
-
-		List<SysDept> existDeptsByIds = this.sysDeptService.selectList(new EntityWrapper<SysDept>().in("id", depts.stream().map(e -> e.getId()).collect(Collectors.toList())));
-
-		if (!CollectionUtils.isEmpty(existDeptsByIds)) {
-
-			existDeptsByIds.stream().forEach(e -> {
-				if (depts.contains(e)) depts.remove(e);
-			});
-
-			List<String> updateIds = existDeptsByIds.stream().map(e -> e.getId()).collect(Collectors.toList());
-
-			List<SysDept> updateDepts = Lists.newArrayList();
-			depts.stream().forEach(e -> {
-				if (updateIds.contains(e.getId())) updateDepts.add(e);
-			});
-
-			if (!CollectionUtils.isEmpty(updateDepts)) {
-				this.sysDeptService.updateBatchById(updateDepts);
-				depts.removeAll(updateDepts);
-			}
-
-		}
-
-		if (!CollectionUtils.isEmpty(depts)) this.sysDeptService.insertBatch(depts);
-
-	}
+    @Autowired
+    private ISysDeptService sysDeptService;
 
 
-	public void insertOrUpdateSysUser(List<SysUser> users) {
+    public void insertOrUpdateSysDept(List<SysDept> depts) {
 
-		if (CollectionUtils.isEmpty(users)) return;
+        if (CollectionUtils.isEmpty(depts)) return;
+        depts.stream().forEach(e -> {
+            SysDept idExist = this.sysDeptService.selectById(e.getId());
+            if(idExist == null) {
+                this.sysDeptService.insert(e);
+            }else{
+                SysDept entityExist = this.sysDeptService.selectSXDept(e);
+                if(entityExist == null) this.sysDeptService.updateSXDept(e);
+            }
+        });
 
-		List<SysUser> existUersByIds = this.sysUserService.selectList(new EntityWrapper<SysUser>().in("id", users.stream().map(e -> e.getId()).collect(Collectors.toList())));
+    }
 
-		if (!CollectionUtils.isEmpty(existUersByIds)) {
 
-			existUersByIds.stream().forEach(e -> {
-				if (users.contains(e)) users.remove(e);
-			});
+    public void insertOrUpdateSysUser(List<SysUser> users) {
 
-			List<String> updateIds = existUersByIds.stream().map(e -> e.getId()).collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(users)) return;
+        users.stream().forEach(e -> {
+            SysUser idExist = this.sysUserService.selectById(e.getId());
+            if(idExist == null){
+                this.sysUserService.insert(e);
+            }else{
+                SysUser entityExist = this.sysUserService.selectSXUser(e);
+                if(entityExist == null) this.sysUserService.updateSXUser(e);
+            }
+        });
 
-			List<SysUser> updateUsers = Lists.newArrayList();
-			users.stream().forEach(e -> {
-				if (updateIds.contains(e.getId())) updateUsers.add(e);
-			});
-
-			if (!CollectionUtils.isEmpty(updateUsers)) {
-				this.sysUserService.updateBatchById(updateUsers);
-				users.removeAll(updateUsers);
-			}
-
-		}
-
-		if (!CollectionUtils.isEmpty(users)) this.sysUserService.insertBatch(users);
-	}
+    }
 }
 

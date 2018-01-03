@@ -12,25 +12,33 @@ jQuery(document).ready(function () {
         columns: [ {
             field: 'picName',
             title: '图片名称',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value){
+                if(value == undefined){
+                    value="";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'picType',
             title: '图片类型',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,           
         }, {
             field: 'picOrder',
             title: '播放顺序',
-            align: 'center',
+            align: 'left',
+            width:"10%",
             valign: 'middle',
             sortable: false,           
         },{
             field: 'status',
             title: '启用状态',
-            align: 'center',
+            align: 'left',
+            width:"10%",
             valign: 'middle',
             sortable: false, 
             formatter : function (value) {
@@ -43,23 +51,23 @@ jQuery(document).ready(function () {
         },{
             field: 'createTime',
             title: '创建时间',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false
         }, {
             field: 'id',
             title: '操作',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false ,
             formatter : function (value,row) {
             	if(row.status=="1"){
-            		var statusBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:statusUser(\"" + value + "\",\"" + row.status + "\")'><i class='fa fa-pencil-square-o'></i> 禁用</a>";
+            		var statusBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:statusUser(\"" + value + "\",\"" + row.status + "\")'><i class='fa fa-pencil-square-o'></i> 禁用</a>";
             	}else if(row.status=="0"){
-            		var statusBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:statusUser(\"" + value + "\",\"" + row.status + "\")'><i class='fa fa-pencil-square-o'></i> 启用</a>";
+            		var statusBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:statusUser(\"" + value + "\",\"" + row.status + "\")'><i class='fa fa-pencil-square-o'></i> 启用</a>";
             	}
-            	var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
-                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteUser(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
+            	var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteUser(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
 
                 return statusBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR + deleteBtn ;
             }
@@ -98,7 +106,7 @@ function statusUser(id,status) {
 }
 
 function editUser(id) {
-	updateForPictureNews('编辑图片',basePathJS + '/dirHome/edit' , id,900,600);
+	updateForPictureNews('编辑图片',basePathJS + '/dirHome/edit' , id,500,400);
 }
 
 function deleteUser(id) {

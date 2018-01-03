@@ -15,7 +15,17 @@ jQuery(document).ready(function () {
             align: 'left',
             width: '200px',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+		    formatter:function(value){
+		    	if(value !== ""){
+		    		var str  = value.replace(/[^\u4e00-\u9fa5]/gi,"")
+		    		if(str !== ""){
+		    			return "<p title="+str+">"+str+"</p>"
+		    		}else{
+		    			return "暂无"
+		    		}
+		    	}
+		    }
         },{
             field: 'code',
             title: '编码',
@@ -97,8 +107,8 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false ,
             formatter : function (value) {
-                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editMenu(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
-                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteMenu(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
+                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editMenu(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+                var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteMenu(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
 
             return editBtn + OPERATION_SEPARATOR +  deleteBtn ;
             }

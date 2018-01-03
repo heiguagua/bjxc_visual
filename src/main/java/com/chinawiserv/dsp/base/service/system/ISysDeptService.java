@@ -2,8 +2,6 @@ package com.chinawiserv.dsp.base.service.system;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -65,7 +63,7 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
 
     String getRootDeptId(String drapDeptId);
 
-    Set<String> selectAllDeptId();
+    boolean updateSXDept(SysDept sysDept);
 
-    void deleteByIds(List<String> ids)throws Exception;
+    SysDept selectSXDept(SysDept sysDept);
 }

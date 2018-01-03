@@ -154,6 +154,7 @@ function initDept(pid,subQueryFlag) {
             field: 'deptShortName',
             title: '组织机构简称',
             align: 'left',
+            width:'12%',
             valign: 'middle',
             sortable: false,
             formatter:function(value, row, index){
@@ -179,6 +180,7 @@ function initDept(pid,subQueryFlag) {
         }, {
             field: 'regionName',
             title: '所属行政区域',
+            width:'12%',
             align: 'left',
             valign: 'middle',
             sortable: false,
@@ -206,12 +208,13 @@ function initDept(pid,subQueryFlag) {
             field: 'cNum',
             title: '下级机构数量',
             align: 'left',
+            width:"10%",
             valign: 'middle',
             sortable: false
-            
         }, {
             field: 'updateTime',
             title: '更新时间',
+            width:"16%",
             align: 'left',
             valign: 'middle',
             sortable: false,
@@ -326,7 +329,7 @@ function initDept(pid,subQueryFlag) {
             align: 'left',
             valign: 'middle',
             sortable: false ,
-            width: '20%',
+            width: '15%',
             formatter : function (value) {
             	if(value == undefined){
                     value = "";

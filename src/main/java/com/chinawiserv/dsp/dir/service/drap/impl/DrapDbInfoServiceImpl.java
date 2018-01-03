@@ -103,6 +103,9 @@ public class DrapDbInfoServiceImpl extends
 		Map<String, Object> paramMap = null;
 		List<DrapDbSystemMap> drapDbSyMapLst = null;
 		for (DrapDbInfoVo drapDbInfoVo : vos) {
+		    
+		    deleteDb(drapDbInfoVo.getId());
+		    
 			if (null == drapDbInfoVo) {
 				continue;
 			}

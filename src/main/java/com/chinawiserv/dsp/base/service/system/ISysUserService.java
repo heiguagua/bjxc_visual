@@ -2,7 +2,6 @@ package com.chinawiserv.dsp.base.service.system;
 
 
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
-import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
@@ -67,4 +66,8 @@ public interface ISysUserService extends ICommonService<SysUser,SysUserVo> {
     List<SysUser>  listBySystemId(String systemId);
 
     boolean insertOrUpdate(List<SysUser> list);
+
+    boolean updateSXUser(SysUser sysUser);
+
+    SysUser selectSXUser(SysUser sysUser);
 }

@@ -132,6 +132,12 @@ public class LoginController extends BaseController {
         return "login";
     }
 
+    @RequestMapping("/sysIndex")
+    public String sysIndex(Model model) {
+        return "index";
+    }
+
+
 
     /**
      * 执行登录

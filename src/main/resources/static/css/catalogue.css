@@ -1,4 +1,4 @@
-  .title_ul{
+.title_ul{
 	margin-top:10px;
 	    height: 35px;
 	border-bottom:1px solid #ccc;
@@ -42,11 +42,12 @@ label{
 }
 
 .updatedate{
-	/*     margin-left: 80px; */
+	 /*    margin-left: 80px; */
+	  /*   margin-left: 20%; */
 }
 
 .updateSelec{
-	    /* width: 116px; */
+	   /*  width: 116px; */
 }
 .table_title_tr{
 	background: #F7F7F7;
@@ -109,7 +110,7 @@ line-height: 21px;
 	border-radius: 4px;
 	color:#fff
 }
-.btn_blueinsure:hover,{
+.btn_blueinsure:hover{
 	color:#fff !important;
 }
 .btn_quxiao{
@@ -146,7 +147,7 @@ line-height: 21px;
       border: 1px solid #ccc;
       width: 20px;
       height: 20px;
-      margin-right: 10px;
+      margin-right: 1%;
       position: relative;
       margin-bottom: 5px;
       background: #fff;

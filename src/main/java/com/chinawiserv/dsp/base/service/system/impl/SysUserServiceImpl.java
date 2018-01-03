@@ -196,4 +196,15 @@ public class SysUserServiceImpl extends CommonServiceImpl<SysUserMapper,SysUser,
         }
         return true;
     }
+
+
+    @Override
+    public boolean updateSXUser(SysUser sysUser) {
+        return this.userMapper.updateSXUser(sysUser)>0;
+    }
+
+    @Override
+    public SysUser selectSXUser(SysUser sysUser) {
+        return this.userMapper.selectSXUser(sysUser);
+    }
 }

@@ -20,7 +20,13 @@ jQuery(document).ready(function () {
             title: '真实姓名',
             align: 'left',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value){
+            	  if(value == undefined){
+                      value="";
+                  }
+                  return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'userType',
             title: '用户类型',
@@ -49,17 +55,30 @@ jQuery(document).ready(function () {
                 title: '区域名称',
                 align: 'left',
                 valign: 'middle',
-                sortable: false
+                sortable: false,
+                formatter:function(value){
+                	  if(value == undefined){
+                          value="";
+                      }
+                      return '<p title="'+value+'">'+value+'</p>';
+                }
             }, {
                 field: 'deptName',
                 title: '组织机构名称',
                 align: 'left',
                 valign: 'middle',
-                sortable: false
+                sortable: false,
+                formatter:function(value){
+                	  if(value == undefined){
+                          value="";
+                      }
+                      return '<p title="'+value+'">'+value+'</p>';
+                }
             }, {
                 field: 'status',
                 title: '用户状态',
                 align: 'left',
+                width: '8%',
                 valign: 'middle',
                 sortable: false,
                 formatter: function (value) {
@@ -91,6 +110,7 @@ jQuery(document).ready(function () {
                 field: 'createName',
                 title: '创建者',
                 align: 'left',
+                width: '8%',
                 valign: 'middle',
                 sortable: false
             }, {
@@ -98,14 +118,21 @@ jQuery(document).ready(function () {
                 title: '更新时间',
                 align: 'left',
                 valign: 'middle',
-                width: '160',
-                sortable: false
+                width: '16%',
+                sortable: false,
+                formatter:function(value){
+                	  if(value == undefined){
+                          value="";
+                      }
+                      return '<p title="'+value+'">'+value+'</p>';
+                }
+
             }, {
                 field: 'id',
                 title: '操作',
                 align: 'left',
                 valign: 'middle',
-                width: '220',
+                width: '12%',
                 sortable: false,
                 formatter: function (value) {
                     // var allotBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:dirAndDeptAllot(\"" + value + "\",\"dir\")'><i class='fa fa-chain'></i> 目录数据分配</a>";

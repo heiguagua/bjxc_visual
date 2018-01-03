@@ -42,5 +42,8 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     List<SysUser> listBySystemId(String systemId);
 
+    int updateSXUser(SysUser sysUser);
+
+    SysUser selectSXUser(SysUser sysUser);
 
 }

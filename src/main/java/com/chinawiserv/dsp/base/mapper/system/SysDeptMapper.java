@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * <p>
@@ -58,7 +57,7 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     SysDeptVo selectVoByTreeCode(String treeCode);
 
-    Set<String> selectAllDeptId();
+    int updateSXDept(SysDept sysDept);
 
-    void deleteByIds(List<String> ids);
+    SysDept selectSXDept(SysDept sysDept);
 }

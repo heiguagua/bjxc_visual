@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.dir.schema;
 
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.DesUtil;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
@@ -28,8 +29,6 @@ import java.util.List;
 @Component
 public class SyncUsersAndDepsTaskSX {
 
-    private final String CHENG_DU_REGION_CODE = "510100";
-
     @Autowired
     private SyncToLoacalService service;
 
@@ -50,6 +49,12 @@ public class SyncUsersAndDepsTaskSX {
      */
     @Value("${synchronize.db.view.department}")
     private String viewDeptTableName;
+
+    @Value("${sx.default.regioncode}")
+    private String CHENG_DU_REGION_CODE;
+
+    @Value("${sx.default.password}")
+    private String DEFAULT_PASSWORD;
 
     /**
      * 用户表的字段===================================================================
@@ -436,10 +441,16 @@ public class SyncUsersAndDepsTaskSX {
                 String token = DesUtil.encrypt(userNameString);
                 sysUser.setToken(token);
                 sysUser.setUpdateTime(rs.getTimestamp(userUpdateTime));
-                sysUser.setStatus(rs.getInt(userStatus));
+                if(null == rs.getObject(userStatus)) {
+                    sysUser.setStatus(1);
+                }else{
+                    sysUser.setStatus(rs.getInt(userStatus));
+                }
                 sysUser.setEmail(rs.getString(userEmail));
                 sysUser.setCellPhoneNumber(rs.getString(userCellPhoneNumber));
-                sysUser.setPassword(rs.getString(userPassword));
+                String password = rs.getString(userPassword);
+                password = StringUtils.isBlank(password)?CommonUtil.string2MD5(DEFAULT_PASSWORD):password;
+                sysUser.setPassword(password);
                 sysUser.setId(rs.getString(userId));
                 sysUser.setUserImg(rs.getString(userImg));
                 String deptId;

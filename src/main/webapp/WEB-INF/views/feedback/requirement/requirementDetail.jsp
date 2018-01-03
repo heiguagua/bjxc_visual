@@ -22,7 +22,7 @@
                     <div class="row">
                         <input type="hidden" id="requirementId" name="requirementId" value="${requirementId}">
                         <div class="col-sm-12">
-                            <label for="requireName" class="col-sm-2 control-label" style="width:12.2%">需求资源名称:</label>
+                            <label for="requireName" class="col-sm-2 control-label" style="width:12.2%">需求名称:</label>
                             <div class="col-sm-10"  style="width:87.8%">
                                 <input type="text" id="requireName"  class="form-control" readonly>
                             </div>

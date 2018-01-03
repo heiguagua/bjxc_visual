@@ -16,46 +16,62 @@ jQuery(document).ready(function () {
             align: 'left',
             width: '75px',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value){
+                if(value == undefined){
+                    value="";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         },{
             field: 'productName',
             title: '名称',
-            align: 'center',
+            align: 'left',
             width: '75px',
             valign: 'middle',
             sortable: false
         },{
             field: 'productShowName',
             title: '显示名称',
-            align: 'center',
+            align: 'left',
             width: '100px',
             valign: 'middle',
             sortable: false
         }, {
             field: 'rootPath',
             title: '根路径',
-            align: 'center',
+            align: 'left',
             width: '100px',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value){
+            	if(value !==""){
+            		return '<p title="'+value+'">'+value+'</p>'
+            	}
+            }
         }, {
             field: 'ssoPath',
             title: '单点登录地址',
-            align: 'center',
+            align: 'left',
             width: '100px',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value){
+            	if(value !==""){
+            		return '<p title="'+value+'">'+value+'</p>'
+            	}
+            }
         }, {
             field: 'orderNumber',
             title: '顺序',
-            align: 'center',
+            align: 'left',
             width: '75px',
             valign: 'middle',
             sortable: false
         }, {
             field: 'integrateFlag',
             title: '集成否',
-            align: 'center',
+            align: 'left',
             width: '75px',
             valign: 'middle',
             sortable: false,
@@ -71,7 +87,7 @@ jQuery(document).ready(function () {
         }, {
             field: 'curOpenFlag',
             title: '本页打开',
-            align: 'center',
+            align: 'left',
             width: '75px',
             valign: 'middle',
             sortable: false,
@@ -87,7 +103,7 @@ jQuery(document).ready(function () {
         }, {
             field: 'icon',
             title: '图标',
-            align: 'center',
+            align: 'left',
             width: '50px',
             valign: 'middle',
             sortable: false,
@@ -99,7 +115,7 @@ jQuery(document).ready(function () {
         }, {
             field: 'masterFlag',
             title: '主属节点',
-            align: 'center',
+            align: 'left',
             width: '75px',
             valign: 'middle',
             sortable: false,
@@ -115,12 +131,12 @@ jQuery(document).ready(function () {
         }, {
             field: 'id',
             title: '操作',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
-            width: '12%',
+            width: '8%',
             sortable: false,
             formatter: function (value) {
-                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:editProInt(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+                var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editProInt(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                 // if(isMaster==="true") {
                     return editBtn;
                 // }else{

@@ -175,7 +175,7 @@
 	<!--目录同步功能  非目录请注释 end -->
 	<!-- 用 SELECT t.* FROM sys_dept t 替换掉下面 <include refid="baseSelectVo1"></include>-->
 	<select id="selectVoById" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo">
-		SELECT t.* FROM sys_dept t
+		SELECT t.*,r.region_name AS regionName FROM sys_dept t LEFT JOIN sys_region r ON t.region_code = r.region_code
 		WHERE t.delete_flag = '0' AND t.id = #{id}
 	</select>
 
@@ -307,16 +307,226 @@
 		</foreach>
 	</insert>
 
-	<select id="selectAllDeptId" resultType="java.lang.String">
-		select id from sys_dept
+	<select id="selectSXDept" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDept" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDept">
+		select * from sys_dept
+		<where>
+			1 = 1
+			<if test="deptType != null">
+				and dept_type = #{deptType}
+			</if>
+			<if test="deptCode != null">
+				and dept_code = #{deptCode}
+			</if>
+			<if test="deptName != null">
+				and dept_name = #{deptName}
+			</if>
+			<if test="deptShortName != null">
+				and dept_short_name = #{deptShortName}
+			</if>
+			<if test="deptAlias != null">
+				and dept_alias = #{deptAlias}
+			</if>
+			<if test="deptListingName != null">
+				and dept_listing_name = #{deptListingName}
+			</if>
+			<if test="deptDesc != null">
+				and dept_desc = #{deptDesc}
+			</if>
+			<if test="functionKeyword != null">
+				and function_keyword = #{functionKeyword}
+			</if>
+			<if test="deptFunction != null">
+				and dept_function = #{deptFunction}
+			</if>
+			<if test="fid != null">
+				and fid = #{fid}
+			</if>
+			<if test="fname != null">
+				and fname = #{fname}
+			</if>
+			<if test="deptStructureName != null">
+				and dept_structure_name = #{deptStructureName}
+			</if>
+			<if test="deptLevel != null">
+				and dept_level = #{deptLevel}
+			</if>
+			<if test="deptResponseMan != null">
+				and dept_response_man = #{deptResponseMan}
+			</if>
+			<if test="deptResponsePhone != null">
+				and dept_response_phone = #{deptResponsePhone}
+			</if>
+			<if test="deptResponseEmail != null">
+				and dept_response_email = #{deptResponseEmail}
+			</if>
+			<if test="deptContactMan != null">
+				and dept_contact_man = #{deptContactMan}
+			</if>
+			<if test="deptContactDept != null">
+				and dept_contact_dept = #{deptContactDept}
+			</if>
+			<if test="deptContactPost != null">
+				and dept_contact_post = #{deptContactPost}
+			</if>
+			<if test="deptContactPhone != null">
+				and dept_contact_phone = #{deptContactPhone}
+			</if>
+			<if test="deptContactFixedPhone != null">
+				and dept_contact_fixed_phone = #{deptContactFixedPhone}
+			</if>
+			<if test="deptContactEmail != null">
+				and dept_contact_email = #{deptContactEmail}
+			</if>
+			<if test="deptAddress != null">
+				and dept_address = #{deptAddress}
+			</if>
+			<if test="orgLongitude != null">
+				and org_longitude = #{orgLongitude}
+			</if>
+			<if test="orgLatitude != null">
+				and org_latitude = #{orgLatitude}
+			</if>
+			<if test="icon != null">
+				and icon = #{icon}
+			</if>
+			<if test="orderNumber != null">
+				and order_number = #{orderNumber}
+			</if>
+			<if test="validateFrom != null">
+				and validate_from = #{validateFrom}
+			</if>
+			<if test="validateTo != null">
+				and validate_to = #{validateTo}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+			<if test="createUserId != null">
+				and create_user_id = #{createUserId}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateUserId != null">
+				and update_user_id = #{updateUserId}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime}
+			</if>
+			and id = #{id}
+		</where>
 	</select>
 
-	<delete id="deleteByIds" parameterType="java.util.List">
-		delete from sys_dept where id in
-		<foreach collection="list" open="(" close=")" separator="," item="item">
-			#{item}
-		</foreach>
-	</delete>
+
+	<update id="updateSXDept" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDept">
+		update sys_dept
+		<set>
+			<if test="deptType != null">
+				dept_type = #{deptType},
+			</if>
+			<if test="deptCode != null">
+				dept_code = #{deptCode},
+			</if>
+			<if test="deptName != null">
+				dept_name = #{deptName},
+			</if>
+			<if test="deptShortName != null">
+				dept_short_name = #{deptShortName},
+			</if>
+			<if test="deptAlias != null">
+				dept_alias = #{deptAlias},
+			</if>
+			<if test="deptListingName != null">
+				dept_listing_name = #{deptListingName},
+			</if>
+			<if test="deptDesc != null">
+				dept_desc = #{deptDesc},
+			</if>
+			<if test="functionKeyword != null">
+				function_keyword = #{functionKeyword},
+			</if>
+			<if test="deptFunction != null">
+				dept_function = #{deptFunction},
+			</if>
+			<if test="fid != null">
+				fid = #{fid},
+			</if>
+			<if test="fname != null">
+				fname = #{fname},
+			</if>
+			<if test="deptStructureName != null">
+				dept_structure_name = #{deptStructureName},
+			</if>
+			<if test="deptLevel != null">
+				dept_level = #{deptLevel},
+			</if>
+			<if test="deptResponseMan != null">
+				dept_response_man = #{deptResponseMan},
+			</if>
+			<if test="deptResponsePhone != null">
+				dept_response_phone = #{deptResponsePhone},
+			</if>
+			<if test="deptResponseEmail != null">
+				dept_response_email = #{deptResponseEmail},
+			</if>
+			<if test="deptContactMan != null">
+				dept_contact_man = #{deptContactMan},
+			</if>
+			<if test="deptContactDept != null">
+				dept_contact_dept = #{deptContactDept},
+			</if>
+			<if test="deptContactPost != null">
+				dept_contact_post = #{deptContactPost},
+			</if>
+			<if test="deptContactPhone != null">
+				dept_contact_phone = #{deptContactPhone},
+			</if>
+			<if test="deptContactFixedPhone != null">
+				dept_contact_fixed_phone = #{deptContactFixedPhone},
+			</if>
+			<if test="deptContactEmail != null">
+				dept_contact_email = #{deptContactEmail},
+			</if>
+			<if test="deptAddress != null">
+				dept_address = #{deptAddress},
+			</if>
+			<if test="orgLongitude != null">
+				org_longitude = #{orgLongitude},
+			</if>
+			<if test="orgLatitude != null">
+				org_latitude = #{orgLatitude},
+			</if>
+			<if test="icon != null">
+				icon = #{icon},
+			</if>
+			<if test="orderNumber != null">
+				order_number = #{orderNumber},
+			</if>
+			<if test="validateFrom != null">
+				validate_from = #{validateFrom},
+			</if>
+			<if test="validateTo != null">
+				validate_to = #{validateTo},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="createUserId != null">
+				create_user_id = #{createUserId},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="updateUserId != null">
+				update_user_id = #{updateUserId},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+		</set>
+		where  id = #{id}
+	</update>
+
 
 
 </mapper>

@@ -17,7 +17,7 @@ var dict = function () {
         dicts: dicts,
         selects: function (key, doms) {
             //敏感标识
-            var option = "<option value=''>--请选择--</option>";
+            var option = "<option value=''>请选择</option>";
             var curThis = this;
             for (var itm in curThis.dicts[key]) {
                 var item = dicts[key][itm];
@@ -32,7 +32,7 @@ var dict = function () {
         },
         cascadeSelects: function (key, doms, parentCode) { //级联下拉框
             //敏感标识
-            var option = "<option value=''>--请选择--</option>";
+            var option = "<option value=''>请选择</option>";
             var curThis = this;
             for (var itm in curThis.dicts[key]) {
                 var item = dicts[key][itm];
@@ -47,7 +47,7 @@ var dict = function () {
         },
         selectsDom: function (key, selected) {
             //敏感标识
-            var option = "<option value=''>--请选择--</option>";
+            var option = "<option value=''>请选择</option>";
             var curThis = this;
             for (var itm in curThis.dicts[key]) {
                 var item = dicts[key][itm];
