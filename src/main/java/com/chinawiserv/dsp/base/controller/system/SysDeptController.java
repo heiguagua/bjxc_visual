@@ -340,7 +340,12 @@ public class SysDeptController extends BaseController {
     public String getPinyin(@RequestParam String cnName) {
         String s = Pinyin4jUtil.converterToSpell(cnName);
         String[] eNames = s.split(",");
-        return eNames[0];
+        if(eNames.length>0){
+            return eNames[0];
+
+        }
+        return "";
+
     }
 
     /**
