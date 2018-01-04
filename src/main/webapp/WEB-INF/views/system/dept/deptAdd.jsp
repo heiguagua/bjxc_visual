@@ -311,7 +311,7 @@
 	                                <label for="orgLongitude" class="control-label col-sm-4 col-xs-4">组织位置经度</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="orgLongitude" name="orgLongitude"
-	                                           placeholder="请输入组织位置经度">
+	                                           placeholder="请输入组织位置经度" data-rule="floatNumber">
 	                                </div>
 	                            </div>
                         	</div>
@@ -320,7 +320,7 @@
 	                                <label for="orgLatitude" class="control-label col-sm-4 col-xs-4">组织位置纬度</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="orgLatitude" name="orgLatitude"
-	                                           placeholder="请输入组织位置纬度">
+	                                           placeholder="请输入组织位置纬度" data-rule="floatNumber">
 	                                </div>
 	                            </div>
                         	</div>
