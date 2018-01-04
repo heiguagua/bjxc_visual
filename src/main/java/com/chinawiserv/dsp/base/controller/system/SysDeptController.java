@@ -319,10 +319,10 @@ public class SysDeptController extends BaseController {
 
     @RequestMapping("/checkDeptName")
     @ResponseBody
-    public JSONObject checkDeptName(@RequestParam String deptName, String fname, String deptId){
+    public JSONObject checkDeptName(@RequestParam String deptName, String fname,String deptId){
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject = sysDeptService.checkDeptName(deptName, fname ,deptId);
+            jsonObject = sysDeptService.checkDeptName(deptName, fname,deptId);
         } catch (Exception e) {
             jsonObject.put("error", "组织机构名验证失败");
             logger.error("组织机构名称验资失败", e);
