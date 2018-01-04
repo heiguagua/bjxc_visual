@@ -14,7 +14,7 @@ function initEditPage(){
         function(data){
             if(data && data.content && data.content.vo){
                 var vo = data.content.vo;
-                // $("#regionName").val(vo.regionName);
+                $("#regionName").val(vo.regionName);
                 $("#regionCode").val(vo.regionCode);
                 $("#fname").val(vo.deptName);
 
@@ -22,6 +22,21 @@ function initEditPage(){
         }
     );
 }
+
+function getPinyin() {
+    var deptName=$("#deptName").val();
+    if(deptName){
+        $.commonAjax({
+            url: basePathJS + "/system/dept/getPinyin",
+            data: {cnName: deptName},
+            success: function (result) {
+                $("#pinyin").val(result);
+            }
+        });
+    }
+
+}
+
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
     return true ;

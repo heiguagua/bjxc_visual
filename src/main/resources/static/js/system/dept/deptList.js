@@ -367,7 +367,7 @@ function addDept() {
 }
 
 function allotDept(id) {
-    update('创建下级组织机构',basePathJS + '/system/dept/allot', id);
+    update('创建下级组织机构',basePathJS + '/system/dept/allot', id,900,600);
 }
 function showDept(id) {
     listChildDept(id);
