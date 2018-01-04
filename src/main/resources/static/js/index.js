@@ -6,11 +6,19 @@ var thisJs = this;
 
 
 $(document).ready(function() {
+	if(cookieget('close')=='close'){
+
+	}else{
+		show('目录管理系统--流程说明图',basePathJS + '/welCommon/introduce' , '' ,"70%",500);
+	}
+
+
     require.config({
         paths: {
             echarts: basePathJS + '/plugins/echarts-2.2.7/dist'
         }
     });
+    initButtonClickEvent();
     initBasicDiv();
     initThemeDiv();
     initDeptDiv();
@@ -18,12 +26,59 @@ $(document).ready(function() {
     initStatusDiv();
 })
 
+
+function cookiesave(n, v, mins, dn, path){
+    if(n)
+    {
+        if(!mins) mins = 365 * 24 * 60;
+       //if(!mins) mins = 1;
+        if(!path) path = "/";
+        var date = new Date();
+
+        date.setTime(date.getTime() + (mins * 60 * 1000));
+
+        var expires = "; expires=" + date.toGMTString();
+
+        if(dn) dn = "domain=" + dn + "; ";
+        document.cookie = n + "=" + v + expires + "; " + dn + "path=" + path;
+    }
+}
+
+function cookieget(n){
+    var name = n + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i<ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+}
+
+function closeclick(){
+    document.getElementById('note1').style.display='none';
+    cookiesave('closeclick','closeclick','','','');
+}
+function clickclose(){
+    if(cookieget('closeclick')=='closeclick'){
+        document.getElementById('note1').style.display='none';
+    }else{
+        document.getElementById('note1').style.display='inline-block';
+    }
+}
+
+
+function initButtonClickEvent() {
+    $("#procedureButton").on("click",function () {
+        show('目录管理系统--流程说明图',basePathJS + '/welCommon/introduce' , '' ,"70%",500);
+    })
+}
 function initBasicDiv(){
     $.commonAjax({
         url:basePathJS + "/catalog/basic/total",
         success:function(result){
             if(result.state){
-                $("#basicCountDiv").html("政务基础信息资源目录  "+result.content.total);
+                $("#basicCountDiv").html(result.content.total);
             }
         }
     });
@@ -43,7 +98,7 @@ function initThemeDiv(){
         url:basePathJS + "/catalog/theme/total",
         success:function(result){
             if(result.state){
-                $("#themeCountDiv").html("政务主题信息资源目录  "+result.content.total);
+                $("#themeCountDiv").html(result.content.total);
             }
         }
     });
@@ -62,7 +117,7 @@ function initDeptDiv(){
         url:basePathJS + "/catalog/dept/total",
         success:function(result){
             if(result.state){
-                $("#deptCountDiv").html("部门政务信息资源目录  "+result.content.total);
+                $("#deptCountDiv").html(result.content.total);
             }
         }
     });

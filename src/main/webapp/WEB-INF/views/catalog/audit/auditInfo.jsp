@@ -17,8 +17,8 @@
                         <input type="hidden" id="id" name="id" value="${id}"/>
                         <div class="box-body">
                             <div class="form-group">
-                                <label class="control-label control-Reslabel" style="display:inline">审核意见：</label>
-                                <div class="m-l-n-xxl" style="display:inline">
+                                <label class="control-label control-Reslabel" style="display:inline" >审核意见：</label>
+                                <div class="m-l-n-xxl"  style="display:inline">
                                 
                                 <div class="redio-box">
                                     <input type="radio" name="status" checked value="3"><span></span>

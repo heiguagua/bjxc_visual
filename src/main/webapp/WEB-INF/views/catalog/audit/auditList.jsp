@@ -5,9 +5,10 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=context_path%>/js/catalog/audit/auditList.js"></script>
 </head>
-<style>
-div.layui-layer-iframe{
+ <style>
+ div.layui-layer-iframe{
 	min-width:1000px;
+	width:e-xpression(document.body.clientWidth < 1000? “1000px”: “auto” );
 }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">

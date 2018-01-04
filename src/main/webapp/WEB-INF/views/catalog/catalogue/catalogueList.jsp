@@ -6,9 +6,10 @@
     <script src="<%=context_path%>/js/catalog/catalogue/catalogueList.js"></script>
     <script src="<%=context_path%>/js/system/Encode/Encode.js"></script>
 </head>
-<style>
-div.layui-layer-iframe{
+ <style>
+ div.layui-layer-iframe{
 	min-width:1000px;
+	width:e-xpression(document.body.clientWidth < 1000? “1000px”: “auto” );
 }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">

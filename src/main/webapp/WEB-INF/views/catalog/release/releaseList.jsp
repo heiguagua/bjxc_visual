@@ -81,6 +81,7 @@ div.layui-layer-iframe{
                                                 <%--<input type="hidden" id="unReleaseClassifyType">--%>
                                                 <div class="input-group">
                                                     <input class="form-control" id="unReleaseSearchName" placeholder="资源名称" type="text">
+
                                                     <div class="input-group-btn">
                                                         <button class="btn btn-primary btn-flat btn_blue" id="unReleaseQueryBtn" type="button">
                                                             <i class="fa fa-search">

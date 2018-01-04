@@ -35,7 +35,7 @@
         </choose>
     </select>
 
-    <!-- 查询指定目录下面的的数据集/排除自定义 -->
+    <!-- 只过滤已有关系的资源、或者从系统梳理添加的资源 -->
     <select id="getDatasetByClassifyId" parameterType="map" resultType="map">
         SELECT
         t.*
@@ -580,6 +580,7 @@
                 AND dis.`create_dept` IS NULL
             </otherwise>
         </choose>
+        GROUP BY dis.`id`
     </select>
 
     <!-- 查询用户的数据集权限 -->

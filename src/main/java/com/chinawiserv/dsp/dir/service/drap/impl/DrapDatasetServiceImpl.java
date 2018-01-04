@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.mapper.system.SysDictMapper;
+import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 import com.chinawiserv.dsp.dir.entity.po.drap.*;
@@ -15,21 +16,13 @@ import com.chinawiserv.dsp.dir.mapper.catalog.*;
 import com.chinawiserv.dsp.dir.mapper.drap.*;
 import com.chinawiserv.dsp.dir.service.drap.IDrapDatasetService;
 import com.chinawiserv.dsp.dir.service.drap.IDrapDatasetTableRelationService;
-import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.google.common.collect.Lists;
-
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * <p>
@@ -252,7 +245,7 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 
 		final List<DirDataitem> dirDataitemList = new ArrayList<>();
 		final List<DirDataitemSourceInfo> dirDataitemSourceInfoList = new ArrayList<>();
-		
+
 		for (DrapDatasetItem drapDatasetItem : drapDatasetItemList){
 			final String itemId = drapDatasetItem.getId();
 			if(updateItemIdArray != null && updateItemIdArray.contains(itemId)){

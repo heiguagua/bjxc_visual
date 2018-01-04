@@ -378,12 +378,13 @@
                 </div>
                 <div class="checkh1">
                     <span class="checkspan">表间关系列表</span>
-                    <h5>资源涉及 <span id='table_number' style='color: #062cff;'></span>张不同的表，至少需要<span id='link_number'
-                                                                                                    style='color: #062cff;'></span>个表间关系
-                    </h5>
+                    <h5>资源涉及 <span id='table_number' style='color: #062cff;'>
+                    </span>张不同的表，至少需要<span id='link_number' style='color: #062cff;'></span>个表间关系
                     <input type="button" id="addLinks" class="pull-right btn-del" value="添加关联">
+                    </h5>
+
                 </div>
-                <div class="form-group " style="overflow-x: auto;min-height:200px;">
+                <div class="form-group " style="overflow-x: auto;min-height:200px;border: 1px solid #ddd;">
                     <table style="width:100%" class="table-striped">
                         <thead>
                         <tr>

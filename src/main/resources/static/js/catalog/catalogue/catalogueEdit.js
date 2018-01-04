@@ -241,10 +241,10 @@ function buildItem(thisTrNum,data,sourceType){
     }else{
         $('#dataitemList').prepend(str1+str3+str4+str5);
     }
-    if(sourceType == '3'){
-        $("#itemType_"+thisTrNum).attr("data-rule","");
-        $("#itemLength_"+thisTrNum).attr("data-rule","integer(+);");
-    }
+    //if(sourceType == '3'){
+    //    $("#itemType_"+thisTrNum).attr("data-rule","");
+    //    $("#itemLength_"+thisTrNum).attr("data-rule","integer(+);");
+    //}
     if(sourceType == '1' || sourceType == '4'){
         $("#deptName_"+thisTrNum).val(data.deptName?data.deptName:'');
         $.initDeptTreeSelect('treeDemo_'+thisTrNum,'deptName_'+thisTrNum,'deptId_'+thisTrNum,'menuContent_'+thisTrNum,false,{regionCode: $("#regionCode").val()},data.belongDeptId?[{id:data.belongDeptId}]:null,null,null);

@@ -91,7 +91,6 @@ function initTable(){
         }]
     });
 }
-
 var i =1;
 function initButtonClickEvent(){
     //点击增加一行按钮

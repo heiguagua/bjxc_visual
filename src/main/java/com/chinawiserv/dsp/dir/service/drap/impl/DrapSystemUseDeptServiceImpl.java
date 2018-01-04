@@ -8,6 +8,8 @@ import com.chinawiserv.dsp.dir.service.drap.IDrapSystemUseDeptService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,4 +61,9 @@ public class DrapSystemUseDeptServiceImpl extends CommonServiceImpl<DrapSystemUs
 		//todo
 		return 0;
 	}
+
+    @Override
+    public void deleteByIds(List<String> ids) {
+        mapper.deleteByIds(ids);
+    }
 }

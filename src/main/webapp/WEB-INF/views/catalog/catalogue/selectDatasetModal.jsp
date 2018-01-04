@@ -49,6 +49,7 @@
                         max-height: 100%;
                         overflow: auto;
                     }
+
                 </style>
                 <p style="margin-bottom:15px;">选择信息项</p>
                 <div class="col-md-12" style="/*height: 100%;*/padding: 0px;">
@@ -78,7 +79,7 @@
                          
                         </div>
                     </div>
-                    <div class="col-md-4 col_container">
+                    <div class="col-md-4 col_container" >
                         <div class="header_title">选择信息项</div>
                         <div id="field_tree" class="content_scroll_item list-group">
 	                        <div style="text-align:center">

@@ -29,4 +29,6 @@ public interface DrapSystemUseDeptMapper extends BaseMapper<DrapSystemUseDept> {
     int baseUpdate(DrapSystemUseDept entity);
 
     int baseDelete(String id);
+
+    void deleteByIds(List<String> ids);
 }

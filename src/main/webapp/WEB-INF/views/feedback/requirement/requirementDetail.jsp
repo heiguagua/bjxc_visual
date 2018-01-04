@@ -29,6 +29,18 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="requireResource" class="col-sm-2 control-label" style="width:12.2%">需求资源:</label>
+                            <div class="col-sm-10"  style="width:87.8%">
+                                <input type="text" id="requireResource"  class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
@@ -67,17 +79,6 @@
                             <label for="requireType" class="col-sm-2 control-label" style="width:12.2%">需求类型:</label>
                             <div class="col-sm-10"  style="width:87.8%">
                                 <input type="text" id="requireType"  class="form-control" readonly>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label for="otherInfo" class="col-sm-2 control-label" style="width:12.2%">其他:</label>
-                            <div class="col-sm-10"  style="width:87.8%">
-                                <input type="text" id="otherInfo"  class="form-control" readonly>
                             </div>
                         </div>
                     </div>

@@ -29,7 +29,7 @@
                  <div class="col-sm-12 col-md-4">
 	                <div class="box box-solid"  style="background:#fff">
 	                    <div class="box-body">
-                            <div id="basicCountDiv" style="height:20px;"></div>
+                            <div style="height:20px;">政务基础信息资源目录<span id="basicCountDiv" style="font-weight: bold;"></span></div>
 	                        <div id="basicCountPicDiv" style="height:300px;"></div>
 	                    </div>
 	                </div>
@@ -37,7 +37,7 @@
                  <div class="col-sm-12 col-md-4">
 	                <div class="box box-solid"  style="background:#fff">
 	                    <div class="box-body">
-                            <div id="themeCountDiv" style="height:20px;"></div>
+                            <div style="height:20px;">政务主题信息资源目录<span  id="themeCountDiv" style="font-weight: bold;"></span></div>
                             <div id="themeCountPicDiv" style="height:300px;"></div>
 	                    </div>
 	                </div>
@@ -45,7 +45,7 @@
                  <div class="col-sm-12 col-md-4" >
 	                <div class="box box-solid"  style="background:#fff">
 	                    <div class="box-body">
-                            <div id="deptCountDiv" style="height:20px;"></div>
+                            <div style="height:20px;">部门政务信息资源目录<span  id="deptCountDiv"  style="font-weight: bold;"></span> </div>
                             <div id="deptCountPicDiv" style="height:300px;"></div>
 	                    </div>
 	                </div>
