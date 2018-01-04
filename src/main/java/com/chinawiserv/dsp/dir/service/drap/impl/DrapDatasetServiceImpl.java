@@ -228,6 +228,8 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 				dirDatasetClassifyMap.setDeleteFlag(0);
 				dirDatasetClassifyMapMapper.baseInsert(dirDatasetClassifyMap);
 				dirClassifyMapper.updateDcmIndexbyId(classifyId);
+			}else{
+				throw new RuntimeException("查询不到id为"+drapDatasetVo.getId()+"的信息资源的classifyId");
 			}
 
 			final DirDataset dirDataset = getDirDataset(drapDatasetVo,dataSetSourceType);
