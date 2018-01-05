@@ -8,7 +8,8 @@ $(document).ready(function(){
             if (result.state) {
                 var selectData = result.content.selectData;
                 $("#roleLevel").select2({
-                    data: selectData
+                    data: selectData,
+                    minimumResultsForSearch:-1
                 });
             }
         }
