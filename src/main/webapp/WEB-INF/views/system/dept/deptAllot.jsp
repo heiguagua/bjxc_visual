@@ -109,11 +109,11 @@
                                 <div class="col-sm-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="pinyin" class="control-label col-sm-4 col-xs-4">拼音</label>
-                                        <div class="col-sm-5 col-xs-5">
+                                        <div class="col-sm-5 col-xs-5" style="padding-right:0">
                                             <input type="text" class="form-control" name="pinyin" id="pinyin" data-rule="letters">
                                         </div>
-                                        <div class="col-sm-2 col-xs-2">
-                                            <input class="btn btn-primary form-control" type="button" value="点" id="pinyinBtn" onclick="javascript:getPinyin()">
+                                        <div class="col-sm-2 col-xs-2" style="padding-left:0">
+                                            <input class="btn btn-primary form-control btn_blue" style="padding:0" type="button" value="生成" id="pinyinBtn" onclick="javascript:getPinyin()">
                                         </div>
                                     </div>
                                 </div>
