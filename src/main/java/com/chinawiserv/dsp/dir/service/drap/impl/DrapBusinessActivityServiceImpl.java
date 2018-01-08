@@ -101,7 +101,12 @@ public class DrapBusinessActivityServiceImpl extends CommonServiceImpl<DrapBusin
 	public void deleteBusinessData(Map<String, Object> dataObj) throws Exception {
 		updateOrDeleteData(dataObj,false);
 	}
-	
+
+	@Override
+	public void updateBusinessStatus(Map<String, Object> param) throws Exception {
+		this.drapBusinessActivityMapper.updateBusinessStatus(param);
+	}
+
 	/*
 	 * @param dataObj 数据
 	 * @param isInsert 是否插入

@@ -1,7 +1,11 @@
 package com.chinawiserv.dsp.dir.controller.drap;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
 import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -200,5 +204,34 @@ public class DrapBusinessActivityController extends BaseController {
 		}
 //    	return result;
     }
+
+	/**
+	 * 修改drap的业务状态
+	 */
+	@RequestMapping("/api/receiveBusinessStatus")
+	@ResponseBody
+	public  Object receiveBusinessStatus(@RequestParam Map<String,Object> paramMap){
+//    	HashMap<String, Object> result = Maps.newHashMap();
+		try {
+			if(paramMap !=null && !paramMap.isEmpty()){
+				String data = MapUtils.getString(paramMap, "data");
+				Map<String, Object> param = (Map<String, Object>)JSONObject.parse(data);
+				String auditoTime = MapUtils.getString(param,"auditTime");
+				param.put("auditTime", new Date(Long.parseLong(auditoTime)));
+//				List<String> ids = JSONObject.parseArray(MapUtils.getString(map,"ids"),String.class);
+//				String status = MapUtils.getString(map,"status");
+//				Map<String, Object> param = MapUtils.getMap(map,"param");
+				this.service.updateBusinessStatus(param);
+			}
+//    		result.put("status", "200");
+			return "200";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("接收drap的业务数据", e);
+//			result.put("status", "500");
+			return "500";
+		}
+//    	return result;
+	}
     
 }

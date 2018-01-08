@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessActivity;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessActivityVo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -31,4 +33,6 @@ public interface DrapBusinessActivityMapper extends BaseMapper<DrapBusinessActiv
     int baseDelete(String id);
 
 	int batchInsertPO(List<DrapBusinessActivity> drapBusinessActivityPos);
+
+    void updateBusinessStatus(Map<String, Object> param);
 }
