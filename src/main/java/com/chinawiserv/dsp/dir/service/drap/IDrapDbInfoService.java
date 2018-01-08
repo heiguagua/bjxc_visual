@@ -23,5 +23,7 @@ public interface IDrapDbInfoService extends ICommonService<DrapDbInfo, DrapDbInf
     void receiveTableChange(Map<String, Object> map);
 
     void deleteDb(String id);
+
+    void synzStatus(String[] ids, String status);
 	
 }
