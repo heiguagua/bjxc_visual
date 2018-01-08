@@ -274,5 +274,16 @@
         </foreach>
     </insert>
 
+    <update id="updateBusinessStatus">
+        update drap_business_activity set
+        status = #{status},
+        auditor = #{auditor},
+        audit_time = #{auditTime},
+        audit_opinion = #{auditOpinion}
+        where id in
+        <foreach collection="ids" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
 
 </mapper>
