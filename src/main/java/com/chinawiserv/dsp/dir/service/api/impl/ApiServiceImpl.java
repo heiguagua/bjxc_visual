@@ -146,7 +146,6 @@ public class ApiServiceImpl implements IApiService {
                         tableSource.put("tableColunms", sourceTableColumnList);
                         tableInfoList.add(tableSource);
                     }
-
                     String targetTableId = (String) tableInfo.get("targetTableId");
                     if (StringUtils.isNotBlank(targetTableId)) {
                         tableParamMap.put("tableId", targetTableId);
@@ -159,7 +158,7 @@ public class ApiServiceImpl implements IApiService {
                     }
                 }
             }
-            result.put("tableRelation", tableRelation);
+
         } else {
             /**
              * 单表无关系
@@ -185,7 +184,9 @@ public class ApiServiceImpl implements IApiService {
                     }
                 }
             }
+            tableRelation = Lists.newArrayList(); //置空(同时处理了为null和有数据的情况)
         }
+        result.put("tableRelation", tableRelation);
         result.put("tableInfo", tableInfoList);
         return result;
     }
