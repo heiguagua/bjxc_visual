@@ -59,7 +59,7 @@ jQuery(document).ready(function () {
 
     function hideAndShow(){
         $("#forward").hide();
-        $("#dir-Manger").parent("div.user-panel").css("text-align","center")
+        $("#dir-Manger").parent("div.user-panel").css("text-align","left")
         $("#backward").click(function(){
             hideDirMgr();
         })
@@ -89,7 +89,7 @@ jQuery(document).ready(function () {
         columns: [{
             field: 'classifyStructureName',
             title: '所属目录分类',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             width: '160',
             sortable: false,
@@ -102,7 +102,7 @@ jQuery(document).ready(function () {
         }, {
             field: 'datasetName',
             title: '所属信息资源',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             width: '120',
             sortable: false,
@@ -116,7 +116,7 @@ jQuery(document).ready(function () {
             // {
             // field: 'limitVisitCnt',
             // title: '期望使用次数',
-            // align: 'center',
+            // align: 'left',
             // valign: 'middle',
             // width: '120',
             // sortable: false
@@ -124,7 +124,7 @@ jQuery(document).ready(function () {
             // {
             // field: 'limitVisitDatePeriod',
             // title: '期望使用时限',
-            // align: 'center',
+            // align: 'left',
             // valign: 'middle',
             // width: '300',
             // sortable: false
@@ -132,31 +132,35 @@ jQuery(document).ready(function () {
             {
             field: 'realName',
             title: '申请人',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             sortable: false,
             width: '120',
             formatter: function (value, row) {
-                return value + '[' + row.userName + ']';
+            	if(value == undefined){
+            		return ""
+            	}else{
+            		return  "<p title="+value + "[" + row.userName + "]"+">"+value + "[" + row.userName + "]"+"</p>"
+            	}
             }
         }, {
             field: 'deptName',
             title: '申请人所属组织',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             width: '120',
             sortable: false
         }, {
             field: 'applyDate',
             title: '提交时间',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             width: '160',
             sortable: false
         }, {
             field: 'status',
             title: '状态',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
             width: '60',
             sortable: false,
@@ -172,12 +176,12 @@ jQuery(document).ready(function () {
         }, {
             field: 'id',
             title: '操作',
-            align: 'center',
+            align: 'left',
             valign: 'middle',
-            width: '80',
+            width: '10%',
             sortable: false,
             formatter: function (value) {
-                var auditBtn = "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:audit(\"" + value + "\")'><i class='fa fa-user'></i> 开始审核</a>";
+                var auditBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:audit(\"" + value + "\")'><i class='fa fa-user'></i> 开始审核</a>";
                 return auditBtn;
             }
         }

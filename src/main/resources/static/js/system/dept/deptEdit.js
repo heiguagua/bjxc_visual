@@ -25,6 +25,20 @@ function initDeptSelectDataList(){
     });
 }
 
+function getPinyin() {
+    var deptName=$("#deptName").val();
+    if(deptName){
+        $.commonAjax({
+            url: basePathJS + "/system/dept/getPinyin",
+            data: {cnName: deptName},
+            success: function (result) {
+                $("#pinyin").val(result);
+            }
+        });
+    }
+
+}
+
 //初始化编辑界面
 function initEditPage(){
     var params = {id : $("#deptId").val()};

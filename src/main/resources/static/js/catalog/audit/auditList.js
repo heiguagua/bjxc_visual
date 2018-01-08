@@ -131,12 +131,12 @@ function initTable() {
                 field: 'datasetId',
                 title: '操作',
                 width: '10%',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false,
                 formatter: function (value) {
                     var editBtn = [
-                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看详情</a>"
+                        "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看详情</a>"
                     ].join('');
                     return editBtn;
                 }
@@ -184,12 +184,12 @@ function initTable() {
                 field: 'datasetId',
                 title: '操作',
                 width: '10%',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false,
                 formatter: function(value) {
                     var editBtn = [
-                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看详情</a>"
+                        "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看详情</a>"
                     ].join('');
                     return editBtn;
                 }

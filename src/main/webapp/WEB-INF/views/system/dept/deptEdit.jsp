@@ -74,11 +74,14 @@
 		                                </div>
 		                            </div>
 								</div>
-                                <div class="col-sm-6 col-xs-6">
+                               <div class="col-sm-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="pinyin" class="control-label col-sm-4 col-xs-4">拼音</label>
-                                        <div class="col-sm-7 col-xs-7">
+                                        <div class="col-sm-5 col-xs-5" style="padding-right:0">
                                             <input type="text" class="form-control" name="pinyin" id="pinyin" data-rule="letters">
+                                        </div>
+                                        <div class="col-sm-2 col-xs-2" style="padding-left:0">
+                                            <input class="btn btn-primary form-control btn_blue" style="padding:0" type="button" value="生成" id="pinyinBtn" onclick="javascript:getPinyin()">
                                         </div>
                                     </div>
                                 </div>
@@ -254,7 +257,7 @@
 		                                <label for="orgLongitude" class="control-label col-sm-4 col-xs-4">组织位置经度</label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="orgLongitude" id="orgLongitude"
-		                                           placeholder="组织位置经度">
+		                                           placeholder="组织位置经度" data-rule="floatNumber">
 		                                </div>
 		                            </div>
 								</div>
@@ -263,7 +266,7 @@
 		                                <label for="orgLatitude" class="control-label col-sm-4 col-xs-4">组织位置纬度</label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="orgLatitude" id="orgLatitude"
-		                                           placeholder="组织位置纬度">
+		                                           placeholder="组织位置纬度" data-rule="floatNumber">
 		                                </div>
 		                            </div>
 								</div>
@@ -273,8 +276,8 @@
 									<div class="form-group">
 		                                <label for="orderNumber" class="control-label col-sm-4 col-xs-4" >排序</label>
 		                                <div class="col-sm-7 col-xs-7">
-		                                    <input type="text" class="form-control" name="orderNumber" id="orderNumber"
-		                                           placeholder="排序">
+		                                    <input type="number" class="form-control" name="orderNumber" id="orderNumber"
+		                                           placeholder="排序" data-rule="digits">
 		                                </div>
 		                            </div>
 								</div>

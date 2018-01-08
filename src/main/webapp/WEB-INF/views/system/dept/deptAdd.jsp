@@ -104,7 +104,7 @@
 	                                    <!-- <input type="text" class="form-control" id="sourceSelect" placeholder="组织机构名称" disabled> -->
 	                                    <input type="text" class="form-control" id="deptName" name="deptName"
 	                                           placeholder="请输入组织机构名称"
-	                                           data-rule="组织机构名称:required;deptName;remote(<%=context_path%>/system/dept/checkDeptName, fid:#fid)">
+	                                           data-rule="组织机构名称:required;deptName;remote(<%=context_path%>/system/dept/checkDeptName, fname:#fname)">
 	                                </div>
 	                            </div>
                         	</div>
@@ -121,13 +121,16 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <div class="form-group">
-                                    <label for="pinyin" class="control-label col-sm-4 col-xs-4">拼音</label>
-                                    <div class="col-sm-7 col-xs-7">
-                                        <input type="text" class="form-control" name="pinyin" id="pinyin" data-rule="letters">
+                                    <div class="form-group">
+                                        <label for="pinyin" class="control-label col-sm-4 col-xs-4">拼音</label>
+                                        <div class="col-sm-5 col-xs-5" style="padding-right:0">
+                                            <input type="text" class="form-control" name="pinyin" id="pinyin" data-rule="letters">
+                                        </div>
+                                        <div class="col-sm-2 col-xs-2" style="padding-left:0">
+                                            <input class="btn btn-primary form-control btn_blue" style="padding:0" type="button" value="生成" id="pinyinBtn" onclick="javascript:getPinyin()">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                         
                         <div class="row">
@@ -308,7 +311,7 @@
 	                                <label for="orgLongitude" class="control-label col-sm-4 col-xs-4">组织位置经度</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="orgLongitude" name="orgLongitude"
-	                                           placeholder="请输入组织位置经度">
+	                                           placeholder="请输入组织位置经度" data-rule="floatNumber">
 	                                </div>
 	                            </div>
                         	</div>
@@ -317,7 +320,7 @@
 	                                <label for="orgLatitude" class="control-label col-sm-4 col-xs-4">组织位置纬度</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                    <input type="text" class="form-control" id="orgLatitude" name="orgLatitude"
-	                                           placeholder="请输入组织位置纬度">
+	                                           placeholder="请输入组织位置纬度" data-rule="floatNumber">
 	                                </div>
 	                            </div>
                         	</div>
@@ -328,7 +331,7 @@
 	                                <label for="orderNumber" class="control-label col-sm-4 col-xs-4">排序</label>
 	                                <div class="col-sm-7 col-xs-7">
 	                                <input type="number" class="form-control" id="orderNumber" name="orderNumber"
-	                                       placeholder="请输入排序">
+	                                       placeholder="请输入排序" data-rule="digits">
 	                                </div>
 	                            </div>
                         	</div>

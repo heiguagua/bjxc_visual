@@ -30,7 +30,7 @@
                 <div class="col-xs-12">
                     <div class="box clear">
 
-                        <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                        <aside class="main-sidebar—Du sidebar-myself" style="height:816px" id="min-aside">
                             <section class="sidebar">
                                 <div class="user-panel"  style="height: 6%;">
                                     <b id="dir-Manger">目录分类</b>
@@ -81,7 +81,7 @@
                         </form>
                         <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
-                            <table class="table table-hover" id="datarateListTable" lay-even="" lay-skin="row">
+                            <table class="table table-striped table-hover" id="datarateListTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -114,7 +114,7 @@
                         </form>
                         <div class="box-body table-responsive table-myself">
                             <!-- 表格 -->
-                            <table class="table table-hover" id="datarateDetailTable" lay-even="" lay-skin="row">
+                            <table class="table table-striped table-hover" id="datarateDetailTable" lay-even="" lay-skin="row">
                             </table>
                             <!-- 表格 end-->
                         </div>
@@ -230,10 +230,10 @@
         pagination: true, //分页
         pageNum: 1,
         pageSize: 10,
-        smartDisplay: false,
+        smartDisplay:false,
         columns: [
             {
-                field: 'a', title: '序号', width: '5%',
+                field: 'a', title: '序号', width: '6%',
                 formatter: function (value, row, index) {
                     return index + 1;
                 }
@@ -271,13 +271,13 @@
             {field: 'avgRateScore', title: '平均分'},
             {
                 field: 'dcmId', title: '操作',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false,
                 width: '10%',
                 formatter: function (value) {
                     var editBtn = [
-                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dcView(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>点击查看</a>&#160;"
+                        "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:dcView(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>点击查看</a>"
                     ].join('');
                     return editBtn;
                 }
@@ -336,7 +336,7 @@
             pagination: true, //分页
             pageNum: 1,
             pageSize: 10,
-            smartDisplay: false,
+            smartDisplay:false,
             columns: [
                 {
                     field: 'a', title: '序号', width: '5%',

@@ -275,7 +275,13 @@
         </set>
         where id = #{id}
     </update>
-
+    <update id="updateAuditRebut" parameterType="java.util.List">
+        UPDATE drap_info_system SET status =5 WHERE id IN
+        <foreach collection="ids" open="(" close=")" item="item"
+                 separator=",">
+            #{item, jdbcType=VARCHAR}
+        </foreach>
+    </update>
     <delete id="baseDelete" parameterType="java.util.Map">
         delete from drap_info_system
         <include refid="deleteWhereCause"/>

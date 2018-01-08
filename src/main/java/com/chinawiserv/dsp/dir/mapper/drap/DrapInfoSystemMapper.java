@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapInfoSystem;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapInfoSystemVo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +31,6 @@ public interface DrapInfoSystemMapper extends BaseMapper<DrapInfoSystem> {
     int baseUpdate(DrapInfoSystem entity);
 
     int baseDelete(String id);
+
+    void updateAuditRebut(@Param("ids") List<String> ids);
 }

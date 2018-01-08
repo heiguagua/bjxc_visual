@@ -49,6 +49,7 @@
                         max-height: 100%;
                         overflow: auto;
                     }
+                    
                 </style>
                 <p style="margin-bottom:15px;">选择信息项</p>
                 <div class="col-md-12" style="/*height: 100%;*/padding: 0px;">

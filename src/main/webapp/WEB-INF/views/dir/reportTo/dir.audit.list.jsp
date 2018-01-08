@@ -31,6 +31,10 @@
 .pass-radio {
 	background-color: green;
 }
+/*目录服务上报表格头部第一行单独处理  */
+.table > thead > tr > th {
+    background: transparent;
+}
 </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

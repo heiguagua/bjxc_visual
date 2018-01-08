@@ -126,7 +126,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">资源提供方代码<span class="redStar">*</span>:</label>
+                            <label  class="col-sm-3 control-label" style="padding-left: 0px;">资源提供方代码:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="belongDeptNo" name="belongDeptNo" data-rule="信息资源提供方代码:required;">
                                 <input type="hidden" id="chargeDeptId" name="chargeDeptId">
@@ -348,7 +348,7 @@
                         <img src="<%=context_path%>/images/userImg/delImg.png"/>删除
                     </button>
                 </div>
-                <div class="form-group " style="overflow-x: auto;min-height:200px;">
+                <div class="form-group " style="overflow-x: auto;min-height:200px;border: 1px solid #ddd;">
                     <table style="width:150%" class="table-striped">
                         <thead>
                         <tr class='table_title_tr'>
@@ -357,7 +357,7 @@
                             <th>信息项名称<span class="redStar">*</span></th>
                             <th>类型<span class="redStar">*</span></th>
                             <th>长度<span class="redStar">*</span></th>
-                            <th style="width: 240px;">责任部门<span class="redStar">*</span></th>
+                            <th style="width: 150px;">责任部门<span class="redStar">*</span></th>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>所属表</th>
@@ -365,7 +365,7 @@
                             <th>共享类型<span class="redStar">*</span></th>
                             <th>共享条件</th>
                             <th>共享方式</th>
-                            <th>是否向社会开放<span class="redStar">*</span></th>
+                            <th style="width: 116px;">是否向社会开放<span class="redStar">*</span></th>
                             <th>开放条件</th>
                             <th>存储位置</th>
                             <th>更新周期</th>
@@ -378,12 +378,13 @@
                 </div>
                 <div class="checkh1">
                     <span class="checkspan">表间关系列表</span>
-                    <h5>资源涉及 <span id='table_number' style='color: #062cff;'></span>张不同的表，至少需要<span id='link_number'
-                                                                                                    style='color: #062cff;'></span>个表间关系
-                    </h5>
+                    <h5>资源涉及 <span id='table_number' style='color: #062cff;'>
+                    </span>张不同的表，至少需要<span id='link_number' style='color: #062cff;'></span>个表间关系
                     <input type="button" id="addLinks" class="pull-right btn-del" value="添加关联">
+                    </h5>
+
                 </div>
-                <div class="form-group " style="overflow-x: auto;min-height:200px;">
+                <div class="form-group " style="overflow-x: auto;min-height:200px;border: 1px solid #ddd;">
                     <table style="width:100%" class="table-striped">
                         <thead>
                         <tr>

@@ -66,6 +66,13 @@
         <include refid="deleteWhereCause"/>
     </delete>
 
+    <delete id="deleteByIds" parameterType="java.util.List">
+        delete from drap_system_use_dept where id IN
+        <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
     <sql id="deleteWhereCause">
         <where>
             <if test="id != null">

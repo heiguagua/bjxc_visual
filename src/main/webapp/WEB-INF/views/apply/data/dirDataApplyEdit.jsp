@@ -6,6 +6,12 @@
 
     <script src="<%=context_path%>/js/apply/data/dirDataApplyEdit.js"></script>
 </head>
+<style>
+div.bootstrap-table div.fixed-table-container>div.fixed-table-body{
+	height:auto !important;
+	min-height:auto !important;
+}
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
     <div>

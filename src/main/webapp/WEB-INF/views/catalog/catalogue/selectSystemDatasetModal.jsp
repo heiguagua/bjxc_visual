@@ -91,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" id="add_to_container_parent">
                     <button type="button" id="add_to_container" class="btn pull-right">
                         添加
                     </button>

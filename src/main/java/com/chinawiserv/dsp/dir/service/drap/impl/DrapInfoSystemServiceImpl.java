@@ -8,6 +8,8 @@ import com.chinawiserv.dsp.dir.service.drap.IDrapInfoSystemService;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,4 +61,8 @@ public class DrapInfoSystemServiceImpl extends CommonServiceImpl<DrapInfoSystemM
 		//todo
 		return 0;
 	}
+	@Override
+	public void updateAuditRebut(List<String> ids){
+        mapper.updateAuditRebut(ids);
+    }
 }

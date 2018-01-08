@@ -35,14 +35,25 @@ function getuserregisterTable() {
         smartDisplay: false,
         columns: [
             {
-                field: 'id', title: '序号', width: '5%', align: 'center', formatter: function (value, row, index) {
+                field: 'id', title: '序号', width: '6%', align: 'center', formatter: function (value, row, index) {
                 return index + 1;
             }
             },
             {field: 'realName', title: '姓名', width: '10%'},
             {field: 'loginName', title: '用户名', width: '10%'},
             {field: 'phone', title: '电话号码'},
-            {field: 'deptName', title: '所属组织'},
+            {field: 'deptName',
+            	title: '所属组织',
+            	formatter:function(value){
+            		if(value == undefined){
+            			return ""
+            		}else{
+            			return "<p title="+value+">"+value+"</p>"
+            		}
+            		
+            	}
+            	
+            },
             {
                 field: 'status',
                 title: '状态',
@@ -68,10 +79,10 @@ function getuserregisterTable() {
                 formatter: function (value, row, idx) {
                     var editBtn = [];
                     if (row.status === "0") {
-                        editBtn = ["<a class='btn btn-success btn-flat btn-xs' href='#' onclick='javascript:userReg(\"" + value + "\",true)'><i class='fa fa-check'>&#160;</i>同意</a>&#160;", "<a class='btn btn-default btn-flat btn-xs' href='#' onclick='javascript:userReg(\"" + value + "\",false)'><i class='fa fa-close'>&#160;</i>拒绝</a>"];
+                        editBtn = ["<a class='btn btn-success btn-flat btn-xs' href='###' onclick='javascript:userReg(\"" + value + "\",true)'><i class='fa fa-check'>&#160;</i>同意</a>&#160;", "<a class='btn btn-default btn-flat btn-xs' href='#' onclick='javascript:userReg(\"" + value + "\",false)'><i class='fa fa-close'>&#160;</i>拒绝</a>"];
                     }
                     if (row.status === "1" || row.status === "2") {
-                        editBtn = ["<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:userReg(\"" + value + "\",0)'><i class='fa fa-check'>&#160;</i>删除</a>&#160;"];
+                        editBtn = ["<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:userReg(\"" + value + "\",0)'><i class='fa fa-check'>&#160;</i>删除</a>&#160;"];
                     }
                     return editBtn.join('');
                 }

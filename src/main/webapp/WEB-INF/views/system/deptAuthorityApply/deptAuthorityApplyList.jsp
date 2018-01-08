@@ -35,7 +35,7 @@
                                 <div class="input-group">
                                     <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:authorityApply()" >
                                         <img src="<%=context_path%>/images/userImg/addimg.png"/>
-                                        申请部门数据权限</a>
+                                        申请</a>
                                 </div>
                                 <div class="input-group pull-right">
                                     <input id="searchKeyId" type="text" name="search" class="form-control" placeholder="组织机构数据权限申请名称" style="width: 200px">

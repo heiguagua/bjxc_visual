@@ -113,7 +113,7 @@ function buildItem(thisTrNum,data){
         +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"><input class="form-control" type="text" readonly title="'+(data.deptName?data.deptName:'')+'" value="'+(data.deptName?data.deptName:'')+'" ></td>'
         //+'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
         //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
-        +'<td><input readonly title="'+Dict.label("isSecret",data.secretFlag.toString())+'" value="'+Dict.label("isSecret",data.secretFlag.toString())+'"  type="text" class="form-control"></input></td>'
+        +'<td><input readonly title="'+Dict.label("isSecret",data.secretFlag == null ? "" : data.secretFlag.toString())+'" value="'+Dict.label("isSecret",data.secretFlag == null ? "" : data.secretFlag.toString())+'"  type="text" class="form-control"></input></td>'
         // +'<td><select readonly name="items['+thisTrNum+'].secretFlag" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
         +'<td><input readonly title="'+Dict.label("dataSetShareType",data.shareType)+'" value="'+Dict.label("dataSetShareType",data.shareType)+'"  type="text" class="form-control"></input></td>'
         // +'<td><select readonly name="items['+thisTrNum+'].shareType" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'

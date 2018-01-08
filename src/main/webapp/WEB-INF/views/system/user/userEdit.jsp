@@ -55,7 +55,7 @@
 									<div class="form-group">
                                 <label class="control-label col-sm-4 col-xs-4">所属组织机构</label>
                                 <div class="col-sm-7 col-xs-7">
-                                <%--<input type="text" class="form-control"  id="deptName"  >--%>
+                                <%--<input type="text" class="form-control"  id="deptName"  readonly>--%>
                                     <input type="text" id="deptName" data-rule="所属组织机构;deptId;" class="form-control" readonly style="background-color:#fff">
                                     <input type="hidden" id="deptId" name="deptId">
                                     <div class="menu-wrap">

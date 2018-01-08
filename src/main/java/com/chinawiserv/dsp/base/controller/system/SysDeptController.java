@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
+import com.chinawiserv.dsp.base.common.util.Pinyin4jUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
@@ -318,15 +319,33 @@ public class SysDeptController extends BaseController {
 
     @RequestMapping("/checkDeptName")
     @ResponseBody
-    public JSONObject checkDeptName(@RequestParam String deptName, String fname, String deptId){
+    public JSONObject checkDeptName(@RequestParam String deptName, String fname,String deptId){
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject = sysDeptService.checkDeptName(deptName, fname ,deptId);
+            jsonObject = sysDeptService.checkDeptName(deptName, fname,deptId);
         } catch (Exception e) {
             jsonObject.put("error", "组织机构名验证失败");
             logger.error("组织机构名称验资失败", e);
         }
         return jsonObject;
+    }
+
+    /**
+     * 传入中文翻译成拼音
+     * @param cnName 中文名字
+     * @return
+     */
+    @RequestMapping("/getPinyin")
+    @ResponseBody
+    public String getPinyin(@RequestParam String cnName) {
+        String s = Pinyin4jUtil.converterToSpell(cnName);
+        String[] eNames = s.split(",");
+        if(eNames.length>0){
+            return eNames[0];
+
+        }
+        return "";
+
     }
 
     /**

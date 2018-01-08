@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.base.service.system.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
@@ -103,10 +104,16 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     }
 
     @Override
-    public JSONObject checkDeptName(String deptName, String fname, String deptId) {
-        List<SysDept> list;
+    public JSONObject checkDeptName(String deptName, String fname,String deptId) {
+        Wrapper<SysDept> wrapper = new EntityWrapper<SysDept>().where("dept_name = {0}", deptName).and("delete_flag = {0}", "0");
+        if(StringUtils.isNotBlank(fname)){
+            wrapper.and("fname = {0}", fname);
+        }
+        if(StringUtils.isNotBlank(deptId)){
+            wrapper.and("id != {0}", deptId);
+        }
         JSONObject result = new JSONObject();
-        list = selectList(new EntityWrapper<SysDept>().where("dept_name = {0}", deptName).and("fname = {0}", fname).and("id != {0}", deptId).and("delete_flag = {0}", "0"));
+        List<SysDept> list = selectList(wrapper);
         if (list != null && !list.isEmpty()) {
             result.put("error", "该组织机构名称已存在");
         }

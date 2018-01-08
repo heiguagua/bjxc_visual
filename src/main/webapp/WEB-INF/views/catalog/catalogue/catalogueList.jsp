@@ -6,9 +6,10 @@
     <script src="<%=context_path%>/js/catalog/catalogue/catalogueList.js"></script>
     <script src="<%=context_path%>/js/system/Encode/Encode.js"></script>
 </head>
-<style>
-div.layui-layer-iframe{
+ <style>
+ div.layui-layer-iframe{
 	min-width:1000px;
+	width:e-xpression(document.body.clientWidth < 1000? “1000px”: “auto” );
 }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -34,7 +35,7 @@ div.layui-layer-iframe{
                     <div class="col-xs-12">
                         <div class="box clear">
 
-                            <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                            <aside class="main-sidebar—Du sidebar-myself" style="height:816px" id="min-aside">
                                 <section class="sidebar">
                                     <div class="user-panel"  style="height: 6%;">
                                         <b id="dir-Manger">目录分类</b>
@@ -79,33 +80,14 @@ div.layui-layer-iframe{
                                            <!-- <span class="caret"></span> -->
                                         </button>
                                          <ul class="dropdown-menu" role="menu" style="left:-21px;text-align:center;">
-                                                    <li><a onclick="quickSystemAddDatasetUI()" href="###">信息系统</a></li>
-                                                    <li><a onclick="quickAddDatasetUI()" href="###">信息资源</a></li>
-                                                    <li><a onclick="quickCsAddDatasetUI()" href="###">从采集系统(爬虫)</a></li>
-                                                    <li><a onclick="quickSystemAddDatasetUI()" href="###">从采集系统(关系型)</a></li>
-                                                    <li><a onclick="quickSystemAddDatasetUI()" href="###">从采集系统(非关系型)</a></li>
-                                                    <li><a  href="###">从处理系统</a></li>   
+                                                    <li><a  style="width: 100%;" onclick="quickSystemAddDatasetUI()" href="###">信息系统</a></li>
+                                                    <li><a  style="width: 100%;" onclick="quickAddDatasetUI()" href="###">信息资源</a></li>
+                                                    <li><a  style="width: 100%;" onclick="quickCsAddDatasetUI()" href="###">从采集系统(爬虫)</a></li>
+                                                    <li><a  style="width: 100%;" onclick="quickSystemAddDatasetUI()" href="###">从采集系统(关系型)</a></li>
+                                                    <li><a  style="width: 100%;" onclick="quickSystemAddDatasetUI()" href="###">从采集系统(非关系型)</a></li>
+                                                    <li><a  style="width: 100%;"  href="###">从处理系统</a></li>   
                                                 </ul>
-                                        <!-- <ul class="dropdown-menu" role="menu">
-                                            <li>
-                                                <button type="button" style="width: 100%;" onclick="quickSystemAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从梳理系统(系统)</button>
-                                            </li>
-                                            <li>
-                                                <button type="button" style="width: 100%;" onclick="quickAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从梳理系统(资源)</button>
-                                            </li>
-                                            <li>
-                                                <button type="button" style="width: 100%;" onclick="quickCsAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从采集系统(爬虫)</button>
-                                            </li>
-                                            <li>
-                                                <button type="button" style="width: 100%;" onclick="quickDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从采集系统(关系型)</button>
-                                            </li>
-                                            <li>
-                                                <button type="button" style="width: 100%;" onclick="quickNosqlDcmAddDatasetUI()" class="btn btn-primary btn-flat btn_blue">从采集系统(非关系型)</button>
-                                            </li>
-                                            <li>
-                                                <button type="button" style="width: 100%;"  class="btn btn-primary btn-flat btn_blue"><p style="color: #DDDDDD">从处理系统</p></button>
-                                            </li>
-                                        </ul> -->
+                                    
                                     </div>
                                     <div class="input-group">
                                         <a class="btn btn-default btn-flat  btn-myself" onclick="javascript:addCustom()">

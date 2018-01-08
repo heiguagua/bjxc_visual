@@ -5,6 +5,12 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=context_path%>/js/catalog/query/queryList.js"></script>
 </head>
+<style>
+div.layui-layer-iframe{
+	min-width:1000px;
+	width:e-xpression(document.body.clientWidth < 1000? “1000px”: “auto” );
+}
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -22,7 +28,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box clear">
-                        <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                        <aside class="main-sidebar—Du  sidebar-myself" style="height:816px" id="min-aside">
                             <section class="sidebar">
                                 <div class="user-panel" style="height: 6%">
                                     <b id="dir-Manger">目录分类</b>

@@ -30,7 +30,7 @@
                 <div class="col-xs-12">
                     <div class="box clear">
 
-                        <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                        <aside class="main-sidebar—Du sidebar-myself" style="height:816px" id="min-aside">
                             <section class="sidebar">
                                 <div class="user-panel"  style="height: 6%;">
                                     <b id="dir-Manger">目录分类</b>
@@ -232,7 +232,7 @@
         smartDisplay: false,
         columns: [
             {
-                field: 'a', title: '序号', width: '5%',
+                field: 'a', title: '序号', width: '6%',
                 formatter: function (value, row, index) {
                     return index + 1;
                 }
@@ -269,13 +269,13 @@
             {field: 'correctorCount', title: '纠错人数'},
             {
                 field: 'dcmId', title: '操作',
-                align: 'center',
+                align: 'left',
                 valign: 'middle',
                 sortable: false,
                 width: '10%',
                 formatter: function (value) {
                     var editBtn = [
-                        "<a class='btn btn-primary btn-flat btn-xs' href='#' onclick='javascript:dcView(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>点击查看</a>&#160;"
+                        "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:dcView(\"" + value + "\")'><i class='fa fa-edit'>&#160;</i>点击查看</a>"
                     ].join('');
                     return editBtn;
                 }

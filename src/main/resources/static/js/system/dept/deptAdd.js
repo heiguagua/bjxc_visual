@@ -11,6 +11,20 @@ function initSelectData() {
 }
 
 
+function getPinyin() {
+    var deptName=$("#deptName").val();
+    if(deptName){
+        $.commonAjax({
+            url: basePathJS + "/system/dept/getPinyin",
+            data: {cnName: deptName},
+            success: function (result) {
+                $("#pinyin").val(result);
+            }
+        });
+    }
+
+}
+
 
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");

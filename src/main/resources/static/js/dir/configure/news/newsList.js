@@ -16,45 +16,62 @@ jQuery(document).ready(function () {
             valign: 'middle',
             sortable: false,
             formatter:function(value){
-            	if(value == undefined){
-            		return ''
-            	};
-            	return '<p title='+value+'>'+value+'</p>'
+                if(value == undefined){
+                    value="";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
             }
         }, {
             field: 'newsPic',
             title: '图片名称',
             align: 'left',
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value){
+                if(value == undefined){
+                    value="";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'picType',
             title: '图片类型',
             align: 'left',
+            width:"10%",
             valign: 'middle',
-            sortable: false,           
+            sortable: false,       
         }, {
             field: 'picOrder',
             title: '播放顺序',
             align: 'left',
+            width:"10%",
             valign: 'middle',
             sortable: false,           
         },{
             field: 'status',
             title: '启用状态',
             align: 'left',
+            width:"10%",
             valign: 'middle',
             sortable: false,           
         },{
             field: 'createTime',
             title: '创建时间',
             align: 'left',
+            width:"16%",
             valign: 'middle',
-            sortable: false
+            sortable: false,
+            formatter:function(value){
+                if(value == undefined){
+                    value="";
+                }
+                return '<p title="'+value+'">'+value+'</p>';
+            }
         }, {
             field: 'id',
             title: '操作',
             align: 'left',
+            width:"20%",
             valign: 'middle',
             sortable: false ,
             formatter : function (value,row) {

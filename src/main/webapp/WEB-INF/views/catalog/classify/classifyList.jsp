@@ -35,7 +35,7 @@ div.layui-layer-iframe{
                     <div class="col-xs-12">
                         <div class="box clear">
 
-                            <aside class="main-sidebar—Du sidebar-myself" id="min-aside">
+                            <aside class="main-sidebar—Du sidebar-myself" style="height:816px" id="min-aside">
                                 <section class="sidebar">
                                     <div class="user-panel"  style="height: 6%;">
                                         <b id="dir-Manger">目录分类</b>

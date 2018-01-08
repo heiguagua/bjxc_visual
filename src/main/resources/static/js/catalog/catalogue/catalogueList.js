@@ -1,5 +1,6 @@
 var tableSelector = '#catalogueTable';
 var paramsObj = {};
+var choosedClassifyType = "";
 
 jQuery(document).ready(function () {
     initCss();
@@ -51,107 +52,209 @@ function initCss(){
 
 function initTable(){
     //paramsObj["regionCode"] = $("#searchRegionCode").val();
-    jQuery(tableSelector).customTable({
-        url: basePathJS + '/catalog/catalogue/list',
-        queryParams: function (params) {
-            return $.extend(params, paramsObj);
-        },
-//        escape:true,
-        columns: [{
-            checkbox: true,
-            align: 'center',
-            valign: 'middle',
-            sortable: false
-        },{
-            field: 'deptName',
-            title: '信息资源提供方',
-            sortable: false,
-            width: '15%',
-            formatter:function(value, row, index){            	
-                if(value == undefined){
-                    value = "";
+    if($(tableSelector).hasClass('table-striped')){
+        $(tableSelector).bootstrapTable("destroy");
+    }
+    var classifyType = $("#classifyType").val();
+    if(classifyType=="7"){ //点击市级部门节点下子节点，表格屏蔽资源提供方列
+        jQuery(tableSelector).customTable({
+            url: basePathJS + '/catalog/catalogue/list',
+            queryParams: function (params) {
+                return $.extend(params, paramsObj);
+            },
+            columns: [{
+                checkbox: true,
+                align: 'center',
+                valign: 'middle',
+                sortable: false
+            },{
+                field: 'classifyName',
+                title: '目录分类',
+                sortable: false,
+                formatter:function(value, row, index){
+                    if(value == undefined){
+                        value = "";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
                 }
-                return '<p title="'+value+'">'+value+'</p>';
-            }
-        },{
-            field: 'classifyName',
-            title: '目录分类',
-            sortable: false,
-            formatter:function(value, row, index){            	
-                if(value == undefined){
-                    value = "";
+            },{
+                field: 'datasetName',
+                title: '信息资源名称',
+                sortable: false,
+                width: '20%',
+                formatter:function(value, row, index){
+                    return '<p title="'+value+'">'+value+'</p>';
                 }
-                return '<p title="'+value+'">'+value+'</p>';
-            }
-        },{
-            field: 'datasetName',
-            title: '信息资源名称',
-            sortable: false,
-            width: '20%',
-            formatter:function(value, row, index){
-                return '<p title="'+value+'">'+value+'</p>';
-            }
-        },{
-            field: 'itemNums',
-            title: '信息项数',
-            sortable: false,
-            width: '10%'
-        },{
-            field: 'datasetSourceTypeName',
-            title: '添加方式',
-            sortable: false,
-            width: '10%',
-            formatter:function(value, row, index){
-                return '<p title="'+value+'">'+value+'</p>';
-            }
-        },{
-            field: 'classifyStatus',
-            title: '状态',
-            width: '10%',
-            sortable: false,
-            formatter: function(value, row, index) {
-                if (value == 0) {
-                    return '待注册'
-                }else if (value == 1) {
-                    return '待审核';
-                }else if (value == 2) {
-                    return '审核不通过';
-                }else if (value == 3) {
-                    return '待发布';
-                }else if (value == 4) {
-                    return '驳回审核';
-                }else if (value == 5) {
-                    return '已发布';
-                }else if (value == 6) {
-                    return '已下架';
+            },{
+                field: 'itemNums',
+                title: '信息项数',
+                sortable: false,
+                width: '10%'
+            },{
+                field: 'datasetSourceTypeName',
+                title: '添加方式',
+                sortable: false,
+                width: '10%',
+                formatter:function(value, row, index){
+                    if(value == undefined){
+                        return ""
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
                 }
-            }
-        }, {
-            field: 'id',
-            title: '操作',
-            width: '170px',
-            align: 'center',
-            valign: 'middle',
-            sortable: false,
-            formatter: function(value, row, index) {
-            	var editBtn ="";
-                if(row.classifyStatus==0 || row.classifyStatus==2 || row.classifyStatus==4 || row.classifyStatus==6){
-                    editBtn = [
-                        "<p><a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:catalogueTableUpload(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
-                        "<a class='btn btn-danger btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
-                        "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
-                    ].join('');
-                }else{
-                    editBtn = [
-                        "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行上传操作'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
-                        "<a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行编辑操作'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
-                        "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
-                    ].join('');
+            },{
+                field: 'classifyStatus',
+                title: '状态',
+                width: '10%',
+                sortable: false,
+                formatter: function(value, row, index) {
+                    if (value == 0) {
+                        return '待注册'
+                    }else if (value == 1) {
+                        return '待审核';
+                    }else if (value == 2) {
+                        return '审核不通过';
+                    }else if (value == 3) {
+                        return '待发布';
+                    }else if (value == 4) {
+                        return '驳回审核';
+                    }else if (value == 5) {
+                        return '已发布';
+                    }else if (value == 6) {
+                        return '已下架';
+                    }
                 }
-                return editBtn;
-            }
-        }]
-    });
+            },  {
+                field: 'id',
+                title: '操作',
+                width: '20%',
+                align: 'center',
+                valign: 'middle',
+                sortable: false,
+                formatter: function(value, row, index) {
+                    var editBtn ="";
+                    if(row.classifyStatus==0 || row.classifyStatus==2 || row.classifyStatus==4 || row.classifyStatus==6){
+                        editBtn = [
+                            "<p><a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:catalogueTableUpload(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
+                            "<a class='btn btn-danger btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
+                        ].join('');
+                    }else{
+                        editBtn = [
+                            "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行上传操作'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
+                            "<a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行编辑操作'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
+                        ].join('');
+                    }
+                    return editBtn;
+                }
+            }]
+        });
+    }else{
+        jQuery(tableSelector).customTable({
+            url: basePathJS + '/catalog/catalogue/list',
+            queryParams: function (params) {
+                return $.extend(params, paramsObj);
+            },
+            columns: [{
+                checkbox: true,
+                align: 'center',
+                valign: 'middle',
+                sortable: false
+            },{
+                field: 'deptName',
+                title: '信息资源提供方',
+                sortable: false,
+                width: '15%',
+                formatter:function(value, row, index){
+                    if(value == undefined){
+                        value = "";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },{
+                field: 'classifyName',
+                title: '目录分类',
+                sortable: false,
+                formatter:function(value, row, index){
+                    if(value == undefined){
+                        value = "";
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },{
+                field: 'datasetName',
+                title: '信息资源名称',
+                sortable: false,
+                width: '20%',
+                formatter:function(value, row, index){
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },{
+                field: 'itemNums',
+                title: '信息项数',
+                sortable: false,
+                width: '10%'
+            },{
+                field: 'datasetSourceTypeName',
+                title: '添加方式',
+                sortable: false,
+                width: '10%',
+                formatter:function(value, row, index){
+                    if(value == undefined){
+                        return ""
+                    }
+                    return '<p title="'+value+'">'+value+'</p>';
+                }
+            },{
+                field: 'classifyStatus',
+                title: '状态',
+                width: '10%',
+                sortable: false,
+                formatter: function(value, row, index) {
+                    if (value == 0) {
+                        return '待注册'
+                    }else if (value == 1) {
+                        return '待审核';
+                    }else if (value == 2) {
+                        return '审核不通过';
+                    }else if (value == 3) {
+                        return '待发布';
+                    }else if (value == 4) {
+                        return '驳回审核';
+                    }else if (value == 5) {
+                        return '已发布';
+                    }else if (value == 6) {
+                        return '已下架';
+                    }
+                }
+            },  {
+                field: 'id',
+                title: '操作',
+                width: '22%',
+                align: 'left',
+                valign: 'middle',
+                sortable: false,
+                formatter: function(value, row, index) {
+                    var editBtn ="";
+                    if(row.classifyStatus==0 || row.classifyStatus==2 || row.classifyStatus==4 || row.classifyStatus==6){
+                        editBtn = [
+                            "<p><a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:catalogueTableUpload(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
+                            "<a class='btn btn-danger btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
+                        ].join('');
+                    }else{
+                        editBtn = [
+                            "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行上传操作'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
+                            "<a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行编辑操作'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
+                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
+                        ].join('');
+                    }
+                    return editBtn;
+                }
+            }]
+        });
+    }
+
 }
 
 
@@ -223,6 +326,11 @@ function setParams() {
 }
 
 function reloadTable() {
+    var classifyType = $("#classifyType").val();
+    if((classifyType==7 && choosedClassifyType != classifyType) || (choosedClassifyType==7 && choosedClassifyType != classifyType)){
+        choosedClassifyType = classifyType;
+        initTable();
+    }
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
     $(tableSelector).data("bootstrap.table").refresh();
 }
@@ -324,10 +432,13 @@ function excelImportUI() {
         tip("不能在这个分类下导入资源!!",parent,null,null);
         return;
     }
-    detail('导入',basePathJS +'/catalog/catalogue/excelImportUI?classifyId='+ $('#searchClassifyId').val(),900,350,parent);
+    detail('导入',basePathJS +'/catalog/catalogue/excelImportUI?classifyId='+ $('#searchClassifyId').val(),700,350,parent);
+    
+    $("div.layui-layer-iframe").css("min-width",700)
 }
 function excelDownloadUI() {
-    detail('模板下载',basePathJS +'/catalog/catalogue/excelDownloadUI',900,350,parent);
+    detail('模板下载',basePathJS +'/catalog/catalogue/excelDownloadUI',700,350,parent);
+    $("div.layui-layer-iframe").css("min-width",700)
 }
 function checkClassfyId(searchClassifyId){
     if(searchClassifyId){
