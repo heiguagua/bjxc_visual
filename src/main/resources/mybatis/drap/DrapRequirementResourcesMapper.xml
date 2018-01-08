@@ -60,12 +60,12 @@
         t.*,
         su.`real_name` AS demander_name,
         sd.`dept_short_name` AS demander_dept_name,
-        CASE WHEN sdt.`fname` = 'root'
+        CASE WHEN sdt.`fname` = 'root' OR spt.`fname` IS NULL
         THEN sdt.`dept_name`
         ELSE CONCAT(sdt.`fname`,'>',sdt.`dept_name`)
         END
         AS requirement_dept_name,
-        CASE WHEN spt.`fname` = 'root'
+        CASE WHEN spt.`fname` = 'root' OR spt.`fname` IS NULL
         THEN spt.`dept_name`
         ELSE CONCAT(spt.`fname`,'>',spt.`dept_name`)
         END
@@ -77,6 +77,7 @@
         LEFT JOIN drap_business_requirement dbr ON dbr.`id` = t.`require_id`
         LEFT JOIN sys_dept sdt ON sdt.`id` = dbr.`requre_dept_id`
         LEFT JOIN sys_dept spt ON spt.`id` = dbr.`source_dept_id`
+
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
