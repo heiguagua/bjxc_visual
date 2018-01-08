@@ -200,4 +200,20 @@ public class DrapDbInfoController extends BaseController {
         return handleResult;
     }
     
+    @Log("同步数据库状态")
+    @RequestMapping("/synzStatus")
+    @ResponseBody
+    public HandleResult synzStatus(String [] ids,String status) {
+        HandleResult handleResult = new HandleResult();
+        try {
+            service.synzStatus(ids,status);
+            handleResult.success("同步数据库状态成功");
+        } catch (Exception e) {
+            handleResult.error("同步数据库状态失败");
+            logger.error("同步数据库状态失败", e);
+            
+        }
+        return handleResult;
+    }
+    
 }
