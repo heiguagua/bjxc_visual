@@ -258,4 +258,16 @@
 			<include refid="batchRequireIdSql"></include>
 		</if>
 	</delete>
+
+	<update id="updateRequirementStatus" parameterType="com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity">
+		update drap_business_requirement set
+		status = #{status},
+		auditor = #{audito},
+		audit_time = #{auditTime},
+		audit_opinion = #{auditOpinion}
+		where id in
+		<foreach collection="idArray" separator="," open="(" close=")" item="item">
+			#{item}
+		</foreach>
+	</update>
 </mapper>

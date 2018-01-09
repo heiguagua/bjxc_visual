@@ -277,10 +277,10 @@
     <update id="updateBusinessStatus" parameterType="com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity">
         update drap_business_activity set
         status = #{status},
-        auditor = #{auditor},
+        auditor = #{audito},
         audit_time = #{auditTime},
         audit_opinion = #{auditOpinion}
-        where id in ($(ids))
+        where id in (${ids})
     </update>
 
 </mapper>

@@ -1,9 +1,13 @@
 package com.chinawiserv.dsp.dir.controller.drap;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
+import com.google.common.collect.Maps;
+import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +44,7 @@ public class DrapBusinessRequirementController extends BaseController {
 	/**
 	 * 同步需求
 	 * 
-	 * @param voLst
+	 * @param paramMap
 	 * @return
 	 */
 	@ResponseBody
@@ -91,6 +95,30 @@ public class DrapBusinessRequirementController extends BaseController {
 			logger.error("需求删除异常。", e.toString());
 		}
 		return result;
+	}
+
+	/**
+	 * 同步需求
+	 *
+	 * @param paramMap
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("updateRequirementStatus")
+	public Object updateRequirementStatus(@RequestParam Map<String,Object> paramMap) {
+		HashMap<String, Object> result = Maps.newHashMap();
+		try {
+			if(paramMap !=null && !paramMap.isEmpty()){
+				String data = MapUtils.getString(paramMap, "data");
+				AuditEntity auditEntity = JSONObject.parseObject(data, AuditEntity.class);
+				this.service.updateRequirementStatus(auditEntity);
+			}
+			return 200;
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("接收drap的业务数据", e);
+			return 500;
+		}
 	}
 
     /**

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement;
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessRequirementVo;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
@@ -30,4 +31,6 @@ public interface IDrapBusinessRequirementService extends ICommonService<DrapBusi
 	 * @return
 	 */
 	HandleResult deleteBusinessRequirement(Map<String,?> paramMap);
+
+    void updateRequirementStatus(AuditEntity auditEntity) throws Exception;
 }

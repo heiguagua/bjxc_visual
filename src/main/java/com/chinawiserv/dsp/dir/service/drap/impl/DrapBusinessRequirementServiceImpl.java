@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,5 +151,10 @@ public class DrapBusinessRequirementServiceImpl
 
         }
         return handleResult;
+    }
+
+    @Override
+    public void updateRequirementStatus(AuditEntity auditEntity) throws Exception {
+        mapper.updateRequirementStatus(auditEntity);
     }
 }

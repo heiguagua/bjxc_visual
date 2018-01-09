@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessRequirement;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapRequirementDatasetMap;
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessRequirementVo;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapRequirementResourcesVo;
 
@@ -91,5 +92,6 @@ public interface DrapBusinessRequirementMapper extends BaseMapper<DrapBusinessRe
 	 * @param paramMap
 	 */
 	void batchDeleteReqDatasetMap(Map<String,?> paramMap);
-    
+
+    void updateRequirementStatus(AuditEntity auditEntity);
 }

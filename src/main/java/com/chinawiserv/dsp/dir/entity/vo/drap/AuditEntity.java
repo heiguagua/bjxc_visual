@@ -32,7 +32,7 @@ public class AuditEntity implements Serializable {
 	/**
      * 审核人
      */
-	private String auditor;
+	private String audito;
     /**
      * 审核意见
      */
@@ -73,11 +73,11 @@ public class AuditEntity implements Serializable {
 	public void setIdArray(List<String> idArray) {
 		this.idArray = idArray;
 	}
-	public String getAuditor() {
-		return auditor;
+	public String getAudito() {
+		return audito;
 	}
-	public void setAuditor(String auditor) {
-		this.auditor = auditor;
+	public void setAuditor(String audito) {
+		this.audito = audito;
 	}
 	
 	

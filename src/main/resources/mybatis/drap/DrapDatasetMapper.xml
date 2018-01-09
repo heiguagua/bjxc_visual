@@ -248,7 +248,7 @@
     <update id="updateDatasetStatus" parameterType="com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity">
         update drap_dataset set
         status = #{status},
-        auditor = #{auditor},
+        auditor = #{audito},
         audit_time = #{auditTime},
         audit_opinion = #{auditOpinion}
         where id in (${ids})
