@@ -266,7 +266,9 @@ public class DrapDbInfoServiceImpl extends
         for (DrapDictTableInfo drapDictTableInfo : oldDictTableInfos) {
             ids.add(drapDictTableInfo.getId());
         }
-        dictTableColumnMapper.delete(new EntityWrapper<DrapDictTableColumn>().in("table_id", ids));
+        if (ids.size()!=0){
+            dictTableColumnMapper.delete(new EntityWrapper<DrapDictTableColumn>().in("table_id", ids));
+        }
         dictTableInfoMapper.delete(new EntityWrapper<DrapDictTableInfo>().eq("db_id", id));
 
         ids.clear();
@@ -275,7 +277,10 @@ public class DrapDbInfoServiceImpl extends
         for (DrapDbTableInfo drapDbTableInfo : tableInfos) {
             ids.add(drapDbTableInfo.getId());
         }
-        dbTableColumnMapper.delete(new EntityWrapper<DrapDbTableColumn>().in("table_id", ids));
+        if (ids.size()!=0){
+            dbTableColumnMapper.delete(new EntityWrapper<DrapDbTableColumn>().in("table_id", ids));
+        }
+
         dbTableInfoMapper.delete(new EntityWrapper<DrapDbTableInfo>().eq("db_id", id));
 
         systemMapper.delete(new EntityWrapper<DrapDbSystemMap>().eq("db_id", id));
