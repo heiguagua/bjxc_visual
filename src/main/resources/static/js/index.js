@@ -140,6 +140,7 @@ function initPieChart(dataArry,id){
         function (ec,theme) {
             var myChart = ec.init(document.getElementById(id),theme);
             var option = {
+                calculable:false,
                 tooltip : {
                     trigger: 'item',
                     formatter: "{b} : {c} ({d}%)"
@@ -196,6 +197,7 @@ function initBarChart(dataArry,id){
                 valueArray.push(dataValue);
             }
             var option = {
+                calculable:false,
                 title:{
                     text:'Top10',
                     x:'center'
@@ -260,6 +262,7 @@ function initReverseBarChart(dataArry,id){
                 valueArray.push(dataValue);
             }
             var option = {
+                calculable:false,
                 title:{
                     text:'Top10',
                     x:'center'
