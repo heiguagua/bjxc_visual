@@ -71,7 +71,7 @@ jQuery(document).ready(function () {
 
 
     jQuery(tableSelector).customTable({
-        url: basePathJS + '/dirDataApply/list',
+        url: basePathJS + '/feedback/dirDataApply/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
@@ -200,7 +200,7 @@ jQuery(document).ready(function () {
 });
 
 function audit(id) {
-    update('共享审核', basePathJS + '/dirDataApply/edit', id, 900, 700);
+    update('共享审核', basePathJS + '/feedback/dirDataApply/edit', id, 900, 700);
 }
 
 function setParams() {

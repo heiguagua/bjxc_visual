@@ -11,7 +11,7 @@ $(document).ready(function(){
 function initEditPage(){
     var params = {id : $("#dirDataApplyId").val()};
     $.commonAjax({
-        url: basePathJS + "/dirDataApply/editLoad",
+        url: basePathJS + "/feedback/dirDataApply/editLoad",
         data: params,
         success: function (result) {
             if (result.state) {
@@ -42,7 +42,7 @@ function initTable(){
     var tableSelector = '#dirDataItemApplyTableId';
     var paramsObj = {dataApplyId : $("#dirDataApplyId").val()};
     jQuery(tableSelector).customTable({
-        url: basePathJS + '/dirDataApply/listItem',
+        url: basePathJS + '/feedback/dirDataApply/listItem',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },

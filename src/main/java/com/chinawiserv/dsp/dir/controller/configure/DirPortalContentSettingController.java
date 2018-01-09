@@ -15,6 +15,7 @@ import com.chinawiserv.dsp.dir.service.configure.IDirDevelopApisService;
 import com.chinawiserv.dsp.dir.service.configure.IDirIntrudeService;
 
 import net.sf.json.JSONObject;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ import java.util.Map;
  * @since 2017-09-11
  */
 @Controller
-@RequestMapping("/dirIntrude")
+@RequestMapping("/portalConfig/dirIntrude")
 //todo 将所有的XXX修改为真实值
 public class DirPortalContentSettingController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -49,7 +50,7 @@ public class DirPortalContentSettingController extends BaseController {
     @Autowired
     private DirIntrudeMapper mapper;
 
-//    @RequiresPermissions("dirDevelopApis:list")
+    @RequiresPermissions("portalConfig:dirIntrude")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -59,7 +60,7 @@ public class DirPortalContentSettingController extends BaseController {
     /**
      * 分页查询开发者工具
      */
-//  @RequiresPermissions("XXX:XXX:list")
+  @RequiresPermissions("portalConfig:dirIntrude:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -77,7 +78,7 @@ public class DirPortalContentSettingController extends BaseController {
     /**
      * 新增网站简介内容
      */
-    //@RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirIntrude:add")
     @RequestMapping("/add")
     public  String add(){
 		return "dir/configure/intrude/intrudeAdd";
@@ -86,7 +87,7 @@ public class DirPortalContentSettingController extends BaseController {
     /**
      * 执行新增
      */
-//    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirIntrude:add")
     @Log("创建网站简介内容")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -110,7 +111,7 @@ public class DirPortalContentSettingController extends BaseController {
     /**
      * 删除开发者工具
      */
-//    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("portalConfig:dirIntrude:delete")
     @Log("删除门户网站简介内容")
     @RequestMapping("/delete")
     @ResponseBody
@@ -143,14 +144,14 @@ public class DirPortalContentSettingController extends BaseController {
     /**
      * 编辑开发者工具
      */
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirIntrude:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "dir/configure/intrude/intrudeEdit";
     }
 
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirIntrude:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -168,7 +169,7 @@ public class DirPortalContentSettingController extends BaseController {
     /**
      * 执行编辑
      */
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirIntrude:edit")
     @Log("编辑网站简介内容")
     @RequestMapping("/doEdit")
     @ResponseBody

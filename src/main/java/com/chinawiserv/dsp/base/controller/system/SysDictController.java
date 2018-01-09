@@ -11,6 +11,7 @@ import com.chinawiserv.dsp.base.entity.vo.system.SysIconVo;
 import com.chinawiserv.dsp.base.service.system.ISysDictCategoryService;
 import com.chinawiserv.dsp.base.service.system.ISysDictIcon;
 import com.chinawiserv.dsp.base.service.system.ISysDictService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class SysDictController extends BaseController {
     @Autowired
     private ISysDictCategoryService service3;
 
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("system:dict")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -60,7 +61,7 @@ public class SysDictController extends BaseController {
     /**
      * 分页查询系统字典表
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("system:dict")
     @RequestMapping("/detailsList")
     @ResponseBody
     public PageResult detailsList(@RequestParam Map<String , Object> paramMap){

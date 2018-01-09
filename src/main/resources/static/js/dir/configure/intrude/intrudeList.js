@@ -5,7 +5,7 @@ jQuery(document).ready(function () {
     var paramsObj = {deleteFlag:0};
 
     jQuery(tableSelector).customTable({
-        url: basePathJS + '/dirIntrude/list',
+        url: basePathJS + '/portalConfig/dirIntrude/list',
         escape:false,
         queryParams: function (params) {
             return $.extend(params, paramsObj);
@@ -77,15 +77,15 @@ function reloadTable() {
 }
 
 function addUser() {
-    addPolicy('新增网站简介内容',basePathJS + '/dirIntrude/add',900,600);
+    addPolicy('新增网站简介内容',basePathJS + '/portalConfig/dirIntrude/add',900,600);
 }
 
 function editUser(id) {
-    updatePolicy('编辑网站简介内容',basePathJS + '/dirIntrude/edit' , id,900,600);
+    updatePolicy('编辑网站简介内容',basePathJS + '/portalConfig/dirIntrude/edit' , id,900,600);
 }
 
 function deleteUser(id) {
-    var url = basePathJS + "/dirIntrude/delete";
+    var url = basePathJS + "/portalConfig/dirIntrude/delete";
     var parameter = {id: id};
     delObj(url , parameter) ;
 }

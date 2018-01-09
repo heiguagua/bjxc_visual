@@ -23,7 +23,7 @@ function ugChange(d) {
 }
 function getuserregisterTable() {
     $(tableSelector).bootstrapTable({
-        url: basePathJS + '/dirRegistUser/list',
+        url: basePathJS + '/feedback/dirRegistUser/list',
         responseHandler: function (res) {
             return res.rows;
         },
@@ -120,7 +120,7 @@ function userReg(v, b) {
     if (v && b === 0) {
         cmf('删除操作', function () {
             $.ajax({
-                url: basePathJS + '/dirRegistUser/delete?id=' + v || '',
+                url: basePathJS + '/feedback/dirRegistUser/delete?id=' + v || '',
                 contentType: "application/json; charset=utf-8",
                 type: 'DELETE',
                 success: function (dd) {
@@ -161,7 +161,7 @@ function getData() {
  */
 function putStatus(parms, fn) {
     $.ajax({
-        url: basePathJS + '/dirRegistUser/doEdit',
+        url: basePathJS + '/feedback/dirRegistUser/doEdit',
         contentType: "application/json; charset=utf-8",
         type: 'PUT',
         data: JSON.stringify(parms),

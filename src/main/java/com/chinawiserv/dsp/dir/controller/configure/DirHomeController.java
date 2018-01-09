@@ -7,6 +7,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirHomeVo;
 import com.chinawiserv.dsp.dir.service.configure.IDirHomeService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2017-09-11
  */
 @Controller
-@RequestMapping("/dirHome")
+@RequestMapping("/portalConfig/dirHome")
 //todo 将所有的XXX修改为真实值
 public class DirHomeController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -36,7 +37,7 @@ public class DirHomeController extends BaseController {
     @Autowired
     private IDirHomeService service;
 
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("portalConfig:dirHome")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -46,7 +47,7 @@ public class DirHomeController extends BaseController {
     /**
      * 分页查询新闻表
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("portalConfig:dirHome:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -64,7 +65,7 @@ public class DirHomeController extends BaseController {
     /**
      * 新增新闻表
      */
-//    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirHome:add")
     @RequestMapping("/add")
     public  String add(){
 		return "dir/configure/home/homeAdd";
@@ -73,7 +74,7 @@ public class DirHomeController extends BaseController {
     /**
      * 执行新增
      */
-//    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirHome:add")
     @Log("创建首页图片表")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -102,7 +103,7 @@ public class DirHomeController extends BaseController {
     /**
      * 删除新闻表
      */
-//    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("portalConfig:dirHome:delete")
     @Log("删除新闻表")
     @RequestMapping("/delete")
     @ResponseBody
@@ -115,7 +116,7 @@ public class DirHomeController extends BaseController {
     /**
      * 更改启用状态
      */
-//    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("portalConfig:dirHome:delete")
     @Log("更改启用状态")
     @RequestMapping("/updateStatus")
     @ResponseBody
@@ -137,14 +138,14 @@ public class DirHomeController extends BaseController {
     /**
      * 编辑新闻表
      */
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirHome:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "dir/configure/home/homeEdit";
     }
 
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirHome:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -162,7 +163,7 @@ public class DirHomeController extends BaseController {
     /**
      * 执行编辑
      */
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirHome:edit")
     @Log("编辑首页图片表")
     @RequestMapping("/doEdit")
     @ResponseBody

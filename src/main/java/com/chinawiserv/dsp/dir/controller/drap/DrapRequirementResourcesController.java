@@ -31,7 +31,7 @@ import java.util.Map;
  * @since 2017-09-27
  */
 @Controller
-@RequestMapping("/drapRequirementResources")
+@RequestMapping("/feedback/drapRequirementResources")
 //todo 将所有的XXX修改为真实值
 public class DrapRequirementResourcesController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -39,7 +39,7 @@ public class DrapRequirementResourcesController extends BaseController {
     @Autowired
     private IDrapRequirementResourcesService service;
 
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("feedback:drapRequirementResources")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -49,7 +49,7 @@ public class DrapRequirementResourcesController extends BaseController {
     /**
      * 分页查询需求资源信息表
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("feedback:drapRequirementResources:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -78,7 +78,7 @@ public class DrapRequirementResourcesController extends BaseController {
     /**
      * 跳转需求资源详情表
      */
-//    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("feedback:drapRequirementResources:add")
     @RequestMapping("/loadDetailPage")
     public  String loadDetailPage(@RequestParam String id,Model model){
         model.addAttribute("requirementId",id);
@@ -88,7 +88,7 @@ public class DrapRequirementResourcesController extends BaseController {
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("feedback:drapRequirementResources:add")
     @Log("创建需求资源信息表")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -107,7 +107,7 @@ public class DrapRequirementResourcesController extends BaseController {
     /**
      * 删除需求资源信息表
      */
-    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("feedback:drapRequirementResources:delete")
     @Log("删除需求资源信息表")
     @RequestMapping("/delete")
     @ResponseBody
@@ -120,14 +120,14 @@ public class DrapRequirementResourcesController extends BaseController {
     /**
      * 编辑需求资源信息表
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:drapRequirementResources:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "XXX/XXX/XXXEdit";
     }
 
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:drapRequirementResources:edit")
     @RequestMapping("/loadDetail")
     @ResponseBody
     public  HandleResult loadDetail(@RequestParam String id){
@@ -145,7 +145,7 @@ public class DrapRequirementResourcesController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:drapRequirementResources:edit")
     @Log("编辑需求资源信息表")
     @RequestMapping("/doEdit")
     @ResponseBody

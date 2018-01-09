@@ -94,7 +94,7 @@ function initRoleNameList(){
     });
 }
 function deleteUser(id) {
-    var url = basePathJS + "/dirDevelopApis/delete";
+    var url = basePathJS + "/portalConfig/dirDevelopApis/delete";
     var parameter = {id: id};
     delObj(url , parameter) ;
 }

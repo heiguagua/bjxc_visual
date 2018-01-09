@@ -128,7 +128,7 @@ jQuery(document).ready(function () {
 //			updateApi('新增api--同级',basePathJS + '/dirDevelopApis/edit' , id);
 			
 			
-			var url = basePathJS + "/dirDevelopApis/delete";
+			var url = basePathJS + "/portalConfig/dirDevelopApis/delete";
 		    var parameter = {id: id};
 		    delObjApi(url , parameter) ;
 		    
@@ -152,7 +152,7 @@ jQuery(document).ready(function () {
 //			var apiCatgegory=$(curThis).attr('data-category');
 //			var orderNumber=$(curThis).attr('data-orderNumber');
 //			$('#parent_id').val(api_fcode);	
-			updateForPictureNews('编辑api',basePathJS + '/dirDevelopApis/edit' , id);
+			updateForPictureNews('编辑api',basePathJS + '/portalConfig/dirDevelopApis/edit' , id);
 //			$('#api_name').val(apiName);
 //			$('#api_category').val(apiCatgegory);
 //			$('#api_url').val(apiUrl);
@@ -165,7 +165,7 @@ jQuery(document).ready(function () {
 			var curThis=this;
 			var parentId=$(curThis).attr('data-pcode');
 //			$('#parent_id').val(api_fcode);	
-			addPictureNews('新增api--同级',basePathJS + '/dirDevelopApis/add' , parentId);
+			addPictureNews('新增api--同级',basePathJS + '/portalConfig/dirDevelopApis/add' , parentId);
 //			$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');
@@ -178,7 +178,7 @@ jQuery(document).ready(function () {
 	    	var curThis=this;
 			var parentId=$(curThis).attr('data-id');
 //			$('#parent_id').val(api_fcode);
-			addPictureNews('新增api--子级',basePathJS + '/dirDevelopApis/add',parentId);
+			addPictureNews('新增api--子级',basePathJS + '/portalConfig/dirDevelopApis/add',parentId);
 //	    	$('#api_name').val('');
 //			$('#api_category').val('');
 //			$('#api_url').val('');
@@ -229,7 +229,7 @@ jQuery(document).ready(function () {
     cache:false,//是否使用缓存
     type:'POST',//请求方式：post
     dataType:'json',//数据传输格式：json
-    url:basePathJS + '/dirDevelopApis/list',//请求的action路径
+    url:basePathJS + '/portalConfig/dirDevelopApis/list',//请求的action路径
     error:function(){
       //请求失败处理函数
       alert('亲，请求失败！');
@@ -409,7 +409,7 @@ function checkApiId(apiId){
 function initTable(){
     //paramsObj["regionCode"] = $("#searchRegionCode").val();
     jQuery(tableSelector).customTable({
-        url: basePathJS + '/dirDevelopApis/subList',
+        url: basePathJS + '/portalConfig/dirDevelopApis/subList',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
@@ -522,13 +522,13 @@ function reloadTable() {
 
 function editNode(id){
 	
-	updateApi('编辑api',basePathJS + '/dirDevelopApis/edit' , id);
+	updateApi('编辑api',basePathJS + '/portalConfig/dirDevelopApis/edit' , id);
 	
 }
 
 function deleteNode(id){
 	
-	var url = basePathJS + "/dirDevelopApis/delete";
+	var url = basePathJS + "/portalConfig/dirDevelopApis/delete";
     var parameter = {id: id};
     delObjApi(url , parameter) ;
 	
@@ -544,7 +544,7 @@ function addSibling() {
     }
 	
 //	$('#parent_id').val(api_fcode);	
-	addApi('新增api--同级',basePathJS + '/dirDevelopApis/add' , parentId);
+	addApi('新增api--同级',basePathJS + '/portalConfig/dirDevelopApis/add' , parentId);
 }
 
 function addSon() {
@@ -555,7 +555,7 @@ function addSon() {
         return;
     }
 //	$('#parent_id').val(api_fcode);
-	addApi('新增api--子级',basePathJS + '/dirDevelopApis/add',parentId);
+	addApi('新增api--子级',basePathJS + '/portalConfig/dirDevelopApis/add',parentId);
 }
 
 //function addUser() {

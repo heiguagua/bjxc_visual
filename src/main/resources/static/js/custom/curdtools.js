@@ -1492,7 +1492,7 @@ $.ajax(
 		cache : false,
 		type : 'POST',
 		data : id,
-		url : basePathJS + "/dirDevelopApis/Isdelete",// 请求的action路径
+		url : basePathJS + "/portalConfig/dirDevelopApis/Isdelete",// 请求的action路径
 		error : function() {// 请求失败处理函数
 			return false;
 		},

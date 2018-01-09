@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/dirDataApply")
+@RequestMapping("/feedback/dirDataApply")
 public class DirDataApplyController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -34,7 +34,7 @@ public class DirDataApplyController extends BaseController {
     @Autowired
     private IDirDataItemApplyService dirDataItemApplyService;
 
-    @RequiresPermissions("apply:dirDataApply:list")
+    @RequiresPermissions("feedback:dirDataApply")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -44,7 +44,7 @@ public class DirDataApplyController extends BaseController {
     /**
      * 分页查询共享审核消息申请表
      */
-    @RequiresPermissions("apply:dirDataApply:list")
+    @RequiresPermissions("feedback:dirDataApply:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -73,14 +73,14 @@ public class DirDataApplyController extends BaseController {
     /**
      * 编辑数据项权限申请表
      */
-    @RequiresPermissions("apply:dirDataApply:edit")
+    @RequiresPermissions("feedback:dirDataApply:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id, Model model){
 		model.addAttribute("id",id);
 		return "apply/data/dirDataApplyEdit";
     }
 
-    @RequiresPermissions("apply:dirDataApply:edit")
+    @RequiresPermissions("feedback:dirDataApply:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -98,7 +98,7 @@ public class DirDataApplyController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("apply:dirDataApply:edit")
+    @RequiresPermissions("feedback:dirDataApply:edit")
     @Log("审核数据权限")
     @RequestMapping(value = "/doEdit")
     @ResponseBody
@@ -116,7 +116,7 @@ public class DirDataApplyController extends BaseController {
     /**
      * 分页查询共享审核数据项申请表
      */
-    @RequiresPermissions("apply:dirDataApply:list")
+    @RequiresPermissions("feedback:dirDataApply:list")
     @RequestMapping("/listItem")
     @ResponseBody
     public PageResult listItem(@RequestParam Map<String , Object> paramMap){

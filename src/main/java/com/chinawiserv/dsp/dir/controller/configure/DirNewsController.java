@@ -7,6 +7,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.dir.entity.vo.configure.DirNewsVo;
 import com.chinawiserv.dsp.dir.service.configure.IDirNewsService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2017-09-11
  */
 @Controller
-@RequestMapping("/dirNews")
+@RequestMapping("/portalConfig/dirNews")
 //todo 将所有的XXX修改为真实值
 public class DirNewsController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -39,7 +40,7 @@ public class DirNewsController extends BaseController {
     @Autowired
     private IDirNewsService service;
 
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("portalConfig:dirNews")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -49,7 +50,7 @@ public class DirNewsController extends BaseController {
     /**
      * 分页查询新闻表
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("portalConfig:dirNews:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -67,7 +68,7 @@ public class DirNewsController extends BaseController {
     /**
      * 新增新闻表
      */
-//    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirNews:add")
     @RequestMapping("/add")
     public  String add(){
 		return "dir/configure/news/newsAdd";
@@ -76,7 +77,7 @@ public class DirNewsController extends BaseController {
     /**
      * 执行新增
      */
-//    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirNews:add")
     @Log("创建新闻表")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -111,7 +112,7 @@ public class DirNewsController extends BaseController {
     /**
      * 删除新闻表
      */
-//    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("portalConfig:dirNews:delete")
     @Log("删除新闻表")
     @RequestMapping("/delete")
     @ResponseBody
@@ -124,7 +125,7 @@ public class DirNewsController extends BaseController {
     /**
      * 更改启用状态
      */
-//    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("portalConfig:dirNews:delete")
     @Log("更改启用状态")
     @RequestMapping("/updateStatus")
     @ResponseBody
@@ -146,14 +147,14 @@ public class DirNewsController extends BaseController {
     /**
      * 编辑新闻表
      */
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirNews:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "dir/configure/news/newsEdit";
     }
 
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirNews:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -171,7 +172,7 @@ public class DirNewsController extends BaseController {
     /**
      * 执行编辑
      */
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirNews:edit")
     @Log("编辑新闻表")
     @RequestMapping("/doEdit")
     @ResponseBody

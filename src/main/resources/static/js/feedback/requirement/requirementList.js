@@ -18,7 +18,7 @@ jQuery(document).ready(function () {
 
 function getRequirementTable(dd) {
     $(tableSelector).customTable({
-        url: basePathJS + '/drapRequirementResources/list',
+        url: basePathJS + '/feedback/drapRequirementResources/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
@@ -101,7 +101,7 @@ function getRequirementTable(dd) {
  * @param num 类型
  */
 function getData() {
-    var url = basePathJS + "/drapRequirementResources/list";
+    var url = basePathJS + "/feedback/drapRequirementResources/list";
     $.get(url,paramsObj, function (d) {
         getRequirementTable(d.rows)
     })
@@ -109,7 +109,7 @@ function getData() {
 
 
 function requirementDetail(id){
-    show('需求资源详情', basePathJS + '/drapRequirementResources/loadDetailPage', id, 900, 700);
+    show('需求资源详情', basePathJS + '/feedback/drapRequirementResources/loadDetailPage', id, 900, 700);
 }
 
 

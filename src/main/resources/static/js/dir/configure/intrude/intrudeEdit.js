@@ -39,7 +39,7 @@ function initDeptSelectDataList(){
 //初始化用户信息
 function initFormerDate(IntrudeId) {
   $.commonAjax({
-      url: basePathJS + "/dirIntrude/editLoad",
+      url: basePathJS + "/portalConfig/dirIntrude/editLoad",
       data: {id:IntrudeId},
       success: function (result) {
           if (result.state) {

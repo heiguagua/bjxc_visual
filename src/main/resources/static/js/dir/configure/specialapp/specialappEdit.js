@@ -58,7 +58,7 @@ function initDeptSelectDataList(){
 //初始化用户信息
 function initFormerDate(appId) {
     $.commonAjax({
-        url: basePathJS + "/dirSpecialApps/editLoad",
+        url: basePathJS + "/portalConfig/dirSpecialApps/editLoad",
         data: {id:appId},
         success: function (result) {
             if (result.state) {

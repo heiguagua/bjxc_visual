@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2017-09-11
  */
 @Controller
-@RequestMapping("/dirSpecialApps")
+@RequestMapping("/portalConfig/dirSpecialApps")
 //todo 将所有的XXX修改为真实值
 public class DirSpecialAppsController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -53,7 +53,7 @@ public class DirSpecialAppsController extends BaseController {
     @Autowired
     private ISysDictService service2;
 
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("portalConfig:dirSpecialApps")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -63,7 +63,7 @@ public class DirSpecialAppsController extends BaseController {
     /**
      * 分页查询专题应用表
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("portalConfig:dirSpecialApps:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -81,7 +81,7 @@ public class DirSpecialAppsController extends BaseController {
     /**
      * 新增专题应用表
      */
-//    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirSpecialApps:add")
     @RequestMapping("/add")
     public  String add(){
 		return "dir/configure/specialapp/specialappAdd";
@@ -90,7 +90,7 @@ public class DirSpecialAppsController extends BaseController {
     /**
      * 执行新增
      */
-//    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirSpecialApps:add")
     @Log("创建专题应用表")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -118,7 +118,7 @@ public class DirSpecialAppsController extends BaseController {
     /**
      * 删除专题应用表
      */
-//    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("portalConfig:dirSpecialApps:delete")
     @Log("删除专题应用表")
     @RequestMapping("/delete")
     @ResponseBody
@@ -132,14 +132,14 @@ public class DirSpecialAppsController extends BaseController {
     /**
      * 编辑专题应用表
      */
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirSpecialApps:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "dir/configure/specialapp/specialappEdit";
     }
 
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirSpecialApps:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -157,7 +157,7 @@ public class DirSpecialAppsController extends BaseController {
     /**
      * 执行编辑
      */
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirSpecialApps:edit")
     @Log("编辑专题应用表")
     @RequestMapping("/doEdit")
     @ResponseBody

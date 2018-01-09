@@ -1521,7 +1521,7 @@ function initGlobalCustom(tempUrlPrefix) {
                     
                     async: {
                     enable: true,
-                    url: basePathJS + "/dirSpecialApps/categoryTree",
+                    url: basePathJS + "/portalConfig/dirSpecialApps/categoryTree",
                     autoParam: ["parentCode"],
                     dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
                         var params = [];

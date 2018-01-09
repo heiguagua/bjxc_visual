@@ -40,7 +40,7 @@ public class DirSuggestionController extends BaseController {
     @Autowired
     private IDirSuggestionService service;
 
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("feedback:dirsuggestion")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -50,7 +50,7 @@ public class DirSuggestionController extends BaseController {
     /**
      * 分页查询咨询建议表
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("feedback:dirsuggestion:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -73,7 +73,7 @@ public class DirSuggestionController extends BaseController {
     /**
      * 新增咨询建议表
      */
-    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("feedback:dirsuggestion:add")
     @RequestMapping("/add")
     public  String add(){
 		return "XXX/XXX/XXXAdd";
@@ -82,7 +82,7 @@ public class DirSuggestionController extends BaseController {
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("feedback:dirsuggestion:add")
     @Log("创建咨询建议表")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -101,7 +101,7 @@ public class DirSuggestionController extends BaseController {
     /**
      * 删除咨询建议表
      */
-//    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("feedback:dirsuggestion:delete")
     @Log("删除咨询建议表")
     @RequestMapping("/delete")
     @ResponseBody
@@ -118,14 +118,14 @@ public class DirSuggestionController extends BaseController {
     /**
      * 编辑咨询建议表
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:dirsuggestion:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "XXX/XXX/XXXEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:dirsuggestion:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -143,7 +143,7 @@ public class DirSuggestionController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:dirsuggestion:edit")
     @Log("编辑咨询建议表")
     @RequestMapping("/doEdit")
     @ResponseBody

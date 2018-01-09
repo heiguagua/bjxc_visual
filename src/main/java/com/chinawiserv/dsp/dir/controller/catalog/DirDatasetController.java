@@ -106,36 +106,42 @@ public class DirDatasetController extends BaseController {
         return "catalog/catalogue/excelDownloadUI";
     }
 
+    @RequiresPermissions("catalog:catalogue:list")
     @RequestMapping("/catalogue")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
     	return "catalog/catalogue/catalogueList";
     }
 
+    @RequiresPermissions("catalog:registe:list")
     @RequestMapping("/registe")
     public  String registeInit(@RequestParam Map<String , Object> paramMap){
         setCurrentMenuInfo(paramMap);
         return "catalog/registe/registeList";
     }
 
+    @RequiresPermissions("catalog:audit:list")
     @RequestMapping("/audit")
     public  String auditInit(@RequestParam Map<String , Object> paramMap){
         setCurrentMenuInfo(paramMap);
         return "catalog/audit/auditList";
     }
 
+    @RequiresPermissions("catalog:audit:list")
     @RequestMapping("/auditInfo")
     public  String auditInfo(@RequestParam String id, Model model){
         model.addAttribute("id", id);
         return "catalog/audit/auditInfo";
     }
 
+    @RequiresPermissions("catalog:registe:list")
     @RequestMapping("/release")
     public  String releaseInit(@RequestParam Map<String , Object> paramMap){
         setCurrentMenuInfo(paramMap);
         return "catalog/release/releaseList";
     }
 
+    @RequiresPermissions("catalog:query:list")
     @RequestMapping("/query")
     public  String queryInit(@RequestParam Map<String , Object> paramMap){
         setCurrentMenuInfo(paramMap);
@@ -148,6 +154,7 @@ public class DirDatasetController extends BaseController {
         return "catalog/catalogue/catalogueShow";
     }
 
+    @RequiresPermissions("catalog:catalogue:list")
     @RequestMapping("/uploadInfo")
     public String uploadInit(@RequestParam String id,Model model){
         model.addAttribute("id", id);

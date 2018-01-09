@@ -6,7 +6,7 @@ $(document).ready(function(){
 function initPage(){
     var params = {id : $("#requirementId").val()};
     $.commonAjax({
-        url: basePathJS + "/drapRequirementResources/loadDetail",
+        url: basePathJS + "/feedback/drapRequirementResources/loadDetail",
         data: params,
         success: function (result) {
             if (result.state) {

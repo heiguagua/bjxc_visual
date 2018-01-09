@@ -5,7 +5,7 @@ jQuery(document).ready(function () {
     var paramsObj = {deleteFlag:0};
 
     jQuery(tableSelector).customTable({
-        url: basePathJS + '/dirPolicy/list',
+        url: basePathJS + '/portalConfig/dirPolicy/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
@@ -88,15 +88,15 @@ function reloadTable() {
 }
 
 function addUser() {
-    addPolicy('新增政策',basePathJS + '/dirPolicy/add',"70%",600);
+    addPolicy('新增政策',basePathJS + '/portalConfig/dirPolicy/add',"70%",600);
 }
 
 function editUser(id) {
-    updatePolicy('编辑政策',basePathJS + '/dirPolicy/edit' , id,"70%",600);
+    updatePolicy('编辑政策',basePathJS + '/portalConfig/dirPolicy/edit' , id,"70%",600);
 }
 
 function deleteUser(id) {
-    var url = basePathJS + "/dirPolicy/delete";
+    var url = basePathJS + "/portalConfig/dirPolicy/delete";
     var parameter = {id: id};
     delObj(url , parameter) ;
 }

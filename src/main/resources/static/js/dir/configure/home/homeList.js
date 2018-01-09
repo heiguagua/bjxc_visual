@@ -5,7 +5,7 @@ jQuery(document).ready(function () {
     var paramsObj = {deleteFlag:"0"};
     
     jQuery(tableSelector).customTable({
-        url: basePathJS + '/dirHome/list',
+        url: basePathJS + '/portalConfig/dirHome/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
@@ -96,21 +96,21 @@ function reloadTable() {
 }
 
 function addUser() {
-	addPictureNews('新增图片',basePathJS + '/dirHome/add',500,300);
+	addPictureNews('新增图片',basePathJS + '/portalConfig/dirHome/add',500,300);
 }
 
 function statusUser(id,status) {
-	var url = basePathJS + "/dirHome/updateStatus";
+	var url = basePathJS + "/portalConfig/dirHome/updateStatus";
     var parameter = {id: id,status:status};
     updateStatus(url , parameter) ;
 }
 
 function editUser(id) {
-	updateForPictureNews('编辑图片',basePathJS + '/dirHome/edit' , id,500,400);
+	updateForPictureNews('编辑图片',basePathJS + '/portalConfig/dirHome/edit' , id,500,400);
 }
 
 function deleteUser(id) {
-    var url = basePathJS + "/dirHome/delete";
+    var url = basePathJS + "/portalConfig/dirHome/delete";
     var parameter = {id: id};
     delObj(url , parameter) ;
 }

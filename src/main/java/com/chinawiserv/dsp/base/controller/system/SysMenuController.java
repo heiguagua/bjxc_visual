@@ -52,6 +52,7 @@ public class SysMenuController extends BaseController {
     @Autowired
     private ISysMenuService sysMenuService;
 
+    @RequiresPermissions("system:menu:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
         setCurrentMenuInfo(paramMap);

@@ -38,7 +38,7 @@ function initDeptSelectDataList(){
 //初始化用户信息
 function initFormerDate(policyId) {
     $.commonAjax({
-        url: basePathJS + "/dirPolicy/editLoad",
+        url: basePathJS + "/portalConfig/dirPolicy/editLoad",
         data: {id:policyId},
         success: function (result) {
             if (result.state) {

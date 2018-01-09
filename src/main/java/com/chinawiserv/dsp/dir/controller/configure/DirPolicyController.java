@@ -29,7 +29,7 @@ import java.util.Map;
  * @since 2017-09-11
  */
 @Controller
-@RequestMapping("/dirPolicy")
+@RequestMapping("/portalConfig/dirPolicy")
 //todo 将所有的XXX修改为真实值
 public class DirPolicyController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -37,7 +37,7 @@ public class DirPolicyController extends BaseController {
     @Autowired
     private IDirPolicyService service;
 
-    //@RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("portalConfig:dirPolicy")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -47,7 +47,7 @@ public class DirPolicyController extends BaseController {
     /**
      * 分页查询政策表
      */
-    //@RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("portalConfig:dirPolicy:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -65,7 +65,7 @@ public class DirPolicyController extends BaseController {
     /**
      * 新增政策表
      */
-    //@RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirPolicy:add")
     @RequestMapping("/add")
     public  String add(){
 		return "dir/configure/policy/policyAdd";
@@ -74,7 +74,7 @@ public class DirPolicyController extends BaseController {
     /**
      * 执行新增
      */
-    //@RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirPolicy:add")
     @Log("创建政策表")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -100,7 +100,7 @@ public class DirPolicyController extends BaseController {
     /**
      * 删除政策表
      */
-    //@RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("portalConfig:dirPolicy:delete")
     @Log("删除政策表")
     @RequestMapping("/delete")
     @ResponseBody
@@ -113,14 +113,14 @@ public class DirPolicyController extends BaseController {
     /**
      * 编辑政策表
      */
-    //@RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirPolicy:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "dir/configure/policy/policyEdit";
     }
 
-    //@RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirPolicy:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -138,7 +138,7 @@ public class DirPolicyController extends BaseController {
     /**
      * 执行编辑
      */
-    //@RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirPolicy:edit")
     @Log("编辑政策表")
     @RequestMapping("/doEdit")
     @ResponseBody

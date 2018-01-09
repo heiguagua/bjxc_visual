@@ -38,7 +38,7 @@ import java.util.Map;
  * @since 2017-09-11
  */
 @Controller
-@RequestMapping("/dirRegistUser")
+@RequestMapping("/feedback/dirRegistUser")
 public class DirRegistUserController extends BaseController {
     @Autowired
     ISysUserService sysUserService;
@@ -51,7 +51,7 @@ public class DirRegistUserController extends BaseController {
      * 执行编辑
      */
 
-    @RequiresPermissions("apply:registUser:list")
+    @RequiresPermissions("feedback:registUser")
     @RequestMapping("")
     public String init(@RequestParam Map<String, Object> paramMap) {
         setCurrentMenuInfo(paramMap);
@@ -89,7 +89,7 @@ public class DirRegistUserController extends BaseController {
     /**
      * 分页查询用户注册表
      */
-//    @RequiresPermissions("apply:registUser:list")
+    @RequiresPermissions("feedback:registUser:list")
     @RequestMapping(value = "/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String, Object> paramMap) {
@@ -111,7 +111,7 @@ public class DirRegistUserController extends BaseController {
     /**
      * 删除用户注册表
      */
-    @RequiresPermissions("apply:registUser:delete")
+    @RequiresPermissions("feedback:registUser:delete")
     @Log("删除用户注册表")
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
@@ -123,14 +123,14 @@ public class DirRegistUserController extends BaseController {
     /**
      * 编辑用户注册表
      */
-    @RequiresPermissions("apply:registUser:edit")
+    @RequiresPermissions("feedback:registUser:edit")
     @RequestMapping("/edit")
     public String edit(@RequestParam String id, Model model) {
         model.addAttribute("id", id);
         return "/apply/registUser/dirRegistUserList";
     }
 
-    @RequiresPermissions("apply:registUser:edit")
+    @RequiresPermissions("feedback:registUser:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public HandleResult editLoad(@RequestParam String id) {
@@ -145,7 +145,7 @@ public class DirRegistUserController extends BaseController {
         return handleResult;
     }
 
-    @RequiresPermissions("apply:registUser:edit")
+    @RequiresPermissions("feedback:registUser:edit")
     @Log("审核用户注册表")
     @RequestMapping(value = "/doEdit", method = RequestMethod.PUT)
     @ResponseBody

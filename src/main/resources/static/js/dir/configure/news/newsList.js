@@ -5,7 +5,7 @@ jQuery(document).ready(function () {
     var paramsObj = {deleteFlag:"0"};
     
     jQuery(tableSelector).customTable({
-        url: basePathJS + '/dirNews/list',
+        url: basePathJS + '/portalConfig/dirNews/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
@@ -110,21 +110,21 @@ function reloadTable() {
 }
 
 function addUser() {
-	addPictureNews('新增图片',basePathJS + '/dirNews/add',"70%",600);
+	addPictureNews('新增图片',basePathJS + '/portalConfig/dirNews/add',"70%",600);
 }
 
 function statusUser(id,status) {
-	var url = basePathJS + "/dirNews/updateStatus";
+	var url = basePathJS + "/portalConfig/dirNews/updateStatus";
     var parameter = {id: id,status:status};
     updateStatus(url , parameter) ;
 }
 
 function editUser(id) {
-	updateForPictureNews('编辑图片',basePathJS + '/dirNews/edit' , id,"70%",600);
+	updateForPictureNews('编辑图片',basePathJS + '/portalConfig/dirNews/edit' , id,"70%",600);
 }
 
 function deleteUser(id) {
-    var url = basePathJS + "/dirNews/delete";
+    var url = basePathJS + "/portalConfig/dirNews/delete";
     var parameter = {id: id};
     delObj(url , parameter) ;
 }

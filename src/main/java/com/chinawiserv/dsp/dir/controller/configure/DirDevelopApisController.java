@@ -12,6 +12,7 @@ import com.chinawiserv.dsp.dir.entity.vo.configure.DirNewsVo;
 import com.chinawiserv.dsp.dir.mapper.configure.DirDevelopApisMapper;
 import com.chinawiserv.dsp.dir.service.configure.IDirDevelopApisService;
 import net.sf.json.JSONObject;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2017-09-11
  */
 @Controller
-@RequestMapping("/dirDevelopApis")
+@RequestMapping("/portalConfig/dirDevelopApis")
 //todo 将所有的XXX修改为真实值
 public class DirDevelopApisController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -49,7 +50,7 @@ public class DirDevelopApisController extends BaseController {
     @Autowired
     private DirDevelopApisMapper mapper;
 
-//    @RequiresPermissions("dirDevelopApis:list")
+    @RequiresPermissions("portalConfig:dirDevelopApis")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -59,7 +60,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 分页查询开发者工具
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("portalConfig:dirDevelopApis:list")
     @RequestMapping("/list")
     @ResponseBody
     public JSONObject loadZtree(@RequestParam Map<String , Object> paramMap){
@@ -83,7 +84,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 分页查询api表
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("portalConfig:dirDevelopApis:list")
     @RequestMapping("/subList")
     @ResponseBody
     public PageResult subList(@RequestParam Map<String , Object> paramMap){
@@ -105,7 +106,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 新增开发者工具
      */
-//    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirDevelopApis:add")
     @RequestMapping("/add")
     public  String add(@RequestParam String parentId, Model model){
     	model.addAttribute("parentId",parentId);
@@ -115,7 +116,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 执行新增
      */
-//    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("portalConfig:dirDevelopApis:add")
     @Log("创建开发者工具")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -143,7 +144,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 删除开发者工具
      */
-//    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("portalConfig:dirDevelopApis:delete")
     @Log("删除开发者工具")
     @RequestMapping("/delete")
     @ResponseBody
@@ -176,14 +177,14 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 编辑开发者工具
      */
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirDevelopApis:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "dir/configure/api/apiEdit";
     }
 
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirDevelopApis:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -201,7 +202,7 @@ public class DirDevelopApisController extends BaseController {
     /**
      * 执行编辑
      */
-//    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("portalConfig:dirDevelopApis:edit")
     @Log("编辑开发者工具")
     @RequestMapping("/doEdit")
     @ResponseBody

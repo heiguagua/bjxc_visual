@@ -6,7 +6,7 @@ jQuery(document).ready(function () {
     var paramsObj = {deleteFlag:0};
     
     jQuery(tableSelector).customTable({
-        url: basePathJS + '/dirSpecialApps/list',
+        url: basePathJS + '/portalConfig/dirSpecialApps/list',
         queryParams: function (params) {
             return $.extend(params, paramsObj);
         },
@@ -91,15 +91,15 @@ function reloadTable() {
 }
 
 function addUser() {
-	addPictureNews('新增应用',basePathJS + '/dirSpecialApps/add');
+	addPictureNews('新增应用',basePathJS + '/portalConfig/dirSpecialApps/add');
 }
 
 function editUser(id) {
-	updateForPictureNews('编辑应用',basePathJS + '/dirSpecialApps/edit' , id);
+	updateForPictureNews('编辑应用',basePathJS + '/portalConfig/dirSpecialApps/edit' , id);
 }
 
 function deleteUser(id) {
-    var url = basePathJS + "/dirSpecialApps/delete";
+    var url = basePathJS + "/portalConfig/dirSpecialApps/delete";
     var parameter = {id: id};
     delObj(url , parameter) ;
 }

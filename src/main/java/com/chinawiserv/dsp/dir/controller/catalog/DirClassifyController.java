@@ -66,7 +66,7 @@ public class DirClassifyController extends BaseController {
 	@Autowired
 	private ISysRegionService sysRegionService;
 	
-//	@RequiresPermissions("XXX:XXX:list")
+	@RequiresPermissions("catalog:classify")
 	@RequestMapping("")
 	public String init(@RequestParam Map<String, Object> paramMap) {
 		setCurrentMenuInfo(paramMap);
@@ -99,7 +99,7 @@ public class DirClassifyController extends BaseController {
 	/**
 	 * 新增目录分类表
 	 */
-//	@RequiresPermissions("XXX:XXX:add")
+	@RequiresPermissions("catalog:classify:add")
 	@RequestMapping("/add")
 	public String add(@RequestParam String fid, Model model) {		 
 		model.addAttribute("fid",fid);
@@ -110,6 +110,7 @@ public class DirClassifyController extends BaseController {
 	/**
 	 * 新增目录分类表
 	 */
+	@RequiresPermissions("catalog:classify:add")
 	@RequestMapping("/addNational")
 	public String addNational(@RequestParam String fid, @RequestParam String classifyType, Model model) {		 
 		model.addAttribute("fid",fid);
@@ -120,7 +121,7 @@ public class DirClassifyController extends BaseController {
 	/**
 	 * 执行新增
 	 */
-//	@RequiresPermissions("XXX:XXX:add")
+	@RequiresPermissions("catalog:classify:add")
 	@Log("创建目录分类表")
 	@RequestMapping("/doAdd")
 	@ResponseBody
@@ -218,7 +219,7 @@ public class DirClassifyController extends BaseController {
 	/**
 	 * 删除目录分类表
 	 */
-//	@RequiresPermissions("XXX:XXX:delete")
+	@RequiresPermissions("catalog:classify:delete")
 	@Log("删除目录分类表")
 	@RequestMapping("/delete")
 	@ResponseBody
@@ -239,14 +240,14 @@ public class DirClassifyController extends BaseController {
 	/**
 	 * 编辑目录分类表
 	 */
-//	@RequiresPermissions("XXX:XXX:edit")
+	@RequiresPermissions("catalog:classify:edit")
 	@RequestMapping("/edit")
 	public String edit(@RequestParam String id, Model model) {
 		model.addAttribute("id", id);
 		return "catalog/classify/classifyEdit";
 	}
 
-	// @RequiresPermissions("XXX:XXX:edit")
+	@RequiresPermissions("catalog:classify:edit")
 	@RequestMapping("/editLoad")
 	@ResponseBody
 	public HandleResult editLoad(@RequestParam String id) {
@@ -265,7 +266,7 @@ public class DirClassifyController extends BaseController {
 	/**
 	 * 执行编辑
 	 */
-//	@RequiresPermissions("XXX:XXX:edit")
+	@RequiresPermissions("catalog:classify:edit")
 	@Log("编辑目录分类表")
 	@RequestMapping("/doEdit")
 	@ResponseBody

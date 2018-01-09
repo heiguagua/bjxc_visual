@@ -53,7 +53,7 @@ function initDeptSelectDataList(){
 //初始化用户信息
 function initFormerDate(apiId) {
     $.commonAjax({
-        url: basePathJS + "/dirDevelopApis/editLoad",
+        url: basePathJS + "/portalConfig/dirDevelopApis/editLoad",
         data: {id:apiId},
         success: function (result) {
             if (result.state) {
@@ -125,7 +125,7 @@ function initRoleNameList(){
     });
 }
 function deleteUser(id) {
-    var url = basePathJS + "/dirDevelopApis/delete";
+    var url = basePathJS + "/portalConfig/dirDevelopApis/delete";
     var parameter = {id: id};
     delObj(url , parameter) ;
 }

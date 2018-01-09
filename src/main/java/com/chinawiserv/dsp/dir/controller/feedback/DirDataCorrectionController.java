@@ -40,7 +40,7 @@ public class DirDataCorrectionController extends BaseController {
     @Autowired
     private IDirDataCorrectionService service;
 
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("feedback:dirdatacorrection")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -50,7 +50,7 @@ public class DirDataCorrectionController extends BaseController {
     /**
      * 分页查询数据纠错记录
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("feedback:dirdatacorrection:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -78,6 +78,7 @@ public class DirDataCorrectionController extends BaseController {
     /**
      * 查询数据集纠错详情
      */
+    @RequiresPermissions("feedback:dirdatacorrection:list")
     @RequestMapping("/detail")
     @ResponseBody
     public PageResult detail(@RequestParam Map<String , Object> paramMap){
@@ -95,7 +96,7 @@ public class DirDataCorrectionController extends BaseController {
     /**
      * 新增数据纠错记录
      */
-    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("feedback:dirdatacorrection:add")
     @RequestMapping("/add")
     public  String add(){
 		return "XXX/XXX/XXXAdd";
@@ -104,7 +105,7 @@ public class DirDataCorrectionController extends BaseController {
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("feedback:dirdatacorrection:add")
     @Log("创建数据纠错记录")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -123,7 +124,7 @@ public class DirDataCorrectionController extends BaseController {
     /**
      * 删除数据纠错记录
      */
-    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("feedback:dirdatacorrection:delete")
     @Log("删除数据纠错记录")
     @RequestMapping("/delete")
     @ResponseBody
@@ -136,14 +137,14 @@ public class DirDataCorrectionController extends BaseController {
     /**
      * 编辑数据纠错记录
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:dirdatacorrection:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "XXX/XXX/XXXEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:dirdatacorrection:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -161,7 +162,7 @@ public class DirDataCorrectionController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:dirdatacorrection:edit")
     @Log("编辑数据纠错记录")
     @RequestMapping("/doEdit")
     @ResponseBody

@@ -40,7 +40,7 @@ public class DirDataRateController extends BaseController {
     @Autowired
     private IDirDataRateService service;
 
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("feedback:dirdatarate")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
 		setCurrentMenuInfo(paramMap);
@@ -50,7 +50,7 @@ public class DirDataRateController extends BaseController {
     /**
      * 分页查询数据集评分记录
      */
-//    @RequiresPermissions("XXX:XXX:list")
+    @RequiresPermissions("feedback:dirdatarate:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){
@@ -78,6 +78,7 @@ public class DirDataRateController extends BaseController {
     /**
      * 查询数据集评分详情
      * */
+    @RequiresPermissions("feedback:dirdatarate:list")
     @RequestMapping("/detail")
     @ResponseBody
     public PageResult detail(@RequestParam Map<String , Object> paramMap){
@@ -95,7 +96,7 @@ public class DirDataRateController extends BaseController {
     /**
      * 新增数据集评分记录
      */
-    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("feedback:dirdatarate:add")
     @RequestMapping("/add")
     public  String add(){
 		return "XXX/XXX/XXXAdd";
@@ -104,7 +105,7 @@ public class DirDataRateController extends BaseController {
     /**
      * 执行新增
      */
-    @RequiresPermissions("XXX:XXX:add")
+    @RequiresPermissions("feedback:dirdatarate:add")
     @Log("创建数据集评分记录")
     @RequestMapping("/doAdd")
     @ResponseBody
@@ -123,7 +124,7 @@ public class DirDataRateController extends BaseController {
     /**
      * 删除数据集评分记录
      */
-    @RequiresPermissions("XXX:XXX:delete")
+    @RequiresPermissions("feedback:dirdatarate:delete")
     @Log("删除数据集评分记录")
     @RequestMapping("/delete")
     @ResponseBody
@@ -136,14 +137,14 @@ public class DirDataRateController extends BaseController {
     /**
      * 编辑数据集评分记录
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:dirdatarate:edit")
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
 		model.addAttribute("id",id);
 		return "XXX/XXX/XXXEdit";
     }
 
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:dirdatarate:edit")
     @RequestMapping("/editLoad")
     @ResponseBody
     public  HandleResult editLoad(@RequestParam String id){
@@ -161,7 +162,7 @@ public class DirDataRateController extends BaseController {
     /**
      * 执行编辑
      */
-    @RequiresPermissions("XXX:XXX:edit")
+    @RequiresPermissions("feedback:dirdatarate:edit")
     @Log("编辑数据集评分记录")
     @RequestMapping("/doEdit")
     @ResponseBody

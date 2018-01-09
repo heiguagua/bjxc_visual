@@ -69,13 +69,13 @@
 	    </property>
 	</bean>
 	
-	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+	<!--<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 	
-	<!-- Enable Shiro Annotations for Spring-configured beans.  Only run after -->
-	<!-- the lifecycleBeanProcessor has run: -->
+	&lt;!&ndash; Enable Shiro Annotations for Spring-configured beans.  Only run after &ndash;&gt;
+	&lt;!&ndash; the lifecycleBeanProcessor has run: &ndash;&gt;
 	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
 		<property name="proxyTargetClass" value="true"/>
-	</bean>
+	</bean>-->
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 		<property name="securityManager" ref="securityManager"/>
 	</bean>

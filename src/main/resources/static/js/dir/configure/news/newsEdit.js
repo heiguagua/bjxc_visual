@@ -49,7 +49,7 @@ function initDeptSelectDataList(){
 //初始化用户信息
 function initFormerDate(newsId) {
     $.commonAjax({
-        url: basePathJS + "/dirNews/editLoad",
+        url: basePathJS + "/portalConfig/dirNews/editLoad",
         data: {id:newsId},
         success: function (result) {
             if (result.state) {
