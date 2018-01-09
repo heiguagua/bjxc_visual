@@ -6,13 +6,6 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <script src="<%=context_path%>/js/catalog/catalogue/catalogueAdd.js"></script>
 </head>
-<style>
-.n-top, .n-right, .n-bottom, .n-left{
-	     position: absolute;
-    bottom: 0;
-    left: 0 
-}
-</style>
 <body>
 <section class="content">
     <div id="catalogueTableEditLayer">
@@ -192,11 +185,14 @@
                         <div class="col-sm-6">
                             <label for="shareType" class="col-sm-3 control-label">共享类型<span class="redStar">*</span>:</label>
                             <div class="col-sm-9">
-                                <select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" data-rule="共享类型:required;">
-                                </select>
-                                <div id="shareMethodDiv">
+                           		<div class="col-sm-4" style="padding-left:0">
+					                 <select class="form-control" id="shareType" name="shareType"  data-rule="共享类型:required;">
+	                                </select>
+			                    </div>
+                                
+                                <div id="shareMethodDiv"  class="col-sm-8" style="padding-right:0;padding-left: 0;">
                                     <label for="shareMethod" class="col-sm-4 control-label">共享方式:</label>
-                                    <div class="col-sm-5" style="padding:0">
+                                    <div class="col-sm-8" style="padding:0">
                                         <select class="form-control" id="shareMethod" name="shareMethod">
                                         </select>
                                     </div>
