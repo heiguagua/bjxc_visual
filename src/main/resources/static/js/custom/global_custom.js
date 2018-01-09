@@ -2139,6 +2139,8 @@ function initGlobalCustom(tempUrlPrefix) {
                                 $("#chargeDeptId").val(treeNode.id);
                             }
                             if(initBelongDeptTypeTreeParam && initBelongDeptTypeTreeParam.length>0){
+                                $("#"+initBelongDeptTypeTreeParam[1]).val(""); //如果科室已经选过值了，当部门重新选值时，需要把科室的值置空
+                                $("#"+initBelongDeptTypeTreeParam[2]).val("");
                                 $.initSubDeptTreeSelect(initBelongDeptTypeTreeParam[0],initBelongDeptTypeTreeParam[1],
                                     initBelongDeptTypeTreeParam[2],initBelongDeptTypeTreeParam[3],{fid:treeNode.id});
                             }
