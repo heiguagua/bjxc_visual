@@ -78,10 +78,13 @@ function initInputValue(){
                     $("#openedStructureCount").val(obj.survey.openedStructureCount);
                 }
                 //生成信息项
+                if(obj.sourceType == '2' || obj.sourceType == '5'){
+                    $("#firstTh").before("<th>字段名</th>");
+                }
                 var itemList = obj.items;
                 for (var i in itemList){
                     var thisTrNum = getTrNum();
-                    buildItem(thisTrNum,itemList[i]);
+                    buildItem(thisTrNum,itemList[i],obj.sourceType);
                 }
             }
         }
@@ -104,31 +107,30 @@ function getTrNum(){
     return thisTrNum;
 }
 
-function buildItem(thisTrNum,data){
-    var str='<tr id="tr_'+thisTrNum+'">'
-        +'<td><input readonly value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" type="text" class="form-control"></td>'
+function buildItem(thisTrNum,data,sourceType){
+    var str2 = "";
+    if(sourceType == '2' || sourceType == '5'){
+        str2 = '<td><input readonly trNum='+thisTrNum+' value="'+(data.columnName?data.columnName:'')+'" data-rule="字段名:required;" disabled type="text" class="form-control"></td>';
+    }
+    var str1='<tr id="tr_'+thisTrNum+'">';
+    var str3='<td><input readonly value="'+data.itemName+'" name="items['+thisTrNum+'].itemName" type="text" class="form-control"></input></td>'
         +'<td><input readonly title="'+Dict.label("dataitemType",data.itemType)+'" value="'+Dict.label("dataitemType",data.itemType)+'"  type="text" class="form-control"></input></td>'
-        // +'<td><select readonly name="items['+thisTrNum+'].itemType"  class="form-control">'+Dict.selectsDom("dataitemType",data.itemType?data.itemType:'')+'</select></td>'
         +'<td><input readonly name="items['+thisTrNum+'].itemLength"  type="number" value="'+(data.itemLength?data.itemLength:'')+'" min="1" type="text" class="form-control"></td>'
         +'<td><input type="hidden" name="items['+thisTrNum+'].belongDeptId" value="'+(data.belongDept?data.belongDept:'')+'"><input class="form-control" type="text" readonly title="'+(data.deptName?data.deptName:'')+'" value="'+(data.deptName?data.deptName:'')+'" ></td>'
-        //+'<td><input class="form-control" type="text" disabled value="'+(data.dataset_name?data.dataset_name:'')+'"></td>'
-        //+'<td><input type="hidden" name="items['+thisTrNum+'].belongSystemId" value="'+(data.system_id?data.system_id:'')+'"> <input class="form-control" type="text" disabled value="'+(data.system_name?data.system_name:'')+'" > </td>'
         +'<td><input readonly title="'+Dict.label("isSecret",data.secretFlag == null ? "" : data.secretFlag.toString())+'" value="'+Dict.label("isSecret",data.secretFlag == null ? "" : data.secretFlag.toString())+'"  type="text" class="form-control"></input></td>'
-        // +'<td><select readonly name="items['+thisTrNum+'].secretFlag" class="form-control"><option value="1">是</option><option value="0">否</option></select></td>'
         +'<td><input readonly title="'+Dict.label("dataSetShareType",data.shareType)+'" value="'+Dict.label("dataSetShareType",data.shareType)+'"  type="text" class="form-control"></input></td>'
-        // +'<td><select readonly name="items['+thisTrNum+'].shareType" class="form-control">'+Dict.selectsDom("dataSetShareType",data.shareType?data.shareType:'')+'</select></td>'
         +'<td><input readonly class="form-control" type="text" name="items['+thisTrNum+'].shareCondition" value="'+(data.shareCondition?data.shareCondition:'')+'"></td>'
         +'<td><input readonly title="'+Dict.label("dataSetShareMethod",data.shareMethod)+'" value="'+Dict.label("dataSetShareMethod",data.shareMethod)+'"  type="text" class="form-control"></input></td>'
-        // +'<td><select readonly name="items['+thisTrNum+'].shareMethod"  class="form-control">'+Dict.selectsDom("dataSetShareMethod",data.shareMethod?data.shareMethod:'')+'</select></td>'
         +'<td><input readonly  value="'+Dict.label("ordinary",data.isOpen)+'"  type="text" class="form-control"></input></td>'
-        // +'<td><select readonly name="items['+thisTrNum+'].isOpen" class="form-control"><option value="1" selected>是</option><option value="0" >否</option></select></td>'
         +'<td><input readonly name="items['+thisTrNum+'].openCondition" type="text" class="form-control" value="'+(data.openCondition?data.openCondition:'')+'"></td>'
         +'<td><input readonly title="'+Dict.label("setItemStoreLocation",data.storageLocation)+'" value="'+Dict.label("setItemStoreLocation",data.storageLocation)+'"  type="text" class="form-control"></input></td>'
-        // +'<td><select readonly name="items['+thisTrNum+'].storageLocation"  class="form-control">'+Dict.selectsDom("setItemStoreLocation",data.storageLocation?data.storageLocation:'')+'</select></td>'
         +'<td><input readonly title="'+Dict.label("setItemFrequency",data.updateFrequency)+'" value="'+Dict.label("setItemFrequency",data.updateFrequency)+'"  type="text" class="form-control"></input></td>'
-        // +'<td><select readonly name="items['+thisTrNum+'].updateFrequency"  class="form-control">'+Dict.selectsDom("setItemFrequency",data.updateFrequency?data.updateFrequency:'')+'</select></td>'
-        +'<td><input  readonly name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></td></tr>';
-    $('#dataitemList').prepend(str)
+        +'<td><input readonly name="items['+thisTrNum+'].itemDesc" type="text" class="form-control" value="'+(data.itemDesc?data.itemDesc:'')+'"></input></td></tr>';
+    if(str2 != ""){
+        $('#dataitemList').prepend(str1+str2+str3);
+    }else{
+        $('#dataitemList').prepend(str1+str3);
+    }
 }
 
 

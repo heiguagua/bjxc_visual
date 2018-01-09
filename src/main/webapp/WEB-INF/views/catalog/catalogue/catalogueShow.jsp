@@ -273,7 +273,7 @@ div.layui-layer-iframe{
                     <table style="width:135%" class="table-striped">
                         <thead>
                         <tr class='table_title_tr'>
-                            <th>信息项名称</th>
+                            <th id="firstTh">信息项名称</th>
                             <th>类型</th>
                             <th>长度</th>
                             <th style="width: 150px;">责任部门<span class="redStar">*</span></th>
