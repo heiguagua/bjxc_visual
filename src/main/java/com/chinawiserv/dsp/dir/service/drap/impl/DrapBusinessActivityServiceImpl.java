@@ -9,6 +9,7 @@ import com.chinawiserv.dsp.dir.entity.po.drap.DrapActivityRelDepts;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapActivitySystemMap;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessActivity;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessDoc;
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessActivityVo;
 import com.chinawiserv.dsp.dir.mapper.drap.DrapActivityDocItemMapper;
 import com.chinawiserv.dsp.dir.mapper.drap.DrapActivityDocMapMapper;
@@ -103,8 +104,8 @@ public class DrapBusinessActivityServiceImpl extends CommonServiceImpl<DrapBusin
 	}
 
 	@Override
-	public void updateBusinessStatus(Map<String, Object> param) throws Exception {
-		this.drapBusinessActivityMapper.updateBusinessStatus(param);
+	public void updateBusinessStatus(AuditEntity auditEntity) throws Exception {
+		this.drapBusinessActivityMapper.updateBusinessStatus(auditEntity);
 	}
 
 	/*

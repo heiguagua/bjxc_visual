@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessActivity;
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessActivityVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
@@ -21,5 +22,5 @@ public interface IDrapBusinessActivityService extends ICommonService<DrapBusines
 
 	void deleteBusinessData(Map<String, Object> dataObj) throws Exception;
 
-    void updateBusinessStatus(Map<String, Object> param) throws Exception;
+    void updateBusinessStatus(AuditEntity auditEntity) throws Exception;
 }

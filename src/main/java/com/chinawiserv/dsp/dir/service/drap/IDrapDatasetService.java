@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.dir.service.drap;
 
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset;
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
@@ -19,4 +20,6 @@ public interface IDrapDatasetService extends ICommonService<DrapDataset, DrapDat
     void insertDataset(Map<String, Object> dataObj) throws Exception ;
 
 	void deleteDataset(Map<String, Object> dataObj) throws Exception ;
+
+    void updateDatasetStatus(AuditEntity auditEntity) throws Exception ;
 }

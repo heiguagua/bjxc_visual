@@ -1,11 +1,13 @@
 package com.chinawiserv.dsp.dir.controller.drap;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetVo;
 import com.chinawiserv.dsp.dir.service.drap.IDrapDatasetService;
 import org.apache.commons.collections.MapUtils;
@@ -192,5 +194,27 @@ public class DrapDatasetController extends BaseController {
             return "500";
         }
     }
-    
+
+    /**
+     * 删除drap的业务数据
+     */
+    @RequestMapping("/api/receiveDatasetStatus")
+    @ResponseBody
+    public Object receiveDatasetStatus(@RequestParam Map<String,Object> paramMap){
+        try {
+            if(paramMap !=null && !paramMap.isEmpty()){
+                String data = MapUtils.getString(paramMap, "data");
+                AuditEntity auditEntity = JSONObject.parseObject(data, AuditEntity.class);
+                service.updateDatasetStatus(auditEntity);
+                return "200";
+            }else{
+                return "500";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("接收梳理的信息资源数据失败", e);
+            return "500";
+        }
+    }
+
 }

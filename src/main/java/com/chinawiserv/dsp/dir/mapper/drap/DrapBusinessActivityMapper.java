@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.dir.mapper.drap;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapBusinessActivity;
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapBusinessActivityVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -34,5 +35,5 @@ public interface DrapBusinessActivityMapper extends BaseMapper<DrapBusinessActiv
 
 	int batchInsertPO(List<DrapBusinessActivity> drapBusinessActivityPos);
 
-    void updateBusinessStatus(Map<String, Object> param);
+    void updateBusinessStatus(AuditEntity auditEntity);
 }

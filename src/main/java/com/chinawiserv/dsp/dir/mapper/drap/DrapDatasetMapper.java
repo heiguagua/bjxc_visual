@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.dir.mapper.drap;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset;
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetVo;
 
 import java.util.List;
@@ -35,4 +36,6 @@ public interface DrapDatasetMapper extends BaseMapper<DrapDataset> {
     void batchInsert(List<DrapDatasetVo> drapDatasetList);
 
 	Set<String> selectIdsBydDatasetIds(List<String> datasetIds);
+
+    void updateDatasetStatus(AuditEntity auditEntity);
 }

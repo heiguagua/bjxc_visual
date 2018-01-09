@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
 import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -215,13 +216,8 @@ public class DrapBusinessActivityController extends BaseController {
 		try {
 			if(paramMap !=null && !paramMap.isEmpty()){
 				String data = MapUtils.getString(paramMap, "data");
-				Map<String, Object> param = (Map<String, Object>)JSONObject.parse(data);
-				String auditoTime = MapUtils.getString(param,"auditTime");
-				param.put("auditTime", new Date(Long.parseLong(auditoTime)));
-//				List<String> ids = JSONObject.parseArray(MapUtils.getString(map,"ids"),String.class);
-//				String status = MapUtils.getString(map,"status");
-//				Map<String, Object> param = MapUtils.getMap(map,"param");
-				this.service.updateBusinessStatus(param);
+				AuditEntity auditEntity = JSONObject.parseObject(data, AuditEntity.class);
+				this.service.updateBusinessStatus(auditEntity);
 			}
 //    		result.put("status", "200");
 			return "200";

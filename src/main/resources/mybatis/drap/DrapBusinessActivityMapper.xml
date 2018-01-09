@@ -274,16 +274,13 @@
         </foreach>
     </insert>
 
-    <update id="updateBusinessStatus">
+    <update id="updateBusinessStatus" parameterType="com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity">
         update drap_business_activity set
         status = #{status},
         auditor = #{auditor},
         audit_time = #{auditTime},
         audit_opinion = #{auditOpinion}
-        where id in
-        <foreach collection="ids" item="item" open="(" close=")" separator=",">
-            #{item}
-        </foreach>
+        where id in ($(ids))
     </update>
 
 </mapper>

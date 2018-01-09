@@ -10,6 +10,7 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.*;
 import com.chinawiserv.dsp.dir.entity.po.drap.*;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDataset;
 import com.chinawiserv.dsp.dir.entity.po.drap.DrapDatasetItem;
+import com.chinawiserv.dsp.dir.entity.vo.drap.AuditEntity;
 import com.chinawiserv.dsp.dir.entity.vo.drap.DrapDatasetVo;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.*;
@@ -316,7 +317,12 @@ public class DrapDatasetServiceImpl extends CommonServiceImpl<DrapDatasetMapper,
 			drapDatasetItemMapMapper.deleteBatchIds(getIdList(drapDatasetItemMapList));
 		}
 	}
-	
+
+	@Override
+	public void updateDatasetStatus(AuditEntity auditEntity) throws Exception {
+		drapDatasetMapper.updateDatasetStatus(auditEntity);
+	}
+
 	private List<String> getIdList(List<?> pos)throws Exception {
 		List<String> idList = Lists.newArrayList();
 		for(int i = 0 ; i < pos.size() ; i++){
