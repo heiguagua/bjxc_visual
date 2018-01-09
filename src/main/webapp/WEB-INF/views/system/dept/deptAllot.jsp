@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                         <label for="fid" class="control-label col-sm-4 col-xs-4">父组织机构名称<i style="color: red">*</i></label>
                                         <div class="col-sm-7 col-xs-7">
-                                            <input type="text" id="fname" class="form-control" readonly>
+                                            <input type="text" id="fname" class="form-control" name="fname" readonly>
                                         </div>
                                     </div>
                                 </div>
