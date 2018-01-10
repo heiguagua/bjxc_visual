@@ -7,8 +7,6 @@
         <mapperLocations>mybatis/*/*Mapper.xml</mapperLocations>
         <mapperPackages>com.chinawiserv.dsp.base.mapper,com.chinawiserv.dsp.dir.mapper</mapperPackages>
         <idType>3</idType>
-        <globalCache>false</globalCache>
-        <mysqlCache>true</mysqlCache>
     </mybatis-config>
 
 </mybatis-configs>

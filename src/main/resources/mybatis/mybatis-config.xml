@@ -24,7 +24,6 @@
     </typeAliases>
     
      <plugins>
-        <plugin interceptor="com.chinawiserv.apps.mybaits.interceptor.MybatisCacheClearInterceptor" />
         <plugin interceptor="com.chinawiserv.apps.mybaits.interceptor.MybatisCachePaginationInterceptor" />
     </plugins>
 
