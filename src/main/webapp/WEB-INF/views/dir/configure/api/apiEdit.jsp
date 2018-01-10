@@ -14,7 +14,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-12">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/dirDevelopApis/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/portalConfig/dirDevelopApis/doEdit">
                         <input id="apiId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                            <div class="form-group">

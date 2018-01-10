@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <form role="form" enctype="multipart/form-data" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=context_path%>/dirDevelopApis/doAdd">
+                          method="post" action="<%=context_path%>/portalConfig/dirDevelopApis/doAdd">
                         <div class="box-body">
                         	<input id="parentId" type="hidden" value="${parentId}" name="parentId" />
                             <div class="form-group">

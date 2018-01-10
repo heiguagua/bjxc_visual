@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" 
-                           action="<%=context_path%>/dirHome/doAdd" method="post" enctype="multipart/form-data" id="uploadNewsP">
+                           action="<%=context_path%>/portalConfig/dirHome/doAdd" method="post" enctype="multipart/form-data" id="uploadNewsP">
                         <div class="box-body">
                             <div class="form-group col-md-12">
                                 <label for="choosePic">图片<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>

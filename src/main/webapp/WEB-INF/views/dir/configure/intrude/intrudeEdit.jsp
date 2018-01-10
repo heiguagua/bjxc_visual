@@ -15,7 +15,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/dirIntrude/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/portalConfig/dirIntrude/doEdit">
                         <input id="IntrudeId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                         <div class="form-group">  

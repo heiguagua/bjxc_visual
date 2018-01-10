@@ -13,7 +13,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/dirSpecialApps/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/portalConfig/dirSpecialApps/doEdit">
                         <input id="appId" type="hidden" value="${id}" name="Id" />
                         <div class="box-body">
                            <div class="form-group">

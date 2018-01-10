@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <form role="form" 
-                           action="<%=context_path%>/dirNews/doAdd" method="post" enctype="multipart/form-data" id="uploadNewsP" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}">
+                           action="<%=context_path%>/portalConfig/dirNews/doAdd" method="post" enctype="multipart/form-data" id="uploadNewsP" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true, msgClass: 'n-bottom'}">
                         <div class="box-body">
                             <div class="form-group col-md-12">
                                 <label for="choosePic">图片<span class='require-sign'>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>

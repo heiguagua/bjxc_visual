@@ -43,7 +43,7 @@ div.bootstrap-table div.fixed-table-container>div.fixed-table-body{
             </div>
         </div>
         <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-              method="post" action="<%=context_path%>/dirDataApply/doEdit">
+              method="post" action="<%=context_path%>/feedback/dirDataApply/doEdit">
             <input type="hidden" id="dirDataApplyId" value="${id}" name="id"/>
             <input type="hidden" id="dirDataItemApply" value="" name="dirDataItemApply"/>
             <div class="toolbar">

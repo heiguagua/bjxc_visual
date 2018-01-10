@@ -16,7 +16,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" enctype="multipart/form-data" action="<%=context_path%>/dirHome/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" enctype="multipart/form-data" action="<%=context_path%>/portalConfig/dirHome/doEdit">
                         <input id="homeId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                            <div class="form-group col-md-12">

@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
-                          method="post" action="<%=context_path%>/dirIntrude/doAdd">
+                          method="post" action="<%=context_path%>/portalConfig/dirIntrude/doAdd">
                         <div class="box-body">
                             
                            
