@@ -80,8 +80,8 @@
                                            <!-- <span class="caret"></span> -->
                                         </button>
                                          <ul class="dropdown-menu" role="menu" style="left:-21px;text-align:center;">
-                                                    <li><a  style="width: 100%;" onclick="quickSystemAddDatasetUI()" href="###">信息系统</a></li>
-                                                    <li><a  style="width: 100%;" onclick="quickAddDatasetUI()" href="###">信息资源</a></li>
+                                                    <li><a  style="width: 100%;" onclick="quickSystemAddDatasetUI()" href="###">从梳理系统(系统)</a></li>
+                                                    <li><a  style="width: 100%;" onclick="quickAddDatasetUI()" href="###">从梳理系统(资源)</a></li>
                                                     <li><a  style="width: 100%;" onclick="quickCsAddDatasetUI()" href="###">从采集系统(爬虫)</a></li>
                                                     <li><a  style="width: 100%;" onclick="quickSystemAddDatasetUI()" href="###">从采集系统(关系型)</a></li>
                                                     <li><a  style="width: 100%;" onclick="quickSystemAddDatasetUI()" href="###">从采集系统(非关系型)</a></li>
