@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.base.common.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.IpUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysLog;
@@ -53,6 +54,7 @@ public class LogAdvice {
 		SysUser loginUser = ShiroUtils.getLoginUser();
 		if(log != null){
 			SysLog sysLog = new SysLog();
+			sysLog.setId(CommonUtil.get32UUID());
 			sysLog.setOperatorId((loginUser != null )? loginUser.getId() : "systemUserId");
 			sysLog.setOperateTime(new Date());
 			sysLog.setRegionCode(loginUser == null ? "" : loginUser.getRegionCode());
