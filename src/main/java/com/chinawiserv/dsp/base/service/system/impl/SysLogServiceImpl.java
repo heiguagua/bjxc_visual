@@ -21,6 +21,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * <p>
@@ -45,6 +46,7 @@ public class SysLogServiceImpl extends CommonServiceImpl<SysLogMapper, SysLog , 
 
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SysLog sysLog  =new SysLog();
+		sysLog.setId(CommonUtil.get32UUID());
 		sysLog.setOperateIp(IpUtil.getIpAddr(request));
 		sysLog.setOperatorId(sysUser.getId());
 		sysLog.setOperateTime(new Date());
