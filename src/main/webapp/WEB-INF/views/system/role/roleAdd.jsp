@@ -75,7 +75,7 @@
                                 <span class="radio-inline" style="padding: 4px 0 0 16px;">
                                     <input name="status" type="radio" class="minimal" checked value="1"> 启用
                                 </span>
-                                    <span  class="radio-inline pdl0">
+                                    <span  class="radio-inline pdl0" style="padding: 4px 0 0 16px;">
                                     <input name="status" type="radio" class="minimal" value="-1"> 禁用
                                 </span>
                                 </div>
