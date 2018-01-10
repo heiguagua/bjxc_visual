@@ -83,8 +83,8 @@
                                                     <li><a  style="width: 100%;" onclick="quickSystemAddDatasetUI()" href="###">从梳理系统(系统)</a></li>
                                                     <li><a  style="width: 100%;" onclick="quickAddDatasetUI()" href="###">从梳理系统(资源)</a></li>
                                                     <li><a  style="width: 100%;" onclick="quickCsAddDatasetUI()" href="###">从采集系统(爬虫)</a></li>
-                                                    <li><a  style="width: 100%;" onclick="quickSystemAddDatasetUI()" href="###">从采集系统(关系型)</a></li>
-                                                    <li><a  style="width: 100%;" onclick="quickSystemAddDatasetUI()" href="###">从采集系统(非关系型)</a></li>
+                                                    <li><a  style="width: 100%;" onclick="quickDcmAddDatasetUI()" href="###">从采集系统(关系型)</a></li>
+                                                    <li><a  style="width: 100%;" onclick="quickNosqlDcmAddDatasetUI()" href="###">从采集系统(非关系型)</a></li>
                                                     <li><a  style="width: 100%;"  href="###">从处理系统</a></li>   
                                                 </ul>
                                     
