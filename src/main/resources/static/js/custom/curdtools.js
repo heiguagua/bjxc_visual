@@ -989,7 +989,7 @@ function _submitFormForApi(index, layero , options){
                },
                error:function(){
                    layer.closeAll('loading');
-                   errorMsgTip("输入字段太长，请检查后重新输入", parentWin);
+                   errorMsgTip("处理失败", parentWin);
                }
            });
 
