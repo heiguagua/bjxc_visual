@@ -68,6 +68,9 @@ function initTable(){
                 valign: 'middle',
                 sortable: false
             },{
+                field: 'mapId',
+                visible: false
+            },{
                 field: 'classifyName',
                 title: '目录分类',
                 sortable: false,
@@ -136,13 +139,13 @@ function initTable(){
                         editBtn = [
                             "<p><a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:catalogueTableUpload(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
                             "<a class='btn btn-danger btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
-                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
+                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + row + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                         ].join('');
                     }else{
                         editBtn = [
                             "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行上传操作'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
                             "<a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行编辑操作'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
-                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
+                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + row + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                         ].join('');
                     }
                     return editBtn;
@@ -240,13 +243,13 @@ function initTable(){
                         editBtn = [
                             "<p><a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:catalogueTableUpload(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
                             "<a class='btn btn-danger btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableEdit(\"" + value + "\")'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
-                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
+                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\""+row.mapId+"\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                         ].join('');
                     }else{
                         editBtn = [
                             "<p><a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行上传操作'><i class='fa fa-pencil'>&#160;</i>上传</a>&#160;" +
                             "<a class='btn btn-danger btn-flat btn-xs' disabled=true style='opacity: 0.6' title='只有未注册、未通过审核、已下架的资源才能进行编辑操作'><i class='fa fa-pencil'>&#160;</i>编辑</a>&#160;",
-                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\"" + value + "\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
+                            "<a class='btn btn-primary btn-flat btn-xs' href='###'  onclick='javascript:catalogueTableShow(\""+row.mapId+"\")'><i class='fa fa-eye'>&#160;</i>查看</a></p>"
                         ].join('');
                     }
                     return editBtn;
@@ -356,9 +359,8 @@ function catalogueTableEdit(id) {
     update('编辑信息资源',basePathJS + '/catalog/edit' , id ,"70%",700);
 }
 
-function catalogueTableShow(id){
-	
-    show('信息资源详情',basePathJS + '/catalog/show' , id ,"70%",700);
+function catalogueTableShow(mapId){
+    show('信息资源详情',basePathJS + '/catalog/show' , mapId ,"70%",700);
 }
 
 function quickAddDatasetUI() {

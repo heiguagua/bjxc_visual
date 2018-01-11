@@ -11,4 +11,14 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataAudit;
  * @since 2017-09-08
  */
 public class DirDataAuditVo extends DirDataAudit{
+
+    private String auditorName;
+
+    public String getAuditorName() {
+        return auditorName;
+    }
+
+    public void setAuditorName(String auditorName) {
+        this.auditorName = auditorName;
+    }
 }

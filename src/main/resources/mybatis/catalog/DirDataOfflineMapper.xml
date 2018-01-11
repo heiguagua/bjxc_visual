@@ -16,7 +16,7 @@
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataOfflineVo">
-
+        <result column="offline_user_name" property="offlineUserName"/>
     </resultMap>
 
     <!-- 通用查询过滤条件 -->
@@ -34,7 +34,13 @@
     </select>
 
     <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-        SELECT t.* FROM dir_data_offline t WHERE t.id = #{id}
+        SELECT t.* FROM dir_data_offline t WHERE t.active_flag=1 and t.id = #{id}
+    </select>
+
+    <select id="selectVoByDcmId" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.*,u.real_name as offline_user_name FROM dir_data_offline t
+          left join sys_user u on t.offline_user_id=u.id
+            WHERE t.active_flag=1 and t.dcm_id = #{dcmId}
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">

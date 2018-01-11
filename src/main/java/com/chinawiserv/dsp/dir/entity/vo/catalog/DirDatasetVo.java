@@ -17,6 +17,9 @@ public class DirDatasetVo extends DirDataset{
     private List<DirDataitemVo> items;
 
     private DirDataTransfer transfer;
+
+    private String mapId;
+
     private String classifyIds;
 
     private String classifyName;
@@ -217,5 +220,13 @@ public class DirDatasetVo extends DirDataset{
 
     public void setSourceInfos(List<DirDataitemSourceInfo> sourceInfos) {
         this.sourceInfos = sourceInfos;
+    }
+
+    public String getMapId() {
+        return mapId;
+    }
+
+    public void setMapId(String mapId) {
+        this.mapId = mapId;
     }
 }

@@ -599,8 +599,49 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
             }
             dirDatasetVo.setRelClassifyName(relClassifyName);
         }
-		return dirDatasetVo;
+        return dirDatasetVo;
 	}
+
+    @Override
+    public DirDatasetVo selectVoByDcmId(String dcmId){
+        DirDatasetVo dirDatasetVo = null;
+        DirDatasetClassifyMapVo dirDatasetClassifyMapVo = dirDatasetClassifyMapMapper.selectVoById(dcmId);
+        String datasetId = dirDatasetClassifyMapVo.getDatasetId();
+        if(!StringUtils.isEmpty(datasetId)){
+            dirDatasetVo = mapper.selectDatasetInfoById(datasetId);
+            dirDatasetVo.setClassifyStatus(dirDatasetClassifyMapVo.getStatus());
+            Map<String,Object> mapParam = new HashMap<>();
+            mapParam.put("datasetId", datasetId);
+            List<DirDataitemVo> itemVoList = itemMapper.selectInfoList(mapParam);
+            if(!ObjectUtils.isEmpty(itemVoList)){
+                dirDatasetVo.setItems(itemVoList);
+            }
+            List<DirDatasetClassifyMapVo> classifyMapVoList = dirDatasetClassifyMapMapper.selectVoPage(new Page<>(), mapParam);
+            if(!ObjectUtils.isEmpty(classifyMapVoList)){
+                String relClassifyName = "";
+                for(int i=0,ii=classifyMapVoList.size();i<ii;i++){
+                    DirDatasetClassifyMapVo classifyMapVo = classifyMapVoList.get(i);
+                    int relFlag = classifyMapVo.getRelFlag();
+                    String classifyId = classifyMapVo.getClassifyId();
+                    String classifyStructureName = classifyMapVoList.get(i).getClassifyStructureName();
+                    String infoResourceCode = classifyMapVo.getInfoResourceCode();
+                    if(relFlag == 0){
+                        dirDatasetVo.setClassifyIds(classifyId);
+                        dirDatasetVo.setClassifyName(classifyStructureName);
+                        dirDatasetVo.setInfoResourceCode(infoResourceCode);
+                    }else{
+                        relClassifyName += classifyStructureName+",";
+                    }
+
+                }
+                if(!"".equals(relClassifyName)){
+                    relClassifyName = relClassifyName.substring(0,relClassifyName.length()-1);
+                }
+                dirDatasetVo.setRelClassifyName(relClassifyName);
+            }
+        }
+        return dirDatasetVo;
+    }
 
     @Override
     public Page<DirDatasetVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
@@ -1623,6 +1664,26 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
         return upLoadNum;
     }
+    @Override
+    public DirDataRegisteVo getRegisteInfoByDcmId(String dcmId) {
+        return registeMapper.selectVoByDcmId(dcmId);
+    }
+
+    @Override
+    public DirDataAuditVo getAuditInfoByDcmId(String dcmId) {
+        return auditMapper.selectVoByDcmId(dcmId);
+    }
+
+    @Override
+    public DirDataPublishVo getReleaseInfoByDcmId(String dcmId) {
+        return releaseMapper.selectVoByDcmId(dcmId);
+    }
+
+    @Override
+    public DirDataOfflineVo getOfflineInfoByDcmId(String dcmId) {
+        return offlineMapper.selectVoByDcmId(dcmId);
+    }
+
 
     /**
      * 推送发布数据到开放门户的方法
@@ -1671,5 +1732,6 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
 
         return result;
     }
+
 
 }

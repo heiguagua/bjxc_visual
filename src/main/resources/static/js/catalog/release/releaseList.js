@@ -129,7 +129,7 @@ function initTable() {
             setParams();
             var unReleaseColumns = baseColumn.slice(0);
             unReleaseColumns.push({
-                field: 'datasetId',
+                field: 'id',
                 title: '操作',
                 width: '10%',
                 align: 'left',
@@ -182,7 +182,7 @@ function initTable() {
                 }
             });
             releasedColumns.push({
-                field: 'datasetId',
+                field: 'id',
                 title: '操作',
                 width: '10%',
                 align: 'left',

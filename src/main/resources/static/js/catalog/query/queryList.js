@@ -62,10 +62,10 @@ function initTable(){
             align: 'center',
             valign: 'middle',
             sortable: false
-        },*/{
+        },{
             field: 'id',
             visible: false
-        },{
+        },*/{
             field: 'deptName',
             title: '信息资源提供方',
             width: '15%',
@@ -118,7 +118,7 @@ function initTable(){
                 }
             }
         }, {
-            field: 'datasetId',
+            field: 'id',
             title: '操作',
             width: '10%',
             align: 'center',

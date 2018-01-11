@@ -32,11 +32,23 @@ function initAllSelect(){
 function initInputValue(){
     //初始化资源提供方和提供方代码输入框的值
     $.commonAjax({
-        url:basePathJS + "/catalog/editLoad",
+        url:basePathJS + "/catalog/showLoad",
         data:{id:$("#id").val()},
         success: function (result) {
             if (result.state) {
                 var obj = result.content.vo;
+                var dataStatus = obj.classifyStatus;
+                if(dataStatus == '0'){
+                    hideAllInfo();
+                }else if(dataStatus == '1'){
+                    initInfoForRegiste();
+                }else if(dataStatus == '2' || dataStatus == '3' || dataStatus == '4'){
+                    initInfoForAudit();
+                }else if(dataStatus == '5'){
+                    initInfoForRelease();
+                }else{
+                    initAllInfo();
+                }
                 $("#classifyName").val(obj.classifyName);
                 $("#classifyName").attr("title",obj.classifyName);
                 $("#relDatasetName").val(obj.relClassifyName);
@@ -86,6 +98,99 @@ function initInputValue(){
                     var thisTrNum = getTrNum();
                     buildItem(thisTrNum,itemList[i],obj.sourceType);
                 }
+            }
+        }
+    });
+}
+
+function hideAllInfo() {
+    $("#registeInfo").hide();
+    $("#auditInfo").hide();
+    $("#releaseInfo").hide();
+    $("#offlineInfo").hide();
+}
+
+function initInfoForRegiste() {
+    $("#auditInfo").hide();
+    $("#releaseInfo").hide();
+    $("#offlineInfo").hide();
+    initRegisteValue();
+}
+
+function initInfoForAudit() {
+    $("#releaseInfo").hide();
+    $("#offlineInfo").hide();
+    initRegisteValue();
+    initAuditValue();
+}
+
+function initInfoForRelease() {
+    $("#offlineInfo").hide();
+    initRegisteValue();
+    initAuditValue();
+    initReleaseValue();
+}
+
+function initAllInfo() {
+    initRegisteValue();
+    initAuditValue();
+    initReleaseValue();
+    initOfflineValue();
+}
+
+//初始化注册信息
+function initRegisteValue(){
+    $.commonAjax({
+        url:basePathJS + "/catalog/registeInfoById",
+        data:{dcmId:$("#id").val()},
+        success: function (result) {
+            if (result.state) {
+                var obj = result.content.vo;
+                $("#registeUser").val(obj.registerName);
+                $("#registeDate").val(obj.registerDate);
+            }
+        }
+    });
+}
+//初始化审核信息
+function initAuditValue(){
+    $.commonAjax({
+        url:basePathJS + "/catalog/auditInfoById",
+        data:{dcmId:$("#id").val()},
+        success: function (result) {
+            if (result.state) {
+                var obj = result.content.vo;
+                $("#auditUser").val(obj.auditorName);
+                $("#auditDate").val(obj.auditDate);
+                $("#auditOpinion").val(obj.auditOpinion);
+            }
+        }
+    });
+}
+//初始化发布信息
+function initReleaseValue(){
+    $.commonAjax({
+        url:basePathJS + "/catalog/releaseInfoById",
+        data:{dcmId:$("#id").val()},
+        success: function (result) {
+            if (result.state) {
+                var obj = result.content.vo;
+                $("#releaseUser").val(obj.publisherName);
+                $("#releaseDate").val(obj.publishDate);
+            }
+        }
+    });
+}
+//初始化下架信息
+function initOfflineValue(){
+    $.commonAjax({
+        url:basePathJS + "/catalog/offlineInfoById",
+        data:{dcmId:$("#id").val()},
+        success: function (result) {
+            if (result.state) {
+                var obj = result.content.vo;
+                $("#offlineUser").val(obj.offlineUserName);
+                $("#offlineDate").val(obj.offlineTime);
             }
         }
     });

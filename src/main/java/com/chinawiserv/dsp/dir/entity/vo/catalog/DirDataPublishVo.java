@@ -11,4 +11,14 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataPublish;
  * @since 2017-09-08
  */
 public class DirDataPublishVo extends DirDataPublish{
+
+    private String publisherName;
+
+    public String getPublisherName() {
+        return publisherName;
+    }
+
+    public void setPublisherName(String publisherName) {
+        this.publisherName = publisherName;
+    }
 }

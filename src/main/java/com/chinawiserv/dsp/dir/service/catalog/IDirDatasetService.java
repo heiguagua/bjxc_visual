@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.*;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import javax.servlet.http.HttpServletRequest;
@@ -85,4 +83,14 @@ public interface IDirDatasetService extends ICommonService<DirDataset, DirDatase
     Map<String,Integer> getDatasetCountForStatus(String regionCode);
 
     int upLoadFile(HttpServletRequest request) throws Exception;
+
+    DirDataRegisteVo getRegisteInfoByDcmId(String dcmId);
+
+    DirDataAuditVo getAuditInfoByDcmId(String dcmId);
+
+    DirDataPublishVo getReleaseInfoByDcmId(String dcmId);
+
+    DirDataOfflineVo getOfflineInfoByDcmId(String dcmId);
+
+    DirDatasetVo selectVoByDcmId(String dcmId);
 }

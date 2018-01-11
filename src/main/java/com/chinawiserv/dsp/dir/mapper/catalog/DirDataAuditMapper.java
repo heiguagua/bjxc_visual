@@ -24,6 +24,8 @@ public interface DirDataAuditMapper extends BaseMapper<DirDataAudit> {
 
     DirDataAuditVo selectVoById(String id);
 
+    DirDataAuditVo selectVoByDcmId(String dcmId);
+
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(DirDataAudit entity);

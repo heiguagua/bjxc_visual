@@ -128,7 +128,7 @@ function initTable(){
             setParams();
             var unRegisteColumns = baseColumn.slice(0);
             unRegisteColumns.push({
-                field: 'datasetId',
+                field: 'id',
                 title: '操作',
                 width: '10%',
                 align: 'left',
@@ -181,7 +181,7 @@ function initTable(){
                 }
             });
             registedColumns.push({
-                field: 'datasetId',
+                field: 'id',
                 title: '操作',
                 width: '10%',
                 align: 'left',

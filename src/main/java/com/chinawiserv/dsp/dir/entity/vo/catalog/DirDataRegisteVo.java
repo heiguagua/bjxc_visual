@@ -11,4 +11,13 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataRegiste;
  * @since 2017-09-25
  */
 public class DirDataRegisteVo extends DirDataRegiste{
+    private String registerName;
+
+    public String getRegisterName() {
+        return registerName;
+    }
+
+    public void setRegisterName(String registerName) {
+        this.registerName = registerName;
+    }
 }

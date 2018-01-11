@@ -24,6 +24,8 @@ public interface DirDataPublishMapper extends BaseMapper<DirDataPublish> {
 
     DirDataPublishVo selectVoById(String id);
 
+    DirDataPublishVo selectVoByDcmId(String dcmId);
+
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(DirDataPublish entity);

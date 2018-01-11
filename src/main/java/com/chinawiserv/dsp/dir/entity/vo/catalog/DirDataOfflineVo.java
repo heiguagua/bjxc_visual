@@ -11,4 +11,14 @@ import com.chinawiserv.dsp.dir.entity.po.catalog.DirDataOffline;
  * @since 2017-09-08
  */
 public class DirDataOfflineVo extends DirDataOffline{
+
+    private String offlineUserName;
+
+    public String getOfflineUserName() {
+        return offlineUserName;
+    }
+
+    public void setOfflineUserName(String offlineUserName) {
+        this.offlineUserName = offlineUserName;
+    }
 }

@@ -24,6 +24,8 @@ public interface DirDataOfflineMapper extends BaseMapper<DirDataOffline> {
 
     DirDataOfflineVo selectVoById(String id);
 
+    DirDataOfflineVo selectVoByDcmId(String dcmId);
+
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(DirDataOffline entity);

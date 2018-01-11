@@ -24,6 +24,8 @@ public interface DirDataRegisteMapper extends BaseMapper<DirDataRegiste> {
 
     DirDataRegisteVo selectVoById(String id);
 
+    DirDataRegisteVo selectVoByDcmId(String dcmId);
+
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(DirDataRegiste entity);

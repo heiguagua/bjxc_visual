@@ -12,10 +12,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.service.system.ISysDictService;
 import com.chinawiserv.dsp.dir.common.DirConst;
 import com.chinawiserv.dsp.dir.entity.po.catalog.*;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirClassifyVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDataitemVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetClassifyMapVo;
-import com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo;
+import com.chinawiserv.dsp.dir.entity.vo.catalog.*;
 import com.chinawiserv.dsp.dir.enums.catalog.Dataset;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
 import com.chinawiserv.dsp.dir.mapper.catalog.DirDatasetClassifyMapMapper;
@@ -399,6 +396,21 @@ public class DirDatasetController extends BaseController {
 		return handleResult;
 	}
 
+    @RequiresPermissions("catalog:catalogue:show")
+    @RequestMapping("/showLoad")
+    @ResponseBody
+    public  HandleResult showLoad(@RequestParam String id){
+        HandleResult handleResult = new HandleResult();
+        try {
+            DirDatasetVo vo = service.selectVoByDcmId(id);
+            handleResult.put("vo", vo);
+        } catch (Exception e) {
+            handleResult.error("获取数据集（信息资源）显示信息失败");
+            logger.error("获取数据集（信息资源）显示信息失败", e);
+        }
+        return handleResult;
+    }
+
     /**
      * 执行编辑
      */
@@ -588,6 +600,61 @@ public class DirDatasetController extends BaseController {
         return handleResult;
     }
 
+    @RequestMapping("/registeInfoById")
+    @ResponseBody
+    public  HandleResult getRegisteInfoByDcmId(@RequestParam String dcmId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            DirDataRegisteVo vo = service.getRegisteInfoByDcmId(dcmId);
+            handleResult.put("vo", vo);
+        } catch (Exception e) {
+            handleResult.error("获取数据集（信息资源）的注册信息失败");
+            logger.error("获取数据集（信息资源）的注册信息失败", e);
+        }
+        return handleResult;
+    }
+
+    @RequestMapping("/auditInfoById")
+    @ResponseBody
+    public  HandleResult getAuditInfoByDcmId(@RequestParam String dcmId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            DirDataAuditVo vo = service.getAuditInfoByDcmId(dcmId);
+            handleResult.put("vo", vo);
+        } catch (Exception e) {
+            handleResult.error("获取数据集（信息资源）的审核信息失败");
+            logger.error("获取数据集（信息资源）的审核信息失败", e);
+        }
+        return handleResult;
+    }
+
+    @RequestMapping("/releaseInfoById")
+    @ResponseBody
+    public  HandleResult getReleaseInfoByDcmId(@RequestParam String dcmId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            DirDataPublishVo vo = service.getReleaseInfoByDcmId(dcmId);
+            handleResult.put("vo", vo);
+        } catch (Exception e) {
+            handleResult.error("获取数据集（信息资源）的发布信息失败");
+            logger.error("获取数据集（信息资源）的发布信息失败", e);
+        }
+        return handleResult;
+    }
+
+    @RequestMapping("/offlineInfoById")
+    @ResponseBody
+    public  HandleResult getOfflineInfoByDcmId(@RequestParam String dcmId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            DirDataOfflineVo vo = service.getOfflineInfoByDcmId(dcmId);
+            handleResult.put("vo", vo);
+        } catch (Exception e) {
+            handleResult.error("获取数据集（信息资源）的下架信息失败");
+            logger.error("获取数据集（信息资源）的下架信息失败", e);
+        }
+        return handleResult;
+    }
 
     /**
      * 获取梳理数据集详情

@@ -128,7 +128,7 @@ function initTable() {
             setParams();
             var unAuditColumns = baseColumn.slice(0);
             unAuditColumns.push({
-                field: 'datasetId',
+                field: 'id',
                 title: '操作',
                 width: '10%',
                 align: 'left',
@@ -181,7 +181,7 @@ function initTable() {
                 }
             });
             auditedColumns.push({
-                field: 'datasetId',
+                field: 'id',
                 title: '操作',
                 width: '10%',
                 align: 'left',

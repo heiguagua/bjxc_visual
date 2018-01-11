@@ -42,6 +42,7 @@
 
     <resultMap id="BaseResultVoMap" extends="BaseResultMap"
                type="com.chinawiserv.dsp.dir.entity.vo.catalog.DirDatasetVo">
+        <result column="map_id" property="mapId"/>
         <result column="classify_name" property="classifyName"/>
         <result column="classify_status" property="classifyStatus"/>
         <result column="dept_name" property="deptName"/>
@@ -252,7 +253,7 @@
     </select>
 
     <select id="selectInfoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-        select sub.*,c.classify_structure_name AS classify_name,m.status AS classify_status from(
+        select sub.*,c.classify_structure_name AS classify_name,m.id as map_id,m.status AS classify_status from(
         select t.id,t.dataset_name,t.create_time,t.update_time,t.source_type,de.dept_name as dept_name,
         di.dict_name as source_type_name,count(it.dataset_id) as item_nums FROM dir_dataset t
         left join sys_dept de on t.belong_dept_type=de.id
