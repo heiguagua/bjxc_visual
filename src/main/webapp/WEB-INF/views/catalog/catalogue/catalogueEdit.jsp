@@ -15,7 +15,7 @@
                         <input type="hidden" id="id" name="id" value="${id}">
                         <input type="hidden" id="regionCode" name="regionCode">
                         <div class="col-sm-12">
-                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">目录分类<span class="redStar">*</span>:</label>
+                            <label for="classifyName" class="col-sm-2 control-label" style="width:12.2%">目录分类 :</label>
                             <div class="col-sm-10"  style="width:87.8%">
                                 <input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control" disabled >
                                 <%--<input type="text" id="classifyName" data-rule="目录分类:required;" class="form-control"
@@ -178,7 +178,7 @@
                                 <label style="display:inline-block">非涉密</label>
                             </div>
                             <div class="col-sm-5 control-label" style="padding-top:0px">
-                                <label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 0px">周期：</label>
+                                <label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 0px">周期<span class="redStar">*</span>：</label>
                                 <div class="col-sm-9" style="padding-right: 0px">
                                     <select class="form-control" id="updateFrequency" name="updateFrequency">
                                     </select>
@@ -196,9 +196,9 @@
                                 <select class="form-control col-sm-4" id="shareType" name="shareType" style="width:25%" data-rule="共享类型:required;">
                                 </select>
                                 <div id="shareMethodDiv">
-                                    <label for="shareMethod" class="col-sm-4 control-label">共享方式:</label>
+                                    <label for="shareMethod" class="col-sm-4 control-label">共享方式<span class="redStar">*</span>:</label>
                                     <div class="col-sm-5" style="padding:0">
-                                        <select class="form-control" id="shareMethod" name="shareMethod">
+                                        <select class="form-control" id="shareMethod" name="shareMethod" data-rule="共享方式:required;">
                                         </select>
                                     </div>
                                 </div>
@@ -328,18 +328,18 @@
                             <th id="firstTh"><input type="checkbox" id="selectAllItem"> 全选</th>
                             <th>信息项名称<span class="redStar">*</span></th>
                             <th id="thType">类型<span class="redStar">*</span></th>
-                            <th id="thLength">长度<span class="redStar">*</span></th>
+                            <th id="thLength">长度</th>
                             <th style="width: 150px;">责任部门<span class="redStar">*</span></th>
                             <%--<th>所属信息资源</th>--%>
                             <%--<th>所属系统</th>--%>
                             <th>涉密标识</th>
                             <th>共享类型<span class="redStar">*</span></th>
                             <th>共享条件</th>
-                            <th>共享方式</th>
+                            <th>共享方式<span class="redStar">*</span></th>
                             <th style="width: 116px;">是否向社会开放<span class="redStar">*</span></th>
                             <th>开放条件</th>
                             <th>存储位置</th>
-                            <th>更新周期</th>
+                            <th>更新周期<span class="redStar">*</span></th>
                             <th>标签</th>
                         </tr>
                         </thead>

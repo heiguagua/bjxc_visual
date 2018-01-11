@@ -85,7 +85,7 @@
                 <div class="form-group">
 	                <div class="row">
 	                	<div class="col-sm-6">
-	                	<label  class="col-sm-3 control-label">信息资源提供方:</label>
+	                	<label  class="col-sm-3 control-label">信息资源提供方<span class="redStar">*</span>:</label>
 	                    <div class="col-sm-9">
 							<%--<input type="text" id="belongDeptTypeName" data-rule="目录分类:required;" class="form-control"
 								   placeholder="">
@@ -133,7 +133,7 @@
 		                	<label for="relDatasetCode" style="width:12.2%;" class="col-sm-3 control-label">关联资源分类:</label>
 		                    <div class="col-sm-9" style="width:87.8%;">
 		                        <%--<input type="text" class="form-control" id="relDatasetCode" name="relDatasetCode" placeholder="关联资源分类" disabled>--%>
-		                            <input type="text" id="relDatasetName" required="required" data-parsley-required-message="该项为必填" class="form-control">
+		                            <input type="text" id="relDatasetName" class="form-control" placeholder="点击下拉选择" readonly style="background-color: #FFFFFF">
 		                            <input type="hidden" id="relDatasetCode" name="relDatasetCode">
 		                            <div class="menu-wrap">
 		                                <div id="relMenuContent" class="menuContent" style="display:none;">
@@ -182,7 +182,7 @@
 		                    </div>
 	                	</div>
 			                	<div class="col-sm-6">
-				                	<label  class="col-sm-3 control-label">涉密标识：</label>
+				                	<label  class="col-sm-3 control-label">涉密标识:</label>
 				                    <div class="col-sm-4" style="padding-top:4px;padding-right: 0px">
 				                     		<div class="redio-box">
 				                        		<input type="radio" name="secretFlag" value="1"><span></span>
@@ -194,9 +194,9 @@
 										    <label style="display:inline-block">非涉密</label>
 				                    </div>
 									<div class="col-sm-5 control-label" style="padding-top:0px">
-										<label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 0px">周期：</label>
+										<label  class="col-sm-3 control-label" style="padding-left: 0px;padding-right: 0px">周期<span class="redStar">*</span>:</label>
 										<div class="col-sm-9" style="padding-right: 0px">
-											<select class="form-control" id="updateFrequency" name="updateFrequency">
+											<select class="form-control" id="updateFrequency" name="updateFrequency" data-rule="周期:required;">
 											</select>
 										</div>
 									</div>
@@ -215,9 +215,9 @@
 			                    </div>
 								
 								<div id="shareMethodDiv" class="col-sm-8" style="padding-right:0;padding-left: 0;">
-								   <label for="shareMethod" class="col-sm-4 control-label">共享方式:</label>
+								   <label for="shareMethod" class="col-sm-4 control-label">共享方式<span class="redStar">*</span>:</label>
 								   <div class="col-sm-8" style="padding:0">
-										<select class="form-control" id="shareMethod" name="shareMethod">
+										<select class="form-control" id="shareMethod" name="shareMethod" data-rule="共享方式:required;">
 										</select>
 									</div>
 								</div>
@@ -346,7 +346,7 @@
 							<%--<th>字段名</th>--%>
 							<th>信息项名称<span class="redStar">*</span></th>
 							<th>类型<span class="redStar">*</span></th>
-							<th>长度<span class="redStar">*</span></th>
+							<th>长度</th>
 							<th style="width: 240px;">责任部门<span class="redStar">*</span></th>
 							<%--<th>所属信息资源</th>--%>
 							<%--<th>所属系统</th>
@@ -354,11 +354,11 @@
 							<th>涉密标识</th>
 							<th>共享类型<span class="redStar">*</span></th>
 							<th>共享条件</th>
-							<th>共享方式</th>
+							<th>共享方式<span class="redStar">*</span></th>
 							<th>是否向社会开放<span class="redStar">*</span></th>
 							<th>开放条件</th>
 							<th>存储位置</th>
-							<th>更新周期</th>
+							<th>更新周期<span class="redStar">*</span></th>
 							<th>标签</th>
                         </tr>
                         </thead>
