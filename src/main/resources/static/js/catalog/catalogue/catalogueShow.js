@@ -147,7 +147,7 @@ function initRegisteValue(){
             if (result.state) {
                 var obj = result.content.vo;
                 $("#registeUser").val(obj.registerName);
-                $("#registeDate").val(obj.registerDate);
+                $("#registeDate").val(obj.registeDate);
             }
         }
     });
