@@ -2,7 +2,7 @@
 -- 菜单表
 -- select id,menu_name,pid,url,icon,sort,menu_type,code,resource_name,status from sys_menu order by pid ;
 delete from sys_menu;
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('01','0','系统管理','','fa-cogs',5,1,'01','system',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('01','0','系统管理','','fa-cogs',5,1,'01','',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0104','01','字典管理','/sysDict','fa-cogs',9,2,'0104','system:dict',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('010401','0104','字典列表','','',2,3,'010401','',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('010402','0104','字典修改','','',2,3,'010402','',1);
@@ -19,7 +19,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0116','01','系统集成管理','/system/productIntegrate','fa fa-cogs',15,2,'0116','system:productIntegrate',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0117','01','License管理','/lic/licPage','',2,2,'0117','lic:licPage',1);
 
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('09','0','用户管理','','fa-cogs',5,1,'09','system',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('09','0','用户管理','','fa-cogs',5,1,'09','',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0901','09','用户管理','/system/user','fa-user-circle-o',2,2,'0901','system:user',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('090101','0901','编辑用户','','',2,3,'090101','system:user:edit',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('090102','0901','删除用户','','',3,3,'090102','system:user:delete',1);
@@ -36,7 +36,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0910','09','用户数据权限管理','/system/userAuthority','fa-cogs',6,2,'0910','system:userAuthority',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('091001','0910','编辑用户数据权限','','',2,3,'091001','system:userAuthority:edit',1);
 
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('10','0','部门管理','','fa-cogs',5,1,'10','system',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('10','0','部门管理','','fa-cogs',5,1,'10','',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1003','10','组织机构管理','/system/dept','fa-graduation-cap',1,2,'1003','system:dept',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('100301','1003','编辑组织机构','','',2,3,'100301','system:dept:edit',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('100302','1003','编辑用户注册','','',2,3,'100302','apply:registUser:allot',1);
@@ -74,7 +74,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0403','04','快速新增目录','','',3,3,'0403','catalog:catalogue:fastAdd',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0404','04','修改目录','','',4,3,'0404','catalog:catalogue:edit',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0405','04','删除目录','','',5,3,'0405','catalog:catalogue:delete',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('05','0','目录管理','','fa-cogs',2,1,'05','catalog',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('05','0','目录管理','','fa-cogs',2,1,'05','',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0501','05','目录注册','/catalog/registe','fa-cog',3,2,'0501','catalog:registe',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('050101','0501','查看目录列表','','',1,3,'050101','catalog:registe:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('050102','0501','注册','','',2,3,'050102','catalog:registe:save',1);
@@ -89,7 +89,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('050305','0503','下架','','',5,3,'050305','catalog:release:off',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0504','05','目录查询','/catalog/query','fa-cog',6,2,'0504','catalog:query',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('050401','0504','查看目录列表','','',1,3,'050401','catalog:query:list',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('06','0','门户数据管理','','fa-cogs',6,1,'06','system',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('06','0','门户数据管理','','fa-cogs',6,1,'06','',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0601','06','用户注册管理','/feedback/dirRegistUser','fa-cogs',4,2,'0601','feedback:registUser',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060101','0601','用户注册列表','','',2,3,'060101','feedback:registUser:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('060102','0601','编辑用户注册','','',2,3,'060102','feedback:registUser:edit',1);
@@ -102,14 +102,14 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0605','06','评分管理','/feedback/dirdatarate','fa-cog',2,2,'0605','feedback:dirdatarate',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0606','06','用户咨询','/feedback/dirsuggestion','fa-cog',3,2,'0606','feedback:dirsuggestion',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0607','06','需求管理','/feedback/drapRequirementResources','fa-cog',4,2,'0607','feedback:drapRequirementResources',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('07','0','门户配置管理','','fa-list',7,1,'07','portalConfig',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('07','0','门户配置管理','','fa-list',7,1,'07','',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0701','07','新闻图片管理','/portalConfig/dirNews','fa-cog',4,2,'0701','portalConfig:dirNews',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0702','07','政策发布','/portalConfig/dirPolicy','fa-cog',1,2,'0702','portalConfig:dirPolicy',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0703','07','开发者工具管理','/portalConfig/dirDevelopApis','fa-cog',2,2,'0703','portalConfig:dirDevelopApis',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0704','07','专题应用管理','/portalConfig/dirSpecialApps','fa-cog',3,2,'0704','portalConfig:dirSpecialApps',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0705','07','门户简介管理','/portalConfig/dirIntrude','fa-cog',5,2,'0705','portalConfig:dirIntrude',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0706','07','首页图片管理','/portalConfig/dirHome','fa-cog',6,2,'0706','portalConfig:dirHome',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('08','0','上报管理','','fa-list',4,1,'08','system',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('08','0','上报管理','','fa-list',4,1,'08','',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0801','08','目录/服务上报','/dirupload/dirAudit','fa-cog',3,2,'0801','dirupload:dirAudit',1);
 
 -- 角色表
