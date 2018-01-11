@@ -17,12 +17,12 @@
         <%--<div class="layer-boxs">--%>
 		<input type="hidden" id="classifyId" value="${classifyId}">
 		<div>
-			<form class="form-horizontal pull-left" action="" method="POST" enctype="multipart/form-data">
-				<a href="javascript:;" class="btn a-upload">
-					<input type="file" name="excelFile" id="excelFile">
-					导入含有目录分类的excel文件
-				</a>
-			</form>
+			<%--<form class="form-horizontal pull-left" action="" method="POST" enctype="multipart/form-data">--%>
+				<%--<a href="javascript:;" class="btn a-upload">--%>
+					<%--<input type="file" name="excelFile" id="excelFile">--%>
+					<%--导入含有目录分类的excel文件--%>
+				<%--</a>--%>
+			<%--</form>--%>
 			<form class="form-horizontal pull-left" action="" method="POST" enctype="multipart/form-data">
 				<a href="javascript:;" class="btn a-upload">
 					<input type="file" name="excelWithOutDir" id="excelWithOutDir">
