@@ -52,7 +52,7 @@
 
                                 <div class="form-group" name="categoryDesc">
                                     <textarea class="form-control" rows="3" name="categoryDesc" id="categoryDesc"
-                                              placeholder="请输入数据字典描述" data-rule="required;length[~512, true]"></textarea>
+                                              placeholder="请输入数据字典描述" data-rule="length[~512, true]"></textarea>
                                 </div>
                             </div>
                         </div><!-- /.box-body -->
