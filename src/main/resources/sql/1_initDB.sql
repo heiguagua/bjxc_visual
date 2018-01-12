@@ -2742,7 +2742,7 @@ create view v_sys_region_dept as
 -- select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name,region_code as fcode from sys_dept where fid='root'
 -- union
 select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name ,region_code as fcode,order_number AS order_number
-	from sys_dept t where fid in (select id from sys_dept where fid = 'root');
+	from sys_dept t where delete_flag=0 and fid in (select id from sys_dept where fid = 'root');
 -- union
 -- select id,region_code,'2' as category,dept_code as region_dept_code,dept_name as region_dept_name ,
 -- 	(select a.dept_code from sys_dept a where a.id = t.fid) as fcode
