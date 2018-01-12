@@ -23,11 +23,12 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
+            t.delete_flag=0
             <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
+                and t.id = #{id,jdbcType=VARCHAR}
             </if>
             <if test="fcode !=null">
-                t.fcode = #{fcode,jdbcType=VARCHAR}
+                and t.fcode = #{fcode,jdbcType=VARCHAR}
             </if>
             <if test="allRegionCode!= null and allRegionCode !='' ">
                 and t.region_code in (${allRegionCode})

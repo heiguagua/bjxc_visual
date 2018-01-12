@@ -135,8 +135,8 @@ public class DirDevelopApisController extends BaseController {
             }
 //		    service.insertVO(entity);		    
 		} catch (Exception e) {
-		    handleResult.error("图片上传失败");
-		    logger.error("图片上传失败", e);
+		    handleResult.error("新增失败");
+		    logger.error("新增失败", e);
 		}
 		return handleResult;
     }
