@@ -15,7 +15,7 @@
             <!-- form start -->
             <div class="row">
                 <div class="col-md-12">
-                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" enctype="multipart/form-data" action="<%=context_path%>/dirNews/doEdit">
+                    <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" enctype="multipart/form-data" action="<%=context_path%>/portalConfig/dirNews/doEdit">
                         <input id="newsId" type="hidden" value="${id}" name="id" />
                         <div class="box-body">
                            <div class="form-group col-md-12">
