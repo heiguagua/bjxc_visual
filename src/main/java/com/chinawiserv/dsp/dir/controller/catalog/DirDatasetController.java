@@ -980,7 +980,6 @@ public class DirDatasetController extends BaseController {
 		        
 		        for (Iterator iterator = listTypeSub.iterator(); iterator.hasNext();) {
 					String string = (String) iterator.next();
-					System.out.println(excelFile.getOriginalFilename());
 					if(string.equals(excelFile.getOriginalFilename().substring(excelFile.getOriginalFilename().indexOf(".")+1))){
 						state++;
 					}
@@ -1278,7 +1277,6 @@ public class DirDatasetController extends BaseController {
 		        
 		        for (Iterator iterator = listTypeSub.iterator(); iterator.hasNext();) {
 					String string = (String) iterator.next();
-					System.out.println(excelFile.getOriginalFilename());
 					if(string.equals(excelFile.getOriginalFilename().substring(excelFile.getOriginalFilename().indexOf(".")+1))){
 						state++;
 					}
