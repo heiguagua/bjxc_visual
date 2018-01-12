@@ -10,8 +10,11 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysRole;
 import com.chinawiserv.dsp.base.entity.po.system.SysUser;
+import com.chinawiserv.dsp.base.entity.vo.system.SysRoleVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.mapper.system.SysRoleMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.base.service.system.ISysLogService;
 import com.chinawiserv.dsp.base.service.system.ISysUserRoleService;
@@ -60,6 +63,9 @@ public class SysUserController extends BaseController {
     @Autowired
     private ISysUserRoleService sysUserRoleService;
 
+    @Autowired
+    private SysRoleMapper sysRoleMapper;
+
 
 
     /**
@@ -107,6 +113,9 @@ public class SysUserController extends BaseController {
     @ResponseBody
     public HandleResult doAdd(SysUserVo user, HttpServletRequest request){
         HandleResult result = new HandleResult();
+        if(checkRoleAndDept(user,result)){
+            return result;
+        }
         try {
             user.setToken(DesUtil.encrypt(user.getUserName()));
             sysUserService.insertVO(user);
@@ -121,6 +130,27 @@ public class SysUserController extends BaseController {
         }
         return result.success("创建用户成功");
     }
+
+    private boolean checkRoleAndDept(SysUserVo user,HandleResult result){
+        String[] roleIds = user.getRoleIds();
+        String deptId = user.getDeptId();
+        if(roleIds.length>0){
+            SysRoleVo sysRoleVo = sysRoleMapper.selectVoById(roleIds[0]);
+            if(sysRoleVo.getRoleLevel().equals(0)&&StringUtils.isNotBlank(deptId)){
+                 result.error("区域管理员不能设置部门");
+                 return true;
+            }
+            if(!sysRoleVo.getRoleLevel().equals(0)&&StringUtils.isBlank(deptId)){
+                 result.error("普通角色必须设置部门");
+                 return true;
+            }
+        }else{
+             result.error("没有选择角色");
+             return true;
+        }
+        return false;
+    }
+
     /**
      * 删除用户
      */
@@ -227,6 +257,9 @@ public class SysUserController extends BaseController {
     @ResponseBody
     public  HandleResult doEdit(SysUserVo user,Model model){
        HandleResult result = new HandleResult();
+        if(checkRoleAndDept(user,result)){
+            return result;
+        }
         try {            
             String loginUserId = ShiroUtils.getLoginUserId();
             if (loginUserId.equals(user.getId()) && user.getStatus() != 1) {
