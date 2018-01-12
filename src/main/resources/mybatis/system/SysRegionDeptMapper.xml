@@ -23,7 +23,6 @@
     <!-- 通用查询过滤条件 -->
     <sql id="queryConditions">
         <where>
-            t.delete_flag=0
             <if test="id != null">
                 and t.id = #{id,jdbcType=VARCHAR}
             </if>
