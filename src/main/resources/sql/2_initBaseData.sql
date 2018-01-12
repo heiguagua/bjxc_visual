@@ -112,6 +112,9 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('08','0','上报管理','','fa-list',4,1,'08','',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0801','08','目录/服务上报','/dirupload/dirAudit','fa-cog',3,2,'0801','dirupload:dirAudit',1);
 
+-- 暂时删除不需要的功能性菜单
+delete FROM  sys_menu where menu_type='3';
+
 -- 角色表
 delete from sys_role;
   INSERT INTO sys_role(id,role_name,role_desc,role_level,status) VALUES ('737933bffef640329a4f864c4e2746ba', '超级管理员', '超级管理员', -1,1);
