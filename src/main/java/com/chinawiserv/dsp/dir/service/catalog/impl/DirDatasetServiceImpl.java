@@ -855,6 +855,13 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                             List<SysDeptVo> sysDeptVoList = sysDeptMapper.selectVoList(deptMap);
                             if(!sysDeptVoList.isEmpty()){
                                 dataset.setBelongDeptId(sysDeptVoList.get(0).getId());
+                                if(StringUtils.isEmpty(ShiroUtils.getLoginUser().getDeptId())){
+                                    dataset.setChargeDeptId(sysDeptVoList.get(0).getId());
+                                }
+                            }else{
+                                if(StringUtils.isEmpty(ShiroUtils.getLoginUser().getDeptId())){
+                                    dataset.setChargeDeptId(sysRegionDeptList.get(0).getId());
+                                }
                             }
                             dataset.setBelongDeptName(name);
                         }else{
@@ -862,6 +869,9 @@ public class DirDatasetServiceImpl extends CommonServiceImpl<DirDatasetMapper, D
                             List<SysRegionDeptVo> sysDeptList = sysRegionDeptMapper.selectVoList(regionMap);
                             if(!sysDeptList.isEmpty()){
                                 dataset.setBelongDeptType(sysDeptList.get(0).getId());
+                                if(StringUtils.isEmpty(ShiroUtils.getLoginUser().getDeptId())){
+                                    dataset.setChargeDeptId(sysDeptList.get(0).getId());
+                                }
                             }
                         }
                     } catch (Exception e) {
