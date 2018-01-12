@@ -46,7 +46,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('100306','1003','批量删除组织机构','','',5,3,'100306','system:dept:deleteBatch',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1009','10','部门数据权限管理','/system/deptAuthority','fa fa-cogs',5,2,'1009','system:deptAuthority',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('100901','1009','编辑组织机构数据权限','','',2,3,'100901','system:deptAuthority:edit',1);
-INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1011','10','部门数据权限申请','/system/deptAuthorityApply','fa-cogs',7,2,'1011','system:dirDataitemApply',1);
+INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1011','10','部门数据权限申请','/system/deptAuthorityApply','fa-cogs',7,2,'1011','system:deptAuthorityApply',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('101101','1011','组织机构数据权限申请列表','','',2,3,'101101','system:deptAuthorityApply:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('101102','1011','申请组织机构数据权限','','',2,3,'101102','system:deptAuthorityApply:add',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('1012','10','部门数据权限审核','/system/deptAuthorityAudit','fa-cogs',8,2,'1012','system:deptAuthorityAudit',1);
