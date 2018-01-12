@@ -429,6 +429,18 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         }
         sysDeptVo.setUpdateUserId(ShiroUtils.getLoginUserId());
         sysDeptVo.setUpdateTime(new Date());
+        SysDeptVo parent = sysDeptMapper.selectVoById(sysDeptVo.getFid());
+        //修改dept_structure_name
+        if (parent != null) {
+            Integer deptLevel = parent.getDeptLevel();
+            //根据父level拼接dept_structure_name
+            if(deptLevel.equals(1)){
+                sysDeptVo.setDeptStructureName(sysDeptVo.getDeptName());
+            }else{
+                sysDeptVo.setDeptStructureName(parent.getDeptStructureName()+"->"+sysDeptVo.getDeptName());
+            }
+        }
+        sysDeptMapper.updateDeptByfDept(sysDeptVo);
         return updateById(sysDeptVo);
     }
 

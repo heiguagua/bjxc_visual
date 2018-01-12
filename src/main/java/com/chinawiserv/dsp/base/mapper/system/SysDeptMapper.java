@@ -60,4 +60,6 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
     int updateSXDept(SysDept sysDept);
 
     SysDept selectSXDept(SysDept sysDept);
+    //根据父部门修改子部门
+    int updateDeptByfDept(SysDept sysDept);
 }

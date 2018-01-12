@@ -22,6 +22,7 @@
                           method="post" action="<%=context_path%>/system/dept/doEdit">
                         <input type="hidden" id="deptId" value="${id}" name="id"/>
                         <input type="hidden" id="regionCode" name="regionCode"/>
+                        <input type="hidden" id="fid" name="fid"/>
 
                         <div class="box-body  box-bodyx">
 							<div class="row">

@@ -526,6 +526,18 @@
 		</set>
 		where  id = #{id}
 	</update>
+	<update id="updateDeptByfDept" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDept">
+		update sys_dept
+		<set>
+			<if test="deptName != null">
+				fname = #{deptName},
+			</if>
+			<if test="deptStructureName != null">
+				dept_structure_name = CONCAT(#{deptStructureName},'->',dept_name),
+			</if>
+		</set>
+		where  fid = #{id}
+	</update>
 
 
 
