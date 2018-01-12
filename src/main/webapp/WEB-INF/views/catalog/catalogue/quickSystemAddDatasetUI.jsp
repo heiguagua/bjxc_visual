@@ -293,19 +293,19 @@
                         <div class="col-sm-4">
                             <label  class="col-sm-6 control-label">数据存储总量(G):</label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" name="survey.totalStorage">
+                                <input type="number" class="form-control" data-rule="range(~2147483647);" min="0" name="survey.totalStorage">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label  class="col-sm-6 control-label">结构化信息(万):</label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.structureCount">
+                                <input type="number" class="form-control" data-rule="range(~2147483647);" min="0" class="form-control" name="survey.structureCount">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label  class="col-sm-6 control-label">已共享数据量(G):</label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.sharedStorage">
+                                <input type="number" class="form-control" data-rule="range(~2147483647);" min="0" class="form-control" name="survey.sharedStorage">
                             </div>
                         </div>
                     </div>
@@ -315,19 +315,19 @@
                         <div class="col-sm-4">
                             <label  class="col-sm-6 control-label">已共享结构化(万):</label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.sharedStructureCount">
+                                <input type="number" class="form-control" data-rule="range(~2147483647);" min="0" class="form-control" name="survey.sharedStructureCount">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label  class="col-sm-6 control-label">已开放数据量(G):</label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.openedStorage">
+                                <input type="number" class="form-control" data-rule="range(~2147483647);" min="0" class="form-control" name="survey.openedStorage">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label  class="col-sm-6 control-label">已开放结构化(万):</label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control" data-rule="integer(+0);" min="0" class="form-control" name="survey.openedStructureCount">
+                                <input type="number" class="form-control" data-rule="range(~2147483647);" min="0" class="form-control" name="survey.openedStructureCount">
                             </div>
                         </div>
                     </div>
