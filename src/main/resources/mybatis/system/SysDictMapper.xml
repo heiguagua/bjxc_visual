@@ -76,10 +76,6 @@
         WHERE t.id = #{id}
     </select>
 
-    <select id="selectCategoryVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM sys_dict_category
-        <include refid="queryConditions"></include>
-    </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         SELECT count(1) FROM sys_dict

@@ -25,7 +25,6 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     List<SysDeptVo> selectBaseVoPage(Page<SysDeptVo> page, Map<String, Object> paramMap);
 
-    List<SysDeptVo> selectSynVoPage(Page<SysDeptVo> page, Map<String, Object> paramMap);
 
     SysDeptVo selectVoById(String id);
 
@@ -33,7 +32,6 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     int selectBaseVoCount(Map<String, Object> paramMap);
 //    目录相关操作代码
-    List<SysDeptVo> selectVoList(Map<String, Object> paramMap);
 
     List<SysDeptVo> selectVoListForTreeData(Map<String, Object> paramMap);
 

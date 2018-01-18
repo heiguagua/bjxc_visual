@@ -68,7 +68,7 @@
         <mvc:interceptor>
             <!-- 对登录操作进行拦截 -->
             <mvc:mapping path="/login/doLogin"/>
-            <bean class="com.chinawiserv.dsp.dir.Interceptor.LoginInterceptor" />
+            <bean class="com.chinawiserv.dsp.base.common.inteceptor.LoginInterceptor" />
         </mvc:interceptor>
        <!--  <mvc:interceptor>
             对/user/**的请求进行拦截

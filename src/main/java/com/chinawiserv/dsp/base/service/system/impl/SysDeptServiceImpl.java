@@ -11,15 +11,11 @@ import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
-import com.chinawiserv.dsp.base.mapper.system.SysDeptAuthorityMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRegionMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirClassifyMapper;
-import com.chinawiserv.dsp.dir.mapper.catalog.DirDeptMapMapper;
-import com.chinawiserv.dsp.dir.service.catalog.IDirClassifyService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,18 +43,6 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Autowired
     private SysRegionMapper sysRegionMapper;
     
-    //TODO 以下内容需要再检查下，删掉
-    @Autowired
-    private DirClassifyMapper dirClassifyMapper;
-    
-    @Autowired
-    private DirDeptMapMapper dirDeptMapMapper;
-    
-    @Autowired
-    private IDirClassifyService dirService;
-    //TODO end
-    @Autowired
-    private SysDeptAuthorityMapper sysDeptAuthorityMapper;
 
     @Override
     public Page<SysDeptVo> selectVoPage(Map<String, Object> paramMap) throws Exception {

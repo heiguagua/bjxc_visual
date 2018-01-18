@@ -255,7 +255,9 @@ create table common_extend_config_info
    description          varchar(256) comment '属性描述',
    type                 varchar(36) comment '属性类型',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table common_extend_config_info comment '扩展属性配置表';
 
@@ -270,7 +272,9 @@ create table common_extend_data_info
    extend_id            varchar(36) comment '扩展配置表ID',
    extend_value         varchar(64) comment '扩展值',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table common_extend_data_info comment '扩展信息数据表';
 
@@ -288,7 +292,9 @@ create table common_message_info
    sender               varchar(64) comment '发送人',
    send_time            datetime comment '发送时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table common_message_info comment '系统消息表';
 
@@ -303,7 +309,9 @@ create table common_message_response
    response_time        datetime comment '响应时间',
    response_status      varchar(36) comment '响应状态',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table common_message_response comment '系统消息响应表';
 
@@ -317,7 +325,9 @@ create table common_obj_label
    obj_id               varchar(36) comment '对象ID',
    lable_name           varchar(64) comment '标签名称',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table common_obj_label comment '对象标签映射表';
 
@@ -551,7 +561,9 @@ create table dir_carousel_picture
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_carousel_picture comment '轮播图片表';
 
@@ -585,7 +597,9 @@ create table dir_classify
    tree_code            varchar(128) comment '树编码',
    national_code        varchar(64) comment '对应国家库分类编码',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_classify comment '目录分类表';
 
@@ -603,7 +617,9 @@ create table dir_classify_authority
    distribute_opinion   varchar(512) comment '分配意见',
    distribute_date      date comment '分配操作时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_classify_authority comment '目录类别权限分配表';
 
@@ -616,7 +632,9 @@ create table dir_classify_dept_map
    classify_id          varchar(36) comment '部门分类ID',
    dept_id              varchar(36) comment '部门ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_classify_dept_map comment '部门分类关联表';
 
@@ -639,7 +657,9 @@ create table dir_data_apply
    audit_opinion        varchar(512) comment '审核意见',
    audit_date           datetime comment '审核时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_apply comment '数据集权限申请表';
 
@@ -656,7 +676,9 @@ create table dir_data_audit
    audit_opinion        varchar(500) comment '审核意见',
    active_flag          int(2) default 1 comment '有效标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_audit comment '数据审核情况表';
 
@@ -670,7 +692,9 @@ create table dir_data_collection
    collector_id         varchar(36) comment '收藏人ID',
    collect_date         date comment '收藏时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_collection comment '数据集收藏记录';
 
@@ -686,7 +710,9 @@ create table dir_data_comment
    comment_content      varchar(500) comment '评论内容',
    satus                varchar(36) comment '状态',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_comment comment '数据集评论记录';
 
@@ -705,7 +731,9 @@ create table dir_data_correction
    audit_status         varchar(36) comment '审核状态',
    audit_opinion        varchar(500) comment '审核意见',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_correction comment '数据纠错记录';
 
@@ -724,7 +752,9 @@ create table dir_data_distribute
    distribute_opinion   varchar(512) comment '分配意见',
    distribute_date      date comment '分配操作时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_distribute comment '数据集权限分配表';
 
@@ -739,7 +769,9 @@ create table dir_data_export_record
    exporter_id          varchar(36) comment '导出人ID',
    export_time          datetime comment '导出时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_export_record comment '数据导出记录表';
 
@@ -754,7 +786,9 @@ create table dir_data_import_record
    importer_id          varchar(36) comment '导入人ID',
    import_time          datetime comment '导入时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_import_record comment '数据集导入详情表';
 
@@ -768,7 +802,9 @@ create table dir_data_item_apply
    item_id              varchar(36) comment '申请数据项ID',
    status               varchar(36) comment '审核状态',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_item_apply comment '数据项权限申请表';
 
@@ -781,7 +817,9 @@ create table dir_data_item_distribute
    dcm_id               varchar(36) comment '分配信息资源ID',
    item_id              varchar(36) comment '分配数据项ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_item_distribute comment '数据项权限分配表';
 
@@ -796,7 +834,9 @@ create table dir_data_offline
    offline_time         datetime comment '下架时间',
    active_flag          int(2) default 1 comment '有效标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_offline comment '数据下架情况';
 
@@ -812,7 +852,9 @@ create table dir_data_publish
    publish_date         datetime comment '发布时间',
    active_flag          int(2) default 1 comment '有效标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_publish comment '数据发布情况';
 
@@ -827,7 +869,9 @@ create table dir_data_rate
    rate_score           numeric(6) comment '评分人分数',
    rate_date            date comment '评分时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_rate comment '数据集评分记录';
 
@@ -843,7 +887,9 @@ create table dir_data_registe
    registe_opinion      varchar(500) comment '注册意见',
    active_flag          int(2) default 1 comment '有效标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_registe comment '数据注册情况表';
 
@@ -860,7 +906,9 @@ create table dir_data_transfer
    trasnfer_scope       varchar(256) comment '上报范围',
    transfer_status      varchar(36) comment '上报状态',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_transfer comment '资源目录上报信息';
 
@@ -877,7 +925,9 @@ create table dir_data_visit
    visit_ip             varchar(36) comment '浏览人IP',
    visit_date           date comment '浏览时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_data_visit comment '数据集浏览记录';
 
@@ -916,7 +966,9 @@ create table dir_dataitem
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataitem comment '数据集对应数据项表【国】';
 
@@ -931,7 +983,9 @@ create table dir_dataitem_source_info
    source_obj_id        varchar(36) comment '来源对象ID',
    source_item_id       varchar(36) comment '来源数据项ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataitem_source_info comment '数据项来源信息表';
 
@@ -973,7 +1027,9 @@ create table dir_dataset
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset comment '数据集（信息资源）';
 
@@ -991,7 +1047,9 @@ create table dir_dataset_attachment
    uploader             varchar(36) comment '上传人',
    upload_time          datetime comment '上传时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_attachment comment '数据集对应附件表';
 
@@ -1010,7 +1068,9 @@ create table dir_dataset_classify_map
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_classify_map comment '数据集目录类别关系表';
 
@@ -1023,7 +1083,9 @@ create table dir_dataset_ext_carrier
    dataset_id           varchar(36) comment '数据集ID',
    carrier_type         varchar(36) comment '存储载体',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_ext_carrier comment '数据集扩展信息（【川】基本载体）';
 
@@ -1038,7 +1100,9 @@ create table dir_dataset_ext_format
    format_type          varchar(36) comment '资源格式类型',
    format_info          varchar(256) comment '资源格式说明',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_ext_format comment '数据集扩展信息（【国】资源格式）';
 
@@ -1051,7 +1115,9 @@ create table dir_dataset_ext_service_target
    dataset_id           varchar(36) comment '数据集ID',
    service_target       varchar(36) comment '服务对象',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_ext_service_target comment '数据集扩展信息（【川】服务对象）';
 
@@ -1065,7 +1131,9 @@ create table dir_dataset_ext_sevice_field
    sevice_field_type    varchar(36) comment '服务领域类型',
    service_field_property varchar(36) comment '服务领域',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_ext_sevice_field comment '数据集扩展信息（【川】服务领域）';
 
@@ -1079,7 +1147,9 @@ create table dir_dataset_ext_share_consult
    contact              varchar(64) comment '主管部门联系人',
    contact_phone        varchar(36) comment '主管部门联系电话',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_ext_share_consult comment '数据集扩展信息（【川】共享咨询）';
 
@@ -1092,7 +1162,9 @@ create table dir_dataset_ext_source
    dataset_id           varchar(36) comment '数据集ID',
    source_type          varchar(36) comment '主要来源',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_ext_source comment '数据集扩展信息（【川】主要来源）';
 
@@ -1105,7 +1177,9 @@ create table dir_dataset_import_map
    import_record_id     varchar(36) comment '导入记录表ID',
    data_id              varchar(36) comment '数据ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_import_map comment '数据与导入记录关系表';
 
@@ -1123,7 +1197,9 @@ create table dir_dataset_service_map
    status               varchar(36) comment '状态',
    operate_time         datetime comment '服务注册时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_service_map comment '数据集对应接口服务表';
 
@@ -1138,7 +1214,9 @@ create table dir_dataset_source_info
    source_obj_type      varchar(36) comment '来源对象类型',
    source_obj_id        varchar(36) comment '来源对象ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_source_info comment '信息资源来源信息';
 
@@ -1157,7 +1235,9 @@ create table dir_dataset_source_relation
    relation_type        varchar(36) comment '关联类型',
    relation_ext_info    varchar(512) comment '关联其他信息',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_source_relation comment '信息资源来源关系表';
 
@@ -1175,7 +1255,9 @@ create table dir_dataset_survey
    opened_storage       int(16) comment '已开放的数据存储量',
    opened_structure_count int(16) comment '已开放的结构化记录数',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_dataset_survey comment '信息资源大普查信息表';
 
@@ -1204,7 +1286,9 @@ create table dir_develop_apis
    is_show              int(3) comment '是否首页显示',
    is_use               int(3) comment '是否显示在开发者中心',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_develop_apis comment '开发者工具';
 
@@ -1223,7 +1307,9 @@ create table dir_national_classify
    classify_structure_code varchar(1024) comment '分类结构编号',
    classify_structure_name varchar(1024) comment '分类结构名称',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_national_classify comment '国家库目录分类表';
 
@@ -1250,7 +1336,9 @@ create table dir_news
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_news comment '新闻表';
 
@@ -1274,7 +1362,9 @@ create table dir_policy
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_policy comment '政策表';
 
@@ -1290,7 +1380,9 @@ create table dir_portal_content_setting
    publish_date         datetime comment '发布时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_portal_content_setting comment '网站门户内容设置';
 
@@ -1309,7 +1401,9 @@ create table dir_regist_user
    status               varchar(36) comment '状态',
    create_time          datetime comment '创建时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_regist_user comment '用户注册表';
 
@@ -1328,7 +1422,9 @@ create table dir_service_info
    operate_date         datetime comment '操作时间',
    operation_desc       varchar(2048) comment '服务操作说明',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_service_info comment '发布服务信息表';
 
@@ -1353,7 +1449,9 @@ create table dir_special_apps
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_special_apps comment '专题应用表';
 
@@ -1374,7 +1472,9 @@ create table dir_suggestion
    response_date        datetime comment '回复时间',
    responser            varchar(36) comment '回复人',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table dir_suggestion comment '咨询建议表';
 
@@ -1394,7 +1494,9 @@ create table drap_activity_doc_item
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_activity_doc_item comment '业务活动资料数据项表';
 
@@ -1408,7 +1510,9 @@ create table drap_activity_doc_map
    doc_id               varchar(36) comment '业务资料ID',
    doc_io_type          varchar(36) comment '资料类型（输入/输出）',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_activity_doc_map comment '业务活动关联资料表';
 
@@ -1421,7 +1525,9 @@ create table drap_activity_pre_relation
    activity_id          varchar(36) comment '业务活动ID',
    pre_activity_id      varchar(36) comment '前置活动节点ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_activity_pre_relation comment '业务活动前置关系表';
 
@@ -1434,7 +1540,9 @@ create table drap_activity_rel_depts
    activity_id          varchar(36) comment '业务活动ID',
    dept_id              varchar(36) comment '相关部门ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_activity_rel_depts comment '业务活动关联部门表';
 
@@ -1447,7 +1555,9 @@ create table drap_activity_set_map
    dataset_id           varchar(36) comment '信息资源ID',
    activity_id          varchar(36) comment '关联业务活动ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_activity_set_map comment '信息资源关联业务表';
 
@@ -1460,7 +1570,9 @@ create table drap_activity_system_map
    activity_id          varchar(36) comment '业务活动ID',
    system_id            varchar(36) comment '关联信息系统ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_activity_system_map comment '业务活动关联信息系统表';
 
@@ -1522,7 +1634,9 @@ create table drap_business_activity
    tree_index           int comment '树索引',
    tree_code            varchar(128) comment '树编码',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_business_activity comment '业务活动表';
 
@@ -1550,7 +1664,9 @@ create table drap_business_doc
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_business_doc comment '业务活动资料';
 
@@ -1573,7 +1689,9 @@ create table drap_business_requirement
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_business_requirement comment '业务资源需求表';
 
@@ -1590,7 +1708,9 @@ create table drap_data_column_map
    db_id                varchar(36) comment '数据库ID',
    table_id             varchar(36) comment '数据表ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_data_column_map comment '数据项与表字段关系梳理表';
 
@@ -1617,7 +1737,9 @@ create table drap_data_meta
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_data_meta comment '数据元表';
 
@@ -1669,7 +1791,9 @@ create table drap_dataset
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_dataset comment '信息资源（数据集）';
 
@@ -1682,7 +1806,9 @@ create table drap_dataset_dept_map
    dataset_id           varchar(36) comment '数据集ID',
    dept_id              varchar(36) comment '关联部门ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_dataset_dept_map comment '数据集关联部门表';
 
@@ -1697,7 +1823,9 @@ create table drap_dataset_ext_format
    format_type          varchar(36) comment '资源格式类型',
    format_info          varchar(256) comment '资源格式说明',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_dataset_ext_format comment '数据集扩展信息（【国】资源格式）2';
 
@@ -1736,7 +1864,9 @@ create table drap_dataset_item
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_dataset_item comment '业务数据项【国】';
 
@@ -1749,7 +1879,9 @@ create table drap_dataset_item_map
    dataset_id           varchar(36) comment '数据集ID',
    item_id              varchar(36) comment '数据项ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_dataset_item_map comment '数据集数据项关联表';
 
@@ -1767,7 +1899,9 @@ create table drap_dataset_survey
    opened_storage       int(16) comment '已开放的数据存储量',
    opened_structure_count int(16) comment '已开放的结构化记录数',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_dataset_survey comment '信息资源大普查信息表2';
 
@@ -1780,7 +1914,9 @@ create table drap_dataset_system_map
    dataset_id           varchar(36) comment '信息资源ID',
    system_id            varchar(36) comment '信息系统ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_dataset_system_map comment '信息资源关联信息系统';
 
@@ -1797,7 +1933,9 @@ create table drap_dataset_table_relation
    target_column        varchar(64) comment '关联目标表字段名',
    relation_type        varchar(36) comment '关联类型',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_dataset_table_relation comment '信息资源梳理表关系记录表';
 
@@ -1849,7 +1987,9 @@ create table drap_db_info
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_db_info comment '数据库信息';
 
@@ -1862,7 +2002,9 @@ create table drap_db_system_map
    db_id                varchar(36) comment '数据库ID',
    info_system_id       varchar(36) comment '信息系统ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_db_system_map comment '数据库业务系统关系表';
 
@@ -1891,7 +2033,9 @@ create table drap_db_table_column
    status               int(3) comment '状态',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_db_table_column comment '数据表字段信息';
 
@@ -1913,7 +2057,9 @@ create table drap_db_table_info
    status               int(3) comment '状态',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_db_table_info comment '数据表信息';
 
@@ -1943,7 +2089,9 @@ create table drap_dict_table_column
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    real_column_id       varchar(36) comment '对应实际数据表字段ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_dict_table_column comment '字典导入数据表字段信息';
 
@@ -1966,7 +2114,9 @@ create table drap_dict_table_info
    status               int(3) comment '状态',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_dict_table_info comment '字典导入数据表信息';
 
@@ -1994,7 +2144,9 @@ create table drap_file_system
    is_show              int comment '是否显示',
    code_index           int comment '编码序号',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_file_system comment '文件系统表(NO)';
 
@@ -2076,7 +2228,9 @@ create table drap_info_system
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_info_system comment '信息系统表';
 
@@ -2089,7 +2243,9 @@ create table drap_item_required_dept
    item_id              varchar(36) comment '数据项ID',
    dept_id              varchar(36) comment '关联部门ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_item_required_dept comment '业务数据项关联需求部门(NO)';
 
@@ -2102,7 +2258,9 @@ create table drap_requirement_dataset_map
    require_id           varchar(36) comment '需求资源ID',
    dataset_id           varchar(36) comment '来源对象ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_requirement_dataset_map comment '需求和数据集关联表';
 
@@ -2134,7 +2292,9 @@ create table drap_requirement_resources
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_requirement_resources comment '需求资源信息表';
 
@@ -2151,7 +2311,9 @@ create table drap_sx_table_feedback
    message_info         varchar(1024) comment '采集结果说明',
    access_time          datetime comment '接收数据时间',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_sx_table_feedback comment '数据表反馈记录(淞幸)';
 
@@ -2169,7 +2331,9 @@ create table drap_sx_table_sync
    status               varchar(36) comment '状态',
    message              varchar(128) comment '消息',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_sx_table_sync comment '数据表同步记录(淞幸)';
 
@@ -2193,7 +2357,9 @@ create table drap_system_service
    samples              varchar(1000) comment '样例描述',
    code_index           int comment '编码序号',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_system_service comment '系统服务表(NO)';
 
@@ -2213,7 +2379,9 @@ create table drap_system_use_dept
    key_business         varchar(256) comment '关键业务',
    code_index           int comment '编码序号',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table drap_system_use_dept comment '信息系统使用单位';
 
@@ -2285,7 +2453,9 @@ create table sys_dept_authority
    distribute_date      date comment '分配操作时间',
    is_from_audit        varchar(2) comment '是否来自于审核',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_dept_authority comment '部门数据权限分配表';
 
@@ -2305,7 +2475,9 @@ create table sys_dept_authority_apply
    audit_opinion        varchar(512) comment '审核意见',
    audit_status         varchar(36) comment '审核状态',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_dept_authority_apply comment '部门数据权限申请表';
 
@@ -2322,7 +2494,9 @@ create table sys_dept_category_template
    apply_min_level      int comment '适用最小行政级别',
    apply_max_level      int comment '适用最大行政级别',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_dept_category_template comment '组织机构类别模板表';
 
@@ -2341,7 +2515,9 @@ create table sys_dept_contacts
    contacts_phone       varchar(36) comment '联系人手机',
    contacts_email       varchar(64) comment '联系人邮箱',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_dept_contacts comment '部门联系人';
 
@@ -2367,7 +2543,9 @@ create table sys_dict
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_dict comment '系统字典表';
 
@@ -2380,7 +2558,9 @@ create table sys_dict_category
    category_name        varchar(64) comment '类别名称',
    category_desc        varchar(256) comment '类别描述',
    primary key (category_code)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_dict_category comment '字典类型表';
 
@@ -2393,7 +2573,9 @@ create table sys_guid_dept
    cur_dept_id          varchar(36) comment '当前部门ID',
    guid_dept_id         varchar(36) comment '业务指导部门ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_guid_dept comment '业务指导部门记录表';
 
@@ -2406,7 +2588,9 @@ create table sys_icon_category
    category_name        varchar(64) comment '类别名称',
    category_desc        varchar(256) comment '类别描述',
    primary key (category_code)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_icon_category comment '系统图标类型表';
 
@@ -2539,7 +2723,9 @@ create table sys_product_integrate
    icon                 varchar(64) comment '显示图标',
    jump_url             varchar(64) comment '前端跳转地址',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_product_integrate comment '产品集成表';
 
@@ -2574,7 +2760,9 @@ create table sys_region
    status               varchar(36) default '1' comment '状态',
    version_id           varchar(36) comment '版本信息表ID',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_region comment '行政区域表';
 
@@ -2587,7 +2775,9 @@ create table sys_region_level
    region_level_name    varchar(64) comment '行政级别名称',
    region_level_value   int comment '行政级别',
    primary key (region_level_code)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_region_level comment '行政级别表';
 
@@ -2605,7 +2795,9 @@ create table sys_region_version
    validate_from        date comment '版本有效期开始',
    validate_to          date comment '版本有效期结束',
    primary key (id)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_region_version comment '行政区划版本记录表';
 
@@ -2680,7 +2872,9 @@ create table sys_setting_category
    category_name        varchar(64) comment '类别名称',
    category_desc        varchar(256) comment '类别描述',
    primary key (category_code)
-);
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 alter table sys_setting_category comment '系统配置类型表';
 

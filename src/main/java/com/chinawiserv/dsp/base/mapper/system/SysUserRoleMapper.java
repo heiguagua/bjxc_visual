@@ -15,8 +15,4 @@ import java.util.List;
  */
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
 
-	List<String> selectPermissionByUid(String uid);
-
-	String[] selectRoleIdsByUserId(String userId);
-
 }
