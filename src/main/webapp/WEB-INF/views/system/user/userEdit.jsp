@@ -137,7 +137,7 @@
                                 <label for="email" class="control-label col-sm-4 col-xs-4">邮箱</label>
                                 <div class="col-sm-7 col-xs-7">
                                 <input type="text" id="email" name="email" class="form-control"
-                                       placeholder="请输入邮箱号码">
+                                       placeholder="请输入邮箱号码" data-rule="邮箱:email">
                                 </div>
                             </div>
 								</div>
