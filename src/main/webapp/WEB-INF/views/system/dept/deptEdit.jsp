@@ -165,7 +165,7 @@
 		                                <label for="deptResponsePhone" class="control-label col-sm-4 col-xs-4">部门负责人电话</label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="deptResponsePhone"
-		                                           id="deptResponsePhone" placeholder="部门负责人电话">
+		                                           id="deptResponsePhone" placeholder="部门负责人电话" data-rule="tel|mobile">
 		                                </div>
 		                            </div>
 								</div>
@@ -176,7 +176,7 @@
 		                                <label for="deptResponseEmail" class="control-label col-sm-4 col-xs-4">部门负责人邮箱</label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="deptResponseEmail"
-		                                           id="deptResponseEmail" placeholder="部门负责人邮箱">
+		                                           id="deptResponseEmail" placeholder="部门负责人邮箱" data-rule="邮箱:email">
 		                                </div>
 		                            </div>
 								</div>
@@ -217,7 +217,7 @@
 		                                <label for="deptContactPhone" class="control-label col-sm-4 col-xs-4">联系人手机</label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="deptContactPhone"
-		                                           id="deptContactPhone" placeholder="联系人手机">
+		                                           id="deptContactPhone" placeholder="联系人手机" data-rule="mobile">
 		                                </div>
 		                            </div>
 								</div>
@@ -226,7 +226,7 @@
 		                                <label for="deptContactFixedPhone" class="control-label col-sm-4 col-xs-4">联系人座机</label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="deptContactFixedPhone"
-		                                           id="deptContactFixedPhone" placeholder="联系人座机">
+		                                           id="deptContactFixedPhone" placeholder="联系人座机" data-rule="tel">
 		                                </div>
 		                            </div>
 								</div>
@@ -237,7 +237,7 @@
 		                                <label for="deptContactEmail" class="control-label col-sm-4 col-xs-4">联系人邮箱</label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="deptContactEmail"
-		                                           id="deptContactEmail" placeholder="联系人邮箱">
+		                                           id="deptContactEmail" placeholder="联系人邮箱" data-rule="邮箱:email">
 		                                </div>
 		                            </div>
 								</div>
@@ -258,7 +258,7 @@
 		                                <label for="orgLongitude" class="control-label col-sm-4 col-xs-4">组织位置经度</label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="orgLongitude" id="orgLongitude"
-		                                           placeholder="组织位置经度" data-rule="floatNumber">
+		                                           placeholder="组织位置经度" data-rule="floatNumber;range(-180~180)">
 		                                </div>
 		                            </div>
 								</div>
@@ -267,7 +267,7 @@
 		                                <label for="orgLatitude" class="control-label col-sm-4 col-xs-4">组织位置纬度</label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="orgLatitude" id="orgLatitude"
-		                                           placeholder="组织位置纬度" data-rule="floatNumber">
+		                                           placeholder="组织位置纬度" data-rule="floatNumber;range(-90~90)">
 		                                </div>
 		                            </div>
 								</div>
@@ -278,7 +278,7 @@
 		                                <label for="orderNumber" class="control-label col-sm-4 col-xs-4" >排序</label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="number" class="form-control" name="orderNumber" id="orderNumber"
-		                                           placeholder="排序" data-rule="digits">
+		                                           placeholder="排序" data-rule="digits" min="0">
 		                                </div>
 		                            </div>
 								</div>

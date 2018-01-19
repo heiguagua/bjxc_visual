@@ -18,7 +18,7 @@
 
         // Custom rules
         rules: {
-            digits: [/^\d+$/, "请填写数字"]
+            digits: [/^\d+$/, "请填写正整数或零"]
             ,floatNumber: [/^(-?\d+)(\.\d+)?$/, "请填写有理数"]
             ,letters: [/^[a-z]+$/i, "请填写字母"]
             ,date: [/^\d{4}-\d{2}-\d{2}$/, "请填写有效的日期，格式:yyyy-mm-dd"]

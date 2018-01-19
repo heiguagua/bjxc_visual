@@ -93,9 +93,9 @@
 								
 								<div class="col-sm-6 col-xs-6">
 									<div class="form-group">
-                                <label class="control-label col-sm-4 col-xs-4">角色</label>
+                                <label class="control-label col-sm-4 col-xs-4">角色 <i style="color: red">*必选</i></label>
                                 <div class="col-sm-7 col-xs-7">
-                                <select id="roleIds" name="roleIds" class="form-control select2" style="width: 100%;"></select>
+                                <select id="roleIds" name="roleIds" class="form-control select2" style="width: 100%;" data-rule="角色:required;roleIds;"></select>
                                 </div>
                             </div>
 								</div>
