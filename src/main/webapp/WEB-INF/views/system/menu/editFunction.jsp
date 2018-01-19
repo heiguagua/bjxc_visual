@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label for="resourceName">权限资源</label>
                                 <input type="text" id="resourceName" name="resourceName" class="form-control"
-                                       placeholder="请输入权限资源名称" data-rule="权限资源:required;">
+                                       placeholder="请输入权限资源名称" >
                             </div>
                             <div class="form-group">
                                 <label>排序</label>
