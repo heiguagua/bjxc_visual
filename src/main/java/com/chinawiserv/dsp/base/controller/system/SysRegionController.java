@@ -124,7 +124,7 @@ public class SysRegionController extends BaseController {
     public HandleResult deleteBatch(@RequestParam("idArr[]") List<String> ids){
         HandleResult handleResult = new HandleResult();
         try {
-            service.deleteBatchDeptByIds(ids);
+            service.deleteBatchRegionByIds(ids);
             handleResult.success("批量删除行政区表成功！");
         } catch (Exception e) {
             handleResult.error("批量删除行政区表失败");
