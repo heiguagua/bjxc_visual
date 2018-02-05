@@ -30,4 +30,7 @@ public interface ISysRegionService extends ICommonService<SysRegion, SysRegionVo
     public SysRegionVo getRegionDataByCode(String regionCode) throws Exception;
 
     public List<String> getAllParentRegionCodes(String regionCode) throws Exception;
+
+    boolean deleteBatchRegionByIds(List<String> ids) ;
+
 }

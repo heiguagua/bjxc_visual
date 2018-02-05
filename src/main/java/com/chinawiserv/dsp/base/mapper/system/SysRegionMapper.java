@@ -39,4 +39,6 @@ public interface SysRegionMapper extends BaseMapper<SysRegion> {
     List<SysRegionVo> selectAllRegionByRegionCode(@Param("regionCodeCondition") String regionCode);
 
     List<SysRegionVo> selectVoListForTreeData(Map<String, Object> paramMap);
+
+    Integer deleteBatchRegionByIds(List<String> ids);
 }

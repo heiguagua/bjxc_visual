@@ -16,6 +16,8 @@ public class SysRegionVo extends SysRegion{
 
     private String hasLeaf;
 
+    private Long cNum;
+
     public Integer getRegionLevel() {
         return regionLevel;
     }
@@ -31,5 +33,13 @@ public class SysRegionVo extends SysRegion{
 
     public void setHasLeaf(String hasLeaf) {
         this.hasLeaf = hasLeaf;
+    }
+
+    public Long getcNum() {
+        return cNum;
+    }
+
+    public void setcNum(Long cNum) {
+        this.cNum = cNum;
     }
 }

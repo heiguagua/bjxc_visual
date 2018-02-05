@@ -4,7 +4,7 @@ jQuery(document).ready(function () {
 //1
 function initRegion(){
 	$.ajax({
-        url: basePathJS+"/sysRegion/getRegionListForLoginUser",
+        url: basePathJS+"/system/region/getRegionListForLoginUser",
 //        data: $(form).serialize(),
         dataType: 'json',
         method: 'GET',
@@ -47,7 +47,7 @@ function regionSwitch(){
         $(".citytitle .innerul").stop().slideUp();
         var regionCode = $(this).attr("region_code");
         $.commonAjax({
-            url: basePathJS + "/sysRegion/changeSessionRegionValue",
+            url: basePathJS + "/system/region/changeSessionRegionValue",
             data: {regionCode: regionCode},
             success:function(result){
                 window.location.reload();

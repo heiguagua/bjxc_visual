@@ -33,7 +33,7 @@ import java.util.Map;
  * @since 2017-09-13
  */
 @Controller
-@RequestMapping("/sysRegion")
+@RequestMapping("/system/region")
 public class SysRegionController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -56,6 +56,9 @@ public class SysRegionController extends BaseController {
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
 		try {
+            if (null==paramMap.get("fcode")){
+                paramMap.put("regionLevel", 2);
+            }
 		    Page<SysRegionVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);
 		} catch (Exception e) {
@@ -101,9 +104,33 @@ public class SysRegionController extends BaseController {
     @RequestMapping("/delete")
     @ResponseBody
     public HandleResult delete(@RequestParam String id){
-		//todo 逻辑删除
-    	//service.deleteById(id);
-		return new HandleResult().success("删除行政区域表成功");
+        HandleResult handleResult = new HandleResult();
+        try {
+            service.deleteById(id);
+            handleResult.success("删除行政区成功");
+        } catch (Exception e) {
+            handleResult.error("删除行政区表失败");
+            logger.error("删除行政区失败", e);
+        }
+        return handleResult;
+    }
+    /**
+     * 删除行政区域表
+     */
+    @RequiresPermissions("system:region:delete")
+    @Log("批量删除行政区域表")
+    @RequestMapping("/deleteBatch")
+    @ResponseBody
+    public HandleResult deleteBatch(@RequestParam("idArr[]") List<String> ids){
+        HandleResult handleResult = new HandleResult();
+        try {
+            service.deleteBatchDeptByIds(ids);
+            handleResult.success("批量删除行政区表成功！");
+        } catch (Exception e) {
+            handleResult.error("批量删除行政区表失败");
+            logger.error("批量删除行政区失败", e);
+        }
+        return handleResult;
     }
 
     /**

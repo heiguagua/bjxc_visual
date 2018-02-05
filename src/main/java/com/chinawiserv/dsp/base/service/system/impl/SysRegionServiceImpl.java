@@ -3,11 +3,14 @@ package com.chinawiserv.dsp.base.service.system.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
+import com.chinawiserv.dsp.base.entity.po.system.SysRole;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
+import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRegionMapper;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
+import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,9 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
     @Autowired
     private SysDeptMapper deptMapper;
 
+    @Autowired
+    private ISysDeptService sysDeptService;
+
     @Override
     public boolean insertVO(SysRegionVo vo) throws Exception {
 		//todo
@@ -60,8 +66,16 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
 
     @Override
     public Page<SysRegionVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-		//todo
-		return null;
+        Map<String, Object> param = sysDeptService.getDeptCondition(null);
+        if(param != null && !param.isEmpty()){
+            paramMap.putAll(param);
+            Page<SysRegionVo> page = getPage(paramMap);
+            List<SysRegionVo> sysDeptVos = mapper.selectVoPage(page, paramMap);
+            page.setTotal(mapper.selectVoCount(paramMap));
+            page.setRecords(sysDeptVos);
+            return page;
+        }
+        return getPage(paramMap);
 	}
 
     @Override
@@ -163,5 +177,8 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
         }
     }
 
-
+    @Override
+    public boolean deleteBatchRegionByIds(List<String> ids) {
+        return retBool(mapper.deleteBatchRegionByIds(ids));
+    }
 }

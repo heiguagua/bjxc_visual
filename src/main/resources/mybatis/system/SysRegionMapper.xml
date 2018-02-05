@@ -44,11 +44,18 @@
             <if test="fcode != null">
                 t.fcode = #{fcode,jdbcType=VARCHAR}
             </if>
+            <if test="regionLevel != null">
+                l.region_level_value = #{regionLevel}
+            </if>
+            <if test="searchKey != null">
+                AND t.region_name LIKE concat(concat('%', #{searchKey}), '%')
+            </if>
         </where>
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT <include refid="baseVoColumn"></include>
+        ,(SELECT COUNT(1) FROM sys_region WHERE fcode=t.region_code) as cNum
         FROM <include refid="baseVoTable"></include>
         <include refid="queryConditions"></include>
     </select>
@@ -94,7 +101,7 @@
     </select>
 
     <select id="selectVoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM sys_region t
+        SELECT count(1) FROM sys_region t LEFT JOIN sys_region_level l ON t.region_level_code = l.region_level_code
         <include refid="queryConditions"></include>
     </select>
 
@@ -173,5 +180,12 @@
         LEFT JOIN (SELECT DISTINCT(fcode) AS dcode FROM sys_region) b ON t.region_code=b.dcode
         <include refid="queryConditions"></include>
     </select>
+
+    <update id="deleteBatchRegionByIds" parameterType="java.util.List">
+        delete from sys_region WHERE id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
 
 </mapper>
