@@ -59,6 +59,8 @@ public class SysRegion implements Serializable {
 	@TableField("version_id")
 	private String versionId;
 
+	private String pinyin;
+
 
 	public String getId() {
 		return id;
@@ -132,4 +134,11 @@ public class SysRegion implements Serializable {
 		this.versionId = versionId;
 	}
 
+	public String getPinyin() {
+		return pinyin;
+	}
+
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
+	}
 }

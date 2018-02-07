@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysRegionLevelMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysRegionLevel">
+        <id column="region_level_code" property="regionLevelCode" />
+        <result column="region_level_name" property="regionLevelName" />
+        <result column="region_level_value" property="regionLevelValue" />
+    </resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysRegionLevelVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+             <if test="regionLevelCode != null">
+                t.region_level_code = #{regionLevelCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM sys_region_level t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM sys_region_level t WHERE t.region_level_code = #{regionLevelCode}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM sys_region_level t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysRegionLevel">
+        insert into sys_region_level(region_level_code,region_level_name,region_level_value,) values(
+            #{regionLevelCode},#{regionLevelName},#{regionLevelValue},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysRegionLevel">
+        update sys_region_level
+        <set>
+            <if test="regionLevelCode != null">
+                region_level_code = #{regionLevelCode},
+            </if>
+            <if test="regionLevelName != null">
+                region_level_name = #{regionLevelName},
+            </if>
+            <if test="regionLevelValue != null">
+                region_level_value = #{regionLevelValue},
+            </if>
+        </set>
+        where  region_level_code = #{regionLevelCode}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from sys_region_level <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="regionLevelCode != null">
+                region_level_code = #{regionLevelCode}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findByRegionLevelValueGreaterThan" parameterType="java.lang.Integer" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_region_level t WHERE t.region_level_value > #{regionLevelValue}
+    </select>
+
+</mapper>

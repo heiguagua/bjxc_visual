@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
 import com.chinawiserv.dsp.base.entity.po.system.SysRole;
@@ -43,8 +44,8 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
 
     @Override
     public boolean insertVO(SysRegionVo vo) throws Exception {
-		//todo
-		return false;
+        vo.setId(CommonUtil.get32UUID());
+		return insert(vo);
     }
 
     @Override
@@ -66,16 +67,14 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
 
     @Override
     public Page<SysRegionVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
-        Map<String, Object> param = sysDeptService.getDeptCondition(null);
-        if(param != null && !param.isEmpty()){
-            paramMap.putAll(param);
-            Page<SysRegionVo> page = getPage(paramMap);
-            List<SysRegionVo> sysDeptVos = mapper.selectVoPage(page, paramMap);
-            page.setTotal(mapper.selectVoCount(paramMap));
-            page.setRecords(sysDeptVos);
-            return page;
+        if (null==paramMap.get("fcode")){
+            paramMap.put("regionCode", ShiroUtils.getLoginUser().getRegionCode());
         }
-        return getPage(paramMap);
+        Page<SysRegionVo> page = getPage(paramMap);
+        List<SysRegionVo> sysDeptVos = mapper.selectVoPage(page, paramMap);
+        page.setTotal(mapper.selectVoCount(paramMap));
+        page.setRecords(sysDeptVos);
+        return page;
 	}
 
     @Override

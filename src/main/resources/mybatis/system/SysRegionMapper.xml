@@ -44,9 +44,6 @@
             <if test="fcode != null">
                 t.fcode = #{fcode,jdbcType=VARCHAR}
             </if>
-            <if test="regionLevel != null">
-                l.region_level_value = #{regionLevel}
-            </if>
             <if test="searchKey != null">
                 AND t.region_name LIKE concat(concat('%', #{searchKey}), '%')
             </if>

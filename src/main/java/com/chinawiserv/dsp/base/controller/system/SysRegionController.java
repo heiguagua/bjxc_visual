@@ -56,9 +56,7 @@ public class SysRegionController extends BaseController {
     public PageResult list(@RequestParam Map<String , Object> paramMap){
 		PageResult pageResult = new PageResult();
 		try {
-            if (null==paramMap.get("fcode")){
-                paramMap.put("regionLevel", 2);
-            }
+
 		    Page<SysRegionVo> page = service.selectVoPage(paramMap);
 		    pageResult.setPage(page);
 		} catch (Exception e) {

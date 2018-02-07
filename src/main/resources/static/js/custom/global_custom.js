@@ -1284,7 +1284,7 @@ function initGlobalCustom(tempUrlPrefix) {
          * @param codeInputDomId    存储选中目录类别的id的隐藏域input框的id
          * @param treeDivDomId      树形展开区域的DIV的id
          */
-        initRegionTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId , multiple, selectRegions) {
+        initRegionTreeSelect: function (treeDomId, nameInputDomId, codeInputDomId, treeDivDomId , multiple, selectRegions,type) {
             var selectRegionCodes = "";
             var chkStyle = multiple ? "checkbox" : "radio";
             if(!selectRegions || !$.isArray(selectRegions)) selectRegions = [];
@@ -1338,10 +1338,48 @@ function initGlobalCustom(tempUrlPrefix) {
                             selectRegionCodes = treeNode.regionCode;
                         }
                         $('#' + codeInputDomId).val(selectRegionCodes);
-                        initDeptSelectDataList(selectRegionCodes);
+                        if('region'==type){
+                            initRegionLevelDataList(selectRegionCodes);
+                        }else{
+                            initDeptSelectDataList(selectRegionCodes);
+                        }
                     }
                 }
             };
+
+            function initRegionLevelDataList(dd) {
+                $.commonAjax({
+                    url: basePathJS + "/system/regionLevel/findByRegionLevelValueGreaterThan",
+                    data:{
+                        regionCode : dd
+                    },
+                    success: function (result) {
+                        if (result.state) {
+                            var selectData = result.content.selectData;
+                            var data = [];
+                            if(selectData && selectData.length > 0){
+                                for(var i in selectData){
+                                    var id = selectData[i].regionLevelCode;
+                                    var text = selectData[i].regionLevelName;
+                                    if(id && text){
+                                        data.push({id: id, text: text})
+                                    }
+                                }
+                            }
+                            $("#regionLevelCode").html("")
+                            $("#regionLevelCode").select2({
+                                data: data,
+                                placeholder : '',
+                                allowClear: true
+                            });
+                            // $("#fid").change(function(){
+                            //     $("#fname").val($("#select2-fid-container").attr("title"))
+                            // })
+                            $("#regionLevelCode").val('').trigger("change");
+                        }
+                    }
+                });
+            }
             function initDeptSelectDataList(dd){
                 $.commonAjax({
                     // url: basePathJS + "/system/dept/getDeptSelectDataList?regionCode=510100&onlyRoot=" + onlyRoot +"&excludeRoot="+ excludeRoot +"&checkIsLeaf="+ checkIsLeaf,
@@ -1818,8 +1856,24 @@ function initGlobalCustom(tempUrlPrefix) {
 
             }
 
-        }
+        },
 
+        /**
+         * 拼音生成中文
+         */
+        getPinyin :function(inputNameId,outputNameId) {
+            var inputName=$("#"+inputNameId).val();
+            if(inputName){
+                $.commonAjax({
+                    url: basePathJS + "/system/dept/getPinyin",
+                    data: {cnName: inputName},
+                    success: function (result) {
+                        $("#"+outputNameId).val(result);
+                    }
+                });
+            }
+
+        }
     });
 
 
