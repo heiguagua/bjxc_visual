@@ -2,170 +2,87 @@
  * Created by zhanf on 2017/4/28. 1
  */
 jQuery(document).ready(function () {
-    var userId = $("#userId").val();
-
-    initUserTypeList();
-    initRoleNameList();
-    initFormerDate(userId);
-    $.initUserRegionTreeSelect('treeRegionDemo','regionName','regionCode', 'menuRegionContent'); //初始化区域机构下拉框
+    var regionId = $("#regionId").val();
+    initFormerDate(regionId);
+    // initSelectData();
 });
 
-function initUserTypeList(){
-    $.commonAjax({
-        url: basePathJS + "/enums/UserType",
-        async:false,
-        success: function (result) {
-            $("#userType").select2({data: result});
-        }
-    });
+function initSelectData() {
+    $.initRegionTreeSelect('treeRegionDemo','fname','fcode','menuRegionContent','','','region'); //初始化区域分类下拉框
 }
 
-function initDeptSelectDataList(){
-    $.commonAjax({
-        url: basePathJS + "/system/dept/getDeptSelectDataList",
-        success: function (result) {
-            if (result.state) {
-                var selectData = result.content.selectData;
-                $("#deptId").select2({
-                    data: selectData
-                });
-            }
-        }
-    });
+function getPinyin() {
+    $.getPinyin("regionName","pinyin");
 }
 
 //初始化用户信息
-function initFormerDate(userId) {
+function initFormerDate(regionId) {
     $.commonAjax({
-        url: basePathJS + "/system/user/loadEditData",
-        data: {id:userId},
+        url: basePathJS + "/system/region/editLoad",
+        data: {id:regionId},
         success: function (result) {
             if (result.state) {
-                var user = result.content.user;
-                if(user){
-                    var token = user.token;
-                    $("#token").val(token);
-                    if(token==undefined || token=="" || token==null){
-                        $("#createToken").removeAttr("disabled");
-                    }
-                    $("#userName").val(user.userName);
-                    $("#realName").val(user.realName);
-                    $("#userType").val(user.userType).trigger("change");
-                    $("#telephoneNumber").val(user.telephoneNumber);
-                    $("#cellPhoneNumber").val(user.cellPhoneNumber);
-                    // $("#regionCode").val(user.regionCode);
+                var region = result.content.vo;
+                if(region){
 
-                    $("#email").val(user.email);
-                    // $("#deptId").val(user.deptId).trigger("change");
-                    $("#roleIds").val(user.roleIds).trigger("change");
+                    $("#fname").val(region.fname);
+                    $("#fcode").val(region.fcode);
+                    $("#regionName").val(region.regionName);
+                    $("#regionCode").val(region.regionCode);
+                    initRegionLevelDataList(region.fcode);
+                    $("#pinyin").val(region.pinyin);
 
-                    $("#userDesc").val(user.userDesc);
+                    $("#versionId").val(region.versionId);
 
-                    var status = user.status;
+                    var status = region.status;
+
                     if (status == 1) {
                         $("#status1").click();
                     }
                     if (status == 0) {
                         $("#status0").click();
                     }
+                    $("#regionLevelCode").val(region.regionLevelCode).trigger("change");
 
-                    $('#regionName').val(user.regionName);
-                    $('#regionCode').val(user.regionCode);
-                    initDeptTreeSelect('treeDemo','deptName','deptId','menuContent',user.regionCode);
-                    $("#deptName").val(user.deptName);
-                    $("#deptId").val(user.deptId);
                 }
             }
         }
     });
 }
-//加载角色菜单列表
-function initRoleNameList(){
+
+
+function initRegionLevelDataList(dd) {
     $.commonAjax({
-        url: basePathJS + "/system/role/getRoleNameList",
+        url: basePathJS + "/system/regionLevel/findByRegionLevelValueGreaterThan",
+        data:{
+            regionCode : dd
+        },
         success: function (result) {
             if (result.state) {
-                var roleNames = result.content.selectData;
-                $("#roleIds").select2({
-                    data: roleNames
+                var selectData = result.content.selectData;
+                var data = [];
+                if(selectData && selectData.length > 0){
+                    for(var i in selectData){
+                        var id = selectData[i].regionLevelCode;
+                        var text = selectData[i].regionLevelName;
+                        if(id && text){
+                            data.push({id: id, text: text})
+                        }
+                    }
+                }
+                $("#regionLevelCode").html("")
+                $("#regionLevelCode").select2({
+                    data: data,
+                    placeholder : '',
+                    allowClear: true
                 });
+                // $("#fid").change(function(){
+                //     $("#fname").val($("#select2-fid-container").attr("title"))
+                // })
+                // $("#regionLevelCode").val("30").trigger("change");
             }
         }
     });
-}
-
-function initDeptTreeSelect(treeDomId, nameInputDomId, codeInputDomId, treeDivDomId,dd, multiple) {
-    $("#" + nameInputDomId).val("");
-    $("#" + codeInputDomId).val("");
-    var selectIds = "";
-    var setting = {
-        async: {
-            enable: true,
-            url: basePathJS + "/system/dept/getDeptSelectDataList?regionCode=" + dd + "&onlyLoginUserDept=1",
-            autoParam: ["id", "deptLevel"],
-            dataFilter: function (treeId, parentNode, childNodes) {//过滤数据库查询出来的数据为ztree接受的格式
-                var params = [];
-                var nodeObjs = childNodes.content.selectData;
-                if (!nodeObjs) {
-                    return null;
-                }
-                for (var i in nodeObjs) {
-                    params[i] = {
-                        'id': nodeObjs[i].id,
-                        'name': nodeObjs[i].deptName,
-                        'deptLevel': nodeObjs[i].deptLevel,
-                        'isParent': (nodeObjs[i].isLeaf ? false : true),
-                        'nocheck': nodeObjs[i].deptLevel == 1
-                    }
-                }
-                return params;
-            }
-        },
-        check: {enable: true,chkStyle: "radio",chkboxType: { "Y":"s","N":"s"},radioType: "all"},
-        callback: {
-            beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
-                var zTreeObj = $.fn.zTree.getZTreeObj(treeDomId);
-                if (treeNode.isParent) {
-                    if (treeNode.open) {
-                        zTreeObj.expandNode(treeNode, false);
-                    } else {
-                        zTreeObj.expandNode(treeNode, true);
-                    }
-                    return false;
-                } else {
-                    return true;
-                }
-            },
-            onCheck: function (e, treeId, treeNode) { //选中节点，获取区域类别的名称，显示到输入框中
-                $('#' + nameInputDomId).val(treeNode.name);
-                if(multiple){
-                    if (selectIds == "") {
-                        selectIds = treeNode.id;
-                    } else {
-                        selectIds += "," + treeNode.id;
-                    }
-                }else{
-                    selectIds = treeNode.id;
-                }
-                $('#' + codeInputDomId).val(selectIds);
-            }
-        }
-    };
-    $.fn.zTree.init($("#" + treeDomId), setting);
-    $('#' + nameInputDomId).click(function () {
-        var cityOffset = $("#" + nameInputDomId).offset();
-        $("#" + treeDivDomId).css({
-            left: cityOffset.left + "px",
-            top: cityOffset.top + $("#" + nameInputDomId).outerHeight() + "px"
-        }).slideDown("fast");
-        $("body").bind("mousedown", function (event) {
-            if (!(event.target.id == "menuBtn" || event.target.id == treeDivDomId || $(event.target).parents("#" + treeDivDomId).length > 0)) {
-                $("#" + treeDivDomId).fadeOut("fast");
-                $("body").unbind("mousedown");
-            }
-        });
-    })
-
 }
 
 function runBeforeSubmit(form) {
@@ -183,20 +100,3 @@ function runAfterSubmit(response) {
     console.log("runAfterSubmit");
 }
 
-$(function(){
-    $("#createToken").click(function() {
-        var id = $("#userId").val();
-        var userName = $("#userName").val();
-        $.commonAjax({
-            url: basePathJS + "/system/user/createToken",
-            data: {id:id,userName:userName},
-            success: function (result) {
-                if (result.state) {
-                    var token = result.content.token;
-                    $("#token").val(token);
-                    $("#createToken").attr("disabled","disabled");
-                }
-            }
-        });
-    });
-});

@@ -79,7 +79,7 @@ public class MpGenerator {
 
         //todo 需要生成的表以逗号连接
 //        String includeTableStr = "dcm_task_api_conf,dcm_task_crawler_conf,dcm_task_db_conf,dcm_task_scan_record,dcm_task_sd_column_conf,dcm_task_sf_conf,dcm_task_uf_record,dcm_task_usf_conf";
-        String includeTableStr = "sys_product_integrate";
+        String includeTableStr = "sys_region_level";
 
         if (org.apache.commons.lang.StringUtils.isNotBlank(includeTableStr)) {
             String includeTableArr[] =  includeTableStr.trim().split(",");
