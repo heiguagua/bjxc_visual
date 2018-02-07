@@ -37,10 +37,10 @@ function initFormerDate(regionId) {
                     var status = region.status;
 
                     if (status == 1) {
-                        $("#status1").click();
+                        $("#inlineRadio1").click();
                     }
                     if (status == 0) {
-                        $("#status0").click();
+                        $("#inlineRadio0").click();
                     }
                     $("#regionLevelCode").val(region.regionLevelCode).trigger("change");
 
