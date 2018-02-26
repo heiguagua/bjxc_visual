@@ -80,6 +80,19 @@
                                               placeholder="请输入数据字典描述"></textarea>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="dictLevel" >级别</label>
+                                <div class="form-group" >
+                                    <select id="dictLevel" name="dictLevel" class="form-control" data-rule="角色:required;dictLevel;">
+                                        <option value="1">国家级</option>
+                                        <option value="2">省级</option>
+                                        <option value="3">省会级</option>
+                                        <option value="4">市级</option>
+                                        <option value="5">区县级</option>
+                                        <option value="6">乡镇级</option>
+                                    </select>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label >状态</label>

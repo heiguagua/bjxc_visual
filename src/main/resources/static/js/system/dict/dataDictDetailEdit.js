@@ -35,6 +35,7 @@ function initEditPage(){
                 }
                 $("#regionName").val(vo.regionName);
                 $("#orderNumber").val(vo.orderNumber);
+                $("#dictLevel").val(vo.dictLevel).trigger("change");
                 $("#dictDesc").val(vo.dictDesc);
                 var status_selector = $("input[name='status']");
                 vo.status == 1 ? status_selector.get(0).checked=true : status_selector.get(1).checked=true;
