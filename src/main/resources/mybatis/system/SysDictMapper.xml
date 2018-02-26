@@ -44,11 +44,6 @@
             </if>
         </where>
     </sql>
-    <select id="selectCategoryVoPage" parameterType="java.util.Map"
-            resultType="com.chinawiserv.dsp.base.entity.vo.system.SysDictCategoryVo">
-        SELECT t.* FROM sys_dict_category t
-        <include refid="queryConditions"></include>
-    </select>
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
         SELECT
         t.*, IfNULL(t2.region_name, '通用') AS region_name
