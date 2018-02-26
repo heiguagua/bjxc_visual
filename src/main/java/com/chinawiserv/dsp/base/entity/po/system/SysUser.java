@@ -112,6 +112,8 @@ public class SysUser implements Serializable {
 	@TableField("token")
 	private String token;
 
+	private String pinyin;
+
 	public String getId() {
 		return id;
 	}
@@ -262,5 +264,13 @@ public class SysUser implements Serializable {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getPinyin() {
+		return pinyin;
+	}
+
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
 	}
 }

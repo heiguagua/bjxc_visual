@@ -160,22 +160,37 @@
 			                            </div>
 			                        </div>
 								</div>
+
 								<div class="col-sm-6 col-xs-6">
-									 <div class="form-group">
-			                            <label class="control-label col-sm-5 col-xs-5">状态 <i style="color: red">*必选</i></label>
-			                            <div class="col-sm-7 col-xs-7">
+									<div class="form-group">
+										<label for="pinyin" class="control-label col-sm-5 col-xs-5">拼音</label>
+										<div class="col-sm-5 col-xs-5" style="padding-right:0">
+											<input type="text" class="form-control" name="pinyin" id="pinyin" data-rule="letters">
+										</div>
+										<div class="col-sm-2 col-xs-2" style="padding-left:0">
+											<input class="btn btn-primary form-control btn_blue" style="padding:0" type="button" value="生成" id="pinyinBtn" onclick="javascript:getPinyin()">
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-sm-6 col-xs-6">
+									<div class="form-group">
+										<label class="control-label col-sm-5 col-xs-5">状态 <i style="color: red">*必选</i></label>
+										<div class="col-sm-7 col-xs-7">
 			                                <span class="radio-inline" style="padding: 4px 0 0 16px;">
 			                                    <input name="status" type="radio" id="inlineRadio1" class="minimal" checked
-			                                           value="1"> 启用
+													   value="1"> 启用
 			                                </span>
-			                                <span class="radio-inline pdl0">
+											<span class="radio-inline pdl0">
 			                                    <input name="status" type="radio" id="inlineRadio0" class="minimal" value="0"> 禁用
 			                                </span>
-			                            </div>
-			                        </div>
+										</div>
+									</div>
 								</div>
+
 							</div>
-                        
                         
                         
                         

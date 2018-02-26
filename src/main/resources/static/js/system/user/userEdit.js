@@ -20,6 +20,10 @@ function initUserTypeList(){
     });
 }
 
+function getPinyin() {
+    $.getPinyin("userName","pinyin");
+}
+
 function initDeptSelectDataList(){
     $.commonAjax({
         url: basePathJS + "/system/dept/getDeptSelectDataList",
@@ -60,6 +64,7 @@ function initFormerDate(userId) {
                     $("#roleIds").val(user.roleIds).trigger("change");
 
                     $("#userDesc").val(user.userDesc);
+                    $("#pinyin").val(user.pinyin);
 
                     var status = user.status;
                     if (status == 1) {

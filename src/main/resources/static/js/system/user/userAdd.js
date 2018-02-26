@@ -18,6 +18,10 @@ function initSelectData() {
 
 }
 
+function getPinyin() {
+    $.getPinyin("userName","pinyin");
+}
+
 function initUserTypeList() {
     $.commonAjax({
         url: basePathJS + "/enums/UserType",
