@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -154,6 +155,26 @@ public class SysDictController extends BaseController {
         }catch (Exception e){
             handleResult.error("删除系统字典明细表失败");
             logger.error("删除系统字典明细表失败+" + id, e);
+        }
+
+		return handleResult;
+    }
+    /**
+     * 批量删除系统字典明细表
+     */
+//    @RequiresPermissions("XXX:XXX:delete")
+    @Log("批量删除系统字典明细表")
+    @RequestMapping("/detailDeleteBatch")
+    @ResponseBody
+    public HandleResult detailDeleteBatch(@RequestParam("idArr[]") List<String> ids){
+        HandleResult handleResult = new HandleResult();
+        try{
+             service.deleteBatchDictByIds(ids);
+             handleResult.success("批量删除系统字典明细表成功");
+
+        }catch (Exception e){
+            handleResult.error("批量删除系统字典明细表失败");
+            logger.error("批量删除系统字典明细表失败", e);
         }
 
 		return handleResult;

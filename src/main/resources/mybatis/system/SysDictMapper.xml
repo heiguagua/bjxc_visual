@@ -183,4 +183,11 @@
         LIMIT 1
     </select>
 
+    <update id="deleteBatchDictByIds" parameterType="java.util.List">
+        UPDATE sys_dict SET delete_flag = '1' WHERE id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
 </mapper>

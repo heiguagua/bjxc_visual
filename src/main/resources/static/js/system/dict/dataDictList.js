@@ -17,6 +17,7 @@ function intDict(param) {
     $("#back").addClass("hidden")
     $("#search").removeClass("hidden")
     $("#searchDetail").addClass("hidden")
+    $("#deleteBatchDivId").addClass("hidden")
     "use strict";
     paramsObj = param||{};
     if($(tableSelector).hasClass("table-striped")){
@@ -123,6 +124,7 @@ function getDictDetails(categoryCode,dd,searchKey) {
 
     $("#search").addClass("hidden")
     $("#searchDetail").removeClass("hidden")
+    $("#deleteBatchDivId").removeClass("hidden")
     $("#category").val(categoryCode);
     $("#dd").val(dd);
 
@@ -138,8 +140,12 @@ function getDictDetails(categoryCode,dd,searchKey) {
         queryParams: function (params) {
             return $.extend(params, detailParamObj);
         },
-        columns: [
-            {
+        columns: [{
+            checkbox: true,
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+        },{
                 field: 'id', title: '序号', width: '5%', align: 'center', formatter: function (value, row, index) {
                 return index + 1;
             }
@@ -224,4 +230,9 @@ function deleteDictDetails(id) {
     var url = basePathJS + "/sysDict/detailDelete";
     var parameter = {id: id};
     delObj(url , parameter) ;
+}
+
+function deleteBatchDict() {
+    var url = basePathJS + "/sysDict/detailDeleteBatch";
+    deleteALLSelect(url , tableSelector);
 }

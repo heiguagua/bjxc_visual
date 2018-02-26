@@ -145,4 +145,9 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
         }
         return dictCode;
     }
+
+    @Override
+    public boolean deleteBatchDictByIds(List<String> ids) {
+        return retBool(mapper.deleteBatchDictByIds(ids));
+    }
 }

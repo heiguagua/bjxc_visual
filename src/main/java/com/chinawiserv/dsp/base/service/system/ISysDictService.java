@@ -25,5 +25,9 @@ public interface ISysDictService extends ICommonService<SysDict, SysDictVo> {
     SysDictVo selectVoDetailById(String id) throws Exception;
     boolean deleteDictById(String id) throws Exception;
 
+    boolean deleteBatchDictByIds(List<String> ids);
+
+
+
 
 }

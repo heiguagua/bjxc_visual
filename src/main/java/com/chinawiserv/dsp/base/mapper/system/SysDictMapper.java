@@ -44,4 +44,6 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
     int baseDelete(String id);
 
     String selectDictcodeByCategoryAndName(@Param("dict_name") String dict_name,@Param("category") String category);
+
+    Integer deleteBatchDictByIds(List<String> ids);
 }

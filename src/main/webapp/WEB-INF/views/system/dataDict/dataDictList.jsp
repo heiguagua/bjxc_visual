@@ -45,6 +45,11 @@
                                        <%--新增--%>
                                     <%--</a>--%>
                                 <%--</div>--%>
+                                <div class="input-group hidden" id="deleteBatchDivId">
+                                    <a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchDict()" >
+                                        <img src="<%=context_path%>/images/userImg/delImg.png"/>
+                                        批量删除</a>
+                                </div>
 
                                 <div class="input-group  pull-right" id="search">
                                     <input id="searchKeyId" type="text" name="search" class="form-control"
