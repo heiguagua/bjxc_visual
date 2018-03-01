@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo;
+import com.chinawiserv.dsp.base.service.system.ISysProductIntegrateService;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -55,6 +57,9 @@ public class CustomerSSOFilter extends SSOFilter {
 
     @Autowired
     private ISysMenuService sysMenuService;
+
+    @Autowired
+    private ISysProductIntegrateService sysProductIntegrateService;
 
     private final SSOConfigProperties prop;
 
@@ -132,10 +137,21 @@ public class CustomerSSOFilter extends SSOFilter {
 
             String[] hes = uri.split("/");
             String toHost_key = hes.length > 0 ? hes[0] : "";
-            String host = !Strings.isNullOrEmpty(toHost_key) && RegExp.match("^(hk_).{0,}", toHost_key)
-                    ? this.prop.getJumpLocation(toHost_key.replace("hk_", ""))
-                    : this.prop.getJumpLocation("host");
-
+//            String host = !Strings.isNullOrEmpty(toHost_key) && RegExp.match("^(hk_).{0,}", toHost_key)
+//                    ? this.prop.getJumpLocation(toHost_key.replace("hk_", ""))
+//                    : this.prop.getJumpLocation("host");
+            String host =null;
+	        if(!Strings.isNullOrEmpty(toHost_key) && RegExp.match("^(hk_).{0,}", toHost_key)){
+	            String id = toHost_key.replace("hk_", "");
+	            try {
+	                SysProductIntegrateVo vo = sysProductIntegrateService.selectVoById(id);
+	                host=vo.getSsoPath();
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }else {
+	            return;
+	        }
             uri = uri.replace(toHost_key, "");
 
             // 检查是否登录

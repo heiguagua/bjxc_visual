@@ -223,10 +223,17 @@ public class BaseController {
 		} catch (ErrorInfoException e) {
 
 			logger.error("集成异常，未获得唯一主系统");
-			return true;
-		}
-		if(master!=null&&!master.getProductNo().equals(systemId)){
 			return false;
+		}
+		if(master!=null){
+			if(!master.getProductNo().equals(systemId)){
+				return false;
+
+			}
+			if(master.getIntegrateFlag().equals(0)){
+				return false;
+
+			}
 		}
 		return true;
 	}

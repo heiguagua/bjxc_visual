@@ -47,7 +47,7 @@
 									<div class="form-group">
                                         <label class="control-label col-sm-4 col-xs-4">显示名称</label>
                                         <div class="col-sm-7 col-xs-7">
-                                        <input type="text" class="form-control"  id="productShowName"  >
+                                        <input type="text" class="form-control"  id="productShowName" name="productShowName" >
                                         </div>
                                     </div>
 								</div>
@@ -55,7 +55,7 @@
 									<div class="form-group">
                                         <label class="control-label col-sm-4 col-xs-4">根路径</label>
                                         <div class="col-sm-7 col-xs-7">
-                                            <input type="text" class="form-control"  id="rootPath"  >
+                                            <input type="text" class="form-control"  id="rootPath" name="rootPath" >
                                         </div>
                                     </div>
 								</div>
@@ -67,7 +67,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4 col-xs-4">单点登录地址</label>
                                         <div class="col-sm-7 col-xs-7">
-                                            <input type="text" class="form-control"  id="ssoPath"  >
+                                            <input type="text" class="form-control"  id="ssoPath" name="ssoPath" >
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4 col-xs-4">顺序</label>
                                         <div class="col-sm-7 col-xs-7">
-                                            <input type="text" class="form-control"  id="orderNumber"  >
+                                            <input type="text" class="form-control"  id="orderNumber" name="orderNumber" >
                                         </div>
                                     </div>
                                 </div>
