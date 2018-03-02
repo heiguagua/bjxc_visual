@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.chinawiserv.dsp.base.entity.po.system.SysDict;
+import com.chinawiserv.dsp.base.entity.po.system.SysDictCategory;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
@@ -17,6 +18,8 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  */
 public interface ISysDictService extends ICommonService<SysDict, SysDictVo> {
 
+    String synUrl="/sysDict/provideData";
+
     Map<String, Map<String, SysDictVo>> getDictDataForSelect(Map<String, Object> paramMap) throws Exception;
     List<SysDictVo> selectVoCategoryList(Map<String, Object> paramMap);
     List<SysDictVo> selectVoListForTreeDataForApp(Map<String, Object> paramMap);
@@ -26,6 +29,12 @@ public interface ISysDictService extends ICommonService<SysDict, SysDictVo> {
     boolean deleteDictById(String id) throws Exception;
 
     boolean deleteBatchDictByIds(List<String> ids);
+
+    List<SysDict> listBySystemId(String systemId);
+
+    boolean insertOrUpdate(List<SysDict> list);
+
+
 
 
 

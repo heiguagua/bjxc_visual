@@ -1,10 +1,13 @@
 package com.chinawiserv.dsp.base.service.system;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysDictCategory;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictCategoryVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +23,10 @@ public interface ISysDictCategoryService extends ICommonService<SysDictCategory,
     SysDictCategoryVo selectVoById(String id) throws Exception;
     boolean updateCategoryVO(SysDictCategoryVo vo) throws Exception;
     int deleteByCategoryCode(Map<String , Object> map) throws Exception;
+
+    List<SysDictCategory> listBySystemId(String systemId);
+
+    boolean insertOrUpdate(List<SysDictCategory> list);
 
 
 }

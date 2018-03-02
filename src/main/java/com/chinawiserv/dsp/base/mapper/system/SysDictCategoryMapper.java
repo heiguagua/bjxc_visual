@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.base.mapper.system;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysDictCategory;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictCategoryVo;
 
@@ -26,5 +27,13 @@ public interface SysDictCategoryMapper extends BaseMapper<SysDictCategory> {
     boolean baseUpdate(SysDictCategory entity);
 
     int deleteByCategory(Map paramMap);
+
+    List<SysDictCategory> listBySystemId(String systemId);
+
+    List<SysDictCategory> listByList(List<String> list);
+
+    List<String> listIdsByList(List<String> list);
+
+    long batchInsert(List<SysDictCategory> list);
 
 }

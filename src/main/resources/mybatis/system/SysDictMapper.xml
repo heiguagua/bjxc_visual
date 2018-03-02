@@ -190,4 +190,62 @@
         </foreach>
     </update>
 
+    <select id="listBySystemId" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDict">
+        SELECT s.* FROM sys_dict s
+        -- 		WHERE
+    </select>
+
+    <select id="listByList" parameterType="java.util.List" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDict">
+        SELECT t.* FROM sys_dict t WHERE t.id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="listIdsByList" parameterType="java.util.List" resultType="java.lang.String">
+        SELECT t.id  FROM sys_dict t WHERE t.id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into sys_dict(
+        id,
+        region_code,
+        category,
+        dict_code,
+        dict_name,
+        dict_desc,
+        parent_code,
+        order_number,
+        icon,
+        dict_level,
+        status,
+        create_user_id,
+        create_time,
+        update_user_id,
+        update_time,
+        delete_flag
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index"  separator="," >
+            (#{item.id},
+            #{item.regionCode},
+            #{item.category},
+            #{item.dictCode},
+            #{item.dictName},
+            #{item.dictDesc},
+            #{item.parentCode},
+            #{item.orderNumber},
+            #{item.icon},
+            #{item.dictLevel},
+            #{item.status},
+            #{item.createUserId},
+            #{item.createTime},
+            #{item.updateUserId},
+            #{item.updateTime},
+            #{item.deleteFlag}
+            ）
+        </foreach>
+    </insert>
+
 </mapper>

@@ -1,13 +1,19 @@
 package com.chinawiserv.dsp.base.controller.system;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.po.system.SysDict;
+import com.chinawiserv.dsp.base.entity.po.system.SysDictCategory;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictCategoryVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysIconVo;
+import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.base.service.system.ISysDictCategoryService;
 import com.chinawiserv.dsp.base.service.system.ISysDictIcon;
 import com.chinawiserv.dsp.base.service.system.ISysDictService;
@@ -22,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,8 +57,9 @@ public class SysDictController extends BaseController {
 
     @RequiresPermissions("system:dict")
     @RequestMapping("")
-    public  String init(@RequestParam Map<String , Object> paramMap){
+    public  String init(@RequestParam Map<String , Object> paramMap ,Model model){
 		setCurrentMenuInfo(paramMap);
+        model.addAttribute("master",isMaster());
     	return "system/dataDict/dataDictList";
     }
 
@@ -332,6 +340,57 @@ public class SysDictController extends BaseController {
         } catch (Exception e) {
             handleResult.error("编辑系统字典表失败");
             logger.error("编辑系统字典表失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 同步主系统字典数据
+     */
+    @Log("获取主系统组织机构数据")
+    @RequestMapping("/getMasterData")
+    @ResponseBody
+    public  HandleResult getMasterData(){
+        HandleResult handleResult = new HandleResult();
+        try {
+            String result =getDataFromMaster(ISysDictService.synUrl);
+            HandleResult jsb= JSONObject.parseObject(result,HandleResult.class);
+            HashMap<String, Object> map= jsb.getContent();
+            List<SysDictCategory> sysDictCategoryResult= JSONObject.parseArray(map.get("sysDictCategoryResult").toString(),SysDictCategory.class) ;
+            List<SysDict> sysDictResult= JSONObject.parseArray(map.get("sysDictResult").toString(),SysDict.class) ;
+            if(service3.insertOrUpdate(sysDictCategoryResult)||service.insertOrUpdate(sysDictResult)){
+                handleResult.success("更新成功");
+            }else{
+                handleResult.error("无需更新");
+            }
+
+        }catch (ErrorInfoException e){
+            handleResult.error(e.getMessage());
+            logger.error(e.getMessage(), e);
+        } catch (Exception e) {
+            handleResult.error("获取失败");
+            logger.error("获取sys_dept表数据失败", e);
+        }
+
+
+
+        return handleResult;
+    }
+
+
+    @Log("提供主数据")
+    @RequestMapping("/provideData")
+    @ResponseBody
+    public  HandleResult provideData(@RequestParam String systemId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            List<SysDictCategory> sysDictCategoryResult = service3.listBySystemId(systemId);
+            List<SysDict> sysDictResult = service.listBySystemId(systemId);
+            handleResult.put("sysDictCategoryResult", sysDictCategoryResult);
+            handleResult.put("sysDictResult", sysDictResult);
+        } catch (Exception e) {
+            handleResult.error("获取字典数据数据失败");
+            logger.error("获取字典数据失败", e);
         }
         return handleResult;
     }

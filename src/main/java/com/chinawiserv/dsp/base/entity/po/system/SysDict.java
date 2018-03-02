@@ -3,6 +3,9 @@ package com.chinawiserv.dsp.base.entity.po.system;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -226,4 +229,53 @@ public class SysDict implements Serializable {
 		this.deleteFlag = deleteFlag;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		SysDict sysDict = (SysDict) o;
+
+		return new EqualsBuilder()
+				.append(id, sysDict.id)
+				.append(regionCode, sysDict.regionCode)
+				.append(category, sysDict.category)
+				.append(dictCode, sysDict.dictCode)
+				.append(dictName, sysDict.dictName)
+				.append(dictDesc, sysDict.dictDesc)
+				.append(parentCode, sysDict.parentCode)
+				.append(orderNumber, sysDict.orderNumber)
+				.append(icon, sysDict.icon)
+				.append(dictLevel, sysDict.dictLevel)
+				.append(status, sysDict.status)
+				.append(createUserId, sysDict.createUserId)
+				.append(createTime, sysDict.createTime)
+				.append(updateUserId, sysDict.updateUserId)
+				.append(updateTime, sysDict.updateTime)
+				.append(deleteFlag, sysDict.deleteFlag)
+				.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37)
+				.append(id)
+				.append(regionCode)
+				.append(category)
+				.append(dictCode)
+				.append(dictName)
+				.append(dictDesc)
+				.append(parentCode)
+				.append(orderNumber)
+				.append(icon)
+				.append(dictLevel)
+				.append(status)
+				.append(createUserId)
+				.append(createTime)
+				.append(updateUserId)
+				.append(updateTime)
+				.append(deleteFlag)
+				.toHashCode();
+	}
 }

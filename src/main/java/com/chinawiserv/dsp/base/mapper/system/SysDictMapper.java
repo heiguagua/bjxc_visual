@@ -2,7 +2,9 @@ package com.chinawiserv.dsp.base.mapper.system;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysDict;
+import com.chinawiserv.dsp.base.entity.po.system.SysDictCategory;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictCategoryVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictVo;
 import org.apache.ibatis.annotations.Param;
@@ -46,4 +48,12 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
     String selectDictcodeByCategoryAndName(@Param("dict_name") String dict_name,@Param("category") String category);
 
     Integer deleteBatchDictByIds(List<String> ids);
+
+    List<SysDict> listBySystemId(String systemId);
+
+    List<SysDict> listByList(List<String> list);
+
+    List<String> listIdsByList(List<String> list);
+
+    long batchInsert(List<SysDict> list);
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * <p>
@@ -57,5 +59,29 @@ public class SysDictCategory implements Serializable {
 
 	public void setCategoryDesc(String categoryDesc) {
 		this.categoryDesc = categoryDesc;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		SysDictCategory that = (SysDictCategory) o;
+
+		return new EqualsBuilder()
+				.append(categoryCode, that.categoryCode)
+				.append(categoryName, that.categoryName)
+				.append(categoryDesc, that.categoryDesc)
+				.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37)
+				.append(categoryCode)
+				.append(categoryName)
+				.append(categoryDesc)
+				.toHashCode();
 	}
 }

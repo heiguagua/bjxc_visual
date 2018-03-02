@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -149,5 +151,44 @@ public class SysDictServiceImpl extends CommonServiceImpl<SysDictMapper, SysDict
     @Override
     public boolean deleteBatchDictByIds(List<String> ids) {
         return retBool(mapper.deleteBatchDictByIds(ids));
+    }
+
+    @Override
+    public List<SysDict> listBySystemId(String systemId) {
+        return mapper.listBySystemId(systemId);
+    }
+
+    @Override
+    public boolean insertOrUpdate(List<SysDict> list) {
+        //1获取Ids集合
+        List<String> firstds=list.stream().map(e -> e.getId()).collect(Collectors.toList());
+        //2删除已被删除的数据（逻辑删除无需此操作）
+
+        //3获取已经存在的数据
+        List<SysDict> existList=mapper.listByList(firstds);
+        //4删除无需操作的数据
+        list.removeAll(existList);
+        if (list.size()==0){
+            return false;
+        }
+        List<String> secondIds=list.stream().map(e -> e.getId()).collect(Collectors.toList());
+
+        //5获取需要更新的Id
+        List<String> needUpdateIds=mapper.listIdsByList(secondIds);
+
+        if (needUpdateIds!=null&&needUpdateIds.size()>0){
+            for (SysDict dept : list) {
+                if (needUpdateIds.contains(dept.getId())){
+                    mapper.updateById(dept);
+                }else{
+                    mapper.insert(dept);
+                }
+            }
+        }else{
+            //批量插入
+            mapper.batchInsert(list);
+        }
+
+        return true;
     }
 }

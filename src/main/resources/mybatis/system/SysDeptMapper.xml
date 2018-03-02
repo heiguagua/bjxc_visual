@@ -238,13 +238,13 @@
 -- 		WHERE
 	</select>
 	<select id="listByList" parameterType="java.util.List" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDept">
-		SELECT t.* FROM sys_dept t WHERE id IN
+		SELECT t.* FROM sys_dept t WHERE t.id IN
 		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
 			#{item}
 		</foreach>
 	</select>
 	<select id="listIdsByList" parameterType="java.util.List" resultType="java.lang.String">
-		SELECT t.id FROM sys_dept t WHERE id IN
+		SELECT t.id FROM sys_dept t WHERE t.id IN
 		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
 			#{item}
 		</foreach>

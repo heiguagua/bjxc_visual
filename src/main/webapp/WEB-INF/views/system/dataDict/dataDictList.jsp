@@ -27,6 +27,7 @@
                         <div class="form-inline">
                             <div class="box-header">
                                 <input id="category" type="hidden" value="${category}" name="category" />
+                                <input id="masterId" type="hidden" name="master" value="${master}" />
                                 <input id="dd" type="hidden"  name="dd" />
                                 <%--<div class="input-group">--%>
                                     <%--<a class="btn btn-primary btn-flat btn-myself" id="addDict1" onclick="javascript:addDict()">--%>

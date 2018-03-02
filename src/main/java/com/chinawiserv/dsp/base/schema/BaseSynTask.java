@@ -1,18 +1,11 @@
 package com.chinawiserv.dsp.base.schema;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
-import com.chinawiserv.dsp.base.common.util.IpUtil;
-import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.system.SysDept;
-import com.chinawiserv.dsp.base.entity.po.system.SysLog;
-import com.chinawiserv.dsp.base.entity.po.system.SysUser;
-import com.chinawiserv.dsp.base.service.system.ISysDeptService;
-import com.chinawiserv.dsp.base.service.system.ISysLogService;
-import com.chinawiserv.dsp.base.service.system.ISysUserService;
+import com.chinawiserv.dsp.base.entity.po.system.*;
+import com.chinawiserv.dsp.base.service.system.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +29,12 @@ public class BaseSynTask extends BaseController {
 
     @Autowired
     private ISysUserService sysUserService;
+
+    @Autowired
+    private ISysDictService sysDictService;
+
+    @Autowired
+    private ISysDictCategoryService sysDictCategoryService;
 
     @Autowired
     private ISysLogService sysLogService;
@@ -101,6 +100,36 @@ public class BaseSynTask extends BaseController {
         }else{
             logInsert("用户同步未开启","[]");
             logger.debug("记录日志:用户同步未开启");
+        }
+    }
+    @Scheduled(cron = "0 0 12 * * ?")  //每天中午12点执行一次
+    public void  synDictData(){
+        if (!isMaster()){
+            logInsert("数据字典同步开启","[]");
+            logger.debug("记录日志:数据字典同步开启");
+            try {
+                String result = getDataFromMaster(ISysDictService.synUrl);
+                HandleResult jsb = JSONObject.parseObject(result, HandleResult.class);
+                HashMap<String, Object> map = jsb.getContent();
+                List<SysDictCategory> sysDictCategoryResult= JSONObject.parseArray(map.get("sysDictCategoryResult").toString(),SysDictCategory.class) ;
+                List<SysDict> sysDictResult= JSONObject.parseArray(map.get("sysDictResult").toString(),SysDict.class) ;
+                if(sysDictCategoryService.insertOrUpdate(sysDictCategoryResult)||sysDictService.insertOrUpdate(sysDictResult)){
+                    logInsert("同步数据字典成功",result);
+                    logger.debug("记录日志:同步数据字典成功");
+                } else {
+                    logInsert("同步数据字典失败",result);
+                    logger.error("记录日志:同步数据字典失败");
+                }
+            }catch (ErrorInfoException e){
+                logInsert(e.getMessage(),"[]");
+                logger.error(e.getMessage(), e);
+            } catch (Exception e) {
+                logInsert("获取数据字典数据失败","[]");
+                logger.error("获取数据字典数据失败", e);
+            }
+        }else{
+            logInsert("数据字典同步未开启","[]");
+            logger.debug("记录日志:数据字典同步未开启");
         }
     }
 

@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysDictCategory;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictCategoryVo;
 import com.chinawiserv.dsp.base.mapper.system.SysDictCategoryMapper;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -79,5 +81,42 @@ public class SysDictCategoryServiceImpl extends CommonServiceImpl<SysDictCategor
 		return 0;
 	}
 
+    @Override
+    public List<SysDictCategory> listBySystemId(String systemId) {
+        return mapper.listBySystemId(systemId);
+    }
 
+    @Override
+    public boolean insertOrUpdate(List<SysDictCategory> list) {
+        //1获取Ids集合
+        List<String> firstds=list.stream().map(e -> e.getCategoryCode()).collect(Collectors.toList());
+        //2删除已被删除的数据（逻辑删除无需此操作）
+
+        //3获取已经存在的数据
+        List<SysDictCategory> existList=mapper.listByList(firstds);
+        //4删除无需操作的数据
+        list.removeAll(existList);
+        if (list.size()==0){
+            return false;
+        }
+        List<String> secondIds=list.stream().map(e -> e.getCategoryCode()).collect(Collectors.toList());
+
+        //5获取需要更新的Id
+        List<String> needUpdateIds=mapper.listIdsByList(secondIds);
+
+        if (needUpdateIds!=null&&needUpdateIds.size()>0){
+            for (SysDictCategory sysDictCategory : list) {
+                if (needUpdateIds.contains(sysDictCategory.getCategoryCode())){
+                    mapper.updateById(sysDictCategory);
+                }else{
+                    mapper.insert(sysDictCategory);
+                }
+            }
+        }else{
+            //批量插入
+            mapper.batchInsert(list);
+        }
+
+        return true;
+    }
 }

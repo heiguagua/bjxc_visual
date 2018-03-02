@@ -53,5 +53,35 @@
         </where>
     </sql>
 
+    <select id="listBySystemId" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDictCategory">
+        SELECT s.* FROM sys_dict_category s
+        -- 		WHERE
+    </select>
+
+    <select id="listByList" parameterType="java.util.List" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDictCategory">
+        SELECT t.* FROM sys_dict_category t WHERE t.category_code IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="listIdsByList" parameterType="java.util.List" resultType="java.lang.String">
+        SELECT t.category_code  FROM sys_dict_category t WHERE t.category_code IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into sys_dict_category(
+        category_code,
+        category_name,
+        category_desc
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index"  separator="," >
+            (#{item.categoryCode},
+            #{item.categoryName},
+            #{item.categoryDesc})
+        </foreach>
+    </insert>
 
 </mapper>
