@@ -18,6 +18,7 @@ function intDict(param) {
     $("#search").removeClass("hidden")
     $("#searchDetail").addClass("hidden")
     $("#deleteBatchDivId").addClass("hidden")
+    $("#getRemoteDataDivId").removeClass("hidden")
     "use strict";
     paramsObj = param||{};
     if($(tableSelector).hasClass("table-striped")){
@@ -86,6 +87,10 @@ function initButtonClick() {
     });
 }
 
+function synRemoteData(){
+    getMasterData(basePathJS + '/sysDict/getMasterData');
+}
+
 function setParams() {
     var searchKeyVal = $('#searchKeyId').val();
     paramsObj = {searchKey : searchKeyVal};
@@ -125,6 +130,7 @@ function getDictDetails(categoryCode,dd,searchKey) {
     $("#search").addClass("hidden")
     $("#searchDetail").removeClass("hidden")
     $("#deleteBatchDivId").removeClass("hidden")
+    $("#getRemoteDataDivId").addClass("hidden")
     $("#category").val(categoryCode);
     $("#dd").val(dd);
 

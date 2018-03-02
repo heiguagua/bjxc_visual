@@ -46,11 +46,21 @@
                                        <%--新增--%>
                                     <%--</a>--%>
                                 <%--</div>--%>
+                                <c:if test="${master}">
                                 <div class="input-group hidden" id="deleteBatchDivId">
                                     <a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchDict()" >
                                         <img src="<%=context_path%>/images/userImg/delImg.png"/>
                                         批量删除</a>
                                 </div>
+                                </c:if>
+                                <c:if test="${!master}">
+                                    <div class="input-group " id="getRemoteDataDivId">
+                                        <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:synRemoteData()" id="synRemoteDataId">
+                                            <img src="<%=context_path%>/images/userImg/changeAdress.png"/>
+                                            获取组织机构
+                                        </a>
+                                    </div>
+                                </c:if>
 
                                 <div class="input-group  pull-right" id="search">
                                     <input id="searchKeyId" type="text" name="search" class="form-control"
