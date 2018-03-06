@@ -18,6 +18,8 @@ import java.util.List;
  */
 public interface ISysProductIntegrateService extends ICommonService<SysProductIntegrate, SysProductIntegrateVo> {
 
+    String synUrl="/system/productIntegrate/postData";
+
     SysProductIntegrateVo getTheMaster() throws ErrorInfoException;
 
     List<SysIconVo>  selectIcon();

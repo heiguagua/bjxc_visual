@@ -194,8 +194,7 @@ public class SysProductIntegrateController extends BaseController {
                 return handleResult;
             }
             List<SysProductIntegrate> selectList = service.selectList(new EntityWrapper<SysProductIntegrate>());
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> responseEntity = restTemplate.postForEntity(sysProductIntegrateVo.getRootPath() + "/system/productIntegrate/postData", selectList, String.class);
+            ResponseEntity<String> responseEntity = getRestTemplate().postForEntity(sysProductIntegrateVo.getRootPath() +ISysProductIntegrateService.synUrl, selectList, String.class);
             handleResult.success(responseEntity.getBody());
         } catch (Exception e) {
             handleResult.error("获取失败");

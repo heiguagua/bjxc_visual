@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
@@ -205,13 +206,19 @@ public class BaseController {
 		if(master.getProductNo().equals(systemId)){
 			throw new ErrorInfoException("同一系统，无需获取数据");
 		}
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> responseEntity = restTemplate.getForEntity(master.getRootPath() + url + "/?systemId=" + systemId, String.class);
+		ResponseEntity<String> responseEntity = getRestTemplate().getForEntity(master.getRootPath() + url + "/?systemId=" + systemId, String.class);
 		if(!responseEntity.getStatusCode().equals(200)){
 			throw new ErrorInfoException("主系统响应状态码："+responseEntity.getStatusCode());
 		}
 		return responseEntity.getBody();
 //		return restTemplate.getForObject("http://localhost:8080/dm/system/user/provideData/?systemId=dm", String.class);
+	}
+
+	protected RestTemplate getRestTemplate(){
+		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+		requestFactory.setConnectTimeout(1000);// 设置超时
+		requestFactory.setReadTimeout(1000);
+		return  new RestTemplate(requestFactory);
 	}
 
 //	protected String getTheMaseterBaseUrl() throws Exception{
