@@ -137,11 +137,12 @@ jQuery(document).ready(function () {
             sortable: false,
             formatter: function (value) {
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editProInt(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
-                // if(isMaster==="true") {
-                    return editBtn;
+                var synBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:sendEndPoint(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i>推送</a>";
+                if(isMaster==="true") {
+                    return editBtn+OPERATION_SEPARATOR+synBtn;
                 // }else{
                 //     return "子系统只能同步";
-                // }
+                }
             }
         }]
     });
@@ -158,9 +159,6 @@ jQuery(document).ready(function () {
 
 });
 
-function synRemoteData(){
-    getMasterData(basePathJS + '/system/user/getMasterData');
-}
 
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
@@ -170,4 +168,10 @@ function reloadTable() {
 
 function editProInt(id) {
     update('编辑', basePathJS + '/system/productIntegrate/edit' , id );
+}
+
+function sendEndPoint(id){
+    var url = basePathJS + "/system/productIntegrate/send";
+    var parameter = {id: id};
+    send(url , parameter) ;
 }

@@ -1,23 +1,33 @@
 package com.chinawiserv.dsp.base.controller.system;
 
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate;
 import com.chinawiserv.dsp.base.entity.vo.system.SysIconVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysProductIntegrateVo;
+import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.base.service.system.ISysProductIntegrateService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -165,5 +175,46 @@ public class SysProductIntegrateController extends BaseController {
             result.error("获取菜单图标的信息列表出错");
         }
         return result;
+    }
+
+    /**
+     * 推送系统集成表到指定系统
+     */
+//    @RequiresPermissions("system:dept:add")
+    @Log("推送操作")
+    @RequestMapping("/send")
+    @ResponseBody
+    public  HandleResult send(@RequestParam String id){
+        HandleResult handleResult = new HandleResult();
+
+        try {
+            SysProductIntegrateVo sysProductIntegrateVo = service.selectVoById(id);
+            if(sysProductIntegrateVo.getMasterFlag().equals(1)){
+                handleResult.error("主系统无需同步");
+                return handleResult;
+            }
+            List<SysProductIntegrate> selectList = service.selectList(new EntityWrapper<SysProductIntegrate>());
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> responseEntity = restTemplate.postForEntity(sysProductIntegrateVo.getRootPath() + "/system/productIntegrate/postData", selectList, String.class);
+            handleResult.success(responseEntity.getBody());
+        } catch (Exception e) {
+            handleResult.error("获取失败");
+            logger.error("获取sys_dept表数据失败", e);
+        }
+        return handleResult;
+    }
+
+    @Log("收到推送")
+    @RequestMapping("/postData")
+    @ResponseBody
+    public  String postData(@RequestBody List<SysProductIntegrate> list){
+        try {
+            service.delete(new EntityWrapper<SysProductIntegrate>());
+            service.insertBatch(list);
+        } catch (Exception e) {
+            logger.error("更新数据失败", e);
+            return "更新数据失败";
+        }
+        return "更新数据成功";
     }
 }

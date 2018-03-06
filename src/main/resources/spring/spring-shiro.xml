@@ -60,6 +60,7 @@
 				/index*=anon
 				/system/dept/provideData/=anon
 				/system/user/provideData/=anon
+				/system/productIntegrate/postData=anon
 				<!--/WEB-INF/views/login.jsp=anon-->
 	        	<!--/sys/login=anon-->
 	        	<!--/captcha.jpg=anon-->
