@@ -17,6 +17,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -207,7 +208,7 @@ public class BaseController {
 			throw new ErrorInfoException("同一系统，无需获取数据");
 		}
 		ResponseEntity<String> responseEntity = getRestTemplate().getForEntity(master.getRootPath() + url + "/?systemId=" + systemId, String.class);
-		if(!responseEntity.getStatusCode().equals(200)){
+		if(!responseEntity.getStatusCode().equals(HttpStatus.OK)){
 			throw new ErrorInfoException("主系统响应状态码："+responseEntity.getStatusCode());
 		}
 		return responseEntity.getBody();

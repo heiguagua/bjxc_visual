@@ -243,8 +243,7 @@
             #{item.createTime},
             #{item.updateUserId},
             #{item.updateTime},
-            #{item.deleteFlag}
-            ）
+            #{item.deleteFlag})
         </foreach>
     </insert>
 
