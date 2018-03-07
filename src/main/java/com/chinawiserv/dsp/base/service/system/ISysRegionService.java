@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.base.service.system;
 import java.util.List;
 import java.util.Map;
 
+import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
@@ -32,5 +33,7 @@ public interface ISysRegionService extends ICommonService<SysRegion, SysRegionVo
     public List<String> getAllParentRegionCodes(String regionCode) throws Exception;
 
     boolean deleteBatchRegionByIds(List<String> ids) ;
+
+    void initTopDept(String id) throws ErrorInfoException;
 
 }

@@ -41,4 +41,6 @@ public interface SysRegionMapper extends BaseMapper<SysRegion> {
     List<SysRegionVo> selectVoListForTreeData(Map<String, Object> paramMap);
 
     Integer deleteBatchRegionByIds(List<String> ids);
+
+    void initTopDept(String regionCode);
 }

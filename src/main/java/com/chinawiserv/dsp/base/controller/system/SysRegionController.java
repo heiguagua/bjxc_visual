@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.base.controller.system;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
@@ -171,6 +172,28 @@ public class SysRegionController extends BaseController {
 		} catch (Exception e) {
 		    handleResult.error("编辑行政区域表失败");
 		    logger.error("编辑行政区域表失败", e);
+		}
+		return handleResult;
+    }
+
+    /**
+     * 初始化顶级部门
+     */
+    @RequiresPermissions("system:region:edit")
+    @Log("初始化顶级部门")
+    @RequestMapping("/initDept")
+    @ResponseBody
+    public  HandleResult initDept(@RequestParam String id){
+		HandleResult handleResult = new HandleResult();
+		try {
+            service.initTopDept(id);
+		    handleResult.success("初始化顶级部门成功");
+		} catch (ErrorInfoException e) {
+		    handleResult.error(e.getMessage());
+		    logger.error(e.getMessage());
+		} catch (Exception e) {
+		    handleResult.error("初始化顶级部门失败");
+		    logger.error("初始化顶级部门失败", e);
 		}
 		return handleResult;
     }

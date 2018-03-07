@@ -173,5 +173,5 @@ function editProInt(id) {
 function sendEndPoint(id){
     var url = basePathJS + "/system/productIntegrate/send";
     var parameter = {id: id};
-    send(url , parameter) ;
+    confirmMsg("同步推送","您『确定』推送数据到该节点吗？",url , parameter) ;
 }

@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -178,5 +180,19 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
     @Override
     public boolean deleteBatchRegionByIds(List<String> ids) {
         return retBool(mapper.deleteBatchRegionByIds(ids));
+    }
+
+    @Override
+    public void initTopDept(String id) throws ErrorInfoException{
+        SysRegionVo vo = mapper.selectVoById(id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("regionCode",vo.getRegionCode());
+        map.put("fid","root");
+        int num = deptMapper.selectBaseVoCount(map);
+        if(num>1){
+            throw  new ErrorInfoException("已经初始化顶级部门，无需再次操作");
+        }else{
+            mapper.initTopDept(vo.getRegionCode());
+        }
     }
 }

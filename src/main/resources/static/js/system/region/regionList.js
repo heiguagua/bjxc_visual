@@ -141,7 +141,8 @@ function initDept(fcode,subQueryFlag) {
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editRegion(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                 var showBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:showRegion(\"" + row.regionCode + "\")'><i class='fa fa-chain'></i>查看下级</a>";
                 var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteRegion(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
-                return editBtn + OPERATION_SEPARATOR +showBtn+OPERATION_SEPARATOR+ deleteBtn;
+                var initDeptBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:initTopDept(\"" + value + "\")'><i class='fa fa-times'></i>初始化顶级部门</a>";
+                return editBtn + OPERATION_SEPARATOR +showBtn+OPERATION_SEPARATOR+ deleteBtn+OPERATION_SEPARATOR+initDeptBtn;
             }
         }]
     });
@@ -173,4 +174,10 @@ function deleteRegion(id) {
 function deleteBatchRegion() {
     var url = basePathJS + "/system/region/deleteBatch";
     deleteALLSelect(url , tableSelector);
+}
+
+function initTopDept(id){
+    var url = basePathJS + "/system/region/initDept";
+    var parameter = {id: id};
+    confirmMsg("初始化确认","你确定要初始化当前区域的顶级部门吗？",url , parameter) ;
 }

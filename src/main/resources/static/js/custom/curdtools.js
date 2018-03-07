@@ -437,8 +437,9 @@ function delObj(url,parameter, func, parentWin) {
 function sync(url,parameter, func, parentWin) {
     createDialog('同步确认', '您『确定』同步当前选中的记录吗？', url, parameter, func, parentWin);
 }
-function send(url,parameter, func, parentWin) {
-    createDialog('同步推送', '您『确定』推送数据到该节点吗？', url, parameter, func, parentWin);
+
+function confirmMsg(title,msg,url,parameter, func, parentWin) {
+    createDialog(title, msg, url, parameter, func, parentWin);
 }
 
 function getMasterData(url,parameter, func, parentWin) {
