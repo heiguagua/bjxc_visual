@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysSettingCategoryMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysSettingCategory">
+            <id column="category_code" property="categoryCode" />
+            <result column="category_name" property="categoryName" />
+            <result column="category_desc" property="categoryDesc" />
+    </resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysSettingCategoryVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="categoryCode != null">
+                t.category_code = #{categoryCode,jdbcType=VARCHAR}
+            </if>
+            <if test="searchKey != null">
+                t.category_name like CONCAT('%',#{searchKey,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM sys_setting_category t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM sys_setting_category t WHERE t.category_code = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM sys_setting_category t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysSettingCategory">
+        insert into sys_setting_category(category_code,category_name,category_desc,) values(
+            #{categoryCode},#{categoryName},#{categoryDesc},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysSettingCategory">
+        update sys_setting_category
+        <set>
+            <if test="categoryName != null">
+                category_name = #{categoryName},
+            </if>
+            <if test="categoryDesc != null">
+                category_desc = #{categoryDesc},
+            </if>
+        </set>
+        where  category_code = #{categoryCode}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from sys_setting_category <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="categoryCode != null">
+                category_code = #{categoryCode}
+            </if>
+        </where>
+    </sql>
+
+
+
+</mapper>

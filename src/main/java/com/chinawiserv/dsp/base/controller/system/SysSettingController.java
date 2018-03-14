@@ -8,7 +8,10 @@ import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysSetting;
+import com.chinawiserv.dsp.base.entity.po.system.SysSettingCategory;
+import com.chinawiserv.dsp.base.entity.vo.system.SysSettingCategoryVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysSettingVo;
+import com.chinawiserv.dsp.base.service.system.ISysSettingCategoryService;
 import com.chinawiserv.dsp.base.service.system.ISysSettingService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -40,6 +43,9 @@ public class SysSettingController extends BaseController {
     @Autowired
     private ISysSettingService sysSettingService;
 
+    @Autowired
+    private ISysSettingCategoryService sysSettingCategoryService;
+
     @RequiresPermissions("system:setting:list")
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap){
@@ -57,6 +63,23 @@ public class SysSettingController extends BaseController {
         final PageResult pageResult = new PageResult();
         try {
             final Page<SysSettingVo> pageData = sysSettingService.selectVoPage(paramMap);
+            pageResult.setPage(pageData);
+        }catch (Exception e){
+            pageResult.error("分页查询系统配置出错");
+            logger.error("分页查询系统配置出错", e);
+        }
+        return pageResult;
+    }
+    /**
+     * 查询系统设置类型列表
+     */
+    @RequiresPermissions("system:setting:list")
+    @RequestMapping("/categoryList")
+    @ResponseBody
+    public PageResult categoryList(@RequestParam Map<String , Object> paramMap){
+        final PageResult pageResult = new PageResult();
+        try {
+            Page<SysSettingCategoryVo> pageData = sysSettingCategoryService.selectVoPage(paramMap);
             pageResult.setPage(pageData);
         }catch (Exception e){
             pageResult.error("分页查询系统配置出错");
@@ -115,6 +138,15 @@ public class SysSettingController extends BaseController {
         model.addAttribute("settingId",id);
         return "system/setting/settingEdit";
     }
+    /**
+     * 编辑系统配置类型
+     */
+    @RequiresPermissions("system:setting:edit")
+    @RequestMapping("/categoryEdit")
+    public String categoryEdit(@RequestParam String id,Model model){
+        model.addAttribute("categoryCode",id);
+        return "system/setting/categorySettingEdit";
+    }
 
     /**
      * 编辑系统配置
@@ -132,6 +164,22 @@ public class SysSettingController extends BaseController {
         }
         return handleResult;
     }
+    /**
+     * 编辑系统配置类型
+     */
+    @RequiresPermissions("system:setting:edit")
+    @RequestMapping("/categoryEditLoad")
+    @ResponseBody
+    public HandleResult categoryEditLoad(@RequestParam String categoryCode){
+        HandleResult handleResult = new HandleResult();
+        try {
+            SysSettingCategoryVo setting = sysSettingCategoryService.selectById(categoryCode);
+            handleResult.put("vo", setting);
+        }catch (Exception e){
+            logger.error("加载系统配置出错", e);
+        }
+        return handleResult;
+    }
 
     @RequiresPermissions("system:setting:edit")
     @Log("更新系统设置")
@@ -142,6 +190,18 @@ public class SysSettingController extends BaseController {
             sysSettingVo.setUpdateUserId(ShiroUtils.getLoginUserId());
             sysSettingVo.setUpdateTime(new Date());
             sysSettingService.updateById(sysSettingVo);
+        }catch (Exception e){
+            logger.error("编辑系统配置出错", e);
+        }
+        return new HandleResult().success("编辑系统配置成功");
+    }
+    @RequiresPermissions("system:setting:edit")
+    @Log("更新系统设置类型")
+    @RequestMapping("/doCategoryEdit")
+    @ResponseBody
+    public HandleResult doCategoryEdit(SysSettingCategoryVo vo){
+        try {
+            sysSettingCategoryService.updateById(vo);
         }catch (Exception e){
             logger.error("编辑系统配置出错", e);
         }

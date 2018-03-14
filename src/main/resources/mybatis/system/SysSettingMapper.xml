@@ -32,6 +32,9 @@
 			<if test="searchKey != null">
 				AND t.setting_name like CONCAT('%',#{searchKey,jdbcType=VARCHAR},'%')
 			</if>
+			<if test="settingType != null">
+				AND t.setting_type =#{settingType,jdbcType=VARCHAR}
+			</if>
 
 			<if test="create_time_begin != null">
 				AND t.create_time &gt;= #{create_time_begin,jdbcType=VARCHAR}
