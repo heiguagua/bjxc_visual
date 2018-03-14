@@ -139,17 +139,17 @@ INSERT INTO `sys_product_integrate` VALUES ('30d466ff-baf7-11e7-b780-000c2909b05
 
 -- 系统配置表
 delete from sys_setting;
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a8731fb94511e7a38b00ffe04ac734','','1','projectPortalName','项目门户名称','成都市大数据资源服务网','显示在共享门户首页的项目名称',1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a874f7b94511e7a38b00ffe04ac734','','1','projectPortalEnName','项目门户英文名称','Chengdu Big Data Resource Service Network','显示在共享门户首页的项目英文名称',1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status,rule,placeholder) VALUES ('58a8731fb94511e7a38b00ffe04ac734','','1','projectPortalName','项目门户名称','成都市大数据资源服务网','显示在共享门户首页的项目名称',1,'length[1~256, true];','请输入系统配置值');
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status,rule,placeholder) VALUES ('58a874f7b94511e7a38b00ffe04ac734','','1','projectPortalEnName','项目门户英文名称','Chengdu Big Data Resource Service Network','显示在共享门户首页的项目英文名称',1,'letters;','英文名');
 -- INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a8756eb94511e7a38b00ffe04ac734','','1','projectPortalLogo','项目门户Logo图标','/img/logo.png','显示在共享门户首页的Logo图标',1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a875c1b94511e7a38b00ffe04ac734','','1','systemShowName','系统后台显示名称','成都市大数据资源服务网','',1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a875c1b04511e7a38b00ffe04ac734','','1','systemName','系统后台管理名称','政务信息资源管理',NULL,1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87602b94511e7a38b00ffe04ac734','','1','systemShortName','系统英文简称','DIR',NULL,1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87648b94511e7a38b00ffe04ac734','','1','systemSubName','系统子名称','目录管理系统',NULL,1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87681b94511e7a38b00ffe04ac734','','1','defaultIcon','系统默认Icon图标路径','/images/userImg/logoSmall.png','',1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a876bbb94511e7a38b00ffe04ac734','','1','localRegion','系统所属行政区划','510100',NULL,1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a876f4b94511e7a38b00ffe04ac734','','1','bottomCopyright','许可说明','Copyright © 2017 勤智数码. All rights reserved.',NULL,1);
-INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status) VALUES ('58a87732694511e7a38700ffe04ac734','','1','integrateCurNo','系统集成当前标识','dm','',1);
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status,rule,placeholder) VALUES ('58a875c1b94511e7a38b00ffe04ac734','','1','systemShowName','系统后台显示名称','成都市大数据资源服务网','',1,'length[1~100, true];','50字内');
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status,rule,placeholder) VALUES ('58a875c1b04511e7a38b00ffe04ac734','','1','systemName','系统后台管理名称','政务信息资源管理',NULL,1,'length[1~100, true];','50字内');
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status,rule,placeholder) VALUES ('58a87602b94511e7a38b00ffe04ac734','','1','systemShortName','系统英文简称','DIR',NULL,1,'letters;','DIR');
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status,rule,placeholder) VALUES ('58a87648b94511e7a38b00ffe04ac734','','1','systemSubName','系统子名称','目录管理系统',NULL,1,'length[1~100, true];','50字内');
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status,rule,placeholder) VALUES ('58a87681b94511e7a38b00ffe04ac734','','1','defaultIcon','系统默认Icon图标路径','/images/userImg/logoSmall.png','',1,'','/images/userImg/logoSmall.png');
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status,rule,placeholder) VALUES ('58a876bbb94511e7a38b00ffe04ac734','','1','localRegion','系统所属行政区划','510100',NULL,1,'digits;','区域行政编码');
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status,rule,placeholder) VALUES ('58a876f4b94511e7a38b00ffe04ac734','','1','bottomCopyright','许可说明','Copyright © 2017 勤智数码. All rights reserved.',NULL,1,'length[1~100, true];','Copyright © 2017 勤智数码. All rights reserved.');
+INSERT INTO sys_setting (id,region_code,setting_type,setting_code,setting_name,setting_value,setting_desc,status,rule,placeholder) VALUES ('58a87732694511e7a38700ffe04ac734','','1','integrateCurNo','系统集成当前标识','dm','',1,'letters;','填写项目标识');
 
 -- 系统字典分类表
 delete from sys_dict_category;

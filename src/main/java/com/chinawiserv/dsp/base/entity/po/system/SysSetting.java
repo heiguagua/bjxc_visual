@@ -78,6 +78,10 @@ public class SysSetting implements Serializable {
 	@TableField("delete_flag")
 	private Integer deleteFlag;
 
+	private String rule;
+
+	private String placeholder;
+
 
 	public String getId() {
 		return id;
@@ -175,4 +179,19 @@ public class SysSetting implements Serializable {
 		this.deleteFlag = deleteFlag;
 	}
 
+	public String getRule() {
+		return rule;
+	}
+
+	public void setRule(String rule) {
+		this.rule = rule;
+	}
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+	}
 }

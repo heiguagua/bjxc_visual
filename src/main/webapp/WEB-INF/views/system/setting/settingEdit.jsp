@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label for="settingValue">系统配置值</label>
                                 <input type="text" id="settingValue" name="settingValue" class="form-control"
-                                       placeholder="请输入系统配置值" data-rule="组织系统配置值:length[1~256, true];">
+                                       placeholder="请输入系统配置值" data-rule="length[1~256, true];">
                             </div>
                             <div class="form-group">
                                 <label for="regionCode">所属行政区域</label>

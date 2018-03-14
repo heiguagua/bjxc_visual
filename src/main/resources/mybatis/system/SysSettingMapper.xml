@@ -19,6 +19,8 @@
 		<result column="update_user_id" property="updateUserId" />
 		<result column="update_time" property="updateTime" />
 		<result column="delete_flag" property="deleteFlag" />
+		<result column="rule" property="rule" />
+		<result column="placeholder" property="placeholder" />
 	</resultMap>
 
 	<resultMap id="BaseResultMapVo" type="com.chinawiserv.dsp.base.entity.vo.system.SysSettingVo" extends="BaseResultMap" >

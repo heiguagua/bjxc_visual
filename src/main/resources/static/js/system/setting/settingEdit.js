@@ -15,8 +15,10 @@ function initEditPage(){
                 $("#settingValue").val(vo.settingValue);
                 $("#regionCode").val(vo.regionCode);
                 $("#settingDesc").val(vo.settingDesc);
-                var status_selector = $("input[name='status']");
-                vo.status == 1 ? status_selector.get(0).checked=true : status_selector.get(1).checked=true;
+                $("#settingValue").attr({ "placeholder": vo.placeholder, "data-rule": vo.rule });
+                // var status_selector = $("input[name='status']");
+                // vo.status == 1 ? status_selector.get(0).checked=true : status_selector.get(1).checked=true;
+
             }
         }
     );
