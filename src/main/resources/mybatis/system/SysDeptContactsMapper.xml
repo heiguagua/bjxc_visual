@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysDeptContactsMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysDeptContacts">
+                    <id column="id" property="id" />
+                                                                                                                                            <result column="cur_dept_id" property="curDeptId" />
+                    <result column="contacts_type" property="contactsType" />
+                    <result column="contacts_name" property="contactsName" />
+                    <result column="contacts_dept" property="contactsDept" />
+                    <result column="contacts_post" property="contactsPost" />
+                    <result column="contacts_fixed_phone" property="contactsFixedPhone" />
+                    <result column="contacts_phone" property="contactsPhone" />
+                    <result column="contacts_email" property="contactsEmail" />
+            	</resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysDeptContactsVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+                                                                                                                                                                                            </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM sys_dept_contacts t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM sys_dept_contacts t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM sys_dept_contacts t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDeptContacts">
+        insert into sys_dept_contacts(id,cur_dept_id,contacts_type,contacts_name,contacts_dept,contacts_post,contacts_fixed_phone,contacts_phone,contacts_email,) values(
+            #{id},#{curDeptId},#{contactsType},#{contactsName},#{contactsDept},#{contactsPost},#{contactsFixedPhone},#{contactsPhone},#{contactsEmail},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysDeptContacts">
+        update sys_dept_contacts
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="curDeptId != null">
+                cur_dept_id = #{curDeptId},
+            </if>
+            <if test="contactsType != null">
+                contacts_type = #{contactsType},
+            </if>
+            <if test="contactsName != null">
+                contacts_name = #{contactsName},
+            </if>
+            <if test="contactsDept != null">
+                contacts_dept = #{contactsDept},
+            </if>
+            <if test="contactsPost != null">
+                contacts_post = #{contactsPost},
+            </if>
+            <if test="contactsFixedPhone != null">
+                contacts_fixed_phone = #{contactsFixedPhone},
+            </if>
+            <if test="contactsPhone != null">
+                contacts_phone = #{contactsPhone},
+            </if>
+            <if test="contactsEmail != null">
+                contacts_email = #{contactsEmail},
+            </if>
+        </set>
+        where  id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from sys_dept_contacts <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+                                                                                                                                                                                            </where>
+    </sql>
+
+
+
+</mapper>

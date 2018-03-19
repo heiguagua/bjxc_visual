@@ -230,80 +230,81 @@
 	                                </div>
 	                            </div>
                         	</div>
-                        	<div class="col-sm-6 col-xs-6">
-	                        	<div class="form-group">
-	                                <label for="deptContactMan" class="control-label col-sm-4 col-xs-4">联系人</label>
-	                                <div class="col-sm-7 col-xs-7">
-	                                    <input type="text" class="form-control" id="deptContactMan" name="deptContactMan"
-	                                           placeholder="请输入联系人">
-	                                </div>
-	                            </div>
-                        	</div>
+                        	<%--<div class="col-sm-6 col-xs-6">--%>
+	                        	<%--<div class="form-group">--%>
+	                                <%--<label for="deptContactMan" class="control-label col-sm-4 col-xs-4">联系人</label>--%>
+	                                <%--<div class="col-sm-7 col-xs-7">--%>
+	                                    <%--<input type="text" class="form-control" id="deptContactMan" name="deptContactMan"--%>
+	                                           <%--placeholder="请输入联系人">--%>
+	                                <%--</div>--%>
+	                            <%--</div>--%>
+                        	<%--</div>--%>
+							<div class="col-sm-6 col-xs-6">
+								<div class="form-group">
+									<label for="deptAddress" class="control-label col-sm-4 col-xs-4">组织机构地址</label>
+									<div class="col-sm-7 col-xs-7">
+										<input type="text" class="form-control" id="deptAddress" name="deptAddress"
+											   placeholder="请输入组织机构地址"
+											   data-rule="地址:length[~256, true]" data-msg="最多输入128个汉字或256个字符">
+									</div>
+								</div>
+							</div>
                         </div>
                         
-                        <div class="row">
-                        	<div class="col-sm-6 col-xs-6">
-	                        	<div class="form-group">
-	                                <label for="deptContactDept" class="control-label col-sm-4 col-xs-4">联系人所属部门</label>
-	                                <div class="col-sm-7 col-xs-7">
-	                                    <input type="text" class="form-control" id="deptContactDept" name="deptContactDept"
-	                                           placeholder="请输入联系人所属部门">
-	                                </div>
-	                            </div>
-                        	</div>
-                        	<div class="col-sm-6 col-xs-6">
-	                        	<div class="form-group">
-	                                <label for="deptContactPost" class="control-label col-sm-4 col-xs-4">联系人职务</label>
-	                                <div class="col-sm-7 col-xs-7">
-	                                    <input type="text" class="form-control" id="deptContactPost" name="deptContactPost"
-	                                           placeholder="请输入联系人职务">
-	                                </div>
-	                            </div>
-                        	</div>
-                        </div>
+                        <%--<div class="row">--%>
+                        	<%--<div class="col-sm-6 col-xs-6">--%>
+	                        	<%--<div class="form-group">--%>
+	                                <%--<label for="deptContactDept" class="control-label col-sm-4 col-xs-4">联系人所属部门</label>--%>
+	                                <%--<div class="col-sm-7 col-xs-7">--%>
+	                                    <%--<input type="text" class="form-control" id="deptContactDept" name="deptContactDept"--%>
+	                                           <%--placeholder="请输入联系人所属部门">--%>
+	                                <%--</div>--%>
+	                            <%--</div>--%>
+                        	<%--</div>--%>
+                        	<%--<div class="col-sm-6 col-xs-6">--%>
+	                        	<%--<div class="form-group">--%>
+	                                <%--<label for="deptContactPost" class="control-label col-sm-4 col-xs-4">联系人职务</label>--%>
+	                                <%--<div class="col-sm-7 col-xs-7">--%>
+	                                    <%--<input type="text" class="form-control" id="deptContactPost" name="deptContactPost"--%>
+	                                           <%--placeholder="请输入联系人职务">--%>
+	                                <%--</div>--%>
+	                            <%--</div>--%>
+                        	<%--</div>--%>
+                        <%--</div>--%>
                         
-                        <div class="row">
-                        	<div class="col-sm-6 col-xs-6">
-	                        	<div class="form-group">
-	                                <label for="deptContactPhone" class="control-label col-sm-4 col-xs-4">联系人手机</label>
-	                                <div class="col-sm-7 col-xs-7">
-	                                    <input type="text" class="form-control" id="deptContactPhone"
-	                                           name="deptContactPhone" placeholder="请输入联系人手机" data-rule="mobile">
-	                                </div>
-	                            </div>
-                        	</div>
-                        	<div class="col-sm-6 col-xs-6">
-	                        	<div class="form-group">
-	                                <label for="deptContactFixedPhone" class="control-label col-sm-4 col-xs-4">联系人座机</label>
-	                                <div class="col-sm-7 col-xs-7">
-	                                    <input type="text" class="form-control" id="deptContactFixedPhone"
-	                                           name="deptContactFixedPhone" placeholder="请输入联系人座机" data-rule="tel">
-	                                </div>
-	                            </div>
-                        	</div>
-                        </div>
+                        <%--<div class="row">--%>
+                        	<%--<div class="col-sm-6 col-xs-6">--%>
+	                        	<%--<div class="form-group">--%>
+	                                <%--<label for="deptContactPhone" class="control-label col-sm-4 col-xs-4">联系人手机</label>--%>
+	                                <%--<div class="col-sm-7 col-xs-7">--%>
+	                                    <%--<input type="text" class="form-control" id="deptContactPhone"--%>
+	                                           <%--name="deptContactPhone" placeholder="请输入联系人手机" data-rule="mobile">--%>
+	                                <%--</div>--%>
+	                            <%--</div>--%>
+                        	<%--</div>--%>
+                        	<%--<div class="col-sm-6 col-xs-6">--%>
+	                        	<%--<div class="form-group">--%>
+	                                <%--<label for="deptContactFixedPhone" class="control-label col-sm-4 col-xs-4">联系人座机</label>--%>
+	                                <%--<div class="col-sm-7 col-xs-7">--%>
+	                                    <%--<input type="text" class="form-control" id="deptContactFixedPhone"--%>
+	                                           <%--name="deptContactFixedPhone" placeholder="请输入联系人座机" data-rule="tel">--%>
+	                                <%--</div>--%>
+	                            <%--</div>--%>
+                        	<%--</div>--%>
+                        <%--</div>--%>
                         
-                        <div class="row">
-                        	<div class="col-sm-6 col-xs-6">
-	                        	<div class="form-group">
-	                                <label for="deptContactEmail" class="control-label col-sm-4 col-xs-4">联系人邮箱</label>
-	                                <div class="col-sm-7 col-xs-7">
-	                                    <input type="text" class="form-control" id="deptContactEmail"
-	                                           name="deptContactEmail" placeholder="请输入联系人邮箱" data-rule="email">
-	                                </div>
-	                            </div>
-                        	</div>
-                        	<div class="col-sm-6 col-xs-6">
-	                        	<div class="form-group">
-	                                <label for="deptAddress" class="control-label col-sm-4 col-xs-4">组织机构地址</label>
-	                                <div class="col-sm-7 col-xs-7">
-	                                    <input type="text" class="form-control" id="deptAddress" name="deptAddress"
-	                                           placeholder="请输入组织机构地址"
-	                                           data-rule="地址:length[~256, true]" data-msg="最多输入128个汉字或256个字符">
-	                                </div>
-	                            </div>
-                        	</div>
-                        </div>
+                        <%--<div class="row">--%>
+                        	<%--<div class="col-sm-6 col-xs-6">--%>
+	                        	<%--<div class="form-group">--%>
+	                                <%--<label for="deptContactEmail" class="control-label col-sm-4 col-xs-4">联系人邮箱</label>--%>
+	                                <%--<div class="col-sm-7 col-xs-7">--%>
+	                                    <%--<input type="text" class="form-control" id="deptContactEmail"--%>
+	                                           <%--name="deptContactEmail" placeholder="请输入联系人邮箱" data-rule="email">--%>
+	                                <%--</div>--%>
+	                            <%--</div>--%>
+                        	<%--</div>--%>
+
+                        <%--</div>--%>
                         
                         <div class="row">
                         	<div class="col-sm-6 col-xs-6">
@@ -349,6 +350,35 @@
 	                            <%--</div>--%>
                         	<%--</div>--%>
                         </div>
+						<div class="checkh1">
+							<span class="checkspan">联系人列表</span>
+							<button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
+									data-toggle="dropdown" id="addItems" style="margin-right: 10px;">
+								<img src="<%=context_path%>/images/userImg/addimg.png"/>添加
+							</button>
+							<button type="button" class="btn btn-primary btn-flat pull-right dropdown-toggle btn-myself"
+									data-toggle="dropdown" id="deleteItems" style="margin-right: 10px;">
+								<img src="<%=context_path%>/images/userImg/delImg.png"/>删除
+							</button>
+						</div>
+						<div class="form-group " style="overflow-x: auto;min-height:200px;border: 1px solid #ddd;">
+							<table style="width:100%" class="table-striped">
+								<thead>
+								<tr class='table_title_tr'>
+									<th><input type="checkbox" id="selectAllItem"> 全选</th>
+									<th>联系人类型</th>
+									<th>联系人姓名</th>
+									<th>联系人处室</th>
+									<th>联系人职务</th>
+									<th>联系人座机</th>
+									<th>联系人手机</th>
+									<th>联系人邮箱</th>
+								</tr>
+								</thead>
+								<tbody id="dataitemList">
+								</tbody>
+							</table>
+						</div>
                             
                             
                             

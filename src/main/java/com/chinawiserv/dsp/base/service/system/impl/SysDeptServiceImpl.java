@@ -8,9 +8,11 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.vo.system.SysDeptContactsVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.mapper.system.SysDeptContactsMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysDeptMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysRegionMapper;
 import com.chinawiserv.dsp.base.mapper.system.SysUserMapper;
@@ -42,6 +44,9 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 
     @Autowired
     private SysRegionMapper sysRegionMapper;
+
+    @Autowired
+    private SysDeptContactsMapper sysDeptContactsMapper;
     
 
     @Override
@@ -391,6 +396,12 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
                 updateParent.setId(parent.getId());
                 updateParent.setTreeIndex(treeIndex);
                 if (sysDeptMapper.updateById(updateParent) == 1) {
+                    ;
+                    for (SysDeptContactsVo item: sysDeptVo.getItems()) {
+                        item.setId(CommonUtil.get32UUID());
+                        item.setCurDeptId(sysDeptVo.getId());
+                        sysDeptContactsMapper.insert(item);
+                    }
                     return true;
                 }
             }

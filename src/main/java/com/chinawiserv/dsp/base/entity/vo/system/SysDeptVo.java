@@ -27,6 +27,8 @@ public class SysDeptVo extends SysDept {
 
     private List<SysDeptVo> childs;
 
+    private List<SysDeptContactsVo> items;
+
     public String getValidateFromStr() {
         if(StringUtils.isBlank(validateFromStr)){
             Date validateFrom = getValidateFrom();
@@ -93,5 +95,13 @@ public class SysDeptVo extends SysDept {
 
     public void setcNum(Long cNum) {
         this.cNum = cNum;
+    }
+
+    public List<SysDeptContactsVo> getItems() {
+        return items;
+    }
+
+    public void setItems(List<SysDeptContactsVo> items) {
+        this.items = items;
     }
 }
