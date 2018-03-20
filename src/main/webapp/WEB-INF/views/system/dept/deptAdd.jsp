@@ -5,6 +5,7 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
     <script src="<%=context_path%>/js/system/dept/deptAdd.js"></script>
+    <script src="<%=context_path%>/js/system/dept/deptContactEdit.js"></script>
     <style type="text/css">
         .menu-wrap {
             position: relative;

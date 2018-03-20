@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.po.system.SysDeptContacts;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptContactsVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
@@ -89,7 +90,10 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
 
     @Override
     public SysDeptVo selectVoById(String id) throws Exception {
-        return sysDeptMapper.selectVoById(id);
+        SysDeptVo vo = sysDeptMapper.selectVoById(id);
+        List<SysDeptContacts> list = sysDeptContactsMapper.selectList(new EntityWrapper<SysDeptContacts>().where("cur_dept_id={0}", vo.getId()));
+        vo.setItems(list);
+        return vo;
     }
 
     @Override
@@ -396,8 +400,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
                 updateParent.setId(parent.getId());
                 updateParent.setTreeIndex(treeIndex);
                 if (sysDeptMapper.updateById(updateParent) == 1) {
-                    ;
-                    for (SysDeptContactsVo item: sysDeptVo.getItems()) {
+                    for (SysDeptContacts item: sysDeptVo.getItems()) {
                         item.setId(CommonUtil.get32UUID());
                         item.setCurDeptId(sysDeptVo.getId());
                         sysDeptContactsMapper.insert(item);
@@ -436,6 +439,16 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             }
         }
         sysDeptMapper.updateDeptByfDept(sysDeptVo);
+        for (SysDeptContacts item: sysDeptVo.getItems()) {
+            if (StringUtils.isEmpty(item.getId())){
+                item.setId(CommonUtil.get32UUID());
+                item.setCurDeptId(sysDeptVo.getId());
+                sysDeptContactsMapper.insert(item);
+            }else{
+                sysDeptContactsMapper.baseUpdate(item);
+            }
+
+        }
         return updateById(sysDeptVo);
     }
 

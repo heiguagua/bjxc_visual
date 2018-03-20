@@ -45,6 +45,7 @@ function initEditPage(){
     $.post(basePathJS + "/system/dept/editLoad",
         params,
         function(data){
+            debugger;
             if(data && data.content && data.content.vo){
                 var vo = data.content.vo;
                 $("#regionName").val(vo.regionName);
@@ -79,6 +80,24 @@ function initEditPage(){
                 $("#deptType").val(vo.deptType);
                 // $("#icon").text(vo.icon);
                 $("#inlineRadio"+vo.status).attr("checked", true);
+
+                var items=vo.items;
+                $.each(items, function(index, value) {
+                    var select1=value.contactsType==="普通人"?"selected":"";
+                    var select2=value.contactsType==="负责人"?"selected":"";
+                    $("#dataitemList").append('<tr id="tr_'+index+'">' +
+                        '<td><input type="checkbox" trNum='+index+' id="index" name="index" ></td>' +
+                        '<td><select type="text" class="form-control" id="contactsType" name="items['+index+'].contactsType" data-rule="required"><option value="负责人" '+select2+'>负责人</option><option value="普通人" '+select1+'>普通人</option></select></td>' +
+                        '<td><input type="text" class="form-control" id="contactsName" name="items['+index+'].contactsName" data-rule="length(~32)" value="'+value.contactsName+'"></td>' +
+                        '<td><input type="text" class="form-control" id="contactsDept" name="items['+index+'].contactsDept" data-rule="length(~18)" value="'+value.contactsDept+'"></td>' +
+                        '<td><input type="text" class="form-control" id="contactsPost" name="items['+index+'].contactsPost" data-rule="length(~18)" value="'+value.contactsPost+'"></td>' +
+                        '<td><input type="text" class="form-control" id="contactsFixedPhone" name="items['+index+'].contactsFixedPhone" data-rule="tel" value="'+value.contactsFixedPhone+'"></td>' +
+                        '<td><input type="text" class="form-control" id="contactsPhone" name="items['+index+'].contactsPhone" data-rule="mobile" value="'+value.contactsPhone+'"></td>' +
+                        '<td><input type="text" class="form-control" id="contactsEmail" name="items['+index+'].contactsEmail" data-rule="email" value="'+value.contactsEmail+'"></td>' +
+                        '<td><input type="hidden" class="form-control" id="id" name="items['+index+'].id"  value="'+value.id+'" ></td>' +
+                        '<td><input type="hidden" class="form-control" id="curDeptId" name="items['+index+'].curDeptId"  value="'+value.curDeptId+'" ></td>' +
+                        '</tr>')
+                });
             }
         }
     );

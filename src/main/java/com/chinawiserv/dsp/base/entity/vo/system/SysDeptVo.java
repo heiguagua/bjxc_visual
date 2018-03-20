@@ -3,6 +3,7 @@ package com.chinawiserv.dsp.base.entity.vo.system;
 
 import com.chinawiserv.dsp.base.common.util.DateTimeUtils;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.po.system.SysDeptContacts;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
@@ -27,7 +28,7 @@ public class SysDeptVo extends SysDept {
 
     private List<SysDeptVo> childs;
 
-    private List<SysDeptContactsVo> items;
+    private List<SysDeptContacts> items;
 
     public String getValidateFromStr() {
         if(StringUtils.isBlank(validateFromStr)){
@@ -97,11 +98,11 @@ public class SysDeptVo extends SysDept {
         this.cNum = cNum;
     }
 
-    public List<SysDeptContactsVo> getItems() {
+    public List<SysDeptContacts> getItems() {
         return items;
     }
 
-    public void setItems(List<SysDeptContactsVo> items) {
+    public void setItems(List<SysDeptContacts> items) {
         this.items = items;
     }
 }
