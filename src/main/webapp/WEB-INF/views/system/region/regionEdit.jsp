@@ -46,7 +46,7 @@
                                         <div class="col-sm-7 col-xs-7">
                                             <input type="text" id="regionName" name="regionName" class="form-control"
                                                    autocomplete="false" data-rule="chinese" data-rule="行政区域名:regionName;required;length[~64, true]"
-                                            >
+                                                   readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@
                                         <label for="regionCode" class="control-label col-sm-5 col-xs-5">行政区划编号 <i style="color: red">*必选</i></label>
                                         <div class="col-sm-7 col-xs-7">
                                             <input type="text" id="regionCode" name="regionCode" class="form-control"
-                                                   data-rule="行政区划编号:regionCode;required;length[~6, true]" data-rule="digits">
+                                                   data-rule="行政区划编号:regionCode;required;length[~6, true]" data-rule="digits" readonly>
                                         </div>
                                     </div>
                                 </div>

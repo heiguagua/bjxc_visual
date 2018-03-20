@@ -26,17 +26,17 @@
                     <div class="box">
                         <div class="form-inline">
                             <div class="box-header">
-                                <div class="input-group">
-                                    <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:addRegion()" id="createRegionA">
-                                        <img src="<%=context_path%>/images/userImg/addimg.png"/>
-                                        新建区域
-                                    </a>
-                                </div>
-                                <div class="input-group">
-                                    <a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchRegion()" >
-                                        <img src="<%=context_path%>/images/userImg/delImg.png"/>
-                                        批量删除</a>
-                                </div>
+                                <%--<div class="input-group">--%>
+                                    <%--<a class="btn btn-primary btn-flat btn-myself" onclick="javascript:addRegion()" id="createRegionA">--%>
+                                        <%--<img src="<%=context_path%>/images/userImg/addimg.png"/>--%>
+                                        <%--新建区域--%>
+                                    <%--</a>--%>
+                                <%--</div>--%>
+                                <%--<div class="input-group">--%>
+                                    <%--<a class="btn btn-primary btn-flat btn-myself"  onclick="javascript:deleteBatchRegion()" >--%>
+                                        <%--<img src="<%=context_path%>/images/userImg/delImg.png"/>--%>
+                                        <%--批量删除</a>--%>
+                                <%--</div>--%>
                                 <div class="input-group">
                                     <a class="btn btn-default btn-flat  btn-myself  hidden" id="back" onclick="javascript:backPreRegionList()">
                                         < 返回
