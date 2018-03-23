@@ -18,6 +18,7 @@ INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_nam
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('010701','0107','查看日志列表','','',0,3,'010701','system:log:list',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0116','01','系统集成管理','/system/productIntegrate','fa fa-cogs',15,2,'0116','system:productIntegrate',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0117','01','License管理','/lic/licPage','',2,2,'0117','lic:licPage',1);
+insert into sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) values ( '0118','01','行政区域管理','/system/region','fa fa-cogs',16,2,'0118','system:region', 1);
 
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('09','0','用户管理','','fa-cogs',5,1,'09','',1);
 INSERT INTO sys_menu (id,pid,menu_name,url,icon,sort,menu_type,code,resource_name,status) VALUES ('0901','09','用户管理','/system/user','fa-user-circle-o',2,2,'0901','system:user',1);
