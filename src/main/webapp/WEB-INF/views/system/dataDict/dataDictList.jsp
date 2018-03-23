@@ -57,7 +57,7 @@
                                     <div class="input-group " id="getRemoteDataDivId">
                                         <a class="btn btn-primary btn-flat btn-myself" onclick="javascript:synRemoteData()" id="synRemoteDataId">
                                             <img src="<%=context_path%>/images/userImg/changeAdress.png"/>
-                                            获取组织机构
+                                            获取字典
                                         </a>
                                     </div>
                                 </c:if>
