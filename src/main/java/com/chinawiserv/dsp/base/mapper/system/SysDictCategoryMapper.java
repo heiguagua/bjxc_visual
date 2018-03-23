@@ -24,6 +24,8 @@ public interface SysDictCategoryMapper extends BaseMapper<SysDictCategory> {
 
     SysDictCategoryVo selectVoById(String categoryCode);
 
+    int baseInsert(SysDictCategory entity);
+
     boolean baseUpdate(SysDictCategory entity);
 
     int deleteByCategory(Map paramMap);

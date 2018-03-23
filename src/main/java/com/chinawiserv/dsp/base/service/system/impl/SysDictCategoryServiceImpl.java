@@ -1,7 +1,6 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysDictCategory;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDictCategoryVo;
 import com.chinawiserv.dsp.base.mapper.system.SysDictCategoryMapper;
@@ -107,9 +106,9 @@ public class SysDictCategoryServiceImpl extends CommonServiceImpl<SysDictCategor
         if (needUpdateIds!=null&&needUpdateIds.size()>0){
             for (SysDictCategory sysDictCategory : list) {
                 if (needUpdateIds.contains(sysDictCategory.getCategoryCode())){
-                    mapper.updateById(sysDictCategory);
+                    mapper.baseUpdate(sysDictCategory);
                 }else{
-                    mapper.insert(sysDictCategory);
+                    mapper.baseInsert(sysDictCategory);
                 }
             }
         }else{
