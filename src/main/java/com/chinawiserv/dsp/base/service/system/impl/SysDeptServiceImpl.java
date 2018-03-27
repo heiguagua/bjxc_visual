@@ -442,15 +442,17 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             }
         }
         sysDeptMapper.updateDeptByfDept(sysDeptVo);
-        for (SysDeptContacts item: sysDeptVo.getItems()) {
-            if (StringUtils.isEmpty(item.getId())){
-                item.setId(CommonUtil.get32UUID());
-                item.setCurDeptId(sysDeptVo.getId());
-                sysDeptContactsMapper.insert(item);
-            }else{
-                sysDeptContactsMapper.baseUpdate(item);
-            }
+        if(sysDeptVo.getItems()!=null&&sysDeptVo.getItems().size()>0) {
+            for (SysDeptContacts item : sysDeptVo.getItems()) {
+                if (StringUtils.isEmpty(item.getId())) {
+                    item.setId(CommonUtil.get32UUID());
+                    item.setCurDeptId(sysDeptVo.getId());
+                    sysDeptContactsMapper.insert(item);
+                } else {
+                    sysDeptContactsMapper.baseUpdate(item);
+                }
 
+            }
         }
         return updateById(sysDeptVo);
     }
