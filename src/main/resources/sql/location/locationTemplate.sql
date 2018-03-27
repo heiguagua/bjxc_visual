@@ -10,7 +10,7 @@ update sys_setting set setting_value = '成都市大数据资源服务网' where
 update sys_setting set setting_value = 'Chengdu Big Data Resource Service Network' where setting_code = 'projectPortalEnName' and setting_type = '1';
 
 -- 删除不需要的菜单
-delete from sys_menu where id in ('0116','0117','08','0801');
+delete from sys_menu where id in ('0117','08','0801');
 
 --  用户表
 delete from sys_user;
