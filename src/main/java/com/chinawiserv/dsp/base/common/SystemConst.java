@@ -56,4 +56,6 @@ public final class SystemConst {
 
     public static final String SYS_INTEGRATE_NO="integrateCurNo";
 
+
+    public static final String SYS_INTEGRATE_DEPT_HIGHT_RC="rc";
 }

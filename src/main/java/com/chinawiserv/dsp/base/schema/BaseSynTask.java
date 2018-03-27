@@ -41,7 +41,7 @@ public class BaseSynTask extends BaseController {
 
     @Scheduled(cron = "0 0 12 * * ?")  //每天中午12点执行一次
     public void  synDeptTable(){
-        if (!isMaster()){
+        if (!isDeptMaster()){
             logInsert("部门同步开启","[]");
             logger.debug("记录日志:部门同步开启");
             try {

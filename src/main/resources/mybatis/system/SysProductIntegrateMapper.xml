@@ -46,6 +46,10 @@
     	SELECT t.* FROM sys_product_integrate t WHERE t.id = #{id}
     </select>
 
+    <select id="selectVoByProductNo" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_product_integrate t WHERE t.product_no = #{productNo}
+    </select>
+
     <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
     	SELECT count(1) FROM sys_product_integrate t <include refid="queryConditions"></include>
     </select>

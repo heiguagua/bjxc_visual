@@ -59,7 +59,7 @@ public class SysDeptController extends BaseController {
     @RequestMapping("")
     public  String init(@RequestParam Map<String , Object> paramMap ,Model model){
         setCurrentMenuInfo(paramMap);
-        model.addAttribute("master",isMaster());
+        model.addAttribute("master",isDeptMaster());
         return "system/dept/deptList";
     }
 

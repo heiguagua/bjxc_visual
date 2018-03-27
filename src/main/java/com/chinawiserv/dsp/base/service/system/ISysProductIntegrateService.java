@@ -22,6 +22,8 @@ public interface ISysProductIntegrateService extends ICommonService<SysProductIn
 
     SysProductIntegrateVo getTheMaster() throws ErrorInfoException;
 
+    SysProductIntegrateVo getTheDeptMaster() throws ErrorInfoException;
+
     List<SysIconVo>  selectIcon();
 
 }

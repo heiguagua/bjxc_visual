@@ -23,6 +23,8 @@ public interface SysProductIntegrateMapper extends BaseMapper<SysProductIntegrat
 
     SysProductIntegrateVo selectVoById(String id);
 
+    SysProductIntegrateVo selectVoByProductNo(String productNo);
+
     int selectVoCount(Map<String, Object> paramMap);
 
     int baseInsert(SysProductIntegrate entity);

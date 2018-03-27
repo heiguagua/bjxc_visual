@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.base.service.system.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.entity.po.system.SysProductIntegrate;
 import com.chinawiserv.dsp.base.entity.vo.system.SysIconVo;
@@ -84,9 +85,22 @@ public class SysProductIntegrateServiceImpl extends CommonServiceImpl<SysProduct
     }
 
     @Override
+    public SysProductIntegrateVo getTheDeptMaster() throws ErrorInfoException {
+        SysProductIntegrateVo vo = mapper.selectVoByProductNo(SystemConst.SYS_INTEGRATE_DEPT_HIGHT_RC);
+
+        if(vo !=null&&vo.getIntegrateFlag().equals(1)){
+            return vo;
+        }
+
+        return  this.getTheMaster();
+    }
+
+    @Override
     public List<SysIconVo> selectIcon() {
         Map paramMap = new HashMap();
         paramMap.put("iconType", "integrate_icon");
         return iconMapper.selectIconList(paramMap);
     }
+
+
 }

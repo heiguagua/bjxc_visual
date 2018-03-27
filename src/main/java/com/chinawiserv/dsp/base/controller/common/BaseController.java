@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.base.controller.common;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
@@ -228,8 +229,6 @@ public class BaseController {
 //	}
 	//主次检查异常当未集成处理，表现为主
 	protected boolean isMaster(){
-		String systemId = sysSettingService.findValueByCode(SystemConst.SYS_INTEGRATE_NO);
-
 		SysProductIntegrateVo master = null;
 		try {
 			master = productIntegrateService.getTheMaster();
@@ -238,6 +237,25 @@ public class BaseController {
 			logger.error("集成异常，未获得唯一主系统");
 			return false;
 		}
+		return master(master);
+	}
+
+	//主次检查异常当未集成处理，表现为主
+	protected boolean isDeptMaster(){
+
+		SysProductIntegrateVo master = null;
+		try {
+			master = productIntegrateService.getTheDeptMaster();
+		} catch (ErrorInfoException e) {
+
+			logger.error("集成异常，未获得唯一主系统");
+			return false;
+		}
+		return master(master);
+	}
+
+	private boolean master(SysProductIntegrateVo master){
+		String systemId = sysSettingService.findValueByCode(SystemConst.SYS_INTEGRATE_NO);
 		if(master!=null){
 			if(!master.getProductNo().equals(systemId)){
 				return false;
