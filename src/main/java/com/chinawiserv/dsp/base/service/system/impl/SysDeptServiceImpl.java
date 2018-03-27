@@ -400,10 +400,13 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
                 updateParent.setId(parent.getId());
                 updateParent.setTreeIndex(treeIndex);
                 if (sysDeptMapper.updateById(updateParent) == 1) {
-                    for (SysDeptContacts item: sysDeptVo.getItems()) {
-                        item.setId(CommonUtil.get32UUID());
-                        item.setCurDeptId(sysDeptVo.getId());
-                        sysDeptContactsMapper.insert(item);
+                    if(sysDeptVo.getItems()!=null&&sysDeptVo.getItems().size()>0){
+                        for (SysDeptContacts item: sysDeptVo.getItems()) {
+                            item.setId(CommonUtil.get32UUID());
+                            item.setCurDeptId(sysDeptVo.getId());
+                            sysDeptContactsMapper.insert(item);
+                        }
+
                     }
                     return true;
                 }
