@@ -135,7 +135,7 @@ function initDept(fcode,subQueryFlag) {
             title: '操作',
             align: 'left',
             valign: 'middle',
-            width: '8%',
+            width: '18%',
             sortable: false,
             formatter: function (value, row, index) {
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editRegion(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i>编辑</a>";

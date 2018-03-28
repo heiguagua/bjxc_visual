@@ -386,7 +386,9 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             } else {
                 sysDeptVo.setValidateFrom(new Date());
             }
-            sysDeptVo.setDeptType(parent.getDeptType());
+            if(StringUtils.isBlank(sysDeptVo.getDeptType())){
+                sysDeptVo.setDeptType(parent.getDeptType());
+            }
             sysDeptVo.setId(CommonUtil.get32UUID());
             sysDeptVo.setTreeIndex(0);
             String userId = ShiroUtils.getLoginUserId();
