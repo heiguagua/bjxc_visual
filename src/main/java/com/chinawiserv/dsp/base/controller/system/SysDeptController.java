@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.base.controller.system;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.Pinyin4jUtil;
@@ -165,7 +166,7 @@ public class SysDeptController extends BaseController {
 //        RestTemplate restTemplate = new RestTemplate();
 //        String result = restTemplate.getForObject("http://localhost:8080/dm/system/dept/provideData/?systemId=dm", String.class);
         try {
-            String result =getDataFromMaster(ISysDeptService.synUrl);
+            String result =getDataFromMaster(ISysDeptService.synUrl, SystemConst.SYS_INTEGRATE_DEPT_HIGHT_RC);
             HandleResult jsb= JSONObject.parseObject(result,HandleResult.class);
             HashMap<String, Object> map= jsb.getContent();
             List<SysDept> list= JSONObject.parseArray(map.get("list").toString(),SysDept.class) ;

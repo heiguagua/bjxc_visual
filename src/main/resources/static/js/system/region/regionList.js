@@ -1,8 +1,10 @@
 var tableSelector = '#systemRegionTableId';
 var paramsObj = {};
 var regionCodes=new Array();
+var isMaster={};
 jQuery(document).ready(function () {
     "use strict";
+    isMaster=$("#masterId").val();
     $("#searchKeyId").keydown(function(e){
         var curKey = e.which;
         if(curKey == 13){
@@ -142,7 +144,11 @@ function initDept(fcode,subQueryFlag) {
                 var showBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:showRegion(\"" + row.regionCode + "\")'><i class='fa fa-chain'></i>查看下级</a>";
                 var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteRegion(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
                 var initDeptBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:initTopDept(\"" + value + "\")'><i class='fa fa-times'></i>初始化顶级部门</a>";
-                return editBtn + OPERATION_SEPARATOR +showBtn+OPERATION_SEPARATOR+initDeptBtn;
+
+                if(isMaster==="true"){
+                    return editBtn + OPERATION_SEPARATOR +showBtn+OPERATION_SEPARATOR+initDeptBtn;
+                }
+                return editBtn + OPERATION_SEPARATOR +showBtn;
             }
         }]
     });

@@ -22,9 +22,9 @@ insert into sys_user_role(id,user_id,role_id)
   from sys_user where user_name in ( 'admin');
 
 
--- 先初始化对应行政区域的顶级部门
+-- 先初始化对应行政区域的顶级部门,不初始化，由部门修改权限系统统一管理
 delete from sys_dept;
-call initLocalRootSysDept('510100');
+-- call initLocalRootSysDept('510100');
 
 -- 共享门户几个特殊信息的处理
 delete from dir_portal_content_setting where category in ('footer','aboutUs');

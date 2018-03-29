@@ -353,7 +353,7 @@ public class SysDictController extends BaseController {
     public  HandleResult getMasterData(){
         HandleResult handleResult = new HandleResult();
         try {
-            String result =getDataFromMaster(ISysDictService.synUrl);
+            String result =getDataFromMaster(ISysDictService.synUrl,null);
             HandleResult jsb= JSONObject.parseObject(result,HandleResult.class);
             HashMap<String, Object> map= jsb.getContent();
             List<SysDictCategory> sysDictCategoryResult= JSONObject.parseArray(map.get("sysDictCategoryResult").toString(),SysDictCategory.class) ;

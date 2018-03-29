@@ -202,9 +202,15 @@ public class BaseController {
 		}
 	}
 
-	protected String getDataFromMaster(String url)throws ErrorInfoException{
+	protected String getDataFromMaster(String url,String type)throws ErrorInfoException{
 		String systemId = sysSettingService.findValueByCode(SystemConst.SYS_INTEGRATE_NO);
-		SysProductIntegrateVo master = productIntegrateService.getTheMaster();
+		SysProductIntegrateVo master;
+		if(SystemConst.SYS_INTEGRATE_DEPT_HIGHT_RC.equals(type)){
+			master = productIntegrateService.getTheDeptMaster();
+		}else{
+			master = productIntegrateService.getTheMaster();
+
+		}
 		if(master.getProductNo().equals(systemId)){
 			throw new ErrorInfoException("同一系统，无需获取数据");
 		}

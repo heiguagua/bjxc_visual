@@ -43,8 +43,9 @@ public class SysRegionController extends BaseController {
 
     @RequiresPermissions("system:region:list")
     @RequestMapping("")
-    public  String init(@RequestParam Map<String , Object> paramMap){
+    public  String init(@RequestParam Map<String , Object> paramMap,Model model){
 		setCurrentMenuInfo(paramMap);
+        model.addAttribute("master",isDeptMaster());
     	return "system/region/regionList";
     }
 

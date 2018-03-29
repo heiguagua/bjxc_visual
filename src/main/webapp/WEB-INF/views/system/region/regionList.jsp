@@ -26,6 +26,7 @@
                     <div class="box">
                         <div class="form-inline">
                             <div class="box-header">
+                                <input id="masterId" type="hidden" name="master" value="${master}" />
                                 <%--<div class="input-group">--%>
                                     <%--<a class="btn btn-primary btn-flat btn-myself" onclick="javascript:addRegion()" id="createRegionA">--%>
                                         <%--<img src="<%=context_path%>/images/userImg/addimg.png"/>--%>

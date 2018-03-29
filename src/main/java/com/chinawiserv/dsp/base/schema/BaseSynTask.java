@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.base.schema;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
@@ -45,7 +46,7 @@ public class BaseSynTask extends BaseController {
             logInsert("部门同步开启","[]");
             logger.debug("记录日志:部门同步开启");
             try {
-                String result =getDataFromMaster(ISysDeptService.synUrl);
+                String result =getDataFromMaster(ISysDeptService.synUrl, SystemConst.SYS_INTEGRATE_DEPT_HIGHT_RC);
                 HandleResult jsb= JSONObject.parseObject(result,HandleResult.class);
                 HashMap<String, Object> map= jsb.getContent();
                 List<SysDept> list= JSONObject.parseArray(map.get("list").toString(),SysDept.class) ;
@@ -79,7 +80,7 @@ public class BaseSynTask extends BaseController {
             logInsert("用户同步开启","[]");
             logger.debug("记录日志:用户同步开启");
             try {
-                String result = getDataFromMaster(ISysUserService.synUrl);
+                String result = getDataFromMaster(ISysUserService.synUrl,null);
                 HandleResult jsb = JSONObject.parseObject(result, HandleResult.class);
                 HashMap<String, Object> map = jsb.getContent();
                 List<SysUser> list = JSONObject.parseArray(map.get("list").toString(), SysUser.class);
@@ -108,7 +109,7 @@ public class BaseSynTask extends BaseController {
             logInsert("数据字典同步开启","[]");
             logger.debug("记录日志:数据字典同步开启");
             try {
-                String result = getDataFromMaster(ISysDictService.synUrl);
+                String result = getDataFromMaster(ISysDictService.synUrl,null);
                 HandleResult jsb = JSONObject.parseObject(result, HandleResult.class);
                 HashMap<String, Object> map = jsb.getContent();
                 List<SysDictCategory> sysDictCategoryResult= JSONObject.parseArray(map.get("sysDictCategoryResult").toString(),SysDictCategory.class) ;

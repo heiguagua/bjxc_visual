@@ -350,7 +350,7 @@ public class SysUserController extends BaseController {
         HandleResult handleResult = new HandleResult();
 
         try {
-            String result = getDataFromMaster(ISysUserService.synUrl);
+            String result = getDataFromMaster(ISysUserService.synUrl,null);
             HandleResult jsb = JSONObject.parseObject(result, HandleResult.class);
             HashMap<String, Object> map = jsb.getContent();
             List<SysUser> list = JSONObject.parseArray(map.get("list").toString(), SysUser.class);
