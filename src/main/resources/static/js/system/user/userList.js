@@ -172,8 +172,8 @@ jQuery(document).ready(function () {
                     var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editUser(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                     var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteUser(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
                     if(isMaster==="true") {
-                        return editBtn + OPERATION_SEPARATOR + deleteBtn;
-                        // return editBtn;
+                        // return editBtn + OPERATION_SEPARATOR + deleteBtn;
+                        return editBtn;
                     }else{
                         return editBtn;
                     }
