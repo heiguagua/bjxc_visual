@@ -1,13 +1,17 @@
 /**
  * Created by zhanf on 2017/4/28. 1
  */
+var isMaster={};
 jQuery(document).ready(function () {
     var userId = $("#userId").val();
-
+    isMaster=$("#masterId").val()
     initUserTypeList();
     initRoleNameList();
     initFormerDate(userId);
-    $.initUserRegionTreeSelect('treeRegionDemo','regionName','regionCode', 'menuRegionContent'); //初始化区域机构下拉框
+
+    if(isMaster==="true"){
+        $.initUserRegionTreeSelect('treeRegionDemo','regionName','regionCode', 'menuRegionContent'); //初始化区域机构下拉框
+    }
 });
 
 function initUserTypeList(){
@@ -40,6 +44,7 @@ function initDeptSelectDataList(){
 
 //初始化用户信息
 function initFormerDate(userId) {
+
     $.commonAjax({
         url: basePathJS + "/system/user/loadEditData",
         data: {id:userId},
@@ -57,7 +62,6 @@ function initFormerDate(userId) {
                     $("#userType").val(user.userType).trigger("change");
                     $("#telephoneNumber").val(user.telephoneNumber);
                     $("#cellPhoneNumber").val(user.cellPhoneNumber);
-                    // $("#regionCode").val(user.regionCode);
 
                     $("#email").val(user.email);
                     // $("#deptId").val(user.deptId).trigger("change");
@@ -74,9 +78,19 @@ function initFormerDate(userId) {
                         $("#status0").click();
                     }
 
-                    $('#regionName').val(user.regionName);
-                    $('#regionCode').val(user.regionCode);
-                    initDeptTreeSelect('treeDemo','deptName','deptId','menuContent',user.regionCode);
+
+                        $('#regionName').val(user.regionName);
+                        $('#regionCode').val(user.regionCode);
+                    if(isMaster==="true") {
+                        initDeptTreeSelect('treeDemo','deptName','deptId','menuContent',user.regionCode);
+
+
+                    }else{
+                        $("#realName,#userType,#telephoneNumber,#cellPhoneNumber,#email,#userDesc,#pinyin,#regionName,#regionCode,#deptName,#deptId").attr("readonly",true);
+                        $("#status1,#status0").attr("disabled",true);
+                        // $("#deptName").val(user.deptName)
+                        // $("#deptId").val(user.deptId);
+                    }
                     $("#deptName").val(user.deptName);
                     $("#deptId").val(user.deptId);
                 }
@@ -100,6 +114,7 @@ function initRoleNameList(){
 }
 
 function initDeptTreeSelect(treeDomId, nameInputDomId, codeInputDomId, treeDivDomId,dd, multiple) {
+    debugger;
     $("#" + nameInputDomId).val("");
     $("#" + codeInputDomId).val("");
     var selectIds = "";

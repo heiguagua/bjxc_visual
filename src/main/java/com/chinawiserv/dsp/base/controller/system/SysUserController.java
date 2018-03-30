@@ -220,6 +220,7 @@ public class SysUserController extends BaseController {
     @RequestMapping("/edit")
     public  String edit(@RequestParam String id,Model model){
         model.addAttribute("id",id);
+        model.addAttribute("master",isMaster());
         return "system/user/userEdit";
     }
     /**

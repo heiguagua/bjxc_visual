@@ -23,6 +23,7 @@
                 <div class="col-md-6">
                     <form class="form-horizontal"  role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="<%=context_path%>/system/user/doEdit">
                         <input id="userId" type="hidden" value="${id}" name="Id" />
+                        <input id="masterId" type="hidden"  value="${master}" />
                         <div class="box-body box-bodyx">
                         	<div class="row">
 								<div class="col-sm-6 col-xs-6">
@@ -37,7 +38,7 @@
 									<div class="form-group">
                                 <label class="control-label col-sm-4 col-xs-4">所属行政区域</label>
                                 <div class="col-sm-7 col-xs-7">
-                                <%--<input type="text" class="form-control"  id="regionCode"  readonly>--%>
+                                    <c:if test="${master}">
                                     <input type="text" id="regionName" data-rule="所属区域:required;regionCode;" class="form-control" readonly style="background-color:#fff">
                                     <input type="hidden" id="regionCode" name="regionCode">
                                     <div class="menu-wrap">
@@ -46,6 +47,10 @@
                                                 style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                         </div>
                                     </div>
+                                    </c:if>
+                                    <c:if test="${!master}">
+                                    <input type="text" class="form-control"  id="regionName"  readonly>
+                                    </c:if>
                                 </div>
                             </div>
 								</div>
@@ -55,7 +60,7 @@
 									<div class="form-group">
                                 <label class="control-label col-sm-4 col-xs-4">所属组织机构</label>
                                 <div class="col-sm-7 col-xs-7">
-                                <%--<input type="text" class="form-control"  id="deptName"  readonly>--%>
+                                    <c:if test="${master}">
                                     <input type="text" id="deptName" data-rule="所属组织机构;deptId;" class="form-control" readonly style="background-color:#fff">
                                     <input type="hidden" id="deptId" name="deptId">
                                     <div class="menu-wrap">
@@ -64,6 +69,11 @@
                                                 style="margin-top:0;border: 1px solid #98b7a8;"></ul>
                                         </div>
                                     </div>
+                                    </c:if>
+                                    <c:if test="${!master}">
+                                    <input type="text" class="form-control"  id="deptName"  readonly>
+                                    <input type="hidden" class="form-control"  id="deptId"  name="deptId">
+                                    </c:if>
                                 </div>
                             </div>
 								</div>

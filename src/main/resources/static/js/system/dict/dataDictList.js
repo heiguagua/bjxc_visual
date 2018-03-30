@@ -4,10 +4,11 @@
 var tableSelector = '#systemDataDictTableId';
 var paramsObj={};
 var detailParamObj={};
-
+var isMaster={};
 jQuery(document).ready(function () {
     intDict();
     initButtonClick();
+    isMaster=$("#masterId").val();
 });
 
 function intDict(param) {
@@ -68,7 +69,10 @@ function intDict(param) {
                     var editBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:editDict(\"" + value + "\")'><i class='fa fa-times'></i> 修改</a>";
                     var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteDict(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
                     // return detailBtn + OPERATION_SEPARATOR + editBtn+ OPERATION_SEPARATOR + deleteBtn ;
-                    return detailBtn + OPERATION_SEPARATOR + editBtn ;
+                    if(isMaster==="true") {
+                        return detailBtn + OPERATION_SEPARATOR + editBtn;
+                    }
+                    return detailBtn;
                 }
             }]
     });
@@ -218,7 +222,9 @@ function getDictDetails(categoryCode,dd,searchKey) {
                     var editBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:editDictDetails(\"" + value + "\")'><i class='fa fa-times'></i> 修改</a>";
                     var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='#' onclick='javascript:deleteDictDetails(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
 
-                    return editBtn;
+                    if(isMaster==="true") {
+                        return editBtn;
+                    }
                     // return editBtn + OPERATION_SEPARATOR +  deleteBtn ;
                 }
             }]
