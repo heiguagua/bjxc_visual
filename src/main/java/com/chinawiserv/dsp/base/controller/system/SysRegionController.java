@@ -299,7 +299,7 @@ public class SysRegionController extends BaseController {
             logger.error(e.getMessage(), e);
         } catch (Exception e) {
             handleResult.error("获取数据失败");
-            logger.error("获取sys_user表数据失败", e);
+            logger.error("获取sys_region表数据失败", e);
         }
 
 
