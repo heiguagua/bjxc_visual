@@ -133,6 +133,7 @@
             #{item.contactsFixedPhone},
             #{item.contactsPhone},
             #{item.contactsEmail}
+            )
         </foreach>
     </insert>
 
