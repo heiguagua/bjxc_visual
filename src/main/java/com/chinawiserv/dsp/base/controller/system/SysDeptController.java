@@ -11,8 +11,10 @@ import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.base.entity.po.system.SysDept;
+import com.chinawiserv.dsp.base.entity.po.system.SysDeptContacts;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
+import com.chinawiserv.dsp.base.service.system.ISysDeptContactsService;
 import com.chinawiserv.dsp.base.service.system.ISysDeptService;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
 import com.chinawiserv.dsp.base.service.system.ISysUserService;
@@ -55,6 +57,8 @@ public class SysDeptController extends BaseController {
     @Autowired
     private ISysRegionService sysRegionService;
 
+    @Autowired
+    private ISysDeptContactsService sysDeptContactsService;
 
     @RequiresPermissions("system:dept:list")
     @RequestMapping("")
@@ -163,14 +167,13 @@ public class SysDeptController extends BaseController {
     @ResponseBody
     public  HandleResult getMasterData(){
         HandleResult handleResult = new HandleResult();
-//        RestTemplate restTemplate = new RestTemplate();
-//        String result = restTemplate.getForObject("http://localhost:8080/dm/system/dept/provideData/?systemId=dm", String.class);
         try {
             String result =getDataFromMaster(ISysDeptService.synUrl, SystemConst.SYS_INTEGRATE_DEPT_HIGHT_RC);
             HandleResult jsb= JSONObject.parseObject(result,HandleResult.class);
             HashMap<String, Object> map= jsb.getContent();
             List<SysDept> list= JSONObject.parseArray(map.get("list").toString(),SysDept.class) ;
-            if(sysDeptService.insertOrUpdate(list)){
+            List<SysDeptContacts> contactslist= JSONObject.parseArray(map.get("contactslist").toString(),SysDeptContacts.class) ;
+            if(sysDeptService.insertOrUpdate(list)||sysDeptContactsService.insertOrUpdate(contactslist)){
                 handleResult.success("更新成功");
             }else{
                 handleResult.error("无需更新");
@@ -197,7 +200,9 @@ public class SysDeptController extends BaseController {
         HandleResult handleResult = new HandleResult();
         try {
             List<SysDept> result = sysDeptService.listBySystemId(systemId);
+            List<SysDeptContacts> contactsResult = sysDeptContactsService.listBySystemId(systemId);
             handleResult.put("list", result);
+            handleResult.put("contactslist", contactsResult);
         } catch (Exception e) {
             handleResult.error("获取sys_dept表数据失败");
             logger.error("获取sys_dept表数据失败", e);

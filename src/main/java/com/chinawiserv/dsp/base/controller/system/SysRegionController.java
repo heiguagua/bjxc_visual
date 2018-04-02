@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.base.controller.system;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.SystemConst;
 import com.chinawiserv.dsp.base.common.anno.Log;
@@ -8,9 +9,12 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
 import com.chinawiserv.dsp.base.service.system.ISysRegionService;
+import com.chinawiserv.dsp.base.service.system.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -251,6 +256,54 @@ public class SysRegionController extends BaseController {
             handleResult.error("设值区域的session值失败");
             logger.error("设值区域的session值失败", e);
         }
+        return handleResult;
+    }
+
+    @Log("提供主数据")
+    @RequestMapping("/provideData")
+    @ResponseBody
+    public  HandleResult provideData(@RequestParam String systemId){
+        HandleResult handleResult = new HandleResult();
+        try {
+            List<SysRegion> result = service.listBySystemId(systemId);
+            handleResult.put("list", result);
+        } catch (Exception e) {
+            handleResult.error("获取sys_region表数据失败");
+            logger.error("获取sys_region表数据失败", e);
+        }
+        return handleResult;
+    }
+
+    /**
+     * 同步主系统区域信息
+     */
+//    @RequiresPermissions("system:user:add")
+    @Log("获取主系统区域数据")
+    @RequestMapping("/getMasterData")
+    @ResponseBody
+    public  HandleResult getMasterData(){
+        HandleResult handleResult = new HandleResult();
+
+        try {
+            String result = getDataFromMaster(ISysRegionService.synUrl,null);
+            HandleResult jsb = JSONObject.parseObject(result, HandleResult.class);
+            HashMap<String, Object> map = jsb.getContent();
+            List<SysRegion> list = JSONObject.parseArray(map.get("list").toString(), SysRegion.class);
+            if (service.insertOrUpdate(list)) {
+                handleResult.success("更新成功");
+            } else {
+                handleResult.error("更新失败");
+            }
+        }catch (ErrorInfoException e){
+            handleResult.error(e.getMessage());
+            logger.error(e.getMessage(), e);
+        } catch (Exception e) {
+            handleResult.error("获取数据失败");
+            logger.error("获取sys_user表数据失败", e);
+        }
+
+
+
         return handleResult;
     }
 

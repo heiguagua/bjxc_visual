@@ -2,6 +2,7 @@ package com.chinawiserv.dsp.base.mapper.system;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysDeptContacts;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptContactsVo;
 import java.util.List;
@@ -29,4 +30,12 @@ public interface SysDeptContactsMapper extends BaseMapper<SysDeptContacts> {
     int baseUpdate(SysDeptContacts entity);
 
     int baseDelete(String id);
+
+    List<SysDeptContacts> listBySystemId(String systemId);
+
+    List<SysDeptContacts> listByList(List<String> list);
+
+    List<String> listIdsByList(List<String> list);
+
+    long batchInsert(List<SysDeptContacts> list);
 }

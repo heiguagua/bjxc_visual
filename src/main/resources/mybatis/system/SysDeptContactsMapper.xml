@@ -94,6 +94,48 @@
                                                                                                                                                                                             </where>
     </sql>
 
+    <select id="listBySystemId" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDeptContacts">
+        SELECT t.* FROM sys_dept_contacts t
+        -- 		WHERE
+    </select>
+    <select id="listByList" parameterType="java.util.List" resultType="com.chinawiserv.dsp.base.entity.po.system.SysDeptContacts">
+        SELECT t.* FROM sys_dept_contacts t WHERE t.id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="listIdsByList" parameterType="java.util.List" resultType="java.lang.String">
+        SELECT t.id FROM sys_dept_contacts t WHERE t.id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into sys_dept_contacts(
+        id,
+        cur_dept_id,
+        contacts_type,
+        contacts_name,
+        contacts_dept,
+        contacts_post,
+        contacts_fixed_phone,
+        contacts_phone,
+        contacts_email
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index"  separator="," >
+            (#{item.id},
+            #{item.curDeptId},
+            #{item.contactsType},
+            #{item.contactsName},
+            #{item.contactsDept},
+            #{item.contactsPost},
+            #{item.contactsFixedPhone},
+            #{item.contactsPhone},
+            #{item.contactsEmail}
+        </foreach>
+    </insert>
+
 
 
 </mapper>

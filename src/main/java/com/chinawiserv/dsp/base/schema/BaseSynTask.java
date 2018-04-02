@@ -40,6 +40,12 @@ public class BaseSynTask extends BaseController {
     @Autowired
     private ISysLogService sysLogService;
 
+    @Autowired
+    private ISysDeptContactsService sysDeptContactsService;
+
+    @Autowired
+    private ISysRegionService sysRegionService;
+
     @Scheduled(cron = "0 0 12 * * ?")  //每天中午12点执行一次
     public void  synDeptTable(){
         if (!isDeptMaster()){
@@ -50,7 +56,8 @@ public class BaseSynTask extends BaseController {
                 HandleResult jsb= JSONObject.parseObject(result,HandleResult.class);
                 HashMap<String, Object> map= jsb.getContent();
                 List<SysDept> list= JSONObject.parseArray(map.get("list").toString(),SysDept.class) ;
-                if(sysDeptService.insertOrUpdate(list)){
+                List<SysDeptContacts> contactslist= JSONObject.parseArray(map.get("contactslist").toString(),SysDeptContacts.class);
+                if(sysDeptService.insertOrUpdate(list)||sysDeptContactsService.insertOrUpdate(contactslist)){
                     logInsert("同步部门成功",result);
                     logger.debug("记录日志:同步部门成功");
                 }else{
@@ -74,8 +81,37 @@ public class BaseSynTask extends BaseController {
     }
 
     @Scheduled(cron = "0 0 12 * * ?")  //每天中午12点执行一次
+    public void  synRegionTable(){
+        if (!isMaster()){
+            logInsert("区域同步开启","[]");
+            logger.debug("记录日志:区域同步开启");
+            try {
+                String result = getDataFromMaster(ISysRegionService.synUrl,null);
+                HandleResult jsb = JSONObject.parseObject(result, HandleResult.class);
+                HashMap<String, Object> map = jsb.getContent();
+                List<SysRegion> list = JSONObject.parseArray(map.get("list").toString(), SysRegion.class);
+                if (sysRegionService.insertOrUpdate(list)) {
+                    logInsert("同步区域成功",result);
+                    logger.debug("记录日志:同步区域成功");
+                } else {
+                    logInsert("同步区域失败",result);
+                    logger.error("记录日志:同步区域失败");
+                }
+            }catch (ErrorInfoException e){
+                logInsert(e.getMessage(),"[]");
+                logger.error(e.getMessage(), e);
+            } catch (Exception e) {
+                logInsert("获取sys_region表数据失败","[]");
+                logger.error("获取sys_region表数据失败", e);
+            }
+        }else{
+            logInsert("区域同步未开启","[]");
+            logger.debug("记录日志:区域同步未开启");
+        }
+    }
+
+    @Scheduled(cron = "0 0 12 * * ?")  //每天中午12点执行一次
     public void  synUserTable(){
-        System.out.println(1);
         if (!isMaster()){
             logInsert("用户同步开启","[]");
             logger.debug("记录日志:用户同步开启");

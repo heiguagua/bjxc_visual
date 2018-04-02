@@ -2,6 +2,9 @@ package com.chinawiserv.dsp.base.entity.po.system;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -140,5 +143,43 @@ public class SysRegion implements Serializable {
 
 	public void setPinyin(String pinyin) {
 		this.pinyin = pinyin;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		SysRegion sysRegion = (SysRegion) o;
+
+		return new EqualsBuilder()
+				.append(id, sysRegion.id)
+				.append(regionCode, sysRegion.regionCode)
+				.append(regionName, sysRegion.regionName)
+				.append(fcode, sysRegion.fcode)
+				.append(fname, sysRegion.fname)
+				.append(firstCharact, sysRegion.firstCharact)
+				.append(regionLevelCode, sysRegion.regionLevelCode)
+				.append(status, sysRegion.status)
+				.append(versionId, sysRegion.versionId)
+				.append(pinyin, sysRegion.pinyin)
+				.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37)
+				.append(id)
+				.append(regionCode)
+				.append(regionName)
+				.append(fcode)
+				.append(fname)
+				.append(firstCharact)
+				.append(regionLevelCode)
+				.append(status)
+				.append(versionId)
+				.append(pinyin)
+				.toHashCode();
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 
@@ -18,6 +19,8 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  */
 public interface ISysRegionService extends ICommonService<SysRegion, SysRegionVo> {
 
+    String synUrl="/system/user/provideData";
+
     List<SysRegionVo> selectAllRegionByRegionCode(String regionCode);
 
     List<SysRegionVo> selectAllRegionLikeRegionCode(String regionCode);
@@ -26,14 +29,18 @@ public interface ISysRegionService extends ICommonService<SysRegion, SysRegionVo
 
    /* JSONArray getRegionSelectDataList();*/
 
-   public List<SysRegionVo> getRegionSelectDataList(Map<String, Object> paramMap) throws Exception;
+    List<SysRegionVo> getRegionSelectDataList(Map<String, Object> paramMap) throws Exception;
 
-    public SysRegionVo getRegionDataByCode(String regionCode) throws Exception;
+    SysRegionVo getRegionDataByCode(String regionCode) throws Exception;
 
-    public List<String> getAllParentRegionCodes(String regionCode) throws Exception;
+    List<String> getAllParentRegionCodes(String regionCode) throws Exception;
 
     boolean deleteBatchRegionByIds(List<String> ids) ;
 
     void initTopDept(String id) throws ErrorInfoException;
+
+    List<SysRegion>  listBySystemId(String systemId);
+
+    boolean insertOrUpdate(List<SysRegion> list);
 
 }

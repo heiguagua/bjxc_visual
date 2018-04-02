@@ -2,7 +2,9 @@ package com.chinawiserv.dsp.base.mapper.system;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
+import com.chinawiserv.dsp.base.entity.po.system.SysUser;
 import com.chinawiserv.dsp.base.entity.vo.system.SysRegionVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -43,4 +45,12 @@ public interface SysRegionMapper extends BaseMapper<SysRegion> {
     Integer deleteBatchRegionByIds(List<String> ids);
 
     void initTopDept(String regionCode);
+
+    List<SysRegion> listBySystemId(String systemId);
+
+    List<SysRegion> listByList(List<String> list);
+
+    List<String> listIdsByList(List<String> list);
+
+    long batchInsert(List<SysRegion> list);
 }

@@ -2,6 +2,9 @@ package com.chinawiserv.dsp.base.entity.po.system;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -135,4 +138,39 @@ public class SysDeptContacts implements Serializable {
 		this.contactsEmail = contactsEmail;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		SysDeptContacts that = (SysDeptContacts) o;
+
+		return new EqualsBuilder()
+				.append(id, that.id)
+				.append(curDeptId, that.curDeptId)
+				.append(contactsType, that.contactsType)
+				.append(contactsName, that.contactsName)
+				.append(contactsDept, that.contactsDept)
+				.append(contactsPost, that.contactsPost)
+				.append(contactsFixedPhone, that.contactsFixedPhone)
+				.append(contactsPhone, that.contactsPhone)
+				.append(contactsEmail, that.contactsEmail)
+				.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37)
+				.append(id)
+				.append(curDeptId)
+				.append(contactsType)
+				.append(contactsName)
+				.append(contactsDept)
+				.append(contactsPost)
+				.append(contactsFixedPhone)
+				.append(contactsPhone)
+				.append(contactsEmail)
+				.toHashCode();
+	}
 }

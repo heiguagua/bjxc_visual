@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.exception.ErrorInfoException;
 import com.chinawiserv.dsp.base.common.util.CommonUtil;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.system.SysDept;
 import com.chinawiserv.dsp.base.entity.po.system.SysRegion;
 import com.chinawiserv.dsp.base.entity.po.system.SysRole;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptVo;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -194,5 +196,44 @@ public class SysRegionServiceImpl extends CommonServiceImpl<SysRegionMapper, Sys
         }else{
             mapper.initTopDept(vo.getRegionCode());
         }
+    }
+
+    @Override
+    public List<SysRegion> listBySystemId(String systemId) {
+        return mapper.listBySystemId(systemId);
+    }
+
+    @Override
+    public boolean insertOrUpdate(List<SysRegion> list) {
+        //1获取Ids集合
+        List<String> firstds=list.stream().map(e -> e.getId()).collect(Collectors.toList());
+        //2删除已被删除的数据（逻辑删除无需此操作）
+
+        //3获取已经存在的数据
+        List<SysRegion> existList=mapper.listByList(firstds);
+        //4删除无需操作的数据
+        list.removeAll(existList);
+        if (list.size()==0){
+            return false;
+        }
+        List<String> secondIds=list.stream().map(e -> e.getId()).collect(Collectors.toList());
+
+        //5获取需要更新的Id
+        List<String> needUpdateIds=mapper.listIdsByList(secondIds);
+
+        if (needUpdateIds!=null&&needUpdateIds.size()>0){
+            for (SysRegion bean : list) {
+                if (needUpdateIds.contains(bean.getId())){
+                    mapper.updateById(bean);
+                }else{
+                    mapper.insert(bean);
+                }
+            }
+        }else{
+            //批量插入
+            mapper.batchInsert(list);
+        }
+
+        return true;
     }
 }

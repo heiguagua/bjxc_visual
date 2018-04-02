@@ -189,4 +189,48 @@
         call initLocalRootSysDept(#{regionCode});
     </update>
 
+    <select id="listBySystemId" parameterType="java.lang.String" resultType="com.chinawiserv.dsp.base.entity.po.system.SysRegion">
+        SELECT u.* FROM sys_region u
+        -- 		WHERE
+    </select>
+
+    <select id="listByList" parameterType="java.util.List" resultType="com.chinawiserv.dsp.base.entity.po.system.SysRegion">
+        SELECT t.* FROM sys_region t WHERE t.id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="listIdsByList" parameterType="java.util.List" resultType="java.lang.String">
+        SELECT t.id FROM sys_region t WHERE t.id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into sys_region(
+        id,
+        region_code,
+        region_name,
+        fcode,
+        fname,
+        first_charact,
+        pinyin,
+        region_level_code,
+        status,
+        version_id
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index"  separator="," >
+            (#{item.id},
+            #{item.regionCode},
+            #{item.regioname},
+            #{item.fcode},
+            #{item.fname},
+            #{item.first_charact},
+            #{item.pinyin},
+            #{item.region_level_code},
+            #{item.status},
+            #{item.version_id}
+        </foreach>
+    </insert>
 </mapper>
