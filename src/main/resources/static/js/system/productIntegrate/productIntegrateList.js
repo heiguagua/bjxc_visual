@@ -139,9 +139,11 @@ jQuery(document).ready(function () {
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editProInt(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
                 var synBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:sendEndPoint(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i>推送</a>";
                 if(isMaster==="true") {
+                    if("30d871cb-baf7-11e7-b780-000c2909b055"===value){
+                        return editBtn;
+                    }
                     return editBtn+OPERATION_SEPARATOR+synBtn;
-                // }else{
-                //     return "子系统只能同步";
+
                 }
             }
         }]

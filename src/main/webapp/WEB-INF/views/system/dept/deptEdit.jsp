@@ -29,7 +29,8 @@
 							<div class="row">
 								<div class="col-sm-6 col-xs-6">
 									<div class="form-group">
-		                                <label for="regionCode" class="control-label col-sm-4 col-xs-4">所属行政区域</label>
+		                                <label for="regionCode" class="control-label col-sm-4 col-xs-4">所属行政区域
+										<i style="color: red">*</i></label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" id="regionName" readonly>
 		                                </div>
@@ -37,7 +38,7 @@
 								</div>
 								<div class="col-sm-6 col-xs-6">
 									<div class="form-group">
-		                                <label for="fname" class="control-label col-sm-4 col-xs-4">父组织机构名称</label>
+		                                <label for="fname" class="control-label col-sm-4 col-xs-4">父组织机构名称<i style="color: red">*</i></label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" id="fname" readonly>
 		                                </div>
@@ -47,7 +48,7 @@
 							<div class="row">
 								<div class="col-sm-6 col-xs-6">
 									<div class="form-group">
-		                                <label for="deptCode" class="control-label col-sm-4 col-xs-4">组织机构编码</label>
+		                                <label for="deptCode" class="control-label col-sm-4 col-xs-4">组织机构编码<i style="color: red">*</i></label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" id="deptCode" name="deptCode"
 		                                    data-rule="组织机构编码:simpleCode;required;length[~64, true]">
@@ -56,7 +57,8 @@
 								</div>
 								<div class="col-sm-6 col-xs-6">
 									<div class="form-group">
-		                                <label for="deptName" class="control-label col-sm-4 col-xs-4">组织机构名称</label>
+		                                <label for="deptName" class="control-label col-sm-4 col-xs-4">组织机构名称
+											<i style="color: red">*</i></label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="deptName" id="deptName"
 		                                           placeholder="组织机构名称"
@@ -91,7 +93,7 @@
                             <div class="row">
 								<div class="col-sm-6 col-xs-6">
 									<div class="form-group">
-		                                <label for="deptShortName" class="control-label col-sm-4 col-xs-4">组织机构简称</label>
+		                                <label for="deptShortName" class="control-label col-sm-4 col-xs-4">组织机构简称<i style="color: red">*</i></label>
 		                                <div class="col-sm-7 col-xs-7">
 		                                    <input type="text" class="form-control" name="deptShortName" id="deptShortName"
 		                                           placeholder="组织机构简称"

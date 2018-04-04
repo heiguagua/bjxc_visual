@@ -56,9 +56,11 @@ public class SysProductIntegrateController extends BaseController {
     }
 
     /**
-     * 分页查询产品集成表
+     * 分页查询产品集成表,
+     *
+     * 普通用户不具有当前页面访问功能，但是需要获取单点登录tab，故注释掉权限限制
      */
-    @RequiresPermissions("system:productIntegrate:list")
+//    @RequiresPermissions("system:productIntegrate:list")
     @RequestMapping("/list")
     @ResponseBody
     public PageResult list(@RequestParam Map<String , Object> paramMap){

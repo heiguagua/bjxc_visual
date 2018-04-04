@@ -18,6 +18,10 @@ function initEditPage(){
                 $("#settingValue").attr({ "placeholder": vo.placeholder, "data-rule": vo.rule });
                 // var status_selector = $("input[name='status']");
                 // vo.status == 1 ? status_selector.get(0).checked=true : status_selector.get(1).checked=true;
+                //判断是integrateCurNo的时候，value只读不可修改
+                if("integrateCurNo"===vo.settingCode){
+                    $("#settingValue").attr("readonly",true);
+                }
 
             }
         }
