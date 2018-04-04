@@ -46,7 +46,7 @@ public class BaseSynTask extends BaseController {
     @Autowired
     private ISysRegionService sysRegionService;
 
-    @Scheduled(cron = "0 0 12 * * ?")  //每天中午12点执行一次
+    @Scheduled(cron = "0 01 12 * * ?")  //每天中午12点执行一次
     public void  synDeptTable(){
         if (!isDeptMaster()){
             logInsert("部门同步开启","[]");
@@ -80,7 +80,7 @@ public class BaseSynTask extends BaseController {
 
     }
 
-    @Scheduled(cron = "0 0 12 * * ?")  //每天中午12点执行一次
+    @Scheduled(cron = "0 05 12 * * ?")  //每天中午12点执行一次
     public void  synRegionTable(){
         if (!isMaster()){
             logInsert("区域同步开启","[]");
@@ -94,8 +94,8 @@ public class BaseSynTask extends BaseController {
                     logInsert("同步区域成功",result);
                     logger.debug("记录日志:同步区域成功");
                 } else {
-                    logInsert("同步区域失败",result);
-                    logger.error("记录日志:同步区域失败");
+                    logInsert("同步区域成功:无数据更新",result);
+                    logger.error("记录日志:同步区域成功:无数据更新");
                 }
             }catch (ErrorInfoException e){
                 logInsert(e.getMessage(),"[]");
@@ -110,7 +110,7 @@ public class BaseSynTask extends BaseController {
         }
     }
 
-    @Scheduled(cron = "0 0 12 * * ?")  //每天中午12点执行一次
+    @Scheduled(cron = "0 10 12 * * ?")  //每天中午12点执行一次
     public void  synUserTable(){
         if (!isMaster()){
             logInsert("用户同步开启","[]");
@@ -124,8 +124,8 @@ public class BaseSynTask extends BaseController {
                     logInsert("同步用户成功",result);
                     logger.debug("记录日志:同步用户成功");
                 } else {
-                    logInsert("同步用户失败",result);
-                    logger.error("记录日志:同步用户失败");
+                    logInsert("同步用户成功:无数据更新",result);
+                    logger.error("记录日志:同步用户成功:无数据更新");
                 }
             }catch (ErrorInfoException e){
                 logInsert(e.getMessage(),"[]");
@@ -139,7 +139,7 @@ public class BaseSynTask extends BaseController {
             logger.debug("记录日志:用户同步未开启");
         }
     }
-    @Scheduled(cron = "0 0 12 * * ?")  //每天中午12点执行一次
+    @Scheduled(cron = "0 15 12 * * ?")  //每天中午12点执行一次
     public void  synDictData(){
         if (!isMaster()){
             logInsert("数据字典同步开启","[]");
@@ -154,8 +154,8 @@ public class BaseSynTask extends BaseController {
                     logInsert("同步数据字典成功",result);
                     logger.debug("记录日志:同步数据字典成功");
                 } else {
-                    logInsert("同步数据字典失败",result);
-                    logger.error("记录日志:同步数据字典失败");
+                    logInsert("同步数据字典成功:无数据更新",result);
+                    logger.error("记录日志:同步数据字典成功:无数据更新");
                 }
             }catch (ErrorInfoException e){
                 logInsert(e.getMessage(),"[]");

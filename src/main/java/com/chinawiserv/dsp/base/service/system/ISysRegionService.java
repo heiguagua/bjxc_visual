@@ -19,7 +19,7 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  */
 public interface ISysRegionService extends ICommonService<SysRegion, SysRegionVo> {
 
-    String synUrl="/system/user/provideData";
+    String synUrl="/system/region/provideData";
 
     List<SysRegionVo> selectAllRegionByRegionCode(String regionCode);
 

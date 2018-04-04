@@ -223,14 +223,15 @@
         <foreach collection="list" item="item" index="index"  separator="," >
             (#{item.id},
             #{item.regionCode},
-            #{item.regioname},
+            #{item.regionName},
             #{item.fcode},
             #{item.fname},
-            #{item.first_charact},
+            #{item.firstCharact},
             #{item.pinyin},
-            #{item.region_level_code},
+            #{item.regionLevelCode},
             #{item.status},
-            #{item.version_id}
+            #{item.versionId}
+            )
         </foreach>
     </insert>
 </mapper>
