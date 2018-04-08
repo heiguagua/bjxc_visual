@@ -36,7 +36,7 @@
                           method="post" action="<%=context_path%>/system/deptAuthorityApply/doAdd">
                         <div class="box-body box-bodyx">
                         <div class="form-group">
-                            <label for="toDeptNames" style='float:left;'>所属组织机构 *</label>
+                            <label for="toDeptNames" style='float:left;'>所属组织机构 <i style="color: red">*</i></label>
                             <div class="form-group">
                             <input type="text" id="toDeptNames" required="required"
                                    data-parsley-required-message="该项为必填" class="form-control">

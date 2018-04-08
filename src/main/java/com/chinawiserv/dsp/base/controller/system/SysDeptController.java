@@ -328,7 +328,33 @@ public class SysDeptController extends BaseController {
     public JSONObject checkDeptName(@RequestParam String deptName, String fname,String deptId){
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject = sysDeptService.checkDeptName(deptName, fname,deptId);
+            jsonObject = sysDeptService.checkDeptName(deptName,null,null, fname,deptId);
+        } catch (Exception e) {
+            jsonObject.put("error", "组织机构名验证失败");
+            logger.error("组织机构名称验资失败", e);
+        }
+        return jsonObject;
+    }
+
+    @RequestMapping("/checkDeptShortName")
+    @ResponseBody
+    public JSONObject checkDeptShortName(@RequestParam String deptShortName, String fname,String deptId){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject = sysDeptService.checkDeptName(null,null,deptShortName, fname,deptId);
+        } catch (Exception e) {
+            jsonObject.put("error", "组织机构名验证失败");
+            logger.error("组织机构名称验资失败", e);
+        }
+        return jsonObject;
+    }
+
+    @RequestMapping("/checkDeptCode")
+    @ResponseBody
+    public JSONObject checkDeptCode(@RequestParam String deptCode, String fname,String deptId){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject = sysDeptService.checkDeptName(null,deptCode,null, fname,deptId);
         } catch (Exception e) {
             jsonObject.put("error", "组织机构名验证失败");
             logger.error("组织机构名称验资失败", e);

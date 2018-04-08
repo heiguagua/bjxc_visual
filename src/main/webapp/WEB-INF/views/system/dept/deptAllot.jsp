@@ -79,7 +79,7 @@
                                         <div class="col-sm-7 col-xs-7">
                                             <input type="text" class="form-control" id="deptCode" name="deptCode"
                                                    placeholder="请输入组织机构编码"
-                                                   data-rule="组织机构编码:simpleCode;required;length[~64, true]">
+                                                   data-rule="组织机构编码:simpleCode;required;length[~64, true];remote(<%=context_path%>/system/dept/checkDeptCode, fname:#fname, deptId:#deptId)">
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                                         <div class="col-sm-7 col-xs-7">
                                             <input type="text" class="form-control" id="deptShortName" name="deptShortName"
                                                    placeholder="请输入组织机构简称"
-                                                   data-rule="组织机构简称:simpleName;length[~64, true];required;">
+                                                   data-rule="组织机构简称:simpleName;length[~64, true];required;remote(<%=context_path%>/system/dept/checkDeptShortName, fname:#fname, deptId:#deptId)">
                                         </div>
                                     </div>
                                 </div>
