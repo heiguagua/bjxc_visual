@@ -176,6 +176,7 @@
         FROM sys_region t
         LEFT JOIN (SELECT DISTINCT(fcode) AS dcode FROM sys_region) b ON t.region_code=b.dcode
         <include refid="queryConditions"></include>
+        AND t.`status`='1'
     </select>
 
     <update id="deleteBatchRegionByIds" parameterType="java.util.List">

@@ -75,7 +75,7 @@ public class SysProductIntegrateServiceImpl extends CommonServiceImpl<SysProduct
     @Override
     public SysProductIntegrateVo getTheMaster() throws ErrorInfoException {
         List<SysProductIntegrateVo> list = mapper.getTheMaster();
-        if(list==null){
+        if(list==null||list.isEmpty()){
             return null;
         }
         if(list.size()==1){

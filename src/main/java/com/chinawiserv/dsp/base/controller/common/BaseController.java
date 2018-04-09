@@ -219,7 +219,6 @@ public class BaseController {
 			throw new ErrorInfoException("主系统响应状态码："+responseEntity.getStatusCode());
 		}
 		return responseEntity.getBody();
-//		return restTemplate.getForObject("http://localhost:8080/dm/system/user/provideData/?systemId=dm", String.class);
 	}
 
 	protected RestTemplate getRestTemplate(){
@@ -229,10 +228,6 @@ public class BaseController {
 		return  new RestTemplate(requestFactory);
 	}
 
-//	protected String getTheMaseterBaseUrl() throws Exception{
-//		SysProductIntegrateVo master = productIntegrateService.getTheMaster();
-//		return  master.getRootPath();
-//	}
 	//主次检查异常当未集成处理，表现为主
 	protected boolean isMaster(){
 		SysProductIntegrateVo master = null;

@@ -111,16 +111,16 @@
         WHERE u1.id = #{id}
 	</select>
 
-    <select id="selectUserList" resultType="HashMap">
-        SELECT u.id,u.region_code AS regionCode, u.user_name AS userName,u.`password`,u.user_state AS
-        userState,u.create_time AS createTime,
-        u.user_desc AS userDesc,u.user_img AS userImg,u.dept_id AS deptId,d.`dept_name` AS deptName FROM `sys_user` u
-        LEFT JOIN `sys_dept` d ON d.`id` = u.`dept_id` WHERE 1=1
-        <if test="search != null">
-            AND u.user_name LIKE CONCAT('%',#{search,jdbcType=VARCHAR},'%')
-        </if>
-        ORDER BY u.`create_time` DESC
-    </select>
+    <!--<select id="selectUserList" resultType="HashMap">-->
+        <!--SELECT u.id,u.region_code AS regionCode, u.user_name AS userName,u.`password`,u.user_state AS-->
+        <!--userState,u.create_time AS createTime,-->
+        <!--u.user_desc AS userDesc,u.user_img AS userImg,u.dept_id AS deptId,d.`dept_name` AS deptName FROM `sys_user` u-->
+        <!--LEFT JOIN `sys_dept` d ON d.`id` = u.`dept_id` WHERE 1=1-->
+        <!--<if test="search != null">-->
+            <!--AND u.user_name LIKE CONCAT('%',#{search,jdbcType=VARCHAR},'%')-->
+        <!--</if>-->
+        <!--ORDER BY u.`create_time` DESC-->
+    <!--</select>-->
     <select id="selectVoByUserName" parameterType="java.lang.String" resultMap="SysUserVoMap">
         SELECT
         u1.*,
