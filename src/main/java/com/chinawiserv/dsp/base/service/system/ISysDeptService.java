@@ -66,4 +66,6 @@ public interface ISysDeptService extends ICommonService<SysDept, SysDeptVo> {
     boolean updateSXDept(SysDept sysDept);
 
     SysDept selectSXDept(SysDept sysDept);
+
+    String getfRegionCodeByDeptId(String deptId);
 }

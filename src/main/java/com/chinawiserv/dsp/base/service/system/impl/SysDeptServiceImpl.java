@@ -196,6 +196,10 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             param.put("withoutAuthDept", withoutAuthDept);
             param.put("applicant", ShiroUtils.getLoginUserId());
         }
+        String fRegionCode = (String) paramMap.get("fRegionCode");
+        if (StringUtils.isNotBlank(fRegionCode)) {
+            param.put("regionCode", fRegionCode);
+        }
         if (!param.isEmpty()) {
             list.addAll(sysDeptMapper.selectVoListForTreeData(param));
         }
@@ -595,5 +599,19 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
     @Override
     public SysDept selectSXDept(SysDept sysDept) {
         return this.sysDeptMapper.selectSXDept(sysDept);
+    }
+
+    @Override
+    public String getfRegionCodeByDeptId(String deptId) {
+        SysDeptVo sysDeptVo = sysDeptMapper.selectVoById(deptId);
+        SysRegionVo regionVo = sysRegionMapper.selectVoByCode(sysDeptVo.getRegionCode());
+
+//        for (SysRole sysRole : list) {
+//                JSONObject obj = new JSONObject();
+//                obj.put("id", sysRole.getId());
+//                obj.put("text", sysRole.getRoleName());
+//                result.add(obj);
+//        }
+        return regionVo.getFcode();
     }
 }

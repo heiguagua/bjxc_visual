@@ -338,11 +338,12 @@ function initDept(pid,subQueryFlag) {
                 var allotBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:allotDept(\"" + value + "\")'><i class='fa fa-chain'></i>创建下级</a>";
                 var showBtn =   "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:showDept(\"" + value + "\")'><i class='fa fa-chain'></i>查看下级</a>";
                 var editBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:editDept(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 编辑</a>";
+                var guidBtn = "<a class='btn btn-primary btn-flat btn-xs' href='###' onclick='javascript:guidDept(\"" + value + "\")'><i class='fa fa-pencil-square-o'></i> 指导部门</a>";
                 var deleteBtn = "<a class='btn btn-danger btn-flat btn-xs' href='###' onclick='javascript:deleteDept(\"" + value + "\")'><i class='fa fa-times'></i> 删除</a>";
                 var ret=showBtn;
                 if(isMaster==="true"){
 
-                    ret=ret+OPERATION_SEPARATOR + allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR +  deleteBtn
+                    ret=ret+OPERATION_SEPARATOR + allotBtn + OPERATION_SEPARATOR + editBtn + OPERATION_SEPARATOR +guidBtn+OPERATION_SEPARATOR+  deleteBtn
                 }
 
                 return ret  ;
@@ -378,6 +379,9 @@ function showDept(id) {
 function editDept(id) {
     update('编辑组织机构',basePathJS + '/system/dept/edit', id ,900,600);
     // update('编辑组织机构',basePathJS + '/system/dept/edit?deptLevel=1&treeIndex=0&treeCode=', id );
+}
+function guidDept(id) {
+    update('编辑指导部门',basePathJS + '/sysGuidDept/guid', id ,900,600);
 }
 
 function deleteDept(id) {

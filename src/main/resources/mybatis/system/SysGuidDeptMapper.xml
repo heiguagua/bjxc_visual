@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.base.mapper.system.SysGuidDeptMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.base.entity.po.system.SysGuidDept">
+                <id column="id" property="id" />
+                <result column="cur_dept_id" property="curDeptId" />
+                <result column="guid_dept_id" property="guidDeptId" />
+    </resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.base.entity.vo.system.SysGuidDeptVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+            <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM sys_guid_dept t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM sys_guid_dept t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM sys_guid_dept t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysGuidDept">
+        insert into sys_guid_dept(id,cur_dept_id,guid_dept_id) values(
+            #{id},#{curDeptId},#{guidDeptId})
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.base.entity.po.system.SysGuidDept">
+        update sys_guid_dept
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="curDeptId != null">
+                cur_dept_id = #{curDeptId},
+            </if>
+            <if test="guidDeptId != null">
+                guid_dept_id = #{guidDeptId},
+            </if>
+        </set>
+        where  id = #{id}
+    </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from sys_guid_dept <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+            <if test="id != null and id != '' ">
+                id = #{id}
+            </if>
+            <if test="deptIdArray != null">
+             and    guid_dept_id IN
+                <foreach collection="deptIdArray" open="(" close=")" item="item" separator=",">
+                    #{item, jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="curDeptId != null">
+              and  cur_dept_id = #{curDeptId}
+            </if>
+        </where>
+    </sql>
+    <select id="selectVoList" parameterType="string" resultMap="BaseResultVoMap">
+        SELECT t.* FROM sys_guid_dept t WHERE  t.cur_dept_id = #{curDeptId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByVo" parameterType="com.chinawiserv.dsp.base.entity.vo.system.SysGuidDeptVo">
+        delete from sys_guid_dept
+        <include refid="deleteWhereCause"/>
+    </delete>
+
+
+</mapper>
