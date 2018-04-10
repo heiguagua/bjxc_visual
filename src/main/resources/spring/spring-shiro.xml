@@ -57,7 +57,7 @@
                 /images/**=anon
                  /druid/**=anon
 				/catalog/catalogue/=anon
-				/index*=anon
+				/index=anon
 				/system/dept/provideData/=anon
 				/system/user/provideData/=anon
 				/system/region/provideData/=anon

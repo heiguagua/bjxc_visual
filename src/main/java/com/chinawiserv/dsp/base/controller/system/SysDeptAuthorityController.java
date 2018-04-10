@@ -199,7 +199,7 @@ public class SysDeptAuthorityController extends BaseController {
                 paramMap.put("authObjType", AuthObjTypeEnum.USER.getKey());
 
             }else{
-//                throw new Exception("不属于用户或者部门权限分配！");
+                throw new Exception("不属于用户或者部门权限分配！");
             }
 
             paramMap.put("authObjId", authObjId);

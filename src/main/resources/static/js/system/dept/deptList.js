@@ -381,7 +381,7 @@ function editDept(id) {
     // update('编辑组织机构',basePathJS + '/system/dept/edit?deptLevel=1&treeIndex=0&treeCode=', id );
 }
 function guidDept(id) {
-    update('编辑指导部门',basePathJS + '/sysGuidDept/guid', id ,900,600);
+    update('编辑指导部门',basePathJS + '/sysGuidDept/guid', id ,500,250);
 }
 
 function deleteDept(id) {

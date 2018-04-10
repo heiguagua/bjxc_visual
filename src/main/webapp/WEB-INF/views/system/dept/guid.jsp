@@ -25,10 +25,21 @@
 
                         <div class="box-body  box-bodyx">
 							<div class="row">
-								<div class="form-group">
-									<ul id="treeDemo" class="ztree" style="margin-top:0;"></ul>
-									<input type="hidden" id="deptIds" name="deptIds">
-								</div>
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="deptName" class="control-label col-sm-5 col-xs-5">知道部门 </label>
+                                            <div class="col-sm-7 col-xs-7">
+                                                <input type="text" id="deptName" data-rule="所属组织机构;deptId;" class="form-control" readonly style="background-color:#fff">
+                                                <input type="hidden" id="deptId" name="guidDeptId">
+                                                <div class="menu-wrap">
+                                                    <div id="menuContent" class="menuContent" style="display:none;">
+                                                        <ul id="treeDemo" class="ztree"
+                                                            style="margin-top:0;border: 1px solid #98b7a8;"></ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 							</div>
                         </div><!-- /.box-body -->
                         <div class="box-footer">

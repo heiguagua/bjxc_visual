@@ -37,31 +37,14 @@ public class SysGuidDeptServiceImpl extends CommonServiceImpl<SysGuidDeptMapper,
 
     @Override
     public boolean insertVO(SysGuidDeptVo vo) throws Exception {
-		String deptIds = vo.getDeptIds();
-        if(StringUtils.isNotBlank(deptIds)){
-            String[] deptIdArray = deptIds.split(",");
-            for(String deptId : deptIdArray){
-                if(StringUtils.isNotBlank(deptId)){
-                    vo.setId(CommonUtil.get32UUID());
-                    vo.setGuidDeptId(deptId);
-                    if(!insert(vo)){
-                        throw new Exception("添加指导部门数据失败！");
-                    }
-                }
-            }
-        }
+        vo.setId(CommonUtil.get32UUID());
+        insert(vo);
         return true;
     }
 
     @Override
     public boolean updateVO(SysGuidDeptVo vo) throws Exception {
-        //删除已有权限
-        mapper.deleteByVo(vo);
-        String deptIds = vo.getDeptIds();
-        if(StringUtils.isNotBlank(deptIds)){
-            vo.setDeptIdArray(deptIds.split(","));
-            return this.insertVO(vo);
-        }
+        updateById(vo);
         return true;
 	}
 

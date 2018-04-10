@@ -32,5 +32,4 @@ public interface SysGuidDeptMapper extends BaseMapper<SysGuidDept> {
 
     List<SysGuidDeptVo> selectVoList(String curDeptId);
 
-    int deleteByVo(SysGuidDeptVo sysDeptAuthorityVo);
 }

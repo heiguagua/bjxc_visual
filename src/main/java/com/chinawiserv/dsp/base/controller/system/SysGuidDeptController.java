@@ -6,6 +6,7 @@ import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
+import com.chinawiserv.dsp.base.entity.po.system.SysGuidDept;
 import com.chinawiserv.dsp.base.entity.vo.system.SysDeptAuthorityVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysGuidDeptVo;
 import com.chinawiserv.dsp.base.entity.vo.system.SysUserVo;
@@ -173,15 +174,15 @@ public class SysGuidDeptController extends BaseController {
     @RequiresPermissions("system:dept:edit")
     @RequestMapping("/doGuid")
     @ResponseBody
-    public HandleResult doGuid(@RequestParam Map<String, Object> paramMap){
+    public HandleResult doGuid(SysGuidDeptVo sgd){
         HandleResult handleResult = new HandleResult();
         try {
-            String deptIds = (String) paramMap.get("deptIds");
-            SysGuidDeptVo vo = new SysGuidDeptVo();
-            vo.setDeptIds(deptIds);
-            vo.setId((String) paramMap.get("id"));
-            vo.setCurDeptId((String) paramMap.get("curDeptId"));
-            service.updateVO(vo);
+            if(StringUtils.isNotBlank(sgd.getId())){
+                service.updateVO(sgd);
+
+            }else{
+                service.insertVO(sgd);
+            }
             handleResult.success("保存指导部门成功");
         } catch (Exception e) {
             handleResult.error("保存指导部门失败");
@@ -199,8 +200,13 @@ public class SysGuidDeptController extends BaseController {
     public HandleResult guidLoad(@RequestParam String curDeptId){
         HandleResult handleResult = new HandleResult();
         try {
-            List result = service.selectVoList(curDeptId);
-            handleResult.put("selected", result);
+            List<SysGuidDeptVo> result = service.selectVoList(curDeptId);
+            if(result.size()==1){
+                handleResult.put("selected", result.get(0));
+                handleResult.put("selectedDept", sysDeptService.selectVoById(result.get(0).getGuidDeptId()));
+            }else{
+                handleResult.error("获取指导部门不止一个");
+            }
         } catch (Exception e) {
             handleResult.error("获取指导部门信息失败");
             logger.error("获取指导部门失败", e);
