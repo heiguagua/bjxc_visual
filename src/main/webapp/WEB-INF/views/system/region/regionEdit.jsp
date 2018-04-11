@@ -27,7 +27,7 @@
                             <div class="row">
                                 <div class="col-sm-6 col-xs-6">
                                     <div class="form-group">
-                                        <label for="fname" class="control-label col-sm-5 col-xs-5">选择上级区域 <i style="color: red">*必选</i></label>
+                                        <label for="fname" class="control-label col-sm-5 col-xs-5">选择上级区域 <i style="color: red">*</i></label>
                                         <div class="col-sm-7 col-xs-7">
                                             <input type="text" id="fname" class="form-control" readonly >
                                             <input type="hidden" id="fcode" >
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
                                     <div class="form-group">
-                                        <label for="regionName" class="control-label col-sm-5 col-xs-5">区域名 <i style="color: red">*必选</i></label>
+                                        <label for="regionName" class="control-label col-sm-5 col-xs-5">区域名 <i style="color: red">*</i></label>
                                         <div class="col-sm-7 col-xs-7">
                                             <input type="text" id="regionName" name="regionName" class="form-control"
                                                    autocomplete="false" data-rule="chinese" data-rule="行政区域名:regionName;required;length[~64, true]"
@@ -55,7 +55,7 @@
                             <div class="row">
                                 <div class="col-sm-6 col-xs-6">
                                     <div class="form-group">
-                                        <label for="regionCode" class="control-label col-sm-5 col-xs-5">行政区划编号 <i style="color: red">*必选</i></label>
+                                        <label for="regionCode" class="control-label col-sm-5 col-xs-5">行政区划编号 <i style="color: red">*</i></label>
                                         <div class="col-sm-7 col-xs-7">
                                             <input type="text" id="regionCode" name="regionCode" class="form-control"
                                                    data-rule="行政区划编号:regionCode;required;length[~6, true]" data-rule="digits" readonly>
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
                                     <div class="form-group">
-                                        <label for="regionLevelCode" class="control-label col-sm-5 col-xs-5">添加行政级别 <i style="color: red">*必选</i></label>
+                                        <label for="regionLevelCode" class="control-label col-sm-5 col-xs-5">添加行政级别 <i style="color: red">*</i></label>
                                         <div class="col-sm-7 col-xs-7">
                                             <select id="regionLevelCode" name="regionLevelCode" class="form-control" data-rule="行政级别:required;regionLevelCode;"></select>
                                         </div>
@@ -95,7 +95,7 @@
                             <div class="row">
                                 <div class="col-sm-6 col-xs-6">
                                     <div class="form-group">
-                                        <label class="control-label col-sm-5 col-xs-5">状态 <i style="color: red">*必选</i></label>
+                                        <label class="control-label col-sm-5 col-xs-5">状态 <i style="color: red">*</i></label>
                                         <div class="col-sm-7 col-xs-7">
 			                                <span class="radio-inline" style="padding: 4px 0 0 16px;">
 			                                    <input name="status" type="radio"  id="inlineRadio1" class="minimal" checked
