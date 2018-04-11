@@ -26,14 +26,14 @@ $(document).on('click','#addItems',function(){
         thisTrNum=parseInt(maxNum)+1;
     }
     $("#dataitemList").append('<tr id="tr_'+thisTrNum+'">' +
-        '<td><input type="checkbox" trNum='+thisTrNum+' id="index" name="index" ></td>' +
-        '<td><select type="text" class="form-control" id="contactsType" name="items['+thisTrNum+'].contactsType" data-rule="required"><option value="负责人">负责人</option><option value="普通人">普通人</option></select></td>' +
-        '<td><input type="text" class="form-control" id="contactsName" name="items['+thisTrNum+'].contactsName" data-rule="length(~32)"></td>' +
-        '<td><input type="text" class="form-control" id="contactsDept" name="items['+thisTrNum+'].contactsDept" data-rule="length(~18)"></td>' +
-        '<td><input type="text" class="form-control" id="contactsPost" name="items['+thisTrNum+'].contactsPost" data-rule="length(~18)"></td>' +
-        '<td><input type="text" class="form-control" id="contactsFixedPhone" name="items['+thisTrNum+'].contactsFixedPhone" data-rule="tel"></td>' +
-        '<td><input type="text" class="form-control" id="contactsPhone" name="items['+thisTrNum+'].contactsPhone" data-rule="mobile"></td>' +
-        '<td><input type="text" class="form-control" id="contactsEmail" name="items['+thisTrNum+'].contactsEmail" data-rule="email"></td>' +
+        '<td><input type="checkbox" trNum='+thisTrNum+'  name="index" ></td>' +
+        '<td><select type="text" class="form-control"  name="items['+thisTrNum+'].contactsType" data-rule="required"><option value="负责人">负责人</option><option value="普通人">普通人</option></select></td>' +
+        '<td><input type="text" class="form-control"  name="items['+thisTrNum+'].contactsName" data-rule="length(~32)"></td>' +
+        '<td><input type="text" class="form-control"  name="items['+thisTrNum+'].contactsDept" data-rule="length(~18)"></td>' +
+        '<td><input type="text" class="form-control"  name="items['+thisTrNum+'].contactsPost" data-rule="length(~18)"></td>' +
+        '<td><input type="text" class="form-control"  name="items['+thisTrNum+'].contactsFixedPhone" data-rule="tel"></td>' +
+        '<td><input type="text" class="form-control"  name="items['+thisTrNum+'].contactsPhone" data-rule="mobile"></td>' +
+        '<td><input type="text" class="form-control"  name="items['+thisTrNum+'].contactsEmail" data-rule="email"></td>' +
         '</tr>')
 });
 

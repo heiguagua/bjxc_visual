@@ -335,7 +335,7 @@
                                     <img src="<%=context_path%>/images/userImg/delImg.png"/>删除
                                 </button>
                             </div>
-                            <div class="form-group " style="overflow-x: auto;min-height:200px;border: 1px solid #ddd;">
+                            <div class="" style="overflow-x: auto;min-height:200px;border: 1px solid #ddd;">
                                 <table style="width:100%" class="table-striped">
                                     <thead>
                                     <tr class='table_title_tr'>
