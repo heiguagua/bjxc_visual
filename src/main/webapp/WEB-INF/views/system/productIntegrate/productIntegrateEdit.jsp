@@ -120,19 +120,19 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-4 col-xs-4">主属节点</label>
-                                        <div class="col-sm-7 col-xs-7">
-                                            <span class="radio-inline" style="padding: 4px 0 0 16px;">
-                                                <input id="masterFlag1" name="masterFlag" type="radio" class="minimal" value="1">主
-                                            </span>
-                                            <span class="radio-inline pdl0">
-                                                <input id="masterFlag0" name="masterFlag" type="radio" class="minimal" value="0">从
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <%--<div class="col-sm-6 col-xs-6">--%>
+                                    <%--<div class="form-group">--%>
+                                        <%--<label class="control-label col-sm-4 col-xs-4">主属节点</label>--%>
+                                        <%--<div class="col-sm-7 col-xs-7">--%>
+                                            <%--<span class="radio-inline" style="padding: 4px 0 0 16px;">--%>
+                                                <%--<input id="masterFlag1" name="masterFlag" type="radio" class="minimal" value="1">主--%>
+                                            <%--</span>--%>
+                                            <%--<span class="radio-inline pdl0">--%>
+                                                <%--<input id="masterFlag0" name="masterFlag" type="radio" class="minimal" value="0">从--%>
+                                            <%--</span>--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
 								
 							</div>
                             

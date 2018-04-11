@@ -34,13 +34,13 @@ function initFormerDate(id) {
                     if (curOpenFlag == 0) {
                         $("#curOpenFlag0").click();
                     }
-                    var masterFlag = vo.masterFlag;
-                    if (masterFlag == 1) {
-                        $("#masterFlag1").click();
-                    }
-                    if (masterFlag == 0) {
-                        $("#masterFlag0").click();
-                    }
+                    // var masterFlag = vo.masterFlag;
+                    // if (masterFlag == 1) {
+                    //     $("#masterFlag1").click();
+                    // }
+                    // if (masterFlag == 0) {
+                    //     $("#masterFlag0").click();
+                    // }
                     $.commonAjax({
                         url: basePathJS + "/system/productIntegrate/iconSelect",
                         success: function(json){
