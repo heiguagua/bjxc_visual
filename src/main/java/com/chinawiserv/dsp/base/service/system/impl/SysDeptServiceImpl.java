@@ -416,14 +416,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
                 updateParent.setId(parent.getId());
                 updateParent.setTreeIndex(treeIndex);
                 if (sysDeptMapper.updateById(updateParent) == 1) {
-                    if(sysDeptVo.getItems()!=null&&sysDeptVo.getItems().size()>0){
-                        for (SysDeptContacts item: sysDeptVo.getItems()) {
-                            item.setId(CommonUtil.get32UUID());
-                            item.setCurDeptId(sysDeptVo.getId());
-                            sysDeptContactsMapper.insert(item);
-                        }
-
-                    }
+                    batchInsertDeptContacts(sysDeptVo);
                     return true;
                 }
             }
@@ -431,6 +424,21 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         } else {
             throw new Exception("未能找到父节点");
         }
+    }
+
+    private void batchInsertDeptContacts(SysDeptVo sysDeptVo){
+        if(sysDeptVo.getItems()!=null&&sysDeptVo.getItems().size()>0){
+            for (SysDeptContacts item: sysDeptVo.getItems()) {
+                if(item.getContactsType()!=null){
+                    item.setId(CommonUtil.get32UUID());
+                    item.setCurDeptId(sysDeptVo.getId());
+                    sysDeptContactsMapper.insert(item);
+
+                }
+            }
+
+        }
+
     }
 
     @Override
@@ -458,18 +466,8 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
             }
         }
         sysDeptMapper.updateDeptByfDept(sysDeptVo);
-        if(sysDeptVo.getItems()!=null&&sysDeptVo.getItems().size()>0) {
-            for (SysDeptContacts item : sysDeptVo.getItems()) {
-                if (StringUtils.isEmpty(item.getId())) {
-                    item.setId(CommonUtil.get32UUID());
-                    item.setCurDeptId(sysDeptVo.getId());
-                    sysDeptContactsMapper.insert(item);
-                } else {
-                    sysDeptContactsMapper.baseUpdate(item);
-                }
-
-            }
-        }
+        sysDeptContactsMapper.deleteByDeptId(sysDeptVo.getId());
+        batchInsertDeptContacts(sysDeptVo);
         return updateById(sysDeptVo);
     }
 

@@ -38,4 +38,6 @@ public interface SysDeptContactsMapper extends BaseMapper<SysDeptContacts> {
     List<String> listIdsByList(List<String> list);
 
     long batchInsert(List<SysDeptContacts> list);
+
+    int deleteByDeptId(String deptId);
 }

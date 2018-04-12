@@ -137,6 +137,9 @@
         </foreach>
     </insert>
 
+    <delete id="deleteByDeptId" parameterType="java.lang.String">
+        delete from sys_dept_contacts WHERE cur_dept_id=#{deptId}
+    </delete>
 
 
 </mapper>
