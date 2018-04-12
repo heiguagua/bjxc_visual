@@ -25,7 +25,7 @@ function initUserTypeList(){
 }
 
 function getPinyin() {
-    $.getPinyin("userName","pinyin");
+    $.getPinyin("realName","pinyin");
 }
 
 function initDeptSelectDataList(){
@@ -88,6 +88,7 @@ function initFormerDate(userId) {
                     }else{
                         $("#realName,#userType,#telephoneNumber,#cellPhoneNumber,#email,#userDesc,#pinyin,#regionName,#regionCode,#deptName,#deptId").attr("readonly",true);
                         $("#status1,#status0").attr("disabled",true);
+                        $("#pinyinBtn").attr("disabled",true);
                         // $("#deptName").val(user.deptName)
                         // $("#deptId").val(user.deptId);
                     }

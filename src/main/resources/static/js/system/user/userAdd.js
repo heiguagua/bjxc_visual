@@ -19,7 +19,7 @@ function initSelectData() {
 }
 
 function getPinyin() {
-    $.getPinyin("userName","pinyin");
+    $.getPinyin("realName","pinyin");
 }
 
 function initUserTypeList() {
