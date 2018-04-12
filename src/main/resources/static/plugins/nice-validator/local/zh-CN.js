@@ -33,6 +33,8 @@
             ,chinese: [/^[\u0391-\uFFE5]+$/, "请填写中文字符"]
             ,username: [/^[\w\u0391-\uFFE5]{3,12}$/, "请填写3-12位数字、字母、下划线、汉字"]
             ,password: [/^[\S]{6,16}$/, "请填写6-16位字符，不能包含空格"]
+            ,realNameEN: [/^[a-z\.\s]+$/i, "请填写合法的中文姓名对应的拼音"]
+            ,realNameCN: [/^[\u0391-\uFFE5\.\s]+$/, "请填写合法的中文姓名"]
             ,accept: function (element, params){
                 if (!params) return true;
                 var ext = params[0],
