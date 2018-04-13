@@ -199,6 +199,7 @@ public class SysDeptServiceImpl extends CommonServiceImpl<SysDeptMapper, SysDept
         String fRegionCode = (String) paramMap.get("fRegionCode");
         if (StringUtils.isNotBlank(fRegionCode)) {
             param.put("regionCode", fRegionCode);
+            param.remove("regionCodeCondition");
         }
         if (!param.isEmpty()) {
             list.addAll(sysDeptMapper.selectVoListForTreeData(param));
