@@ -5,6 +5,12 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
     <script src="<%=context_path%>/js/system/dept/guid.js"></script>
+    <style>
+
+        .box-body {
+            padding: 40px 30px;
+        }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <section class="content">
@@ -27,7 +33,7 @@
 							<div class="row">
                                     <div class="col-sm-12 col-xs-12">
                                         <div class="form-group">
-                                            <label for="deptName" class="control-label col-sm-5 col-xs-5">知道部门 </label>
+                                            <label for="deptName" class="control-label col-sm-5 col-xs-5">指导部门 </label>
                                             <div class="col-sm-7 col-xs-7">
                                                 <input type="text" id="deptName" data-rule="所属组织机构;deptId;" class="form-control" readonly style="background-color:#fff">
                                                 <input type="hidden" id="deptId" name="guidDeptId">
