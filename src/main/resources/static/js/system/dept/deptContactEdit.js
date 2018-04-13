@@ -26,7 +26,7 @@ $(document).on('click','#addItems',function(){
         thisTrNum=parseInt(maxNum)+1;
     }
     $("#dataitemList").append('<tr id="tr_'+thisTrNum+'">' +
-        '<td><input type="checkbox" trNum='+thisTrNum+'  name="index" ></td>' +
+        '<td style="text-align: center;width: 50px"><input type="checkbox" trNum='+thisTrNum+'  name="index" ></td>' +
         '<td><select type="text" class="form-control"  name="items['+thisTrNum+'].contactsType" data-rule="required"><option value="负责人">负责人</option><option value="普通人">普通人</option></select></td>' +
         '<td><input type="text" class="form-control"  name="items['+thisTrNum+'].contactsName" data-rule="length(~32)"></td>' +
         '<td><input type="text" class="form-control"  name="items['+thisTrNum+'].contactsDept" data-rule="length(~18)"></td>' +

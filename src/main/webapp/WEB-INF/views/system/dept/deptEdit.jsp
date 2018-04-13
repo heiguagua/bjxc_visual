@@ -334,7 +334,7 @@
 								<table style="width:100%" class="table-striped">
 									<thead>
 									<tr class='table_title_tr'>
-										<th><input type="checkbox" id="selectAllItem"></th>
+										<th style="text-align: center;width: 50px"><input type="checkbox" id="selectAllItem"></th>
 										<th>联系人类型</th>
 										<th>联系人姓名</th>
 										<th>联系人处室</th>

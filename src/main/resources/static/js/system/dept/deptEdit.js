@@ -86,7 +86,7 @@ function initEditPage(){
                     var select1=value.contactsType==="普通人"?"selected":"";
                     var select2=value.contactsType==="负责人"?"selected":"";
                     $("#dataitemList").append('<tr id="tr_'+index+'">' +
-                        '<td><input type="checkbox" trNum='+index+'  name="index" ><input type="hidden" class="form-control"  name="items['+index+'].id"  value="'+value.id+'" ><input type="hidden" class="form-control" id="curDeptId" name="items['+index+'].curDeptId"  value="'+value.curDeptId+'" ></td>' +
+                        '<td style="text-align: center;width: 50px"><input type="checkbox" trNum='+index+'  name="index" ><input type="hidden" class="form-control"  name="items['+index+'].id"  value="'+value.id+'" ><input type="hidden" class="form-control" id="curDeptId" name="items['+index+'].curDeptId"  value="'+value.curDeptId+'" ></td>' +
                         '<td><select type="text" class="form-control"  name="items['+index+'].contactsType" data-rule="required"><option value="负责人" '+select2+'>负责人</option><option value="普通人" '+select1+'>普通人</option></select></td>' +
                         '<td><input type="text" class="form-control"  name="items['+index+'].contactsName" data-rule="length(~32)" value="'+value.contactsName+'"></td>' +
                         '<td><input type="text" class="form-control"  name="items['+index+'].contactsDept" data-rule="length(~18)" value="'+value.contactsDept+'"></td>' +
