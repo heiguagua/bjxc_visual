@@ -137,11 +137,11 @@ public class SysUserController extends BaseController {
         if(roleIds.length>0){
             SysRoleVo sysRoleVo = sysRoleMapper.selectVoById(roleIds[0]);
             if(sysRoleVo.getRoleLevel().equals(0)&&StringUtils.isNotBlank(deptId)){
-                 result.error("区域管理员不能设置部门");
+                 result.error("区域管理员不能设置组织机构");
                  return true;
             }
             if(!sysRoleVo.getRoleLevel().equals(0)&&StringUtils.isBlank(deptId)){
-                 result.error("普通角色必须设置部门");
+                 result.error("普通角色必须设置组织机构");
                  return true;
             }
         }else{

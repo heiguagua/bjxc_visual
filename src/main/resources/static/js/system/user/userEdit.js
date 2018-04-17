@@ -115,7 +115,6 @@ function initRoleNameList(){
 }
 
 function initDeptTreeSelect(treeDomId, nameInputDomId, codeInputDomId, treeDivDomId,dd, multiple) {
-    debugger;
     $("#" + nameInputDomId).val("");
     $("#" + codeInputDomId).val("");
     var selectIds = "";
