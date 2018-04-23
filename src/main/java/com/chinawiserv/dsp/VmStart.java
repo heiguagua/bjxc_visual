@@ -12,14 +12,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @EnableScheduling
 @ImportResource(locations = { "${config.location:classpath:}spring/spring-mvc.xml" })
-public class DirStart extends SpringBootServletInitializer {
+public class VmStart extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(DirStart.class);
+        return builder.sources(VmStart.class);
     }
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(DirStart.class, args);
+        SpringApplication.run(VmStart.class, args);
     }
 }

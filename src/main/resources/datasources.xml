@@ -3,15 +3,15 @@
 <datasources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="datasources.xsd">
 
-	<datasource name="dataSource_dcm" primary="true" >
+	<datasource name="dataSource_vm" primary="true" >
 		<url>
-		<![CDATA[jdbc:mysql://localhost:3306/dsp_dir?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]>
+		<![CDATA[jdbc:mysql://localhost:3306/sw-2?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]>
 		</url>
 		<username>root</username>
-		<password>admin</password>
-		<initialSize>200</initialSize>
-		<minIdle>200</minIdle>
-		<maxActive>200</maxActive>
+		<password>root</password>
+		<initialSize>1</initialSize>
+		<minIdle>1</minIdle>
+		<maxActive>10</maxActive>
 		<testOnBorrow>false</testOnBorrow>
 		<testOnReturn>false</testOnReturn>
 		<minEvictableIdleTimeMillis>1800000</minEvictableIdleTimeMillis>

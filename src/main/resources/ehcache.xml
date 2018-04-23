@@ -34,7 +34,7 @@
         </resources>
     </cache-template>
 
-    <cache alias="default_cache" uses-template="userTemplate" />
+    <cache alias="dataSource_vm" uses-template="userTemplate" />
 
 </config>
 
