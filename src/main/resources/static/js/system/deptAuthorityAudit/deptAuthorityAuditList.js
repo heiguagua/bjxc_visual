@@ -3,7 +3,8 @@
  */
 var tableSelector = '#deptAuthorityAuditTableId';
 
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom'],function($){
     "use strict";
 
     var audited = '0';
@@ -116,8 +117,9 @@ jQuery(document).ready(function () {
         var audited = $('#audited').val();
         paramsObj = {searchKey : searchKeyVal,audited:audited};
     }
+	})
+}());
 
-});
 
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;

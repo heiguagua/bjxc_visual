@@ -1,6 +1,9 @@
-$(document).ready(function(){
+(function () {
+	require(['jquery','global_custom'],function($){
     initEditPage();
-});
+    })
+}());
+
 
 //初始化编辑界面 1
 function initEditPage(){

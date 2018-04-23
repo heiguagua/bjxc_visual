@@ -167,7 +167,7 @@
     </div>
   </nav>
   <script type="text/javascript">
-      $(document).ready(function(){
+      require(['jquery'],function($){
           if($('#logo').text().indexOf("-") == -1){
               $('#logo').css({"font-size":"16px"})
           }

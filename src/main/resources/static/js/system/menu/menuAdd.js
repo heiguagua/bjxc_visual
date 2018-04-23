@@ -1,11 +1,14 @@
 
 var defaultCatalogId;
 
-jQuery(document).ready(function () {
-    initMenuTypeSelect();
-    initCatalogSelect();
-    initMenuSelect();
-});
+(function () {
+	require(['jquery','global_custom','select2','select2.lang'],function($){
+	    initMenuTypeSelect();
+	    initCatalogSelect();
+	    initMenuSelect();
+	})
+}());
+
 
 
 function initMenuTypeSelect(){

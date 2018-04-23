@@ -3,7 +3,8 @@ var paramsObj = {};
 var ids=new Array();
 var isMaster={};
 //1
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom'],function($){
     "use strict";
     isMaster=$("#masterId").val();
     $("#searchKeyId").keydown(function(e){
@@ -36,8 +37,9 @@ jQuery(document).ready(function () {
     });
 
 
+	})
+}());
 
-});
 
 function setParams(pid,subQueryFlag) {
 

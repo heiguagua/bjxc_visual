@@ -1,6 +1,7 @@
 var tableSelector = '#systemUserTableId';
 //1
-jQuery(document).ready(function () {
+(function (d) {
+	require(['jquery','global_custom'],function($){
     "use strict";
     var paramsObj = {};
     var isMaster=$("#masterId").val();
@@ -192,8 +193,10 @@ jQuery(document).ready(function () {
         var deptName = $('#deptNameId').val();
         paramsObj = {searchKey: searchKeyVal,regionName: regionName,deptName:deptName};
     }
+	})
 
-});
+}(document));
+
 
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;

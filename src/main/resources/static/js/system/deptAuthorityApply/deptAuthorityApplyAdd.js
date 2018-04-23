@@ -1,9 +1,12 @@
 /**
  * Created by Zhangm on 2017/9/28.
  */
-jQuery(document).ready(function () {
-    initSelectData();
-});
+(function () {
+	require(['jquery','global_custom'],function($){
+		initSelectData();
+	})
+}());
+
 
 function initSelectData() {
     $.initDeptTreeSelect('treeDemo','toDeptNames','toDeptIds', 'menuContent', true, {withoutLoginUserDept: "1", withoutAuthDept: "1"}); //初始化组织机构下拉框

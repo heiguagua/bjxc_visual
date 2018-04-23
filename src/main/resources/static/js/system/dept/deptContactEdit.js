@@ -2,7 +2,8 @@
  * @author tx
  *
  */
-
+(function () {
+	require(['jquery','global_custom'],function($){
 $(document).on('click','#selectAllItem',function(){
     if(this.checked){
         $("#dataitemList :checkbox").prop("checked", true);
@@ -48,6 +49,9 @@ $(document).on('click','#deleteItems',function(){
 function infoTableDel(thisTrNum){
     $('#tr_'+thisTrNum).remove();
 }
+
+	})
+}());
 
 
 

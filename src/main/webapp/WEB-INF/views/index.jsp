@@ -3,7 +3,6 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     <link rel="stylesheet" href="<%=context_path%>/css/index.css" />
-    <script src="<%=context_path%>/plugins/echarts-2.2.7/dist/echarts.js"></script>
 </head>
 	
 <body class="hold-transition skin-blue sidebar-mini">

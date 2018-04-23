@@ -1,6 +1,7 @@
 var tableSelector = '#systemAuthUserTableId';
 
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom'],function($){
     "use strict";
     var paramsObj = {"defaultAuth": $("#defaultAuth").val()};
 
@@ -160,8 +161,9 @@ jQuery(document).ready(function () {
         var deptName = $('#deptNameId').val();
         paramsObj = {"defaultAuth": defaultAuth, searchKey: searchKeyVal,regionName: regionName,deptName:deptName};
     }
+})
+}());
 
-});
 
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;

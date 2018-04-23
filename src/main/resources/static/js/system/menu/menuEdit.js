@@ -1,10 +1,13 @@
 var tableSelector = '#systemMenuTableId';
 //1
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom','select2','select2.lang'],function($){
 
     var menuId = $("#id").val();
     initFormData(menuId);
-});
+	})
+}());
+
 
 function initFormData(menuId){
     $.commonAjax({

@@ -3,9 +3,10 @@
  */
 var tableSelector = '#systemDataDictDetailsTableId';
 
-jQuery(document).ready(function () {
+(function () {
     "use strict";
     var paramsObj = {};
+    require(['jquery','global_custom'],function($){
 
     jQuery(tableSelector).customTable({
         url: basePathJS + '/sysDict/list',
@@ -94,8 +95,10 @@ jQuery(document).ready(function () {
         var searchKeyVal = $('#searchKeyId').val();
         paramsObj = {searchKey : searchKeyVal};
     }
+    })
 
-});
+}());
+
 
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;

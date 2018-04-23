@@ -1,10 +1,12 @@
 /**
  * Created by zhanf on 2017/4/28. 1
  */
-jQuery(document).ready(function () {
-    initSelectData();
+(function () {
+	require(['jquery','global_custom'],function($){
+		initSelectData();
+	})
+}());
 
-});
 
 // $(document).on('click','#selectAllItem',function(){
 //     if(this.checked){

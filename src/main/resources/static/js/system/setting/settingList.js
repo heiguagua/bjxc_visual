@@ -2,12 +2,14 @@ var tableSelector = '#systemSettingTableId';
 //1
 var paramsObj = {};
 var categoryParamsObj={};
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom'],function($){
     "use strict";
 
     // initSetting();
     initCategorySetting();
-});
+    })
+}());
 
 function initSetting(type) {
     $("#categorySearch").addClass("hidden")

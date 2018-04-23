@@ -11,8 +11,8 @@
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
 
-    <link rel="stylesheet" href="<%=context_path%>/plugins/zTree/css/zTreeStyle/zTreeStyle.css">
-    <script src="<%=context_path%>/plugins/zTree/js/jquery.ztree.all.js"></script>
+    <%-- <link rel="stylesheet" href="<%=context_path%>/plugins/zTree/css/zTreeStyle/zTreeStyle.css">
+    <script src="<%=context_path%>/plugins/zTree/js/jquery.ztree.all.js"></script> --%>
     <script src="<%=context_path%>/js/system/role/roleAuth.js"></script>
 </head>
 <body>

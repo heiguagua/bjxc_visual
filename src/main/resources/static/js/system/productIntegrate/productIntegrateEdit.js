@@ -1,7 +1,9 @@
-jQuery(document).ready(function () {
-    var proIntId = $("#proIntId").val();
-    initFormerDate(proIntId);
-});
+(function () {
+	require(['jquery','select2','select2.lang','global_custom'],function($){
+		var proIntId = $("#proIntId").val();
+	    initFormerDate(proIntId);
+	})
+}());
 
 
 

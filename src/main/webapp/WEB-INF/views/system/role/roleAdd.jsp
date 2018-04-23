@@ -106,7 +106,8 @@
         document.getElementById("form").submit();
     }*/
 
-     $(document).ready(function(){
+     (function () {
+	require(['jquery'],function($){
              /*var val = $("#roleLevel").val();  //获取选中的项
              if (val === "") {
                  alert("请选择角色级别");
@@ -114,7 +115,8 @@
              }else {
                  return true;
              }*/
-     });
+	     })
+     }());
 
 </script>
 </html>

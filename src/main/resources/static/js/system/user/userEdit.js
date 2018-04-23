@@ -2,7 +2,8 @@
  * Created by zhanf on 2017/4/28. 1
  */
 var isMaster={};
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom','select2','select2.lang'],function($){
     var userId = $("#userId").val();
     isMaster=$("#masterId").val()
     initUserTypeList();
@@ -12,7 +13,24 @@ jQuery(document).ready(function () {
     if(isMaster==="true"){
         $.initUserRegionTreeSelect('treeRegionDemo','regionName','regionCode', 'menuRegionContent'); //初始化区域机构下拉框
     }
+    
+    $("#createToken").click(function() {
+        var id = $("#userId").val();
+        var userName = $("#userName").val();
+        $.commonAjax({
+            url: basePathJS + "/system/user/createToken",
+            data: {id:id,userName:userName},
+            success: function (result) {
+                if (result.state) {
+                    var token = result.content.token;
+                    $("#token").val(token);
+                    $("#createToken").attr("disabled","disabled");
+                }
+            }
+        });
+    });
 });
+}());
 
 function initUserTypeList(){
     $.commonAjax({
@@ -202,21 +220,3 @@ function runAfterSubmitSuccess(response) {
 function runAfterSubmit(response) {
     console.log("runAfterSubmit");
 }
-
-$(function(){
-    $("#createToken").click(function() {
-        var id = $("#userId").val();
-        var userName = $("#userName").val();
-        $.commonAjax({
-            url: basePathJS + "/system/user/createToken",
-            data: {id:id,userName:userName},
-            success: function (result) {
-                if (result.state) {
-                    var token = result.content.token;
-                    $("#token").val(token);
-                    $("#createToken").attr("disabled","disabled");
-                }
-            }
-        });
-    });
-});

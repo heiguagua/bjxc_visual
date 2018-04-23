@@ -3,7 +3,9 @@
  */
 var tableSelector = '#deptAuthorityApplyTableId';
 
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom'],function($){
+
     "use strict";
     var paramsObj = {};
 
@@ -76,8 +78,9 @@ jQuery(document).ready(function () {
         var searchKeyVal = $('#searchKeyId').val();
         paramsObj = {searchKey : searchKeyVal};
     }
+	})
+}());
 
-});
 
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;

@@ -1,9 +1,11 @@
 /**
  * Created by Zhangm on 2017/9/28.
  */
-jQuery(document).ready(function () {
-    initSelectData();
-});
+(function () {
+	require(['jquery','global_custom'],function($){
+		initSelectData();
+	})
+}());
 
 function initSelectData() {
     var authObjId = $("#authObjId").val();

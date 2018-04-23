@@ -1,10 +1,13 @@
 /**
  * Created by zhanf on 2017/4/28.
  */
-jQuery(document).ready(function () {
-    var authAuditId = $("#authAuditId").val();
-    initAuditPage(authAuditId);
-});
+(function () {
+	require(['jquery','global_custom'],function($){
+		var authAuditId = $("#authAuditId").val();
+    	initAuditPage(authAuditId);
+	})
+}());
+
 
 
 //初始化用户信息

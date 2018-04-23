@@ -1,6 +1,8 @@
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom'],function($){
     initRegion();
-});
+    })
+}());
 //1
 function initRegion(){
 	$.ajax({

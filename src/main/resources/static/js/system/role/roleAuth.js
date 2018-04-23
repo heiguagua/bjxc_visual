@@ -2,7 +2,8 @@
  * Created by lenovo on 2017/5/9.
  */
 
-$(document).ready(function(){
+(function () {
+	require(['jquery','global_custom'],function($){
     var setting = {
         check: {
             enable: true,
@@ -30,7 +31,8 @@ $(document).ready(function(){
 
     $.fn.zTree.init($("#treeObj"), setting);
     // setCheck();
-});
+	})
+}());
 
 function onCheckFunc(event, treeId, treeNode){
 

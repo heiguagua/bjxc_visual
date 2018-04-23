@@ -2,9 +2,12 @@
  * Created by zhanf on 2017/4/28. 1
  */
 
-$(document).ready(function(){
-    initEditPage();
-});
+(function () {
+	require(['jquery','global_custom'],function($){
+		initEditPage();
+	})
+}());
+
 
 //初始化编辑界面
 function initEditPage(){

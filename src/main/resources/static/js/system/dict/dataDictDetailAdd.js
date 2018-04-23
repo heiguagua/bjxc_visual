@@ -1,19 +1,22 @@
 /**
  * Created by Zhangm on 2017/10/10.
  */
-jQuery(document).ready(function () {
-    $("#regionCodse").change(function(){
-        var value = $(this).val();
-        if(value == '0'){
-            $("#regionName").hide();
-        }else if(value == '1'){
-            $("#regionName").show();
-        }
-        $("#regionName").val("");
-        $("#regionCode").val("");
-    });
-    initRegionSelect();  //初始化适用范围下拉框
-});
+(function () {
+	require(['jquery','global_custom'],function($){
+		$("#regionCodse").change(function(){
+	        var value = $(this).val();
+	        if(value == '0'){
+	            $("#regionName").hide();
+	        }else if(value == '1'){
+	            $("#regionName").show();
+	        }
+	        $("#regionName").val("");
+	        $("#regionCode").val("");
+	    });
+	    initRegionSelect();  //初始化适用范围下拉框
+	})
+}());
+
 
 function initRegionSelect() {
     $.initRegionTreeSelect('treeDemo','regionName','regionCode','menuContent'); //初始化区域分类下拉框

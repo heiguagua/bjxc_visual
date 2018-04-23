@@ -5,19 +5,22 @@
  * Created by zhanf on 2017/4/28.
  */
 
-$(document).ready(function(){
-    $("#regionCodes").change(function(){
-        var value = $(this).val();
-        if(value == '0'){
-            $("#regionName").hide();
-        }else if(value == '1'){
-            $("#regionName").show();
-        }
-        $("#regionName").val("");
-        $("#regionCode").val("");
-    });
-    initEditPage();
-});
+(function () {
+	require(['jquery','global_custom'],function($){
+		$("#regionCodes").change(function(){
+	        var value = $(this).val();
+	        if(value == '0'){
+	            $("#regionName").hide();
+	        }else if(value == '1'){
+	            $("#regionName").show();
+	        }
+	        $("#regionName").val("");
+	        $("#regionCode").val("");
+	    });
+	    initEditPage();
+	})
+}());
+
 
 //初始化编辑界面
 function initEditPage(){

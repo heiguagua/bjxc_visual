@@ -2,9 +2,12 @@
  * Created by Zhangm on 2017/9/28.
  */
 
-$(document).ready(function(){
-    initEditPage();
-});
+(function () {
+	require(['jquery'],function($){
+		initEditPage();
+	})
+}());
+
 
 //初始化编辑界面
 function initEditPage(){

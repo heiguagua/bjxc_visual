@@ -52,7 +52,9 @@
 </aside>
 
 <script type="text/javascript">
-    jQuery(document).ready(function () {
+(function(w, d) {
+	require(['jquery'],function(){
+
         loadMenuData();
         $(document).on('expanded.pushMenu',function(){
         	setTimeout(function(){
@@ -69,7 +71,7 @@
         	},200);
         	
         })
-    });
+    
 
     /**
      * 加载菜单数据
@@ -146,5 +148,6 @@
             }
         );
     }
-
+})
+})(window, document)
 </script>

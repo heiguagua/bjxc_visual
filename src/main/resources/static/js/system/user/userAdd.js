@@ -1,14 +1,16 @@
 /**
  * Created by zhanf on 2017/4/28. 1
  */
+(function (w) {
+	require(['jquery','global_custom','select2','select2.lang'],function($){
 
-jQuery(document).ready(function () {
     $(window).load(function(){
         $("#userName").val("");
         $("#password").val("");
     });
     initSelectData();
 });
+}(window))
 
 function initSelectData() {
 

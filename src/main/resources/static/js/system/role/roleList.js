@@ -3,7 +3,8 @@
  */
 var tableSelector = '#systemRoleTableId';
 
-jQuery(document).ready(function () {
+(function (w) {
+	require(['jquery','global_custom'],function($){
     "use strict";
     var paramsObj = {};
     $("#searchKeyId").keydown(function(e){
@@ -100,8 +101,9 @@ jQuery(document).ready(function () {
         var searchKeyVal = $('#searchKeyId').val();
         paramsObj = {searchKey : searchKeyVal};
     }
+	})
+}());
 
-});
 
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;

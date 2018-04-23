@@ -1,6 +1,9 @@
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom'],function($){
     initSelectData();
-});
+    })
+}());
+
 
 function initSelectData() {
     $.initRegionTreeSelect('treeRegionDemo','fname','fcode','menuRegionContent','','','region'); //初始化区域分类下拉框

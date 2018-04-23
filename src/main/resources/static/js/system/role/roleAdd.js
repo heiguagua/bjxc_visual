@@ -1,7 +1,8 @@
 /**
  * Created by lenovo on 2017/5/9. 1
  */
-$(document).ready(function(){
+(function () {
+	require(['jquery','global_custom','select2','select2.lang'],function($){
     $.commonAjax({
         url: basePathJS + "/system/role/getRoleLevelList",
         success: function (result) {
@@ -14,8 +15,9 @@ $(document).ready(function(){
             }
         }
     });
+	})
+}());
 
-});
 function runBeforeSubmit(form) {
     console.log("runBeforeSubmit");
     var  val = $("#roleLevel").val();

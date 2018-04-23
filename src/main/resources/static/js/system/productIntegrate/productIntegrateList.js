@@ -1,8 +1,10 @@
 var tableSelector = '#productIntegrateTableId';
 //1
-jQuery(document).ready(function () {
+(function () {
 
     var paramsObj = {};
+
+    require(['jquery','global_custom'],function($){
 
     var isMaster=$("#masterId").val();
     jQuery(tableSelector).customTable({
@@ -158,8 +160,9 @@ jQuery(document).ready(function () {
         // var searchKeyVal = $('#searchKeyId').val();
         // paramsObj = {menuName : searchKeyVal};
     }
+    })
+}());
 
-});
 
 
 function reloadTable() {

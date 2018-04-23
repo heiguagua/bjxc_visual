@@ -1,8 +1,9 @@
 /**
  * Created by lixy on 2017/6/15.
  */
-$(function () {
-    jQuery(document).ready(function(){
+(function () {
+	require(['jquery','global_custom','jquery.md5'],function($,echarts){
+
         initButtonClickEvent();
         addEnterListener();
     })
@@ -48,4 +49,4 @@ $(function () {
     /*$("form").submit(function () {
      $("input[name='password']").val($.md5($("#password").val()));
      });*/
-});
+}());

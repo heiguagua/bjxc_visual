@@ -1,8 +1,9 @@
-$(document).ready(function () {
+(function () {
     "use strict";
 //1
     var tableSelector = '#systemLogTableId';
     var paramsObj = {};
+require(['jquery','global_custom'],function($){
     $("#operatorRealName,#operatorUserName").keydown(function(e){
         var curKey = e.which;
         if(curKey == 13){
@@ -99,8 +100,11 @@ $(document).ready(function () {
         $(tableSelector).data("bootstrap.table").options.pageNumber = 1;
         $(tableSelector).data("bootstrap.table").refresh();
     }
+})
 
-});
+
+}());
+
 
 function queryLogDetail(id) {
     var url = basePathJS + '/system/log/params';

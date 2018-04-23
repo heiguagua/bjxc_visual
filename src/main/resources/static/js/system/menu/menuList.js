@@ -1,6 +1,7 @@
 var tableSelector = '#systemMenuTableId';
 //1
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom'],function($){
 
     var paramsObj = {};
     jQuery(tableSelector).customTable({
@@ -124,8 +125,9 @@ jQuery(document).ready(function () {
         var searchKeyVal = $('#searchKeyId').val();
         paramsObj = {menuName : searchKeyVal};
     }
+	})
+}());
 
-});
 
 function reloadTable() {
     $(tableSelector).data("bootstrap.table").options.pageNumber = 1;

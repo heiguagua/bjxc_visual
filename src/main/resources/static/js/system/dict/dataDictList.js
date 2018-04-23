@@ -5,11 +5,13 @@ var tableSelector = '#systemDataDictTableId';
 var paramsObj={};
 var detailParamObj={};
 var isMaster={};
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom'],function($){
     intDict();
     initButtonClick();
     isMaster=$("#masterId").val();
-});
+	})
+}());
 
 function intDict(param) {
     // $("#tableList").html('<table id="systemDataDictTableId" class="table table-hover"></table>');

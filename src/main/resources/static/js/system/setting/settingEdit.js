@@ -1,6 +1,9 @@
-$(document).ready(function(){
-    initEditPage();
-});
+(function () {
+	require(['jquery','iCheck'],function($){
+		initEditPage();
+	})
+}());
+
 
 //初始化编辑界面 1
 function initEditPage(){

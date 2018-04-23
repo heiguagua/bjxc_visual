@@ -86,13 +86,16 @@
         </form>
     </div>
 </div>
-
-
+  
+<script src="<%=context_path%>/plugins/main.js" ></script>
 <script type="text/javascript">
-    $('#change_code').on('click', function () {
+require(['jquery'],function($){
+	$('#change_code').on('click', function () {
         var codeimg = $('#codeimg');
         codeimg.attr("src", basePathJS + '/login/captcha?'+ Math.random());
     });
+})
+    
 
 </script>
 </body>

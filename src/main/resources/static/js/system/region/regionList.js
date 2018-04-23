@@ -2,7 +2,8 @@ var tableSelector = '#systemRegionTableId';
 var paramsObj = {};
 var regionCodes=new Array();
 var isMaster={};
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom'],function($){
     "use strict";
     isMaster=$("#masterId").val();
     $("#searchKeyId").keydown(function(e){
@@ -20,7 +21,8 @@ jQuery(document).ready(function () {
         }
         initDept(fcode,"subQuery");
     });
-});
+    })
+}());
 
 function setParams(fcode,subQueryFlag) {
     if(fcode){

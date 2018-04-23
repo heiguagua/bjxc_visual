@@ -1,10 +1,13 @@
 /**
  * Created by zhanf on 2017/4/28. 1
  */
-$(document).ready(function(){
+(function () {
+	require(['jquery','global_custom','select2','select2.lang'],function($){
     // initSelectData();
     initEditPage();
-});
+	})
+}());
+
 
 function initSelectData() {
     initDeptSelectDataList();

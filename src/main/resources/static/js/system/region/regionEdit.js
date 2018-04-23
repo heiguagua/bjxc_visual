@@ -1,11 +1,14 @@
 /**
  * Created by zhanf on 2017/4/28. 1
  */
-jQuery(document).ready(function () {
+(function () {
+	require(['jquery','global_custom'],function($){
     var regionId = $("#regionId").val();
     initFormerDate(regionId);
     // initSelectData();
-});
+    })
+}());
+
 
 function initSelectData() {
     $.initRegionTreeSelect('treeRegionDemo','fname','fcode','menuRegionContent','','','region'); //初始化区域分类下拉框
