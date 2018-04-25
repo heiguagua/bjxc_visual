@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${package.Mapper}.${cfg.subModuleName}.${table.mapperName}">
+<mapper namespace="${package.Mapper}.${table.mapperName}">
 
 #if(${enableCache})
 	<!-- 开启二级缓存 -->
@@ -9,7 +9,7 @@
 
 #if(${baseResultMap})
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="${package.Entity}.po.${cfg.subModuleName}.${entity}">
+	<resultMap id="BaseResultMap" type="${package.Entity}.po.${entity}">
     #foreach($field in ${table.fields})
         #if(${field.keyFlag})##生成主键排在第一位
         <id column="${field.name}" property="${field.propertyName}" />
@@ -22,7 +22,7 @@
     #end
 	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="${package.Entity}.vo.${cfg.subModuleName}.${entity}Vo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="${package.Entity}.vo.${entity}Vo">
 
     </resultMap>
 #end
@@ -53,13 +53,13 @@
     	SELECT count(1) FROM ${table.name} t <include refid="queryConditions"></include>
     </select>
 
-    <insert id="baseInsert" parameterType="${package.Entity}.po.${cfg.subModuleName}.${entity}">
+    <insert id="baseInsert" parameterType="${package.Entity}.po.${entity}">
         insert into ${table.name}(#foreach($field in ${table.fields})${field.name},#end) values(
             #foreach($field in ${table.fields})#{${field.propertyName}},#end
         )
     </insert>
 
-    <update id="baseUpdate" parameterType="${package.Entity}.po.${cfg.subModuleName}.${entity}">
+    <update id="baseUpdate" parameterType="${package.Entity}.po.${entity}">
         update ${table.name}
         <set>
         #foreach($field in ${table.fields})

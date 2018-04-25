@@ -5,8 +5,16 @@
         <dataSourceName>dataSource_vm</dataSourceName>
         <configLocation>mybatis/mybatis-config.xml</configLocation>
         <mapperLocations>mybatis/*/*Mapper.xml</mapperLocations>
-        <mapperPackages>com.chinawiserv.dsp.base.mapper</mapperPackages>
+        <mapperPackages>com.chinawiserv.dsp.base.mapper,com.chinawiserv.dsp.vm.mapper</mapperPackages>
         <idType>3</idType>
     </mybatis-config>
+    
+   <!--  <mybatis-config>
+        <dataSourceName>dataSource_sm</dataSourceName>
+        <configLocation>mybatis/mybatis-config.xml</configLocation>
+        <mapperLocations>mybatis/*/*Mapper.xml</mapperLocations>
+        <mapperPackages>com.chinawiserv.dsp.base.mapper</mapperPackages>
+        <idType>3</idType>
+    </mybatis-config> -->
 
 </mybatis-configs>

@@ -1,6 +1,6 @@
-package ${package.Entity}.vo.${cfg.subModuleName};
+package ${package.Entity}.vo;
 
-import ${package.Entity}.po.${cfg.subModuleName}.${entity};
+import ${package.Entity}.po.${entity};
 
 /**
  * <p>

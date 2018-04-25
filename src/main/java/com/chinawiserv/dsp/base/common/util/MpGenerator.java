@@ -1,20 +1,26 @@
 package com.chinawiserv.dsp.base.common.util;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
-import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.ConstVal;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.FileOutConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.PackageConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.toolkit.StringUtils;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -23,157 +29,160 @@ import java.util.Map;
  */
 public class MpGenerator {
 
-    /**
-     * <p>
-     * MySQL 生成演示
-     * </p>
-     */
-    public static void main(String[] args) {
-        AutoGenerator mpg = new AutoGenerator();
+	/**
+	 * <p>
+	 * MySQL 生成演示
+	 * </p>
+	 */
+	public static void main(String[] args) {
+		AutoGenerator mpg = new AutoGenerator();
 
-        // 全局配置
-        GlobalConfig gc = new GlobalConfig();
-        //todo 修改本地已存在的文件夹目录
-        gc.setOutputDir("/Users/tangxiong/git");
-        gc.setFileOverride(true);
-        gc.setActiveRecord(false);
-        gc.setEnableCache(true);// XML 二级缓存
-        gc.setBaseResultMap(true);// XML ResultMap
-        gc.setBaseColumnList(true);// XML columList
-        //todo 修改作者
-        gc.setAuthor("tx");
+		// 全局配置
+		GlobalConfig gc = new GlobalConfig();
+		// todo 修改本地已存在的文件夹目录
+		gc.setOutputDir("e:/cranky");
+		gc.setFileOverride(true);
+		gc.setActiveRecord(false);
+		gc.setEnableCache(true);// XML 二级缓存
+		gc.setBaseResultMap(true);// XML ResultMap
+		gc.setBaseColumnList(true);// XML columList
+		// todo 修改作者
+		gc.setAuthor("cranky");
 
-        // 自定义文件命名，注意 %s 会自动填充表实体属性！
-        // gc.setMapperName("%sDao");
-        // gc.setXmlName("%sDao");
-        // gc.setServiceName("MP%sService");
-        // gc.setServiceImplName("%sServiceDiy");
-        // gc.setControllerName("%sAction");
-        mpg.setGlobalConfig(gc);
+		// 自定义文件命名，注意 %s 会自动填充表实体属性！
+		// gc.setMapperName("%sDao");
+		// gc.setXmlName("%sDao");
+		// gc.setServiceName("MP%sService");
+		// gc.setServiceImplName("%sServiceDiy");
+		// gc.setControllerName("%sAction");
+		mpg.setGlobalConfig(gc);
 
-        // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setDbType(DbType.MYSQL);
-        dsc.setTypeConvert(new MySqlTypeConvert(){
-            // 自定义数据库表字段类型转换【可选】
-            @Override
-            public DbColumnType processTypeConvert(String fieldType) {
-                System.out.println("转换类型：" + fieldType);
-                return super.processTypeConvert(fieldType);
-            }
-        });
-        dsc.setDriverName("com.mysql.jdbc.Driver");
-        //todo 修改数据库用户名、密码和url
-        dsc.setUsername("root");
-        dsc.setPassword("bdgm;2015");
-        dsc.setUrl("jdbc:mysql://192.168.13.72:3306/dsp_dir_rz?characterEncoding=utf8");
-        mpg.setDataSource(dsc);
+		// 数据源配置
+		DataSourceConfig dsc = new DataSourceConfig();
+		dsc.setDbType(DbType.MYSQL);
+		dsc.setTypeConvert(new MySqlTypeConvert() {
+			// 自定义数据库表字段类型转换【可选】
+			@Override
+			public DbColumnType processTypeConvert(String fieldType) {
+				// System.out.println("转换类型：" + fieldType);
+				return super.processTypeConvert(fieldType);
+			}
+		});
+		dsc.setDriverName("com.mysql.jdbc.Driver");
+		// todo 修改数据库用户名、密码和url
+		dsc.setUsername("root");
+		dsc.setPassword("root");
+		dsc.setUrl("jdbc:mysql://127.0.0.1:3306/vm?characterEncoding=utf8");
+		mpg.setDataSource(dsc);
 
-        // 策略配置
-        StrategyConfig strategy = new StrategyConfig();
-        // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-        //todo 如果有，设置表前缀
-//        strategy.setTablePrefix(new String[] { "dir_"});// 此处可以修改为您的表前缀
-        //****
-        strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
+		// 策略配置
+		StrategyConfig strategy = new StrategyConfig();
+		// strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
+		// todo 如果有，设置表前缀
+		strategy.setTablePrefix(new String[] { "vm_" });// 此处可以修改为您的表前缀
+		// ****
+		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
 
-        //todo 需要生成的表以逗号连接
-//        String includeTableStr = "dcm_task_api_conf,dcm_task_crawler_conf,dcm_task_db_conf,dcm_task_scan_record,dcm_task_sd_column_conf,dcm_task_sf_conf,dcm_task_uf_record,dcm_task_usf_conf";
-        String includeTableStr = "sys_region_level";
+		// todo 需要生成的表以逗号连接
+		// String includeTableStr =
+		// "dcm_task_api_conf,dcm_task_crawler_conf,dcm_task_db_conf,dcm_task_scan_record,dcm_task_sd_column_conf,dcm_task_sf_conf,dcm_task_uf_record,dcm_task_usf_conf";
+		String includeTableStr = "vm_chart_classify,vm_chart_conf,vm_chart_desc_indictor_map,vm_chart_description,vm_chart_menu_custom,vm_chart_menu_template,vm_classify_indictor_map";
 
-        if (org.apache.commons.lang.StringUtils.isNotBlank(includeTableStr)) {
-            String includeTableArr[] =  includeTableStr.trim().split(",");
-            if (includeTableArr != null && includeTableArr.length > 0 ) {
-                strategy.setInclude(includeTableArr); // 需要生成的表
-            }
-        }
+		if (org.apache.commons.lang.StringUtils.isNotBlank(includeTableStr)) {
+			String includeTableArr[] = includeTableStr.trim().split(",");
+			if (includeTableArr != null && includeTableArr.length > 0) {
+				strategy.setInclude(includeTableArr); // 需要生成的表
+			}
+		}
 
-        // strategy.setExclude(new String[]{"test"}); // 排除生成的表
-        // 自定义实体父类
-        // strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
-        // 自定义实体，公共字段
-        // strategy.setSuperEntityColumns(new String[] { "test_id", "age" });
-        // 自定义 mapper 父类
-        // strategy.setSuperMapperClass("com.baomidou.demo.TestMapper");
-        // 自定义 service 父类
-        strategy.setSuperServiceClass("com.chinawiserv.dsp.base.service.common.ICommonService");
-        // 自定义 service 实现类父类
-        strategy.setSuperServiceImplClass("com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl");
-        // 自定义 controller 父类
-        strategy.setSuperControllerClass("com.chinawiserv.dsp.base.controller.common.BaseController");
-        // 【实体】是否生成字段常量（默认 false）
-        // public static final String ID = "test_id";
-        // strategy.setEntityColumnConstant(true);
-        // 【实体】是否为构建者模型（默认 false）
-        // public User setName(String name) {this.name = name; return this;}
-        // strategy.setEntityBuliderModel(true);
-        mpg.setStrategy(strategy);
+		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
+		// 自定义实体父类
+		// strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
+		// 自定义实体，公共字段
+		// strategy.setSuperEntityColumns(new String[] { "test_id", "age" });
+		// 自定义 mapper 父类
+		// strategy.setSuperMapperClass("com.baomidou.demo.TestMapper");
+		// 自定义 service 父类
+		strategy.setSuperServiceClass("com.chinawiserv.dsp.base.service.common.ICommonService");
+		// 自定义 service 实现类父类
+		strategy.setSuperServiceImplClass("com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl");
+		// 自定义 controller 父类
+		strategy.setSuperControllerClass("com.chinawiserv.dsp.base.controller.common.BaseController");
+		// 【实体】是否生成字段常量（默认 false）
+		// public static final String ID = "test_id";
+		// strategy.setEntityColumnConstant(true);
+		// 【实体】是否为构建者模型（默认 false）
+		// public User setName(String name) {this.name = name; return this;}
+		// strategy.setEntityBuliderModel(true);
+		mpg.setStrategy(strategy);
 
-        // 包配置
-        PackageConfig packageConfig = new PackageConfig();
-        //todo 项目包名
-        packageConfig.setParent("com.chinawiserv.dsp.base");
-        packageConfig.setController("controller");
-//        packageConfig.setModuleName("dataset");
-        mpg.setPackageInfo(packageConfig);
+		// 包配置
+		PackageConfig packageConfig = new PackageConfig();
+		// todo 项目包名
+		packageConfig.setParent("com.chinawiserv.dsp.vm");
+		packageConfig.setController("controller");
+		// packageConfig.setModuleName("dataset");
+		mpg.setPackageInfo(packageConfig);
 
-        // 注入自定义配置，可以在 VM 中使用 cfg.xxx 设置的值
-        InjectionConfig cfg = new InjectionConfig() {
-            @Override
-            public void initMap() {
-                Map<String, Object> map = new HashMap<String, Object>();
-                //todo 设置子模块名称
-                map.put("subModuleName", "system");
-                this.setMap(map);
-            }
-        };
-        // 自定义 xxList.jsp 生成
-        List<FileOutConfig> focList = new ArrayList<FileOutConfig>();
-        focList.add(new FileOutConfig("/templates/vo.java.vm") {
-            @Override
-            public String outputFile(TableInfo tableInfo) {
-                // 自定义输入文件名称
-                String voPackage = packageConfig.getParent() + ".entity.vo";
-                String voPath = joinPath(gc.getOutputDir() , voPackage);
+		// 注入自定义配置，可以在 VM 中使用 cfg.xxx 设置的值
+		InjectionConfig cfg = new InjectionConfig() {
+			@Override
+			public void initMap() {
+				Map<String, Object> map = new HashMap<>();
+				// todo 设置子模块名称
+				map.put("subModuleName", "vm");
+				this.setMap(map);
+			}
+		};
+		// 自定义 xxList.jsp 生成
+		List<FileOutConfig> focList = new ArrayList<>();
+		focList.add(new FileOutConfig("/templates/vo.java.vm") {
+			@Override
+			public String outputFile(TableInfo tableInfo) {
+				// 自定义输入文件名称
+				String voPackage = packageConfig.getParent() + ".entity.vo";
+				String voPath = joinPath(gc.getOutputDir(), voPackage);
 
-                return voPath + "\\" + tableInfo.getEntityName() + "Vo.java";
-            }
-        });
-        cfg.setFileOutConfigList(focList);
-        mpg.setCfg(cfg);
+				return voPath + "\\" + tableInfo.getEntityName() + "Vo.java";
+			}
+		});
+		cfg.setFileOutConfigList(focList);
+		mpg.setCfg(cfg);
 
-        // 自定义模板配置，可以 copy 源码 mybatis-plus/src/main/resources/template 下面内容修改，
-        // 放置自己项目的 src/main/resources/template 目录下, 默认名称一下可以不配置，也可以自定义模板名称
-        TemplateConfig tc = new TemplateConfig();
-        tc.setController("templates/controller.java.vm");
-        tc.setEntity("templates/entity.java.vm");
-        tc.setMapper("templates/mapper.java.vm");
-        tc.setXml("templates/mapper.xml.vm");
-        tc.setService("templates/service.java.vm");
-        tc.setServiceImpl("templates/serviceImpl.java.vm");
-        // 如上任何一个模块如果设置 空 OR Null 将不生成该模块。
-        mpg.setTemplate(tc);
+		// 自定义模板配置，可以 copy 源码 mybatis-plus/src/main/resources/template 下面内容修改，
+		// 放置自己项目的 src/main/resources/template 目录下, 默认名称一下可以不配置，也可以自定义模板名称
+		TemplateConfig tc = new TemplateConfig();
+		tc.setController("templates/controller.java.vm");
+		tc.setEntity("templates/entity.java.vm");
+		tc.setMapper("templates/mapper.java.vm");
+		tc.setXml("templates/mapper.xml.vm");
+		tc.setService("templates/service.java.vm");
+		tc.setServiceImpl("templates/serviceImpl.java.vm");
+		// 如上任何一个模块如果设置 空 OR Null 将不生成该模块。
+		mpg.setTemplate(tc);
 
-        // 执行生成
-        mpg.execute();
-    }
+		// 执行生成
+		mpg.execute();
+	}
 
-    /**
-     * 连接路径字符串
-     *
-     * @param parentDir   路径常量字符串
-     * @param packageName 包名
-     * @return 连接后的路径
-     */
-    private static String joinPath(String parentDir, String packageName) {
-        if (StringUtils.isEmpty(parentDir)) {
-            parentDir = System.getProperty(ConstVal.JAVA_TMPDIR);
-        }
-        if (!StringUtils.endsWith(parentDir, File.separator)) {
-            parentDir += File.separator;
-        }
-        packageName = packageName.replaceAll("\\.", "\\" + File.separator);
-        return parentDir + packageName;
-    }
+	/**
+	 * 连接路径字符串
+	 *
+	 * @param parentDir
+	 *            路径常量字符串
+	 * @param packageName
+	 *            包名
+	 * @return 连接后的路径
+	 */
+	private static String joinPath(String parentDir, String packageName) {
+		if (StringUtils.isEmpty(parentDir)) {
+			parentDir = System.getProperty(ConstVal.JAVA_TMPDIR);
+		}
+		if (!StringUtils.endsWith(parentDir, File.separator)) {
+			parentDir += File.separator;
+		}
+		packageName = packageName.replaceAll("\\.", "\\" + File.separator);
+		return parentDir + packageName;
+	}
 
 }

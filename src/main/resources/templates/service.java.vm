@@ -1,7 +1,7 @@
-package ${package.Service}.${cfg.subModuleName};
+package ${package.Service};
 
-import ${package.Entity}.po.${cfg.subModuleName}.${entity};
-import ${package.Entity}.vo.${cfg.subModuleName}.${entity}Vo;
+import ${package.Entity}.po.${entity};
+import ${package.Entity}.vo.${entity}Vo;
 import ${superServiceClassPackage};
 
 /**
