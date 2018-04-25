@@ -1,9 +1,9 @@
-package ${package.Mapper}.${cfg.subModuleName};
+package ${package.Mapper};
 
 import ${superMapperClassPackage};
 import com.baomidou.mybatisplus.plugins.Page;
-import ${package.Entity}.po.${cfg.subModuleName}.${entity};
-import ${package.Entity}.vo.${cfg.subModuleName}.${entity}Vo;
+import ${package.Entity}.po.${entity};
+import ${package.Entity}.vo.${entity}Vo;
 import java.util.List;
 import java.util.Map;
 

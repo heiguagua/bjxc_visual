@@ -1,4 +1,4 @@
-package ${package.Entity}.po.${cfg.subModuleName};
+package ${package.Entity}.po;
 
 #foreach($pkg in ${table.importPackages})
 import ${pkg};

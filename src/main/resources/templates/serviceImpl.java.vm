@@ -1,10 +1,10 @@
-package ${package.Service}.${cfg.subModuleName}.impl;
+package ${package.Service}.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import ${package.Entity}.po.${cfg.subModuleName}.${entity};
-import ${package.Entity}.vo.${cfg.subModuleName}.${entity}Vo;
-import ${package.Mapper}.${cfg.subModuleName}.${table.mapperName};
-import ${package.Service}.${cfg.subModuleName}.${table.serviceName};
+import ${package.Entity}.po.${entity};
+import ${package.Entity}.vo.${entity}Vo;
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
 import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
 import java.util.Map;

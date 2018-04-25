@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.vm.mapper.ChartMenuCustomMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.vm.entity.po.ChartMenuCustom">
+                    <id column="id" property="id" />
+                                                                                                        <result column="char_id" property="charId" />
+                            <result column="menu_id" property="menuId" />
+                            <result column="location" property="location" />
+                            <result column="show_order" property="showOrder" />
+                            <result column="user" property="user" />
+            	</resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.vm.entity.vo.ChartMenuCustomVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+                                <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+                                                                                                                                </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM vm_chart_menu_custom t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM vm_chart_menu_custom t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM vm_chart_menu_custom t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartMenuCustom">
+        insert into vm_chart_menu_custom(id,char_id,menu_id,location,show_order,user,) values(
+            #{id},#{charId},#{menuId},#{location},#{showOrder},#{user},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartMenuCustom">
+        update vm_chart_menu_custom
+        <set>
+                    <if test="id != null">
+                id = #{id},
+            </if>
+                    <if test="charId != null">
+                char_id = #{charId},
+            </if>
+                    <if test="menuId != null">
+                menu_id = #{menuId},
+            </if>
+                    <if test="location != null">
+                location = #{location},
+            </if>
+                    <if test="showOrder != null">
+                show_order = #{showOrder},
+            </if>
+                    <if test="user != null">
+                user = #{user},
+            </if>
+                </set>
+        where  id = #{id}                </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from vm_chart_menu_custom <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+                                <if test="id != null">
+                id = #{id}
+            </if>
+                                                                                                                                </where>
+    </sql>
+
+
+
+</mapper>
