@@ -43,6 +43,8 @@ public class ChartMenuCustomController extends BaseController {
 		setCurrentMenuInfo(paramMap);
 		return "vm/indexForCharTemplet";
 	}
+	
+	
 
 	/**
 	 * 分页查询图表与菜单自定义关系
@@ -69,6 +71,13 @@ public class ChartMenuCustomController extends BaseController {
 	@RequestMapping("/add")
 	public String add() {
 		return "XXX/XXX/XXXAdd";
+	}
+	
+	// config
+	@RequestMapping("/config")
+	public String config(@RequestParam Map<String, Object> paramMap) {
+		setCurrentMenuInfo(paramMap);
+		return "vm/config";
 	}
 
 	/**
