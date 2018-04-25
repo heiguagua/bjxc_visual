@@ -1,4 +1,4 @@
-define(['jquery','moment','daterangepicker','validator','validator.lang','zTree','bootstrapTable','bootstrapTable.lang'],function($,moment,validator){
+define(['jquery','moment','daterangepicker','validator','validator.lang','zTree','bootstrapTable','bootstrapTable.lang','select2'],function($,moment,validator,select2){
 var urlPrefix = "";
 var specialReg = new RegExp("['\"]+");  //特殊字符的正则表达式 1
 var reg_numberRange = /^[0-9\,\-]+$/g;

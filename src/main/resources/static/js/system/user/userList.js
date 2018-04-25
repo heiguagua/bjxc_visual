@@ -182,10 +182,11 @@ var tableSelector = '#systemUserTableId';
             }]
     });
 
-    jQuery('#queryBtnId').click(function () {
-        setParams();
-        reloadTable();
-    });
+    
+    $("#addChartBtn").click(function() {
+    	var $box = $('<div style="width:300px;height:300px;"></div>');
+    	
+    })
 
     function setParams() {
         var searchKeyVal = $('#searchKeyId').val();

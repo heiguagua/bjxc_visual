@@ -77,7 +77,8 @@
             </div>
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
-
+	
+	 
     <%@include file="/WEB-INF/views/common/footer.jsp" %>
     <div class="control-sidebar-bg"></div>
 </div>
