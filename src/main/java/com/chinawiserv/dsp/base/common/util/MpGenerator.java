@@ -71,23 +71,24 @@ public class MpGenerator {
 		dsc.setDriverName("com.mysql.jdbc.Driver");
 		// todo 修改数据库用户名、密码和url
 		dsc.setUsername("root");
-		dsc.setPassword("root");
-		dsc.setUrl("jdbc:mysql://127.0.0.1:3306/vm?characterEncoding=utf8");
+		dsc.setPassword("bdgm;2015");
+		dsc.setUrl("jdbc:mysql://192.168.13.72:3306/zbgl?characterEncoding=utf8");
 		mpg.setDataSource(dsc);
 
 		// 策略配置
 		StrategyConfig strategy = new StrategyConfig();
 		// strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
 		// todo 如果有，设置表前缀
-		strategy.setTablePrefix(new String[] { "vm_" });// 此处可以修改为您的表前缀
+		strategy.setTablePrefix(new String[] { "im_" });// 此处可以修改为您的表前缀
 		// ****
 		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
 
 		// todo 需要生成的表以逗号连接
 		// String includeTableStr =
 		// "dcm_task_api_conf,dcm_task_crawler_conf,dcm_task_db_conf,dcm_task_scan_record,dcm_task_sd_column_conf,dcm_task_sf_conf,dcm_task_uf_record,dcm_task_usf_conf";
-		String includeTableStr = "vm_chart_classify,vm_chart_conf,vm_chart_desc_indictor_map,vm_chart_description,vm_chart_menu_custom,vm_chart_menu_template,vm_classify_indictor_map";
-
+		// String includeTableStr =
+		// "vm_chart_classify,vm_chart_conf,vm_chart_desc_indictor_map,vm_chart_description,vm_chart_menu_custom,vm_chart_menu_template,vm_classify_indictor_map";
+		String includeTableStr = "im_indictor,im_indictor_calibre,im_indictor_calibre_map,im_indictor_category,im_indictor_category_map,im_indictor_compose_map,im_indictor_data,im_indictor_data_source";
 		if (org.apache.commons.lang.StringUtils.isNotBlank(includeTableStr)) {
 			String includeTableArr[] = includeTableStr.trim().split(",");
 			if (includeTableArr != null && includeTableArr.length > 0) {
@@ -119,7 +120,7 @@ public class MpGenerator {
 		// 包配置
 		PackageConfig packageConfig = new PackageConfig();
 		// todo 项目包名
-		packageConfig.setParent("com.chinawiserv.dsp.vm");
+		packageConfig.setParent("com.chinawiserv.dsp.quota");
 		packageConfig.setController("controller");
 		// packageConfig.setModuleName("dataset");
 		mpg.setPackageInfo(packageConfig);
@@ -130,7 +131,7 @@ public class MpGenerator {
 			public void initMap() {
 				Map<String, Object> map = new HashMap<>();
 				// todo 设置子模块名称
-				map.put("subModuleName", "vm");
+				map.put("subModuleName", "quota");
 				this.setMap(map);
 			}
 		};

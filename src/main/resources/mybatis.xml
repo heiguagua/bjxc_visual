@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mybatis-configs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="mybatis.xsd">
 
-    <mybatis-config>
+    <mybatis-config primary="true">
         <dataSourceName>dataSource_vm</dataSourceName>
         <configLocation>mybatis/mybatis-config.xml</configLocation>
         <mapperLocations>mybatis/*/*Mapper.xml</mapperLocations>
-        <mapperPackages>com.chinawiserv.dsp.base.mapper,com.chinawiserv.dsp.vm.mapper</mapperPackages>
+        <mapperPackages>com.chinawiserv.dsp.base.mapper.system,com.chinawiserv.dsp.vm.mapper</mapperPackages>
         <idType>3</idType>
     </mybatis-config>
-    
-   <!--  <mybatis-config>
+
+  <mybatis-config primary="false">
         <dataSourceName>dataSource_sm</dataSourceName>
         <configLocation>mybatis/mybatis-config.xml</configLocation>
-        <mapperLocations>mybatis/*/*Mapper.xml</mapperLocations>
-        <mapperPackages>com.chinawiserv.dsp.base.mapper</mapperPackages>
+        <mapperLocations>mybatis/quota/*Mapper.xml</mapperLocations>
+        <mapperPackages>com.chinawiserv.dsp.quota.mapper</mapperPackages>
         <idType>3</idType>
-    </mybatis-config> -->
+    </mybatis-config> 
 
+
+    
+ 
 </mybatis-configs>

@@ -5,10 +5,10 @@
 
 	<datasource name="dataSource_vm" primary="true" >
 		<url>
-		<![CDATA[jdbc:mysql://localhost:3306/dsp_dir?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]>
+		<![CDATA[jdbc:mysql://192.168.13.72:3306/vm?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]>
 		</url>
 		<username>root</username>
-		<password>root</password>
+		<password>bdgm;2015</password>
 		<initialSize>1</initialSize>
 		<minIdle>1</minIdle>
 		<maxActive>10</maxActive>
@@ -19,5 +19,21 @@
 		<filters>stat</filters>
 	</datasource>
 	
+	<datasource name="dataSource_sm" primary="false" >
+		<url>
+		<![CDATA[jdbc:mysql://192.168.13.72:3306/zbgl?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]>
+		</url>
+		<username>root</username>
+		<password>bdgm;2015</password>
+		<initialSize>1</initialSize>
+		<minIdle>1</minIdle>
+		<maxActive>10</maxActive>
+		<testOnBorrow>false</testOnBorrow>
+		<testOnReturn>false</testOnReturn>
+		<minEvictableIdleTimeMillis>1800000</minEvictableIdleTimeMillis>
+		<testWhileIdle>true</testWhileIdle>
+		<filters>stat</filters>
+	</datasource>
+
 
 </datasources>
