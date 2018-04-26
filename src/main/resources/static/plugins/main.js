@@ -6,7 +6,7 @@
     
 	w.WEB_RES_PATH = '/vm/plugins/';
 	w.LOCAL_RES_PATH = '/vm/'
-	w.pro_v = '1.0.0';
+	w.pro_v = '1.0.1';
 	
 	requirejs.config({
 		baseUrl:WEB_RES_PATH,
@@ -21,7 +21,8 @@
         	'jquery':'jQuery/jquery-2.2.3.min',
         	'bootstrap':'bootstrap/js/bootstrap.min',
         	'app': LOCAL_RES_PATH +'app/js/app',
-        	'echarts':'echarts-2.2.7/dist/echarts',
+        	'echarts':'echarts-2.2.7/dist/echarts-all',
+        	'echarts3':'echarts3/echarts.min',
         	'iCheck':'iCheck/icheck.min',
         	'validator':'nice-validator/jquery.validator',
         	'validator.lang':'nice-validator/local/zh-CN',
@@ -48,6 +49,9 @@
         	'UE.lang':'ueditor/lang/zh-cn/zh-cn'
         },
         shim:{
+        	'echarts': {
+                echarts: "echarts"
+            },
         	'bootstrap': ['jquery'
         	              
         	             //, 'css!' + WEB_RES_PATH + 'bootstrap/css/bootstrap.min.css'
@@ -107,7 +111,7 @@
 		console.log('main.js-2');
 		window.layer = layer;
 	})
-	require(['jquery','validator'],function($,validator){
+	require(['jquery','validator','zTree'],function($,validator,zTree){
 		console.log('main.js-1');
 		window.$ = window.jQuery = $;
 		$.validator = jQuery.validator = validator;

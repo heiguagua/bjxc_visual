@@ -3,7 +3,24 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/head.jsp" %>
-
+    
+	<style>
+		#indicatorTree{
+			height: auto;
+		}
+		form .form-group label{
+			display:inline-block;
+		}
+		.chart-box{
+			display:inline-block;
+			width:500px;
+			height:400px;
+			border: 1px solid #DDD; 
+			margin: 10px;
+			padding:10px; 
+			background: #f9f9f9;
+		}
+	</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -36,9 +53,7 @@
                             </div>
 
                             <div class="box-body table-responsive" id="tableList">
-                                <table id="systemDeptTableId" class="table table-hover">
-
-                                </table>
+                                <div id="chartWrapper" style="width:100%;min-height:500px;"></div>
                             </div><!-- /.box-body -->
 
                         </div><!-- /.box -->
@@ -52,7 +67,7 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <div class="modal fade" tabindex="-1" role="dialog" id="addChartModal">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -62,50 +77,61 @@
         <form class="form-horizontal">
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-sm-2 control-label">图表标题</label>
-		    <div class="col-sm-10">
-		      <input type="email" class="form-control" id="etitle" placeholder="请输入标题">
+		    <div class="col-sm-8">
+		      <input type="text" class="form-control" id="etitle" placeholder="请输入标题">
+		      
 		    </div>
-		  </div>
-		  <div class="form-group">
 		    <label>
-	          <input type="checkbox" name="showDate"> 显示时间
+	          <input type="checkbox"  checked name="showDate"> 显示标题
 	        </label>
 		  </div>
 		  <div class="form-group">
-		    <label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="eline"> 折线图
-			</label>
-			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="earea"> 面积图
-			</label>
-			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="eradar"> 雷达图
-			</label>
-			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="efunnel"> 漏斗图
-			</label>
-			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="etemp"> 温度表
-			</label>
-			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="edash"> 仪表图
-			</label>
+		  <div class="col-sm-offset-2 col-sm-10">
+		    <label>
+	          <input type="checkbox" name="showDate"> 显示时间
+	        </label>
+	        </div>
+		  </div>
+		  <div class="form-group">
+		  	<label for="inputEmail3" class="col-sm-2 control-label">选择图表样式</label>
+			<div class="col-sm-10">
+			    <label class="radio-inline">
+				  <input type="radio" name="chartTypeOptions" id="eline" value="eline"> 折线图
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="chartTypeOptions" id="earea" value="earea"> 面积图
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="chartTypeOptions" id="eradar" value="eradar"> 雷达图
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="chartTypeOptions" id="efunnel" value="efunnel"> 漏斗图
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="chartTypeOptions" id="etemp" value="etemp"> 温度表
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="chartTypeOptions" id="edash" value="edash"> 仪表图
+				</label>
+			</div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-sm-2 control-label">选择指标</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="etitle" placeholder="请选择指标">
+		      <ul id="indicatorTree" class="ztree"></ul>
 		    </div>
 		  </div>
 		</form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary">确定</button>
+        <button type="button" class="btn btn-primary" id="addChartConfirm">确定</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
 <script src="<%=context_path%>/js/vm/index.js"></script>
+<script src="<%=context_path%>/plugins/echarts3/echarts.min.js"></script>
 </body>
 </html>

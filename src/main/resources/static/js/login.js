@@ -2,7 +2,7 @@
  * Created by lixy on 2017/6/15.
  */
 (function () {
-	require(['jquery','global_custom','jquery.md5'],function($,echarts){
+	require(['jquery','global_custom','jquery.md5'],function($,global_custom){
 
         initButtonClickEvent();
         addEnterListener();

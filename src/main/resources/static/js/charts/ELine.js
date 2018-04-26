@@ -1,36 +1,53 @@
-define(["jquery", "bootstrap", "echarts"], function(jquery, bootstrap, echarts) {
-
+define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap) {
+	
 	// constructor
-	function ELine(el, opts){
+	function ELine(el_id, opts){		
 		this.opts = $.extend({}, ELine.DEFAULTS, opts);
-		this.$el = $(el);
-		this.chart = echarts.init(this.$el);
+		this.chart = echarts.init(document.getElementById(el_id));		
+		console.log(this.opts.title)
+		var option = {
+			 title: {
+			        text: this.opts.title,
+			        left: 'center',
+			        textStyle: {
+			        	color: '#108EE9',
+			        	fontWeight: 'normal',
+			        	fontSize:16
+			        }
+			    },
+			    tooltip: {
+			        trigger: 'axis'
+			    },
+			    legend: {
+			        data:this.opts.legend_data,
+			        top:'8%'
+			    },
+			    grid: {
+			    	top: '28%',
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    xAxis: {
+			        type: 'category',
+			        boundaryGap: false,
+			        data: this.opts.x_data
+			    },
+			    yAxis: {
+			        type: 'value'
+			    },
+			    series:this.serDataFormatter()
+		};
+		console.log(option);
+		this.chart.setOption(option);
 	}
 	
 	ELine.DEFAULTS = {
-		tooltip: {
-		    trigger: 'axis'
-		},
 	}
 	
 	ELine.prototype.draw = function() {
-		var option = {
-				title: this.opts.title,
-				legend: {
-					data: this.opts.legend_data
-				},
-				 xAxis: {
-				        type: 'category',
-				        boundaryGap: false,
-				        data: this.opts.x_data
-				 },
-				 yAxis: {
-		             type: 'value'
-				 },
-				 series: this.serDataFormatter()
-		};
 		
-		this.chart.setOption(option);
 	}
 	
 	ELine.prototype.serDataFormatter = function() {
@@ -49,6 +66,6 @@ define(["jquery", "bootstrap", "echarts"], function(jquery, bootstrap, echarts) 
 	}
 	
 	return {
-		ELine: ELine
+		init: ELine
 	}
 })
