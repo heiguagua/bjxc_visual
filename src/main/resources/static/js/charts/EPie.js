@@ -1,8 +1,8 @@
-define(["jquery", "echarts3"], function(jquery, echarts) {
+define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap) {
 	
 	// constructor
-	function ELine(el_id, opts){		
-		this.opts = $.extend({}, ELine.DEFAULTS, opts);
+	function EPie(el_id, opts){		
+		this.opts = $.extend({}, EPie.DEFAULTS, opts);
 		this.chart = echarts.init(document.getElementById(el_id));		
 		var unit = this.opts.unit;
 		
@@ -59,18 +59,11 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 			var detail_info = $(info_content);
 			$('#'+el_id).append(detail_info);
 		}
-		console.log(option);
 		this.chart.setOption(option);
 	}
+
 	
-	ELine.DEFAULTS = {
-	}
-	
-	ELine.prototype.draw = function() {
-		
-	}
-	
-	ELine.prototype.serDataFormatter = function() {
+	EPie.prototype.serDataFormatter = function() {
 		var serData = this.opts.serData;
 		var ser_data_format = [];
 		if(serData && serData.length > 0) {
@@ -86,6 +79,6 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 	}
 	
 	return {
-		init: ELine
+		init: EPie
 	}
 })

@@ -11,6 +11,10 @@ define(["jquery", "../../js/charts/ELine",'echarts'], function(jquery, ELine, ec
 			case 'line':
 				this.instnc = new ELine.init(el_id, this.opts);
 				break;
+			case 'pie':
+				this.instnc = new ELine.init(el_id, this.opts);
+				break;	
+			
 			default:
 				this.instnc = new ELine.init(el_id, this.opts);
 		}

@@ -86,8 +86,10 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 
 	$('#addChartConfirm').click(function() {
 		var chartType = $('input[name="chartTypeOptions"]:checked').val();
+		var showDetail = $('input[name="showDetail"]:checked').val();
 		// TODO send ajax for indicator data
 		var title = '人口与机构分析一览表';
+		var data_unit = '%';
 		var legend_data = ['孕产妇建卡率','人口与妇幼保健院卫生人员数比','人口与医疗卫生机构妇产科床位数比','人口与妇产科执业医师数比','人口与妇幼保健机构数比'];;
 		var x_data = ['2012年','2013年','2014年','2015年','2016年','2017年','2018年'];
 		var serData = [[9,8,10,9.8,7.8,8.1,7.6],
@@ -96,16 +98,28 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		               [2,2,3,2.5,3.2,2.8,2.1],
 		               [0.7,0.8,0.4,0.1,0.5,0.6,0.7]
 					];
-		var data_unit = '%';
+		var detail_info = {
+				title: '2014年西城区',
+				data:[{name:'孕妇建卡人数',value:1000,unit:'人'},
+	                   {name:'妇幼保健卫生人员数',value:600,unit:'人'},
+	                   {name:'妇产科职业医师数',value:200,unit:'人'},
+	                   {name:'妇幼保健机构数',value:15,unit:'家'}]
+		};
 		
-		ECategory.create('line',{
-			"title":title,
-			"legend_data": legend_data,
-			"x_data": x_data,
-			"serData": serData
+		ECategory.create(chartType,{
+			title: title,
+			unit: data_unit,
+			legend_data: legend_data,
+			x_data: x_data,
+			serData: serData,
+			showDetail: showDetail,
+			detail_info:detail_info
 		});
 		$('#addChartModal').modal('hide');
 	})
 
-	$.fn.zTree.init($("#indicatorTree"), setting, zNodes);
+	require(['zTree'],function(zTree){
+		$.fn.zTree.init($("#indicatorTree"), setting, zNodes);
+		$.fn.zTree.init($("#statisticTree"), setting, zNodes);
+	})
 })

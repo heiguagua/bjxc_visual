@@ -5,7 +5,7 @@
     <%@include file="/WEB-INF/views/common/head.jsp" %>
     
 	<style>
-		#indicatorTree{
+		.tree{
 			height: auto;
 		}
 		form .form-group label{
@@ -20,6 +20,23 @@
 			padding:10px; 
 			background: #f9f9f9;
 		}
+		.tree-wrap{
+			border:1px solid #DDD;
+			margin:10px;
+		}
+		.tree-title{
+			font-weight:normal;
+			    padding: 10px 0;
+		}
+		.detail_info{
+		    position: absolute;
+		    top: 18%;
+		    left: 60%;
+		    display: block;
+    	}
+    	.info-item{
+    		padding:0 0 10px 18px;
+    	}
 	</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -96,7 +113,7 @@
 		  	<label for="inputEmail3" class="col-sm-2 control-label">选择图表样式</label>
 			<div class="col-sm-10">
 			    <label class="radio-inline">
-				  <input type="radio" name="chartTypeOptions" id="eline" value="eline"> 折线图
+				  <input type="radio" name="chartTypeOptions" id="eline" checked value="eline"> 折线图
 				</label>
 				<label class="radio-inline">
 				  <input type="radio" name="chartTypeOptions" id="earea" value="earea"> 面积图
@@ -117,10 +134,27 @@
 		  </div>
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-sm-2 control-label">选择指标</label>
-		    <div class="col-sm-10">
-		      <ul id="indicatorTree" class="ztree"></ul>
+		    <div class="col-sm-4 tree-wrap">
+		      <h5 class="tree-title">原始指标</h5>	
+		      <ul id="indicatorTree" class="tree ztree"></ul>
+		    </div>
+		    <div class="col-sm-4 tree-wrap">
+		      <h5 class="tree-title">统计口径指标</h5>
+		      <ul id="statisticTree" class="tree ztree"></ul>
 		    </div>
 		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">时间范围</label>
+		    <div class="col-sm-8">
+		      <input type="text" class="form-control" id="daterange">
+		      
+		    </div>
+		  </div>
+		  <div class="col-sm-offset-2 col-sm-10">
+		    <label>
+	          <input type="checkbox" checked name="showDetail"> 显示图表详情
+	        </label>
+	        </div>
 		</form>
       </div>
       <div class="modal-footer">
@@ -132,6 +166,7 @@
 </div><!-- /.modal -->
 
 <script src="<%=context_path%>/js/vm/index.js"></script>
-<script src="<%=context_path%>/plugins/echarts3/echarts.min.js"></script>
+<%-- <script src="<%=context_path%>/plugins/echarts3/echarts.min.js"></script> --%>
+
 </body>
 </html>
