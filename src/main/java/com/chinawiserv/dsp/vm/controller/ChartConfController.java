@@ -1,7 +1,5 @@
 package com.chinawiserv.dsp.vm.controller;
 
-import java.util.Map;
-
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.vm.entity.vo.ChartConfVo;
 import com.chinawiserv.dsp.vm.service.IChartConfService;
 
@@ -36,31 +32,6 @@ public class ChartConfController extends BaseController {
 
 	@Autowired
 	private IChartConfService service;
-
-	@RequiresPermissions("XXX:XXX:list")
-	@RequestMapping("")
-	public String init(@RequestParam Map<String, Object> paramMap) {
-		setCurrentMenuInfo(paramMap);
-		return "XXX/XXX/XXXList";
-	}
-
-	/**
-	 * 分页查询系统图表配置表
-	 */
-	@RequiresPermissions("XXX:XXX:list")
-	@RequestMapping("/list")
-	@ResponseBody
-	public PageResult list(@RequestParam Map<String, Object> paramMap) {
-		PageResult pageResult = new PageResult();
-		try {
-			Page<ChartConfVo> page = service.selectVoPage(paramMap);
-			pageResult.setPage(page);
-		} catch (Exception e) {
-			pageResult.error("分页查询系统图表配置表出错");
-			logger.error("分页查询系统图表配置表出错", e);
-		}
-		return pageResult;
-	}
 
 	/**
 	 * 新增系统图表配置表

@@ -60,4 +60,5 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 		// todo
 		return 0;
 	}
+
 }

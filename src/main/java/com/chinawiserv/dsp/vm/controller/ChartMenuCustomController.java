@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.common.anno.Log;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
 import com.chinawiserv.dsp.vm.entity.vo.ChartMenuCustomVo;
 import com.chinawiserv.dsp.vm.service.IChartMenuCustomService;
 
@@ -43,36 +42,25 @@ public class ChartMenuCustomController extends BaseController {
 		setCurrentMenuInfo(paramMap);
 		return "vm/indexForCharTemplet";
 	}
-	
-	
 
 	/**
-	 * 分页查询图表与菜单自定义关系
+	 * 根据用户、菜单查询 该页有哪些图表
 	 */
-	@RequiresPermissions("XXX:XXX:list")
-	@RequestMapping("/list")
+	// @RequiresPermissions("XXX:XXX:list")
+	@RequestMapping("/chartList")
 	@ResponseBody
-	public PageResult list(@RequestParam Map<String, Object> paramMap) {
-		PageResult pageResult = new PageResult();
+	public HandleResult chartListByUserAndMenu(@RequestParam Map<String, Object> paramMap) {
+		HandleResult handleResult = new HandleResult();
 		try {
-			Page<ChartMenuCustomVo> page = service.selectVoPage(paramMap);
-			pageResult.setPage(page);
+			String menuId = ShiroUtils.getSessionAttribute("res").toString();
+			handleResult = service.selectChartListByUserAndMenu(menuId);
 		} catch (Exception e) {
-			pageResult.error("分页查询图表与菜单自定义关系出错");
-			logger.error("分页查询图表与菜单自定义关系出错", e);
+			handleResult.error("查询当前菜单图表列表失败");
+			logger.error("查询当前菜单图表列表失败", e);
 		}
-		return pageResult;
+		return handleResult;
 	}
 
-	/**
-	 * 新增图表与菜单自定义关系
-	 */
-	@RequiresPermissions("XXX:XXX:add")
-	@RequestMapping("/add")
-	public String add() {
-		return "XXX/XXX/XXXAdd";
-	}
-	
 	// config
 	@RequestMapping("/config")
 	public String config(@RequestParam Map<String, Object> paramMap) {

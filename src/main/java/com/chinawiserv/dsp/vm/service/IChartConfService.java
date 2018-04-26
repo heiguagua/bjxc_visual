@@ -1,8 +1,8 @@
 package com.chinawiserv.dsp.vm.service;
 
+import com.chinawiserv.dsp.base.service.common.ICommonService;
 import com.chinawiserv.dsp.vm.entity.po.ChartConf;
 import com.chinawiserv.dsp.vm.entity.vo.ChartConfVo;
-import com.chinawiserv.dsp.base.service.common.ICommonService;
 
 /**
  * <p>
@@ -13,5 +13,5 @@ import com.chinawiserv.dsp.base.service.common.ICommonService;
  * @since 2018-04-25
  */
 public interface IChartConfService extends ICommonService<ChartConf, ChartConfVo> {
-	
+
 }

@@ -1,11 +1,15 @@
 package com.chinawiserv.dsp.vm.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chinawiserv.dsp.base.common.util.ShiroUtils;
+import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.vm.entity.po.ChartMenuCustom;
 import com.chinawiserv.dsp.vm.entity.vo.ChartMenuCustomVo;
@@ -59,5 +63,20 @@ public class ChartMenuCustomServiceImpl extends CommonServiceImpl<ChartMenuCusto
 	public int selectVoCount(Map<String, Object> paramMap) throws Exception {
 		// todo
 		return 0;
+	}
+
+	@Override
+	public HandleResult selectChartListByUserAndMenu(String menuId) throws Exception {
+
+		HandleResult handleResult = new HandleResult();
+
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("menuId", menuId);
+		paramMap.put("user", ShiroUtils.getLoginUserId());
+		List<ChartMenuCustomVo> list = mapper.selectChartListByUserAndMenu(paramMap);
+		handleResult.put("data", list);
+		handleResult.success("查询成功");
+
+		return handleResult;
 	}
 }

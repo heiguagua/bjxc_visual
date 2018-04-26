@@ -49,8 +49,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartConf">
-        insert into vm_chart_conf(id,chart_code,chart_name,is_name_show,chart_desc,chart_type,chart_url,chart_time_type,chart_time_scope,status,create_user_id,create_time,update_user_id,update_time,) values(
-            #{id},#{chartCode},#{chartName},#{isNameShow},#{chartDesc},#{chartType},#{chartUrl},#{chartTimeType},#{chartTimeScope},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},        )
+        insert into vm_chart_conf(id,chart_code,chart_name,is_name_show,chart_desc,chart_type,chart_url,chart_time_type,chart_time_scope,status,create_user_id,create_time,update_user_id,update_time) values(
+            #{id},#{chartCode},#{chartName},#{isNameShow},#{chartDesc},#{chartType},#{chartUrl},#{chartTimeType},#{chartTimeScope},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime}        )
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartConf">
