@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.quota.mapper.IndictorComposeMapMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.quota.entity.po.IndictorComposeMap">
+                    <id column="id" property="id" />
+                                                                                <result column="indictor_id" property="indictorId" />
+                            <result column="source_indictor_id" property="sourceIndictorId" />
+                            <result column="source_indictor_variable" property="sourceIndictorVariable" />
+            	</resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.quota.entity.vo.IndictorComposeMapVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+                                <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+                                                                                        </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM im_indictor_compose_map t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM im_indictor_compose_map t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM im_indictor_compose_map t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.quota.entity.po.IndictorComposeMap">
+        insert into im_indictor_compose_map(id,indictor_id,source_indictor_id,source_indictor_variable,) values(
+            #{id},#{indictorId},#{sourceIndictorId},#{sourceIndictorVariable},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.quota.entity.po.IndictorComposeMap">
+        update im_indictor_compose_map
+        <set>
+                    <if test="id != null">
+                id = #{id},
+            </if>
+                    <if test="indictorId != null">
+                indictor_id = #{indictorId},
+            </if>
+                    <if test="sourceIndictorId != null">
+                source_indictor_id = #{sourceIndictorId},
+            </if>
+                    <if test="sourceIndictorVariable != null">
+                source_indictor_variable = #{sourceIndictorVariable},
+            </if>
+                </set>
+        where  id = #{id}            </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from im_indictor_compose_map <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+                                <if test="id != null">
+                id = #{id}
+            </if>
+                                                                                        </where>
+    </sql>
+
+
+
+</mapper>

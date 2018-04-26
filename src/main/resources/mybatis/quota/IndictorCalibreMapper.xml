@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinawiserv.dsp.quota.mapper.IndictorCalibreMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.quota.entity.po.IndictorCalibre">
+                    <id column="id" property="id" />
+                                                                                                                    <result column="category" property="category" />
+                            <result column="calibre_date" property="calibreDate" />
+                            <result column="code" property="code" />
+                            <result column="name" property="name" />
+                            <result column="fid" property="fid" />
+                            <result column="description" property="description" />
+            	</resultMap>
+
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.quota.entity.vo.IndictorCalibreVo">
+
+    </resultMap>
+
+    <!-- 通用查询过滤条件 -->
+    <sql id="queryConditions">
+        <where>
+                                <if test="id != null">
+                t.id = #{id,jdbcType=VARCHAR}
+            </if>
+                                                                                                                                                    </where>
+    </sql>
+
+    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    		SELECT t.* FROM im_indictor_calibre t <include refid="queryConditions"></include>
+    </select>
+
+    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+    	SELECT t.* FROM im_indictor_calibre t WHERE t.id = #{id}
+    </select>
+
+    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
+    	SELECT count(1) FROM im_indictor_calibre t <include refid="queryConditions"></include>
+    </select>
+
+    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.quota.entity.po.IndictorCalibre">
+        insert into im_indictor_calibre(id,category,calibre_date,code,name,fid,description,) values(
+            #{id},#{category},#{calibreDate},#{code},#{name},#{fid},#{description},        )
+    </insert>
+
+    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.quota.entity.po.IndictorCalibre">
+        update im_indictor_calibre
+        <set>
+                    <if test="id != null">
+                id = #{id},
+            </if>
+                    <if test="category != null">
+                category = #{category},
+            </if>
+                    <if test="calibreDate != null">
+                calibre_date = #{calibreDate},
+            </if>
+                    <if test="code != null">
+                code = #{code},
+            </if>
+                    <if test="name != null">
+                name = #{name},
+            </if>
+                    <if test="fid != null">
+                fid = #{fid},
+            </if>
+                    <if test="description != null">
+                description = #{description},
+            </if>
+                </set>
+        where  id = #{id}                  </update>
+
+    <delete id="baseDelete" parameterType="java.util.Map">
+        delete from im_indictor_calibre <include refid="deleteWhereCause"/>
+    </delete>
+
+    <sql id="deleteWhereCause">
+        <where>
+                                <if test="id != null">
+                id = #{id}
+            </if>
+                                                                                                                                                    </where>
+    </sql>
+
+
+
+</mapper>

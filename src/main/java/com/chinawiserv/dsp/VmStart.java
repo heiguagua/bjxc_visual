@@ -11,15 +11,16 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableCaching
 @EnableScheduling
+
 @ImportResource(locations = { "${config.location:classpath:}spring/spring-mvc.xml" })
 public class VmStart extends SpringBootServletInitializer {
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(VmStart.class);
-    }
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(VmStart.class);
+	}
 
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(VmStart.class, args);
-    }
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(VmStart.class, args);
+	}
 }
