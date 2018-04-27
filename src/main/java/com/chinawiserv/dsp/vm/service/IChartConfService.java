@@ -34,4 +34,13 @@ public interface IChartConfService extends ICommonService<ChartConf, ChartConfVo
 	 */
 	boolean deleteChartConfigById(String id) throws Exception;
 
+	/**
+	 * 编辑用户图标配置
+	 * 
+	 * @param paramsMap
+	 * @return
+	 * @throws Exception
+	 */
+	boolean editUsersChart(Map<String, Object> paramsMap) throws Exception;
+
 }

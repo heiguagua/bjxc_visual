@@ -75,6 +75,27 @@ public class ChartConfController extends BaseController {
 	}
 
 	/**
+	 * 编辑用户图表
+	 */
+	// @RequiresPermissions("XXX:XXX:add")
+	@Log("编辑系统图表配置表")
+	@RequestMapping("/editUsersChart")
+	@ResponseBody
+	public HandleResult editUsersChart(@RequestParam Map<String, Object> paramMap) {
+		HandleResult handleResult = new HandleResult();
+		try {
+			if (service.editUsersChart(paramMap))
+				handleResult.success("编辑系统图表配置表成功");
+			else
+				handleResult.error("编辑系统图表配置表失败");
+		} catch (Exception e) {
+			handleResult.error("编辑系统图表配置表失败");
+			logger.error("编辑系统图表配置表失败", e);
+		}
+		return handleResult;
+	}
+
+	/**
 	 * 删除系统图表配置表
 	 */
 	// @RequiresPermissions("XXX:XXX:delete")
