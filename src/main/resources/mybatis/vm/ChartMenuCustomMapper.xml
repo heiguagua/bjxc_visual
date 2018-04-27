@@ -114,6 +114,10 @@
 		</where>
 	</sql>
 
-
+	<!-- 根据图标id删除图表信息 -->
+	<delete id="deleteByChartId" parameterType="java.lang.String">
+		delete from vm_chart_menu_custom
+		where chart_id = #{chartId}
+	</delete>
 
 </mapper>

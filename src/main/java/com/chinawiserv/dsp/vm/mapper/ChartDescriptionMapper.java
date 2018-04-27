@@ -1,16 +1,16 @@
 package com.chinawiserv.dsp.vm.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.vm.entity.po.ChartDescription;
 import com.chinawiserv.dsp.vm.entity.vo.ChartDescriptionVo;
-import java.util.List;
-import java.util.Map;
-
 
 /**
  * <p>
-  * 图表指标描述信息 Mapper 接口
+ * 图表指标描述信息 Mapper 接口
  * </p>
  *
  * @author cranky123
@@ -18,15 +18,23 @@ import java.util.Map;
  */
 public interface ChartDescriptionMapper extends BaseMapper<ChartDescription> {
 
-    List<ChartDescriptionVo> selectVoPage(Page<ChartDescriptionVo> page, Map<String, Object> paramMap);
+	List<ChartDescriptionVo> selectVoPage(Page<ChartDescriptionVo> page, Map<String, Object> paramMap);
 
-    ChartDescriptionVo selectVoById(String id);
+	ChartDescriptionVo selectVoById(String id);
 
-    int selectVoCount(Map<String, Object> paramMap);
+	int selectVoCount(Map<String, Object> paramMap);
 
-    int baseInsert(ChartDescription entity);
+	int baseInsert(ChartDescription entity);
 
-    int baseUpdate(ChartDescription entity);
+	int baseUpdate(ChartDescription entity);
 
-    int baseDelete(String id);
+	int baseDelete(String id);
+
+	/**
+	 * 根据图标id删除图表信息
+	 * 
+	 * @param chartId
+	 * @return
+	 */
+	int deleteByChartId(String chartId);
 }

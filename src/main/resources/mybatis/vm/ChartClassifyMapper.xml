@@ -22,11 +22,14 @@
 
 	<!-- 通用查询过滤条件 -->
 	<sql id="queryConditions">
-		<where>
+		<trim prefix="where" prefixOverrides="and">
 			<if test="id != null">
-				t.id = #{id,jdbcType=VARCHAR}
+				and t.id = #{id,jdbcType=VARCHAR}
 			</if>
-		</where>
+			<if test="charId != null">
+				and t.char_id = #{charId,jdbcType=VARCHAR}
+			</if>
+		</trim>
 	</sql>
 
 	<select id="selectVoPage" parameterType="java.util.Map"
@@ -50,7 +53,8 @@
 		insert into
 		vm_chart_classify(id,chart_id,classify_name,classify_level,chart_type)
 		values(
-		#{id},#{chartId},#{classifyName},#{classifyLevel},#{chartType} )
+		#{id},#{chartId},#{classifyName},#{classifyLevel},#{chartType}
+		)
 	</insert>
 
 	<update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartClassify">
@@ -88,6 +92,11 @@
 		</where>
 	</sql>
 
-
+	<!-- 根据条件查询图标分类信息表 结果集为1 -->
+	<select id="selectOneByParams" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select t.* from vm_chart_classify t
+		<include refid="queryConditions"></include>
+	</select>
 
 </mapper>

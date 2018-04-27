@@ -1,6 +1,7 @@
 package com.chinawiserv.dsp.vm.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,7 +168,16 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 
 	@Override
 	public boolean deleteChartConfigById(String id) throws Exception {
-		// TODO Auto-generated method stub
+
+		chartConfMapper.deleteById(id);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("chartId", id);
+		String chartClassifyId = chartClassifyMapper.selectOneByParams(paramMap).getId();
+		chartClassifyMapper.deleteById(chartClassifyId);
+		chartDescIndictorMapMapper.deleteByChartId(id);
+		chartDescriptionMapperr.deleteByChartId(id);
+		chartMenuCustomMapper.deleteByChartId(id);
+		classifyIndictorMapMapper.deleteByClassifyId(chartClassifyId);
 		return false;
 	}
 

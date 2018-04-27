@@ -95,6 +95,10 @@
 		</where>
 	</sql>
 
-
+	<!-- 根据分类id删除图表分类与指标关系表 -->
+	<delete id="deleteByClassifyId" parameterType="java.lang.String">
+		delete from vm_classify_indictor_map
+		where classify_id = #{classifyId}
+	</delete>
 
 </mapper>

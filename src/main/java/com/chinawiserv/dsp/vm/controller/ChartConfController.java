@@ -79,9 +79,9 @@ public class ChartConfController extends BaseController {
 	 */
 	// @RequiresPermissions("XXX:XXX:delete")
 	@Log("删除系统图表配置表")
-	@RequestMapping("/delete")
+	@RequestMapping("/deleteByChartId")
 	@ResponseBody
-	public HandleResult delete(@RequestParam String id) {
+	public HandleResult deleteByChartId(@RequestParam String id) {
 		HandleResult handleResult = new HandleResult();
 		try {
 			if (service.deleteChartConfigById(id))
