@@ -157,6 +157,10 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 			 * classifyIndictorMapMapper.baseInsert(classifyIndictorMap);
 			 */
 
+			// 如果 存在附属指标 则更新
+
+			// 如果不存在附属指标 则新增
+
 		}
 
 		return true;
