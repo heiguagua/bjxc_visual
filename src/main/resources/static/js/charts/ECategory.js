@@ -1,4 +1,4 @@
-define(["jquery", "../../js/charts/ELine",'echarts'], function(jquery, ELine, echarts) {
+define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar"], function(jquery, ELine, ERadar) {
 
 	// constructor
 	function ECategory(etype, opts){
@@ -8,23 +8,23 @@ define(["jquery", "../../js/charts/ELine",'echarts'], function(jquery, ELine, ec
 		$('#chartWrapper').append(this.$el);
 		this.instnc = {};
 		switch(etype) {
-			case 'line':
+			case 'eline':
 				this.instnc = new ELine.init(el_id, this.opts);
 				break;
-			case 'pie':
-				this.instnc = new ELine.init(el_id, this.opts);
-				break;	
+			case 'earea':
+				this.instnc = new ELine.init(el_id, this.opts, etype);
+				break;
+			case 'eradar':
+				this.instnc = new ERadar.init(el_id, this.opts);
+				break;
 			
 			default:
-				this.instnc = new ELine.init(el_id, this.opts);
+				//this.instnc = new ELine.init(el_id, this.opts);
 		}
 		
 	}
 	
 	ECategory.DEFAULTS = {
-		tooltip: {
-		    trigger: 'axis'
-		},
 	}
 	
 	
