@@ -88,7 +88,7 @@ public class MpGenerator {
 		// "dcm_task_api_conf,dcm_task_crawler_conf,dcm_task_db_conf,dcm_task_scan_record,dcm_task_sd_column_conf,dcm_task_sf_conf,dcm_task_uf_record,dcm_task_usf_conf";
 		// String includeTableStr =
 		// "vm_chart_classify,vm_chart_conf,vm_chart_desc_indictor_map,vm_chart_description,vm_chart_menu_custom,vm_chart_menu_template,vm_classify_indictor_map";
-		String includeTableStr = "im_indictor,im_indictor_calibre,im_indictor_calibre_map,im_indictor_category,im_indictor_category_map,im_indictor_compose_map,im_indictor_data,im_indictor_data_source";
+		String includeTableStr = "im_indictor,im_indictor_category,im_indictor_classify,im_indictor_classify_map,im_indictor_compose_map,im_indictor_data,im_indictor_data_source";
 		if (org.apache.commons.lang.StringUtils.isNotBlank(includeTableStr)) {
 			String includeTableArr[] = includeTableStr.trim().split(",");
 			if (includeTableArr != null && includeTableArr.length > 0) {

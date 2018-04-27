@@ -6,14 +6,14 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 指标分类关系表 Po对象
+ * 指标分类方式关系表 Po对象
  * </p>
  *
  * @author cranky123
- * @since 2018-04-26
+ * @since 2018-04-27
  */
-@TableName("im_indictor_category_map")
-public class IndictorCategoryMap implements Serializable {
+@TableName("im_indictor_classify_map")
+public class IndictorClassifyMap implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,8 +24,8 @@ public class IndictorCategoryMap implements Serializable {
     /**
      * 分类ID
      */
-	@TableField("category_id")
-	private String categoryId;
+	@TableField("classify_id")
+	private String classifyId;
     /**
      * 指标ID
      */
@@ -41,12 +41,12 @@ public class IndictorCategoryMap implements Serializable {
 		this.id = id;
 	}
 
-	public String getCategoryId() {
-		return categoryId;
+	public String getClassifyId() {
+		return classifyId;
 	}
 
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public void setClassifyId(String classifyId) {
+		this.classifyId = classifyId;
 	}
 
 	public String getIndictorId() {

@@ -14,7 +14,7 @@ import java.util.Map;
  * </p>
  *
  * @author cranky123
- * @since 2018-04-26
+ * @since 2018-04-27
  */
 public interface IndictorCategoryMapper extends BaseMapper<IndictorCategory> {
 

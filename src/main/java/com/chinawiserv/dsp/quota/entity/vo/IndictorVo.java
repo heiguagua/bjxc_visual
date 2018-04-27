@@ -8,7 +8,7 @@ import com.chinawiserv.dsp.quota.entity.po.Indictor;
  * </p>
  *
  * @author cranky123
- * @since 2018-04-26
+ * @since 2018-04-27
  */
 public class IndictorVo extends Indictor{
 }

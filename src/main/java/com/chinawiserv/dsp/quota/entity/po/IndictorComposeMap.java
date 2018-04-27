@@ -10,7 +10,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author cranky123
- * @since 2018-04-26
+ * @since 2018-04-27
  */
 @TableName("im_indictor_compose_map")
 public class IndictorComposeMap implements Serializable {
@@ -22,7 +22,7 @@ public class IndictorComposeMap implements Serializable {
      */
 	private String id;
     /**
-     * 指标ID
+     * 统计指标ID
      */
 	@TableField("indictor_id")
 	private String indictorId;

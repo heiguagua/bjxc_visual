@@ -7,33 +7,33 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
-import com.chinawiserv.dsp.quota.entity.po.IndictorCategory;
-import com.chinawiserv.dsp.quota.entity.vo.IndictorCategoryVo;
-import com.chinawiserv.dsp.quota.mapper.IndictorCategoryMapper;
-import com.chinawiserv.dsp.quota.service.IIndictorCategoryService;
+import com.chinawiserv.dsp.quota.entity.po.IndictorClassify;
+import com.chinawiserv.dsp.quota.entity.vo.IndictorClassifyVo;
+import com.chinawiserv.dsp.quota.mapper.IndictorClassifyMapper;
+import com.chinawiserv.dsp.quota.service.IIndictorClassifyService;
 
 /**
  * <p>
- * 指标分类表 服务实现类
+ * 指标分类方式 服务实现类
  * </p>
  *
  * @author cranky123
  * @since 2018-04-27
  */
 @Service
-public class IndictorCategoryServiceImpl extends CommonServiceImpl<IndictorCategoryMapper, IndictorCategory, IndictorCategoryVo> implements IIndictorCategoryService {
+public class IndictorClassifyServiceImpl extends CommonServiceImpl<IndictorClassifyMapper, IndictorClassify, IndictorClassifyVo> implements IIndictorClassifyService {
 
 	@Autowired
-	private IndictorCategoryMapper mapper;
+	private IndictorClassifyMapper mapper;
 
 	@Override
-	public boolean insertVO(IndictorCategoryVo vo) throws Exception {
+	public boolean insertVO(IndictorClassifyVo vo) throws Exception {
 		// todo
 		return false;
 	}
 
 	@Override
-	public boolean updateVO(IndictorCategoryVo vo) throws Exception {
+	public boolean updateVO(IndictorClassifyVo vo) throws Exception {
 		// todo
 		return false;
 	}
@@ -45,12 +45,12 @@ public class IndictorCategoryServiceImpl extends CommonServiceImpl<IndictorCateg
 	}
 
 	@Override
-	public IndictorCategoryVo selectVoById(String id) throws Exception {
+	public IndictorClassifyVo selectVoById(String id) throws Exception {
 		return null;
 	}
 
 	@Override
-	public Page<IndictorCategoryVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
+	public Page<IndictorClassifyVo> selectVoPage(Map<String, Object> paramMap) throws Exception {
 		// todo
 		return null;
 	}

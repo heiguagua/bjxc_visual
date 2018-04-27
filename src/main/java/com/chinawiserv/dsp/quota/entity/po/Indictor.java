@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author cranky123
- * @since 2018-04-26
+ * @since 2018-04-27
  */
 @TableName("im_indictor")
 public class Indictor implements Serializable {
@@ -22,6 +22,10 @@ public class Indictor implements Serializable {
      * id
      */
 	private String id;
+    /**
+     * 指标类型（原始指标、统计指标）
+     */
+	private Integer type;
     /**
      * 指标编码
      */
@@ -35,6 +39,11 @@ public class Indictor implements Serializable {
      */
 	@TableField("show_name")
 	private String showName;
+    /**
+     * 指标分类ID
+     */
+	@TableField("category_id")
+	private String categoryId;
     /**
      * 来源单位
      */
@@ -55,11 +64,6 @@ public class Indictor implements Serializable {
      */
 	@TableField("indictor_desc")
 	private String indictorDesc;
-    /**
-     * 是否复合指标
-     */
-	@TableField("is_composite")
-	private Integer isComposite;
     /**
      * 来源关系定义
      */
@@ -99,6 +103,14 @@ public class Indictor implements Serializable {
 		this.id = id;
 	}
 
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
 	public String getCode() {
 		return code;
 	}
@@ -121,6 +133,14 @@ public class Indictor implements Serializable {
 
 	public void setShowName(String showName) {
 		this.showName = showName;
+	}
+
+	public String getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getSourceDept() {
@@ -153,14 +173,6 @@ public class Indictor implements Serializable {
 
 	public void setIndictorDesc(String indictorDesc) {
 		this.indictorDesc = indictorDesc;
-	}
-
-	public Integer getIsComposite() {
-		return isComposite;
-	}
-
-	public void setIsComposite(Integer isComposite) {
-		this.isComposite = isComposite;
 	}
 
 	public String getSourceConf() {

@@ -17,25 +17,25 @@ import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.entity.po.common.response.PageResult;
-import com.chinawiserv.dsp.quota.entity.vo.IndictorCategoryMapVo;
-import com.chinawiserv.dsp.quota.service.IIndictorCategoryMapService;
+import com.chinawiserv.dsp.quota.entity.vo.IndictorClassifyMapVo;
+import com.chinawiserv.dsp.quota.service.IIndictorClassifyMapService;
 
 /**
  * <p>
- * 指标分类关系表 前端控制器
+ * 指标分类方式关系表 前端控制器
  * </p>
  *
  * @author cranky123
- * @since 2018-04-26
+ * @since 2018-04-27
  */
 @Controller
-@RequestMapping("/indictorCategoryMap")
+@RequestMapping("/indictorClassifyMap")
 // todo 将所有的XXX修改为真实值
-public class IndictorCategoryMapController extends BaseController {
+public class IndictorClassifyMapController extends BaseController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private IIndictorCategoryMapService service;
+	private IIndictorClassifyMapService service;
 
 	@RequiresPermissions("XXX:XXX:list")
 	@RequestMapping("")
@@ -45,7 +45,7 @@ public class IndictorCategoryMapController extends BaseController {
 	}
 
 	/**
-	 * 分页查询指标分类关系表
+	 * 分页查询指标分类方式关系表
 	 */
 	@RequiresPermissions("XXX:XXX:list")
 	@RequestMapping("/list")
@@ -53,17 +53,17 @@ public class IndictorCategoryMapController extends BaseController {
 	public PageResult list(@RequestParam Map<String, Object> paramMap) {
 		PageResult pageResult = new PageResult();
 		try {
-			Page<IndictorCategoryMapVo> page = service.selectVoPage(paramMap);
+			Page<IndictorClassifyMapVo> page = service.selectVoPage(paramMap);
 			pageResult.setPage(page);
 		} catch (Exception e) {
-			pageResult.error("分页查询指标分类关系表出错");
-			logger.error("分页查询指标分类关系表出错", e);
+			pageResult.error("分页查询指标分类方式关系表出错");
+			logger.error("分页查询指标分类方式关系表出错", e);
 		}
 		return pageResult;
 	}
 
 	/**
-	 * 新增指标分类关系表
+	 * 新增指标分类方式关系表
 	 */
 	@RequiresPermissions("XXX:XXX:add")
 	@RequestMapping("/add")
@@ -75,36 +75,36 @@ public class IndictorCategoryMapController extends BaseController {
 	 * 执行新增
 	 */
 	@RequiresPermissions("XXX:XXX:add")
-	@Log("创建指标分类关系表")
+	@Log("创建指标分类方式关系表")
 	@RequestMapping("/doAdd")
 	@ResponseBody
-	public HandleResult doAdd(IndictorCategoryMapVo entity) {
+	public HandleResult doAdd(IndictorClassifyMapVo entity) {
 		HandleResult handleResult = new HandleResult();
 		try {
 			service.insertVO(entity);
-			handleResult.success("创建指标分类关系表成功");
+			handleResult.success("创建指标分类方式关系表成功");
 		} catch (Exception e) {
-			handleResult.error("创建指标分类关系表失败");
-			logger.error("创建指标分类关系表失败", e);
+			handleResult.error("创建指标分类方式关系表失败");
+			logger.error("创建指标分类方式关系表失败", e);
 		}
 		return handleResult;
 	}
 
 	/**
-	 * 删除指标分类关系表
+	 * 删除指标分类方式关系表
 	 */
 	@RequiresPermissions("XXX:XXX:delete")
-	@Log("删除指标分类关系表")
+	@Log("删除指标分类方式关系表")
 	@RequestMapping("/delete")
 	@ResponseBody
 	public HandleResult delete(@RequestParam String id) {
 		// todo 逻辑删除
 		// service.deleteById(id);
-		return new HandleResult().success("删除指标分类关系表成功");
+		return new HandleResult().success("删除指标分类方式关系表成功");
 	}
 
 	/**
-	 * 编辑指标分类关系表
+	 * 编辑指标分类方式关系表
 	 */
 	@RequiresPermissions("XXX:XXX:edit")
 	@RequestMapping("/edit")
@@ -119,11 +119,11 @@ public class IndictorCategoryMapController extends BaseController {
 	public HandleResult editLoad(@RequestParam String id) {
 		HandleResult handleResult = new HandleResult();
 		try {
-			IndictorCategoryMapVo vo = service.selectVoById(id);
+			IndictorClassifyMapVo vo = service.selectVoById(id);
 			handleResult.put("vo", vo);
 		} catch (Exception e) {
-			handleResult.error("获取指标分类关系表信息失败");
-			logger.error("获取指标分类关系表信息失败", e);
+			handleResult.error("获取指标分类方式关系表信息失败");
+			logger.error("获取指标分类方式关系表信息失败", e);
 		}
 		return handleResult;
 	}
@@ -132,17 +132,17 @@ public class IndictorCategoryMapController extends BaseController {
 	 * 执行编辑
 	 */
 	@RequiresPermissions("XXX:XXX:edit")
-	@Log("编辑指标分类关系表")
+	@Log("编辑指标分类方式关系表")
 	@RequestMapping("/doEdit")
 	@ResponseBody
-	public HandleResult doEdit(IndictorCategoryMapVo entity, Model model) {
+	public HandleResult doEdit(IndictorClassifyMapVo entity, Model model) {
 		HandleResult handleResult = new HandleResult();
 		try {
 			service.updateVO(entity);
-			handleResult.success("编辑指标分类关系表成功");
+			handleResult.success("编辑指标分类方式关系表成功");
 		} catch (Exception e) {
-			handleResult.error("编辑指标分类关系表失败");
-			logger.error("编辑指标分类关系表失败", e);
+			handleResult.error("编辑指标分类方式关系表失败");
+			logger.error("编辑指标分类方式关系表失败", e);
 		}
 		return handleResult;
 	}

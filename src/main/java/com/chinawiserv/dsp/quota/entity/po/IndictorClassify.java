@@ -7,14 +7,14 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 指标统计口径 Po对象
+ * 指标分类方式 Po对象
  * </p>
  *
  * @author cranky123
- * @since 2018-04-26
+ * @since 2018-04-27
  */
-@TableName("im_indictor_calibre")
-public class IndictorCalibre implements Serializable {
+@TableName("im_indictor_classify")
+public class IndictorClassify implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,26 +23,31 @@ public class IndictorCalibre implements Serializable {
      */
 	private String id;
     /**
-     * 口径标准类型
+     * 分类方式类型
      */
 	private String category;
     /**
-     * 统计时间
-     */
-	@TableField("calibre_date")
-	private Date calibreDate;
-    /**
-     * 口径编码
+     * 分类编码
      */
 	private String code;
     /**
-     * 口径名称
+     * 分类名称
      */
 	private String name;
     /**
-     * 上级口径
+     * 上级分类
      */
 	private String fid;
+    /**
+     * 有效期起
+     */
+	@TableField("validate_from")
+	private Date validateFrom;
+    /**
+     * 有效期止
+     */
+	@TableField("validate_to")
+	private Date validateTo;
     /**
      * 描述
      */
@@ -63,14 +68,6 @@ public class IndictorCalibre implements Serializable {
 
 	public void setCategory(String category) {
 		this.category = category;
-	}
-
-	public Date getCalibreDate() {
-		return calibreDate;
-	}
-
-	public void setCalibreDate(Date calibreDate) {
-		this.calibreDate = calibreDate;
 	}
 
 	public String getCode() {
@@ -95,6 +92,22 @@ public class IndictorCalibre implements Serializable {
 
 	public void setFid(String fid) {
 		this.fid = fid;
+	}
+
+	public Date getValidateFrom() {
+		return validateFrom;
+	}
+
+	public void setValidateFrom(Date validateFrom) {
+		this.validateFrom = validateFrom;
+	}
+
+	public Date getValidateTo() {
+		return validateTo;
+	}
+
+	public void setValidateTo(Date validateTo) {
+		this.validateTo = validateTo;
 	}
 
 	public String getDescription() {

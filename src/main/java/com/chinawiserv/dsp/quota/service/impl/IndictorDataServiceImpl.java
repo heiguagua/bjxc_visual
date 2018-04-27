@@ -18,7 +18,7 @@ import com.chinawiserv.dsp.quota.service.IIndictorDataService;
  * </p>
  *
  * @author cranky123
- * @since 2018-04-26
+ * @since 2018-04-27
  */
 @Service
 public class IndictorDataServiceImpl extends CommonServiceImpl<IndictorDataMapper, IndictorData, IndictorDataVo> implements IIndictorDataService {

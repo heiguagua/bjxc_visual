@@ -8,14 +8,15 @@
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.quota.entity.po.Indictor">
                     <id column="id" property="id" />
-                                                                                                                                                                                                                    <result column="code" property="code" />
+                                                                                                                                                                                                                                <result column="type" property="type" />
+                            <result column="code" property="code" />
                             <result column="name" property="name" />
                             <result column="show_name" property="showName" />
+                            <result column="category_id" property="categoryId" />
                             <result column="source_dept" property="sourceDept" />
                             <result column="measure_unit" property="measureUnit" />
                             <result column="update_frequency" property="updateFrequency" />
                             <result column="indictor_desc" property="indictorDesc" />
-                            <result column="is_composite" property="isComposite" />
                             <result column="source_conf" property="sourceConf" />
                             <result column="status" property="status" />
                             <result column="create_user_id" property="createUserId" />
@@ -34,7 +35,7 @@
                                 <if test="id != null">
                 t.id = #{id,jdbcType=VARCHAR}
             </if>
-                                                                                                                                                                                                                                                                                                                    </where>
+                                                                                                                                                                                                                                                                                                                                        </where>
     </sql>
 
     <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
@@ -50,8 +51,8 @@
     </select>
 
     <insert id="baseInsert" parameterType="com.chinawiserv.dsp.quota.entity.po.Indictor">
-        insert into im_indictor(id,code,name,show_name,source_dept,measure_unit,update_frequency,indictor_desc,is_composite,source_conf,status,create_user_id,create_time,update_user_id,update_time,) values(
-            #{id},#{code},#{name},#{showName},#{sourceDept},#{measureUnit},#{updateFrequency},#{indictorDesc},#{isComposite},#{sourceConf},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},        )
+        insert into im_indictor(id,type,code,name,show_name,category_id,source_dept,measure_unit,update_frequency,indictor_desc,source_conf,status,create_user_id,create_time,update_user_id,update_time,) values(
+            #{id},#{type},#{code},#{name},#{showName},#{categoryId},#{sourceDept},#{measureUnit},#{updateFrequency},#{indictorDesc},#{sourceConf},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},        )
     </insert>
 
     <update id="baseUpdate" parameterType="com.chinawiserv.dsp.quota.entity.po.Indictor">
@@ -59,6 +60,9 @@
         <set>
                     <if test="id != null">
                 id = #{id},
+            </if>
+                    <if test="type != null">
+                type = #{type},
             </if>
                     <if test="code != null">
                 code = #{code},
@@ -68,6 +72,9 @@
             </if>
                     <if test="showName != null">
                 show_name = #{showName},
+            </if>
+                    <if test="categoryId != null">
+                category_id = #{categoryId},
             </if>
                     <if test="sourceDept != null">
                 source_dept = #{sourceDept},
@@ -80,9 +87,6 @@
             </if>
                     <if test="indictorDesc != null">
                 indictor_desc = #{indictorDesc},
-            </if>
-                    <if test="isComposite != null">
-                is_composite = #{isComposite},
             </if>
                     <if test="sourceConf != null">
                 source_conf = #{sourceConf},
@@ -103,7 +107,7 @@
                 update_time = #{updateTime},
             </if>
                 </set>
-        where  id = #{id}                                  </update>
+        where  id = #{id}                                    </update>
 
     <delete id="baseDelete" parameterType="java.util.Map">
         delete from im_indictor <include refid="deleteWhereCause"/>
@@ -114,7 +118,7 @@
                                 <if test="id != null">
                 id = #{id}
             </if>
-                                                                                                                                                                                                                                                                                                                    </where>
+                                                                                                                                                                                                                                                                                                                                        </where>
     </sql>
 
 
