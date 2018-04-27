@@ -3,80 +3,100 @@
 <mapper namespace="com.chinawiserv.dsp.vm.mapper.ChartClassifyMapper">
 
 	<!-- 开启二级缓存 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.vm.entity.po.ChartClassify">
-                    <id column="id" property="id" />
-                                                                                            <result column="chart_id" property="chartId" />
-                            <result column="classify_name" property="classifyName" />
-                            <result column="classify_level" property="classifyLevel" />
-                            <result column="chart_type" property="chartType" />
-            	</resultMap>
+	<resultMap id="BaseResultMap"
+		type="com.chinawiserv.dsp.vm.entity.po.ChartClassify">
+		<id column="id" property="id" />
+		<result column="chart_id" property="chartId" />
+		<result column="classify_name" property="classifyName" />
+		<result column="classify_level" property="classifyLevel" />
+		<result column="chart_type" property="chartType" />
+	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.vm.entity.vo.ChartClassifyVo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
+		type="com.chinawiserv.dsp.vm.entity.vo.ChartClassifyVo">
 
-    </resultMap>
+	</resultMap>
 
-    <!-- 通用查询过滤条件 -->
-    <sql id="queryConditions">
-        <where>
-                                <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
-            </if>
-                                                                                                            </where>
-    </sql>
+	<!-- 通用查询过滤条件 -->
+	<sql id="queryConditions">
+		<trim prefix="where" prefixOverrides="and">
+			<if test="id != null">
+				and t.id = #{id,jdbcType=VARCHAR}
+			</if>
+			<if test="charId != null">
+				and t.char_id = #{charId,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</sql>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-    		SELECT t.* FROM vm_chart_classify t <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoPage" parameterType="java.util.Map"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM vm_chart_classify t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-    	SELECT t.* FROM vm_chart_classify t WHERE t.id = #{id}
-    </select>
+	<select id="selectVoById" parameterType="java.lang.String"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM vm_chart_classify t WHERE t.id = #{id}
+	</select>
 
-    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
-    	SELECT count(1) FROM vm_chart_classify t <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT count(1) FROM vm_chart_classify t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartClassify">
-        insert into vm_chart_classify(id,chart_id,classify_name,classify_level,chart_type,) values(
-            #{id},#{chartId},#{classifyName},#{classifyLevel},#{chartType},        )
-    </insert>
+	<insert id="baseInsert" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartClassify">
+		insert into
+		vm_chart_classify(id,chart_id,classify_name,classify_level,chart_type)
+		values(
+		#{id},#{chartId},#{classifyName},#{classifyLevel},#{chartType}
+		)
+	</insert>
 
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartClassify">
-        update vm_chart_classify
-        <set>
-                    <if test="id != null">
-                id = #{id},
-            </if>
-                    <if test="chartId != null">
-                chart_id = #{chartId},
-            </if>
-                    <if test="classifyName != null">
-                classify_name = #{classifyName},
-            </if>
-                    <if test="classifyLevel != null">
-                classify_level = #{classifyLevel},
-            </if>
-                    <if test="chartType != null">
-                chart_type = #{chartType},
-            </if>
-                </set>
-        where  id = #{id}              </update>
+	<update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartClassify">
+		update vm_chart_classify
+		<set>
+			<if test="id != null">
+				id = #{id},
+			</if>
+			<if test="chartId != null">
+				chart_id = #{chartId},
+			</if>
+			<if test="classifyName != null">
+				classify_name = #{classifyName},
+			</if>
+			<if test="classifyLevel != null">
+				classify_level = #{classifyLevel},
+			</if>
+			<if test="chartType != null">
+				chart_type = #{chartType},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
 
-    <delete id="baseDelete" parameterType="java.util.Map">
-        delete from vm_chart_classify <include refid="deleteWhereCause"/>
-    </delete>
+	<delete id="baseDelete" parameterType="java.util.Map">
+		delete from vm_chart_classify
+		<include refid="deleteWhereCause" />
+	</delete>
 
-    <sql id="deleteWhereCause">
-        <where>
-                                <if test="id != null">
-                id = #{id}
-            </if>
-                                                                                                            </where>
-    </sql>
+	<sql id="deleteWhereCause">
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</where>
+	</sql>
 
-
+	<!-- 根据条件查询图标分类信息表 结果集为1 -->
+	<select id="selectOneByParams" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select t.* from vm_chart_classify t
+		<include refid="queryConditions"></include>
+	</select>
 
 </mapper>

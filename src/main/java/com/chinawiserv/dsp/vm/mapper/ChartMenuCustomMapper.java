@@ -37,4 +37,12 @@ public interface ChartMenuCustomMapper extends BaseMapper<ChartMenuCustom> {
 	 * @return
 	 */
 	List<ChartMenuCustomVo> selectChartListByUserAndMenu(Map<String, Object> paramMap);
+
+	/**
+	 * 根据图标id删除图表信息
+	 * 
+	 * @param chartId
+	 * @return
+	 */
+	int deleteByChartId(String chartId);
 }

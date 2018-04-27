@@ -9,7 +9,7 @@
 	<resultMap id="BaseResultMap"
 		type="com.chinawiserv.dsp.vm.entity.po.ChartMenuCustom">
 		<id column="id" property="id" />
-		<result column="char_id" property="charId" />
+		<result column="chart_id" property="chartId" />
 		<result column="menu_id" property="menuId" />
 		<result column="location" property="location" />
 		<result column="show_order" property="showOrder" />
@@ -25,16 +25,17 @@
 	<select id="selectChartListByUserAndMenu" parameterType="java.util.Map"
 		resultMap="BaseResultVoMap">
 		SELECT
-		t.id,t.char_id,t.menu_id,t.location,t.show_order,t.user,
+		t.id,t.chart_id,t.menu_id,t.location,t.show_order,t.user,
 		t1.chart_code,t1.chart_name,t1.is_name_show,t1.chart_desc,t1.chart_type,t1.chart_url
 		FROM vm_chart_menu_custom t
-		LEFT JOIN vm_chart_conf t1 ON t.char_id=t1.id
+		LEFT JOIN vm_chart_conf t1 ON
+		t.char_id=t1.id
 		<include refid="queryConditions"></include>
 	</select>
 
 	<!-- 通用查询过滤条件 -->
 	<sql id="queryConditions">
-		 <trim prefix="where" prefixOverrides="and">
+		<trim prefix="where" prefixOverrides="and">
 			<if test="id != null">
 				and t.id = #{id,jdbcType=VARCHAR}
 			</if>
@@ -70,9 +71,9 @@
 
 	<insert id="baseInsert" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartMenuCustom">
 		insert into
-		vm_chart_menu_custom(id,char_id,menu_id,location,show_order,user)
+		vm_chart_menu_custom(id,chart_id,menu_id,location,show_order,user)
 		values(
-		#{id},#{charId},#{menuId},#{location},#{showOrder},#{user} )
+		#{id},#{chartId},#{menuId},#{location},#{showOrder},#{user} )
 	</insert>
 
 	<update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartMenuCustom">
@@ -81,8 +82,8 @@
 			<if test="id != null">
 				id = #{id},
 			</if>
-			<if test="charId != null">
-				char_id = #{charId},
+			<if test="chartId != null">
+				chart_id = #{chartId},
 			</if>
 			<if test="menuId != null">
 				menu_id = #{menuId},
@@ -113,6 +114,10 @@
 		</where>
 	</sql>
 
-
+	<!-- 根据图标id删除图表信息 -->
+	<delete id="deleteByChartId" parameterType="java.lang.String">
+		delete from vm_chart_menu_custom
+		where chart_id = #{chartId}
+	</delete>
 
 </mapper>

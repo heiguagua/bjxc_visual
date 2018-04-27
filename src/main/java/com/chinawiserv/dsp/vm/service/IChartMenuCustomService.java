@@ -15,6 +15,13 @@ import com.chinawiserv.dsp.vm.entity.vo.ChartMenuCustomVo;
  */
 public interface IChartMenuCustomService extends ICommonService<ChartMenuCustom, ChartMenuCustomVo> {
 
+	/**
+	 * 根据菜单Id 用户Id 查询 当前页的图表信息
+	 * 
+	 * @param menuId
+	 * @return
+	 * @throws Exception
+	 */
 	public HandleResult selectChartListByUserAndMenu(String menuId) throws Exception;
 
 }

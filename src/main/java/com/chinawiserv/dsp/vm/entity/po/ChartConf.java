@@ -1,9 +1,10 @@
 package com.chinawiserv.dsp.vm.entity.po;
 
+import java.io.Serializable;
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -16,77 +17,95 @@ import java.io.Serializable;
 @TableName("vm_chart_conf")
 public class ChartConf implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * id
-     */
+	/**
+	 * id
+	 */
 	private String id;
-    /**
-     * 图表编号
-     */
+
+	/**
+	 * 图表编号
+	 */
 	@TableField("chart_code")
 	private String chartCode;
-    /**
-     * 图表标题
-     */
+
+	/**
+	 * 图表标题
+	 */
 	@TableField("chart_name")
 	private String chartName;
-    /**
-     * 标题是否显示
-     */
+
+	/**
+	 * 标题是否显示
+	 */
 	@TableField("is_name_show")
 	private Integer isNameShow;
-    /**
-     * 图表描述
-     */
+
+	/**
+	 * 图表描述
+	 */
 	@TableField("chart_desc")
 	private String chartDesc;
-    /**
-     * 图表类型
-     */
+
+	/**
+	 * 图表类型
+	 */
 	@TableField("chart_type")
 	private String chartType;
-    /**
-     * 图表URL
-     */
+
+	/**
+	 * 图表URL
+	 */
 	@TableField("chart_url")
 	private String chartUrl;
-    /**
-     * 图表时间范围类型
-     */
+
+	/**
+	 * 图表时间范围类型
+	 */
 	@TableField("chart_time_type")
 	private String chartTimeType;
-    /**
-     * 图表时间范围取值
-     */
+
+	/**
+	 * 图表时间范围取值
+	 */
 	@TableField("chart_time_scope")
 	private String chartTimeScope;
-    /**
-     * 状态
-     */
+
+	/**
+	 * 状态
+	 */
 	private Integer status;
-    /**
-     * 创建人
-     */
+
+	/**
+	 * 创建人
+	 */
 	@TableField("create_user_id")
 	private String createUserId;
-    /**
-     * 创建时间
-     */
+
+	/**
+	 * 创建时间
+	 */
 	@TableField("create_time")
 	private Date createTime;
-    /**
-     * 更新人
-     */
+
+	/**
+	 * 更新人
+	 */
 	@TableField("update_user_id")
 	private String updateUserId;
-    /**
-     * 更新时间
-     */
+
+	/**
+	 * 更新时间
+	 */
 	@TableField("update_time")
 	private Date updateTime;
 
+	/**
+	 * 标题是否显示
+	 */
+	@TableField("has_sub_indictor")
+	private Integer hasSubIndictor;
 
 	public String getId() {
 		return id;
@@ -198,6 +217,14 @@ public class ChartConf implements Serializable {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Integer getHasSubIndictor() {
+		return hasSubIndictor;
+	}
+
+	public void setHasSubIndictor(Integer hasSubIndictor) {
+		this.hasSubIndictor = hasSubIndictor;
 	}
 
 }

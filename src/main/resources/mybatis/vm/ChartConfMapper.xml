@@ -3,115 +3,177 @@
 <mapper namespace="com.chinawiserv.dsp.vm.mapper.ChartConfMapper">
 
 	<!-- 开启二级缓存 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.vm.entity.po.ChartConf">
-                    <id column="id" property="id" />
-                                                                                                                                                                                                        <result column="chart_code" property="chartCode" />
-                            <result column="chart_name" property="chartName" />
-                            <result column="is_name_show" property="isNameShow" />
-                            <result column="chart_desc" property="chartDesc" />
-                            <result column="chart_type" property="chartType" />
-                            <result column="chart_url" property="chartUrl" />
-                            <result column="chart_time_type" property="chartTimeType" />
-                            <result column="chart_time_scope" property="chartTimeScope" />
-                            <result column="status" property="status" />
-                            <result column="create_user_id" property="createUserId" />
-                            <result column="create_time" property="createTime" />
-                            <result column="update_user_id" property="updateUserId" />
-                            <result column="update_time" property="updateTime" />
-            	</resultMap>
+		<id column="id" property="id" />
+		<result column="chart_code" property="chartCode" />
+		<result column="chart_name" property="chartName" />
+		<result column="is_name_show" property="isNameShow" />
+		<result column="chart_desc" property="chartDesc" />
+		<result column="chart_type" property="chartType" />
+		<result column="chart_url" property="chartUrl" />
+		<result column="chart_time_type" property="chartTimeType" />
+		<result column="chart_time_scope" property="chartTimeScope" />
+		<result column="status" property="status" />
+		<result column="create_user_id" property="createUserId" />
+		<result column="create_time" property="createTime" />
+		<result column="update_user_id" property="updateUserId" />
+		<result column="update_time" property="updateTime" />
+		<result column="has_sub_indictor" property="hasSubIndictor" />
+	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.vm.entity.vo.ChartConfVo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
+		type="com.chinawiserv.dsp.vm.entity.vo.ChartConfVo">
+		<result column="classify_name" property="classifyName" />
+		<result column="classify_level" property="classifyLevel" />
+		<result column="classify_chart_type" property="chartType" />
+		<result column="sub_indictor_code" property="subIndictorCode" />
+		<result column="sub_indictor_show_name" property="subIndictorShowName" />
+		<result column="sub_title" property="subTitle" />
+		<result column="description" property="description" />
+		<result column="location" property="location" />
+		<result column="show_order" property="showOrder" />
+		<result column="indictor_code" property="indictorCode" />
+		<result column="indictor_show_name" property="indictorShowName" />
+		<result column="highlight_flag" property="highlightFlag" />
+		<result column="point_num" property="pointNum" />
+		
+		<result column="classify_id" property="classify_id" />
+		<result column="chart_desc_indictor_map_id" property="chartDescIndictorMapId" />
+		<result column="chart_description_id" property="chartDescriptionId" />
+		<result column="chart_menu_custom_id" property="chartMenuCustomId" />
+		<result column="classify_indictor_map_id" property="classifyIndictorMapId" />
 
-    </resultMap>
 
-    <!-- 通用查询过滤条件 -->
-    <sql id="queryConditions">
-        <where>
-                                <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
-            </if>
-                                                                                                                                                                                                                                                                                                </where>
-    </sql>
+	</resultMap>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-    		SELECT t.* FROM vm_chart_conf t <include refid="queryConditions"></include>
-    </select>
+	<!-- 通用查询过滤条件 -->
+	<sql id="queryConditions">
+		<where>
+			<if test="id != null">
+				t.id = #{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
 
-    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-    	SELECT t.* FROM vm_chart_conf t WHERE t.id = #{id}
-    </select>
+	<select id="selectVoPage" parameterType="java.util.Map"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM vm_chart_conf t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
-    	SELECT count(1) FROM vm_chart_conf t <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoById" parameterType="java.lang.String"
+		resultMap="BaseResultVoMap">
+		SELECT
+		t.*, t1.id AS classify_id,
+		t1.classify_name,
+		t1.classify_level,
+		t1.chart_type AS classify_chart_type,
+		t2.id AS chart_desc_indictor_map_id,
+		t2.indictor_code AS sub_indictor_code,
+		t2.indictor_show_name AS sub_indictor_show_name,
+		t3.sub_title,
+		t3.description,
+		t3.id AS chart_description_id,
+		t4.location,
+		t4.show_order,
+		t4.id AS chart_menu_custom_id,
+		t5.indictor_code,
+		t5.indictor_show_name,
+		t5.highlight_flag,
+		t5.point_num,
+		t5.id AS classify_indictor_map_id
+		FROM
+		vm_chart_conf t
+		LEFT JOIN vm_chart_classify t1 ON t.id = t1.chart_id
+		LEFT JOIN vm_chart_desc_indictor_map t2 ON t.id = t2.chart_id
+		LEFT JOIN vm_chart_description t3 ON t.id = t3.chart_id
+		LEFT JOIN vm_chart_menu_custom t4 ON t.id = t4.chart_id
+		LEFT JOIN vm_classify_indictor_map t5 ON t1.id = t5.classify_id
+		WHERE t.id
+		=#{id}
+	</select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartConf">
-        insert into vm_chart_conf(id,chart_code,chart_name,is_name_show,chart_desc,chart_type,chart_url,chart_time_type,chart_time_scope,status,create_user_id,create_time,update_user_id,update_time) values(
-            #{id},#{chartCode},#{chartName},#{isNameShow},#{chartDesc},#{chartType},#{chartUrl},#{chartTimeType},#{chartTimeScope},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime}        )
-    </insert>
+	<select id="selectVoCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT count(1) FROM vm_chart_conf t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartConf">
-        update vm_chart_conf
-        <set>
-                    <if test="id != null">
-                id = #{id},
-            </if>
-                    <if test="chartCode != null">
-                chart_code = #{chartCode},
-            </if>
-                    <if test="chartName != null">
-                chart_name = #{chartName},
-            </if>
-                    <if test="isNameShow != null">
-                is_name_show = #{isNameShow},
-            </if>
-                    <if test="chartDesc != null">
-                chart_desc = #{chartDesc},
-            </if>
-                    <if test="chartType != null">
-                chart_type = #{chartType},
-            </if>
-                    <if test="chartUrl != null">
-                chart_url = #{chartUrl},
-            </if>
-                    <if test="chartTimeType != null">
-                chart_time_type = #{chartTimeType},
-            </if>
-                    <if test="chartTimeScope != null">
-                chart_time_scope = #{chartTimeScope},
-            </if>
-                    <if test="status != null">
-                status = #{status},
-            </if>
-                    <if test="createUserId != null">
-                create_user_id = #{createUserId},
-            </if>
-                    <if test="createTime != null">
-                create_time = #{createTime},
-            </if>
-                    <if test="updateUserId != null">
-                update_user_id = #{updateUserId},
-            </if>
-                    <if test="updateTime != null">
-                update_time = #{updateTime},
-            </if>
-                </set>
-        where  id = #{id}                                </update>
+	<insert id="baseInsert" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartConf">
+		insert into
+		vm_chart_conf(id,chart_code,chart_name,is_name_show,chart_desc,chart_type,chart_url,chart_time_type,chart_time_scope,status,create_user_id,create_time,update_user_id,update_time,has_sub_indictor)
+		values(
+		#{id},#{chartCode},#{chartName},#{isNameShow},#{chartDesc},#{chartType},#{chartUrl},#{chartTimeType},#{chartTimeScope},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{hasSubIndictor}
+		)
+	</insert>
 
-    <delete id="baseDelete" parameterType="java.util.Map">
-        delete from vm_chart_conf <include refid="deleteWhereCause"/>
-    </delete>
+	<update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartConf">
+		update vm_chart_conf
+		<set>
+			<if test="id != null">
+				id = #{id},
+			</if>
+			<if test="chartCode != null">
+				chart_code = #{chartCode},
+			</if>
+			<if test="chartName != null">
+				chart_name = #{chartName},
+			</if>
+			<if test="isNameShow != null">
+				is_name_show = #{isNameShow},
+			</if>
+			<if test="chartDesc != null">
+				chart_desc = #{chartDesc},
+			</if>
+			<if test="chartType != null">
+				chart_type = #{chartType},
+			</if>
+			<if test="chartUrl != null">
+				chart_url = #{chartUrl},
+			</if>
+			<if test="chartTimeType != null">
+				chart_time_type = #{chartTimeType},
+			</if>
+			<if test="chartTimeScope != null">
+				chart_time_scope = #{chartTimeScope},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="createUserId != null">
+				create_user_id = #{createUserId},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="updateUserId != null">
+				update_user_id = #{updateUserId},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+			<if test="hasSubIndictor != null">
+				has_sub_indictor = #{hasSubIndictor},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
 
-    <sql id="deleteWhereCause">
-        <where>
-                                <if test="id != null">
-                id = #{id}
-            </if>
-                                                                                                                                                                                                                                                                                                </where>
-    </sql>
+	<delete id="baseDelete" parameterType="java.util.Map">
+		delete from vm_chart_conf
+		<include refid="deleteWhereCause" />
+	</delete>
+
+	<sql id="deleteWhereCause">
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</where>
+	</sql>
 
 
 
