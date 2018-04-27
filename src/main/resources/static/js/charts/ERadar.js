@@ -89,25 +89,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 		return indicator_data_format;
 	}
 	
-	// 二维数组矩阵转置
-	Array.prototype.transpose = function() {
-		console.log(this);
-		var length = this.length;
-		var arr_new = [];
-		if(length != 0) {
-			// 初始化，确定有多少行
-			for(var i=0; i<this[0].length; i++) {
-				arr_new[i] = [];
-			}
-			for(var i=0;i<this.length;i++){
-		        for(var j=0;j<this[i].length;j++){
-		            //动态添加数据到arr_new数组中
-		        	arr_new[j][i]=this[i][j];
-		        }
-		    }
-		}
-		return arr_new;
-	}
+	
 	
 	return {
 		init: ERadar

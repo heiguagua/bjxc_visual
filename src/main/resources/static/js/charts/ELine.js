@@ -75,10 +75,6 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 	ELine.DEFAULTS = {
 	}
 	
-	ELine.prototype.draw = function() {
-		
-	}
-	
 	ELine.prototype.serDataFormatter = function() {
 		var serData = this.opts.serData;
 		var ser_data_format = [];

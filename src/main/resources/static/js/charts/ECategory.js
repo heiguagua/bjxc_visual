@@ -1,4 +1,4 @@
-define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar"], function(jquery, ELine, ERadar) {
+define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/charts/EFunnel", "../../js/charts/ECircle", "../../js/charts/EGauge"], function(jquery, ELine, ERadar, EFunnel, ECircle, EGauge) {
 
 	// constructor
 	function ECategory(etype, opts){
@@ -17,7 +17,15 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar"], function(j
 			case 'eradar':
 				this.instnc = new ERadar.init(el_id, this.opts);
 				break;
-			
+			case 'efunnel':
+				this.instnc = new EFunnel.init(el_id, this.opts);
+				break;
+			case 'ecircle':
+				this.instnc = new ECircle.init(el_id, this.opts);
+				break;
+			case 'egauge':
+				this.instnc = new EGauge.init(el_id, this.opts);
+				break;
 			default:
 				//this.instnc = new ELine.init(el_id, this.opts);
 		}
@@ -26,7 +34,7 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar"], function(j
 	
 	ECategory.DEFAULTS = {
 	}
-	
+
 	
 	return {
 		create: ECategory
