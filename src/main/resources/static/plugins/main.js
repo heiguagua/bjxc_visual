@@ -46,12 +46,14 @@
         	'ajaxfileupload':'uploadFile/ajaxfileupload',
         	'UE':'ueditor/ueditor.all',
         	'UE.config':'ueditor/ueditor.config',
-        	'UE.lang':'ueditor/lang/zh-cn/zh-cn'
+        	'UE.lang':'ueditor/lang/zh-cn/zh-cn',
+            'jquery-ui': 'jquery-ui/jquery-ui.min'
         },
         shim:{
         	'echarts': {
                 echarts: "echarts"
             },
+            'jquery-ui': "jquery-ui",
         	'bootstrap': ['jquery'
         	              
         	             //, 'css!' + WEB_RES_PATH + 'bootstrap/css/bootstrap.min.css'
@@ -88,7 +90,8 @@
         	               , 'css!' + WEB_RES_PATH + 'smartWizard/css/smart_wizard_theme_dots.css'],
         	'ajaxfileupload':['jquery'],
         	'UE':['UE.config'],
-        	'UE.lang':['UE']
+        	'UE.lang':['UE'],
+            'jquery-ui':['jquery', 'css!' + WEB_RES_PATH + 'jquery-ui/jquery-ui.min.css'] 
         }
 	});
     
