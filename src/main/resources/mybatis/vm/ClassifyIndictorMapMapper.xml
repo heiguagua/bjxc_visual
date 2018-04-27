@@ -3,83 +3,97 @@
 <mapper namespace="com.chinawiserv.dsp.vm.mapper.ClassifyIndictorMapMapper">
 
 	<!-- 开启二级缓存 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.vm.entity.po.ClassifyIndictorMap">
-                    <id column="id" property="id" />
-                                                                                                        <result column="classify_id" property="classifyId" />
-                            <result column="indictor_code" property="indictorCode" />
-                            <result column="indictor_show_name" property="indictorShowName" />
-                            <result column="highlight_flag" property="highlightFlag" />
-                            <result column="point_num" property="pointNum" />
-            	</resultMap>
+	<resultMap id="BaseResultMap"
+		type="com.chinawiserv.dsp.vm.entity.po.ClassifyIndictorMap">
+		<id column="id" property="id" />
+		<result column="classify_id" property="classifyId" />
+		<result column="indictor_code" property="indictorCode" />
+		<result column="indictor_show_name" property="indictorShowName" />
+		<result column="highlight_flag" property="highlightFlag" />
+		<result column="point_num" property="pointNum" />
+	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.vm.entity.vo.ClassifyIndictorMapVo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
+		type="com.chinawiserv.dsp.vm.entity.vo.ClassifyIndictorMapVo">
 
-    </resultMap>
+	</resultMap>
 
-    <!-- 通用查询过滤条件 -->
-    <sql id="queryConditions">
-        <where>
-                                <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
-            </if>
-                                                                                                                                </where>
-    </sql>
+	<!-- 通用查询过滤条件 -->
+	<sql id="queryConditions">
+		<where>
+			<if test="id != null">
+				t.id = #{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-    		SELECT t.* FROM vm_classify_indictor_map t <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoPage" parameterType="java.util.Map"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM vm_classify_indictor_map t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-    	SELECT t.* FROM vm_classify_indictor_map t WHERE t.id = #{id}
-    </select>
+	<select id="selectVoById" parameterType="java.lang.String"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM vm_classify_indictor_map t WHERE t.id = #{id}
+	</select>
 
-    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
-    	SELECT count(1) FROM vm_classify_indictor_map t <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT count(1) FROM vm_classify_indictor_map t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.vm.entity.po.ClassifyIndictorMap">
-        insert into vm_classify_indictor_map(id,classify_id,indictor_code,indictor_show_name,highlight_flag,point_num,) values(
-            #{id},#{classifyId},#{indictorCode},#{indictorShowName},#{highlightFlag},#{pointNum},        )
-    </insert>
+	<insert id="baseInsert"
+		parameterType="com.chinawiserv.dsp.vm.entity.po.ClassifyIndictorMap">
+		insert into
+		vm_classify_indictor_map(id,classify_id,indictor_code,indictor_show_name,highlight_flag,point_num)
+		values(
+		#{id},#{classifyId},#{indictorCode},#{indictorShowName},#{highlightFlag},#{pointNum}
+		)
+	</insert>
 
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ClassifyIndictorMap">
-        update vm_classify_indictor_map
-        <set>
-                    <if test="id != null">
-                id = #{id},
-            </if>
-                    <if test="classifyId != null">
-                classify_id = #{classifyId},
-            </if>
-                    <if test="indictorCode != null">
-                indictor_code = #{indictorCode},
-            </if>
-                    <if test="indictorShowName != null">
-                indictor_show_name = #{indictorShowName},
-            </if>
-                    <if test="highlightFlag != null">
-                highlight_flag = #{highlightFlag},
-            </if>
-                    <if test="pointNum != null">
-                point_num = #{pointNum},
-            </if>
-                </set>
-        where  id = #{id}                </update>
+	<update id="baseUpdate"
+		parameterType="com.chinawiserv.dsp.vm.entity.po.ClassifyIndictorMap">
+		update vm_classify_indictor_map
+		<set>
+			<if test="id != null">
+				id = #{id},
+			</if>
+			<if test="classifyId != null">
+				classify_id = #{classifyId},
+			</if>
+			<if test="indictorCode != null">
+				indictor_code = #{indictorCode},
+			</if>
+			<if test="indictorShowName != null">
+				indictor_show_name = #{indictorShowName},
+			</if>
+			<if test="highlightFlag != null">
+				highlight_flag = #{highlightFlag},
+			</if>
+			<if test="pointNum != null">
+				point_num = #{pointNum},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
 
-    <delete id="baseDelete" parameterType="java.util.Map">
-        delete from vm_classify_indictor_map <include refid="deleteWhereCause"/>
-    </delete>
+	<delete id="baseDelete" parameterType="java.util.Map">
+		delete from vm_classify_indictor_map
+		<include refid="deleteWhereCause" />
+	</delete>
 
-    <sql id="deleteWhereCause">
-        <where>
-                                <if test="id != null">
-                id = #{id}
-            </if>
-                                                                                                                                </where>
-    </sql>
+	<sql id="deleteWhereCause">
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</where>
+	</sql>
 
 
 

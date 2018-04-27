@@ -3,75 +3,84 @@
 <mapper namespace="com.chinawiserv.dsp.vm.mapper.ChartDescriptionMapper">
 
 	<!-- 开启二级缓存 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.vm.entity.po.ChartDescription">
-                    <id column="id" property="id" />
-                                                                                <result column="chart_id" property="chartId" />
-                            <result column="sub_title" property="subTitle" />
-                            <result column="description" property="description" />
-            	</resultMap>
+	<resultMap id="BaseResultMap"
+		type="com.chinawiserv.dsp.vm.entity.po.ChartDescription">
+		<id column="id" property="id" />
+		<result column="chart_id" property="chartId" />
+		<result column="sub_title" property="subTitle" />
+		<result column="description" property="description" />
+	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.vm.entity.vo.ChartDescriptionVo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
+		type="com.chinawiserv.dsp.vm.entity.vo.ChartDescriptionVo">
 
-    </resultMap>
+	</resultMap>
 
-    <!-- 通用查询过滤条件 -->
-    <sql id="queryConditions">
-        <where>
-                                <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
-            </if>
-                                                                                        </where>
-    </sql>
+	<!-- 通用查询过滤条件 -->
+	<sql id="queryConditions">
+		<where>
+			<if test="id != null">
+				t.id = #{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-    		SELECT t.* FROM vm_chart_description t <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoPage" parameterType="java.util.Map"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM vm_chart_description t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-    	SELECT t.* FROM vm_chart_description t WHERE t.id = #{id}
-    </select>
+	<select id="selectVoById" parameterType="java.lang.String"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM vm_chart_description t WHERE t.id = #{id}
+	</select>
 
-    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
-    	SELECT count(1) FROM vm_chart_description t <include refid="queryConditions"></include>
-    </select>
+	<select id="selectVoCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT count(1) FROM vm_chart_description t
+		<include refid="queryConditions"></include>
+	</select>
 
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartDescription">
-        insert into vm_chart_description(id,chart_id,sub_title,description,) values(
-            #{id},#{chartId},#{subTitle},#{description},        )
-    </insert>
+	<insert id="baseInsert" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartDescription">
+		insert into vm_chart_description(id,chart_id,sub_title,description) values(
+		#{id},#{chartId},#{subTitle},#{description} )
+	</insert>
 
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartDescription">
-        update vm_chart_description
-        <set>
-                    <if test="id != null">
-                id = #{id},
-            </if>
-                    <if test="chartId != null">
-                chart_id = #{chartId},
-            </if>
-                    <if test="subTitle != null">
-                sub_title = #{subTitle},
-            </if>
-                    <if test="description != null">
-                description = #{description},
-            </if>
-                </set>
-        where  id = #{id}            </update>
+	<update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartDescription">
+		update vm_chart_description
+		<set>
+			<if test="id != null">
+				id = #{id},
+			</if>
+			<if test="chartId != null">
+				chart_id = #{chartId},
+			</if>
+			<if test="subTitle != null">
+				sub_title = #{subTitle},
+			</if>
+			<if test="description != null">
+				description = #{description},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
 
-    <delete id="baseDelete" parameterType="java.util.Map">
-        delete from vm_chart_description <include refid="deleteWhereCause"/>
-    </delete>
+	<delete id="baseDelete" parameterType="java.util.Map">
+		delete from vm_chart_description
+		<include refid="deleteWhereCause" />
+	</delete>
 
-    <sql id="deleteWhereCause">
-        <where>
-                                <if test="id != null">
-                id = #{id}
-            </if>
-                                                                                        </where>
-    </sql>
+	<sql id="deleteWhereCause">
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</where>
+	</sql>
 
 
 

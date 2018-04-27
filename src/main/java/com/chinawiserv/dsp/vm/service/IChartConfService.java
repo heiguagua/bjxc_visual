@@ -1,5 +1,7 @@
 package com.chinawiserv.dsp.vm.service;
 
+import java.util.Map;
+
 import com.chinawiserv.dsp.base.service.common.ICommonService;
 import com.chinawiserv.dsp.vm.entity.po.ChartConf;
 import com.chinawiserv.dsp.vm.entity.vo.ChartConfVo;
@@ -13,5 +15,23 @@ import com.chinawiserv.dsp.vm.entity.vo.ChartConfVo;
  * @since 2018-04-25
  */
 public interface IChartConfService extends ICommonService<ChartConf, ChartConfVo> {
+
+	/**
+	 * 新增某用户新增的图表
+	 * 
+	 * @param paramsMap
+	 * @return
+	 * @throws Exception
+	 */
+	boolean insertUsersChart(Map<String, Object> paramsMap) throws Exception;
+
+	/**
+	 * 根据id删除当前图标配置信息
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	boolean deleteChartConfigById(String id) throws Exception;
 
 }
