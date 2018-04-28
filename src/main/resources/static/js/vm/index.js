@@ -75,13 +75,27 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		name : "随意勾选 2-3"
 	} ];
 	
+	
 	function onCheck(e, treeId, treeNode) {
-		var treeObj = $.fn.zTree.getZTreeObj("indicatorTree"), nodes = treeObj
-				.getCheckedNodes(true), v = "";
+		var treeObj = $.fn.zTree.getZTreeObj("indicatorTree"), 
+		nodes = treeObj.getCheckedNodes(true), 
+		selectedNode = [];
 		for (var i = 0; i < nodes.length; i++) {
-			v += nodes[i].name + ",";
+			selectedNode.push({
+				id: nodes[i].id,
+				name: nodes[i].name
+			})
 		}
-		console.log(v);
+		
+		var treeDetailObj = $.fn.zTree.getZTreeObj("detailTree"), 
+		dnodes = treeDetailObj.getCheckedNodes(true), 
+		selectedSubNode = [];
+		for (var i = 0; i < dnodes.length; i++) {
+			selectedSubNode.push({
+				id: dnodes[i].id,
+				name: dnodes[i].name
+			})
+		}
 	}
 
 	// 二维数组矩阵转置
@@ -110,20 +124,52 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 	
 	$('#addChartConfirm').click(function() {
 		var chartType = $('input[name="chartTypeOptions"]:checked').val();
-		var showDetail = $('input[name="showDetail"]:checked').val();
+		var showDetail = $('#showDetail').prop('checked');
 		// TODO send ajax for indicator data
+		var params = {
+				chartName: $('#etitle').val(),
+				isNameShow: $('#showTitle').prop('checked'),
+				chartType: chartType,
+				chartTimeType: $('#timeselect').val(),
+				chartTimeScope: getChartTimeScope(),
+				hasSubIndictor: showDetail,
+				location: '',
+				indicators: getTreeNode('indicatorTree'),
+				subIndicators: getTreeNode('detailTree')
+		}
+		console.log(params);
+		// response data
 		var title = '人口与机构分析一览表';
 		var data_unit = '%';
-		var legend_data = ['孕产妇建卡率','人口与妇幼保健院卫生人员数比','人口与医疗卫生机构妇产科床位数比','人口与妇产科执业医师数比','人口与妇幼保健机构数比'];;
-		var x_data = ['2012年','2013年','2014年','2015年','2016年','2017年','2018年'];
+		var legend_data = ['孕产妇建卡率','人口与妇幼保健院卫生人员数比','人口与医疗卫生机构妇产科床位数比','人口与妇产科执业医师数比','人口与妇幼保健机构数比'];
+		var x_data = ['2012年','2013年','2014年','2015年'];
 		var serData = [[9,7,8,7.8,6.8],
 		               [7,7.8,8.4,7.2,5.6],
 		               [4.6,4.2,5,5.8,5.4],
-		               [3,3.2,4,4.5,5.2],
-		               [2.7,3.8,3.4,3.1,3.5],
-		               [6.1,6.2,6,5,4],
-		               [4.7,5.8,6.4,3.1,4.5],
+		               [3,3.2,4,4.5,5.2]
 					];
+		var data_all = [{name: '孕产妇建卡率', date: '2012年', value: '9', unit: '%'},
+		                {name: '人口与妇幼保健院卫生人员数比', date: '2012年', value: '7', unit: '%'},
+		                {name: '人口与医疗卫生机构妇产科床位数比', date: '2012年', value: '8', unit: '%'},
+		                {name: '人口与妇产科执业医师数比', date: '2012年', value: '6.9', unit: '%'},
+		                {name: '人口与妇幼保健机构数比', date: '2012年', value: '8.4', unit: '%'},
+		                {name: '孕产妇建卡率', date: '2013年', value: '4.8', unit: '%'},
+		                {name: '人口与妇幼保健院卫生人员数比', date: '2013年', value: '7.8', unit: '%'},
+		                {name: '人口与医疗卫生机构妇产科床位数比', date: '2013年', value: '9.4', unit: '%'},
+		                {name: '人口与妇产科执业医师数比', date: '2013年', value: '8.9', unit: '%'},
+		                {name: '人口与妇幼保健机构数比', date: '2013年', value: '7.4', unit: '%'},
+		                {name: '孕产妇建卡率', date: '2014年', value: '8.5', unit: '%'},
+		                {name: '人口与妇幼保健院卫生人员数比', date: '2014年', value: '6.7', unit: '%'},
+		                {name: '人口与医疗卫生机构妇产科床位数比', date: '2014年', value: '5.9', unit: '%'},
+		                {name: '人口与妇产科执业医师数比', date: '2014年', value: '8.9', unit: '%'},
+		                {name: '人口与妇幼保健机构数比', date: '2014年', value: '7.4', unit: '%'},
+		                {name: '孕产妇建卡率', date: '2015年', value: '7.5', unit: '%'},
+		                {name: '人口与妇幼保健院卫生人员数比', date: '2015年', value: '6.4', unit: '%'},
+		                {name: '人口与医疗卫生机构妇产科床位数比', date: '2015年', value: '8.9', unit: '%'},
+		                {name: '人口与妇产科执业医师数比', date: '2015年', value: '9.1', unit: '%'},
+		                {name: '人口与妇幼保健机构数比', date: '2015年', value: '6.4', unit: '%'},];
+		console.log(_.groupBy(data_all,'name'),_.keys(_.groupBy(data_all,'name')),_.values(_.groupBy(data_all,'name')));
+		console.log(_.groupBy(data_all,'date'),_.keys(_.groupBy(data_all,'date')),_.values(_.groupBy(data_all,'date')));
 		var singleData = [60,40,20,80,100];
 		serData = serData.transpose();
 		var detail_info = {
@@ -163,11 +209,14 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 	});
 	
 	// 日期选择初始化
-	$('#timeRange').customDateRangePicker({},'YYYY-MM-DD');
-	$('#timePoint').customDatePicker({timePicker: false},'YYYY-MM-DD');
+	$('#timeRange').customDateRangePicker({ranges:{},showCustomRangeLabel:false,autoApply:true},'YYYY-MM-DD');
+	
 	
 	// 下拉初始化
 	$('#timeselect').select2({
+		minimumResultsForSearch: -1
+	});
+	$('#timeUnit').select2({
 		minimumResultsForSearch: -1
 	});
 	
@@ -183,12 +232,13 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 	
 	function etypeChange() {
 		var chartType = $('input[name="chartTypeOptions"]:checked').val();
-		if($('#timeselect').val() == 1) {// 当前时间
+		var timeType = $('#timeselect').val();
+		if(timeType == 1 || timeType == 2) {// 当前时间或者当前时间-1
 			$('#timeWrap').addClass('hide');
 			$('#timeRangeWrap').addClass('hide');
 		}
 		else{
-			if(chartType == 'eline' || chartType == 'earea') {
+			if(timeType == 3) {
 				$('#timeWrap').addClass('hide');
 				$('#timeRangeWrap').removeClass('hide');
 			}
@@ -198,5 +248,36 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 			}
 		}
 		
+	}
+	
+	function getChartTimeScope(){
+		var timeScope = '';
+		var timeType = $('#timeselect').val();
+		if(timeType == 1) {
+			timeScope = '1';
+		}
+		else if(timeType == 2) {
+			timeScope = '2';
+		}
+		else if(timeType == 3) {
+			timeScope = $('#timeRange').val();
+		}
+		else{
+			timeScope = '' + $('#timePoint').val() + ' ' + $('#timeUnit').val();
+		}
+		return timeScope;
+	}
+	
+	function getTreeNode(treeid){
+		var treeObj = $.fn.zTree.getZTreeObj(treeid), 
+		nodes = treeObj.getCheckedNodes(true), 
+		selectedNode = [];
+		for (var i = 0; i < nodes.length; i++) {
+			selectedNode.push({
+				id: nodes[i].id,
+				name: nodes[i].name
+			})
+		}
+		return selectedNode;
 	}
 })

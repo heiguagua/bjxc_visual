@@ -47,7 +47,8 @@
         	'UE':'ueditor/ueditor.all',
         	'UE.config':'ueditor/ueditor.config',
         	'UE.lang':'ueditor/lang/zh-cn/zh-cn',
-            'jquery-ui': 'jquery-ui/jquery-ui.min'
+            'jquery-ui': 'jquery-ui/jquery-ui.min',
+            'lodash': 'lodash.min'
         },
         shim:{
         	'echarts': {
@@ -114,9 +115,10 @@
 		console.log('main.js-2');
 		window.layer = layer;
 	})
-	require(['jquery','validator','zTree'],function($,validator,zTree){
+	require(['jquery','validator','zTree', 'lodash'],function($,validator,zTree, _){
 		console.log('main.js-1');
 		window.$ = window.jQuery = $;
+		window._ = _;
 		$.validator = jQuery.validator = validator;
 		require(['app',function(){
 			

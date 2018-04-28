@@ -46,7 +46,7 @@ form .form-group label {
 }
 
 #timeselect {
-	width: 120px;
+	width: 130px;
 }
 .select2-container--default .select2-selection--single{
 	
@@ -135,7 +135,7 @@ form .form-group label {
 									placeholder="请输入标题">
 
 							</div>
-							<label> <input type="checkbox" checked name="showDate">
+							<label> <input type="checkbox" checked name="showDate" id="showTitle">
 								显示标题
 							</label>
 						</div>
@@ -165,7 +165,9 @@ form .form-group label {
 								<div class="col-sm-2">
 									<select class="form-control" id="timeselect">
 										<option value="1">当前时间</option>
-										<option value="2">自定义</option>
+										<option value="2">当前时间-1</option>
+										<option value="3">自定义</option>
+										<option value="4">时间段</option>
 									</select>
 								</div>
 								<div class="col-sm-6 hide" id="timeRangeWrap">
@@ -174,22 +176,27 @@ form .form-group label {
 								</div>
 								<div class="col-sm-6 hide" id="timeWrap">
 										<label class="sr-only" for="timePoint">时间范围</label>
-										<input id="timePoint" type="text"	name="timePoint" class="form-control date" readonly	placeholder="请选择时间点" style="width: 120px; background-color: #fff">
+										最近&nbsp;&nbsp;<input id="timePoint" type="number"	name="timePoint" class="form-control" style="width:80px;">
+										<select id="timeUnit">
+											<option value="y">年</option>
+											<option value="m">月</option>
+											<option value="d">日</option>
+										</select>
 								</div>
 						</div>
 						<div class="col-sm-offset-2 col-sm-10">
-							<label> <input type="checkbox" checked name="showDetail">
+							<label> <input type="checkbox" checked name="showDetail" id='showDetail'>
 								显示图表详情
 							</label>
 						</div>
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-2 control-label">选择指标</label>
 							<div class="col-sm-4 tree-wrap">
-								<h5 class="tree-title">原始指标</h5>
+								<h5 class="tree-title">展示指标</h5>
 								<ul id="indicatorTree" class="tree ztree"></ul>
 							</div>
 							<div class="col-sm-4 tree-wrap detail">
-								<h5 class="tree-title">统计口径指标</h5>
+								<h5 class="tree-title">展示详情指标</h5>
 								<ul id="detailTree" class="tree ztree"></ul>
 							</div>
 						</div>
