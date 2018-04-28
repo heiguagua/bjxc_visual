@@ -1,22 +1,84 @@
 require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		'zTree' ], function($, echarts ,global_custom,  ECategory, zTree) {
 	var setting = {
-		check : {
-			enable : true,
-			chkboxType : {
-				"Y" : 's',
-				"N" : 'ps'
-			}
-		},
-		data : {
-			simpleData : {
-				enable : true
-			}
-		},
-		callback : {
-			onCheck : onCheck
+			check : {
+				enable : true,
+				chkboxType : {
+					"Y" : 's',
+					"N" : 's'
+				}
+			},
+			data : {
+				simpleData : {
+					enable : true
+				}
+			},
+			async: {
+				enable: true,
+				url:basePathJS + "/indictorCategory/subCategoryList",
+				autoParam:["id=fid"],
+				otherParam:{},
+				dataFilter: filter
+			},
+			callback: {  
+				beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
+					if(treeNode.selectable == 0) {// 还有子节点
+						$.ajax({
+		                    type : "get",
+		                    url : basePathJS + "/indictorCategory/subCategoryList?fid=" + treeNode.id,
+		                    async : false,
+		                    success : function(res){
+		                        var dd = res.content.data;
+		                        if(dd && dd.length>0) {
+		                        	treeNode.children = treeNode.children?treeNode.children:[];
+		                        	treeNode.children = dd.concat(treeNode.children);
+		                        }
+		    					var zTreeObj = $.fn.zTree.getZTreeObj(treeId);
+		                        if (treeNode.isParent) {
+		                            if (treeNode.open) {
+		                                zTreeObj.expandNode(treeNode, false);
+		                            } else {
+		                                zTreeObj.expandNode(treeNode, true);
+		                            }
+		                            return false;
+		                        } else {
+		                            return true;
+		                        }
+		                    }
+		                });
+					}
+					
+                },
+//		        onCheck: onCheck, //用于捕获 checkbox / radio 被勾选 或 取消勾选的事件回调函数  
+//		        onClick: onClick, //用于捕获节点被点击的事件回调函数  
+//		        beforeExpand: beforeExpand, //用于捕获父节点展开之前的事件回调函数，并且根据返回值确定是否允许展开操作  
+//		        onExpand: onExpand//用于捕获节点被展开的事件回调函数  
+		    }
+	}
+	require(['zTree'],function(zTree){
+		$.fn.zTree.init($("#indicatorTree"), setting);
+		var showDetail = $('input[name="showDetail"]:checked').val();
+		if(showDetail) {// 显示详情
+			// TODO send ajax request for detail indicator
+			$.fn.zTree.init($("#detailTree"), setting);
 		}
-	};
+		
+	})
+	function filter(treeId, parentNode, childNodes) {
+		if (!childNodes) return null;
+		var childNodes = childNodes.content.data;
+		for (var i=0, l=childNodes.length; i<l; i++) {
+			console.log(childNodes[i].hasLeaf);
+			childNodes[i].isParent = childNodes[i].selectable == 0 ? true:false;
+			childNodes[i].nocheck = childNodes[i].selectable == 1 ? true:false;
+			childNodes[i].children = [];
+			if(childNodes[i].indictorVos.length > 0) {
+				childNodes[i].children = childNodes[i].indictorVos;
+			}
+			
+		}
+		return childNodes;
+	}
 
 	var zNodes = [ {
 		id : 1,
@@ -75,6 +137,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		name : "随意勾选 2-3"
 	} ];
 	
+
 	
 	function onCheck(e, treeId, treeNode) {
 		var treeObj = $.fn.zTree.getZTreeObj("indicatorTree"), 
@@ -220,15 +283,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		minimumResultsForSearch: -1
 	});
 	
-	require(['zTree'],function(zTree){
-		$.fn.zTree.init($("#indicatorTree"), setting, zNodes);
-		var showDetail = $('input[name="showDetail"]:checked').val();
-		if(showDetail) {// 显示详情
-			// TODO send ajax request for detail indicator
-			$.fn.zTree.init($("#detailTree"), setting, zNodes);
-		}
-		
-	})
+	
 	
 	function etypeChange() {
 		var chartType = $('input[name="chartTypeOptions"]:checked').val();
