@@ -34,8 +34,8 @@
 	<select id="selectByCategoryId" parameterType="java.lang.String"
 		resultMap="BaseResultVoMap">
 		select t.code,t.name,t.show_name,1 AS selectable from
-		im_indictor
-		where category_id=#{categoryId}
+		im_indictor t
+		where t.category_id=#{categoryId}
 
 	</select>
 </mapper>
