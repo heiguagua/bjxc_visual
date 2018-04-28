@@ -3,79 +3,44 @@
 <mapper namespace="com.chinawiserv.dsp.quota.mapper.IndictorCategoryMapper">
 
 	<!-- 开启二级缓存 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.quota.entity.po.IndictorCategory">
-                    <id column="id" property="id" />
-                                                                                            <result column="code" property="code" />
-                            <result column="name" property="name" />
-                            <result column="fid" property="fid" />
-                            <result column="description" property="description" />
-            	</resultMap>
+	<resultMap id="BaseResultMap"
+		type="com.chinawiserv.dsp.quota.entity.po.IndictorCategory">
+		<id column="id" property="id" />
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="fid" property="fid" />
+		<result column="description" property="description" />
+	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.quota.entity.vo.IndictorCategoryVo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
+		type="com.chinawiserv.dsp.quota.entity.vo.IndictorCategoryVo">
+		<result column="hasLeaf" property="hasLeaf" />
+	</resultMap>
 
-    </resultMap>
+	<!-- 通用查询过滤条件 -->
+	<sql id="queryConditions">
+		<where>
+			<if test="id != null">
+				t.id = #{id}
+			</if>
+		</where>
+	</sql>
 
-    <!-- 通用查询过滤条件 -->
-    <sql id="queryConditions">
-        <where>
-                                <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
-            </if>
-                                                                                                            </where>
-    </sql>
+    <!--  查询分类指标树 -->
+	<select id="selectSubVoList" parameterType="java.util.Map"
+		resultType="BaseResultVoMap">
+		SELECT t.*,CASE WHEN f.dcode IS NULL THEN '0' ELSE '1' END
+		AS hasLeaf
+		FROM im_indictor_category t
+		LEFT JOIN (SELECT DISTINCT(fid)
+		AS dcode FROM im_indictor_category) f on
+		t.id=f.dcode
+		where t.fid=#{fid}
+	</select>
 
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-    		SELECT t.* FROM im_indictor_category t <include refid="queryConditions"></include>
-    </select>
-
-    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-    	SELECT t.* FROM im_indictor_category t WHERE t.id = #{id}
-    </select>
-
-    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
-    	SELECT count(1) FROM im_indictor_category t <include refid="queryConditions"></include>
-    </select>
-
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.quota.entity.po.IndictorCategory">
-        insert into im_indictor_category(id,code,name,fid,description,) values(
-            #{id},#{code},#{name},#{fid},#{description},        )
-    </insert>
-
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.quota.entity.po.IndictorCategory">
-        update im_indictor_category
-        <set>
-                    <if test="id != null">
-                id = #{id},
-            </if>
-                    <if test="code != null">
-                code = #{code},
-            </if>
-                    <if test="name != null">
-                name = #{name},
-            </if>
-                    <if test="fid != null">
-                fid = #{fid},
-            </if>
-                    <if test="description != null">
-                description = #{description},
-            </if>
-                </set>
-        where  id = #{id}              </update>
-
-    <delete id="baseDelete" parameterType="java.util.Map">
-        delete from im_indictor_category <include refid="deleteWhereCause"/>
-    </delete>
-
-    <sql id="deleteWhereCause">
-        <where>
-                                <if test="id != null">
-                id = #{id}
-            </if>
-                                                                                                            </where>
-    </sql>
 
 
 
