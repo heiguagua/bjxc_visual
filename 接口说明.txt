@@ -9,3 +9,7 @@
 初始化
 1、图表统计  /chartMenuCustom/chartList 
 2、图表数据查询
+
+更新图表位置信息 /chartMenuCustom/updateChartLocation
+参数如下
+[{"id":1,"location":xxxx},{"id":2,"location":xxxx},{"id":4,"location":xxxx}]

@@ -2,12 +2,10 @@ package com.chinawiserv.dsp.vm.controller;
 
 import java.util.Map;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,7 +14,6 @@ import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.common.util.ShiroUtils;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
-import com.chinawiserv.dsp.vm.entity.vo.ChartMenuCustomVo;
 import com.chinawiserv.dsp.vm.service.IChartMenuCustomService;
 
 /**
@@ -69,78 +66,24 @@ public class ChartMenuCustomController extends BaseController {
 	}
 
 	/**
-	 * 执行新增
+	 * 更新图标的位置信息
 	 */
-	@RequiresPermissions("XXX:XXX:add")
-	@Log("创建图表与菜单自定义关系")
-	@RequestMapping("/doAdd")
+
+	@Log(" 更新图标的位置信息")
+	@RequestMapping("/updateChartLocation")
 	@ResponseBody
-	public HandleResult doAdd(ChartMenuCustomVo entity) {
+	public HandleResult updateChartLocation(@RequestParam String locationStr) {
 		HandleResult handleResult = new HandleResult();
 		try {
-			service.insertVO(entity);
-			handleResult.success("创建图表与菜单自定义关系成功");
+			if (service.updateChartLocation(locationStr))
+				handleResult.success(" 更新图标的位置信息成功");
+			else
+				handleResult.error(" 更新图标的位置信息失败");
 		} catch (Exception e) {
-			handleResult.error("创建图表与菜单自定义关系失败");
-			logger.error("创建图表与菜单自定义关系失败", e);
+			handleResult.error(" 更新图标的位置信息失败");
+			logger.error(" 更新图标的位置信息失败", e);
 		}
 		return handleResult;
 	}
 
-	/**
-	 * 删除图表与菜单自定义关系
-	 */
-	@RequiresPermissions("XXX:XXX:delete")
-	@Log("删除图表与菜单自定义关系")
-	@RequestMapping("/delete")
-	@ResponseBody
-	public HandleResult delete(@RequestParam String id) {
-		// todo 逻辑删除
-		// service.deleteById(id);
-		return new HandleResult().success("删除图表与菜单自定义关系成功");
-	}
-
-	/**
-	 * 编辑图表与菜单自定义关系
-	 */
-	@RequiresPermissions("XXX:XXX:edit")
-	@RequestMapping("/edit")
-	public String edit(@RequestParam String id, Model model) {
-		model.addAttribute("id", id);
-		return "XXX/XXX/XXXEdit";
-	}
-
-	@RequiresPermissions("XXX:XXX:edit")
-	@RequestMapping("/editLoad")
-	@ResponseBody
-	public HandleResult editLoad(@RequestParam String id) {
-		HandleResult handleResult = new HandleResult();
-		try {
-			ChartMenuCustomVo vo = service.selectVoById(id);
-			handleResult.put("vo", vo);
-		} catch (Exception e) {
-			handleResult.error("获取图表与菜单自定义关系信息失败");
-			logger.error("获取图表与菜单自定义关系信息失败", e);
-		}
-		return handleResult;
-	}
-
-	/**
-	 * 执行编辑
-	 */
-	@RequiresPermissions("XXX:XXX:edit")
-	@Log("编辑图表与菜单自定义关系")
-	@RequestMapping("/doEdit")
-	@ResponseBody
-	public HandleResult doEdit(ChartMenuCustomVo entity, Model model) {
-		HandleResult handleResult = new HandleResult();
-		try {
-			service.updateVO(entity);
-			handleResult.success("编辑图表与菜单自定义关系成功");
-		} catch (Exception e) {
-			handleResult.error("编辑图表与菜单自定义关系失败");
-			logger.error("编辑图表与菜单自定义关系失败", e);
-		}
-		return handleResult;
-	}
 }

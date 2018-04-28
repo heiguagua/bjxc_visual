@@ -16,6 +16,9 @@ import com.chinawiserv.dsp.vm.entity.vo.ChartMenuCustomVo;
 import com.chinawiserv.dsp.vm.mapper.ChartMenuCustomMapper;
 import com.chinawiserv.dsp.vm.service.IChartMenuCustomService;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 /**
  * <p>
  * 图表与菜单自定义关系 服务实现类
@@ -79,4 +82,19 @@ public class ChartMenuCustomServiceImpl extends CommonServiceImpl<ChartMenuCusto
 
 		return handleResult;
 	}
+
+	@Override
+	public boolean updateChartLocation(String locationStr) throws Exception {
+		JSONArray locationArry = JSONArray.fromObject(locationStr);
+		for (int i = 0; i < locationArry.size(); i++) {
+			JSONObject lJsonObject = JSONObject.fromObject(locationArry.get(i).toString());
+			ChartMenuCustom chartMenuCustom = new ChartMenuCustom();
+			chartMenuCustom.setId(lJsonObject.get("id").toString());
+			chartMenuCustom.setLocation(lJsonObject.get("location").toString());
+			mapper.baseUpdate(chartMenuCustom);
+		}
+
+		return true;
+	}
+
 }
