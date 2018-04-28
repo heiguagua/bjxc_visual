@@ -1,10 +1,15 @@
-������
-1��ԭʼָ���ѯ
-2��ͳ�ƿھ���ѯ
-3������ͼ��������ͼ����Ϣ����ѯͼ������
-�༭��
-1����ѯͼ��������Ϣ
-2���༭���棨ͬ�������棩
-��ʼ��
-1��ͼ��ͳ��
-2��ͼ�����ݲ�ѯ
+新增：
+1、原始指标查询     树  /indictorCategory/subCategoryList   参数fid  返回的数据中selectable字段为是1否0可选 hasLeaf是1否0有子节点
+2、统计口径查询 删除
+3、新增图表，保存图标信息，查询图表数据 /chartConf/addUsersChart
+编辑：
+1、查询图标配置信息 /chartConf/loadChartDetail?id=xxx    参数图表id
+2、编辑保存（同新增保存）/chartConf/editUsersChart 参数待确认
+3. 删除图标     /chartConf/deleteByChartId?id=xxx        参数图表id
+初始化
+1、图表统计  /chartMenuCustom/chartList 
+2、图表数据查询 
+
+更新图表位置信息 /chartMenuCustom/updateChartLocation
+参数如下
+[{"id":1,"location":xxxx},{"id":2,"location":xxxx},{"id":4,"location":xxxx}]

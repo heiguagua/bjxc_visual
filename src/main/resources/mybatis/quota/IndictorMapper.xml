@@ -3,124 +3,39 @@
 <mapper namespace="com.chinawiserv.dsp.quota.mapper.IndictorMapper">
 
 	<!-- 开启二级缓存 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.chinawiserv.dsp.quota.entity.po.Indictor">
-                    <id column="id" property="id" />
-                                                                                                                                                                                                                                <result column="type" property="type" />
-                            <result column="code" property="code" />
-                            <result column="name" property="name" />
-                            <result column="show_name" property="showName" />
-                            <result column="category_id" property="categoryId" />
-                            <result column="source_dept" property="sourceDept" />
-                            <result column="measure_unit" property="measureUnit" />
-                            <result column="update_frequency" property="updateFrequency" />
-                            <result column="indictor_desc" property="indictorDesc" />
-                            <result column="source_conf" property="sourceConf" />
-                            <result column="status" property="status" />
-                            <result column="create_user_id" property="createUserId" />
-                            <result column="create_time" property="createTime" />
-                            <result column="update_user_id" property="updateUserId" />
-                            <result column="update_time" property="updateTime" />
-            	</resultMap>
+		<id column="id" property="id" />
+		<result column="type" property="type" />
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="show_name" property="showName" />
+		<result column="category_id" property="categoryId" />
+		<result column="source_dept" property="sourceDept" />
+		<result column="measure_unit" property="measureUnit" />
+		<result column="update_frequency" property="updateFrequency" />
+		<result column="indictor_desc" property="indictorDesc" />
+		<result column="source_conf" property="sourceConf" />
+		<result column="status" property="status" />
+		<result column="create_user_id" property="createUserId" />
+		<result column="create_time" property="createTime" />
+		<result column="update_user_id" property="updateUserId" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
 
-	<resultMap id="BaseResultVoMap" extends="BaseResultMap" type="com.chinawiserv.dsp.quota.entity.vo.IndictorVo">
+	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
+		type="com.chinawiserv.dsp.quota.entity.vo.IndictorVo">
+        <result column="selectable" property="selectable" />
+	</resultMap>
 
-    </resultMap>
+	<!-- 根据分类id查询指标数据 -->
+	<select id="selectByCategoryId" parameterType="java.lang.String"
+		resultMap="BaseResultVoMap">
+		select t.code,t.name,t.show_name,1 AS selectable from
+		im_indictor t
+		where t.category_id=#{categoryId}
 
-    <!-- 通用查询过滤条件 -->
-    <sql id="queryConditions">
-        <where>
-                                <if test="id != null">
-                t.id = #{id,jdbcType=VARCHAR}
-            </if>
-                                                                                                                                                                                                                                                                                                                                        </where>
-    </sql>
-
-    <select id="selectVoPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-    		SELECT t.* FROM im_indictor t <include refid="queryConditions"></include>
-    </select>
-
-    <select id="selectVoById" parameterType="java.lang.String" resultMap="BaseResultVoMap">
-    	SELECT t.* FROM im_indictor t WHERE t.id = #{id}
-    </select>
-
-    <select id="selectVoCount"  parameterType="java.util.Map" resultType="java.lang.Integer">
-    	SELECT count(1) FROM im_indictor t <include refid="queryConditions"></include>
-    </select>
-
-    <insert id="baseInsert" parameterType="com.chinawiserv.dsp.quota.entity.po.Indictor">
-        insert into im_indictor(id,type,code,name,show_name,category_id,source_dept,measure_unit,update_frequency,indictor_desc,source_conf,status,create_user_id,create_time,update_user_id,update_time,) values(
-            #{id},#{type},#{code},#{name},#{showName},#{categoryId},#{sourceDept},#{measureUnit},#{updateFrequency},#{indictorDesc},#{sourceConf},#{status},#{createUserId},#{createTime},#{updateUserId},#{updateTime},        )
-    </insert>
-
-    <update id="baseUpdate" parameterType="com.chinawiserv.dsp.quota.entity.po.Indictor">
-        update im_indictor
-        <set>
-                    <if test="id != null">
-                id = #{id},
-            </if>
-                    <if test="type != null">
-                type = #{type},
-            </if>
-                    <if test="code != null">
-                code = #{code},
-            </if>
-                    <if test="name != null">
-                name = #{name},
-            </if>
-                    <if test="showName != null">
-                show_name = #{showName},
-            </if>
-                    <if test="categoryId != null">
-                category_id = #{categoryId},
-            </if>
-                    <if test="sourceDept != null">
-                source_dept = #{sourceDept},
-            </if>
-                    <if test="measureUnit != null">
-                measure_unit = #{measureUnit},
-            </if>
-                    <if test="updateFrequency != null">
-                update_frequency = #{updateFrequency},
-            </if>
-                    <if test="indictorDesc != null">
-                indictor_desc = #{indictorDesc},
-            </if>
-                    <if test="sourceConf != null">
-                source_conf = #{sourceConf},
-            </if>
-                    <if test="status != null">
-                status = #{status},
-            </if>
-                    <if test="createUserId != null">
-                create_user_id = #{createUserId},
-            </if>
-                    <if test="createTime != null">
-                create_time = #{createTime},
-            </if>
-                    <if test="updateUserId != null">
-                update_user_id = #{updateUserId},
-            </if>
-                    <if test="updateTime != null">
-                update_time = #{updateTime},
-            </if>
-                </set>
-        where  id = #{id}                                    </update>
-
-    <delete id="baseDelete" parameterType="java.util.Map">
-        delete from im_indictor <include refid="deleteWhereCause"/>
-    </delete>
-
-    <sql id="deleteWhereCause">
-        <where>
-                                <if test="id != null">
-                id = #{id}
-            </if>
-                                                                                                                                                                                                                                                                                                                                        </where>
-    </sql>
-
-
-
+	</select>
 </mapper>

@@ -26,6 +26,12 @@ public interface ChartMenuCustomMapper extends BaseMapper<ChartMenuCustom> {
 
 	int baseInsert(ChartMenuCustom entity);
 
+	/**
+	 * 更新图表基础信息
+	 * 
+	 * @param chartMenuCustom
+	 * @return
+	 */
 	int baseUpdate(ChartMenuCustom entity);
 
 	int baseDelete(String id);
@@ -45,4 +51,12 @@ public interface ChartMenuCustomMapper extends BaseMapper<ChartMenuCustom> {
 	 * @return
 	 */
 	int deleteByChartId(String chartId);
+
+	// /**
+	// * 更新图表基础信息
+	// *
+	// * @param chartMenuCustom
+	// * @return
+	// */
+	// int updateByPo(ChartMenuCustom chartMenuCustom);
 }

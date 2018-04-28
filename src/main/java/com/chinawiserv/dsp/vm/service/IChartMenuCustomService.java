@@ -24,4 +24,13 @@ public interface IChartMenuCustomService extends ICommonService<ChartMenuCustom,
 	 */
 	public HandleResult selectChartListByUserAndMenu(String menuId) throws Exception;
 
+	/**
+	 * 更新图标位置信息
+	 * 
+	 * @param locationStr
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean updateChartLocation(String locationStr) throws Exception;
+
 }

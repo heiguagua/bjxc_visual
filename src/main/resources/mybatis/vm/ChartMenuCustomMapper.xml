@@ -79,9 +79,7 @@
 	<update id="baseUpdate" parameterType="com.chinawiserv.dsp.vm.entity.po.ChartMenuCustom">
 		update vm_chart_menu_custom
 		<set>
-			<if test="id != null">
-				id = #{id},
-			</if>
+			
 			<if test="chartId != null">
 				chart_id = #{chartId},
 			</if>
