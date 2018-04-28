@@ -8,7 +8,7 @@
 3. 删除图标     /chartConf/deleteByChartId?id=xxx        参数图表id
 初始化
 1、图表统计  /chartMenuCustom/chartList 
-2、图表数据查询
+2、图表数据查询 
 
 更新图表位置信息 /chartMenuCustom/updateChartLocation
 参数如下

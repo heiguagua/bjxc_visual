@@ -32,7 +32,7 @@
 
     <!--  查询分类指标树 -->
 	<select id="selectSubVoList" parameterType="java.util.Map"
-		resultType="BaseResultVoMap">
+		resultMap="BaseResultVoMap">
 		SELECT t.*,CASE WHEN f.dcode IS NULL THEN '0' ELSE '1' END
 		AS hasLeaf,0 as selectable
 		FROM im_indictor_category t
