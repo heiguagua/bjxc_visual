@@ -43,14 +43,20 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
      */
     drag:function(){
       var _this = this;
-      var innerWidth = this.$el.parent().innerWidth();
-      var innerHeight = this.$el.parent().innerHeight();
+      var innerWidth = _this.$el.parent().width();
+      var innerHeight = _this.$el.parent().height();
       $(this.$el).draggable({
         distance:1,
+        create:function(e,ui){
+          _this.setConfig({
+            top: ($(_this.$el).position().top / innerWidth*100).toFixed(1) + '%',
+            left: ($(_this.$el).position().left / innerHeight*100).toFixed(1) + '%'
+          })
+        },
         start:function(e,ui){},
         drag:function(e,ui){},
         stop:function(e,ui){
-          console.log('dragStop ====> ',ui)
+          // console.log('dragStop ====> ',ui)
           // _this.setConfig(ui.position)
           _this.setConfig({
             top: Number((ui.position.top / innerWidth)*100).toFixed(1) + '%',
@@ -64,17 +70,22 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
      */
     resize:function(){
       var _this = this;
-      var innerWidth = this.$el.parent().innerWidth();
-      var innerHeight = this.$el.parent().innerHeight();
+      var innerWidth = _this.$el.parent().width();
+      var innerHeight = _this.$el.parent().height();
       $(this.$el).resizable({
         handles: 'n, e, s, w, ne, se, sw, nw',
-        disabled: false,
+        create:function(e,ui){
+          _this.setConfig({
+            width: ($(_this.$el).width()/innerWidth*100).toFixed(1) + '%',
+            height: ($(_this.$el).height()/innerHeight*100).toFixed(1) + '%'
+          })
+        },
         start:function(e,ui){},
         resize:function(e,ui){
           _this.echartsInstnc.resize()
         },
         stop:function(e,ui){
-          console.log('resizestop ====>',ui)
+          // console.log('resizestop ====>',ui)
           // _this.setConfig(ui.originalSize)
           _this.setConfig({
             width: Number((ui.originalSize.width / innerWidth)*100).toFixed(1) + '%',
