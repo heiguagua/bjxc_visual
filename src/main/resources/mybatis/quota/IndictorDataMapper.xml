@@ -21,12 +21,13 @@
 		<result column="var_data" property="varDta" />
 		<result column="name" property="name" />
 	</resultMap>
-	
-	
-	<select id="selectSumReportDateByMap" parameterType="java.util.Map" resultMap="BaseResultVoMap">
-	select sum(t.val) as val_data ,t1.name from im_indictor_data t
-	left join im_indictor t1 on t.indictor_id=t1.id
-	<include refid="queryConditions"></include>
+
+
+	<select id="selectSumReportDateByMap" parameterType="java.util.Map"
+		resultMap="BaseResultVoMap">
+		select sum(t.val) as val_data ,t1.name from im_indictor_data t
+		left join im_indictor t1 on t.indictor_id=t1.id
+		<include refid="queryConditions"></include>
 	</select>
 
 	<!-- 通用查询过滤条件 -->
@@ -39,16 +40,16 @@
 				and t.indictor_id = #{indictorId}
 			</if>
 			<if test="keyTimeStart != null">
-				and t.report_date > #{keyTimeStart}
+				and t.report_date &gt; #{keyTimeStart}
 			</if>
 			<if test="keyTimeEnd != null">
-				and t.report_date < #{keyTimeEnd}
+				and t.report_date &lt; #{keyTimeEnd}
 			</if>
 			<if test="startTime != null">
-				and t.report_date > #{startTime}
+				and t.report_date &gt; #{startTime}
 			</if>
 			<if test="endTime != null">
-				and t.report_date < #{endTime}
+				and t.report_date &lt; #{endTime}
 			</if>
 
 		</trim>
