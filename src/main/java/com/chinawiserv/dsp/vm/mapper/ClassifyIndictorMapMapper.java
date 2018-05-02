@@ -37,4 +37,12 @@ public interface ClassifyIndictorMapMapper extends BaseMapper<ClassifyIndictorMa
 	 * @return
 	 */
 	int deleteByClassifyId(String classifyId);
+
+	/**
+	 * 根据分类id查询图表分类与指标关系集
+	 * 
+	 * @param classifyId
+	 * @return
+	 */
+	ClassifyIndictorMapVo selectByClassifyId(String classifyId);
 }

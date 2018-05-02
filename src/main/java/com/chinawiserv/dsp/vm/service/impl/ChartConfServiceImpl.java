@@ -1,7 +1,8 @@
 package com.chinawiserv.dsp.vm.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.chinawiserv.dsp.vm.entity.po.ChartDescIndictorMap;
 import com.chinawiserv.dsp.vm.entity.po.ChartDescription;
 import com.chinawiserv.dsp.vm.entity.po.ChartMenuCustom;
 import com.chinawiserv.dsp.vm.entity.po.ClassifyIndictorMap;
+import com.chinawiserv.dsp.vm.entity.vo.ChartClassifyVo;
 import com.chinawiserv.dsp.vm.entity.vo.ChartConfVo;
 import com.chinawiserv.dsp.vm.mapper.ChartClassifyMapper;
 import com.chinawiserv.dsp.vm.mapper.ChartConfMapper;
@@ -97,6 +99,12 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 			return false;
 		} else {
 			ChartConf chartConf = new ChartConf();// 系统图表配置表
+
+			List<ChartClassify> listChartClassify = new ArrayList<>();
+			List<ChartDescIndictorMap> listChartDescIndictorMap = new ArrayList<>();
+			List<ChartDescription> listChartDescription = new ArrayList<>();
+			List<ClassifyIndictorMap> listClassifyIndictorMap = new ArrayList<>();
+
 			ChartClassify chartClassify = new ChartClassify();// 图表分类信息
 			ChartDescIndictorMap chartDescIndictorMap = new ChartDescIndictorMap();// 图表描述与指标关系表
 			ChartDescription chartDescription = new ChartDescription();// 图表指标描述信息
@@ -121,14 +129,18 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 	public boolean deleteChartConfigById(String id) throws Exception {
 
 		chartConfMapper.deleteById(id);
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("chartId", id);
-		String chartClassifyId = chartClassifyMapper.selectOneByParams(paramMap).getId();
-		chartClassifyMapper.deleteById(chartClassifyId);
+
+		List<ChartClassifyVo> chartClassifyVos = chartClassifyMapper.selectByChartId(id);
+		for (ChartClassifyVo vo : chartClassifyVos) {
+
+			classifyIndictorMapMapper.deleteByClassifyId(vo.getId());
+			chartClassifyMapper.deleteById(vo.getId());
+		}
+
 		chartDescIndictorMapMapper.deleteByChartId(id);
 		chartDescriptionMapperr.deleteByChartId(id);
 		chartMenuCustomMapper.deleteByChartId(id);
-		classifyIndictorMapMapper.deleteByClassifyId(chartClassifyId);
+
 		return false;
 	}
 

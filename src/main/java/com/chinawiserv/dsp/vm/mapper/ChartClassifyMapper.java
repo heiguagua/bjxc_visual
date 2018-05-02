@@ -30,11 +30,13 @@ public interface ChartClassifyMapper extends BaseMapper<ChartClassify> {
 
 	int baseDelete(String id);
 
-	/**
-	 * 根据条件查询分类信息 结果集为1
-	 * 
-	 * @param paramMap
-	 * @return
-	 */
-	ChartClassifyVo selectOneByParams(Map<String, Object> paramMap);
+	// /**
+	// * 根据条件查询分类信息 结果集为1
+	// *
+	// * @param paramMap
+	// * @return
+	// */
+	// ChartClassifyVo selectOneByParams(Map<String, Object> paramMap);
+
+	List<ChartClassifyVo> selectByChartId(String chartId);
 }

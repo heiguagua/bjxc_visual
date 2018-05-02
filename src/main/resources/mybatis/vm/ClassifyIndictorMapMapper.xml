@@ -38,7 +38,8 @@
 
 	<select id="selectVoById" parameterType="java.lang.String"
 		resultMap="BaseResultVoMap">
-		SELECT t.* FROM vm_classify_indictor_map t WHERE t.id = #{id}
+		SELECT t.* FROM vm_classify_indictor_map t WHERE t.id =
+		#{id}
 	</select>
 
 	<select id="selectVoCount" parameterType="java.util.Map"
@@ -97,8 +98,15 @@
 
 	<!-- 根据分类id删除图表分类与指标关系表 -->
 	<delete id="deleteByClassifyId" parameterType="java.lang.String">
-		delete from vm_classify_indictor_map
+		delete from
+		vm_classify_indictor_map
 		where classify_id = #{classifyId}
 	</delete>
+
+	<select id="selectByClassifyId" parameterType="java.lang.String"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM vm_classify_indictor_map t WHERE t.classify_id =
+		#{classifyId}
+	</select>
 
 </mapper>
