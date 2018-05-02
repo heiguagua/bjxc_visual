@@ -13,15 +13,30 @@
 form .form-group label {
 	display: inline-block;
 }
-
-.chart-box {
+.chart-item-wrap{
 	display: inline-block;
+	position:relative;
 	width: 500px;
-	height: 400px;
 	border: 1px solid #DDD;
 	margin: 10px;
 	padding: 10px;
 	background: #f9f9f9;
+}
+.tool-box{
+	position:absolute;
+	right:10px;
+	top:14px;
+}
+.tool-box span.fa{
+	padding: 2px 10px;
+    color: #0082c1;
+    cursor: pointer;
+}
+.chart-box {
+	
+	width:100%;
+	height: 400px;
+	
 }
 
 .tree-wrap {
@@ -88,7 +103,7 @@ form .form-group label {
 								<div class="box-header">
 									<div class="input-group">
 										<a class="btn btn-primary btn-flat btn-myself"
-											data-toggle="modal" data-target="#addChartModal"> <img
+											 id="addChartBtn"> <img
 											src="<%=context_path%>/images/userImg/addimg.png" /> 新增图表
 										</a>
 									</div>
@@ -164,10 +179,10 @@ form .form-group label {
 								<label for="inputEmail3" class="col-sm-2 control-label">时间范围</label>
 								<div class="col-sm-2">
 									<select class="form-control" id="timeselect">
-										<option value="1">当前时间</option>
-										<option value="2">当前时间-1</option>
-										<option value="3">自定义</option>
-										<option value="4">时间段</option>
+										<option value="now_date">当前时间</option>
+										<option value="last_date">当前时间-1</option>
+										<option value="custom_date">自定义</option>
+										<option value="recent_years">时间段</option>
 									</select>
 								</div>
 								<div class="col-sm-6 hide" id="timeRangeWrap">

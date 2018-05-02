@@ -1,5 +1,10 @@
 require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
-		'zTree' ], function($, echarts ,global_custom,  ECategory, zTree) {
+		'zTree', 'bootstrap' ], function($, echarts ,global_custom,  ECategory, zTree) {
+	window.NOW_DATE = 'now_date';		  // 当前时间,  传参：""
+	window.LAST_DATE = 'last_date';		  // 当前时间-1,	传参：""
+	window.CUSTOM_DATE = 'custom_date';   // 自定义时间段 ,  传参如：2018-05-08 ~ 2018-06-19
+	window.RECENT_YEARS = 'recent_years'; // 最近x年/月/日 , 传参如："3 Y", "3 M", "3 D"
+	
 	var setting = {
 			check : {
 				enable : true,
@@ -22,31 +27,30 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 			},
 			callback: {  
 				beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
-					if(treeNode.selectable == 0) {// 还有子节点
-						$.ajax({
-		                    type : "get",
-		                    url : basePathJS + "/indictorCategory/subCategoryList?fid=" + treeNode.id,
-		                    async : false,
-		                    success : function(res){
-		                        var dd = res.content.data;
-		                        if(dd && dd.length>0) {
-		                        	treeNode.children = treeNode.children?treeNode.children:[];
-		                        	treeNode.children = dd.concat(treeNode.children);
-		                        }
-		    					var zTreeObj = $.fn.zTree.getZTreeObj(treeId);
-		                        if (treeNode.isParent) {
-		                            if (treeNode.open) {
-		                                zTreeObj.expandNode(treeNode, false);
-		                            } else {
-		                                zTreeObj.expandNode(treeNode, true);
-		                            }
-		                            return false;
-		                        } else {
-		                            return true;
-		                        }
-		                    }
-		                });
-					}
+					console.log(treeNode);
+//					if(treeNode.selectable == 0) {// 还有子节点
+//						$.ajax({
+//		                    type : "get",
+//		                    url : basePathJS + "/indictorCategory/subCategoryList?fid=" + treeNode.id,
+//		                    async : false,
+//		                    success : function(res){
+//		                        var dd = res.content.data;
+//		                        treeNode.children = [];
+//	                        	treeNode.children = dd.concat(treeNode.children_old);
+//		    					var zTreeObj = $.fn.zTree.getZTreeObj(treeId);
+//		                        if (treeNode.isParent) {
+//		                            if (treeNode.open) {
+//		                                zTreeObj.expandNode(treeNode, false);
+//		                            } else {
+//		                                zTreeObj.expandNode(treeNode, true);
+//		                            }
+//		                            return false;
+//		                        } else {
+//		                            return true;
+//		                        }
+//		                    }
+//		                });
+//					}
 					
                 },
 //		        onCheck: onCheck, //用于捕获 checkbox / radio 被勾选 或 取消勾选的事件回调函数  
@@ -66,6 +70,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 	})
 	function filter(treeId, parentNode, childNodes) {
 		if (!childNodes) return null;
+		
 		var childNodes = childNodes.content.data;
 		for (var i=0, l=childNodes.length; i<l; i++) {
 			console.log(childNodes[i].hasLeaf);
@@ -73,7 +78,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 			childNodes[i].nocheck = childNodes[i].selectable == 1 ? true:false;
 			childNodes[i].children = [];
 			if(childNodes[i].indictorVos.length > 0) {
-				childNodes[i].children = childNodes[i].indictorVos;
+				childNodes[i].children_old = childNodes[i].indictorVos;
 			}
 			
 		}
@@ -138,7 +143,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 	} ];
 	
 
-	
+	// 保存所选节点
 	function onCheck(e, treeId, treeNode) {
 		var treeObj = $.fn.zTree.getZTreeObj("indicatorTree"), 
 		nodes = treeObj.getCheckedNodes(true), 
@@ -181,6 +186,8 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		return arr_new;
 	}
 	
+
+	
 	$('input[name="showDetail"]').click(function(){
 		$('.tree-wrap.detail').toggleClass('hide');
 	})
@@ -188,10 +195,11 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 	$('#addChartConfirm').click(function() {
 		var chartType = $('input[name="chartTypeOptions"]:checked').val();
 		var showDetail = $('#showDetail').prop('checked');
+		var isNameShow = $('#showTitle').prop('checked');
 		// TODO send ajax for indicator data
 		var params = {
 				chartName: $('#etitle').val(),
-				isNameShow: $('#showTitle').prop('checked'),
+				isNameShow: isNameShow,
 				chartType: chartType,
 				chartTimeType: $('#timeselect').val(),
 				chartTimeScope: getChartTimeScope(),
@@ -247,6 +255,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		
 		ECategory.create(chartType,{
 			title: title,
+			isNameShow: isNameShow,
 			unit: data_unit,
 			legend_data: legend_data,
 			x_data: x_data,
@@ -254,7 +263,10 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 			singleData: singleData,
 			showDetail: showDetail,
 			detail_info:detail_info,
-			gauge_data: gauge_data
+			gauge_data: gauge_data,
+			chartType: chartType,
+			chartTimeType: $('#timeselect').val(),
+			chartTimeScope: getChartTimeScope(),
 		});
 		$('#addChartModal').modal('hide');
 	})
@@ -283,17 +295,21 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		minimumResultsForSearch: -1
 	});
 	
-	
+	$('#addChartBtn').click(function(){
+		clearModalInfo();
+		$('#addChartModal').modal('show');
+	})
+
 	
 	function etypeChange() {
 		var chartType = $('input[name="chartTypeOptions"]:checked').val();
 		var timeType = $('#timeselect').val();
-		if(timeType == 1 || timeType == 2) {// 当前时间或者当前时间-1
+		if(timeType == NOW_DATE || timeType == LAST_DATE) {// 当前时间或者当前时间-1
 			$('#timeWrap').addClass('hide');
 			$('#timeRangeWrap').addClass('hide');
 		}
 		else{
-			if(timeType == 3) {
+			if(timeType == CUSTOM_DATE) {
 				$('#timeWrap').addClass('hide');
 				$('#timeRangeWrap').removeClass('hide');
 			}
@@ -308,13 +324,13 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 	function getChartTimeScope(){
 		var timeScope = '';
 		var timeType = $('#timeselect').val();
-		if(timeType == 1) {
-			timeScope = '1';
+		if(timeType == NOW_DATE) {
+			timeScope = '';
 		}
-		else if(timeType == 2) {
-			timeScope = '2';
+		else if(timeType == LAST_DATE) {
+			timeScope = '';
 		}
-		else if(timeType == 3) {
+		else if(timeType == CUSTOM_DATE) {
 			timeScope = $('#timeRange').val();
 		}
 		else{
@@ -334,5 +350,19 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 			})
 		}
 		return selectedNode;
+	}
+	
+	function clearModalInfo(){
+		$('#etitle').val('');
+		$('#showTitle').prop('checked',true);
+		$("input:radio[name='chartTypeOptions']").prop("checked",false);
+		$("input:radio[name='chartTypeOptions']").eq(0).prop("checked",'checked');
+		$('#timeselect').val(NOW_DATE); // Select the option with a value of '1'
+		$('#timeselect').trigger('change'); 
+		//$("timeselect").trigger("change");
+		$("#timeRange").val('');
+		$('#timePoint').val('');
+		$('#showDetail').prop('checked',true);
+		$('.tree-wrap.detail').removeClass('hide').show();
 	}
 })

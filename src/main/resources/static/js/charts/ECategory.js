@@ -4,7 +4,7 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 	function ECategory(etype, opts){
 		this.opts = $.extend({}, ECategory.DEFAULTS, opts);
 		var el_id = Date.parse(new Date());
-		this.$el = $('<div id="'+ el_id +'" class="chart-box"></div>');		
+		this.$el = $('<div class="chart-item-wrap"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span></div></div>');		
 		$('#chartWrapper').append(this.$el);
 		this.instnc = {};
 		switch(etype) {
@@ -29,7 +29,21 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 			default:
 				//this.instnc = new ELine.init(el_id, this.opts);
 		}
-		
+		var instance = this.instnc;
+		this.$el.find('.fa-edit').click(function(){
+			// TODO get data info of current chart
+			console.log(instance.opts);
+			$('#etitle').val(instance.opts.title);
+			$('#showTitle').prop('checked',instance.opts.isNameShow);
+			$("input:radio[name='chartTypeOptions'][value='" + instance.opts.chartType + "']").prop("checked",true);
+			$('#timeselect').val(instance.opts.chartTimeType);
+			$('#timeselect').trigger('change'); 
+			$("#timeRange").val('');
+			$('#timePoint').val('');
+			$('#showDetail').prop('checked',instance.opts.showDetail);
+			
+			$('#addChartModal').modal('show');
+		})
 	}
 	
 	ECategory.DEFAULTS = {
