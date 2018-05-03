@@ -78,11 +78,9 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		for (var i=0, l=childNodes.length; i<l; i++) {
 			console.log(childNodes[i].hasLeaf);
 			childNodes[i].isParent = childNodes[i].selectable == 0 ? true:false;
-			childNodes[i].nocheck = childNodes[i].selectable == 1 ? true:false;
-			childNodes[i].children = [];
-			if(childNodes[i].indictorVos.length > 0) {
-				childNodes[i].children_old = childNodes[i].indictorVos;
-			}
+			childNodes[i].nocheck = childNodes[i].selectable == 0 ? true:false;
+			//childNodes[i].children = [];
+			
 			
 		}
 		return childNodes;
@@ -144,30 +142,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 //		pId : 2,
 //		name : "随意勾选 2-3"
 //	} ];
-	
 
-	// 保存所选节点
-	function onCheck(e, treeId, treeNode) {
-		var treeObj = $.fn.zTree.getZTreeObj("indicatorTree"), 
-		nodes = treeObj.getCheckedNodes(true), 
-		selectedNode = [];
-		for (var i = 0; i < nodes.length; i++) {
-			selectedNode.push({
-				id: nodes[i].id,
-				name: nodes[i].name
-			})
-		}
-		
-		var treeDetailObj = $.fn.zTree.getZTreeObj("detailTree"), 
-		dnodes = treeDetailObj.getCheckedNodes(true), 
-		selectedSubNode = [];
-		for (var i = 0; i < dnodes.length; i++) {
-			selectedSubNode.push({
-				id: dnodes[i].id,
-				name: dnodes[i].name
-			})
-		}
-	}
 
 	// 二维数组矩阵转置
 	Array.prototype.transpose = function() {
@@ -354,7 +329,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		selectedNode = [];
 		for (var i = 0; i < nodes.length; i++) {
 			selectedNode.push({
-				id: nodes[i].id,
+				code: nodes[i].code,
 				name: nodes[i].name
 			})
 		}
