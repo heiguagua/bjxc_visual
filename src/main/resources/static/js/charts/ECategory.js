@@ -1,7 +1,7 @@
 define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/charts/EFunnel", "../../js/charts/ECircle", "../../js/charts/EGauge"], function(jquery, ELine, ERadar, EFunnel, ECircle, EGauge) {
 
 	// constructor
-	function ECategory(etype, opts){
+	function ECategory(etype, opts, ADD_OR_UPDATE){
 		this.opts = $.extend({}, ECategory.DEFAULTS, opts);
 		var el_id = Date.parse(new Date());
 		this.$el = $('<div class="chart-item-wrap"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span></div></div>');		
@@ -41,7 +41,7 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 			$("#timeRange").val('');
 			$('#timePoint').val('');
 			$('#showDetail').prop('checked',instance.opts.showDetail);
-			
+			ADD_OR_UPDATE = 'update'; // 模态框类型为修改
 			$('#addChartModal').modal('show');
 		})
 	}

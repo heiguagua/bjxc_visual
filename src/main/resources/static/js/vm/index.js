@@ -1,9 +1,12 @@
 require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		'zTree', 'bootstrap' ], function($, echarts ,global_custom,  ECategory, zTree) {
+	
+	// 全局变量
 	window.NOW_DATE = 'now_date';		  // 当前时间,  传参：""
 	window.LAST_DATE = 'last_date';		  // 当前时间-1,	传参：""
 	window.CUSTOM_DATE = 'custom_date';   // 自定义时间段 ,  传参如：2018-05-08 ~ 2018-06-19
 	window.RECENT_YEARS = 'recent_years'; // 最近x年/月/日 , 传参如："3 Y", "3 M", "3 D"
+	window.ADD_OR_UPDATE = 'add';
 	
 	var setting = {
 			check : {
@@ -85,62 +88,62 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		return childNodes;
 	}
 
-	var zNodes = [ {
-		id : 1,
-		pId : 0,
-		name : "随意勾选 1",
-		open : true
-	}, {
-		id : 11,
-		pId : 1,
-		name : "随意勾选 1-1",
-		open : true
-	}, {
-		id : 111,
-		pId : 11,
-		name : "随意勾选 1-1-1"
-	}, {
-		id : 112,
-		pId : 11,
-		name : "随意勾选 1-1-2"
-	}, {
-		id : 12,
-		pId : 1,
-		name : "随意勾选 1-2",
-		open : true
-	}, {
-		id : 121,
-		pId : 12,
-		name : "随意勾选 1-2-1"
-	}, {
-		id : 122,
-		pId : 12,
-		name : "随意勾选 1-2-2"
-	}, {
-		id : 2,
-		pId : 0,
-		name : "随意勾选 2"
-	}, {
-		id : 21,
-		pId : 2,
-		name : "随意勾选 2-1"
-	}, {
-		id : 22,
-		pId : 2,
-		name : "随意勾选 2-2"
-	}, {
-		id : 221,
-		pId : 22,
-		name : "随意勾选 2-2-1"
-	}, {
-		id : 222,
-		pId : 22,
-		name : "随意勾选 2-2-2"
-	}, {
-		id : 23,
-		pId : 2,
-		name : "随意勾选 2-3"
-	} ];
+//	var zNodes = [ {
+//		id : 1,
+//		pId : 0,
+//		name : "随意勾选 1",
+//		open : true
+//	}, {
+//		id : 11,
+//		pId : 1,
+//		name : "随意勾选 1-1",
+//		open : true
+//	}, {
+//		id : 111,
+//		pId : 11,
+//		name : "随意勾选 1-1-1"
+//	}, {
+//		id : 112,
+//		pId : 11,
+//		name : "随意勾选 1-1-2"
+//	}, {
+//		id : 12,
+//		pId : 1,
+//		name : "随意勾选 1-2",
+//		open : true
+//	}, {
+//		id : 121,
+//		pId : 12,
+//		name : "随意勾选 1-2-1"
+//	}, {
+//		id : 122,
+//		pId : 12,
+//		name : "随意勾选 1-2-2"
+//	}, {
+//		id : 2,
+//		pId : 0,
+//		name : "随意勾选 2"
+//	}, {
+//		id : 21,
+//		pId : 2,
+//		name : "随意勾选 2-1"
+//	}, {
+//		id : 22,
+//		pId : 2,
+//		name : "随意勾选 2-2"
+//	}, {
+//		id : 221,
+//		pId : 22,
+//		name : "随意勾选 2-2-1"
+//	}, {
+//		id : 222,
+//		pId : 22,
+//		name : "随意勾选 2-2-2"
+//	}, {
+//		id : 23,
+//		pId : 2,
+//		name : "随意勾选 2-3"
+//	} ];
 	
 
 	// 保存所选节点
@@ -193,6 +196,8 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 	})
 	
 	$('#addChartConfirm').click(function() {
+		console.log('modal type:' + ADD_OR_UPDATE);
+
 		var chartType = $('input[name="chartTypeOptions"]:checked').val();
 		var showDetail = $('#showDetail').prop('checked');
 		var isNameShow = $('#showTitle').prop('checked');
@@ -239,8 +244,8 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		                {name: '人口与医疗卫生机构妇产科床位数比', date: '2015年', value: '8.9', unit: '%'},
 		                {name: '人口与妇产科执业医师数比', date: '2015年', value: '9.1', unit: '%'},
 		                {name: '人口与妇幼保健机构数比', date: '2015年', value: '6.4', unit: '%'},];
-		console.log(_.groupBy(data_all,'name'),_.keys(_.groupBy(data_all,'name')),_.values(_.groupBy(data_all,'name')));
-		console.log(_.groupBy(data_all,'date'),_.keys(_.groupBy(data_all,'date')),_.values(_.groupBy(data_all,'date')));
+//		console.log(_.groupBy(data_all,'name'),_.keys(_.groupBy(data_all,'name')),_.values(_.groupBy(data_all,'name')));
+//		console.log(_.groupBy(data_all,'date'),_.keys(_.groupBy(data_all,'date')),_.values(_.groupBy(data_all,'date')));
 		var singleData = [60,40,20,80,100];
 		serData = serData.transpose();
 		var detail_info = {
@@ -267,12 +272,13 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 			chartType: chartType,
 			chartTimeType: $('#timeselect').val(),
 			chartTimeScope: getChartTimeScope(),
-		});
+		},ADD_OR_UPDATE);
+		
 		$('#addChartModal').modal('hide');
 	})
 	
 	
-	
+	// 图表类型change事件
 	$('input[name="chartTypeOptions"]').click(function(){
 		etypeChange();
 	})
@@ -295,12 +301,14 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		minimumResultsForSearch: -1
 	});
 	
+	// 新增图表按钮点击事件
 	$('#addChartBtn').click(function(){
+		ADD_OR_UPDATE = 'add';
 		clearModalInfo();
 		$('#addChartModal').modal('show');
 	})
 
-	
+	// 时间类型change事件
 	function etypeChange() {
 		var chartType = $('input[name="chartTypeOptions"]:checked').val();
 		var timeType = $('#timeselect').val();
@@ -321,6 +329,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		
 	}
 	
+	// 格式化所选时间
 	function getChartTimeScope(){
 		var timeScope = '';
 		var timeType = $('#timeselect').val();
@@ -352,6 +361,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		return selectedNode;
 	}
 	
+	// 清空模态框
 	function clearModalInfo(){
 		$('#etitle').val('');
 		$('#showTitle').prop('checked',true);
