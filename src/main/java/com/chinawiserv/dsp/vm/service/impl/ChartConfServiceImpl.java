@@ -249,7 +249,7 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 
 		if (1 == chartConf.getHasSubIndictor()) {
 			JSONArray subIndicators = JSONArray.fromObject(paramsMap.getOrDefault("subIndictors", "").toString());
-			for (int i = 0; i < indictorsArry.size(); i++) {
+			for (int i = 0; i < subIndicators.size(); i++) {
 				JSONObject subIndictorJson = JSONObject.fromObject(subIndicators.get(i).toString());
 				// 图表描述与指标关系表
 				ChartDescIndictorMap chartDescIndictorMap = new ChartDescIndictorMap();
