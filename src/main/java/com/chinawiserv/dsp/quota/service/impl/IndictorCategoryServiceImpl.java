@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.quota.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
 import com.chinawiserv.dsp.base.service.common.impl.CommonServiceImpl;
 import com.chinawiserv.dsp.quota.entity.po.IndictorCategory;
 import com.chinawiserv.dsp.quota.entity.vo.IndictorCategoryVo;
+import com.chinawiserv.dsp.quota.entity.vo.IndictorVo;
 import com.chinawiserv.dsp.quota.mapper.IndictorCategoryMapper;
 import com.chinawiserv.dsp.quota.mapper.IndictorMapper;
 import com.chinawiserv.dsp.quota.service.IIndictorCategoryService;
@@ -70,11 +72,21 @@ public class IndictorCategoryServiceImpl extends CommonServiceImpl<IndictorCateg
 	@Override
 	public HandleResult selectSubVoList(Map<String, Object> paramMap) throws Exception {
 		HandleResult handleResult = new HandleResult();
+		List<IndictorCategoryVo> resultVos = new ArrayList<>();
 		List<IndictorCategoryVo> indictorCategoryVos = mapper.selectSubVoList(paramMap);
+
 		for (IndictorCategoryVo vo : indictorCategoryVos) {
-			vo.setIndictorVos(indictorMapper.selectByCategoryId(vo.getId()));
+			resultVos.add(vo);
+			List<IndictorVo> indictorVos = indictorMapper.selectByCategoryId(vo.getId());
+			for (IndictorVo indictorVo : indictorVos) {
+				IndictorCategoryVo indictorCategoryVo = new IndictorCategoryVo();
+				indictorCategoryVo.setCode(indictorVo.getCode());
+				indictorCategoryVo.setSelectable(indictorVo.getSelectable());
+				indictorCategoryVo.setName(indictorVo.getName());
+				resultVos.add(indictorCategoryVo);
+			}
 		}
-		handleResult.put("data", indictorCategoryVos);
+		handleResult.put("data", resultVos);
 		return handleResult;
 	}
 }
