@@ -30,7 +30,6 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 			},
 			callback: {  
 				beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
-					console.log(treeNode);
 //					if(treeNode.selectable == 0) {// 还有子节点
 //						$.ajax({
 //		                    type : "get",
@@ -76,7 +75,6 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 		
 		var childNodes = childNodes.content.data;
 		for (var i=0, l=childNodes.length; i<l; i++) {
-			console.log(childNodes[i].hasLeaf);
 			childNodes[i].isParent = childNodes[i].selectable == 0 ? true:false;
 			childNodes[i].nocheck = childNodes[i].selectable == 0 ? true:false;
 			//childNodes[i].children = [];
@@ -200,76 +198,95 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
             async : false,
             data: params,
             success : function(res){
-                console.log(res);
+        		// response data
+        		var title = $('#etitle').val();
+        		var data_unit = '%';
+        		var legend_data = ['孕产妇建卡率','人口与妇幼保健院卫生人员数比','人口与医疗卫生机构妇产科床位数比','人口与妇产科执业医师数比','人口与妇幼保健机构数比'];
+        		var x_data = ['2012年','2013年','2014年','2015年'];
+        		var serData = [[9,7,8,7.8,6.8],
+        		               [7,7.8,8.4,7.2,5.6],
+        		               [4.6,4.2,5,5.8,5.4],
+        		               [3,3.2,4,4.5,5.2]
+        					];
+        		var data_all = res.content.basicData;
+//        		var data_all = [{name: '孕产妇建卡率', setStartTime: '2012年', value: '9', unit: '%'},
+//        		                {name: '人口与妇幼保健院卫生人员数比', setStartTime: '2012年', value: '7', unit: '%'},
+//        		                {name: '人口与医疗卫生机构妇产科床位数比', setStartTime: '2012年', value: '8', unit: '%'},
+//        		                {name: '人口与妇产科执业医师数比', setStartTime: '2012年', value: '6.9', unit: '%'},
+//        		                {name: '人口与妇幼保健机构数比', setStartTime: '2012年', value: '8.4', unit: '%'},
+//        		                {name: '孕产妇建卡率', setStartTime: '2013年', value: '4.8', unit: '%'},
+//        		                {name: '人口与妇幼保健院卫生人员数比', setStartTime: '2013年', value: '7.8', unit: '%'},
+//        		                {name: '人口与医疗卫生机构妇产科床位数比', setStartTime: '2013年', value: '9.4', unit: '%'},
+//        		                {name: '人口与妇产科执业医师数比', setStartTime: '2013年', value: '8.9', unit: '%'},
+//        		                {name: '人口与妇幼保健机构数比', setStartTime: '2013年', value: '7.4', unit: '%'},
+//        		                {name: '孕产妇建卡率', setStartTime: '2014年', value: '8.5', unit: '%'},
+//        		                {name: '人口与妇幼保健院卫生人员数比', setStartTime: '2014年', value: '6.7', unit: '%'},
+//        		                {name: '人口与医疗卫生机构妇产科床位数比', setStartTime: '2014年', value: '5.9', unit: '%'},
+//        		                {name: '人口与妇产科执业医师数比', setStartTime: '2014年', value: '8.9', unit: '%'},
+//        		                {name: '人口与妇幼保健机构数比', setStartTime: '2014年', value: '7.4', unit: '%'},
+//        		                {name: '孕产妇建卡率', setStartTime: '2015年', value: '7.5', unit: '%'},
+//        		                {name: '人口与妇幼保健院卫生人员数比', setStartTime: '2015年', value: '6.4', unit: '%'},
+//        		                {name: '人口与医疗卫生机构妇产科床位数比', setStartTime: '2015年', value: '8.9', unit: '%'},
+//        		                {name: '人口与妇产科执业医师数比', setStartTime: '2015年', value: '9.1', unit: '%'},
+//        		                {name: '人口与妇幼保健机构数比', setStartTime: '2015年', value: '6.4', unit: '%'},];
+        		console.log(_.groupBy(data_all,'name'),_.keys(_.groupBy(data_all,'name')),_.values(_.groupBy(data_all,'name')));
+        		console.log(_.groupBy(data_all,'setStartTime'),_.keys(_.groupBy(data_all,'setStartTime')),_.values(_.groupBy(data_all,'setStartTime')));
+        		var serData = _.values(_.groupBy(data_all,'setStartTime'));
+        		_.forEach(serData, function(item,index) {
+        			item = _.map(item,'valData');
+        			serData[index] = item;
+        		});
+        		console.log('serData',serData);
+        		var x_data = _.keys(_.groupBy(data_all,'setStartTime'));
+        		var legend_data = _.keys(_.groupBy(data_all,'name'));
+        		
+        		//var singleData = [60,40,20,80,100];
+        		var singleData = serData;
+        		serData = serData.transpose();
+        		console.log('serData:after',serData);
+//        		var detail_info = {
+//        				title: '2014年西城区',
+//        				data:[{name:'孕妇建卡人数',value:1000,unit:'人'},
+//        	                   {name:'妇幼保健卫生人员数',value:600,unit:'人'},
+//        	                   {name:'妇产科职业医师数',value:200,unit:'人'},
+//        	                   {name:'妇幼保健机构数',value:15,unit:'家'}]
+//        		};
+        		var detail_info = {
+        				title: title,
+        				data:res.content.extendData
+        		}
+        		
+        		var gauge_data = data_all;// 单个指标数据，用于仪表图
+        		
+        		 var echarts = new ECategory.create(chartType,{
+        			id: res.content.id,
+        			title: title,
+        			isNameShow: isNameShow,
+        			unit: data_unit,
+        			legend_data: legend_data,
+        			x_data: x_data,
+        			serData: serData,
+        			singleData: singleData,
+        			showDetail: showDetail,
+        			detail_info:detail_info,
+        			gauge_data: gauge_data,
+        			chartType: chartType,
+        			chartTimeType: $('#timeselect').val(),
+        			chartTimeScope: getChartTimeScope(),
+        		},ADD_OR_UPDATE);
+        		
+        		$('#addChartModal').modal('hide');
+        		
+        		// 拖拽缩放 ---
+        		pageInst.addPlugin(chartType,chartType,echarts.$el,echarts.instnc);
+        		// pageInst.install()
+        		// ---
             }
         });
-		
-		// response data
-		var title = '人口与机构分析一览表';
-		var data_unit = '%';
-		var legend_data = ['孕产妇建卡率','人口与妇幼保健院卫生人员数比','人口与医疗卫生机构妇产科床位数比','人口与妇产科执业医师数比','人口与妇幼保健机构数比'];
-		var x_data = ['2012年','2013年','2014年','2015年'];
-		var serData = [[9,7,8,7.8,6.8],
-		               [7,7.8,8.4,7.2,5.6],
-		               [4.6,4.2,5,5.8,5.4],
-		               [3,3.2,4,4.5,5.2]
-					];
-		var data_all = [{name: '孕产妇建卡率', date: '2012年', value: '9', unit: '%'},
-		                {name: '人口与妇幼保健院卫生人员数比', date: '2012年', value: '7', unit: '%'},
-		                {name: '人口与医疗卫生机构妇产科床位数比', date: '2012年', value: '8', unit: '%'},
-		                {name: '人口与妇产科执业医师数比', date: '2012年', value: '6.9', unit: '%'},
-		                {name: '人口与妇幼保健机构数比', date: '2012年', value: '8.4', unit: '%'},
-		                {name: '孕产妇建卡率', date: '2013年', value: '4.8', unit: '%'},
-		                {name: '人口与妇幼保健院卫生人员数比', date: '2013年', value: '7.8', unit: '%'},
-		                {name: '人口与医疗卫生机构妇产科床位数比', date: '2013年', value: '9.4', unit: '%'},
-		                {name: '人口与妇产科执业医师数比', date: '2013年', value: '8.9', unit: '%'},
-		                {name: '人口与妇幼保健机构数比', date: '2013年', value: '7.4', unit: '%'},
-		                {name: '孕产妇建卡率', date: '2014年', value: '8.5', unit: '%'},
-		                {name: '人口与妇幼保健院卫生人员数比', date: '2014年', value: '6.7', unit: '%'},
-		                {name: '人口与医疗卫生机构妇产科床位数比', date: '2014年', value: '5.9', unit: '%'},
-		                {name: '人口与妇产科执业医师数比', date: '2014年', value: '8.9', unit: '%'},
-		                {name: '人口与妇幼保健机构数比', date: '2014年', value: '7.4', unit: '%'},
-		                {name: '孕产妇建卡率', date: '2015年', value: '7.5', unit: '%'},
-		                {name: '人口与妇幼保健院卫生人员数比', date: '2015年', value: '6.4', unit: '%'},
-		                {name: '人口与医疗卫生机构妇产科床位数比', date: '2015年', value: '8.9', unit: '%'},
-		                {name: '人口与妇产科执业医师数比', date: '2015年', value: '9.1', unit: '%'},
-		                {name: '人口与妇幼保健机构数比', date: '2015年', value: '6.4', unit: '%'},];
-//		console.log(_.groupBy(data_all,'name'),_.keys(_.groupBy(data_all,'name')),_.values(_.groupBy(data_all,'name')));
-//		console.log(_.groupBy(data_all,'date'),_.keys(_.groupBy(data_all,'date')),_.values(_.groupBy(data_all,'date')));
-		var singleData = [60,40,20,80,100];
-		serData = serData.transpose();
-		var detail_info = {
-				title: '2014年西城区',
-				data:[{name:'孕妇建卡人数',value:1000,unit:'人'},
-	                   {name:'妇幼保健卫生人员数',value:600,unit:'人'},
-	                   {name:'妇产科职业医师数',value:200,unit:'人'},
-	                   {name:'妇幼保健机构数',value:15,unit:'家'}]
-		};
-		
-		var gauge_data = {name:'完成率', value:50};// 单个指标数据，用于仪表图
-		
-		var echarts = new ECategory.create(chartType,{
-			title: title,
-			isNameShow: isNameShow,
-			unit: data_unit,
-			legend_data: legend_data,
-			x_data: x_data,
-			serData: serData,
-			singleData: singleData,
-			showDetail: showDetail,
-			detail_info:detail_info,
-			gauge_data: gauge_data,
-			chartType: chartType,
-			chartTimeType: $('#timeselect').val(),
-			chartTimeScope: getChartTimeScope(),
-		},ADD_OR_UPDATE);
-		
-		$('#addChartModal').modal('hide');
 
-		// 拖拽缩放 ---
-		pageInst.addPlugin(chartType,chartType,echarts.$el,echarts.instnc);
-		// pageInst.install()
-		// ---
+
+
+		
 	})
 	
 	

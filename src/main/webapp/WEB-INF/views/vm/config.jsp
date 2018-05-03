@@ -15,7 +15,7 @@ form .form-group label {
 }
 .chart-item-wrap{
 	display: inline-block;
-	/*position:absolute;*/
+	position: relative;
 	width: 500px;
 	height: 400px;
 	border: 1px solid #DDD;
