@@ -57,13 +57,13 @@
                 /images/**=anon
                  /druid/**=anon
 				/catalog/catalogue/=anon
-				/index=anon
+				<!-- /index=anon
 				/system/dept/provideData/=anon
 				/system/user/provideData/=anon
 				/system/region/provideData/=anon
 				/sysDict/provideData/=anon
 				/system/productIntegrate/postData=anon
-				/chartMenuCustom/**=anon
+				/chartMenuCustom/**=anon -->
 				<!--/WEB-INF/views/login.jsp=anon-->
 	        	<!--/sys/login=anon-->
 	        	<!--/captcha.jpg=anon-->

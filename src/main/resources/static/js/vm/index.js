@@ -185,10 +185,10 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 				chartTimeScope: getChartTimeScope(),
 				hasSubIndictor: showDetail,
 				location: '',
-				indicators: getTreeNode('indicatorTree'),
-				subIndicators: getTreeNode('detailTree')
+				indicators: JSON.stringify(getTreeNode('indicatorTree')),
+				subIndicators: JSON.stringify(getTreeNode('detailTree'))
 		}
-		console.log(params);
+		console.log(params.indicators);
 		$.ajax({
             type : "post",
             url : basePathJS + "/chartConf/addUsersChart",
