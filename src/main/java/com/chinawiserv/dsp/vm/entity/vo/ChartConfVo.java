@@ -1,5 +1,7 @@
 package com.chinawiserv.dsp.vm.entity.vo;
 
+import java.util.List;
+
 import com.chinawiserv.dsp.vm.entity.po.ChartConf;
 
 /**
@@ -11,17 +13,6 @@ import com.chinawiserv.dsp.vm.entity.po.ChartConf;
  * @since 2018-04-25
  */
 public class ChartConfVo extends ChartConf {
-
-	private String classifyName;
-
-	private String classifyLevel;
-
-	private String classifyChartType;
-
-	private String subIndictorCode;
-
-	private String subIndictorShowName;
-
 	private String subTitle;
 
 	private String description;
@@ -30,63 +21,13 @@ public class ChartConfVo extends ChartConf {
 
 	private Integer showOrder;
 
-	private String indictorCode;
-
-	private String indictorShowName;
-
-	private String highlightFlag;
-
-	private String pointNum;
-
-	private String classify_id;
-
-	private String chartDescIndictorMapId;
-
-	private String chartDescriptionId;
-
 	private String chartMenuCustomId;
 
-	private String classifyIndictorMapId;
+	private List<ChartClassifyVo> listChartClassify;
 
-	public String getClassifyName() {
-		return classifyName;
-	}
+	private List<ChartDescIndictorMapVo> listChartDescIndictorMap;
 
-	public void setClassifyName(String classifyName) {
-		this.classifyName = classifyName;
-	}
-
-	public String getClassifyLevel() {
-		return classifyLevel;
-	}
-
-	public void setClassifyLevel(String classifyLevel) {
-		this.classifyLevel = classifyLevel;
-	}
-
-	public String getClassifyChartType() {
-		return classifyChartType;
-	}
-
-	public void setClassifyChartType(String classifyChartType) {
-		this.classifyChartType = classifyChartType;
-	}
-
-	public String getSubIndictorCode() {
-		return subIndictorCode;
-	}
-
-	public void setSubIndictorCode(String subIndictorCode) {
-		this.subIndictorCode = subIndictorCode;
-	}
-
-	public String getSubIndictorShowName() {
-		return subIndictorShowName;
-	}
-
-	public void setSubIndictorShowName(String subIndictorShowName) {
-		this.subIndictorShowName = subIndictorShowName;
-	}
+	private List<ClassifyIndictorMapVo> listClassifyIndictorMap;
 
 	public String getSubTitle() {
 		return subTitle;
@@ -120,62 +61,6 @@ public class ChartConfVo extends ChartConf {
 		this.showOrder = showOrder;
 	}
 
-	public String getIndictorCode() {
-		return indictorCode;
-	}
-
-	public void setIndictorCode(String indictorCode) {
-		this.indictorCode = indictorCode;
-	}
-
-	public String getIndictorShowName() {
-		return indictorShowName;
-	}
-
-	public void setIndictorShowName(String indictorShowName) {
-		this.indictorShowName = indictorShowName;
-	}
-
-	public String getHighlightFlag() {
-		return highlightFlag;
-	}
-
-	public void setHighlightFlag(String highlightFlag) {
-		this.highlightFlag = highlightFlag;
-	}
-
-	public String getPointNum() {
-		return pointNum;
-	}
-
-	public void setPointNum(String pointNum) {
-		this.pointNum = pointNum;
-	}
-
-	public String getClassify_id() {
-		return classify_id;
-	}
-
-	public void setClassify_id(String classify_id) {
-		this.classify_id = classify_id;
-	}
-
-	public String getChartDescIndictorMapId() {
-		return chartDescIndictorMapId;
-	}
-
-	public void setChartDescIndictorMapId(String chartDescIndictorMapId) {
-		this.chartDescIndictorMapId = chartDescIndictorMapId;
-	}
-
-	public String getChartDescriptionId() {
-		return chartDescriptionId;
-	}
-
-	public void setChartDescriptionId(String chartDescriptionId) {
-		this.chartDescriptionId = chartDescriptionId;
-	}
-
 	public String getChartMenuCustomId() {
 		return chartMenuCustomId;
 	}
@@ -184,12 +69,28 @@ public class ChartConfVo extends ChartConf {
 		this.chartMenuCustomId = chartMenuCustomId;
 	}
 
-	public String getClassifyIndictorMapId() {
-		return classifyIndictorMapId;
+	public List<ChartClassifyVo> getListChartClassify() {
+		return listChartClassify;
 	}
 
-	public void setClassifyIndictorMapId(String classifyIndictorMapId) {
-		this.classifyIndictorMapId = classifyIndictorMapId;
+	public void setListChartClassify(List<ChartClassifyVo> listChartClassify) {
+		this.listChartClassify = listChartClassify;
+	}
+
+	public List<ChartDescIndictorMapVo> getListChartDescIndictorMap() {
+		return listChartDescIndictorMap;
+	}
+
+	public void setListChartDescIndictorMap(List<ChartDescIndictorMapVo> listChartDescIndictorMap) {
+		this.listChartDescIndictorMap = listChartDescIndictorMap;
+	}
+
+	public List<ClassifyIndictorMapVo> getListClassifyIndictorMap() {
+		return listClassifyIndictorMap;
+	}
+
+	public void setListClassifyIndictorMap(List<ClassifyIndictorMapVo> listClassifyIndictorMap) {
+		this.listClassifyIndictorMap = listClassifyIndictorMap;
 	}
 
 }

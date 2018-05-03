@@ -26,26 +26,11 @@
 
 	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
 		type="com.chinawiserv.dsp.vm.entity.vo.ChartConfVo">
-		<result column="classify_name" property="classifyName" />
-		<result column="classify_level" property="classifyLevel" />
-		<result column="classify_chart_type" property="chartType" />
-		<result column="sub_indictor_code" property="subIndictorCode" />
-		<result column="sub_indictor_show_name" property="subIndictorShowName" />
-		<result column="sub_title" property="subTitle" />
-		<result column="description" property="description" />
 		<result column="location" property="location" />
 		<result column="show_order" property="showOrder" />
-		<result column="indictor_code" property="indictorCode" />
-		<result column="indictor_show_name" property="indictorShowName" />
-		<result column="highlight_flag" property="highlightFlag" />
-		<result column="point_num" property="pointNum" />
-		
-		<result column="classify_id" property="classify_id" />
-		<result column="chart_desc_indictor_map_id" property="chartDescIndictorMapId" />
-		<result column="chart_description_id" property="chartDescriptionId" />
 		<result column="chart_menu_custom_id" property="chartMenuCustomId" />
-		<result column="classify_indictor_map_id" property="classifyIndictorMapId" />
-
+		<result column="sub_title" property="subTitle" />
+		<result column="description" property="description" />
 
 	</resultMap>
 
@@ -67,31 +52,14 @@
 	<select id="selectVoById" parameterType="java.lang.String"
 		resultMap="BaseResultVoMap">
 		SELECT
-		t.*, t1.id AS classify_id,
-		t1.classify_name,
-		t1.classify_level,
-		t1.chart_type AS classify_chart_type,
-		t2.id AS chart_desc_indictor_map_id,
-		t2.indictor_code AS sub_indictor_code,
-		t2.indictor_show_name AS sub_indictor_show_name,
-		t3.sub_title,
-		t3.description,
-		t3.id AS chart_description_id,
+		t.*,t2.sub_title,t2.description,
 		t4.location,
 		t4.show_order,
-		t4.id AS chart_menu_custom_id,
-		t5.indictor_code,
-		t5.indictor_show_name,
-		t5.highlight_flag,
-		t5.point_num,
-		t5.id AS classify_indictor_map_id
+		t4.id AS chart_menu_custom_id
 		FROM
 		vm_chart_conf t
-		LEFT JOIN vm_chart_classify t1 ON t.id = t1.chart_id
-		LEFT JOIN vm_chart_desc_indictor_map t2 ON t.id = t2.chart_id
-		LEFT JOIN vm_chart_description t3 ON t.id = t3.chart_id
+		LEFT JOIN vm_chart_description t2 on t.id = t2.chart_id
 		LEFT JOIN vm_chart_menu_custom t4 ON t.id = t4.chart_id
-		LEFT JOIN vm_classify_indictor_map t5 ON t1.id = t5.classify_id
 		WHERE t.id
 		=#{id}
 	</select>

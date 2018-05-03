@@ -20,6 +20,7 @@ import com.chinawiserv.dsp.vm.entity.po.ChartMenuCustom;
 import com.chinawiserv.dsp.vm.entity.po.ClassifyIndictorMap;
 import com.chinawiserv.dsp.vm.entity.vo.ChartClassifyVo;
 import com.chinawiserv.dsp.vm.entity.vo.ChartConfVo;
+import com.chinawiserv.dsp.vm.entity.vo.ClassifyIndictorMapVo;
 import com.chinawiserv.dsp.vm.mapper.ChartClassifyMapper;
 import com.chinawiserv.dsp.vm.mapper.ChartConfMapper;
 import com.chinawiserv.dsp.vm.mapper.ChartDescIndictorMapMapper;
@@ -66,7 +67,19 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 	@Override
 	public ChartConfVo selectVoById(String id) throws Exception {
 
-		return chartConfMapper.selectVoById(id);
+		ChartConfVo vo = chartConfMapper.selectVoById(id);
+		List<ChartClassifyVo> listChartClassify = chartClassifyMapper.selectByChartId(id);
+		vo.setListChartClassify(chartClassifyMapper.selectByChartId(id));
+		vo.setListChartDescIndictorMap(chartDescIndictorMapMapper.selectByChartId(id));
+		// vo.setListChartDescription(chartDescriptionMapperr.selectByChartId(id));
+		List<ClassifyIndictorMapVo> listClassifyIndictorMap = new ArrayList<>();
+		for (ChartClassifyVo chartClassifyVo : listChartClassify) {
+			ClassifyIndictorMapVo classifyIndictorMapVo = classifyIndictorMapMapper.selectByClassifyId(chartClassifyVo.getId());
+			listClassifyIndictorMap.add(classifyIndictorMapVo);
+		}
+		vo.setListClassifyIndictorMap(listClassifyIndictorMap);
+
+		return vo;
 	}
 
 	@Override
@@ -105,18 +118,18 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 
 			List<ChartClassify> listChartClassify = new ArrayList<>();
 			List<ChartDescIndictorMap> listChartDescIndictorMap = new ArrayList<>();
-			List<ChartDescription> listChartDescription = new ArrayList<>();
+			// List<ChartDescription> listChartDescription = new ArrayList<>();
 			List<ClassifyIndictorMap> listClassifyIndictorMap = new ArrayList<>();
 
 			// ChartClassify chartClassify = new ChartClassify();// 图表分类信息
 			// ChartDescIndictorMap chartDescIndictorMap = new ChartDescIndictorMap();//
 			// 图表描述与指标关系表
-			// ChartDescription chartDescription = new ChartDescription();// 图表指标描述信息
+			ChartDescription chartDescription = new ChartDescription();// 图表指标描述信息
 			ChartMenuCustom chartMenuCustom = new ChartMenuCustom();// 图表与菜单自定义关系
 			// ClassifyIndictorMap classifyIndictorMap = new ClassifyIndictorMap();//
 			// 图表分类与指标关系表
 
-			assembleDataAdd(chartConf, listChartClassify, listChartDescIndictorMap, listChartDescription, chartMenuCustom, listClassifyIndictorMap, paramsMap);
+			assembleDataAdd(chartConf, listChartClassify, listChartDescIndictorMap, chartDescription, chartMenuCustom, listClassifyIndictorMap, paramsMap);
 
 			chartConfMapper.baseInsert(chartConf);
 			for (ChartClassify chartClassify : listChartClassify) {
@@ -125,9 +138,9 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 			for (ChartDescIndictorMap chartDescIndictorMap : listChartDescIndictorMap) {
 				chartDescIndictorMapMapper.baseInsert(chartDescIndictorMap);
 			}
-			for (ChartDescription chartDescription : listChartDescription) {
-				chartDescriptionMapperr.baseInsert(chartDescription);
-			}
+			// for (ChartDescription chartDescription : listChartDescription) {
+			chartDescriptionMapperr.baseInsert(chartDescription);
+			// }
 			for (ClassifyIndictorMap classifyIndictorMap : listClassifyIndictorMap) {
 				classifyIndictorMapMapper.baseInsert(classifyIndictorMap);
 			}
@@ -205,7 +218,7 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 	 * @param classifyIndictorMap
 	 * @param paramsMap
 	 */
-	public void assembleDataAdd(ChartConf chartConf, List<ChartClassify> listChartClassify, List<ChartDescIndictorMap> listChartDescIndictorMap, List<ChartDescription> listChartDescription, ChartMenuCustom chartMenuCustom, List<ClassifyIndictorMap> listClassifyIndictorMap, Map<String, Object> paramsMap) {
+	public void assembleDataAdd(ChartConf chartConf, List<ChartClassify> listChartClassify, List<ChartDescIndictorMap> listChartDescIndictorMap, ChartDescription chartDescription, ChartMenuCustom chartMenuCustom, List<ClassifyIndictorMap> listClassifyIndictorMap, Map<String, Object> paramsMap) {
 
 		// 系统图表配置表
 		String chartId = CommonUtil.get32UUID();
@@ -258,17 +271,17 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 				chartDescIndictorMap.setIndictorCode(subIndictorJson.getString("code"));// 指标编号
 				chartDescIndictorMap.setIndictorShowName(subIndictorJson.optString("name", ""));// 指标显示名称
 				listChartDescIndictorMap.add(chartDescIndictorMap);
-				// 图表指标描述信息
-				ChartDescription chartDescription = new ChartDescription();
-				chartDescription.setId(CommonUtil.get32UUID());
-				chartDescription.setChartId(chartId);
-				chartDescription.setSubTitle(paramsMap.getOrDefault("subTitle", "").toString());// 副标题
-				chartDescription.setDescription(paramsMap.getOrDefault("description", "").toString());// 描述信息
-				listChartDescription.add(chartDescription);
 
 			}
 
 		}
+		// 图表指标描述信息
+		// ChartDescription chartDescription = new ChartDescription();
+		chartDescription.setId(CommonUtil.get32UUID());
+		chartDescription.setChartId(chartId);
+		chartDescription.setSubTitle(paramsMap.getOrDefault("subTitle", "").toString());// 副标题
+		chartDescription.setDescription(paramsMap.getOrDefault("description", "").toString());// 描述信息
+		// listChartDescription.add(chartDescription);
 		// 图表与菜单自定义关系
 		chartMenuCustom.setId(CommonUtil.get32UUID());
 		chartMenuCustom.setChartId(chartId);
