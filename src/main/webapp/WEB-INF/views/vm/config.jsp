@@ -95,7 +95,7 @@ form .form-group label {
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					<small>总览</small>
+					<small>总览</small><td>${menuId}</td>
 				</h1>
 			</section>
 			<section class="content">

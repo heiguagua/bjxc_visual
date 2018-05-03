@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,7 +50,7 @@ public class ChartMenuCustomController extends BaseController {
 	public HandleResult chartListByUserAndMenu(@RequestParam Map<String, Object> paramMap) {
 		HandleResult handleResult = new HandleResult();
 		try {
-			String menuId = ShiroUtils.getSessionAttribute("res").toString();
+			String menuId = paramMap.getOrDefault("menuId", "").toString();
 			handleResult = service.selectChartListByUserAndMenu(menuId);
 		} catch (Exception e) {
 			handleResult.error("查询当前菜单图表列表失败");
@@ -60,8 +61,10 @@ public class ChartMenuCustomController extends BaseController {
 
 	// config
 	@RequestMapping("/config")
-	public String config(@RequestParam Map<String, Object> paramMap) {
+	public String config(@RequestParam Map<String, Object> paramMap, Model model) {
 		setCurrentMenuInfo(paramMap);
+		String menuId = ShiroUtils.getSessionAttribute("res").toString();
+		model.addAttribute("menuId", menuId);
 		return "vm/config";
 	}
 
