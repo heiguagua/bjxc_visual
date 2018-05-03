@@ -185,8 +185,8 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 				chartTimeScope: getChartTimeScope(),
 				hasSubIndictor: showDetail,
 				location: '',
-				indicators: JSON.stringify(getTreeNode('indicatorTree')),
-				subIndicators: JSON.stringify(getTreeNode('detailTree'))
+				indictors: JSON.stringify(getTreeNode('indicatorTree')),
+				subIndictors: JSON.stringify(getTreeNode('detailTree'))
 		}
 		console.log(params.indicators);
 		$.ajax({
