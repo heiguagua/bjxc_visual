@@ -92,11 +92,12 @@
 		</where>
 	</sql>
 
-	<!-- 根据条件查询图标分类信息表 结果集为1 -->
-	<select id="selectOneByParams" parameterType="java.util.Map"
+
+	<select id="selectByChartId" parameterType="java.util.Map"
 		resultMap="BaseResultMap">
 		select t.* from vm_chart_classify t
-		<include refid="queryConditions"></include>
+		where t.char_id = #{charId}
 	</select>
+
 
 </mapper>

@@ -45,7 +45,7 @@ public class IndictorCategoryController extends BaseController {
 		try {
 			String fid = (String) paramMap.get("fid");
 			if (StringUtils.isEmpty(fid)) {
-				paramMap.put("fid", "0");
+				paramMap.put("fid", "root");
 			}
 			handleResult = service.selectSubVoList(paramMap);
 		} catch (Exception e) {

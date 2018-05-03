@@ -88,5 +88,9 @@
 		where chart_id = #{chartId}
 	</delete>
 
+	<select id="selectByChartId" parameterType="java.lang.String"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM vm_chart_description t WHERE t.chart_id = #{chartId}
+	</select>
 
 </mapper>

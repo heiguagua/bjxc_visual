@@ -1,7 +1,8 @@
 package com.chinawiserv.dsp.vm.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.chinawiserv.dsp.vm.entity.po.ChartDescIndictorMap;
 import com.chinawiserv.dsp.vm.entity.po.ChartDescription;
 import com.chinawiserv.dsp.vm.entity.po.ChartMenuCustom;
 import com.chinawiserv.dsp.vm.entity.po.ClassifyIndictorMap;
+import com.chinawiserv.dsp.vm.entity.vo.ChartClassifyVo;
 import com.chinawiserv.dsp.vm.entity.vo.ChartConfVo;
 import com.chinawiserv.dsp.vm.mapper.ChartClassifyMapper;
 import com.chinawiserv.dsp.vm.mapper.ChartConfMapper;
@@ -97,20 +99,40 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 			return false;
 		} else {
 			ChartConf chartConf = new ChartConf();// 系统图表配置表
-			ChartClassify chartClassify = new ChartClassify();// 图表分类信息
-			ChartDescIndictorMap chartDescIndictorMap = new ChartDescIndictorMap();// 图表描述与指标关系表
-			ChartDescription chartDescription = new ChartDescription();// 图表指标描述信息
-			ChartMenuCustom chartMenuCustom = new ChartMenuCustom();// 图表与菜单自定义关系
-			ClassifyIndictorMap classifyIndictorMap = new ClassifyIndictorMap();// 图表分类与指标关系表
 
-			assembleDataAdd(chartConf, chartClassify, chartDescIndictorMap, chartDescription, chartMenuCustom, classifyIndictorMap, paramsMap);
+			List<ChartClassify> listChartClassify = new ArrayList<>();
+			List<ChartDescIndictorMap> listChartDescIndictorMap = new ArrayList<>();
+			List<ChartDescription> listChartDescription = new ArrayList<>();
+			List<ClassifyIndictorMap> listClassifyIndictorMap = new ArrayList<>();
+
+			// ChartClassify chartClassify = new ChartClassify();// 图表分类信息
+			// ChartDescIndictorMap chartDescIndictorMap = new ChartDescIndictorMap();//
+			// 图表描述与指标关系表
+			// ChartDescription chartDescription = new ChartDescription();// 图表指标描述信息
+			ChartMenuCustom chartMenuCustom = new ChartMenuCustom();// 图表与菜单自定义关系
+			// ClassifyIndictorMap classifyIndictorMap = new ClassifyIndictorMap();//
+			// 图表分类与指标关系表
+
+			assembleDataAdd(chartConf, listChartClassify, listChartDescIndictorMap, listChartDescription, chartMenuCustom, listClassifyIndictorMap, paramsMap);
 
 			chartConfMapper.baseInsert(chartConf);
-			chartClassifyMapper.baseInsert(chartClassify);
-			chartDescIndictorMapMapper.baseInsert(chartDescIndictorMap);
-			chartDescriptionMapperr.baseInsert(chartDescription);
+			for (ChartClassify chartClassify : listChartClassify) {
+				chartClassifyMapper.baseInsert(chartClassify);
+			}
+			for (ChartDescIndictorMap chartDescIndictorMap : listChartDescIndictorMap) {
+				chartDescIndictorMapMapper.baseInsert(chartDescIndictorMap);
+			}
+			for (ChartDescription chartDescription : listChartDescription) {
+				chartDescriptionMapperr.baseInsert(chartDescription);
+			}
+			for (ClassifyIndictorMap classifyIndictorMap : listClassifyIndictorMap) {
+				classifyIndictorMapMapper.baseInsert(classifyIndictorMap);
+			}
+			// chartClassifyMapper.baseInsert(chartClassify);
+			// chartDescIndictorMapMapper.baseInsert(chartDescIndictorMap);
+			// chartDescriptionMapperr.baseInsert(chartDescription);
 			chartMenuCustomMapper.baseInsert(chartMenuCustom);
-			classifyIndictorMapMapper.baseInsert(classifyIndictorMap);
+			// classifyIndictorMapMapper.baseInsert(classifyIndictorMap);
 
 		}
 
@@ -121,15 +143,19 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 	public boolean deleteChartConfigById(String id) throws Exception {
 
 		chartConfMapper.deleteById(id);
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("chartId", id);
-		String chartClassifyId = chartClassifyMapper.selectOneByParams(paramMap).getId();
-		chartClassifyMapper.deleteById(chartClassifyId);
+
+		List<ChartClassifyVo> chartClassifyVos = chartClassifyMapper.selectByChartId(id);
+		for (ChartClassifyVo vo : chartClassifyVos) {
+
+			classifyIndictorMapMapper.deleteByClassifyId(vo.getId());
+			chartClassifyMapper.deleteById(vo.getId());
+		}
+
 		chartDescIndictorMapMapper.deleteByChartId(id);
 		chartDescriptionMapperr.deleteByChartId(id);
 		chartMenuCustomMapper.deleteByChartId(id);
-		classifyIndictorMapMapper.deleteByClassifyId(chartClassifyId);
-		return false;
+
+		return true;
 	}
 
 	@Override
@@ -177,7 +203,8 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 	 * @param classifyIndictorMap
 	 * @param paramsMap
 	 */
-	public void assembleDataAdd(ChartConf chartConf, ChartClassify chartClassify, ChartDescIndictorMap chartDescIndictorMap, ChartDescription chartDescription, ChartMenuCustom chartMenuCustom, ClassifyIndictorMap classifyIndictorMap, Map<String, Object> paramsMap) {
+	public void assembleDataAdd(ChartConf chartConf, List<ChartClassify> listChartClassify, List<ChartDescIndictorMap> listChartDescIndictorMap, List<ChartDescription> listChartDescription, ChartMenuCustom chartMenuCustom, List<ClassifyIndictorMap> listClassifyIndictorMap, Map<String, Object> paramsMap) {
+
 		// 系统图表配置表
 		String chartId = CommonUtil.get32UUID();
 		chartConf.setId(chartId);
@@ -195,23 +222,29 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 		chartConf.setHasSubIndictor(Integer.parseInt(paramsMap.getOrDefault("hasSubIndictor", "0").toString()));
 
 		// 图表分类信息
+		ChartClassify chartClassify = new ChartClassify();
 		chartClassify.setId(CommonUtil.get32UUID());
 		chartClassify.setChartId(chartId);
 		chartClassify.setClassifyName("");// 分类名称
 		chartClassify.setClassifyLevel("");// 分类级别
 		chartClassify.setChartType(paramsMap.getOrDefault("chartType", "").toString());// 对应图形类型
+		listChartClassify.add(chartClassify);
 
 		if (1 == chartConf.getHasSubIndictor()) {
 			// 图表描述与指标关系表
+			ChartDescIndictorMap chartDescIndictorMap = new ChartDescIndictorMap();
 			chartDescIndictorMap.setId(CommonUtil.get32UUID());
 			chartDescIndictorMap.setChartId(chartId);
 			chartDescIndictorMap.setIndictorCode(paramsMap.getOrDefault("subIndictorCode", "").toString());// 指标编号
 			chartDescIndictorMap.setIndictorShowName(paramsMap.getOrDefault("subIndictorShowName", "").toString());// 指标显示名称
+			listChartDescIndictorMap.add(chartDescIndictorMap);
 			// 图表指标描述信息
+			ChartDescription chartDescription = new ChartDescription();
 			chartDescription.setId(CommonUtil.get32UUID());
 			chartDescription.setChartId(chartId);
 			chartDescription.setSubTitle(paramsMap.getOrDefault("subTitle", "").toString());// 副标题
 			chartDescription.setDescription(paramsMap.getOrDefault("description", "").toString());// 描述信息
+			listChartDescription.add(chartDescription);
 		}
 		// 图表与菜单自定义关系
 		chartMenuCustom.setId(CommonUtil.get32UUID());
@@ -222,12 +255,14 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 		chartMenuCustom.setUser(ShiroUtils.getLoginUserId());// 使用人
 
 		// 图表分类与指标关系表
+		ClassifyIndictorMap classifyIndictorMap = new ClassifyIndictorMap();
 		classifyIndictorMap.setId(CommonUtil.get32UUID());
 		classifyIndictorMap.setClassifyId("custom");// 分类ID
 		classifyIndictorMap.setHighlightFlag("1");// 是否高亮显示
 		classifyIndictorMap.setIndictorCode(paramsMap.getOrDefault("", "").toString());// 指标编号
 		classifyIndictorMap.setIndictorShowName(paramsMap.getOrDefault("", "").toString());// 指标显示名称
 		classifyIndictorMap.setPointNum(paramsMap.getOrDefault("", "").toString());// 保留小数点位数
+		listClassifyIndictorMap.add(classifyIndictorMap);
 	}
 
 	/**

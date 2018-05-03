@@ -37,4 +37,6 @@ public interface ChartDescIndictorMapMapper extends BaseMapper<ChartDescIndictor
 	 * @return
 	 */
 	int deleteByChartId(String chartId);
+
+	List<ChartDescIndictorMapVo> selectByChartId(String chartId);
 }

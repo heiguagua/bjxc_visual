@@ -36,7 +36,8 @@
 
 	<select id="selectVoById" parameterType="java.lang.String"
 		resultMap="BaseResultVoMap">
-		SELECT t.* FROM vm_chart_desc_indictor_map t WHERE t.id = #{id}
+		SELECT t.* FROM vm_chart_desc_indictor_map t WHERE t.id =
+		#{id}
 	</select>
 
 	<select id="selectVoCount" parameterType="java.util.Map"
@@ -88,8 +89,14 @@
 
 	<!-- 根据图标id删除图表信息 -->
 	<delete id="deleteByChartId" parameterType="java.lang.String">
-		delete from vm_chart_desc_indictor_map
+		delete from
+		vm_chart_desc_indictor_map
 		where chart_id = #{chartId}
 	</delete>
-
+	
+	<select id="selectByChartId" parameterType="java.lang.String"
+		resultMap="BaseResultVoMap">
+		SELECT t.* FROM vm_chart_desc_indictor_map t WHERE t.chart_id =
+		#{chartId}
+	</select>
 </mapper>

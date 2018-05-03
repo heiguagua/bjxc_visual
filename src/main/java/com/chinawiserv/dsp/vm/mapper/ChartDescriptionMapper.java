@@ -37,4 +37,6 @@ public interface ChartDescriptionMapper extends BaseMapper<ChartDescription> {
 	 * @return
 	 */
 	int deleteByChartId(String chartId);
+
+	ChartDescriptionVo selectByChartId(String chartId);
 }
