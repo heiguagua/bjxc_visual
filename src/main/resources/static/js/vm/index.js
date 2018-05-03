@@ -189,6 +189,16 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 				subIndicators: getTreeNode('detailTree')
 		}
 		console.log(params);
+		$.ajax({
+            type : "post",
+            url : basePathJS + "/chartConf/addUsersChart",
+            async : false,
+            data: params,
+            success : function(res){
+                console.log(res);
+            }
+        });
+		
 		// response data
 		var title = '人口与机构分析一览表';
 		var data_unit = '%';
