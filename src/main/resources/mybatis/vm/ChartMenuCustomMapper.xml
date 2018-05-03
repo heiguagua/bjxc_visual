@@ -29,7 +29,7 @@
 		t1.chart_code,t1.chart_name,t1.is_name_show,t1.chart_desc,t1.chart_type,t1.chart_url
 		FROM vm_chart_menu_custom t
 		LEFT JOIN vm_chart_conf t1 ON
-		t.char_id=t1.id
+		t.chart_id=t1.id
 		<include refid="queryConditions"></include>
 	</select>
 
@@ -39,8 +39,8 @@
 			<if test="id != null">
 				and t.id = #{id,jdbcType=VARCHAR}
 			</if>
-			<if test="charId != null">
-				and t.char_id = #{charId,jdbcType=VARCHAR}
+			<if test="chartId != null">
+				and t.chart_id = #{chartId,jdbcType=VARCHAR}
 			</if>
 			<if test="menuId != null">
 				and t.menu_id = #{menuId,jdbcType=VARCHAR}
