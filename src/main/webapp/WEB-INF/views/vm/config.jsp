@@ -15,8 +15,9 @@ form .form-group label {
 }
 .chart-item-wrap{
 	display: inline-block;
-	position:relative;
+	/*position:absolute;*/
 	width: 500px;
+	height: 400px;
 	border: 1px solid #DDD;
 	margin: 10px;
 	padding: 10px;
@@ -35,7 +36,7 @@ form .form-group label {
 .chart-box {
 	
 	width:100%;
-	height: 400px;
+	height: 100%;
 	
 }
 
@@ -80,6 +81,9 @@ form .form-group label {
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
 }
+.tool {
+	float: right;
+}
 </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -107,6 +111,19 @@ form .form-group label {
 											src="<%=context_path%>/images/userImg/addimg.png" /> 新增图表
 										</a>
 									</div>
+									<div class="tool">
+										<a class="btn btn-primary btn-flat btn-myself"
+											 id="preview"> <img
+											src="<%=context_path%>/images/userImg/addimg.png" /> 预览
+										</a>
+										<a class="btn btn-primary btn-flat btn-myself"
+											 id="edit"> <img
+											src="<%=context_path%>/images/userImg/addimg.png" /> 编辑
+										</a>
+										<a class="btn btn-primary btn-flat btn-myself"
+											 id="save"> <i class="fa fa-save"></i>&nbsp; 保存
+										</a>
+									</div>
 
 
 								</div>
@@ -114,7 +131,7 @@ form .form-group label {
 							</div>
 
 							<div class="box-body table-responsive" id="tableList">
-								<div id="chartWrapper" style="width: 100%; min-height: 500px;"></div>
+								<div id="chartWrapper" style="width: 100%; min-height: 500px;position: relative;"></div>
 							</div>
 							<!-- /.box-body -->
 
