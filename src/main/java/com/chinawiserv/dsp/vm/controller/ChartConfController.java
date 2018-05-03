@@ -56,6 +56,7 @@ public class ChartConfController extends BaseController {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", chartId);
 			handleResult = iIndictorService.getIndictorData(map);
+			handleResult.put("id", chartId);
 
 		} catch (Exception e) {
 			handleResult.error("创建系统图表配置表失败");
