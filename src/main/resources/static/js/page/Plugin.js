@@ -47,6 +47,7 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
       var innerHeight = _this.$el.parent().height();
       $(this.$el).draggable({
         distance:1,
+        containment: "parent", //限定拖动区域
         create:function(e,ui){
           _this.setConfig({
             top: ($(_this.$el).position().top / innerWidth*100).toFixed(1) + '%',
@@ -54,10 +55,13 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
           })
         },
         start:function(e,ui){},
-        drag:function(e,ui){},
+        drag:function(e,ui){
+          _this.$el.css({'border-color': '#005dff73' })
+        },
         stop:function(e,ui){
           // console.log('dragStop ====> ',ui)
           // _this.setConfig(ui.position)
+          _this.$el.css({'border-color': '#ddd' })
           _this.setConfig({
             top: Number((ui.position.top / innerWidth)*100).toFixed(1) + '%',
             left: Number((ui.position.left / innerWidth)*100).toFixed(1) + '%',
@@ -74,6 +78,9 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
       var innerHeight = _this.$el.parent().height();
       $(this.$el).resizable({
         handles: 'n, e, s, w, ne, se, sw, nw',
+        containment: "parent", //限定缩放区域
+        minWidth:325,
+        minHeight:225,
         create:function(e,ui){
           _this.setConfig({
             width: ($(_this.$el).width()/innerWidth*100).toFixed(1) + '%',
@@ -82,11 +89,15 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
         },
         start:function(e,ui){},
         resize:function(e,ui){
-          _this.echartsInstnc.resize()
+          _this.echartsInstnc.resize();
+          _this.$el.css({'border-color': '#005dff73' });
+          _this.$el.css({'position' : 'absolute'})
         },
         stop:function(e,ui){
           // console.log('resizestop ====>',ui)
           // _this.setConfig(ui.originalSize)
+          _this.$el.css({'border-color': '#ddd' })
+          _this.$el.css({'position' : null})
           _this.setConfig({
             width: Number((ui.originalSize.width / innerWidth)*100).toFixed(1) + '%',
             height: Number((ui.originalSize.height / innerHeight)*100).toFixed(1) + '%'

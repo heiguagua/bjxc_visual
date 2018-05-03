@@ -1,5 +1,5 @@
-require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
-		'zTree', 'bootstrap' ], function($, echarts ,global_custom,  ECategory, zTree) {
+require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../js/page/Page',
+		'zTree', 'bootstrap' ], function($, echarts ,global_custom,  ECategory, Page, zTree) {
 	
 	// 全局变量
 	window.NOW_DATE = 'now_date';		  // 当前时间,  传参：""
@@ -169,6 +169,11 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 	$('input[name="showDetail"]').click(function(){
 		$('.tree-wrap.detail').toggleClass('hide');
 	})
+
+	// 拖拽缩放---
+	var pageInst = new Page()
+  window.pageCtr = pageInst
+	// ---
 	
 	$('#addChartConfirm').click(function() {
 		console.log('modal type:' + ADD_OR_UPDATE);
@@ -243,7 +248,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		
 		var gauge_data = {name:'完成率', value:50};// 单个指标数据，用于仪表图
 		
-		ECategory.create(chartType,{
+		var echarts = new ECategory.create(chartType,{
 			title: title,
 			isNameShow: isNameShow,
 			unit: data_unit,
@@ -260,6 +265,11 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		},ADD_OR_UPDATE);
 		
 		$('#addChartModal').modal('hide');
+
+		// 拖拽缩放 ---
+		pageInst.addPlugin(chartType,chartType,echarts.$el,echarts.instnc);
+		// pageInst.install()
+		// ---
 	})
 	
 	
@@ -292,6 +302,23 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		clearModalInfo();
 		$('#addChartModal').modal('show');
 	})
+
+
+	// 拖拽---
+	// 保存
+	$('#save').click(function() {
+		var arr = pageInst.getPageConfig();
+		console.log('保存时的组件样式信息',arr)
+	})
+	// 编辑
+  $('#edit').click(function(){
+    pageInst.install()
+  })
+  // 浏览
+  $('#preview').click(function(){
+    pageInst.uninstall()
+  })
+  // ---
 
 	// 时间类型change事件
 	function etypeChange() {
@@ -360,4 +387,6 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		$('#showDetail').prop('checked',true);
 		$('.tree-wrap.detail').removeClass('hide').show();
 	}
+
+
 })
