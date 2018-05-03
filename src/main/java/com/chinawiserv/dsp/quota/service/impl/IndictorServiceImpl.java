@@ -139,12 +139,14 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 					}
 					for (Map<String, Object> map : listTimeMap) {
 						IndictorDataVo indictorDataVo = indictorDataMapper.selectSumReportDateByMap(map);
-						if ("custom_date".equals(chartConf.getChartTimeType())) {
-							indictorDataVo.setSetStartTime(chartConf.getChartTimeType());
-						} else {
-							indictorDataVo.setSetStartTime(map.get("startTime").toString());
+						if (null != indictorDataVo) {
+							if ("custom_date".equals(chartConf.getChartTimeType())) {
+								indictorDataVo.setStartTime(chartConf.getChartTimeType());
+							} else {
+								indictorDataVo.setStartTime(map.get("startTime").toString());
+							}
+							extendData.add(indictorDataVo);
 						}
-						extendData.add(indictorDataVo);
 					}
 				} else {
 					Map<String, Object> map = new HashMap<>();
@@ -179,12 +181,14 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 				}
 				for (Map<String, Object> map : listTimeMap) {
 					IndictorDataVo indictorDataVo = indictorDataMapper.selectSumReportDateByMap(map);
-					if ("custom_date".equals(chartConf.getChartTimeType())) {
-						indictorDataVo.setStartTime = chartConf.getChartTimeType();
-					} else {
-						indictorDataVo.setStartTime = map.get("startTime").toString();
+					if (null != indictorDataVo) {
+						if ("custom_date".equals(chartConf.getChartTimeType())) {
+							indictorDataVo.setStartTime(chartConf.getChartTimeType());
+						} else {
+							indictorDataVo.setStartTime(map.get("startTime").toString());
+						}
+						basicData.add(indictorDataVo);
 					}
-					basicData.add(indictorDataVo);
 				}
 			} else {
 				Map<String, Object> map = new HashMap<>();

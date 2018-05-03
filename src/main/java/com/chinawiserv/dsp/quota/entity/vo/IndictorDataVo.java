@@ -13,7 +13,7 @@ import com.chinawiserv.dsp.quota.entity.po.IndictorData;
  * @since 2018-04-27
  */
 public class IndictorDataVo extends IndictorData {
-	public String setStartTime;
+	public String startTime;
 
 	public BigDecimal valData;
 
@@ -35,12 +35,12 @@ public class IndictorDataVo extends IndictorData {
 		this.name = name;
 	}
 
-	public String getSetStartTime() {
-		return setStartTime;
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setSetStartTime(String setStartTime) {
-		this.setStartTime = setStartTime;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
 
 }
