@@ -339,7 +339,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js',
 		selectedNode = [];
 		for (var i = 0; i < nodes.length; i++) {
 			selectedNode.push({
-				code: nodes[i].code,
+				code: nodes[i].indictorId,
 				name: nodes[i].name
 			})
 		}

@@ -23,7 +23,6 @@ import com.chinawiserv.dsp.quota.service.IIndictorService;
 import com.chinawiserv.dsp.vm.entity.po.ChartConf;
 import com.chinawiserv.dsp.vm.entity.vo.ChartClassifyVo;
 import com.chinawiserv.dsp.vm.entity.vo.ChartDescIndictorMapVo;
-import com.chinawiserv.dsp.vm.entity.vo.ChartDescriptionVo;
 import com.chinawiserv.dsp.vm.entity.vo.ClassifyIndictorMapVo;
 import com.chinawiserv.dsp.vm.mapper.ChartClassifyMapper;
 import com.chinawiserv.dsp.vm.mapper.ChartConfMapper;
@@ -122,7 +121,8 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 		if (1 == chartConf.getHasSubIndictor()) {
 			List<ChartDescIndictorMapVo> listChartDescIndictorMapVo = chartDescIndictorMapMapper.selectByChartId(id);
 			// 图表指标描述信息
-			ChartDescriptionVo chartDescriptionVo = chartDescriptionMapper.selectByChartId(id);
+			// ChartDescriptionVo chartDescriptionVo =
+			// chartDescriptionMapper.selectByChartId(id);
 			for (ChartDescIndictorMapVo chartDescIndictorMapVo : listChartDescIndictorMapVo) {
 				// 扩展指标id
 				chartDescIndictorMapVo.getIndictorCode();
@@ -140,9 +140,9 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 					for (Map<String, Object> map : listTimeMap) {
 						IndictorDataVo indictorDataVo = indictorDataMapper.selectSumReportDateByMap(map);
 						if ("custom_date".equals(chartConf.getChartTimeType())) {
-							indictorDataVo.setStartTime = chartConf.getChartTimeType();
+							indictorDataVo.setSetStartTime(chartConf.getChartTimeType());
 						} else {
-							indictorDataVo.setStartTime = map.get("startTime").toString();
+							indictorDataVo.setSetStartTime(map.get("startTime").toString());
 						}
 						extendData.add(indictorDataVo);
 					}
@@ -215,8 +215,8 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 		// int year = now.get(Calendar.YEAR);
 		// mapTime.put("startTime", getCurrYearFirst(year));
 		// mapTime.put("endTime", getCurrYearLast(year));
-		mapTime.put("startTime", getPastYear(0));
-		mapTime.put("endTime", getPastYear(-1));
+		mapTime.put("startTime", getPastYear(0) + "");
+		mapTime.put("endTime", getPastYear(-1) + "");
 		mapTime.put("indictorId", id);
 		listMap.add(mapTime);
 		return listMap;
@@ -236,8 +236,8 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 		// int year = now.get(Calendar.YEAR) - 1;
 		// mapTime.put("startTime", getCurrYearFirst(year));
 		// mapTime.put("endTime", getCurrYearLast(year));
-		mapTime.put("startTime", getPastYear(1));
-		mapTime.put("endTime", getPastYear(0));
+		mapTime.put("startTime", getPastYear(1) + "");
+		mapTime.put("endTime", getPastYear(0) + "");
 		mapTime.put("indictorId", id);
 		listMap.add(mapTime);
 		return listMap;
@@ -276,8 +276,8 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 				Map<String, Object> mapTime = new HashMap<>();
 				// mapTime.put("startTime", getCurrYearFirst(getPastYear(i)));
 				// mapTime.put("endTime", getCurrYearLast(getPastYear(i)));
-				mapTime.put("startTime", getPastYear(i));
-				mapTime.put("endTime", getPastYear(i - 1));
+				mapTime.put("startTime", getPastYear(i) + "");
+				mapTime.put("endTime", getPastYear(i - 1) + "");
 				mapTime.put("indictorId", id);
 				listMap.add(mapTime);
 			}
@@ -285,8 +285,8 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 		if ("M".equals(unit.trim().toUpperCase())) {
 			for (int i = 0; i < num; i++) {
 				Map<String, Object> mapTime = new HashMap<>();
-				mapTime.put("startTime", getPastMonth(i));
-				mapTime.put("endTime", getPastMonth(i - 1));
+				mapTime.put("startTime", getPastMonth(i) + "");
+				mapTime.put("endTime", getPastMonth(i - 1) + "");
 				mapTime.put("indictorId", id);
 				listMap.add(mapTime);
 			}
@@ -294,8 +294,8 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 		if ("D".equals(unit.trim().toUpperCase())) {
 			for (int i = 0; i < num; i++) {
 				Map<String, Object> mapTime = new HashMap<>();
-				mapTime.put("startTime", getPastDate(i));
-				mapTime.put("endTime", getPastDate(i - 1));
+				mapTime.put("startTime", getPastDate(i) + "");
+				mapTime.put("endTime", getPastDate(i - 1) + "");
 				mapTime.put("indictorId", id);
 				listMap.add(mapTime);
 			}

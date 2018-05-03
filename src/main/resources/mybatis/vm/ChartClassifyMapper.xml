@@ -26,8 +26,8 @@
 			<if test="id != null">
 				and t.id = #{id,jdbcType=VARCHAR}
 			</if>
-			<if test="charId != null">
-				and t.char_id = #{charId,jdbcType=VARCHAR}
+			<if test="chartId != null">
+				and t.chart_id = #{chartId,jdbcType=VARCHAR}
 			</if>
 		</trim>
 	</sql>
@@ -94,9 +94,9 @@
 
 
 	<select id="selectByChartId" parameterType="java.util.Map"
-		resultMap="BaseResultMap">
+		resultMap="BaseResultVoMap">
 		select t.* from vm_chart_classify t
-		where t.char_id = #{charId}
+		where t.chart_id = #{chartId}
 	</select>
 
 

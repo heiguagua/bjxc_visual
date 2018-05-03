@@ -23,7 +23,7 @@ public interface IChartConfService extends ICommonService<ChartConf, ChartConfVo
 	 * @return
 	 * @throws Exception
 	 */
-	boolean insertUsersChart(Map<String, Object> paramsMap) throws Exception;
+	String insertUsersChart(Map<String, Object> paramsMap) throws Exception;
 
 	/**
 	 * 根据id删除当前图标配置信息

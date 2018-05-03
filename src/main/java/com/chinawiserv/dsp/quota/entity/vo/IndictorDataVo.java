@@ -19,6 +19,22 @@ public class IndictorDataVo extends IndictorData {
 
 	public String name;
 
+	public BigDecimal getValData() {
+		return valData;
+	}
+
+	public void setValData(BigDecimal valData) {
+		this.valData = valData;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getSetStartTime() {
 		return setStartTime;
 	}

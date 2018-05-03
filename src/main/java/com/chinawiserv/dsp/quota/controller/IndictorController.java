@@ -43,8 +43,8 @@ public class IndictorController extends BaseController {
 		try {
 			handleResult = service.getIndictorData(paramMap);
 		} catch (Exception e) {
-			handleResult.error("删除当前系统图表配置表失败");
-			logger.error("删除当前系统图表配置表失败", e);
+			handleResult.error("查询系统指标数据失败");
+			logger.error("查询系统指标数据失败", e);
 		}
 		return handleResult;
 	}

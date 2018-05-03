@@ -80,6 +80,7 @@ public class IndictorCategoryServiceImpl extends CommonServiceImpl<IndictorCateg
 			List<IndictorVo> indictorVos = indictorMapper.selectByCategoryId(vo.getId());
 			for (IndictorVo indictorVo : indictorVos) {
 				IndictorCategoryVo indictorCategoryVo = new IndictorCategoryVo();
+				indictorCategoryVo.setIndictorId(indictorVo.getIndictorId());
 				indictorCategoryVo.setCode(indictorVo.getCode());
 				indictorCategoryVo.setSelectable(indictorVo.getSelectable());
 				indictorCategoryVo.setName(indictorVo.getName());

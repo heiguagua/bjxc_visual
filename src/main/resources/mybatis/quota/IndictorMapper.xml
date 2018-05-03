@@ -28,12 +28,13 @@
 	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
 		type="com.chinawiserv.dsp.quota.entity.vo.IndictorVo">
         <result column="selectable" property="selectable" />
+        <result column="indictor_id" property="indictorId" />
 	</resultMap>
 
 	<!-- 根据分类id查询指标数据 -->
 	<select id="selectByCategoryId" parameterType="java.lang.String"
 		resultMap="BaseResultVoMap">
-		select t.code,t.name,t.show_name,1 AS selectable from
+		select t.id as indictor_id,t.code,t.name,t.show_name,1 AS selectable from
 		im_indictor t
 		where t.category_id=#{categoryId}
 

@@ -15,6 +15,16 @@ public class IndictorCategoryVo extends IndictorCategory {
 
 	private Integer selectable;
 
+	private String indictorId;
+
+	public String getIndictorId() {
+		return indictorId;
+	}
+
+	public void setIndictorId(String indictorId) {
+		this.indictorId = indictorId;
+	}
+
 	public String getHasLeaf() {
 		return hasLeaf;
 	}

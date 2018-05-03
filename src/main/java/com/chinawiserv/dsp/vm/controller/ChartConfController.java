@@ -1,5 +1,6 @@
 package com.chinawiserv.dsp.vm.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.chinawiserv.dsp.base.common.anno.Log;
 import com.chinawiserv.dsp.base.controller.common.BaseController;
 import com.chinawiserv.dsp.base.entity.po.common.response.HandleResult;
+import com.chinawiserv.dsp.quota.service.IIndictorService;
 import com.chinawiserv.dsp.vm.service.IChartConfService;
 
 /**
@@ -32,6 +34,9 @@ public class ChartConfController extends BaseController {
 	@Autowired
 	private IChartConfService service;
 
+	@Autowired
+	private IIndictorService iIndictorService;
+
 	/**
 	 * 执行新增图表
 	 */
@@ -42,11 +47,16 @@ public class ChartConfController extends BaseController {
 	public HandleResult doAddUsersChart(@RequestParam Map<String, Object> paramMap) {
 		HandleResult handleResult = new HandleResult();
 		try {
-			if (service.insertUsersChart(paramMap))
-				// todo 保存成功后查询该条数据
-				handleResult.success("创建系统图表配置表成功");
-			else
-				handleResult.error("创建系统图表配置表失败");
+			// if (service.insertUsersChart(paramMap))
+			// // todo 保存成功后查询该条数据
+			// handleResult.success("创建系统图表配置表成功");
+			// else
+			// handleResult.error("创建系统图表配置表失败");
+			String chartId = service.insertUsersChart(paramMap);
+			Map<String, Object> map = new HashMap<>();
+			map.put("id", chartId);
+			handleResult = iIndictorService.getIndictorData(map);
+
 		} catch (Exception e) {
 			handleResult.error("创建系统图表配置表失败");
 			logger.error("创建系统图表配置表失败", e);

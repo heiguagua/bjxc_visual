@@ -97,9 +97,9 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 	private ClassifyIndictorMapMapper classifyIndictorMapMapper;
 
 	@Override
-	public boolean insertUsersChart(Map<String, Object> paramsMap) throws Exception {
+	public String insertUsersChart(Map<String, Object> paramsMap) throws Exception {
 		if (paramsMap.isEmpty()) {
-			return false;
+			return "";
 		} else {
 			ChartConf chartConf = new ChartConf();// 系统图表配置表
 
@@ -137,9 +137,8 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 			chartMenuCustomMapper.baseInsert(chartMenuCustom);
 			// classifyIndictorMapMapper.baseInsert(classifyIndictorMap);
 
+			return chartConf.getId();
 		}
-
-		return true;
 	}
 
 	@Override
