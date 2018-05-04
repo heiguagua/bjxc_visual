@@ -1,9 +1,14 @@
 define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/charts/EFunnel", "../../js/charts/ECircle", "../../js/charts/EGauge"], function(jquery, ELine, ERadar, EFunnel, ECircle, EGauge) {
 
 	// constructor
-	function ECategory(etype, opts, ADD_OR_UPDATE){
+	function ECategory(etype, opts, ADD_OR_UPDATE,id){
 		this.opts = $.extend({}, ECategory.DEFAULTS, opts);
-		var el_id = Date.parse(new Date());
+		var el_id
+		if(id) {
+			el_id = id
+		} else {
+			el_id = Date.parse(new Date());
+		}
 		this.$el = $('<div class="chart-item-wrap"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span></div></div>');		
 		$('#chartWrapper').append(this.$el);
 		this.instnc = {};

@@ -410,6 +410,8 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 
 	// 查询图表接口
 	function getChart(menuId) {
+    var pageInst = new Page();
+    var chartArr
 		$.ajax({
 			type: 'post',
       async : false,
@@ -419,8 +421,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 			},
 			success: function(res) {
 				// console.log(res)
-				var chartArr = res.content.data;
-        var data_unit = '%';
+				chartArr = res.content.data;
 				chartArr.forEach(function(item) {
 					var id = item.chartId;
 					$.ajax({
@@ -431,22 +432,25 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 							id: id
 						},
 						success: function(res) {
-              var pageInstP = new Page()
 							var chartData = res.content.basicData;
               var legend_data = [];
               var x_data = [];
               var serData = [];
-              if(chartData.length) {
-              chartData.forEach(function(item) {
-                legend_data.push(item.name);
-                x_data.push(item.startTime);
-                serData.push(item.valData);
+              var data_unit = '%';
+              if (chartData.length) {
+                chartData.forEach(function(data) {
+                  legend_data.push(data.name);
+                  x_data.push(data.startTime);
+                  serData.push(data.valData);
                 })
                 var detail_info = {
                   title: item.chartName,
-                  data:res.content.extendData
+                  data: res.content.extendData
                 }
-                ECategory.create(item.chartType, {
+                if(item.chartType == 'eline') {
+                  serData = [serData]
+                }
+                var echarts = new ECategory.create(item.chartType, {
                   id: item.id,
                   title: item.chartName,
                   isNameShow: item.isNameShow,
@@ -461,7 +465,11 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
                   chartType: item.chartType,
                   chartTimeType: item.chartTimeType,
                   chartTimeScope: item.chartTimeScope,
-                }, ADD_OR_UPDATE);
+                }, ADD_OR_UPDATE,item.id);
+                // 拖拽缩放 ---
+                pageInst.addPlugin(item.chartType, item.chartType, echarts.$el, echarts.instnc);
+                // pageInst.install()
+                // ---
               }
 						}
 					})
