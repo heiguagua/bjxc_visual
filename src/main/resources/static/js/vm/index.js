@@ -8,6 +8,9 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 	window.RECENT_YEARS = 'recent_years'; // 最近x年/月/日 , 传参如："3 Y", "3 M", "3 D"
 	window.ADD_OR_UPDATE = 'add';
 	
+	var menuId = $('#menuId').val();
+	getChart(menuId);
+
 	var setting = {
 			check : {
 				enable : true,
@@ -405,5 +408,66 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 		$('.tree-wrap.detail').removeClass('hide').show();
 	}
 
+	// 查询图表接口
+	function getChart(menuId) {
+		$.ajax({
+			type: 'post',
+      async : false,
+			url: basePathJS + '/chartMenuCustom/chartList',
+			data: {
+				menuId: menuId
+			},
+			success: function(res) {
+				// console.log(res)
+				var chartArr = res.content.data;
+        var data_unit = '%';
+				chartArr.forEach(function(item) {
+					var id = item.chartId;
+					$.ajax({
+						type: 'get',
+            async : true,
+						url: basePathJS + '/indictor/getIndictorDataByChartId',
+						data: {
+							id: id
+						},
+						success: function(res) {
+              var pageInstP = new Page()
+							var chartData = res.content.basicData;
+              var legend_data = [];
+              var x_data = [];
+              var serData = [];
+              if(chartData.length) {
+              chartData.forEach(function(item) {
+                legend_data.push(item.name);
+                x_data.push(item.startTime);
+                serData.push(item.valData);
+                })
+                var detail_info = {
+                  title: item.chartName,
+                  data:res.content.extendData
+                }
+                ECategory.create(item.chartType, {
+                  id: item.id,
+                  title: item.chartName,
+                  isNameShow: item.isNameShow,
+                  unit: data_unit,
+                  legend_data: legend_data,
+                  x_data: x_data,
+                  serData: serData,
+                  singleData: serData,
+                  showDetail: item.hasSubIndictor,
+                  detail_info: detail_info,
+                  gauge_data: chartData,
+                  chartType: item.chartType,
+                  chartTimeType: item.chartTimeType,
+                  chartTimeScope: item.chartTimeScope,
+                }, ADD_OR_UPDATE);
+              }
+						}
+					})
+				})
+			}
+		})
+	}
 
 })
