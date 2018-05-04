@@ -134,12 +134,20 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 						listTimeMap = last_date(chartDescIndictorMapVo.getIndictorCode());
 					} else if ("custom_date".equals(chartConf.getChartTimeType())) {
 						listTimeMap = custom_date(chartDescIndictorMapVo.getIndictorCode(), chartConf.getChartTimeScope());
-					} else if ("recent_date".equals(chartConf.getChartTimeType())) {
+					} else if ("recent_years".equals(chartConf.getChartTimeType())) {
 						listTimeMap = recent_date(chartDescIndictorMapVo.getIndictorCode(), chartConf.getChartTimeScope());
 					}
 					for (Map<String, Object> map : listTimeMap) {
 						IndictorDataVo indictorDataVo = indictorDataMapper.selectSumReportDateByMap(map);
 						if (null != indictorDataVo) {
+							if ("custom_date".equals(chartConf.getChartTimeType())) {
+								indictorDataVo.setStartTime(chartConf.getChartTimeType());
+							} else {
+								indictorDataVo.setStartTime(map.get("startTime").toString());
+							}
+							extendData.add(indictorDataVo);
+						} else {
+							indictorDataVo = new IndictorDataVo();
 							if ("custom_date".equals(chartConf.getChartTimeType())) {
 								indictorDataVo.setStartTime(chartConf.getChartTimeType());
 							} else {
@@ -176,12 +184,20 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 					listTimeMap = last_date(classifyIndictorMapVo.getIndictorCode());
 				} else if ("custom_date".equals(chartConf.getChartTimeType())) {
 					listTimeMap = custom_date(classifyIndictorMapVo.getIndictorCode(), chartConf.getChartTimeScope());
-				} else if ("recent_date".equals(chartConf.getChartTimeType())) {
+				} else if ("recent_years".equals(chartConf.getChartTimeType())) {
 					listTimeMap = recent_date(classifyIndictorMapVo.getIndictorCode(), chartConf.getChartTimeScope());
 				}
 				for (Map<String, Object> map : listTimeMap) {
 					IndictorDataVo indictorDataVo = indictorDataMapper.selectSumReportDateByMap(map);
 					if (null != indictorDataVo) {
+						if ("custom_date".equals(chartConf.getChartTimeType())) {
+							indictorDataVo.setStartTime(chartConf.getChartTimeType());
+						} else {
+							indictorDataVo.setStartTime(map.get("startTime").toString());
+						}
+						basicData.add(indictorDataVo);
+					} else {
+						indictorDataVo = new IndictorDataVo();
 						if ("custom_date".equals(chartConf.getChartTimeType())) {
 							indictorDataVo.setStartTime(chartConf.getChartTimeType());
 						} else {
