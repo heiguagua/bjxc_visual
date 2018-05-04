@@ -18,7 +18,16 @@
 
 	<resultMap id="BaseResultVoMap" extends="BaseResultMap"
 		type="com.chinawiserv.dsp.vm.entity.vo.ChartMenuCustomVo">
-
+		<result column="chart_code" property="chartCode" />
+		<result column="chart_name" property="chartName" />
+		<result column="is_name_show" property="isNameShow" />
+		<result column="chart_desc" property="chartDesc" />
+		<result column="chart_type" property="chartType" />
+		<result column="chart_url" property="chartUrl" />
+		<result column="chart_time_type" property="chartTimeType" />
+		<result column="chart_time_scope" property="chartTimeScope" />
+		<result column="has_sub_indictor" property="hasSubIndictor" />
+		
 	</resultMap>
 
 	<!-- 根据user和menuid查询当前菜单下的图表有哪些 -->
@@ -26,7 +35,7 @@
 		resultMap="BaseResultVoMap">
 		SELECT
 		t.id,t.chart_id,t.menu_id,t.location,t.show_order,t.user,
-		t1.chart_code,t1.chart_name,t1.is_name_show,t1.chart_desc,t1.chart_type,t1.chart_url
+		t1.chart_code,t1.chart_name,t1.is_name_show,t1.chart_desc,t1.chart_type,t1.chart_url,t1.chart_time_type,t1.chart_time_scope,t1.has_sub_indictor
 		FROM vm_chart_menu_custom t
 		LEFT JOIN vm_chart_conf t1 ON
 		t.chart_id=t1.id
