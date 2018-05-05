@@ -37,7 +37,6 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 	function ECategory(etype, opts, opType,id){// opType为ADD_OR_UPDATE，表示新增或修改
 		this.opts = $.extend({}, ECategory.DEFAULTS, opts);
 		var el_id = id;
-		console.log(opType,id);
 		if(opType == 'update') {
 			this.$el = $('#'+el_id).parent();
 			this.$el.find('.detail_info').remove();
@@ -46,7 +45,6 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 			this.$el = $('<div class="chart-item-wrap"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span>&nbsp;&nbsp;<span class="fa fa-trash ">删除</span></div></div>');		
 			$('#chartWrapper').append(this.$el);
 		}
-		console.log(this.$el);
 		
 		this.instnc = {};
 		switch(etype) {
@@ -104,7 +102,6 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 	            	id: el_id
 	            },
 	            success : function(res){
-	            	console.log(res);
 	            	if(res.state){
 	            		var resData = res.content.data;
 		    			$('#etitle').val(instance.opts.title);

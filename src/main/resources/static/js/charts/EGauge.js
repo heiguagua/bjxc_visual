@@ -45,7 +45,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			$('#'+el_id).append(detail_info);
 			option.series[0].center = ['30%', '60%']
 		}
-		console.log(option);
+		this.chart.clear();
 		this.chart.setOption(option);
 	}
 

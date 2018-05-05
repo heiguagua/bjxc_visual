@@ -6,7 +6,6 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 		this.chart = echarts.init(document.getElementById(el_id));		
 		var unit = this.opts.unit;
 		
-
 		var option = {
 				title: {
 			        text: this.opts.title,
@@ -61,7 +60,9 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			$('#'+el_id).append(detail_info);
 			option.series[0].center = ['30%', '60%']
 		}
+		
 		console.log(option);
+		this.chart.clear();
 		this.chart.setOption(option);
 	}
 

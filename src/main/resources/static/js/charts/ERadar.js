@@ -50,6 +50,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			option.radar.center = ['30%','60%'];
 			option.radar.radius = '50%';
 		}
+		this.chart.clear();
 		this.chart.setOption(option);
 	}
 
@@ -78,7 +79,6 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 		var indicator_data_format = [];
 		if(indicatorData && indicatorData.length > 0) {
 			for(var i=0; i<indicatorData.length; i++) {
-				console.log(Math.max.apply(null,this.opts.serData.transpose()[i]));
 				indicator_data_format.push({
 					name: indicatorData[i],
 					max: Math.max.apply(null,this.opts.serData.transpose()[i]) + 0.5*Math.max.apply(null,this.opts.serData.transpose()[i])

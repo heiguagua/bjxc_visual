@@ -5,7 +5,6 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 		this.opts = $.extend({}, EFunnel.DEFAULTS, opts);
 		this.chart = echarts.init(document.getElementById(el_id));		
 		var unit = this.opts.unit;
-		console.log(this.opts);
 
 		var option = {
 				title: {
@@ -80,6 +79,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			option.series[0].left = '5%';
 			option.series[0].width = '50%';
 		}
+		this.chart.clear();
 		this.chart.setOption(option);
 	}
 

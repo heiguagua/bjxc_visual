@@ -141,7 +141,6 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 	// ---
 	
 	$('#addChartConfirm').click(function() {
-		console.log('modal type:' + $('#addOrUpdate').val());
 		ADD_OR_UPDATE = $('#addOrUpdate').val();
 		var chartType = $('input[name="chartTypeOptions"]:checked').val();
 		var showDetail = $('#showDetail').prop('checked');
@@ -182,14 +181,11 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
         		               [3,3.2,4,4.5,5.2]
         					];
         		var data_all = res.content.basicData;
-        		console.log(_.groupBy(data_all,'name'),_.keys(_.groupBy(data_all,'name')),_.values(_.groupBy(data_all,'name')));
-        		console.log(_.groupBy(data_all,'startTime'),_.keys(_.groupBy(data_all,'startTime')),_.values(_.groupBy(data_all,'startTime')));
         		var serData = _.values(_.groupBy(data_all,'startTime'));
         		_.forEach(serData, function(item,index) {
         			item = _.map(item,'valData');
         			serData[index] = item;
         		});
-        		console.log('serData',serData);
         		var x_data = _.keys(_.groupBy(data_all,'startTime'));
         		var legend_data = _.keys(_.groupBy(data_all,'name'));
 
@@ -273,7 +269,6 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 	// 保存
 	$('#save').click(function() {
 		var arr = pageInst.getPageConfig();
-		console.log('保存时的组件样式信息',arr)
 	})
 	// 编辑
   $('#edit').click(function(){
@@ -332,7 +327,6 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 		if(!$('.update-dir').is(':hidden')) {// 修改操作，且未重新选择指标
 			$('#' + treeid).parent().find('.indi-datas li').each(function(){
 				var indi_item = $(this);
-				console.log(indi_item);
 				selectedNode.push({
 					code: indi_item.attr('code'),
 					name: indi_item.html()
@@ -359,7 +353,6 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 		if(!$('.update-detail-dir').is(':hidden')) {// 修改操作，且未重新选择指标
 			$('#' + treeid).parent().find('.indi-datas li').each(function(){
 				var indi_item = $(this);
-				console.log(indi_item);
 				selectedNode.push({
 					code: indi_item.attr('code'),
 					name: indi_item.html()
@@ -408,7 +401,6 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 				menuId: menuId
 			},
 			success: function(res) {
-				// console.log(res)
 				chartArr = res.content.data;
 				chartArr.forEach(function(item) {
 					var id = item.chartId;

@@ -7,7 +7,6 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 		this.opts.isBar = (etype=='ebar')?true:false;
 		this.chart = echarts.init(document.getElementById(el_id));		
 		var unit = this.opts.unit;
-		console.log(this.opts);
 		
 		var option = {
 				 title: {
@@ -80,6 +79,7 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 		}
 
 		console.log(option);
+		this.chart.clear();
 		this.chart.setOption(option);
 	}
 	
