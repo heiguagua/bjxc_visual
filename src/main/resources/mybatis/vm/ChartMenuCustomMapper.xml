@@ -40,6 +40,7 @@
 		LEFT JOIN vm_chart_conf t1 ON
 		t.chart_id=t1.id
 		<include refid="queryConditions"></include>
+		ORDER BY t.show_order asc
 	</select>
 
 	<!-- 通用查询过滤条件 -->

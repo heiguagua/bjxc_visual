@@ -19,14 +19,14 @@ public class IndictorDataVo extends IndictorData {
 
 	public String name;
 
-	public String measureUnit;
+	public String unit;
 
-	public String getMeasureUnit() {
-		return measureUnit;
+	public String getUnit() {
+		return unit;
 	}
 
-	public void setMeasureUnit(String measureUnit) {
-		this.measureUnit = measureUnit;
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 
 	public BigDecimal getValData() {
