@@ -1,5 +1,38 @@
 define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/charts/EFunnel", "../../js/charts/ECircle", "../../js/charts/EGauge"], function(jquery, ELine, ERadar, EFunnel, ECircle, EGauge) {
-
+	var setting = {
+			check : {
+				enable : true,
+				chkboxType : {
+					"Y" : 's',
+					"N" : 's'
+				}
+			},
+			data : {
+				simpleData : {
+					enable : true
+				}
+			},
+			async: {
+				enable: true,
+				url:basePathJS + "/indictorCategory/subCategoryList",
+				autoParam:["id=fid"],
+				otherParam:{},
+				dataFilter: filter
+			}
+	}
+	function filter(treeId, parentNode, childNodes) {
+		if (!childNodes) return null;
+		
+		var childNodes = childNodes.content.data;
+		for (var i=0, l=childNodes.length; i<l; i++) {
+			childNodes[i].isParent = childNodes[i].selectable == 0 ? true:false;
+			childNodes[i].nocheck = childNodes[i].selectable == 0 ? true:false;
+			//childNodes[i].children = [];
+			
+			
+		}
+		return childNodes;
+	}
 	// constructor
 	function ECategory(etype, opts, opType,id){// opType为ADD_OR_UPDATE，表示新增或修改
 		this.opts = $.extend({}, ECategory.DEFAULTS, opts);
@@ -7,6 +40,7 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 		console.log(opType,id);
 		if(opType == 'update') {
 			this.$el = $('#'+el_id).parent();
+			this.$el.find('.detail_info').remove();
 		}
 		else{
 			this.$el = $('<div class="chart-item-wrap"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span>&nbsp;&nbsp;<span class="fa fa-trash ">删除</span></div></div>');		
@@ -44,6 +78,23 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 		
 		// 编辑图表配置
 		this.$el.find('.fa-edit').click(function(){
+			$.fn.zTree.destroy("indicatorTree");
+			$.fn.zTree.destroy("detailTree");
+			
+			$('.update-dir').show();
+			$('.update-detail-dir').show();
+			
+			 // 编辑配置时，重新选择指标
+			  $('#rechooseTree').click(function(){
+				  $.fn.zTree.init($("#indicatorTree"), setting);
+				  $('.update-dir').hide();
+			  })
+			  
+			  //编辑配置时，重新选择详情指标
+			  $('#rechooseDetailTree').click(function(){
+				  $.fn.zTree.init($("#detailTree"), setting);
+				  $('.update-detail-dir').hide();
+			  })
 			// get data info of current chart
 			$.ajax({
 	            type : "post",
@@ -70,6 +121,11 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 		    				$('#timePoint').val(resData.split(' ')[0]);
 		    				$('#timeUnit').val(resData.split(' ')[1]);
 		    			}
+		    			
+		    			var selectedIndicators = resData.listClassifyIndictorMap;
+		    			var selectedDetailIndicators = resData.listChartDescIndictorMap;
+		    			$('.selected-indicators').html(getSelectedIndicators(selectedIndicators));
+		    			$('.selected-detail-indicators').html(getSelectedIndicators(selectedDetailIndicators));
 		    			
 		    			$('#showDetail').prop('checked',instance.opts.showDetail);
 		    			$('#addOrUpdate').val('update'); // 模态框类型为修改
@@ -114,6 +170,13 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 	ECategory.DEFAULTS = {
 	}
 
+	function getSelectedIndicators(selectedIndicators) {
+		var tmp ='';
+		_.forEach(selectedIndicators, function(item,index) {
+			tmp += '<li code="'+item.indictorCode+'">'+item.indictorShowName+'</li>';
+		});
+		return tmp;
+	}
 	
 	return {
 		create: ECategory

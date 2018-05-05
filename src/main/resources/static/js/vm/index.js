@@ -25,49 +25,9 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 				autoParam:["id=fid"],
 				otherParam:{},
 				dataFilter: filter
-			},
-			callback: {  
-				beforeClick: function (treeId, treeNode) { //如果点击的节点还有下级节点，则展开该节点
-//					if(treeNode.selectable == 0) {// 还有子节点
-//						$.ajax({
-//		                    type : "get",
-//		                    url : basePathJS + "/indictorCategory/subCategoryList?fid=" + treeNode.id,
-//		                    async : false,
-//		                    success : function(res){
-//		                        var dd = res.content.data;
-//		                        treeNode.children = [];
-//	                        	treeNode.children = dd.concat(treeNode.children_old);
-//		    					var zTreeObj = $.fn.zTree.getZTreeObj(treeId);
-//		                        if (treeNode.isParent) {
-//		                            if (treeNode.open) {
-//		                                zTreeObj.expandNode(treeNode, false);
-//		                            } else {
-//		                                zTreeObj.expandNode(treeNode, true);
-//		                            }
-//		                            return false;
-//		                        } else {
-//		                            return true;
-//		                        }
-//		                    }
-//		                });
-//					}
-					
-                },
-//		        onCheck: onCheck, //用于捕获 checkbox / radio 被勾选 或 取消勾选的事件回调函数  
-//		        onClick: onClick, //用于捕获节点被点击的事件回调函数  
-//		        beforeExpand: beforeExpand, //用于捕获父节点展开之前的事件回调函数，并且根据返回值确定是否允许展开操作  
-//		        onExpand: onExpand//用于捕获节点被展开的事件回调函数  
-		    }
+			}
 	}
-	require(['zTree'],function(zTree){
-		$.fn.zTree.init($("#indicatorTree"), setting);
-		var showDetail = $('input[name="showDetail"]:checked').val();
-		if(showDetail) {// 显示详情
-			// TODO send ajax request for detail indicator
-			$.fn.zTree.init($("#detailTree"), setting);
-		}
-		
-	})
+	
 	function filter(treeId, parentNode, childNodes) {
 		if (!childNodes) return null;
 		
@@ -81,6 +41,16 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 		}
 		return childNodes;
 	}
+	require(['zTree'],function(zTree){
+		$.fn.zTree.init($("#indicatorTree"), setting);
+		var showDetail = $('input[name="showDetail"]:checked').val();
+		if(showDetail) {// 显示详情
+			// TODO send ajax request for detail indicator
+			$.fn.zTree.init($("#detailTree"), setting);
+		}
+		
+	})
+	
 
 //	var zNodes = [ {
 //		id : 1,
@@ -187,7 +157,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 				hasSubIndictor: showDetail,
 				location: '',
 				indictors: JSON.stringify(getTreeNode('indicatorTree')),
-				subIndictors: JSON.stringify(getTreeNode('detailTree'))
+				subIndictors: JSON.stringify(getTreeDetailNode('detailTree'))
 		}
 		
 		if(ADD_OR_UPDATE == 'update') {//修改操作
@@ -288,6 +258,12 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 	// 新增图表按钮点击事件
 	$('#addChartBtn').click(function(){
 		$('#addOrUpdate').val('add');
+		$('.update-dir').hide();
+		$('.update-detail-dir').hide();
+		$.fn.zTree.destroy("indicatorTree");
+		$.fn.zTree.destroy("detailTree");
+		$.fn.zTree.init($("#indicatorTree"), setting);
+		$.fn.zTree.init($("#detailTree"), setting);
 		clearModalInfo();
 		$('#addChartModal').modal('show');
 	})
@@ -307,6 +283,8 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
   $('#preview').click(function(){
     pageInst.uninstall()
   })
+  
+ 
   // ---
 
 	// 时间类型change事件
@@ -350,15 +328,56 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 	}
 	
 	function getTreeNode(treeid){
-		var treeObj = $.fn.zTree.getZTreeObj(treeid), 
-		nodes = treeObj.getCheckedNodes(true), 
-		selectedNode = [];
-		for (var i = 0; i < nodes.length; i++) {
-			selectedNode.push({
-				code: nodes[i].indictorId,
-				name: nodes[i].name
+		var selectedNode = [];
+		if(!$('.update-dir').is(':hidden')) {// 修改操作，且未重新选择指标
+			$('#' + treeid).parent().find('.indi-datas li').each(function(){
+				var indi_item = $(this);
+				console.log(indi_item);
+				selectedNode.push({
+					code: indi_item.attr('code'),
+					name: indi_item.html()
+				})
 			})
+			
 		}
+		else{
+			var treeObj = $.fn.zTree.getZTreeObj(treeid), 
+			nodes = treeObj.getCheckedNodes(true);
+			for (var i = 0; i < nodes.length; i++) {
+				selectedNode.push({
+					code: nodes[i].indictorId,
+					name: nodes[i].name
+				})
+			}
+		}
+		
+		return selectedNode;
+	}
+	
+	function getTreeDetailNode(treeid){
+		var selectedNode = [];
+		if(!$('.update-detail-dir').is(':hidden')) {// 修改操作，且未重新选择指标
+			$('#' + treeid).parent().find('.indi-datas li').each(function(){
+				var indi_item = $(this);
+				console.log(indi_item);
+				selectedNode.push({
+					code: indi_item.attr('code'),
+					name: indi_item.html()
+				})
+			})
+			
+		}
+		else{
+			var treeObj = $.fn.zTree.getZTreeObj(treeid), 
+			nodes = treeObj.getCheckedNodes(true);
+			for (var i = 0; i < nodes.length; i++) {
+				selectedNode.push({
+					code: nodes[i].indictorId,
+					name: nodes[i].name
+				})
+			}
+		}
+		
 		return selectedNode;
 	}
 	

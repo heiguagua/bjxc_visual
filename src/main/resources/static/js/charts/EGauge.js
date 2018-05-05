@@ -5,7 +5,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 		this.opts = $.extend({}, EGauge.DEFAULTS, opts);
 		this.chart = echarts.init(document.getElementById(el_id));		
 		var unit = this.opts.unit;
-		
+		console.log(this.opts);
 
 		var option = {
 				title: {
@@ -28,7 +28,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			                 type: 'gauge',
 			                 center: ['50%', '60%'],
 			                 detail: {formatter:'{value}' },
-			                 data: [{value: this.opts.gauge_data.value}]
+			                 data: [{value: this.opts.gauge_data[0].valData}]
 			             }
 			         ]
 		};

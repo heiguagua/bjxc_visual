@@ -41,6 +41,7 @@ form .form-group label {
 }
 
 .tree-wrap {
+    height: 400px;
 	border: 1px solid #DDD;
 	margin: 10px;
 }
@@ -86,6 +87,17 @@ form .form-group label {
 }
 .tool {
 	float: right;
+}
+.update-dir,.update-detail-dir{
+display:none;}
+.selected-title{
+	padding-bottom:5px;
+	border-bottom:1px solid #DDD;
+	margin-bottom: 5px;
+}
+.selected-title a{
+	color:#2196F3;
+	text-decoration:underline;
 }
 </style>
 </head>
@@ -232,12 +244,18 @@ form .form-group label {
 							<label for="inputEmail3" class="col-sm-2 control-label">选择指标</label>
 							<div class="col-sm-4 tree-wrap">
 								<h5 class="tree-title">展示指标</h5>
-								<!-- <ul class="selected-indicators"><li>sdf</li></ul> -->
+								<div class="update-dir">
+								<div class="selected-title">已选展示指标：<a href="javascript:;" id="rechooseTree">重新选择</a></div>
+								<ul class="selected-indicators indi-datas"></ul> </div>
 								<ul id="indicatorTree" class="tree ztree"></ul>
 							</div>
 							<div class="col-sm-4 tree-wrap detail">
 								<h5 class="tree-title">展示详情指标</h5>
-								<ul class="selected-indicators"></ul>
+								<div class="update-detail-dir">
+									<div class="selected-title">已选展示详情指标：<a href="javascript:;" id="rechooseDetailTree">重新选择</a></div>
+									<ul class="selected-detail-indicators indi-datas"></ul>
+									
+									</div>
 								<ul id="detailTree" class="tree ztree"></ul>
 							</div>
 						</div>

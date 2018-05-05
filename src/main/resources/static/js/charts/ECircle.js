@@ -31,7 +31,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			        label: {
 			            normal: {
 			                position: 'inner',
-			                formatter: '{d}',
+			                formatter: '{d}%',
 
 			                textStyle: {
 			                    color: '#fff',
