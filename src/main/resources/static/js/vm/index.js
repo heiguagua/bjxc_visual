@@ -1,12 +1,7 @@
 require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../js/page/Page',
 		'zTree', 'bootstrap' ], function($, echarts ,global_custom,  ECategory, Page, zTree) {
 	
-	// 全局变量
-	window.NOW_DATE = 'now_date';		  // 当前时间,  传参：""
-	window.LAST_DATE = 'last_date';		  // 当前时间-1,	传参：""
-	window.CUSTOM_DATE = 'custom_date';   // 自定义时间段 ,  传参如：2018-05-08 ~ 2018-06-19
-	window.RECENT_YEARS = 'recent_years'; // 最近x年/月/日 , 传参如："3 Y", "3 M", "3 D"
-	window.ADD_OR_UPDATE = 'add';
+
 	
 	var menuId = $('#menuId').val();
 	getChart(menuId);
@@ -173,16 +168,17 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 
 	// 拖拽缩放---
 	var pageInst = new Page()
-  window.pageCtr = pageInst
+	window.pageCtr = pageInst
 	// ---
 	
 	$('#addChartConfirm').click(function() {
-		console.log('modal type:' + ADD_OR_UPDATE);
+		console.log('modal type:' + $('#addOrUpdate').val());
 
 		var chartType = $('input[name="chartTypeOptions"]:checked').val();
 		var showDetail = $('#showDetail').prop('checked');
 		var isNameShow = $('#showTitle').prop('checked');
-		// TODO send ajax for indicator data
+		var url = basePathJS + "/chartConf/addUsersChart";
+		
 		var params = {
 				chartName: $('#etitle').val(),
 				isNameShow: isNameShow,
@@ -194,10 +190,15 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 				indictors: JSON.stringify(getTreeNode('indicatorTree')),
 				subIndictors: JSON.stringify(getTreeNode('detailTree'))
 		}
-		console.log(params.indicators);
+		
+		if($('#addOrUpdate').val() == 'update') {//修改操作
+			params.id = $("#updateChartId").val();
+			url = basePathJS + '/chartConf/editUsersChart ';
+		}
+		// send ajax for indicator data
 		$.ajax({
             type : "post",
-            url : basePathJS + "/chartConf/addUsersChart",
+            url : url,
             async : false,
             data: params,
             success : function(res){
@@ -212,48 +213,18 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
         		               [3,3.2,4,4.5,5.2]
         					];
         		var data_all = res.content.basicData;
-//        		var data_all = [{name: '孕产妇建卡率', setStartTime: '2012年', value: '9', unit: '%'},
-//        		                {name: '人口与妇幼保健院卫生人员数比', setStartTime: '2012年', value: '7', unit: '%'},
-//        		                {name: '人口与医疗卫生机构妇产科床位数比', setStartTime: '2012年', value: '8', unit: '%'},
-//        		                {name: '人口与妇产科执业医师数比', setStartTime: '2012年', value: '6.9', unit: '%'},
-//        		                {name: '人口与妇幼保健机构数比', setStartTime: '2012年', value: '8.4', unit: '%'},
-//        		                {name: '孕产妇建卡率', setStartTime: '2013年', value: '4.8', unit: '%'},
-//        		                {name: '人口与妇幼保健院卫生人员数比', setStartTime: '2013年', value: '7.8', unit: '%'},
-//        		                {name: '人口与医疗卫生机构妇产科床位数比', setStartTime: '2013年', value: '9.4', unit: '%'},
-//        		                {name: '人口与妇产科执业医师数比', setStartTime: '2013年', value: '8.9', unit: '%'},
-//        		                {name: '人口与妇幼保健机构数比', setStartTime: '2013年', value: '7.4', unit: '%'},
-//        		                {name: '孕产妇建卡率', setStartTime: '2014年', value: '8.5', unit: '%'},
-//        		                {name: '人口与妇幼保健院卫生人员数比', setStartTime: '2014年', value: '6.7', unit: '%'},
-//        		                {name: '人口与医疗卫生机构妇产科床位数比', setStartTime: '2014年', value: '5.9', unit: '%'},
-//        		                {name: '人口与妇产科执业医师数比', setStartTime: '2014年', value: '8.9', unit: '%'},
-//        		                {name: '人口与妇幼保健机构数比', setStartTime: '2014年', value: '7.4', unit: '%'},
-//        		                {name: '孕产妇建卡率', setStartTime: '2015年', value: '7.5', unit: '%'},
-//        		                {name: '人口与妇幼保健院卫生人员数比', setStartTime: '2015年', value: '6.4', unit: '%'},
-//        		                {name: '人口与医疗卫生机构妇产科床位数比', setStartTime: '2015年', value: '8.9', unit: '%'},
-//        		                {name: '人口与妇产科执业医师数比', setStartTime: '2015年', value: '9.1', unit: '%'},
-//        		                {name: '人口与妇幼保健机构数比', setStartTime: '2015年', value: '6.4', unit: '%'},];
         		console.log(_.groupBy(data_all,'name'),_.keys(_.groupBy(data_all,'name')),_.values(_.groupBy(data_all,'name')));
-        		console.log(_.groupBy(data_all,'setStartTime'),_.keys(_.groupBy(data_all,'setStartTime')),_.values(_.groupBy(data_all,'setStartTime')));
-        		var serData = _.values(_.groupBy(data_all,'setStartTime'));
+        		console.log(_.groupBy(data_all,'startTime'),_.keys(_.groupBy(data_all,'startTime')),_.values(_.groupBy(data_all,'startTime')));
+        		var serData = _.values(_.groupBy(data_all,'startTime'));
         		_.forEach(serData, function(item,index) {
         			item = _.map(item,'valData');
         			serData[index] = item;
         		});
         		console.log('serData',serData);
-        		var x_data = _.keys(_.groupBy(data_all,'setStartTime'));
+        		var x_data = _.keys(_.groupBy(data_all,'startTime'));
         		var legend_data = _.keys(_.groupBy(data_all,'name'));
-        		
-        		//var singleData = [60,40,20,80,100];
-        		var singleData = serData;
+
         		serData = serData.transpose();
-        		console.log('serData:after',serData);
-//        		var detail_info = {
-//        				title: '2014年西城区',
-//        				data:[{name:'孕妇建卡人数',value:1000,unit:'人'},
-//        	                   {name:'妇幼保健卫生人员数',value:600,unit:'人'},
-//        	                   {name:'妇产科职业医师数',value:200,unit:'人'},
-//        	                   {name:'妇幼保健机构数',value:15,unit:'家'}]
-//        		};
         		var detail_info = {
         				title: title,
         				data:res.content.extendData
@@ -262,21 +233,20 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
         		var gauge_data = data_all;// 单个指标数据，用于仪表图
         		
         		 var echarts = new ECategory.create(chartType,{
-        			id: res.content.id,
         			title: title,
         			isNameShow: isNameShow,
         			unit: data_unit,
         			legend_data: legend_data,
         			x_data: x_data,
         			serData: serData,
-        			singleData: singleData,
+        			singleData: serData,
         			showDetail: showDetail,
         			detail_info:detail_info,
         			gauge_data: gauge_data,
         			chartType: chartType,
         			chartTimeType: $('#timeselect').val(),
         			chartTimeScope: getChartTimeScope(),
-        		},ADD_OR_UPDATE);
+        		},ADD_OR_UPDATE,res.content.id);
         		
         		$('#addChartModal').modal('hide');
         		
@@ -318,7 +288,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 	
 	// 新增图表按钮点击事件
 	$('#addChartBtn').click(function(){
-		ADD_OR_UPDATE = 'add';
+		$('#addOrUpdate').val('add');
 		clearModalInfo();
 		$('#addChartModal').modal('show');
 	})
@@ -451,7 +421,6 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
                   serData = [serData]
                 }
                 var echarts = new ECategory.create(item.chartType, {
-                  id: item.id,
                   title: item.chartName,
                   isNameShow: item.isNameShow,
                   unit: data_unit,
@@ -465,7 +434,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
                   chartType: item.chartType,
                   chartTimeType: item.chartTimeType,
                   chartTimeScope: item.chartTimeScope,
-                }, ADD_OR_UPDATE,item.id);
+                }, ADD_OR_UPDATE,item.chartId);
                 // 拖拽缩放 ---
                 pageInst.addPlugin(item.chartType, item.chartType, echarts.$el, echarts.instnc);
                 // pageInst.install()

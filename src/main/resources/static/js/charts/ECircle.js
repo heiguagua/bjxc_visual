@@ -19,6 +19,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			    },
 			    tooltip: {},
 			    legend: {
+			    	top:'10%',
 			    	show:true,
 			        data: this.opts.legend_data
 			    },
@@ -30,7 +31,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			        label: {
 			            normal: {
 			                position: 'inner',
-			                formatter: '{d}'+unit,
+			                formatter: '{d}',
 
 			                textStyle: {
 			                    color: '#fff',
@@ -53,7 +54,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			var info_content = '<div class="detail_info">';
 			for(var i=0; i<this.opts.detail_info.data.length; i++) {
 				var item =  this.opts.detail_info.data[i];
-				info_content += '<div class="info-item">' + item.name +': '+ item.value + item.unit + '</div>';
+				info_content += '<div class="info-item">' + item.name +': '+ item.valData  + '</div>';
 			}
 			info_content += '</div>'
 			var detail_info = $(info_content);

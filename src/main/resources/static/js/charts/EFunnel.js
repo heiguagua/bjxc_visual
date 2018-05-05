@@ -5,7 +5,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 		this.opts = $.extend({}, EFunnel.DEFAULTS, opts);
 		this.chart = echarts.init(document.getElementById(el_id));		
 		var unit = this.opts.unit;
-		
+		console.log(this.opts);
 
 		var option = {
 				title: {
@@ -72,7 +72,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			var info_content = '<div class="detail_info">';
 			for(var i=0; i<this.opts.detail_info.data.length; i++) {
 				var item =  this.opts.detail_info.data[i];
-				info_content += '<div class="info-item">' + item.name +': '+ item.value + item.unit + '</div>';
+				info_content += '<div class="info-item">' + item.name +': '+ item.valData + '</div>';
 			}
 			info_content += '</div>'
 			var detail_info = $(info_content);

@@ -27,7 +27,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			                 name: this.opts.gauge_data.name,
 			                 type: 'gauge',
 			                 center: ['50%', '60%'],
-			                 detail: {formatter:'{value}' + unit},
+			                 detail: {formatter:'{value}' },
 			                 data: [{value: this.opts.gauge_data.value}]
 			             }
 			         ]
@@ -38,7 +38,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			var info_content = '<div class="detail_info">';
 			for(var i=0; i<this.opts.detail_info.data.length; i++) {
 				var item =  this.opts.detail_info.data[i];
-				info_content += '<div class="info-item">' + item.name +': '+ item.value + item.unit + '</div>';
+				info_content += '<div class="info-item">' + item.name +': '+ item.valData + '</div>';
 			}
 			info_content += '</div>'
 			var detail_info = $(info_content);

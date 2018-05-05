@@ -64,6 +64,9 @@ form .form-group label {
 #timeselect {
 	width: 130px;
 }
+#timeRange{
+    display: inline-block;
+}
 .select2-container--default .select2-selection--single{
 	
     height: 34px !important;
@@ -225,14 +228,17 @@ form .form-group label {
 							<label for="inputEmail3" class="col-sm-2 control-label">选择指标</label>
 							<div class="col-sm-4 tree-wrap">
 								<h5 class="tree-title">展示指标</h5>
+								<!-- <ul class="selected-indicators"><li>sdf</li></ul> -->
 								<ul id="indicatorTree" class="tree ztree"></ul>
 							</div>
 							<div class="col-sm-4 tree-wrap detail">
 								<h5 class="tree-title">展示详情指标</h5>
+								<ul class="selected-indicators"></ul>
 								<ul id="detailTree" class="tree ztree"></ul>
 							</div>
 						</div>
-
+						<input type="hidden" id="updateChartId" />
+						<input type="hidden" id="addOrUpdate" />
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -248,6 +254,13 @@ form .form-group label {
 
 	<script src="<%=context_path%>/js/vm/index.js"></script>
 	<%-- <script src="<%=context_path%>/plugins/echarts3/echarts.min.js"></script> --%>
-
+	<script>
+	// 全局变量
+	window.NOW_DATE = 'now_date';		  // 当前时间,  传参：""
+	window.LAST_DATE = 'last_date';		  // 当前时间-1,	传参：""
+	window.CUSTOM_DATE = 'custom_date';   // 自定义时间段 ,  传参如：2018-05-08 ~ 2018-06-19
+	window.RECENT_YEARS = 'recent_years'; // 最近x年/月/日 , 传参如："3 Y", "3 M", "3 D"
+	window.ADD_OR_UPDATE = 'add';
+	</script>
 </body>
 </html>
