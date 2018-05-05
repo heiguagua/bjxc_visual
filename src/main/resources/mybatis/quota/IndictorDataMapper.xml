@@ -26,13 +26,32 @@
 
 	<select id="selectSumReportDateByMap" parameterType="java.util.Map"
 		resultMap="BaseResultVoMap">
-	   select 
-	   CASE WHEN sum(t.val) IS NULL THEN '0' ELSE sum(t.val) END as val_data,
-	   t1.name,t2.dict_name as unit from
+<!-- 	   select 
+	   CASE WHEN sum(t.val) IS NULL THEN '0' ELSE aa.val_data END as val_data
+	   t1.name,t2.dict_name as unit, from
 		im_indictor_data t
 		left join im_indictor t1 on t.indictor_id=t1.id
 		LEFT JOIN (select dict_code,dict_name from sys_dict where category='imIndictorMeasureUnit' ) t2 on t1.measure_unit=t2.dict_code
-		<include refid="queryConditions"></include> 
+		<include refid="queryConditions"></include>  -->
+
+		SELECT
+		t1.name,
+		t2.dict_name as unit,
+		CASE WHEN aa.val_data IS NULL THEN '0' ELSE aa.val_data END as val_data
+		FROM
+		im_indictor t1
+		LEFT JOIN (
+		SELECT
+		indictor_id,
+		sum(t.val) AS val_data
+		FROM
+		im_indictor_data t
+		<include refid="queryConditions"></include>
+		) aa ON aa.indictor_id = t1.id
+		LEFT JOIN (select dict_code,dict_name from sys_dict where category='imIndictorMeasureUnit' ) t2 on t1.measure_unit=t2.dict_code
+		WHERE
+		t1.id = #{indictorId}
+
 	</select>
 
 	<!-- 通用查询过滤条件 -->
