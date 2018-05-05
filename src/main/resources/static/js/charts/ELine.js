@@ -3,7 +3,8 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 	// constructor
 	function ELine(el_id, opts, etype){		
 		this.opts = $.extend({}, ELine.DEFAULTS, opts);
-		this.opts.isArea = etype;
+		this.opts.isArea = (etype=='earea')?true:false;
+		this.opts.isBar = (etype=='ebar')?true:false;
 		this.chart = echarts.init(document.getElementById(el_id));		
 		var unit = this.opts.unit;
 		console.log(this.opts);
@@ -29,11 +30,11 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 				    grid: {
 				    	left: '15%',
 				        top:'18%',
-				        bottom: '25%'
+				        bottom: '25%',
+				        containLabel: true
 				    },
 				    xAxis: {
 				        type: 'category',
-				        boundaryGap: false,
 				        data: this.legdXDataFormatter().xData,
 				        axisTick: {
 			                alignWithLabel: true
@@ -58,7 +59,7 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 			};
 		
 		// 显示详情
-		if(this.opts.showDetail) {
+		if(this.opts.showDetail && this.opts.detail_info.data.length > 0) {
 			var info_content = '<div class="detail_info">';
 			for(var i=0; i<this.opts.detail_info.data.length; i++) {
 				var item =  this.opts.detail_info.data[i];
@@ -95,11 +96,16 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 						type: 'line',
 						data: serData[i]
 					};
-				if(this.opts.isArea) {
+				if(this.opts.isArea) {// 面积图
 					obj.areaStyle = {
 							normal:{}
 					};
 				}
+				if(this.opts.isBar){ // 柱状图
+					obj.type = 'bar';
+					obj.barWidth = '20%';
+				}
+				
 				ser_data_format.push(obj);
 			}
 		}
@@ -126,6 +132,10 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 				legend_xAxis_data.data.areaStyle = {
 						normal:{}
 				};
+			}
+			if(this.opts.isBar){ // 柱状图
+				legend_xAxis_data.data.type = 'bar';
+				legend_xAxis_data.data.barWidth = '20%';
 			}
 		}
 		return legend_xAxis_data;

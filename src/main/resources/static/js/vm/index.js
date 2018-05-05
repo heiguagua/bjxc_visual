@@ -172,7 +172,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 	
 	$('#addChartConfirm').click(function() {
 		console.log('modal type:' + $('#addOrUpdate').val());
-
+		ADD_OR_UPDATE = $('#addOrUpdate').val();
 		var chartType = $('input[name="chartTypeOptions"]:checked').val();
 		var showDetail = $('#showDetail').prop('checked');
 		var isNameShow = $('#showTitle').prop('checked');
@@ -190,7 +190,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 				subIndictors: JSON.stringify(getTreeNode('detailTree'))
 		}
 		
-		if($('#addOrUpdate').val() == 'update') {//修改操作
+		if(ADD_OR_UPDATE == 'update') {//修改操作
 			params.id = $("#updateChartId").val();
 			url = basePathJS + '/chartConf/editUsersChart ';
 		}

@@ -34,7 +34,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 		};
 		
 		// 显示详情
-		if(this.opts.showDetail) {
+		if(this.opts.showDetail && this.opts.detail_info.data.length > 0) {
 			var info_content = '<div class="detail_info">';
 			for(var i=0; i<this.opts.detail_info.data.length; i++) {
 				var item =  this.opts.detail_info.data[i];

@@ -181,6 +181,10 @@ form .form-group label {
 								<label class="radio-inline"> <input type="radio"
 									name="chartTypeOptions" id="eline" checked value="eline">
 									折线图
+								</label>
+								<label class="radio-inline"> <input type="radio"
+									name="chartTypeOptions" id="ebar" value="ebar">
+									柱状图
 								</label> <label class="radio-inline"> <input type="radio"
 									name="chartTypeOptions" id="earea" value="earea"> 面积图
 								</label> <label class="radio-inline"> <input type="radio"

@@ -1,20 +1,26 @@
 define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/charts/EFunnel", "../../js/charts/ECircle", "../../js/charts/EGauge"], function(jquery, ELine, ERadar, EFunnel, ECircle, EGauge) {
 
 	// constructor
-	function ECategory(etype, opts, ADD_OR_UPDATE,id){
+	function ECategory(etype, opts, opType,id){// opType为ADD_OR_UPDATE，表示新增或修改
 		this.opts = $.extend({}, ECategory.DEFAULTS, opts);
-		var el_id
-		if(id) {
-			el_id = id
-		} else {
-			el_id = Date.parse(new Date());
+		var el_id = id;
+		console.log(opType,id);
+		if(opType == 'update') {
+			this.$el = $('#'+el_id).parent();
 		}
-		this.$el = $('<div class="chart-item-wrap"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span>&nbsp;&nbsp;<span class="fa fa-trash ">删除</span></div></div>');		
-		$('#chartWrapper').append(this.$el);
+		else{
+			this.$el = $('<div class="chart-item-wrap"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span>&nbsp;&nbsp;<span class="fa fa-trash ">删除</span></div></div>');		
+			$('#chartWrapper').append(this.$el);
+		}
+		console.log(this.$el);
+		
 		this.instnc = {};
 		switch(etype) {
 			case 'eline':
 				this.instnc = new ELine.init(el_id, this.opts);
+				break;
+			case 'ebar':
+				this.instnc = new ELine.init(el_id, this.opts, etype);
 				break;
 			case 'earea':
 				this.instnc = new ELine.init(el_id, this.opts, etype);
@@ -38,7 +44,7 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 		
 		// 编辑图表配置
 		this.$el.find('.fa-edit').click(function(){
-			// TODO get data info of current chart
+			// get data info of current chart
 			$.ajax({
 	            type : "post",
 	            url : basePathJS + "/chartConf/loadChartDetail",
