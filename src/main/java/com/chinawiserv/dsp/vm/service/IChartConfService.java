@@ -41,6 +41,6 @@ public interface IChartConfService extends ICommonService<ChartConf, ChartConfVo
 	 * @return
 	 * @throws Exception
 	 */
-	boolean editUsersChart(Map<String, Object> paramsMap) throws Exception;
+	String editUsersChart(Map<String, Object> paramsMap) throws Exception;
 
 }

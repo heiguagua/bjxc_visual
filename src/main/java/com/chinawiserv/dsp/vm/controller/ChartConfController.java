@@ -95,10 +95,11 @@ public class ChartConfController extends BaseController {
 	public HandleResult editUsersChart(@RequestParam Map<String, Object> paramMap) {
 		HandleResult handleResult = new HandleResult();
 		try {
-			if (service.editUsersChart(paramMap))
-				handleResult.success("编辑系统图表配置表成功");
-			else
-				handleResult.error("编辑系统图表配置表失败");
+			String chartId = service.editUsersChart(paramMap);
+			Map<String, Object> map = new HashMap<>();
+			map.put("id", chartId);
+			handleResult = iIndictorService.getIndictorData(map);
+			handleResult.put("id", chartId);
 		} catch (Exception e) {
 			handleResult.error("编辑系统图表配置表失败");
 			logger.error("编辑系统图表配置表失败", e);
