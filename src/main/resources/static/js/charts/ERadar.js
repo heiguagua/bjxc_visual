@@ -76,7 +76,6 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 	ERadar.prototype.indicatorFormatter = function() {
 		var indicatorData = this.opts.x_data;
 		var indicator_data_format = [];
-		console.log(this.opts.serData.transpose());
 		if(indicatorData && indicatorData.length > 0) {
 			for(var i=0; i<indicatorData.length; i++) {
 				console.log(Math.max.apply(null,this.opts.serData.transpose()[i]));

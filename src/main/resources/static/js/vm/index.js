@@ -142,7 +142,6 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 
 	// 二维数组矩阵转置
 	Array.prototype.transpose = function() {
-		console.log(this);
 		var length = this.length;
 		var arr_new = [];
 		if(length != 0) {
@@ -402,24 +401,46 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 							id: id
 						},
 						success: function(res) {
-							var chartData = res.content.basicData;
-              var legend_data = [];
-              var x_data = [];
-              var serData = [];
-              var data_unit = '%';
-              if (chartData.length) {
-                chartData.forEach(function(data) {
-                  legend_data.push(data.name);
-                  x_data.push(data.startTime);
-                  serData.push(data.valData);
-                })
-                var detail_info = {
-                  title: item.chartName,
-                  data: res.content.extendData
-                }
-                if(item.chartType == 'eline') {
-                  serData = [serData]
-                }
+//							var chartData = res.content.basicData;
+//              var legend_data = [];
+//              var x_data = [];
+//              var serData = [];
+//              var data_unit = '%';
+//              if (chartData.length) {
+//                chartData.forEach(function(data) {
+//                  legend_data.push(data.name);
+//                  x_data.push(data.startTime);
+//                  serData.push(data.valData);
+//                })
+                
+                
+				var data_unit = '%';
+                var data_all = res.content.basicData;
+        		var serData = _.values(_.groupBy(data_all,'startTime'));
+        		_.forEach(serData, function(item,index) {
+        			item = _.map(item,'valData');
+        			serData[index] = item;
+        		});
+        		var x_data = _.keys(_.groupBy(data_all,'startTime'));
+        		var legend_data = _.keys(_.groupBy(data_all,'name'));
+
+        		serData = serData.transpose();
+        		var detail_info = {
+        				title: item.chartName,
+        				data:res.content.extendData
+        		}
+        		
+        		var gauge_data = data_all;// 单个指标数据，用于仪表图
+        		
+        		
+        		
+//                var detail_info = {
+//                  title: item.chartName,
+//                  data: res.content.extendData
+//                }
+//                if(item.chartType == 'eline') {
+//                  serData = [serData]
+//                }
                 var echarts = new ECategory.create(item.chartType, {
                   title: item.chartName,
                   isNameShow: item.isNameShow,
@@ -430,7 +451,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
                   singleData: serData,
                   showDetail: item.hasSubIndictor,
                   detail_info: detail_info,
-                  gauge_data: chartData,
+                  gauge_data: gauge_data,
                   chartType: item.chartType,
                   chartTimeType: item.chartTimeType,
                   chartTimeScope: item.chartTimeScope,
@@ -439,7 +460,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
                 pageInst.addPlugin(item.chartType, item.chartType, echarts.$el, echarts.instnc);
                 // pageInst.install()
                 // ---
-              }
+              //}
 						}
 					})
 				})
