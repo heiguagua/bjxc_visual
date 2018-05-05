@@ -141,7 +141,7 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 						IndictorDataVo indictorDataVo = indictorDataMapper.selectSumReportDateByMap(map);
 						if (null != indictorDataVo) {
 							if ("custom_date".equals(chartConf.getChartTimeType())) {
-								indictorDataVo.setStartTime(chartConf.getChartTimeType());
+								indictorDataVo.setStartTime(chartConf.getChartTimeScope());
 							} else {
 								indictorDataVo.setStartTime(map.get("startTime").toString());
 							}
@@ -149,7 +149,7 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 						} else {
 							indictorDataVo = new IndictorDataVo();
 							if ("custom_date".equals(chartConf.getChartTimeType())) {
-								indictorDataVo.setStartTime(chartConf.getChartTimeType());
+								indictorDataVo.setStartTime(chartConf.getChartTimeScope());
 							} else {
 								indictorDataVo.setStartTime(map.get("startTime").toString());
 							}
@@ -191,7 +191,7 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 					IndictorDataVo indictorDataVo = indictorDataMapper.selectSumReportDateByMap(map);
 					if (null != indictorDataVo) {
 						if ("custom_date".equals(chartConf.getChartTimeType())) {
-							indictorDataVo.setStartTime(chartConf.getChartTimeType());
+							indictorDataVo.setStartTime(chartConf.getChartTimeScope());
 						} else {
 							indictorDataVo.setStartTime(map.get("startTime").toString());
 						}
@@ -199,7 +199,7 @@ public class IndictorServiceImpl extends CommonServiceImpl<IndictorMapper, Indic
 					} else {
 						indictorDataVo = new IndictorDataVo();
 						if ("custom_date".equals(chartConf.getChartTimeType())) {
-							indictorDataVo.setStartTime(chartConf.getChartTimeType());
+							indictorDataVo.setStartTime(chartConf.getChartTimeScope());
 						} else {
 							indictorDataVo.setStartTime(map.get("startTime").toString());
 						}

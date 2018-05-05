@@ -19,6 +19,16 @@ public class IndictorDataVo extends IndictorData {
 
 	public String name;
 
+	public String unit;
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
 	public BigDecimal getValData() {
 		return valData;
 	}
