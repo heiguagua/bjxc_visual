@@ -4,7 +4,6 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 	function ERadar(el_id, opts){		
 		this.opts = $.extend({}, ERadar.DEFAULTS, opts);
 		this.chart = echarts.init(document.getElementById(el_id));		
-		var unit = this.opts.unit;
 		
 
 		var option = {

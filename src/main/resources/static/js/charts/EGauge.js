@@ -4,7 +4,6 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 	function EGauge(el_id, opts){		
 		this.opts = $.extend({}, EGauge.DEFAULTS, opts);
 		this.chart = echarts.init(document.getElementById(el_id));		
-		var unit = this.opts.unit;
 		console.log(this.opts);
 
 		var option = {

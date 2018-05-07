@@ -4,7 +4,6 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 	function ECircle(el_id, opts){		
 		this.opts = $.extend({}, ECircle.DEFAULTS, opts);
 		this.chart = echarts.init(document.getElementById(el_id));		
-		var unit = this.opts.unit;
 		
 		var option = {
 				title: {

@@ -261,6 +261,7 @@ display:none;}
 						</div>
 						<input type="hidden" id="updateChartId" />
 						<input type="hidden" id="addOrUpdate" />
+						<input type="hidden" id="location" />
 					</form>
 				</div>
 				<div class="modal-footer">

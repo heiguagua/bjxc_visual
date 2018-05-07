@@ -37,12 +37,23 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 	function ECategory(etype, opts, opType,id){// opType为ADD_OR_UPDATE，表示新增或修改
 		this.opts = $.extend({}, ECategory.DEFAULTS, opts);
 		var el_id = id;
+		console.log(opts.location);
 		if(opType == 'update') {
 			this.$el = $('#'+el_id).parent();
 			this.$el.find('.detail_info').remove();
 		}
 		else{
-			this.$el = $('<div class="chart-item-wrap"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span>&nbsp;&nbsp;<span class="fa fa-trash ">删除</span></div></div>');		
+			var chart_location = '';
+			if(opts.location) {
+				var location_coords = opts.location.split(' ');
+				var width = location_coords[0]*$('#chartWrapper').width();
+				var height = location_coords[1];
+				
+				chart_location = 'width:' + width + 'px;height:' + height + 'px;';
+			}
+			
+			this.$el = $('<div class="chart-item-wrap" style="'+ chart_location +
+					'"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span>&nbsp;&nbsp;<span class="fa fa-trash ">删除</span></div></div>');		
 			$('#chartWrapper').append(this.$el);
 		}
 		
@@ -127,6 +138,7 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 		    			$('#showDetail').prop('checked',instance.opts.showDetail);
 		    			$('#addOrUpdate').val('update'); // 模态框类型为修改
 		    			$("#updateChartId").val(el_id); // 将要修改的图表id赋给隐藏输入框
+		    			$('#location').val(resData.location); // 保存要修改图表的location
 		    			$('#addChartModal').modal('show');
 	            	}
 	            	else{

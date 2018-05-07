@@ -50,64 +50,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 		}
 		
 	})
-	
 
-//	var zNodes = [ {
-//		id : 1,
-//		pId : 0,
-//		name : "随意勾选 1",
-//		open : true
-//	}, {
-//		id : 11,
-//		pId : 1,
-//		name : "随意勾选 1-1",
-//		open : true
-//	}, {
-//		id : 111,
-//		pId : 11,
-//		name : "随意勾选 1-1-1"
-//	}, {
-//		id : 112,
-//		pId : 11,
-//		name : "随意勾选 1-1-2"
-//	}, {
-//		id : 12,
-//		pId : 1,
-//		name : "随意勾选 1-2",
-//		open : true
-//	}, {
-//		id : 121,
-//		pId : 12,
-//		name : "随意勾选 1-2-1"
-//	}, {
-//		id : 122,
-//		pId : 12,
-//		name : "随意勾选 1-2-2"
-//	}, {
-//		id : 2,
-//		pId : 0,
-//		name : "随意勾选 2"
-//	}, {
-//		id : 21,
-//		pId : 2,
-//		name : "随意勾选 2-1"
-//	}, {
-//		id : 22,
-//		pId : 2,
-//		name : "随意勾选 2-2"
-//	}, {
-//		id : 221,
-//		pId : 22,
-//		name : "随意勾选 2-2-1"
-//	}, {
-//		id : 222,
-//		pId : 22,
-//		name : "随意勾选 2-2-2"
-//	}, {
-//		id : 23,
-//		pId : 2,
-//		name : "随意勾选 2-3"
-//	} ];
 
 
 	// 二维数组矩阵转置
@@ -147,6 +90,9 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 		var isNameShow = $('#showTitle').prop('checked');
 		var url = basePathJS + "/chartConf/addUsersChart";
 		
+		
+		var location = '' + 500/$('#chartWrapper').width() + ' ' + 400 ;
+		
 		var params = {
 				chartName: $('#etitle').val(),
 				isNameShow: isNameShow,
@@ -154,13 +100,15 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 				chartTimeType: $('#timeselect').val(),
 				chartTimeScope: getChartTimeScope(),
 				hasSubIndictor: showDetail,
-				location: '',
+				location: location,
 				indictors: JSON.stringify(getTreeNode('indicatorTree')),
 				subIndictors: JSON.stringify(getTreeDetailNode('detailTree'))
 		}
 		
 		if(ADD_OR_UPDATE == 'update') {//修改操作
+			location = $('#location').val();
 			params.id = $("#updateChartId").val();
+			params.location = location;
 			url = basePathJS + '/chartConf/editUsersChart ';
 		}
 		// send ajax for indicator data
@@ -171,15 +119,16 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
             data: params,
             success : function(res){
         		// response data
-        		var title = $('#etitle').val();
-        		var data_unit = '%';
-        		var legend_data = ['孕产妇建卡率','人口与妇幼保健院卫生人员数比','人口与医疗卫生机构妇产科床位数比','人口与妇产科执业医师数比','人口与妇幼保健机构数比'];
-        		var x_data = ['2012年','2013年','2014年','2015年'];
-        		var serData = [[9,7,8,7.8,6.8],
-        		               [7,7.8,8.4,7.2,5.6],
-        		               [4.6,4.2,5,5.8,5.4],
-        		               [3,3.2,4,4.5,5.2]
-        					];
+//        		var title = $('#etitle').val();
+//        		var data_unit = '%';
+//        		var legend_data = ['孕产妇建卡率','人口与妇幼保健院卫生人员数比','人口与医疗卫生机构妇产科床位数比','人口与妇产科执业医师数比','人口与妇幼保健机构数比'];
+//        		var x_data = ['2012年','2013年','2014年','2015年'];
+//        		var serData = [[9,7,8,7.8,6.8],
+//        		               [7,7.8,8.4,7.2,5.6],
+//        		               [4.6,4.2,5,5.8,5.4],
+//        		               [3,3.2,4,4.5,5.2]
+//        					];
+            	var title = $('#etitle').val();
         		var data_all = res.content.basicData;
         		var serData = _.values(_.groupBy(data_all,'startTime'));
         		_.forEach(serData, function(item,index) {
@@ -197,10 +146,11 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
         		
         		var gauge_data = data_all;// 单个指标数据，用于仪表图
         		
+    			
         		 var echarts = new ECategory.create(chartType,{
         			title: title,
         			isNameShow: isNameShow,
-        			unit: data_unit,
+        			location: location,
         			legend_data: legend_data,
         			x_data: x_data,
         			serData: serData,
@@ -269,9 +219,15 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 	// 保存
 	$('#save').click(function() {
 		var arr = pageInst.getPageConfig();
+		console.log(arr);
+		_.forEach(arr.plugins, function(item,index) {
+			
+		});
+		
 	})
 	// 编辑
   $('#edit').click(function(){
+	  console.log(pageInst);
     pageInst.install()
   })
   // 浏览
@@ -389,9 +345,10 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 		$('.tree-wrap.detail').removeClass('hide').show();
 	}
 
+	var pageInst = new Page();
 	// 查询图表接口
 	function getChart(menuId) {
-    var pageInst = new Page();
+    
     var chartArr
 		$.ajax({
 			type: 'post',
@@ -412,20 +369,8 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 							id: id
 						},
 						success: function(res) {
-//							var chartData = res.content.basicData;
-//              var legend_data = [];
-//              var x_data = [];
-//              var serData = [];
-//              var data_unit = '%';
-//              if (chartData.length) {
-//                chartData.forEach(function(data) {
-//                  legend_data.push(data.name);
-//                  x_data.push(data.startTime);
-//                  serData.push(data.valData);
-//                })
+             
                 
-                
-				var data_unit = '%';
                 var data_all = res.content.basicData;
         		var serData = _.values(_.groupBy(data_all,'startTime'));
         		_.forEach(serData, function(item,index) {
@@ -455,7 +400,6 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
                 var echarts = new ECategory.create(item.chartType, {
                   title: item.chartName,
                   isNameShow: item.isNameShow,
-                  unit: data_unit,
                   legend_data: legend_data,
                   x_data: x_data,
                   serData: serData,
@@ -469,7 +413,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
                 }, ADD_OR_UPDATE,item.chartId);
                 // 拖拽缩放 ---
                 pageInst.addPlugin(item.chartType, item.chartType, echarts.$el, echarts.instnc);
-                // pageInst.install()
+               //  pageInst.install()
                 // ---
               //}
 						}

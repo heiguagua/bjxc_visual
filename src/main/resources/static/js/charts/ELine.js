@@ -6,7 +6,6 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 		this.opts.isArea = (etype=='earea')?true:false;
 		this.opts.isBar = (etype=='ebar')?true:false;
 		this.chart = echarts.init(document.getElementById(el_id));		
-		var unit = this.opts.unit;
 		
 		var option = {
 				 title: {
