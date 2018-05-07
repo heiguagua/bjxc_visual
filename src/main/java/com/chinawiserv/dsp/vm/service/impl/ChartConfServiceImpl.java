@@ -325,7 +325,7 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 		chartMenuCustom.setId(CommonUtil.get32UUID());
 		chartMenuCustom.setChartId(chartId);
 		chartMenuCustom.setLocation(paramsMap.getOrDefault("location", "").toString());// 图表位置
-		chartMenuCustom.setMenuId(ShiroUtils.getSessionAttribute("res").toString());// 菜单ID
+		chartMenuCustom.setMenuId(ShiroUtils.getSessionAttribute("cur").toString());// 菜单ID
 		chartMenuCustom.setShowOrder(paramsMap.getOrDefault("isNameShow", "false").toString().equals("true") ? 1 : 0);// 图表显示顺序
 		chartMenuCustom.setUser(ShiroUtils.getLoginUserId());// 使用人
 

@@ -4,10 +4,10 @@
 3、新增图表，保存图标信息，查询图表数据 /chartConf/addUsersChart
 编辑：
 1、查询图标配置信息 /chartConf/loadChartDetail?id=xxx    参数图表id
-2、编辑保存（同新增保存）/chartConf/editUsersChart 参数待确认
+2、编辑保存（同新增保存）/chartConf/editUsersChart 参数同新增
 3. 删除图标     /chartConf/deleteByChartId?id=xxx        参数图表id
 初始化
-1、图表统计  /chartMenuCustom/chartList 
+1、图表统计  /chartMenuCustom/chartList 参数menuId
 2、图表数据查询  /indictor/getIndictorDataByChartId
 
 更新图表位置信息 /chartMenuCustom/updateChartLocation

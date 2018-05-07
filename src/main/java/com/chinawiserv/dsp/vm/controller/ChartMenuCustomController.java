@@ -63,7 +63,7 @@ public class ChartMenuCustomController extends BaseController {
 	@RequestMapping("/config")
 	public String config(@RequestParam Map<String, Object> paramMap, Model model) {
 		setCurrentMenuInfo(paramMap);
-		String menuId = ShiroUtils.getSessionAttribute("res").toString();
+		String menuId = ShiroUtils.getSessionAttribute("cur").toString();
 		model.addAttribute("menuId", menuId);
 		return "vm/config";
 	}
