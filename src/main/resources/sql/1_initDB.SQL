@@ -517,6 +517,8 @@ create table sys_setting
    update_user_id       varchar(36) comment '更新人',
    update_time          datetime comment '更新时间',
    delete_flag          int(3) default 0 comment '逻辑删除标识',
+   rule varchar(50) DEFAULT NULL COMMENT '配置值的规则',
+   placeholder varchar(50) DEFAULT NULL COMMENT '配置值填写提示信息',
    primary key (id)
 )
 ENGINE = InnoDB
