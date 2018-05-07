@@ -50,8 +50,8 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
         containment: "parent", //限定拖动区域
         create:function(e,ui){
           _this.setConfig({
-            top: ($(_this.$el).position().top / innerWidth*100).toFixed(1) + '%',
-            left: ($(_this.$el).position().left / innerHeight*100).toFixed(1) + '%'
+            top: ($(_this.$el).position().top).toFixed(1),
+            left: ($(_this.$el).position().left / innerHeight*100).toFixed(1)
           })
         },
         start:function(e,ui){},
@@ -63,8 +63,8 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
           // _this.setConfig(ui.position)
           _this.$el.css({'border-color': '#ddd' })
           _this.setConfig({
-            top: Number((ui.position.top / innerWidth)*100).toFixed(1) + '%',
-            left: Number((ui.position.left / innerWidth)*100).toFixed(1) + '%',
+            top: Number(ui.position.top).toFixed(1),
+            left: Number((ui.position.left / innerWidth)*100).toFixed(1),
           })
         }
       })
@@ -83,8 +83,8 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
         minHeight:225,
         create:function(e,ui){
           _this.setConfig({
-            width: ($(_this.$el).width()/innerWidth*100).toFixed(1) + '%',
-            height: ($(_this.$el).height()/innerHeight*100).toFixed(1) + '%'
+            width: ($(_this.$el).width()/innerWidth*100).toFixed(1),
+            height: ($(_this.$el).height()).toFixed(1)
           })
         },
         start:function(e,ui){},
@@ -99,8 +99,8 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
           _this.$el.css({'border-color': '#ddd' })
           _this.$el.css({'position' : null})
           _this.setConfig({
-            width: Number((ui.originalSize.width / innerWidth)*100).toFixed(1) + '%',
-            height: Number((ui.originalSize.height / innerHeight)*100).toFixed(1) + '%'
+            width: Number((ui.originalSize.width / innerWidth)*100).toFixed(1),
+            height: Number((ui.originalSize.height).toFixed(1))
           })
           
         }

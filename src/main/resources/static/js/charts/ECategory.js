@@ -46,13 +46,15 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 			var chart_location = '';
 			if(opts.location) {
 				var location_coords = opts.location.split(' ');
-				var width = location_coords[0]*$('#chartWrapper').width();
+				var width = location_coords[0]/100*$('#chartWrapper').width();
 				var height = location_coords[1];
+				var left = location_coords[2]/100*$('#chartWrapper').width();
+				var top = location_coords[3];
 				
-				chart_location = 'width:' + width + 'px;height:' + height + 'px;';
+				chart_location = 'width:' + width + 'px;height:' + height + 'px;left:' + left +'px;top:' + top +'px;';
 			}
 			
-			this.$el = $('<div class="chart-item-wrap" style="'+ chart_location +
+			this.$el = $('<div class="chart-item-wrap" style="position:absolute;'+ chart_location +
 					'"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span>&nbsp;&nbsp;<span class="fa fa-trash ">删除</span></div></div>');		
 			$('#chartWrapper').append(this.$el);
 		}

@@ -91,7 +91,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 		var url = basePathJS + "/chartConf/addUsersChart";
 		
 		
-		var location = '' + 500/$('#chartWrapper').width() + ' ' + 400 ;
+		var location = ''  ;
 		
 		var params = {
 				chartName: $('#etitle').val(),
@@ -166,7 +166,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
         		$('#addChartModal').modal('hide');
         		
         		// 拖拽缩放 ---
-        		pageInst.addPlugin(chartType,chartType,echarts.$el,echarts.instnc);
+        		pageInst.addPlugin(chartType,chartType,echarts.$el,echarts.instnc,res.content.id);
         		// pageInst.install()
         		// ---
             }
@@ -220,10 +220,27 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 	$('#save').click(function() {
 		var arr = pageInst.getPageConfig();
 		console.log(arr);
+		var locations = [];
 		_.forEach(arr.plugins, function(item,index) {
-			
+			console.log(item.config);
+			locations.push({
+				id:item.pluginId,
+            	location: '' + item.config.width + ' ' + item.config.height + ' ' + item.config.left + ' ' + item.config.top
+			})
 		});
 		
+		console.log(locations, JSON.stringify(locations));
+		$.ajax({
+            type : "post",
+            url : basePathJS + '/chartMenuCustom/updateChartLocation',
+            async : false,
+            data: {
+            	locationStr: JSON.stringify(locations)
+            },
+            success : function(res){
+            	
+            }
+		})
 	})
 	// 编辑
   $('#edit').click(function(){
@@ -402,6 +419,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
                   isNameShow: item.isNameShow,
                   legend_data: legend_data,
                   x_data: x_data,
+                  location: item.location,
                   serData: serData,
                   singleData: serData,
                   showDetail: item.hasSubIndictor,
@@ -412,7 +430,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
                   chartTimeScope: item.chartTimeScope,
                 }, ADD_OR_UPDATE,item.chartId);
                 // 拖拽缩放 ---
-                pageInst.addPlugin(item.chartType, item.chartType, echarts.$el, echarts.instnc);
+                pageInst.addPlugin(item.chartType, item.chartType, echarts.$el, echarts.instnc,item.id);
                //  pageInst.install()
                 // ---
               //}
