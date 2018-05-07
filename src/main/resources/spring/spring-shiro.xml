@@ -57,7 +57,7 @@
                 /images/**=anon
                  /druid/**=anon
 				/catalog/catalogue/=anon
-				/chartConf/*=anon
+				/chartMenuTemplate/index=anon
 				<!-- /index=anon
 				/system/dept/provideData/=anon
 				/system/user/provideData/=anon
