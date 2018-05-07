@@ -1,16 +1,16 @@
 package com.chinawiserv.dsp.vm.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chinawiserv.dsp.vm.entity.po.ChartMenuTemplate;
 import com.chinawiserv.dsp.vm.entity.vo.ChartMenuTemplateVo;
-import java.util.List;
-import java.util.Map;
-
 
 /**
  * <p>
-  * 图表与菜单关系模板表 Mapper 接口
+ * 图表与菜单关系模板表 Mapper 接口
  * </p>
  *
  * @author cranky123
@@ -18,15 +18,22 @@ import java.util.Map;
  */
 public interface ChartMenuTemplateMapper extends BaseMapper<ChartMenuTemplate> {
 
-    List<ChartMenuTemplateVo> selectVoPage(Page<ChartMenuTemplateVo> page, Map<String, Object> paramMap);
+	List<ChartMenuTemplateVo> selectVoPage(Page<ChartMenuTemplateVo> page, Map<String, Object> paramMap);
 
-    ChartMenuTemplateVo selectVoById(String id);
+	ChartMenuTemplateVo selectVoById(String id);
 
-    int selectVoCount(Map<String, Object> paramMap);
+	int selectVoCount(Map<String, Object> paramMap);
 
-    int baseInsert(ChartMenuTemplate entity);
+	int baseInsert(ChartMenuTemplate entity);
 
-    int baseUpdate(ChartMenuTemplate entity);
+	int baseUpdate(ChartMenuTemplate entity);
 
-    int baseDelete(String id);
+	int baseDelete(String id);
+
+	/**
+	 * 查询默认模板的数据
+	 * 
+	 * @param paramMap
+	 */
+	List<ChartMenuTemplateVo> selectChartTemplateList(Map<String, Object> paramMap);
 }

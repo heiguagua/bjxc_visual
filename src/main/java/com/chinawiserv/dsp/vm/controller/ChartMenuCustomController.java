@@ -34,12 +34,12 @@ public class ChartMenuCustomController extends BaseController {
 	@Autowired
 	private IChartMenuCustomService service;
 
-	// @RequiresPermissions("XXX:XXX:list")
-	@RequestMapping("/index")
-	public String init(@RequestParam Map<String, Object> paramMap) {
-		setCurrentMenuInfo(paramMap);
-		return "vm/indexForCharTemplet";
-	}
+	// // @RequiresPermissions("XXX:XXX:list")
+	// @RequestMapping("/index")
+	// public String init(@RequestParam Map<String, Object> paramMap) {
+	// setCurrentMenuInfo(paramMap);
+	// return "vm/indexForCharTemplet";
+	// }
 
 	/**
 	 * 根据用户、菜单查询 该页有哪些图表
@@ -63,7 +63,7 @@ public class ChartMenuCustomController extends BaseController {
 	@RequestMapping("/config")
 	public String config(@RequestParam Map<String, Object> paramMap, Model model) {
 		setCurrentMenuInfo(paramMap);
-		String menuId = ShiroUtils.getSessionAttribute("res").toString();
+		String menuId = ShiroUtils.getSessionAttribute("cur").toString();
 		model.addAttribute("menuId", menuId);
 		return "vm/config";
 	}
