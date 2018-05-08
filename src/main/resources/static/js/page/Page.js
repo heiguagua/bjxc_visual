@@ -15,15 +15,17 @@ define(['./Plugin','./Util'], function(Plugins,Util) {
      * @param    {[String]}                 el               [组件容器]
      * @param    {[String]}                 echartInstnc     [charts实例对象]
      * @param    {[String]}                 pluginId         [组件ID]
+     * @param    {[String]}                 chartId          [chartID]
+     
      */
-    addPlugin:function(type,name,el,echartInstnc,pluginId){
+    addPlugin:function(type,name,el,echartInstnc,pluginId,chartId){
       var plugin = null
       if(!pluginId){
         pluginId = 'plugin_' + Util.guid()
       }
 
       try {
-        plugin = new Plugins(pluginId, type, name,el,echartInstnc);
+        plugin = new Plugins(pluginId, chartId,  type, name,el,echartInstnc);
         this.plugins.push(plugin); // 将组件投递到页面的组件列表中
       } catch (e) {
         console.error('Create plugin error : ' + e);
@@ -33,8 +35,8 @@ define(['./Plugin','./Util'], function(Plugins,Util) {
      * [delPlugin 删除组件]
      * @param    {[String]}                 pluginId [组件ID]
      */
-    delPlugin:function(pluginId){
-      this.plugins = this.plugins.filter(function(item){return item.pluginId !== pluginId})
+    delPlugin:function(chartId){
+      this.plugins = this.plugins.filter(function(item){return item.chartId !== chartId})
     },
     /**
      * [getPlugin 获取组件]
