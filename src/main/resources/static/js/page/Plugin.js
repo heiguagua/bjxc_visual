@@ -85,8 +85,10 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
         minHeight:225,
         create:function(e,ui){
           _this.setConfig({
-            width: ($(_this.$el).width()/innerWidth*100).toFixed(1),
-            height: ($(_this.$el).height()).toFixed(1)
+            width: ($(_this.$el).outerWidth()/innerWidth*100).toFixed(1),
+            height: ($(_this.$el).outerHeight()).toFixed(1),
+            top: Number($(_this.$el).position().top).toFixed(1),
+            left: Number(($(_this.$el).position().left / innerWidth)*100).toFixed(1)
           })
         },
         start:function(e,ui){},
