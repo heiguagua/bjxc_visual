@@ -91,7 +91,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 		var url = basePathJS + "/chartConf/addUsersChart";
 		
 		
-		var location = ''  ;
+		var location = '30 400 0 0'  ;
 		
 		var params = {
 				chartName: $('#etitle').val(),
@@ -146,7 +146,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
         		
         		var gauge_data = data_all;// 单个指标数据，用于仪表图
         		
-    			
+        		
         		 var echarts = new ECategory.create(chartType,{
         			title: title,
         			isNameShow: isNameShow,
@@ -167,7 +167,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
         		
         		// 拖拽缩放 ---
         		pageInst.addPlugin(chartType,chartType,echarts.$el,echarts.instnc,res.content.id);
-        		// pageInst.install()
+        		 pageInst.install()
         		// ---
             }
         });
@@ -440,5 +440,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 			}
 		})
 	}
+	
+
 
 })

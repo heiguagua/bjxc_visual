@@ -50,13 +50,17 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 				var height = location_coords[1];
 				var left = location_coords[2]/100*$('#chartWrapper').width();
 				var top = location_coords[3];
-				
+				console.log($('#chartWrapper').children('.chart-item-wrap').length > 0, top == 'null');
+				if($('#chartWrapper').children('.chart-item-wrap').length > 0 && top == 'null') {
+					top = $('#chartWrapper').height();
+				}
 				chart_location = 'width:' + width + 'px;height:' + height + 'px;left:' + left +'px;top:' + top +'px;';
 			}
 			
 			this.$el = $('<div class="chart-item-wrap" style="position:absolute;'+ chart_location +
 					'"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span>&nbsp;&nbsp;<span class="fa fa-trash ">删除</span></div></div>');		
 			$('#chartWrapper').append(this.$el);
+			resizeContainerHeight(); //重置容器高度
 		}
 		
 		this.instnc = {};
@@ -168,6 +172,7 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 		            success : function(res){
 		            	if(res.state) {
 		            		$('#'+el_id).parent().remove();
+		            		resizeContainerHeight();
 		            	}
 		            	else{
 		            		alert(res.msg);
@@ -181,6 +186,15 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 	ECategory.DEFAULTS = {
 	}
 
+	function resizeContainerHeight(){
+		var tops = [];
+  		$('#chartWrapper .chart-item-wrap').each(function(){
+  			tops.push($(this).position().top + $(this).height());
+  		})
+  		console.log(tops);
+  		$('#chartWrapper').css({height:_.max(tops) + 42 + 'px'});
+	}
+	
 	function getSelectedIndicators(selectedIndicators) {
 		var tmp ='';
 		_.forEach(selectedIndicators, function(item,index) {

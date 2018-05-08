@@ -66,6 +66,7 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
             top: Number(ui.position.top).toFixed(1),
             left: Number((ui.position.left / innerWidth)*100).toFixed(1),
           })
+          _this.resizeContainerHeight();
         }
       })
     },
@@ -94,18 +95,31 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
           _this.$el.css({'position' : 'absolute'})
         },
         stop:function(e,ui){
-          // console.log('resizestop ====>',ui)
-          // _this.setConfig(ui.originalSize)
+          console.log('ui ====>',ui)
+          var new_width = $(_this.$el).outerWidth();
+          var new_height = $(_this.$el).outerHeight();
+          console.log(new_width,new_height);
+          // _this.setConfig(ui.originalSize) 
           _this.$el.css({'border-color': '#ddd' })
           _this.$el.css({'position' : null})
           _this.setConfig({
-            width: Number((ui.originalSize.width / innerWidth)*100).toFixed(1),
-            height: Number((ui.originalSize.height).toFixed(1))
+            width: Number((new_width / innerWidth)*100).toFixed(1),
+            height: Number((new_height).toFixed(1))
           })
+          _this.resizeContainerHeight();
+          
+          
           
         }
       })
-    }
+    },
+    resizeContainerHeight: function(){
+  		var tops = [];
+  		$('#chartWrapper .chart-item-wrap').each(function(){
+  			tops.push($(this).position().top + $(this).height());
+  		})
+  		$('#chartWrapper').css({height:_.max(tops)  + 'px'});
+  	}
   }
   return Plugin
 });

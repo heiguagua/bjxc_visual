@@ -13,6 +13,9 @@
 form .form-group label {
 	display: inline-block;
 }
+#tableList{
+    overflow: inherit;
+}
 .chart-item-wrap{
 	display: inline-block;
 	position: relative;
@@ -146,7 +149,7 @@ display:none;}
 							</div>
 
 							<div class="box-body table-responsive" id="tableList">
-								<div id="chartWrapper" style="width: 100%; min-height: 500px;position: relative;"></div>
+								<div id="chartWrapper" style="width: 100%; position: relative;"></div>
 							</div>
 							<!-- /.box-body -->
 
