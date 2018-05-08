@@ -37,7 +37,6 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 	function ECategory(etype, opts, opType,id){// opType为ADD_OR_UPDATE，表示新增或修改
 		this.opts = $.extend({}, ECategory.DEFAULTS, opts);
 		var el_id = id;
-		console.log(opts.location);
 		if(opType == 'update') {
 			this.$el = $('#'+el_id).parent();
 			this.$el.find('.detail_info').remove();
@@ -50,7 +49,6 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 				var height = location_coords[1];
 				var left = location_coords[2]/100*$('#chartWrapper').width();
 				var top = location_coords[3];
-				console.log($('#chartWrapper').children('.chart-item-wrap').length > 0, top == 'null');
 				if($('#chartWrapper').children('.chart-item-wrap').length > 0 && top == 'null') {
 					top = $('#chartWrapper').height();
 				}
@@ -191,7 +189,6 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
   		$('#chartWrapper .chart-item-wrap').each(function(){
   			tops.push($(this).position().top + $(this).height());
   		})
-  		console.log(tops);
   		$('#chartWrapper').css({height:_.max(tops) + 42 + 'px'});
 	}
 	

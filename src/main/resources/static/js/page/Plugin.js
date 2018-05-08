@@ -63,8 +63,8 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
           // _this.setConfig(ui.position)
           _this.$el.css({'border-color': '#ddd' })
           _this.setConfig({
-            top: Number(ui.position.top).toFixed(1),
-            left: Number((ui.position.left / innerWidth)*100).toFixed(1),
+            top: Number($(_this.$el).position().top).toFixed(1),
+            left: Number(($(_this.$el).position().left / innerWidth)*100).toFixed(1),
           })
           _this.resizeContainerHeight();
         }
@@ -105,6 +105,10 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
           _this.setConfig({
             width: Number((new_width / innerWidth)*100).toFixed(1),
             height: Number((new_height).toFixed(1))
+          })
+          _this.setConfig({
+            top: Number($(_this.$el).position().top).toFixed(1),
+            left: Number(($(_this.$el).position().left / innerWidth)*100).toFixed(1),
           })
           _this.resizeContainerHeight();
           

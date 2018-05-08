@@ -91,7 +91,7 @@ require([ 'jquery', 'echarts3','global_custom', '../js/charts/ECategory.js','../
 		var url = basePathJS + "/chartConf/addUsersChart";
 		
 		
-		var location = '30 400 0 0'  ;
+		var location = '30 400 0 null'  ;
 		
 		var params = {
 				chartName: $('#etitle').val(),
