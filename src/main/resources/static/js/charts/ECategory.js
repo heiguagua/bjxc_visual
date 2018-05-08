@@ -146,7 +146,9 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 		    			$('#addChartModal').modal('show');
 	            	}
 	            	else{
-	            		alert(res.msg);
+	            		if(res.msg) {
+	            			layer.alert(res.msg);
+	            		}
 	            	}
 	            	
 	            }

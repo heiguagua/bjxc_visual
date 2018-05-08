@@ -237,7 +237,7 @@ require(['jquery', 'echarts3', 'global_custom', '../js/charts/ECategory.js', '..
 					locationStr: JSON.stringify(locations)
 				},
 				success: function (res) {
-
+					layer.alert('保存成功！');
 				}
 			})
 		})
