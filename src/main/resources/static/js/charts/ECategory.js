@@ -169,7 +169,9 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 		            },
 		            success : function(res){
 		            	if(res.state) {
-		            		$('#'+el_id).parent().remove();
+							$('#'+el_id).parent().remove();
+							window.pageCtr.delPlugin(el_id);
+							console.log(pageCtr);
 		            		resizeContainerHeight();
 		            	}
 		            	else{

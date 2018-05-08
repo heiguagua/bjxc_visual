@@ -1,6 +1,7 @@
 define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
-  function Plugin(pluginId,pluginType,pluginName,el,echartInstnc) {
+  function Plugin( pluginId,chartId,pluginType,pluginName,el,echartInstnc) {
     this.pluginId = pluginId || 'plugin_' + Util.guid()
+    this.chartId = chartId
     this.pluginName = pluginName
     this.pluginType = pluginType
     this.config = {}
@@ -47,7 +48,7 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
       var innerHeight = _this.$el.parent().height();
       $(this.$el).draggable({
         distance:1,
-        containment: "parent", //限定拖动区域
+        // containment: "parent", //限定拖动区域
         create:function(e,ui){
           _this.setConfig({
             top: ($(_this.$el).position().top).toFixed(1),
@@ -79,7 +80,7 @@ define(['jquery','jquery-ui','./Util'], function($,jqueryUi,Util) { //
       var innerHeight = _this.$el.parent().height();
       $(this.$el).resizable({
         handles: 'n, e, s, w, ne, se, sw, nw',
-        containment: "parent", //限定缩放区域
+        // containment: "parent", //限定缩放区域
         minWidth:325,
         minHeight:225,
         create:function(e,ui){
