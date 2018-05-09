@@ -59,7 +59,7 @@ public class ChartConfController extends BaseController {
 			map.put("id", str[0]);
 			handleResult = iIndictorService.getIndictorData(map);
 			handleResult.put("chartId", str[0]);
-			handleResult.put("chartMenuId", str[1]);
+			handleResult.put("id", str[1]); // 图标菜单的id
 
 		} catch (Exception e) {
 			handleResult.error("创建系统图表配置表失败");
