@@ -22,7 +22,7 @@ form .form-group label {
 	width: 500px;
 	height: 400px;
 	border: 1px solid #DDD;
-	margin: 10px;
+	/* margin: 10px; */
 	padding: 10px;
 	background: #f9f9f9;
 }

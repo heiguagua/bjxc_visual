@@ -6,7 +6,7 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 		this.opts.isArea = (etype=='earea')?true:false;
 		this.opts.isBar = (etype=='ebar')?true:false;
 		this.chart = echarts.init(document.getElementById(el_id));		
-		
+		console.log(this.opts);
 		var option = {
 				 title: {
 				        text: this.opts.title,
@@ -61,7 +61,7 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 			var info_content = '<div class="detail_info">';
 			for(var i=0; i<this.opts.detail_info.data.length; i++) {
 				var item =  this.opts.detail_info.data[i];
-				info_content += '<div class="info-item">' + item.name +': '+ item.valData + '</div>';
+				info_content += '<div class="info-item">' + item.name +': '+ item.valData + item.unit + '</div>';
 			}
 			info_content += '</div>'
 			var detail_info = $(info_content);

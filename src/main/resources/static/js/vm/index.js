@@ -160,12 +160,12 @@ require(['jquery', 'echarts3', 'global_custom', '../js/charts/ECategory.js', '..
 						chartType: chartType,
 						chartTimeType: $('#timeselect').val(),
 						chartTimeScope: getChartTimeScope(),
-					}, ADD_OR_UPDATE, res.content.id);
+					}, ADD_OR_UPDATE, res.content.chartId);
 
 					$('#addChartModal').modal('hide');
 
 					// 拖拽缩放 ---
-					pageInst.addPlugin(chartType, chartType, echarts.$el, echarts.instnc, res.content.id);
+					pageInst.addPlugin(chartType, chartType, echarts.$el, echarts.instnc, res.content.id, res.content.chartId);
 					pageInst.install()
 					// ---
 				}
