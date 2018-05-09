@@ -52,8 +52,6 @@ require(['jquery', 'echarts3', 'global_custom', '../js/charts/ECategory.js', '..
 
 		})
 
-
-
 		// 二维数组矩阵转置
 		Array.prototype.transpose = function () {
 			var length = this.length;
@@ -72,8 +70,6 @@ require(['jquery', 'echarts3', 'global_custom', '../js/charts/ECategory.js', '..
 			}
 			return arr_new;
 		}
-
-
 
 		$('input[name="showDetail"]').click(function () {
 			$('.tree-wrap.detail').toggleClass('hide');
@@ -117,16 +113,6 @@ require(['jquery', 'echarts3', 'global_custom', '../js/charts/ECategory.js', '..
 				async: false,
 				data: params,
 				success: function (res) {
-					// response data
-					//        		var title = $('#etitle').val();
-					//        		var data_unit = '%';
-					//        		var legend_data = ['孕产妇建卡率','人口与妇幼保健院卫生人员数比','人口与医疗卫生机构妇产科床位数比','人口与妇产科执业医师数比','人口与妇幼保健机构数比'];
-					//        		var x_data = ['2012年','2013年','2014年','2015年'];
-					//        		var serData = [[9,7,8,7.8,6.8],
-					//        		               [7,7.8,8.4,7.2,5.6],
-					//        		               [4.6,4.2,5,5.8,5.4],
-					//        		               [3,3.2,4,4.5,5.2]
-					//        					];
 					var title = $('#etitle').val();
 					var data_all = res.content.basicData;
 					var serData = _.values(_.groupBy(data_all, 'startTime'));
@@ -403,16 +389,6 @@ require(['jquery', 'echarts3', 'global_custom', '../js/charts/ECategory.js', '..
 								}
 
 								var gauge_data = data_all;// 单个指标数据，用于仪表图
-
-
-
-								//                var detail_info = {
-								//                  title: item.chartName,
-								//                  data: res.content.extendData
-								//                }
-								//                if(item.chartType == 'eline') {
-								//                  serData = [serData]
-								//                }
 								var echarts = new ECategory.create(item.chartType, {
 									title: item.chartName,
 									isNameShow: item.isNameShow,

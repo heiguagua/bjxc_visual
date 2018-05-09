@@ -10,6 +10,7 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 		var option = {
 				 title: {
 				        text: this.opts.title,
+				        show: this.opts.isNameShow,
 				        left: 'center',
 				        textStyle: {
 				        	color: '#108EE9',
