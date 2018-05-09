@@ -6,7 +6,7 @@
 
 <style>
 .tree {
-	max-height: 280px;
+	max-height: 360px;
     overflow: auto;
 }
 
