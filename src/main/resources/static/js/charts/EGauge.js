@@ -9,6 +9,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 		var option = {
 				title: {
 			        text: this.opts.title,
+			        show: this.opts.isNameShow,
 			        left: 'center',
 			        textStyle: {
 			        	color: '#108EE9',
@@ -27,7 +28,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			                 type: 'gauge',
 			                 center: ['50%', '60%'],
 			                 detail: {formatter:'{value}' },
-			                 data: [{value: this.opts.gauge_data[0].valData}]
+			                 data: [{value: this.opts.gauge_data[0]?this.opts.gauge_data[0].valData : ''}]
 			             }
 			         ]
 		};
