@@ -58,10 +58,10 @@
                  /druid/**=anon
 				/catalog/catalogue/=anon
 				/chartMenuTemplate/index=anon
-				/system/dept/provideData/=anon
-				/system/user/provideData/=anon
-				/system/region/provideData/=anon
-				/sysDict/provideData/=anon
+				/system/dept/provideData=anon
+				/system/user/provideData=anon
+				/system/region/provideData=anon
+				/sysDict/provideData=anon
 				/system/productIntegrate/postData=anon
 				
 				<!--/WEB-INF/views/login.jsp=anon-->
