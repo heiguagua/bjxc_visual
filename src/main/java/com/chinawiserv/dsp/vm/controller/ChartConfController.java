@@ -54,7 +54,6 @@ public class ChartConfController extends BaseController {
 			// handleResult.error("创建系统图表配置表失败");
 			// chartConf.getId() + "~" + chartMenuCustom.getId()
 			String str[] = service.insertUsersChart(paramMap).split("~");
-
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", str[0]);
 			handleResult = iIndictorService.getIndictorData(map);
@@ -98,11 +97,12 @@ public class ChartConfController extends BaseController {
 	public HandleResult editUsersChart(@RequestParam Map<String, Object> paramMap) {
 		HandleResult handleResult = new HandleResult();
 		try {
-			String chartId = service.editUsersChart(paramMap);
+			String str[] = service.editUsersChart(paramMap).split("~");
 			Map<String, Object> map = new HashMap<>();
-			map.put("id", chartId);
+			map.put("id", str[0]);
 			handleResult = iIndictorService.getIndictorData(map);
-			handleResult.put("id", chartId);
+			handleResult.put("chartId", str[0]);
+			handleResult.put("id", str[1]); // 图标菜单的id
 		} catch (Exception e) {
 			handleResult.error("编辑系统图表配置表失败");
 			logger.error("编辑系统图表配置表失败", e);
