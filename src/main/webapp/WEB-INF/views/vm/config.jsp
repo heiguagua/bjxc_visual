@@ -56,7 +56,7 @@ form .form-group label {
 
 .detail_info {
 	position: absolute;
-	top: 18%;
+	top: 22%;
 	left: 60%;
 	display: block;
 }

@@ -36,6 +36,9 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 	// constructor
 	function ECategory(etype, opts, opType,id){// opType为ADD_OR_UPDATE，表示新增或修改
 		this.opts = $.extend({}, ECategory.DEFAULTS, opts);
+		this.opts.theme = {
+				light: ['rgb(16,142,233)', 'rgb(250,213,98)','#fd666d']
+		};
 		var el_id = id;
 		if(opType == 'update') {
 			this.$el = $('#'+el_id).parent();

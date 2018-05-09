@@ -7,6 +7,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 		console.log(this.opts);
 
 		var option = {
+				color: this.opts.theme.light,
 				title: {
 			        text: this.opts.title,
 			        show: this.opts.isNameShow,
@@ -28,6 +29,18 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			                 type: 'gauge',
 			                 center: ['50%', '60%'],
 			                 detail: {formatter:'{value}' },
+			                 axisLine: {
+			                     show: true,
+			                     lineStyle: {
+			                         width: 30,
+			                         shadowBlur: 0,
+			                         color: [
+			                             [0.3, this.opts.theme.light[0]],
+			                             [0.7, this.opts.theme.light[1]],
+			                             [1, this.opts.theme.light[2]]
+			                         ]
+			                     }
+			                 },
 			                 data: [{value: this.opts.gauge_data[0]?this.opts.gauge_data[0].valData : ''}]
 			             }
 			         ]

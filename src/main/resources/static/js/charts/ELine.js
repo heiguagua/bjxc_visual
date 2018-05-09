@@ -8,6 +8,7 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 		this.chart = echarts.init(document.getElementById(el_id));		
 		console.log(this.opts);
 		var option = {
+				color: this.opts.theme.light,
 				 title: {
 				        text: this.opts.title,
 				        show: this.opts.isNameShow,
@@ -27,9 +28,9 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 				        top:'8%'
 				    },
 				    grid: {
-				    	left: '15%',
-				        top:'18%',
-				        bottom: '25%',
+				    	left: '6%',
+				        top:'24%',
+				        bottom: '6%',
 				        containLabel: true
 				    },
 				    xAxis: {
@@ -69,10 +70,10 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 			$('#'+el_id).append(detail_info);
 			
 			option.grid = [{
-		    	left: '15%',
+		    	left: '12%',
 		        right: '40%',
-		        top:'18%',
-		        bottom: '25%'
+		        top:'24%',
+		        bottom: '16%'
 		    }, {
 		        left: '60%'
 		    }];

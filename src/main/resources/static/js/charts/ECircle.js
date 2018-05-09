@@ -6,6 +6,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 		this.chart = echarts.init(document.getElementById(el_id));		
 		
 		var option = {
+				color: this.opts.theme.light,
 				title: {
 			        text: this.opts.title,
 			        show: this.opts.isNameShow,
