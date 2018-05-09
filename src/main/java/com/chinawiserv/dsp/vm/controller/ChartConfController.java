@@ -52,11 +52,14 @@ public class ChartConfController extends BaseController {
 			// handleResult.success("创建系统图表配置表成功");
 			// else
 			// handleResult.error("创建系统图表配置表失败");
-			String chartId = service.insertUsersChart(paramMap);
+			// chartConf.getId() + "~" + chartMenuCustom.getId()
+			String str[] = service.insertUsersChart(paramMap).split("~");
+
 			Map<String, Object> map = new HashMap<>();
-			map.put("id", chartId);
+			map.put("id", str[0]);
 			handleResult = iIndictorService.getIndictorData(map);
-			handleResult.put("id", chartId);
+			handleResult.put("chartId", str[0]);
+			handleResult.put("chartMenuId", str[1]);
 
 		} catch (Exception e) {
 			handleResult.error("创建系统图表配置表失败");

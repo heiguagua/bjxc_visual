@@ -240,7 +240,7 @@ public class ChartConfServiceImpl extends CommonServiceImpl<ChartConfMapper, Cha
 			chartMenuCustomMapper.baseInsert(chartMenuCustom);
 			// classifyIndictorMapMapper.baseInsert(classifyIndictorMap);
 
-			return chartConf.getId();
+			return chartConf.getId() + "~" + chartMenuCustom.getId();
 
 		}
 
