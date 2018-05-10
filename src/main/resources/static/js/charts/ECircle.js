@@ -19,7 +19,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			    },
 			    tooltip: {},
 			    legend: {
-			    	top:'10%',
+			    	top:'8%',
 			    	show:true,
 			        data: this.opts.legend_data
 			    },
@@ -28,23 +28,18 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			        selectedMode: 'single',
 			        radius: ['40%', '60%'],
 			        center: ['50%', '60%'],
-			        label: {
-			            normal: {
-			                position: 'inner',
-			                formatter: '{d}%',
-
-			                textStyle: {
-			                    color: '#fff',
-			                    fontWeight: 'bold',
-			                    fontSize: 12
-			                }
-			            }
-			        },
-			        labelLine: {
-			            normal: {
-			                show: false
-			            }
-			        },
+//			        label: {
+//			            normal: {
+//			                position: 'inner',
+//			                formatter: '{d}%',
+//
+//			                textStyle: {
+//			                    color: '#fff',
+//			                    fontWeight: 'bold',
+//			                    fontSize: 12
+//			                }
+//			            }
+//			        },
 			        data: this.serDataFormatter()
 			    }]
 		};

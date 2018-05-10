@@ -7,6 +7,9 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 					"N" : 's'
 				}
 			},
+			view:{
+				showIcon:false
+			},
 			data : {
 				simpleData : {
 					enable : true
@@ -37,7 +40,7 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 	function ECategory(etype, opts, opType,id){// opType为ADD_OR_UPDATE，表示新增或修改
 		this.opts = $.extend({}, ECategory.DEFAULTS, opts);
 		this.opts.theme = {
-				light: ['rgb(16,142,233)', 'rgb(250,213,98)','#fd666d']
+				light: ['#00BCFF', '#FFCA00', '#FC7D7C', '#E360FF', '#76DD6C', '#4D68DE']
 		};
 		var el_id = id;
 		if(opType == 'update') {
@@ -94,6 +97,8 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 		
 		// 编辑图表配置
 		this.$el.find('.fa-edit').click(function(){
+			$('#addChartModal .modal-title').html('修改图表');
+			
 			$.fn.zTree.destroy("indicatorTree");
 			$.fn.zTree.destroy("detailTree");
 			
@@ -133,8 +138,8 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 		    				$("#timeRange").val(resData.chartTimeScope);
 		    			}
 		    			if(instance.opts.chartTimeType == RECENT_YEARS) { // 最近xx年/月/日
-		    				$('#timePoint').val(resData.split(' ')[0]);
-		    				$('#timeUnit').val(resData.split(' ')[1]);
+		    				$('#timePoint').val(resData.chartTimeScope.split(' ')[0]);
+		    				$('#timeUnit').val(resData.chartTimeScope.split(' ')[1]);
 		    			}
 		    			
 		    			var selectedIndicators = resData.listClassifyIndictorMap;

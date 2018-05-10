@@ -95,6 +95,7 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 				var obj = {
 						name: this.opts.legend_data[i],
 						type: 'line',
+						smooth: true,
 						data: serData[i]
 					};
 				if(this.opts.isArea) {// 面积图
@@ -127,6 +128,7 @@ define(["jquery", "echarts3"], function(jquery, echarts) {
 			legend_xAxis_data.data = {
 					name: xData[0],
 					type: 'line',
+					smooth: true,
 					data: _.map(this.opts.gauge_data,'valData')
 			} ;
 			if(this.opts.isArea) {

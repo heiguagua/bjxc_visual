@@ -5,6 +5,37 @@
 <%@include file="/WEB-INF/views/common/head.jsp"%>
 
 <style>
+.checkbox{
+	padding-left:0 !important;
+}
+.checkbox label::after{
+	left:-1px !important;
+	top:1px !important;
+}
+.checkbox label::before,.checkbox label::after {
+	margin-left:-10px !important;
+}
+.checkbox label{
+	padding-left:10px !important;
+}
+.radio{
+	display:inline-block;
+	    padding: 0 10px;
+}    
+.radio label::before{
+	width: 16px !important;
+    height: 16px !important;
+}
+.radio label::after{
+	width: 10px !important;
+    height: 10px !important;
+    top:10px !important;
+}
+.radio input[type="radio"]{
+outline:none;
+width:20px;
+height:20px;}
+
 .tree {
 	max-height: 360px;
     overflow: auto;
@@ -45,7 +76,7 @@ form .form-group label {
 
 .tree-wrap {
     height: 400px;
-	border: 1px solid #DDD;
+	    background: #F8F9FA;
 	margin: 10px;
 }
 
@@ -101,6 +132,67 @@ display:none;}
 .selected-title a{
 	color:#2196F3;
 	text-decoration:underline;
+}
+
+.ztree li span.button.chk.checkbox_false_full,.ztree li span.button.chk.checkbox_false_full_focus{
+	border: 1px solid #D9D9D9;
+    background-color: #fff;
+    background: none;
+    width: 14px;
+    height: 14px;
+    background: rgba(255,255,255,1);
+    border-radius: 2px;
+}
+.ztree li span.button.chk.checkbox_true_full,.ztree li span.button.chk.checkbox_true_full_focus{
+	    width: 14px;
+    height: 14px;
+    background: rgba(0,188,255,1) !important;
+    border-radius: 2px;
+    background:none;
+    position:relative;
+}
+.ztree li span.button.chk.checkbox_true_full:after,.ztree li span.button.chk.checkbox_true_full_focus:after{
+    display: inline-block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 18px;
+    top: 6px;
+    margin-left: -20px;
+    padding-left: 3px;
+    padding-top: 1px;
+    font-size: 11px;
+    color: #fff;
+        font-family: "FontAwesome";
+    content: "\f00c";
+}
+.ztree li span.button.center_close,.ztree li span.button.roots_close,.ztree li span.button.bottom_close,.ztree li span.button.roots_open,.ztree li span.button.bottom_open,.ztree li span.button.center_open{
+	background:none !important;
+	position:relative;
+}
+.ztree li span.button.center_close:before,.ztree li span.button.roots_close:before,.ztree li span.button.bottom_close:before{
+    color: #333;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: 8px;
+    left: 6px;
+    font-family:"FontAwesome";
+	content: "\f0da";
+    color: #333;
+}
+.ztree li span.button.center_open:before,.ztree li span.button.roots_open:before,.ztree li span.button.bottom_open:before{
+	color: #333;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: 8px;
+    left: 6px;
+    font-family:"FontAwesome";
+	content: "\f0d7";
+    color: #333;
 }
 </style>
 </head>
@@ -179,39 +271,78 @@ display:none;}
 				<div class="modal-body">
 					<form class="form-horizontal">
 						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">图表标题</label>
+							<label for="inputEmail3" class="col-sm-2 control-label">图表名称</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="etitle"
-									placeholder="请输入标题">
+									placeholder="请输入图表名称">
 
 							</div>
-							<label> <input type="checkbox" checked name="showDate" id="showTitle">
-								显示标题
-							</label>
+							<div class="checkbox checkbox-info">
+							    <input type="checkbox" checked name="showTitle" id="showTitle">
+							    <label for="showTitle">
+							        	显示图表名称
+							    </label>
+							  </div>
 						</div>
 						
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-2 control-label">选择图表样式</label>
 							<div class="col-sm-10">
-								<label class="radio-inline"> <input type="radio"
+								<div class="radio radio-info">
+      								<input type="radio"	name="chartTypeOptions" id="eline" checked value="eline">
+								      <label class="radio-inline">
+								          	折线图
+								      </label>
+ 							    </div>
+								<!-- <label class="radio-inline"> <input type="radio"
 									name="chartTypeOptions" id="eline" checked value="eline">
 									折线图
-								</label>
-								<label class="radio-inline"> <input type="radio"
-									name="chartTypeOptions" id="ebar" value="ebar">
-									柱状图
-								</label> <label class="radio-inline"> <input type="radio"
-									name="chartTypeOptions" id="earea" value="earea"> 面积图
-								</label> <label class="radio-inline"> <input type="radio"
-									name="chartTypeOptions" id="eradar" value="eradar"> 雷达图
-								</label> <label class="radio-inline"> <input type="radio"
+								</label> -->
+								<div class="radio radio-info">
+      								<input type="radio"	name="chartTypeOptions" id="ebar" value="ebar">
+								      <label class="radio-inline">
+								          	柱状图
+								      </label>
+ 							    </div>
+ 							    
+ 							    <div class="radio radio-info">
+      								<input type="radio" name="chartTypeOptions" id="earea" value="earea">
+								      <label class="radio-inline">
+								          	面积图
+								      </label>
+ 							    </div>
+ 							    
+ 							    <div class="radio radio-info">
+      								<input type="radio"
+									name="chartTypeOptions" id="eradar" value="eradar">
+								      <label class="radio-inline">
+								          	雷达图
+								      </label>
+ 							    </div>
+ 							    
+ 							    <div class="radio radio-info">
+      								<input type="radio"
 									name="chartTypeOptions" id="efunnel" value="efunnel">
-									漏斗图
-								</label> <label class="radio-inline"> <input type="radio"
-									name="chartTypeOptions" id="ecircle" value="ecircle"> 环形图
-								</label> <label class="radio-inline"> <input type="radio"
-									name="chartTypeOptions" id="egauge" value="egauge"> 仪表图
-								</label>
+								      <label class="radio-inline">
+								          	漏斗图
+								      </label>
+ 							    </div>
+ 							    
+ 							    <div class="radio radio-info">
+      								<input type="radio"
+									name="chartTypeOptions" id="ecircle" value="ecircle">
+								      <label class="radio-inline">
+								          	环形图
+								      </label>
+ 							    </div>
+ 							    <div class="radio radio-info">
+      								<input type="radio"
+									name="chartTypeOptions" id="egauge" value="egauge">
+								      <label class="radio-inline">
+								          	仪表图
+								      </label>
+ 							    </div>
+ 							    
 							</div>
 						</div>
 						<div class="form-group">
@@ -230,7 +361,7 @@ display:none;}
 								</div>
 								<div class="col-sm-6 hide" id="timeWrap">
 										<label class="sr-only" for="timePoint">时间范围</label>
-										最近&nbsp;&nbsp;<input id="timePoint" type="number"	name="timePoint" class="form-control" style="width:80px;">
+										最近&nbsp;&nbsp;<input id="timePoint" type="number"	name="timePoint" class="form-control" style="width:80px;    display: inline-block;">
 										<select id="timeUnit">
 											<option value="y">年</option>
 											<option value="m">月</option>
@@ -239,21 +370,24 @@ display:none;}
 								</div>
 						</div>
 						<div class="col-sm-offset-2 col-sm-10">
-							<label> <input type="checkbox" checked name="showDetail" id='showDetail'>
-								显示图表详情
-							</label>
+							<div class="checkbox checkbox-info">
+							    <input type="checkbox" checked name="showDetail" id='showDetail'>
+							    <label for="showDetail">
+							        	显示图表详情信息
+							    </label>
+							  </div>
 						</div>
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-2 control-label">选择指标</label>
 							<div class="col-sm-4 tree-wrap">
-								<h5 class="tree-title">展示指标</h5>
+								<h5 class="tree-title">选择展示的指标</h5>
 								<div class="update-dir">
 								<div class="selected-title">已选展示指标：<a href="javascript:;" id="rechooseTree">重新选择</a></div>
 								<ul class="selected-indicators indi-datas"></ul> </div>
 								<ul id="indicatorTree" class="tree ztree"></ul>
 							</div>
 							<div class="col-sm-4 tree-wrap detail">
-								<h5 class="tree-title">展示详情指标</h5>
+								<h5 class="tree-title">选择展示详情的指标</h5>
 								<div class="update-detail-dir">
 									<div class="selected-title">已选展示详情指标：<a href="javascript:;" id="rechooseDetailTree">重新选择</a></div>
 									<ul class="selected-detail-indicators indi-datas"></ul>

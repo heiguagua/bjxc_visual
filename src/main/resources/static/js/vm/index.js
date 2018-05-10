@@ -15,6 +15,9 @@ require(['jquery', 'echarts3', 'global_custom', '../js/charts/ECategory.js', '..
 					"N": 's'
 				}
 			},
+			view:{
+				showIcon:false
+			},
 			data: {
 				simpleData: {
 					enable: true
@@ -189,6 +192,7 @@ require(['jquery', 'echarts3', 'global_custom', '../js/charts/ECategory.js', '..
 		// 新增图表按钮点击事件
 		$('#addChartBtn').click(function () {
 			$('#addOrUpdate').val('add');
+			$('#addChartModal .modal-title').html('新增图表');
 			$('.update-dir').hide();
 			$('.update-detail-dir').hide();
 			$.fn.zTree.destroy("indicatorTree");
@@ -319,14 +323,17 @@ require(['jquery', 'echarts3', 'global_custom', '../js/charts/ECategory.js', '..
 
 			}
 			else {
-				var treeObj = $.fn.zTree.getZTreeObj(treeid),
-					nodes = treeObj.getCheckedNodes(true);
-				for (var i = 0; i < nodes.length; i++) {
-					selectedNode.push({
-						code: nodes[i].indictorId,
-						name: nodes[i].name
-					})
+				var treeObj = $.fn.zTree.getZTreeObj(treeid);
+				if(treeObj) {
+					var nodes = treeObj.getCheckedNodes(true);
+					for (var i = 0; i < nodes.length; i++) {
+						selectedNode.push({
+							code: nodes[i].indictorId,
+							name: nodes[i].name
+						})
+					}
 				}
+				
 			}
 
 			return selectedNode;

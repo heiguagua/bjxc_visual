@@ -59,6 +59,7 @@
         	              
         	             //, 'css!' + WEB_RES_PATH + 'bootstrap/css/bootstrap.min.css'
         	             , 'css!font-awesome/css/font-awesome.min.css'
+        	             , 'css!'+ WEB_RES_PATH +'bootstrap/css/awesome-bootstrap-checkbox.css'
         	             //, 'css!' + LOCAL_RES_PATH +'app/css/AdminLTE.css'
         	             //, 'css!' + LOCAL_RES_PATH +'app/css/skins/skin-blue'
         	             , 'css!' + LOCAL_RES_PATH +'css/load.css'
