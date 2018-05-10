@@ -81,7 +81,7 @@ form .form-group label {
 }
 
 .tree-title {
-	font-weight: normal;
+	font-weight: 600;
 	padding: 10px 0;
 }
 
@@ -193,6 +193,25 @@ display:none;}
     font-family:"FontAwesome";
 	content: "\f0d7";
     color: #333;
+}
+.indi-datas li{
+    padding: 4px 0 4px 12px;
+    position: relative;
+}
+.indi-datas li:before{
+	position:absolute;
+	content:'';
+	display:inline-block;
+	width:6px;
+	height:6px;
+	top: 10px;
+    left: 0;
+	background:#00BCFF;
+	border-radius:50%;
+}
+.ztree li a.curSelectedNode{
+	background-color:inherit !important;
+	border:inherit !important;
 }
 </style>
 </head>
