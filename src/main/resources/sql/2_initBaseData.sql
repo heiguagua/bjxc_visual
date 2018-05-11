@@ -3636,5 +3636,20 @@ delete from sys_role_menu;
   insert into sys_setting_category (category_code,category_name) values	('1','系统基本配置');
 	insert into sys_setting_category (category_code,category_name) values('2','接口配置');
 
+	
+-- 系统配置表
+  delete from sys_setting;	
+INSERT INTO sys_setting VALUES ('228d69d5b8a311e78e4300ffe04ac734', '', '1', 'systemName', '系统名称', '政务信息资源管理', null, '1', null, null, null, null, '0', null, null);
+INSERT INTO sys_setting VALUES ('22a21de8b8a311e78e4300ffe04ac734', '', '1', 'systemShortName', '系统英文简称', 'vm', null, '1', null, null, null, null, '0', null, null);
+INSERT INTO sys_setting VALUES ('22b8e0b4b8a311e78e4300ffe04ac734', '', '1', 'systemSubName', '系统子名称', '可视化', null, '1', null, null, null, null, '0', null, null);
+INSERT INTO sys_setting VALUES ('22c4cc50b8a311e78e4300ffe04ac734', '', '1', 'defaultIcon', '系统默认Icon图标', '', null, '1', null, null, null, null, '0', null, null);
+INSERT INTO sys_setting VALUES ('22ccc939b8a311e78e4300ffe04ac734', '', '1', 'localRegion', '系统所属行政区划', '110102', null, '1', null, null, null, null, '0', null, null);
+INSERT INTO sys_setting VALUES ('22d32512b8a311e78e4300ffe04ac734', '', '1', 'bottomCopyright', '许可说明', 'Copyright © 2017 勤智数码. All rights reserved.', null, '1', null, null, null, null, '0', null, null);
+INSERT INTO sys_setting VALUES ('58a8731fb94511e7a38b00ffe04ac734', '', '1', 'projectPortalName', '项目门户名称', '成都市大数据资源服务网', null, '1', null, null, null, null, '0', null, null);
+INSERT INTO sys_setting VALUES ('58a874f7b94511e7a38b00ffe04ac734', '', '1', 'projectPortalEnName', '项目门户英文名称', 'Chengdu Big Data Resource Service Network', null, '1', null, null, null, null, '0', null, null);
+INSERT INTO sys_setting VALUES ('58a8756eb94511e7a38b00ffe04ac734', '', '1', 'projectPortalLogo', '项目门户Logo图标', '/img/logo.png', null, '1', null, null, null, null, '0', null, null);
+INSERT INTO sys_setting VALUES ('58a875c1b94511e7a38b00ffe04ac734', '', '1', 'systemShowName', '系统后台显示名称', '成都市大数据资源服务网', '', '1', null, null, null, null, '0', null, null);
+INSERT INTO sys_setting VALUES ('58a87732694511e7a38700ffe04ac734', '', '1', 'integrateCurNo', '系统集成当前标识', 'vm', '', '1', null, null, null, null, '0', null, null);
+
 
 
