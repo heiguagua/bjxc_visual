@@ -7,6 +7,7 @@
 <style>
 .checkbox{
 	padding-left:0 !important;
+	display: inline-block !important;
 }
 .checkbox label::after{
 	left:-1px !important;
