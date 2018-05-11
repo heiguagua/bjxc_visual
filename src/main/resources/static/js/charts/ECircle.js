@@ -3,6 +3,9 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 	// constructor
 	function ECircle(el_id, opts){		
 		this.opts = $.extend({}, ECircle.DEFAULTS, opts);
+		
+		
+		console.log(this.chart);
 		this.chart = echarts.init(document.getElementById(el_id));		
 		
 		var option = {
@@ -20,14 +23,14 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			    tooltip: {},
 			    legend: {
 			    	top:'8%',
-			    	show:true,
+			    	show:false,
 			        data: this.opts.legend_data
 			    },
 			    series:[{
 			    	type: 'pie',
 			        selectedMode: 'single',
-			        radius: ['40%', '60%'],
-			        center: ['50%', '60%'],
+			        radius: ['20%', '50%'],
+			        center: ['50%', '55%'],
 //			        label: {
 //			            normal: {
 //			                position: 'inner',
@@ -49,16 +52,17 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			var info_content = '<div class="detail_info">';
 			for(var i=0; i<this.opts.detail_info.data.length; i++) {
 				var item =  this.opts.detail_info.data[i];
-				info_content += '<div class="info-item">' +item.startTime + item.name +': '+ item.valData  + '</div>';
+				info_content += '<div class="info-item"><div class="info-item-name">' + item.name +' </div><div class="info-item-num">'+ item.valData  + '<span class="info-item-unit">' + item.unit + '</span></div></div>';
 			}
 			info_content += '</div>'
 			var detail_info = $(info_content);
 			$('#'+el_id).append(detail_info);
-			option.series[0].center = ['30%', '60%']
+//			option.series[0].center = ['30%', '60%']
 		}
 		
 		console.log(option);
 		this.chart.clear();
+		this.chart.resize();
 		this.chart.setOption(option);
 	}
 

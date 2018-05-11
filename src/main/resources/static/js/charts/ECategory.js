@@ -43,6 +43,8 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 				light: ['#00BCFF', '#FFCA00', '#FC7D7C', '#E360FF', '#76DD6C', '#4D68DE']
 		};
 		var el_id = id;
+		
+		
 		if(opType == 'update') {
 			this.$el = $('#'+el_id).parent();
 			this.$el.find('.detail_info').remove();
@@ -65,6 +67,17 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 					'"><div id="'+ el_id +'" class="chart-box"></div><div class="tool-box"><span class="fa fa-edit ">编辑</span>&nbsp;&nbsp;<span class="fa fa-trash ">删除</span></div></div>');		
 			$('#chartWrapper').append(this.$el);
 			resizeContainerHeight(); //重置容器高度
+		}
+		
+		if(!this.opts.showDetail || this.opts.detail_info.data.length == 0) {
+			$('#'+el_id).css({height:'100%'});
+		}
+		else{
+			$('#'+el_id).css({height:'75%'});
+			if(etype == 'ecircle'){
+				$('#'+el_id).css({height:'65%'});
+			}
+			
 		}
 		
 		this.instnc = {};
@@ -116,6 +129,7 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 				  $.fn.zTree.init($("#detailTree"), setting);
 				  $('.update-detail-dir').hide();
 			  })
+			  
 			// get data info of current chart
 			$.ajax({
 	            type : "post",
@@ -128,7 +142,12 @@ define(["jquery", "../../js/charts/ELine", "../../js/charts/ERadar", "../../js/c
 	            	if(res.state){
 	            		var resData = res.content.data;
 		    			$('#etitle').val(instance.opts.title);
-		    			$('#showTitle').prop('checked',instance.opts.isNameShow);
+		    			$('#showTitle').prop('checked',resData.isNameShow);
+		    			$('#showDetail').prop('checked', resData.hasSubIndictor);
+		    			console.log(resData.hasSubIndictor,!resData.hasSubIndictor);
+		    			if(!resData.hasSubIndictor) {
+		    				$('.tree-wrap.detail').addClass('hide');
+		    			}
 		    			$("input:radio[name='chartTypeOptions'][value='" + instance.opts.chartType + "']").prop("checked",true);
 		    			$('#timeselect').val(instance.opts.chartTimeType);
 		    			$('#timeselect').trigger('change'); 

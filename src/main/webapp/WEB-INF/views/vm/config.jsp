@@ -51,11 +51,11 @@ form .form-group label {
 	display: inline-block;
 	position: relative;
 	width: 500px;
-	height: 400px;
-	border: 1px solid #DDD;
-	/* margin: 10px; */
+	height: 500px;
+	border: 1px solid #EFF1F4;
+	overflow: hidden;
 	padding: 10px;
-	background: #f9f9f9;
+	background: #FFF;
 }
 .tool-box{
 	position:absolute;
@@ -70,7 +70,7 @@ form .form-group label {
 .chart-box {
 	
 	width:100%;
-	height: 100%;
+	height: 75%;
 	
 }
 
@@ -86,16 +86,32 @@ form .form-group label {
 }
 
 .detail_info {
+    width: 100%;
 	position: absolute;
-	top: 22%;
-	left: 60%;
+	padding-top:4px;
 	display: block;
 }
 
 .info-item {
-	padding: 0 0 10px 18px;
+    display: inline-block;
+    width: 49%;
+	padding: 0 0 20px 0;
 }
-
+.info-item-name{
+	text-align: center;
+	padding-bottom: 6px;
+}
+.info-item-num{
+	font-size:18px;
+	color:#494949;
+	font-weight:600;
+	text-align: center;
+}
+.info-item-unit{
+	font-size:14px;
+	font-weight:normal;
+	colro:#333;
+}
 #timeselect {
 	width: 130px;
 }
@@ -380,7 +396,7 @@ display:none;}
 								</div>
 								<div class="col-sm-6 hide" id="timeWrap">
 										<label class="sr-only" for="timePoint">时间范围</label>
-										最近&nbsp;&nbsp;<input id="timePoint" type="number"	name="timePoint" class="form-control" style="width:80px;    display: inline-block;">
+										最近&nbsp;&nbsp;<input id="timePoint" type="number" min="1"	name="timePoint" class="form-control" style="width:80px;    display: inline-block;">
 										<select id="timeUnit">
 											<option value="y">年</option>
 											<option value="m">月</option>

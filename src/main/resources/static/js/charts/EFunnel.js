@@ -3,6 +3,7 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 	// constructor
 	function EFunnel(el_id, opts){		
 		this.opts = $.extend({}, EFunnel.DEFAULTS, opts);
+		
 		this.chart = echarts.init(document.getElementById(el_id));		
 
 		var option = {
@@ -72,15 +73,16 @@ define(["jquery", "echarts3", "bootstrap"], function(jquery, echarts, bootstrap)
 			var info_content = '<div class="detail_info">';
 			for(var i=0; i<this.opts.detail_info.data.length; i++) {
 				var item =  this.opts.detail_info.data[i];
-				info_content += '<div class="info-item">' + item.startTime + item.name +': '+ item.valData + '</div>';
+				info_content += '<div class="info-item"><div class="info-item-name">' + item.name +' </div><div class="info-item-num">'+ item.valData  + '<span class="info-item-unit">' + item.unit + '</span></div></div>';
 			}
 			info_content += '</div>'
 			var detail_info = $(info_content);
 			$('#'+el_id).append(detail_info);
-			option.series[0].left = '5%';
-			option.series[0].width = '50%';
+			//option.series[0].left = '5%';
+			//option.series[0].width = '50%';
 		}
 		this.chart.clear();
+		this.chart.resize();
 		this.chart.setOption(option);
 	}
 

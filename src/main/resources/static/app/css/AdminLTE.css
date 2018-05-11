@@ -95,7 +95,7 @@ body {
 .content-wrapper,
 .right-side {
   min-height: 100%;
-  background-color: #ecf0f5;
+  background-color: #f8f9fa;
   z-index: 800;
 }
 .main-footer {
@@ -1551,7 +1551,7 @@ a:focus {
 .box {
   position: relative;
   border-radius: 3px;
-  background: #ffffff;
+  background: #f8f9fa;
   border-top: 3px solid #d2d6de;
   margin-bottom: 20px;
   width: 100%;
